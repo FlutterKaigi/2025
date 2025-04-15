@@ -63,3 +63,11 @@
 - name: "team/infra"
   color: "#0969DA"
   description: "Owned by the infra team"
+
+# Contribution Labels
+- name: "contributions welcome"
+  color: "#0075CA"
+  description: "Open for contributions"
+- name: "good first issue"
+  color: "#7058E0"
+  description: "Good for newcomers"
