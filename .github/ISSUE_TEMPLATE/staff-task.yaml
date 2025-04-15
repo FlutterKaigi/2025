@@ -1,0 +1,31 @@
+name: FlutterKaigi スタッフのタスク
+description: FlutterKaigi スタッフのタスクを作成する
+title: "[Staff] "
+labels: ["contributor/internal"]
+body:
+  - type: dropdown
+    id: team
+    attributes:
+      label: 担当チーム
+      description: このタスクを担当するチームを選択してください。
+      multiple: false
+      options:
+        - "App"
+        - "Website"
+        - "Infra"
+    validations:
+      required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: 概要
+      description: このタスクの目的や背景について簡潔に記述してください。
+    validations:
+      required: false
+  - type: textarea
+    id: references
+    attributes:
+      label: 参考文献
+      description: このタスクに関連する参考文献やリソースを記載してください。
+    validations:
+      required: false
