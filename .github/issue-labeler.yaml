@@ -1,0 +1,12 @@
+policy:
+  - template: ["staff-task.yaml"]
+    section:
+      - id: ["team"]
+        block-list: []
+        label:
+          - name: "team/app"
+            keys: ["App"]
+          - name: "team/website"
+            keys: ["Website"]
+          - name: "team/infra"
+            keys: ["Infra"]

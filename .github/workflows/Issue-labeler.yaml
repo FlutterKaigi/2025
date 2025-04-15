@@ -1,0 +1,38 @@
+name: "Issue labeler"
+
+on:
+  issues:
+    types:
+      - opened
+
+jobs:
+  label-component:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      issues: write
+      contents: read
+    strategy:
+      matrix:
+        template:
+          - staff-task.yaml
+    steps:
+      # https://github.com/actions/checkout
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      # https://github.com/stefanbuck/github-issue-parser
+      - name: Parse issue form
+        uses: stefanbuck/github-issue-parser@2d2ff50d4aae06ab58d26bf59468d98086605f11 # v3.2.1
+        id: issue-parser
+        with:
+          template-path: .github/ISSUE_TEMPLATE/${{ matrix.template }}
+
+      # https://github.com/redhat-plumbers-in-action/advanced-issue-labeler
+      - name: Set labels based on severity field
+        uses: redhat-plumbers-in-action/advanced-issue-labeler@d498805e5c7c0658e336948b3363480bcfd68da6 # v3.2.0
+        with:
+          issue-form: ${{ steps.issue-parser.outputs.jsonString }}
+          template: ${{ matrix.template }}
+          config-path: .github/issue-labeler.yaml
+          token: ${{ secrets.GITHUB_TOKEN }}
