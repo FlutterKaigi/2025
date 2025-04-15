@@ -1,6 +1,6 @@
 # Category Labels
 - name: "category/documentation"
-  color: "#0075CA"
+  color: "#A0AEC0"
   description: "Documentation related tasks"
 - name: "category/github"
   color: "#181717"
@@ -31,13 +31,13 @@
 
 # Difficulty Labels
 - name: "difficulty/hard"
-  color: "#1C3F75"
+  color: "#800080"
   description: "Requires significant effort or expertise"
 - name: "difficulty/medium"
-  color: "#2980B9"
+  color: "#FFA500"
   description: "Moderately challenging; some effort required"
 - name: "difficulty/easy"
-  color: "#3498DB"
+  color: "#90EE90"
   description: "Simple to complete with minimal effort"
 
 # Dependabot Labels
@@ -63,3 +63,11 @@
 - name: "team/infra"
   color: "#0969DA"
   description: "Owned by the infra team"
+
+# Contribution Labels
+- name: "contributions welcome"
+  color: "#0075CA"
+  description: "Open for contributions"
+- name: "good first issue"
+  color: "#7058E0"
+  description: "Good for newcomers"
