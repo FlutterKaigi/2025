@@ -1,6 +1,6 @@
 # Category Labels
 - name: "category/documentation"
-  color: "#0075CA"
+  color: "#A0AEC0"
   description: "Documentation related tasks"
 - name: "category/github"
   color: "#181717"
