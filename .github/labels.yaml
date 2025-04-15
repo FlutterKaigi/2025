@@ -31,13 +31,13 @@
 
 # Difficulty Labels
 - name: "difficulty/hard"
-  color: "#1C3F75"
+  color: "#800080"
   description: "Requires significant effort or expertise"
 - name: "difficulty/medium"
-  color: "#2980B9"
+  color: "#FFA500"
   description: "Moderately challenging; some effort required"
 - name: "difficulty/easy"
-  color: "#3498DB"
+  color: "#90EE90"
   description: "Simple to complete with minimal effort"
 
 # Dependabot Labels
