@@ -1,0 +1,11 @@
+{
+  "name": "2025",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "clean": "git clean -xdf node_modules"
+  },
+  "devDependencies": {
+    "supabase": "2.20.12"
+  }
+}
