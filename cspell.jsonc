@@ -2,10 +2,13 @@
     "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
     "version": "0.2",
     "words": [
+        "allprojects",
         "bunx",
         "CODEOWNERS",
         "FlutterKaigi",
         "marocchino",
+        "Subproject",
+        "subprojects",
         "Supabase",
         "xcassets",
         "xcconfig",
@@ -24,7 +27,8 @@
         "*.xcconfig",
         "*.xib",
         "*.storyboard",
-        "*.plist"
+        "*.plist",
+        "*.properties"
     ],
     "import": [
         "@cspell/dict-software-terms/cspell-ext.json",
