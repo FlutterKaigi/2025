@@ -9,6 +9,9 @@
         "node_modules",
         ".dart_tool",
         "*.lock",
+        ".editorconfig",
+        ".tool-versions",
+        ".github/CODEOWNERS",
     ],
     "import": [
         "@cspell/dict-software-terms/cspell-ext.json",
