@@ -6,6 +6,8 @@
     "clean": "git clean -xdf node_modules"
   },
   "devDependencies": {
+    "@cspell/dict-software-terms": "^5.0.5",
+    "cspell": "^8.19.1",
     "supabase": "2.20.12"
   }
 }
