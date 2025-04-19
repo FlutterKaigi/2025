@@ -2,11 +2,19 @@
     "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
     "version": "0.2",
     "words": [
+        "allprojects",
         "bunx",
         "CODEOWNERS",
+        "cupertino",
         "FlutterKaigi",
         "marocchino",
-        "Supabase"
+        "Subproject",
+        "subprojects",
+        "Supabase",
+        "xcassets",
+        "xcconfig",
+        "xcodeproj",
+        "xcworkspace"
     ],
     "ignorePaths": [
         "node_modules",
@@ -14,7 +22,14 @@
         "*.lock",
         ".editorconfig",
         ".tool-versions",
-        ".github/CODEOWNERS"
+        ".github/CODEOWNERS",
+        "Runner.xcodeproj",
+        "Runner.xcworkspace",
+        "*.xcconfig",
+        "*.xib",
+        "*.storyboard",
+        "*.plist",
+        "*.properties"
     ],
     "import": [
         "@cspell/dict-software-terms/cspell-ext.json",
