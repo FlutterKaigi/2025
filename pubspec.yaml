@@ -10,6 +10,7 @@ dev_dependencies:
 
 workspace:
   # apps
+  - apps/dashboard
   # packages
 
 melos:
