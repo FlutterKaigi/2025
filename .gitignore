@@ -1,5 +1,12 @@
-# Dart
-.dart_tool/
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+
+# Flutter/Dart/Pub related
+/.dart_tool/
+/.flutter-plugins
+/.flutter-plugins-dependencies
 
 # Node.js
 node_modules/

@@ -1,0 +1,19 @@
+name: flutterkaigi_2025
+publish_to: none
+
+environment:
+  sdk: 3.7.2
+  flutter: 3.29.3
+
+dev_dependencies:
+  melos: ^7.0.0-dev.8
+
+workspace:
+  # apps
+  - apps/dashboard
+  # packages
+
+melos:
+  ide:
+    intellij:
+      enabled: false
