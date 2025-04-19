@@ -1,0 +1,25 @@
+{
+    "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
+    "version": "0.2",
+    "words": [
+        "bunx",
+        "CODEOWNERS",
+        "FlutterKaigi",
+        "marocchino",
+        "Supabase"
+    ],
+    "ignorePaths": [
+        "node_modules",
+        ".dart_tool",
+        "*.lock",
+        ".editorconfig",
+        ".tool-versions",
+        ".github/CODEOWNERS"
+    ],
+    "import": [
+        "@cspell/dict-software-terms/cspell-ext.json",
+        "@cspell/dict-dart/cspell-ext.json",
+        "@cspell/dict-flutter/cspell-ext.json",
+        "@cspell/dict-sql/cspell-ext.json"
+    ]
+}
