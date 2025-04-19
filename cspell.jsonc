@@ -10,4 +10,10 @@
         ".dart_tool",
         "*.lock"
     ],
+    "import": [
+        "@cspell/dict-software-terms/cspell-ext.json",
+        "@cspell/dict-dart/cspell-ext.json",
+        "@cspell/dict-flutter/cspell-ext.json",
+        "@cspell/dict-sql/cspell-ext.json",
+    ],
 }
