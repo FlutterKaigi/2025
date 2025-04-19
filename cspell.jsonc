@@ -6,7 +6,11 @@
         "CODEOWNERS",
         "FlutterKaigi",
         "marocchino",
-        "Supabase"
+        "Supabase",
+        "xcassets",
+        "xcconfig",
+        "xcodeproj",
+        "xcworkspace"
     ],
     "ignorePaths": [
         "node_modules",
@@ -14,7 +18,13 @@
         "*.lock",
         ".editorconfig",
         ".tool-versions",
-        ".github/CODEOWNERS"
+        ".github/CODEOWNERS",
+        "Runner.xcodeproj",
+        "Runner.xcworkspace",
+        "*.xcconfig",
+        "*.xib",
+        "*.storyboard",
+        "*.plist"
     ],
     "import": [
         "@cspell/dict-software-terms/cspell-ext.json",
