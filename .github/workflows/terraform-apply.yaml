@@ -46,9 +46,10 @@ jobs:
             echo "Directory is empty! Please add a Terraform file to the directory."
             exit 1
           fi
+
       - name: Terraform init
         id: init
-        run: terraform init
+        run: terraform init -backend-config=backend.tfbackend
 
       - name: Terraform fmt
         id: fmt
