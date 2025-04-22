@@ -22,10 +22,9 @@ jobs:
         id: define-matrix
         run: |
           # `terraform/`配下のディレクトリを取得
-          target=$(find terraform -maxdepth 1 -type d |  \
-            sed 's|^terraform/||' | \
-            jq -R -s 'split("\n")[:-1]')
-          echo "targets=$(jq -c -n '$ARGS.positional' --args "${target[@]}")" >> $GITHUB_OUTPUT
+          dirs=$(find terraform -maxdepth 1 -type d | grep -v "^terraform$" | sed 's|^terraform/||')
+          targets=$(echo "$dirs" | jq -R . | jq -s .)
+          echo "targets=$targets" >> $GITHUB_OUTPUT
 
   lint:
     name: Terraform Lint (${{ matrix.target }})
