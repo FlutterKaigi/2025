@@ -76,6 +76,12 @@ jobs:
         id: init
         run: terraform init -backend-config=backend.tfbackend
 
+      - name: Terraform fmt
+        run: terraform fmt -check
+
+      - name: TFLint
+        run: tflint
+
 
   plan:
     name: Terraform Plan (${{ matrix.target }})
