@@ -4,15 +4,9 @@
 
 ## 環境変数と秘密情報
 
-このプロジェクトでは機密情報を安全に管理するために[SOPS](https://github.com/mozilla/sops)を使用しています。秘密情報は`.sops.yaml`の設定に従って暗号化されます。
+このプロジェクトでは機密情報を安全に管理するために[SOPS]を使用しています。秘密情報は`.sops.yaml`の設定に従って暗号化されます。
 
-```yaml
-creation_rules:
-  - encrypted_regex: "^TF_VAR_"
-  - age: age1xjdqf6nct4pnztwtpsjdjf0n9776nc8kgqu8cymy9uww327f790qgpxwup
-```
-
-また、`mise.toml`で設定されているように、秘密鍵ファイルは以下の場所に保存されています：
+また、`mise.toml`で設定されているように、秘密鍵ファイルは以下の場所に保存してください。ファイルを配置することで、miseによりSOPSの秘密鍵が自動で読み込まれ、復号された状態で環境変数に設定されます。
 
 ```yaml
 [settings.sops]
