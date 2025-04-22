@@ -40,7 +40,7 @@ jobs:
 
       - name: Extract backend.tfbackend
         run: |
-          echo ${{ secrets.TERRAFORM_BACKEND_CONFIGURATION }} | base64 -d  \
+          echo "${{ secrets.TERRAFORM_BACKEND_CONFIGURATION }}" | base64 -d  \
             > backend.tfbackend
 
       - name: Check directory is not empty
