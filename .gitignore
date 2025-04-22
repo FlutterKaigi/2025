@@ -13,7 +13,3 @@ node_modules/
 
 # macOS
 .DS_Store
-
-# Environment Values
-.env
-!.env.example
