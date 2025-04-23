@@ -17,3 +17,6 @@
 - `staging.tf`: ステージング環境のSupabaseプロジェクト設定
 - `provider.tf`: Supabase Terraformプロバイダーの設定
 - `variables.tf`: 変数定義ファイル
+- `backend.tf`: Terraform Stateを保存するバケットの設定
+- (gitignore) `backend.tfbackend`: Cloudflare R2へのアクセスキーを格納
+  - `backend.tfbackend.example`をコピーし、Access KeyとSecret Keyを設定してください

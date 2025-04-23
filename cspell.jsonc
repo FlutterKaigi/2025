@@ -14,7 +14,8 @@
         "xcassets",
         "xcconfig",
         "xcodeproj",
-        "xcworkspace"
+        "xcworkspace",
+        "tfbackend"
     ],
     "ignorePaths": [
         "node_modules",
