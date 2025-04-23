@@ -1,9 +1,7 @@
-import 'package:web/web.dart' as web;
+import 'package:web/web.dart';
+import 'package:flutterkaigi_2025_website/app.dart';
 
 void main() {
-  final now = DateTime.now();
-  final element = web.document.querySelector('#output') as web.HTMLDivElement;
-  element.text =
-      'The time is ${now.hour}:${now.minute} '
-      'and your Dart web app is running!';
+  final element = document.querySelector('dart-web') as HTMLElement;
+  element.replaceWith(app);
 }
