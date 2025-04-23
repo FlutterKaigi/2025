@@ -1,0 +1,137 @@
+name: Terraform Apply
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "terraform/**/*.tf"
+
+jobs:
+  define-matrix:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 1
+    outputs:
+      targets: ${{ steps.define-matrix.outputs.targets }}
+    steps:
+      # https://github.com/actions/checkout
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Define matrix
+        id: define-matrix
+        run: |
+          # `terraform/`配下のディレクトリを取得
+          dirs=$(find terraform -maxdepth 1 -type d | grep -v "^terraform$" | sed 's|^terraform/||')
+          targets=$(echo "$dirs" | jq -R . | jq -sc .)
+          echo "targets=${targets}" >> $GITHUB_OUTPUT
+
+  lint:
+    name: Terraform Lint (${{ matrix.target }})
+    needs:
+      - define-matrix
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    strategy:
+      matrix:
+        target: ${{ fromJson(needs.define-matrix.outputs.targets) }}
+    defaults:
+      run:
+        working-directory: terraform/${{ matrix.target }}
+    steps:
+      # https://github.com/actions/checkout
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      # https://github.com/jdx/mise-action
+      - name: Install Mise dependencies
+        uses: jdx/mise-action@5083fe46898c414b2475087cc79da59e7da859e8 # v2.1.11
+        with:
+          install: true
+          install_args: "terraform tflint aqua:suzuki-shunsuke/tfcmt"
+
+      - name: Extract SOPS secrets
+        run: |
+          mkdir -p ~/.config/mise
+          echo "${{ secrets.SOPS_FILE }}" > ~/.config/mise/flutterkaigi.txt
+
+      - name: Extract backend.tfbackend
+        run: |
+          echo "${{ secrets.TERRAFORM_BACKEND_CONFIGURATION }}" | base64 -d  \
+            > backend.tfbackend
+
+      - name: Check directory is not empty
+        run: |
+          if [ -z "$(ls -A)" ]; then
+            echo "Directory is empty! Please add a Terraform file to the directory."
+            exit 1
+          fi
+
+      - name: Terraform init
+        id: init
+        run: terraform init -backend-config=backend.tfbackend
+
+  apply:
+    name: Terraform Apply (${{ matrix.target }})
+    needs:
+      - define-matrix
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    strategy:
+      matrix:
+        target: ${{ fromJson(needs.define-matrix.outputs.targets) }}
+    defaults:
+      run:
+        working-directory: terraform/${{ matrix.target }}
+    steps:
+      # https://github.com/actions/checkout
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      # https://github.com/jdx/mise-action
+      - name: Install Mise dependencies
+        uses: jdx/mise-action@5083fe46898c414b2475087cc79da59e7da859e8 # v2.1.11
+        with:
+          install: true
+          install_args: "terraform"
+
+      - name: Extract SOPS secrets
+        run: |
+          mkdir -p ~/.config/mise
+          echo "${{ secrets.SOPS_FILE }}" > ~/.config/mise/flutterkaigi.txt
+
+      - name: Extract backend.tfbackend
+        run: |
+          echo ${{ secrets.TERRAFORM_BACKEND_CONFIGURATION }} | base64 -d  \
+            > backend.tfbackend
+
+      - name: Check directory is not empty
+        run: |
+          if [ -z "$(ls -A)" ]; then
+            echo "Directory is empty! Please add a Terraform file to the directory."
+            exit 1
+          fi
+
+      - name: Terraform init
+        id: init
+        run: terraform init -backend-config=backend.tfbackend
+
+      - name: Terraform fmt
+        id: fmt
+        run: terraform fmt -check
+
+      - name: Terraform validate
+        id: validate
+        run: terraform validate
+
+      - name: Terraform plan
+        id: plan
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: tfcmt plan -patch -var "target:${{ matrix.target }}" -- terraform plan -input=false
+
+      - name: Terraform apply
+        id: apply
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: tfcmt apply -patch -var "target:${{ matrix.target }}" -- terraform apply --auto-approve
