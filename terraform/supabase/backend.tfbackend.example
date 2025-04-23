@@ -1,0 +1,5 @@
+use_lockfile = true
+
+# https://dash.cloudflare.com/cdd8f59359fe226645e7b541cdc53b57/r2/api-tokens から取得
+access_key = "example-access-key"
+secret_key = "example-secret-key"
