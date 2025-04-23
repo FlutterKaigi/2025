@@ -9,8 +9,13 @@ on:
     types:
       - opened
       - synchronize
-
-
+  workflow_dispatch:
+    inputs:
+      target:
+        description: "Terraformを実行するtarget (terraform/配下のディレクトリ名をカンマ区切りで指定)"
+        required: true
+        type: string
+        default: "supabase"
 
 jobs:
   define-matrix:
@@ -26,8 +31,25 @@ jobs:
       - name: Define matrix
         id: define-matrix
         run: |
-          # `terraform/`配下のディレクトリを取得
-          dirs=$(find terraform -maxdepth 1 -type d | grep -v "^terraform$" | sed 's|^terraform/||')
+          # workflow_dispatchのinputsを取得
+          if [ -n "${{ inputs.target }}" ]; then
+            # カンマで区切る
+            dirs=$(echo "${{ inputs.target }}" | tr ',' '\n')
+            # 存在しないディレクトリが指定された場合はエラー
+            for dir in $dirs; do
+              if [ -d "terraform/${dir}" ]; then
+                targets="${targets} ${dir}"
+              else
+                echo "terraform/${dir} is not found"
+                exit 1
+              fi
+            done
+          else
+            # `terraform/`配下のディレクトリを取得
+            dirs=$(find terraform -maxdepth 1 -type d | grep -v "^terraform$" | sed 's|^terraform/||')
+          fi
+
+          # JSONの配列に変換し、outputsに設定
           targets=$(echo "$dirs" | jq -R . | jq -sc .)
           echo "targets=${targets}" >> $GITHUB_OUTPUT
 
