@@ -95,6 +95,14 @@ jobs:
         id: init
         run: terraform init -backend-config=backend.tfbackend
 
+      - name: Terraform fmt
+        id: fmt
+        run: terraform fmt -check
+
+      - name: Terraform validate
+        id: validate
+        run: terraform validate
+
   apply:
     name: Terraform Apply (${{ matrix.target }})
     needs:
@@ -130,33 +138,12 @@ jobs:
           echo ${{ secrets.TERRAFORM_BACKEND_CONFIGURATION }} | base64 -d  \
             > backend.tfbackend
 
-      - name: Check directory is not empty
-        run: |
-          if [ -z "$(ls -A)" ]; then
-            echo "Directory is empty! Please add a Terraform file to the directory."
-            exit 1
-          fi
-
       - name: Terraform init
         id: init
         run: terraform init -backend-config=backend.tfbackend
-
-      - name: Terraform fmt
-        id: fmt
-        run: terraform fmt -check
-
-      - name: Terraform validate
-        id: validate
-        run: terraform validate
-
-      - name: Terraform plan
-        id: plan
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: tfcmt plan -patch -var "target:${{ matrix.target }}" -- terraform plan -input=false
 
       - name: Terraform apply
         id: apply
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: tfcmt apply -patch -var "target:${{ matrix.target }}" -- terraform apply --auto-approve
+        run: tfcmt apply -var "target:${{ matrix.target }}" -- terraform apply --auto-approve
