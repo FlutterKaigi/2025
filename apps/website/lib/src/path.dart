@@ -1,8 +1,7 @@
-import 'package:web/web.dart';
 import 'package:flutterkaigi_2025_website/text.dart' show Language;
+import './path_stub.dart' if (dart.library.js_interop) './path_web.dart';
 
-/// 現在のパス
-Path get currentPath => Path.fromPathname(window.location.pathname);
+export './path_stub.dart' if (dart.library.js_interop) './path_web.dart';
 
 class Path {
   final List<String> _path;
@@ -14,6 +13,8 @@ class Path {
 
   Path.fromPathname(String pathname)
     : _path = pathname.split('/').where((n) => n.isNotEmpty).toList();
+
+  factory Path.go(List<String> path) => currentPath.go(Path(path));
 
   /// パスに含まれている言語情報
   Language? get lang {
@@ -27,24 +28,22 @@ class Path {
   }
 
   /// 言語情報を含むパス
-  Path withLang(Language lang) {
-    if (isRoot) return Path([lang.name]);
-    if (this.lang == lang) return this;
-    return Path([lang.name, ..._path]);
-  }
+  Path withLang(Language nextLang) => switch (lang) {
+    Language _ => Path([nextLang.name, ..._path.skip(1)]),
+    _ => Path([nextLang.name, ..._path]),
+  };
 
   /// 言語情報を含まないパス
   Path withoutLang() {
-    if (isRoot) return this;
-    if (['ja', 'en'].contains(_path.first)) return Path(_path.sublist(1));
+    if (lang != null) return Path(_path.sublist(1));
     return this;
   }
 
   /// 新しいパスを生成
   /// - [path] 新しいパス
-  Path newPath(Path newPath) => switch ((currentPath.lang, lang)) {
-    (Language currentLang, null) => newPath.withLang(currentLang),
-    _ => newPath,
+  Path go(Path nextPath) => switch ((lang, nextPath.lang)) {
+    (Language currentLang, null) => nextPath.withLang(currentLang),
+    _ => nextPath,
   };
 
   @override

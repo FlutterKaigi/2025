@@ -51,7 +51,13 @@ HTMLElement get index => basicLayout(
     ..append(
       internalLink(
         text((ja: 'コンテンツ例', en: 'e.g. Contents')),
-        path: Path(['contents', '1']),
+        path: Path.go(const ['contents', '1']),
+      ),
+    )
+    ..append(
+      internalLink(
+        text((ja: '404例', en: null)),
+        path: Path.go(const ['contents', '1', 'x']),
       ),
     )
     ..append(_countdown())

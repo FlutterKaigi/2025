@@ -28,11 +28,16 @@ web/%.wasm: web/%.dart $(SRC)
 .PHONY: init
 init:
 	dart pub get
+	bun install
 
 .PHONY: fmt
 fmt:
 	deno fmt
 	dart format .
+
+.PHONY: test
+test:
+	dart test .
 
 .PHONY: run
 run: serve

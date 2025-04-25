@@ -1,4 +1,4 @@
-import 'package:flutterkaigi_2025_website/config.dart';
+import 'package:flutterkaigi_2025_website/config.dart' show user, event;
 
 /// 表示言語
 enum Language { ja, en }

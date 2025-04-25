@@ -7,12 +7,11 @@ import 'package:flutterkaigi_2025_website/text.dart';
 HTMLElement get notFound => basicLayout(
   HTMLElement.main()
     ..style.display = 'flex'
+    ..style.flexDirection = 'column'
     ..style.justifyContent = 'center'
-    ..style.fontSize = '2rem'
     ..style.alignItems = 'center'
+    ..style.fontSize = '2rem'
     ..style.padding = '1rem'
     ..textContent = '404 Not Found'
-    ..append(
-      internalLink(text(contents.moveToTop), path: Path([]))
-    )
+    ..append(internalLink(text(contents.moveToTop), path: Path.go([]))),
 );
