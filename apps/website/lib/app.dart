@@ -54,8 +54,24 @@ HTMLElement _routing(_Handler Function(Path) routes, Path path) {
 }
 
 void rerendering([Path? path]) {
+  _resetState();
+
   if (path != null) window.history.pushState(null, '', path.toString());
+
   final element = _routing(_routes, path ?? currentPath);
   _app.replaceWith(element);
   _app = element;
+}
+
+final _onRemoves = <void Function()>[];
+
+void _resetState() {
+  for (final callback in _onRemoves) {
+    callback();
+  }
+  _onRemoves.clear();
+}
+
+void onRemove(void Function() callback) {
+  _onRemoves.add(callback);
 }

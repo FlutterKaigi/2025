@@ -1,4 +1,5 @@
 import 'package:web/web.dart';
+import 'package:flutterkaigi_2025_website/app.dart' show onRemove;
 import 'dart:async';
 import 'package:flutterkaigi_2025_website/config.dart';
 import 'package:flutterkaigi_2025_website/text.dart';
@@ -24,14 +25,12 @@ HTMLElement _countdown() {
         ..style.fontSize = '1.5rem'
         ..textContent = countdown(event.date.difference(DateTime.now()));
 
-  final timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-    print(timer);
-    element.textContent = countdown(event.date.difference(DateTime.now()));
-  });
-
-  window.onPopState.listen((_) {
-    timer.cancel();
-  });
+  final timer = Timer.periodic(
+    const Duration(seconds: 1),
+    (timer) =>
+        element.textContent = countdown(event.date.difference(DateTime.now())),
+  );
+  onRemove(() => timer.cancel());
 
   return element;
 }
