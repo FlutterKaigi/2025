@@ -1,29 +1,24 @@
-SRC := $(shell find ./lib -name '*.dart')
-ASSETS = $(shell find ./assets -type f)
+# Dartのソースコード
+SRC := $(shell find ./lib -type f -name '*.dart')
 
-.PHONY: all
-all: build/index.html build/styles.css build/bootstrap.js \
-	build/main.wasm build/main.mjs \
-	build/img/
+# 静的ファイル
+STATIC := $(shell find ./web -type f -not -name '*.dart')
+STATIC_BUILD := $(patsubst ./web/%,./build/%,$(STATIC))
 
-build/:
-	@mkdir $@
+all: build/main.wasm $(STATIC_BUILD)
 
-build/%/: assets/%/ $(ASSETS)
-	@cp -r $< $@
 
-build/%: web/% build/
+build/%.wasm: web/%.dart $(SRC)
+	@dart compile wasm \
+		--output=$@ \
+		--optimization-level=4 \
+		--no-source-maps \
+		$<
+
+build/%: web/%
+	@mkdir -p $(@D)
 	@cp $< $@
 	@echo $@
-
-web/%.wasm.map: web/%.wasm
-	@touch $@
-
-web/%.mjs: web/%.wasm
-	@touch $@
-
-web/%.wasm: web/%.dart $(SRC)
-	dart compile wasm $< -O4
 
 .PHONY: init
 init:
@@ -32,8 +27,8 @@ init:
 
 .PHONY: fmt
 fmt:
-	deno fmt
-	dart format .
+	@deno fmt
+	@dart format .
 
 .PHONY: test
 test:

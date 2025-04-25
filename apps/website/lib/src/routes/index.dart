@@ -55,7 +55,7 @@ HTMLElement get index => basicLayout(
     )
     ..append(
       internalLink(
-        text((ja: '404例', en: null)),
+        text((ja: '404の例', en: 'e.g. 404')),
         path: Path.go(const ['contents', '1', 'x']),
       ),
     )
@@ -65,6 +65,11 @@ HTMLElement get index => basicLayout(
         event.blog.sponsorship.title,
         url: event.blog.sponsorship.url,
       ),
+    )
+    ..append(
+      HTMLImageElement()
+        ..style.width = '40rem'
+        ..src = '/img/flutterkaigi_dash.png',
     )
     ..append(
       HTMLParagraphElement()
