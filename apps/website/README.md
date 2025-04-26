@@ -1,24 +1,48 @@
-A bare-bones Dart web app.
+# FlutterKaigi 2025 ウェブサイト
 
-Uses [`package:web`](https://pub.dev/packages/web) to interop with JS and the
-DOM.
+## 環境構築
 
-## Running and building
+1. 初期化
+   ```sh
+   # dart pub getとbun installの実行
+   make init
+   ```
+2. ビルド
+   ```sh
+   # buildディレクトリの作成
+   make
+   ```
+3. 実行
+   ```sh
+   # bun devの実行
+   make dev
+   ```
 
-To run the app, activate and use
-[`package:webdev`](https://dart.dev/tools/webdev):
+## 設計
 
-```
-dart pub global activate webdev
-webdev serve
-```
+ウェブサイトはdartで実装しています．
+dartでの実装のため，SPAを前提とした実装となっています．
 
-To build a production version ready for deployment, use the `webdev build`
-command:
+また，今回は`packages:web`をベースとした最小構成での実装を目指しています．
+情報量がそれほど多くはないこと，複雑な状態管理を必要としないだろうという観点から`packages:web`だけで行けるだろうという判断をしています．
 
-```
-webdev build
-```
+そのため，サイトのコンテンツ作成は昔ながらのDOM操作が基本となりますが，JSと違ってdartは言語機能として豊富な構文が用意されているので，JSよりは書きやすい認識です．
 
-To learn how to interop with web APIs and other JS libraries, check out
-https://dart.dev/interop/js-interop.
+### ディレクトリ構成
+
+- `web/` 静的ファイル & 実行ファイル\
+  一部のファイル(`main.dart`や`index.*`を除いて，全てホスティング対象です．
+  - `main.dart` dartの実行ファイル\
+    これを起点にmain.wasmをビルドしています
+  - `index.js` Cloudflare workersの実行ファイル\
+    やっていることは`index.html`の中身を返しているだけです．
+  - `bootstrap.js` Wasmを起動するためのJS
+- `lib/` dartのソースファイル
+  - `app.dart` ウェブサイトのルーティングはここにまとめています．
+  - `config.dart` ウェブサイトの設定項目はここにまとめています．
+  - `text.dart` サイト内で利用する文言をまとめています．
+  - `src/` ウェブサイトに必要な実装群はこの下に配置しています．
+    - `routes/` ページごとのコンテンツはここに置いています．\
+      `/foo/bar`といったパスを予定しているのであれば，
+      `foo_bar.dart`のようなファイルを作ることを想定しています．
+- `test/` dartのテストファイル
