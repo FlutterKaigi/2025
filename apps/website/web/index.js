@@ -1,16 +1,13 @@
 import indexHtml from "./index.html";
 
-function isStaticFile({ pathname }) {
-  return pathname.startsWith("/assets/") ||
-    pathname.endsWith(".js") ||
-    pathname.endsWith(".css");
-}
+const STATIC_FILE = /.*\..*$/;
 
 export default {
-  async fetch(request, env) {
-    const url = new URL(request.url);
-    if (isStaticFile(url)) {
-      return env.STATIC.fetch(request);
+  async fetch(request, { STATIC }) {
+    if (request.url.match(STATIC_FILE)) {
+      return new Response("Not Found", {
+        status: 404,
+      });
     }
 
     return new Response(indexHtml, {

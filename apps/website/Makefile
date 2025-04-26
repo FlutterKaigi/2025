@@ -2,11 +2,10 @@
 SRC := $(shell find ./lib -type f -name '*.dart')
 
 # 静的ファイル
-STATIC := $(shell find ./web -type f -not -name '*.dart')
-STATIC_BUILD := $(patsubst ./web/%,./build/%,$(STATIC))
+STATIC := $(shell find web -type f -not -name '*.dart'  -not -name 'index.*')
+STATIC_BUILD := $(patsubst web/%,build/%,$(STATIC))
 
 all: build/main.wasm $(STATIC_BUILD)
-
 
 build/%.wasm: web/%.dart $(SRC)
 	@dart compile wasm \
@@ -47,6 +46,3 @@ serve:
 .PHONY: clean
 clean:
 	@rm -rf build
-	@rm -f web/*.wasm
-	@rm -f web/*.map
-	@rm -f web/*.mjs
