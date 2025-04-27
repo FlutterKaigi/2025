@@ -1,6 +1,13 @@
 import 'package:web/web.dart';
-import '../layouts.dart';
 import 'package:flutterkaigi_2025_website/text.dart';
+import 'package:flutterkaigi_2025_website/config.dart';
+import '../layouts.dart';
+import '../routes.dart' show Handler;
+
+Handler handler(String id) => (
+  title: makeTitle('Contents'),
+  handle: () => contents(id),
+);
 
 HTMLElement contents(String id) => basicLayout(
   HTMLElement.main()

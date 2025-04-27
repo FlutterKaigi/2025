@@ -7,3 +7,6 @@ build/
 *.wasm
 *.map
 *.mjs
+
+# Cloudflare
+.wrangler/

@@ -1,8 +1,15 @@
 import 'package:web/web.dart';
+import 'package:flutterkaigi_2025_website/text.dart';
+import 'package:flutterkaigi_2025_website/config.dart' as config;
 import '../components.dart';
 import '../path.dart';
 import '../layouts.dart';
-import 'package:flutterkaigi_2025_website/text.dart';
+import '../routes.dart' show Handler;
+
+Handler get handler => (
+  title: config.makeTitle('Not Found'),
+  handle: () => notFound,
+);
 
 HTMLElement get notFound => basicLayout(
   HTMLElement.main()

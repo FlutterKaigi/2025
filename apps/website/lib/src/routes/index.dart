@@ -1,11 +1,14 @@
-import 'package:web/web.dart';
-import 'package:flutterkaigi_2025_website/app.dart' show onRemove;
 import 'dart:async';
+import 'package:web/web.dart';
 import 'package:flutterkaigi_2025_website/config.dart';
 import 'package:flutterkaigi_2025_website/text.dart';
+import 'package:flutterkaigi_2025_website/app.dart' show onRemove;
+import '../routes.dart' show Handler;
 import '../components.dart';
 import '../layouts.dart';
 import '../path.dart';
+
+Handler get handler => (title: makeTitle(), handle: () => index);
 
 /// 秒数まで表示する
 HTMLElement _countdown() {
@@ -35,6 +38,33 @@ HTMLElement _countdown() {
   return element;
 }
 
+HTMLElement get _schedule {
+  final list =
+      HTMLUListElement()
+        ..style.display = 'grid'
+        ..style.paddingLeft = '1rem';
+  for (final schedule in event.schedule) {
+    list.append(
+      HTMLLIElement()
+        ..style.display = 'list-item'
+        ..style.listStyle = 'circle'
+        ..append(HTMLSpanElement()..textContent = text(schedule.title))
+        ..append(Text(' : '))
+        ..append(HTMLSpanElement()..textContent = schedule.date.toString()),
+    );
+  }
+
+  final element =
+      HTMLDivElement()
+        ..append(
+          HTMLHeadingElement.h2()
+            ..style.fontSize = '1.5rem'
+            ..textContent = text(contents.scheduleLabel),
+        )
+        ..append(list);
+  return element;
+}
+
 HTMLElement get index => basicLayout(
   HTMLElement.main()
     ..style.display = 'flex'
@@ -48,16 +78,37 @@ HTMLElement get index => basicLayout(
         ..textContent = event.title,
     )
     ..append(
-      internalLink(
-        text((ja: 'コンテンツ例', en: 'e.g. Contents')),
-        path: Path.go(const ['contents', '1']),
-      ),
+      HTMLParagraphElement()
+        ..style.display = 'grid'
+        ..textContent = 'e.g. リンク実装例'
+        ..append(
+          HTMLUListElement()
+            ..style.display = 'grid'
+            ..append(
+              HTMLLIElement()..append(
+                internalLink(
+                  text((ja: 'コンテンツ例', en: 'e.g. Contents')),
+                  path: Path.go(const ['contents', '1']),
+                ),
+              ),
+            )
+            ..append(
+              HTMLLIElement()..append(
+                internalLink(
+                  text((ja: '404の例', en: 'e.g. 404')),
+                  path: Path.go(const ['contents', '1', 'x']),
+                ),
+              ),
+            ),
+        ),
     )
     ..append(
-      internalLink(
-        text((ja: '404の例', en: 'e.g. 404')),
-        path: Path.go(const ['contents', '1', 'x']),
-      ),
+      HTMLParagraphElement()
+        ..style.fontSize = '1.5rem'
+        ..textContent = text((
+          ja: '${contents.date.ja} 開催決定!',
+          en: 'Confirmed on ${contents.date.en}!',
+        )),
     )
     ..append(_countdown())
     ..append(
@@ -67,13 +118,17 @@ HTMLElement get index => basicLayout(
       ),
     )
     ..append(
-      HTMLImageElement()
-        ..style.width = '40rem'
-        ..src = '/img/flutterkaigi_dash.png',
+      HTMLDivElement()
+        ..style.display = 'block'
+        ..style.width = '20rem'
+        ..style.height = '25rem'
+        ..style.overflow = 'hidden'
+        ..append(
+          HTMLImageElement()
+            ..style.width = '20rem'
+            ..style.animation = '1s linear infinite alternate bounding'
+            ..src = '/img/flutterkaigi_dash.png',
+        ),
     )
-    ..append(
-      HTMLParagraphElement()
-        ..style.fontSize = '1.5rem'
-        ..textContent = text(contents.date),
-    ),
+    ..append(_schedule),
 );
