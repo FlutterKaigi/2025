@@ -58,6 +58,8 @@ jobs:
     needs:
       - define-matrix
     runs-on: ubuntu-24.04
+    env:
+      MISE_ENV: ci
     timeout-minutes: 10
     strategy:
       matrix:
@@ -111,6 +113,8 @@ jobs:
       - lint
       - define-matrix
     runs-on: ubuntu-24.04
+    env:
+      MISE_ENV: ci
     timeout-minutes: 10
     strategy:
       matrix:
