@@ -2,18 +2,76 @@
     "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
     "version": "0.2",
     "useGitignore": true,
-    "words": [
-        "allprojects",
-        "bunx",
-        "cupertino",
-        "FlutterKaigi",
-        "marocchino",
-        "Subproject",
-        "subprojects",
-        "Supabase",
-        "xcassets",
-        "xcworkspace",
-        "tfbackend"
+    "dictionaryDefinitions": [
+        {
+            "name": "android-term",
+            "description": "Android related terms",
+            "words": [
+                "allprojects",
+                "Subproject",
+                "subprojects"
+            ]
+        },
+        {
+            "name": "bun-term",
+            "description": "Bun related terms",
+            "words": [
+                "bunx"
+            ]
+        },
+        {
+            "name": "flutter-term",
+            "description": "Flutter related terms",
+            "words": [
+                "cupertino"
+            ]
+        },
+        {
+            "name": "github-action-term",
+            "description": "GitHub Actions related terms",
+            "words": [
+                "marocchino"
+            ]
+        },
+        {
+            "name": "ios-term",
+            "description": "iOS related terms",
+            "words": [
+                "xcassets",
+                "xcworkspace"
+            ]
+        },
+        {
+            "name": "project-term",
+            "description": "Project specific terms",
+            "words": [
+                "FlutterKaigi"
+            ]
+        },
+        {
+            "name": "supabase-term",
+            "description": "Supabase related terms",
+            "words": [
+                "Supabase"
+            ]
+        },
+        {
+            "name": "terraform-term",
+            "description": "Terraform related terms",
+            "words": [
+                "tfbackend"
+            ]
+        }
+    ],
+    "dictionaries": [
+        "android-term",
+        "bun-term",
+        "flutter-term",
+        "github-action-term",
+        "ios-term",
+        "project-term",
+        "supabase-term",
+        "terraform-term"
     ],
     "ignorePaths": [
         "cspell.jsonc",
