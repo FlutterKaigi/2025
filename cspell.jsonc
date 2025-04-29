@@ -80,9 +80,6 @@
     "ignorePaths": [
         "cspell.jsonc",
         "*.lock",
-        ".editorconfig",
-        ".tool-versions",
-        ".github/CODEOWNERS",
         "Runner.xcodeproj",
         "Runner.xcworkspace",
         "*.xcconfig",
