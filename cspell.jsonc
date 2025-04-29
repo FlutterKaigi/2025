@@ -19,6 +19,7 @@
         "tfbackend"
     ],
     "ignorePaths": [
+        "cspell.jsonc",
         "*.lock",
         ".editorconfig",
         ".tool-versions",
