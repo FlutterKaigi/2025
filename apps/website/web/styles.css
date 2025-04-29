@@ -1,0 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+:root {
+  --color-beyond-red: #fa3030;
+  --color-flutter-sky: #027dfd;
+
+  --primary-color: var(--color-beyond-red);
+  --secondary-color: var(--color-flutter-sky);
+  --link-color: var(--secondary-color);
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+}
+
+body * {
+  all: initial;
+  font-family: inherit;
+}
+
+@keyframes bounding {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(5rem);
+  }
+}

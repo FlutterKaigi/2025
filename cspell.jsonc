@@ -20,6 +20,15 @@
             ]
         },
         {
+            "name": "dart-term",
+            "description": "Dart related terms",
+            "words": [
+                // Dart web
+                "HTMLUListElement",
+                "HTMLLIElement"
+            ]
+        },
+        {
             "name": "flutter-term",
             "description": "Flutter related terms",
             "words": [
@@ -70,6 +79,7 @@
     "dictionaries": [
         "android-term",
         "bun-term",
+        "dart-term",
         "flutter-term",
         "github-action-term",
         "ios-term",
