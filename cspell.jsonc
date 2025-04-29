@@ -30,7 +30,9 @@
             "name": "github-action-term",
             "description": "GitHub Actions related terms",
             "words": [
-                "marocchino"
+                "marocchino",
+                "stefanbuck",
+                "ghaction"
             ]
         },
         {
@@ -59,7 +61,10 @@
             "name": "terraform-term",
             "description": "Terraform related terms",
             "words": [
-                "tfbackend"
+                "tfbackend",
+                "tflint",
+                "shunsuke",
+                "tfcmt"
             ]
         }
     ],
