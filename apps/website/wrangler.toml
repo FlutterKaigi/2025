@@ -1,0 +1,8 @@
+"$schema" = "node_modules/wrangler/config-schema.json"
+name = "flutterkaigi-2025"
+main = "web/index.js"
+compatibility_date = "2025-04-23"
+
+[assets]
+directory = "./build"
+binding = "STATIC"

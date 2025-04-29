@@ -1,41 +1,44 @@
 {
-    "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
-    "version": "0.2",
-    "words": [
-        "allprojects",
-        "bunx",
-        "CODEOWNERS",
-        "cupertino",
-        "FlutterKaigi",
-        "marocchino",
-        "Subproject",
-        "subprojects",
-        "Supabase",
-        "xcassets",
-        "xcconfig",
-        "xcodeproj",
-        "xcworkspace",
-        "tfbackend"
-    ],
-    "ignorePaths": [
-        "node_modules",
-        ".dart_tool",
-        "*.lock",
-        ".editorconfig",
-        ".tool-versions",
-        ".github/CODEOWNERS",
-        "Runner.xcodeproj",
-        "Runner.xcworkspace",
-        "*.xcconfig",
-        "*.xib",
-        "*.storyboard",
-        "*.plist",
-        "*.properties"
-    ],
-    "import": [
-        "@cspell/dict-software-terms/cspell-ext.json",
-        "@cspell/dict-dart/cspell-ext.json",
-        "@cspell/dict-flutter/cspell-ext.json",
-        "@cspell/dict-sql/cspell-ext.json"
-    ]
+  "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
+  "version": "0.2",
+  "words": [
+    "allprojects",
+    "bunx",
+    "CODEOWNERS",
+    "cupertino",
+    "FlutterKaigi",
+    "marocchino",
+    "Subproject",
+    "subprojects",
+    "Supabase",
+    "xcassets",
+    "xcconfig",
+    "xcodeproj",
+    "xcworkspace",
+    "tfbackend",
+    // Dart web
+    "HTMLUListElement",
+    "HTMLLIElement"
+  ],
+  "ignorePaths": [
+    "node_modules",
+    ".dart_tool",
+    "*.lock",
+    ".editorconfig",
+    ".tool-versions",
+    ".github/CODEOWNERS",
+    "Runner.xcodeproj",
+    "Runner.xcworkspace",
+    "*.xcconfig",
+    "*.xib",
+    "*.storyboard",
+    "*.plist",
+    "*.properties"
+  ],
+  "import": [
+    "@cspell/dict-software-terms/cspell-ext.json",
+    "@cspell/dict-dart/cspell-ext.json",
+    "@cspell/dict-flutter/cspell-ext.json",
+    "@cspell/dict-sql/cspell-ext.json"
+  ]
 }
