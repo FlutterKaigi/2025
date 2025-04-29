@@ -16,7 +16,7 @@ const site = (
 final event = (
   title: 'FlutterKaigi 2025',
   // FIXME 正しい日付を入れる
-  date: DateTime.utc(2038, 11).toLocal(),
+  date: DateTime.parse('2038-11-01T10:00:00+0900').toLocal(),
   place: (name: (ja: '東京', en: 'Tokyo'), url: 'https://example.com'),
   blog: (
     sponsorship: (
@@ -28,19 +28,19 @@ final event = (
   schedule: [
     (
       title: (ja: 'スポンサー募集開始', en: null),
-      date: DateTime.utc(2038, 1, 1).toLocal(),
+      date: DateTime.parse('2038-01-01T12:00:00+0900').toLocal(),
     ),
     (
       title: (ja: 'プロポーザル募集開始', en: null),
-      date: DateTime.utc(2038, 1, 2).toLocal(),
+      date: DateTime.parse('2038-01-02T12:00:00+0900').toLocal(),
     ),
     (
       title: (ja: 'チケット販売開始', en: null),
-      date: DateTime.utc(2038, 1, 3).toLocal(),
+      date: DateTime.parse('2038-01-03T12:00:00+0900').toLocal(),
     ),
     (
       title: (ja: 'FlutterKaigi 2025当日', en: null),
-      date: DateTime.utc(2038, 11, 1).toLocal(),
+      date: DateTime.parse('2038-01-04T12:00:00+0900').toLocal(),
     ),
   ],
 );
