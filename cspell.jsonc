@@ -19,8 +19,6 @@
         "tfbackend"
     ],
     "ignorePaths": [
-        "node_modules",
-        ".dart_tool",
         "*.lock",
         ".editorconfig",
         ".tool-versions",
