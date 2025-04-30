@@ -18,7 +18,9 @@
     "tfbackend",
     // Dart web
     "HTMLUListElement",
-    "HTMLLIElement"
+    "HTMLLIElement",
+    // PostgreSQL
+    "plpgsql"
   ],
   "ignorePaths": [
     "node_modules",
@@ -33,7 +35,8 @@
     "*.xib",
     "*.storyboard",
     "*.plist",
-    "*.properties"
+    "*.properties",
+    "supabase/migrations"
   ],
   "import": [
     "@cspell/dict-software-terms/cspell-ext.json",
