@@ -34,28 +34,8 @@ bun run supabase start
 
 ### スキーマ管理方法
 
-このプロジェクトでは宣言的なスキーマ管理を採用しています。スキーマは`supabase/schemas`ディレクトリに定義され、マイグレーションは`supabase/migrations`ディレクトリに生成されます。
+スキーマの管理方法については、[supabase/migrations/README.md](migrations/README.md)を参照してください
 
-#### 既存のスキーマを更新する場合
+### 単体テストの記載方法
 
-1. ローカル環境を停止する
-
-   ```bash
-   bun run supabase stop
-   ```
-
-1. スキーマファイルを編集する
-
-1. マイグレーションファイルを生成する
-
-   ```bash
-   bun run supabase db diff -f update_schema
-   ```
-
-1. 生成されたマイグレーションファイルを確認する
-
-1. ローカル環境を起動し、マイグレーションを適用する
-
-   ```bash
-   bun run supabase start && bun run supabase migration up
-   ```
+単体テストの記載については、[supabase/tests/README.md](migrations/README.md)を参照してください
