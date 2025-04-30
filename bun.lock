@@ -9,7 +9,7 @@
         "@cspell/dict-software-terms": "^5.0.5",
         "@cspell/dict-sql": "^2.2.0",
         "cspell": "^8.19.1",
-        "supabase": "2.20.12",
+        "supabase": "^2.20.12",
       },
     },
   },
