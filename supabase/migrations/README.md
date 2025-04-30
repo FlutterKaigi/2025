@@ -8,7 +8,7 @@
 
 ## スキーマ定義手段について
 
-1. `bun run supabase top` でローカルデータベースを停止します
+1. `bun run supabase stop` でローカルデータベースを停止します
 1. `supabase/schemas`ディレクトリ配下にテーブル定義を追加/削除/変更する
 1. `bun run supabase db diff -f [name]`でマイグレーションファイルを作成します
 
