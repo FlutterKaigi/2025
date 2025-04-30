@@ -35,7 +35,3 @@ bun run supabase start
 ### スキーマ管理方法
 
 スキーマの管理方法については、[supabase/migrations/README.md](migrations/README.md)を参照してください
-
-### 単体テストの記載方法
-
-単体テストの記載については、[supabase/tests/README.md](migrations/README.md)を参照してください
