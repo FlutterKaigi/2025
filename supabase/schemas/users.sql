@@ -10,8 +10,7 @@ CREATE TYPE public.role AS ENUM (
 CREATE TABLE public.users (
   id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
   role public.role NOT NULL,
-  created_at TIMESTAMP DEFAULT now() NOT NULL,
-  updated_at TIMESTAMP DEFAULT now() NOT NULL
+  created_at TIMESTAMP DEFAULT now() NOT NULL
 );
 
 ALTER TABLE public.users ENABLE ROW LEVEL SECURITY;
