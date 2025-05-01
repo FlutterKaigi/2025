@@ -34,9 +34,21 @@
 
     ```yaml
     include: package:flutterkaigi_lints/analysis_options.yaml
+
+    custom_lint:
+      rules:
+        - avoid_hardcoded_color: false
+        - avoid_hardcoded_japanese: false
     ```
 
 1. 準備OKです! 開発頑張ってください💪
 
 [`altive_lints`]: https://pub.dev/packages/altive_lints
 [`custom_lint`]: https://pub.dev/packages/custom_lint
+
+## Q&A
+
+### なぜ利用先プロジェクトの`analysis_options.yaml`にも`custom_lint`の`rules`を記載するのか?
+
+A. `flutterkaigi_lints/lib/analysis_options.yaml`にも同様の項目を記載していますが、custom_lintが動く時に利用先のプロジェクトにある`analysis_options.yaml`の`custom_lint`オブジェクトのみを参照するためです。
+それぞれのパッケージの`analysis_options.yaml`に`custom_lint`の`rules`を記載しない場合、`avoid_hardcoded_japanese`等のルールが無視されず警告されます。
