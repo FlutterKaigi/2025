@@ -17,3 +17,142 @@ melos:
   ide:
     intellij:
       enabled: false
+
+  scripts:
+    gen:
+      description: build_runner と l10n の生成コマンドを実行します。
+      steps:
+        - gen:l10n
+        - gen:build
+    gen:build:
+      description: build_runner を使用してコードを生成します。
+      run: dart run build_runner build -d
+      exec:
+        orderDependents: true
+      packageFilters:
+        dependsOn: build_runner
+    gen:build:watch:
+      description: build_runner watch を使用して、変更箇所を検知しつつコードを生成します。
+      run: dart run build_runner watch -d
+      exec:
+        orderDependents: true
+      packageFilters:
+        dependsOn: build_runner
+    gen:l10n:
+      description: 多言語対応のためのローカライゼーションファイルを生成します。
+      run: flutter gen-l10n
+      exec:
+        orderDependents: true
+      packageFilters:
+        dependsOn: flutter_localizations
+
+    gen:diff:head:
+      description: 未コミットの差分パッケージのみ build_runner と l10n の生成コマンドを実行します。
+      steps:
+        - gen:build:diff:head
+        - gen:l10n:diff:head
+    gen:build:diff:head:
+      description: 未コミットの差分パッケージのみ build_runner を使用してコードを生成します。
+      run: dart run build_runner build -d
+      exec:
+        orderDependents: true
+      packageFilters:
+        dependsOn: build_runner
+        diff: "" # --diff=HEAD のワークアラウンド https://github.com/invertase/melos/issues/759
+    gen:l10n:diff:head:
+      description: 未コミットの差分パッケージのみ多言語対応のためのローカライゼーションファイルを生成します。
+      run: flutter gen-l10n
+      exec:
+        orderDependents: true
+      packageFilters:
+        dependsOn: flutter_localizations
+        diff: "" # --diff=HEAD のワークアラウンド https://github.com/invertase/melos/issues/759
+
+    gen:diff:main:
+      description: main ブランチと差分のあるパッケージのみ build_runner と l10n の生成コマンドを実行します。
+      steps:
+        - gen:build:diff:main
+        - gen:l10n:diff:main
+    gen:build:diff:main:
+      description: main ブランチと差分のあるパッケージのみ build_runner を使用してコードを生成します。
+      run: dart run build_runner build -d
+      exec:
+        orderDependents: true
+      packageFilters:
+        dependsOn: build_runner
+        diff: origin/main...HEAD
+    gen:l10n:diff:main:
+      description: main ブランチと差分のあるパッケージのみ多言語対応のためのローカライゼーションファイルを生成します。
+      run: flutter gen-l10n
+      exec:
+        orderDependents: true
+      packageFilters:
+        dependsOn: flutter_localizations
+        diff: origin/main...HEAD
+
+    fix:
+      exec: dart fix --apply lib
+      description: Run dart fix.
+      packageFilters:
+        dirExists: lib
+    fix:check:
+      exec: dart fix --dry-run lib
+      description: Check dart fix.
+      packageFilters:
+        dirExists: lib
+    fix:custom:
+      description: すべてのパッケージに custom_lint の fix を実行します。
+      exec: dart run custom_lint --fix
+      packageFilters:
+        dirExists: lib
+        dependsOn: custom_lint
+    format:
+      exec: >-
+        find lib -name "*.dart"
+        -not -path "*/\.*"
+        -not -path "*/build/*"
+        -not -path "*/generated/*"
+        -not -name "*.g.dart"
+        -not -name "*.freezed.dart"
+        -not -name "*.gen.dart" | xargs dart format
+      description: Run format.
+      packageFilters:
+        dirExists: lib
+    format:check:
+      exec: >-
+        find lib -name "*.dart"
+        -not -path "*/\.*"
+        -not -path "*/build/*"
+        -not -path "*/generated/*"
+        -not -name "*.g.dart"
+        -not -name "*.freezed.dart"
+        -not -name "*.gen.dart" | xargs dart format --output=none --set-exit-if-changed
+      description: Check format.
+      packageFilters:
+        dirExists: lib
+
+    test:
+      description: すべてのパッケージのテストを実行します。
+      steps:
+        - test:dart
+        - test:flutter
+    test:dart:
+      description: Dart パッケージのテストを実行します。
+      run: dart test
+      exec:
+        concurrency: 1
+      packageFilters:
+        dependsOn: test
+        dirExists: test
+      env:
+        MELOS_TEST: true
+    test:flutter:
+      description: Flutter パッケージのテストを実行します。
+      run: flutter test
+      exec:
+        concurrency: 1
+      packageFilters:
+        dependsOn: flutter_test
+        dirExists: test
+      env:
+        MELOS_TEST: true
