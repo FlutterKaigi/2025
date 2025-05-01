@@ -1,0 +1,3 @@
+*.*.dart linguist-generated=true
+worker-configuration.d.ts linguist-generated=true
+*.lock linguist-generated=true
