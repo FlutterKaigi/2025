@@ -1,3 +1,3 @@
-import './path.dart';
+import 'package:flutterkaigi_2025_website/src/path.dart';
 
-get currentPath => Path([]);
+Path get currentPath => Path([]);

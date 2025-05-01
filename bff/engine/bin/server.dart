@@ -33,7 +33,7 @@ Future<void> main() async {
     );
 
     cfDartWorkers.response(jsResponse);
-  } catch (e) {
-    print("Error: $e");
+  } on Exception catch (e) {
+    print('Error: $e');
   }
 }

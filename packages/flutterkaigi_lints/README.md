@@ -39,6 +39,7 @@
       rules:
         - avoid_hardcoded_color: false
         - avoid_hardcoded_japanese: false
+    - prefer_clock_now: false
     ```
 
 1. 準備OKです! 開発頑張ってください💪
