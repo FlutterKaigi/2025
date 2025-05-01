@@ -10,41 +10,145 @@ HTMLElement basicLayout(HTMLElement child) =>
       ..style.flexDirection = 'column'
       ..style.width = 'auto'
       ..style.minHeight = '100vh'
+      ..appendAll([_header, child..style.flex = '1', _footer]);
+
+get _header =>
+    HTMLElement.header()
+      ..style.position = 'sticky'
+      ..style.top = '0'
+      ..style.zIndex = '10'
+      ..style.backgroundColor = 'var(--background-color)'
+      ..style.display = 'flex'
+      ..style.justifyContent = 'end'
+      ..style.gap = '1rem'
+      ..style.padding = '1rem'
+      ..style.margin = '0 0 1rem'
+      ..style.borderBottom = '1px solid var(--border-color)'
       ..append(
-        HTMLElement.header()
+        HTMLUListElement()
           ..style.display = 'flex'
-          ..style.justifyContent = 'end'
-          ..style.gap = '0.5rem'
-          ..style.padding = '1rem'
-          ..append(
-            user.lang == Language.ja
-                ? (HTMLSpanElement()..textContent = contents.lang.ja)
-                : internalLink(
-                  contents.lang.ja,
-                  path: currentPath.withLang(Language.ja),
-                ),
-          )
-          ..append(
-            user.lang == Language.en
-                ? (HTMLSpanElement()..textContent = contents.lang.en)
-                : internalLink(
-                  contents.lang.en,
-                  path: currentPath.withLang(Language.en),
-                ),
-          ),
-      )
-      ..append(child..style.flex = '1')
-      ..append(
-        HTMLElement.footer()
-          ..style.display = 'flex'
-          ..style.justifyContent = 'center'
-          ..style.gap = '1rem'
-          ..style.padding = '1rem'
-          ..append(
-            HTMLSpanElement()
-              ..textContent = '© ${site.since} ${site.organizer}',
-          )
-          ..append(
-            externalLink(text(contents.repository), url: site.repository.url),
-          ),
+          ..style.flexDirection = 'row'
+          ..style.alignItems = 'center'
+          ..style.gap = '0.5em'
+          ..style.fontSize = 'inherit'
+          ..appendAll([
+            _languageLink(Language.ja, contents.lang.ja),
+            _languageLink(Language.en, contents.lang.en),
+          ]),
       );
+
+_languageLink(Language lang, String title) =>
+    user.lang == lang
+        ? (HTMLLIElement()..textContent = title)
+        : (HTMLLIElement()
+          ..append(internalLink(title, path: currentPath.withLang(lang))));
+
+get _footer =>
+    HTMLElement.footer()
+      ..style.display = 'flex'
+      ..style.flexDirection = 'column'
+      ..style.justifyContent = 'center'
+      ..style.alignItems = 'center'
+      ..style.gap = '1rem'
+      ..style.margin = '1rem'
+      ..style.padding = '1rem 0 0'
+      ..style.borderTop = '1px solid var(--border-color)'
+      ..append(_pastEvents)
+      ..append(_snsLinks)
+      ..append(_externalLinks)
+      ..append(_copyright);
+
+get _pastEvents =>
+    HTMLUListElement()
+      ..style.display = 'flex'
+      ..style.flexDirection = 'row'
+      ..style.flexWrap = 'wrap'
+      ..style.justifyContent = 'center'
+      ..style.gap = '1em'
+      ..appendAll(
+        event.pastEvents.map(
+          (event) =>
+              HTMLLIElement()
+                ..append(externalLink(event.title, url: event.url)),
+        ),
+      );
+
+get _snsLinks =>
+    HTMLUListElement()
+      ..style.display = 'flex'
+      ..style.flexDirection = 'row'
+      ..style.flexWrap = 'wrap'
+      ..style.justifyContent = 'center'
+      ..style.gap = '1em'
+      ..style.fontSize = 'inherit'
+      ..appendAll(
+        site.snsLinks.map(
+          (link) =>
+              HTMLLIElement()
+                ..style.display = 'flex'
+                ..style.flexDirection = 'row'
+                ..style.justifyContent = 'center'
+                ..style.alignItems = 'center'
+                ..style.gap = '0.1em'
+                ..style.fontSize = 'inherit'
+                ..appendAll([
+                  HTMLImageElement()
+                    ..style.height = '1.5em'
+                    ..style.verticalAlign = 'middle'
+                    ..alt = '${link.title} logo'
+                    ..src = link.icon,
+                  externalLink(link.title, url: link.url),
+                ]),
+        ),
+      );
+
+get _externalLinks =>
+    HTMLUListElement()
+      ..style.display = 'flex'
+      ..style.flexDirection = 'row'
+      ..style.flexWrap = 'wrap'
+      ..style.justifyContent = 'center'
+      ..style.gap = '1em'
+      ..style.fontSize = 'inherit'
+      ..appendAll(
+        site.externalLinks.map(
+          (link) =>
+              HTMLLIElement()
+                ..style.display = 'flex'
+                ..style.flexDirection = 'row'
+                ..style.justifyContent = 'center'
+                ..style.alignItems = 'center'
+                ..style.gap = '0.1em'
+                ..style.fontSize = 'inherit'
+                ..append(externalLink(text(link.title), url: text(link.url))),
+        ),
+      );
+
+get _copyright =>
+    HTMLUListElement()
+      ..style.display = 'flex'
+      ..style.flexDirection = 'column'
+      ..style.justifyContent = 'center'
+      ..style.alignItems = 'center'
+      ..style.gap = '0.5em'
+      ..style.fontSize = 'inherit'
+      ..appendAll([
+        HTMLLIElement()
+          ..style.fontSize = 'inherit'
+          ..textContent = '© ${site.since} - ${site.until} ${site.organizer}',
+        HTMLLIElement()
+          ..style.fontSize = '0.8em'
+          ..textContent =
+              'Flutter and the related logo are trademarks of Google LLC. FlutterKaigi is not affiliated with or otherwise sponsored by Google LLC.',
+        HTMLLIElement()
+          ..style.fontSize = '0.8em'
+          ..appendAll([
+            Text('The Flutter name and the Flutter logo '),
+            HTMLImageElement()
+              ..style.height = '0.8em'
+              ..style.verticalAlign = 'middle'
+              ..alt = 'Flutter logo'
+              ..src = '/img/icon_flutter.svg',
+            Text(' are trademarks of Google LLC.'),
+          ]),
+      ]);

@@ -1,6 +1,15 @@
+import 'dart:js_interop';
 import 'package:web/web.dart';
-import './path.dart' show Path;
 import 'package:flutterkaigi_2025_website/app.dart' show rerendering;
+import './path.dart' show Path;
+
+extension HTMLElementAppendAll on HTMLElement {
+  void appendAll(Iterable<JSAny> elements) {
+    for (final element in elements) {
+      append(element);
+    }
+  }
+}
 
 /// サイト外リンク
 HTMLAnchorElement externalLink(
