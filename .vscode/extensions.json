@@ -1,5 +1,11 @@
 {
-    "recommendations": [
-        "streetsidesoftware.code-spell-checker",
-    ],
+  "recommendations": [
+    "streetsidesoftware.code-spell-checker",
+    "denoland.vscode-deno",
+    "dart-code.dart-code",
+    "dart-code.flutter",
+    "djbkwon.flutter-dependency-docs",
+    "renesaarsoo.sql-formatter-vsc",
+    "hverlin.mise-vscode"
+  ]
 }
