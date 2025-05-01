@@ -12,6 +12,8 @@ workspace:
   # apps
   - apps/dashboard
   # packages
+  - packages/flutterkaigi_lints
+  # bff
   - bff/engine
 
 melos:
