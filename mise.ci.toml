@@ -1,5 +1,10 @@
 [env]
+'_'.source = "scripts/export_sops_key_path.sh"
 '_'.file.path = ".env.json"
+
+CLOUDFLARE_ACCOUNT_ID = "{{env.TF_VAR_CLOUDFLARE_ACCOUNT_ID}}"
+CLOUDFLARE_API_TOKEN = "{{env.TF_VAR_CLOUDFLARE_API_TOKEN}}"
+CLOUDFLARE_ZONE_ID = "{{env.TF_VAR_CLOUDFLARE_FLUTTERKAIGI_ZONE_ID}}"
 
 [settings.sops]
 age_key_file = "~/.config/mise/flutterkaigi.txt"
