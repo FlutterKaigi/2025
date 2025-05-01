@@ -17,3 +17,31 @@ melos:
   ide:
     intellij:
       enabled: false
+
+  scripts:
+    gen:
+      description: build_runner と l10n の生成コマンドを実行します。
+      steps:
+        - gen:l10n
+        - gen:build
+    gen:build:
+      description: build_runner を使用してコードを生成します。
+      run: dart run build_runner build -d
+      exec:
+        orderDependents: true
+      packageFilters:
+        dependsOn: build_runner
+    gen:build:watch:
+      description: build_runner watch を使用して、変更箇所を検知しつつコードを生成します。
+      run: dart run build_runner watch -d
+      exec:
+        orderDependents: true
+      packageFilters:
+        dependsOn: build_runner
+    gen:l10n:
+      description: 多言語対応のためのローカライゼーションファイルを生成します。
+      run: flutter gen-l10n
+      exec:
+        orderDependents: true
+      packageFilters:
+        dependsOn: flutter_localizations
