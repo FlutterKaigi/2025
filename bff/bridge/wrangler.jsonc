@@ -1,0 +1,24 @@
+{
+	"$schema": "https://unpkg.com/wrangler@latest/config-schema.json",
+	"name": "flutterkaigi-2025-bff",
+	"main": "src/index.ts",
+	"compatibility_date": "2025-04-30",
+	"observability": {
+		"enabled": true
+	},
+	"placement": {
+		"mode": "smart"
+	},
+	"rules": [
+		{
+			"type": "CompiledWasm",
+			"globs": ["**/*.wasm"],
+			"fallthrough": true
+		}
+	],
+	"build": {
+		"command": "dart compile wasm ./lib/main.dart -o ../build/main.wasm -O4",
+		"cwd": "../engine",
+		"watch_dir": ["../engine", "."]
+	}
+}
