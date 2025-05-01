@@ -62,7 +62,8 @@
             "name": "supabase-term",
             "description": "Supabase related terms",
             "words": [
-                "Supabase"
+                "Supabase",
+                "plpgsql"
             ]
         },
         {
@@ -96,7 +97,9 @@
         "*.xib",
         "*.storyboard",
         "*.plist",
-        "*.properties"
+        "*.properties",
+        "supabase/migrations",
+        "supabase/config.toml"
     ],
     "import": [
         "@cspell/dict-software-terms/cspell-ext.json",
