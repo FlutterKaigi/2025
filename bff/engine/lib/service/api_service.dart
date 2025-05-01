@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shelf/shelf.dart';
@@ -12,11 +14,14 @@ class ApiService {
   @Route.get('/')
   Future<Response> _getIndex(Request request) async {
     return Response.ok(
-      'Hello! I am FlutterKaigi 2025 BFF.\n'
-      'Requested at: ${DateTime.now().toIso8601String()}',
+      jsonEncode({
+        'message': 'Hello! I am FlutterKaigi 2025 BFF.',
+        'requested_at': DateTime.now().toIso8601String(),
+        'request_headers': request.headers,
+        'request_url': request.requestedUri.toString(),
+      }),
     );
   }
 
   Router get router => _$ApiServiceRouter(this);
-
 }
