@@ -12,5 +12,8 @@
     "@cspell/dict-sql": "^2.2.0",
     "cspell": "^8.19.1",
     "supabase": "2.22.6"
-  }
+  },
+  "workspaces": [
+    "bff"
+  ]
 }
