@@ -130,3 +130,29 @@ melos:
       description: Check format.
       packageFilters:
         dirExists: lib
+
+    test:
+      description: すべてのパッケージのテストを実行します。
+      steps:
+        - test:dart
+        - test:flutter
+    test:dart:
+      description: Dart パッケージのテストを実行します。
+      run: dart test
+      exec:
+        concurrency: 1
+      packageFilters:
+        dependsOn: test
+        dirExists: test
+      env:
+        MELOS_TEST: true
+    test:flutter:
+      description: Flutter パッケージのテストを実行します。
+      run: flutter test
+      exec:
+        concurrency: 1
+      packageFilters:
+        dependsOn: flutter_test
+        dirExists: test
+      env:
+        MELOS_TEST: true
