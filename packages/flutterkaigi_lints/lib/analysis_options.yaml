@@ -41,7 +41,7 @@ custom_lint:
   rules:
     - avoid_hardcoded_color: false
     - avoid_hardcoded_japanese: false
-
+    - prefer_clock_now: false
 
 linter:
   rules:
