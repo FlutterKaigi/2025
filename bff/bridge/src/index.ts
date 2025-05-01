@@ -22,7 +22,8 @@ export default {
         dartInstance = await instantiate(mod);
       }
 
-      const result = await new Promise<Response>((resolve) => {
+      // __dart_cf_workers.response関数経由で Promiseが完了するのを待つ
+      return new Promise<Response>((resolve) => {
         globalThis.__dart_cf_workers = () => ({
           response: (response: Response) => resolve(response),
           request: request,
@@ -33,7 +34,6 @@ export default {
         });
         invoke(dartInstance, request, env, ctx);
       });
-      return result;
     } catch (e) {
       console.error(e);
       return new Response("Internal Server Error", {
