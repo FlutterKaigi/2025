@@ -98,7 +98,8 @@
         "*.storyboard",
         "*.plist",
         "*.properties",
-        "supabase/migrations"
+        "supabase/migrations",
+        "supabase/config.toml"
     ],
     "import": [
         "@cspell/dict-software-terms/cspell-ext.json",
