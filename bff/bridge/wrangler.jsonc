@@ -17,8 +17,8 @@
 		}
 	],
 	"build": {
-		"command": "dart compile wasm ./lib/main.dart -o ../build/main.wasm -O4",
+		"command": "dart compile wasm bin/server.dart -o ../bridge/engine-artifact/main.wasm -O4",
 		"cwd": "../engine",
-		"watch_dir": ["../engine", "."]
+		"watch_dir": ["../engine", "src",]
 	}
 }

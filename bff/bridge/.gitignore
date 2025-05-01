@@ -170,3 +170,7 @@ dist
 
 .dev.vars
 .wrangler/
+
+# engine wasm
+
+engine-artifact/
