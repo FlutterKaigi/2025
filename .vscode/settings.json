@@ -1,0 +1,52 @@
+{
+  "dart.runPubGetOnPubspecChanges": "never",
+  "dart.flutterSdkPath": "/Users/r_onoue/.local/share/mise/installs/flutter/3.29.3-stable",
+  "dart.sdkPath": "~/.local/share/mise/installs/flutter/3.29.3-stable",
+  "search.exclude": {
+    "**/node_modules": true
+  },
+  "files.watcherExclude": {
+    "**/node_modules": true
+  },
+  "files.readonlyInclude": {
+    "**/node_modules/**/*": true,
+    "**/*.*.dart": true,
+    "**/*.lock": true,
+    "**/pnpm-lock.yaml": true
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit"
+  },
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "*.dart": "$(capture).*.dart",
+    "pubspec.yaml": "pubspec.lock"
+  },
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "files.associations": {
+    "*.json": "json"
+  },
+  "deno.enable": true,
+  "editor.formatOnSave": true,
+  "[json][jsonc][yaml][markdown]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  },
+  "[typescript][javascript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[sql]": {
+    "editor.defaultFormatter": "ReneSaarsoo.sql-formatter-vsc"
+  },
+  "SQL-Formatter-VSCode.expressionWidth": 120,
+  "SQL-Formatter-VSCode.dialect": "postgresql",
+  "SQL-Formatter-VSCode.keywordCase": "upper",
+  "SQL-Formatter-VSCode.dataTypeCase": "lower",
+  "SQL-Formatter-VSCode.functionCase": "lower",
+  "SQL-Formatter-VSCode.identifierCase": "lower",
+  "bun.runtime": "/Users/r_onoue/.local/share/mise/shims/bun",
+  "deno.path": "/Users/r_onoue/.local/share/mise/shims/deno",
+  "debug.javascript.defaultRuntimeExecutable": {
+    "pwa-node": "/Users/r_onoue/.local/share/mise/shims/node"
+  }
+}
