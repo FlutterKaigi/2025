@@ -1,6 +1,7 @@
 import 'package:js_interop_utils/js_interop_utils.dart';
 import 'package:web/web.dart' as web;
 
+/// JS側から、リクエストに関する情報等を受け取るための関数
 @JS('__dart_cf_workers')
 external CfDartWorkers getCfDartWorkers();
 
@@ -10,6 +11,8 @@ extension type CfDartWorkers._(JSObject _) implements JSObject {
   external web.Request request;
   external JSObject env;
   external JSExecutionContext ctx;
+
+  /// Dart側でのリクエストハンドリングが完了したら、レスポンスをこの関数を通じてJS側に渡す
   external void response(web.Response response);
 }
 
