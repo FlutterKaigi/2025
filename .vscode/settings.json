@@ -21,7 +21,8 @@
 	"files.readonlyInclude": {
 		"**/node_modules/**/*": true,
 		"**/*.*.dart": true,
-		"**/*.lock": true
+		"**/*.lock": true,
+    "worker-configuration.d.ts": true
 	},
 	"editor.codeActionsOnSave": {
 		"source.fixAll": "explicit"
