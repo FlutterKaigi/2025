@@ -21,8 +21,7 @@
 	"files.readonlyInclude": {
 		"**/node_modules/**/*": true,
 		"**/*.*.dart": true,
-		"**/*.lock": true,
-		"**/pnpm-lock.yaml": true
+		"**/*.lock": true
 	},
 	"editor.codeActionsOnSave": {
 		"source.fixAll": "explicit"
