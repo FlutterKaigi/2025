@@ -1,44 +1,107 @@
 {
-  "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
-  "version": "0.2",
-  "words": [
-    "allprojects",
-    "bunx",
-    "CODEOWNERS",
-    "cupertino",
-    "FlutterKaigi",
-    "marocchino",
-    "Subproject",
-    "subprojects",
-    "Supabase",
-    "xcassets",
-    "xcconfig",
-    "xcodeproj",
-    "xcworkspace",
-    "tfbackend",
-    // Dart web
-    "HTMLUListElement",
-    "HTMLLIElement"
-  ],
-  "ignorePaths": [
-    "node_modules",
-    ".dart_tool",
-    "*.lock",
-    ".editorconfig",
-    ".tool-versions",
-    ".github/CODEOWNERS",
-    "Runner.xcodeproj",
-    "Runner.xcworkspace",
-    "*.xcconfig",
-    "*.xib",
-    "*.storyboard",
-    "*.plist",
-    "*.properties"
-  ],
-  "import": [
-    "@cspell/dict-software-terms/cspell-ext.json",
-    "@cspell/dict-dart/cspell-ext.json",
-    "@cspell/dict-flutter/cspell-ext.json",
-    "@cspell/dict-sql/cspell-ext.json"
-  ]
+    "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
+    "version": "0.2",
+    "useGitignore": true,
+    "dictionaryDefinitions": [
+        {
+            "name": "android-term",
+            "description": "Android related terms",
+            "words": [
+                "allprojects",
+                "Subproject",
+                "subprojects"
+            ]
+        },
+        {
+            "name": "bun-term",
+            "description": "Bun related terms",
+            "words": [
+                "bunx"
+            ]
+        },
+        {
+            "name": "dart-term",
+            "description": "Dart related terms",
+            "words": [
+                // Dart web
+                "HTMLUListElement",
+                "HTMLLIElement"
+            ]
+        },
+        {
+            "name": "flutter-term",
+            "description": "Flutter related terms",
+            "words": [
+                "cupertino"
+            ]
+        },
+        {
+            "name": "github-action-term",
+            "description": "GitHub Actions related terms",
+            "words": [
+                "stefanbuck",
+                "ghaction"
+            ]
+        },
+        {
+            "name": "ios-term",
+            "description": "iOS related terms",
+            "words": [
+                "xcassets",
+                "xcworkspace"
+            ]
+        },
+        {
+            "name": "project-term",
+            "description": "Project specific terms",
+            "words": [
+                "FlutterKaigi"
+            ]
+        },
+        {
+            "name": "supabase-term",
+            "description": "Supabase related terms",
+            "words": [
+                "Supabase"
+            ]
+        },
+        {
+            "name": "terraform-term",
+            "description": "Terraform related terms",
+            "words": [
+                "tfbackend",
+                "tflint",
+                "shunsuke",
+                "tfcmt"
+            ]
+        }
+    ],
+    "dictionaries": [
+        "android-term",
+        "bun-term",
+        "dart-term",
+        "flutter-term",
+        "github-action-term",
+        "ios-term",
+        "project-term",
+        "supabase-term",
+        "terraform-term"
+    ],
+    "ignorePaths": [
+        "cspell.jsonc",
+        "*.lock",
+        "Runner.xcodeproj",
+        "Runner.xcworkspace",
+        "*.xcconfig",
+        "*.xib",
+        "*.storyboard",
+        "*.plist",
+        "*.properties"
+    ],
+    "import": [
+        "@cspell/dict-software-terms/cspell-ext.json",
+        "@cspell/dict-dart/cspell-ext.json",
+        "@cspell/dict-flutter/cspell-ext.json",
+        "@cspell/dict-sql/cspell-ext.json"
+    ]
 }
