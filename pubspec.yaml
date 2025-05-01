@@ -89,3 +89,44 @@ melos:
       packageFilters:
         dependsOn: flutter_localizations
         diff: origin/main...HEAD
+
+    fix:
+      exec: dart fix --apply lib
+      description: Run dart fix.
+      packageFilters:
+        dirExists: lib
+    fix:check:
+      exec: dart fix --dry-run lib
+      description: Check dart fix.
+      packageFilters:
+        dirExists: lib
+    fix:custom:
+      description: すべてのパッケージに custom_lint の fix を実行します。
+      exec: dart run custom_lint --fix
+      packageFilters:
+        dirExists: lib
+        dependsOn: custom_lint
+    format:
+      exec: >-
+        find lib -name "*.dart"
+        -not -path "*/\.*"
+        -not -path "*/build/*"
+        -not -path "*/generated/*"
+        -not -name "*.g.dart"
+        -not -name "*.freezed.dart"
+        -not -name "*.gen.dart" | xargs dart format
+      description: Run format.
+      packageFilters:
+        dirExists: lib
+    format:check:
+      exec: >-
+        find lib -name "*.dart"
+        -not -path "*/\.*"
+        -not -path "*/build/*"
+        -not -path "*/generated/*"
+        -not -name "*.g.dart"
+        -not -name "*.freezed.dart"
+        -not -name "*.gen.dart" | xargs dart format --output=none --set-exit-if-changed
+      description: Check format.
+      packageFilters:
+        dirExists: lib
