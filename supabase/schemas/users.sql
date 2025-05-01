@@ -1,15 +1,6 @@
-CREATE TYPE public.role AS ENUM (
-  'admin',
-  'staff',
-  'sponsor',
-  'speaker',
-  'viewer',
-  'attendee'
-);
 
 CREATE TABLE public.users (
   id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
-  role public.role NOT NULL,
   created_at TIMESTAMP DEFAULT now() NOT NULL
 );
 
