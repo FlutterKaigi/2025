@@ -99,7 +99,8 @@
         "*.plist",
         "*.properties",
         "supabase/migrations",
-        "supabase/config.toml"
+        "supabase/config.toml",
+        "*.svg"
     ],
     "import": [
         "@cspell/dict-software-terms/cspell-ext.json",
