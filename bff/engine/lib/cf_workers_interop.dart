@@ -21,7 +21,7 @@ extension type JSExecutionContext._(JSObject _) implements JSObject {
   external void passThroughOnException();
 }
 
-extension JSExectionContextToDart on JSExecutionContext {
+extension JSExecutionContextToDart on JSExecutionContext {
   ExecutionContext get toDart => ExecutionContext._(this);
 }
 
