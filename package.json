@@ -14,6 +14,9 @@
     "supabase": "2.22.6"
   },
   "workspaces": [
-    "bff"
+    "bff/bridge"
+  ],
+  "trustedDependencies": [
+    "@biomejs/biome"
   ]
 }
