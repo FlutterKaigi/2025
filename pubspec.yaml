@@ -12,6 +12,7 @@ workspace:
   # apps
   - apps/dashboard
   # packages
+  - bff/engine
 
 melos:
   ide:
