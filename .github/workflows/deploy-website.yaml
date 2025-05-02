@@ -22,9 +22,6 @@ concurrency:
   group: "deploy-website"
   cancel-in-progress: false
 
-env:
-  MISE_ENV: ci
-
 jobs:
   define-environment:
     runs-on: ubuntu-24.04
@@ -101,6 +98,8 @@ jobs:
       - define-environment
       - build-website
     timeout-minutes: 5
+    env:
+      MISE_ENV: ci
     outputs:
       preview_log: ${{ steps.deploy-preview.outputs.LOG }}
       production_log: ${{ steps.deploy-production.outputs.LOG }}
@@ -136,7 +135,7 @@ jobs:
         id: deploy-preview
         working-directory: apps/website
         run: |
-          LOG=$(bun run wrangler versions upload)
+          LOG=$(bunx wrangler versions upload)
           echo "$LOG"
           echo "LOG<<EOF" >> $GITHUB_OUTPUT
           echo "$LOG" >> $GITHUB_OUTPUT
@@ -147,7 +146,7 @@ jobs:
         id: deploy-production
         working-directory: apps/website
         run: |
-          LOG=$(bun run wrangler deploy)
+          LOG=$(bunx wrangler deploy)
           echo "$LOG"
           echo "LOG<<EOF" >> $GITHUB_OUTPUT
           echo "$LOG" >> $GITHUB_OUTPUT
