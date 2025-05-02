@@ -35,3 +35,10 @@ bun run supabase start
 ### スキーマ管理方法
 
 スキーマの管理方法については、[supabase/migrations/README.md](migrations/README.md)を参照してください
+
+
+## CI/CD
+
+- `supabase`ディレクトリへの変更を含むPRを作成すると、自動的にLint, ApplyのDry Runが行われます
+  - この際、PRのコメントには、Dry Runのログが表示されます
+  - mainブランチにマージされると、Production, Stagingのデータベースに適用されます
