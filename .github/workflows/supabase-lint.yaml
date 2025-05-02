@@ -27,7 +27,7 @@ jobs:
         run: bun install --frozen-lockfile
 
       - name: Start supabase Database
-        run: bunx supabase Start
+        run: bunx supabase start
 
       - name: Lint SQL
         run: bunx supabase lint
