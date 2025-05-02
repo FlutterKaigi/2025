@@ -131,13 +131,13 @@ jobs:
         id: extract-deployment-url
         run: |
           if [ -z "${{ steps.deploy-preview.outputs.LOG }}" ]; then
-            LOG=${{ steps.deploy-production.outputs.LOG }}
+            LOG="${{ steps.deploy-production.outputs.LOG }}"
           else
-            LOG=${{ steps.deploy-preview.outputs.LOG }}
+            LOG="${{ steps.deploy-preview.outputs.LOG }}"
           fi
 
           # `https://` を含む行を抽出し、DEPLOYMENT_URLに格納
-          DEPLOYMENT_URL=$(echo "$LOG" | grep -oP 'https://\S+')
+          DEPLOYMENT_URL=$(echo "$LOG" | grep -o 'https://[^ ]*')
           echo "DEPLOYMENT_URL=$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
 
       - name: Comment on PR (Preview)
