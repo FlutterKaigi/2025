@@ -34,32 +34,40 @@ jobs:
       - name: Lint SQL
         id: lint
         run: |
-          LOG=$(bunx supabase db lint)
-          echo "$LOG" > $GITHUB_OUTPUT
-          echo "log=$LOG" >> $GITHUB_OUTPUT
+          echo 'log<<EOF' | tee -a "$GITHUB_OUTPUT"
+          bunx supabase db lint | tee -a "$GITHUB_OUTPUT"
+          echo 'EOF' >> tee -a $GITHUB_OUTPUT
 
   supabase-apply-dry-run:
     name: Apply Supabase Database (Dry Run)
     runs-on: ubuntu-24.04
     outputs:
       log: ${{ steps.dry-run.outputs.log }}
+    env:
+      MISE_ENV: ci
     timeout-minutes: 5
     steps:
       # https://github.com/actions/checkout
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
+      # https://github.com/jdx/mise-action
+      - name: Install Mise dependencies
+        uses: jdx/mise-action@5083fe46898c414b2475087cc79da59e7da859e8 # v2.1.11
+        with:
+          install_args: "terraform bun"
+
       - name: Extract SOPS secrets
         run: |
           mkdir -p ~/.config/mise
           echo "${{ secrets.SOPS_FILE }}" > ~/.config/mise/flutterkaigi.txt
 
-      # https://github.com/jdx/mise-action
-      - name: Install Mise dependencies
-        uses: jdx/mise-action@5083fe46898c414b2475087cc79da59e7da859e8 # v2.1.11
-        with:
-          install: true
-          install_args: "bun terraform"
+      - name: Set environment variables
+        run: |
+          for line in $(mise env --dotenv); do
+            echo $line >> "$GITHUB_ENV"
+            echo "::add-mask::${line#*=}"
+          done
 
       - name: Extract backend.tfbackend
         working-directory: terraform/supabase
@@ -82,17 +90,27 @@ jobs:
       - name: Resolve bun dependencies
         run: bun install --frozen-lockfile
 
-      - name: Link Supabase Project
+      - name: Set database password
+        id: db-password
         run: |
-          bunx supabase link \
-            --project-ref ${{ job.get-supabase-staging-project-id.outputs.project_id }}
+          echo "password=$TF_VAR_SUPABASE_DB_PASSWORD_STAGING" >> $GITHUB_OUTPUT
+
+      - name: Link Supabase Project
+        env:
+          PROJECT_ID: ${{ steps.get-supabase-staging-project-id.outputs.project_id }}
+          SUPABASE_DB_PASSWORD: ${{ steps.db-password.outputs.password }}
+        run: |
+          mise exec -- bun x supabase link \
+              --project-ref $PROJECT_ID
 
       - name: Apply Supabase Database (Dry Run)
         id: dry-run
+        env:
+          SUPABASE_DB_PASSWORD: ${{ steps.db-password.outputs.password }}
         run: |
-          LOG=$(bun run supabase db push --dry-run)
-          echo "$LOG" > $GITHUB_OUTPUT
-          echo "log=$LOG" >> $GITHUB_OUTPUT
+          echo 'log<<EOF' | tee -a "$GITHUB_OUTPUT"
+          bunx supabase db push --dry-run | tee -a "$GITHUB_OUTPUT"
+          echo 'EOF' >> tee -a $GITHUB_OUTPUT
 
   comment-on-pr:
     name: Comment Dry Run Log on PR
