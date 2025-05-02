@@ -57,6 +57,8 @@ jobs:
     needs:
       - define-environment
     runs-on: ubuntu-24.04
+    outputs:
+      build_log: ${{ steps.build.outputs.LOG }}
     timeout-minutes: 5
     steps:
       # https://github.com/actions/checkout
@@ -74,8 +76,14 @@ jobs:
         run: dart pub get
 
       - name: Build Dart WebAssembly
+        id: build
         working-directory: apps/website
-        run: make all
+        run: |
+          LOG=$(make all)
+          echo "$LOG"
+          echo "LOG<<EOF" >> $GITHUB_OUTPUT
+          echo "$LOG" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Upload Dart website Artifacts
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
@@ -187,6 +195,14 @@ jobs:
 
           <details>
           <summary><h2>📦️ Build Logs</h2></summary>
+
+          ```log
+          ${{ needs.build-website.outputs.build_log }}
+          ```
+          </details>
+
+          <details>
+          <summary><h2>✈️ Deployment Logs</h2></summary>
 
           ```log
           ${{ steps.deploy-preview.outputs.LOG }}
