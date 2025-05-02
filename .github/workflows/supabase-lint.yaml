@@ -36,7 +36,7 @@ jobs:
         run: |
           LOG=$(bunx supabase db lint)
           echo "$LOG" > $GITHUB_OUTPUT
-          echo "LOG=$LOG" >> $GITHUB_OUTPUT
+          echo "log=$LOG" >> $GITHUB_OUTPUT
 
   supabase-apply-dry-run:
     name: Apply Supabase Database (Dry Run)
@@ -85,7 +85,7 @@ jobs:
         run: |
           LOG=$(bun run supabase db push --dry-run)
           echo "$LOG" > $GITHUB_OUTPUT
-          echo "LOG=$LOG" >> $GITHUB_OUTPUT
+          echo "log=$LOG" >> $GITHUB_OUTPUT
 
   comment-on-pr:
     name: Comment Dry Run Log on PR
