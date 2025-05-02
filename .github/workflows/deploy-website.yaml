@@ -144,25 +144,19 @@ jobs:
         if: github.event.inputs.environment != 'production'
         run: |
           COMMENT="### Preview Deployment
+          URL: ${{ steps.extract-deployment-url.outputs.DEPLOYMENT_URL }}
 
+          #### Build Logs
+          ```log
           ${{ steps.deploy-preview.outputs.LOG }}
+          ```"
           gh pr comment ${{ github.ref_name }} \
             --body "$COMMENT" \
             --edit-last \
             --create-if-none
 
       # TODO: Production Deploy時に、Slack通知を飛ばす
-      # - name: Comment on PR (Production)
-      #   if: github.event.inputs.environment == 'production'
-      #   run: |
-      #     COMMENT="### Production Deployment 🚀
 
-      #     ${{ steps.deploy-production.outputs.LOG }}
-      #     ${{ needs.start-deploy-website.outputs.deployment_id }}"
-      #     gh pr comment ${{ github.ref_name }} \
-      #       --body "$COMMENT" \
-      #       --edit-last \
-      #       --create-if-none
 
 
   update-deployment-status:
