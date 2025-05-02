@@ -1,0 +1,175 @@
+name: Deploy Website
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    paths:
+      - apps/website/**
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Deploy environment"
+        required: true
+        default: "preview"
+        type: choice
+        options:
+          - preview
+          - production
+
+concurrency:
+  group: "deploy-website"
+  cancel-in-progress: false
+
+jobs:
+  start-deploy-website:
+    if: github.event.inputs.environment == 'production'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 1
+    outputs:
+      deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+    steps:
+      # https://github.com/bobheadxi/deployments
+      - name: Start deployment
+        uses: bobheadxi/deployments@648679e8e4915b27893bd7dbc35cb504dc915bc8 # v1.5.0
+        id: deployment
+        with:
+          step: start
+          token: ${{ secrets.GITHUB_TOKEN }}
+          env: PR-${{ github.event.number }}-website
+          ref: ${{ github.head_ref}}
+
+  build-website:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      # https://github.com/actions/checkout
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      # https://github.com/jdx/mise-action
+      - name: Install Mise dependencies
+        uses: jdx/mise-action@5083fe46898c414b2475087cc79da59e7da859e8 # v2.1.11
+        with:
+          install_args: "flutter"
+
+      - name: Build Dart WebAssembly
+        working-directory: apps/website
+        run: make all
+
+      - name: Upload Dart website Artifacts
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: website-artifacts
+          path: apps/website/build
+
+
+  deploy-website:
+    runs-on: ubuntu-24.04
+    needs:
+      - build-website
+    timeout-minutes: 5
+    outputs:
+      preview_log: ${{ steps.deploy-preview.outputs.LOG }}
+      production_log: ${{ steps.deploy-production.outputs.LOG }}
+      deployment_url: ${{ steps.extract-deployment-url.outputs.DEPLOYMENT_URL }}
+    steps:
+      # https://github.com/actions/checkout
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Download Dart Website Artifacts
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: website-artifacts
+          path: apps/website/build
+
+      # https://github.com/jdx/mise-action
+      - name: Install Mise dependencies
+        uses: jdx/mise-action@5083fe46898c414b2475087cc79da59e7da859e8 # v2.1.11
+        with:
+          install_args: "bun"
+
+      - name: Copy mise.ci.yaml to mise.yaml
+        run: cat mise.ci.yaml >> mise.yaml
+
+      - name: Extract SOPS secrets
+        run: |
+          mkdir -p ~/.config/mise
+          echo "${{ secrets.SOPS_FILE }}" > ~/.config/mise/flutterkaigi.txt
+
+      - name: Install dependencies
+        working-directory: apps/website
+        run: bun install --frozen-lockfile
+
+      - name: Deploy website (Preview)
+        if: github.event.inputs.environment == 'preview'
+        id: deploy-preview
+        working-directory: apps/website
+        run: |
+          echo "LOG=$(wrangler versions upload)" >> $GITHUB_OUTPUT
+
+      - name: Deploy website (Production)
+        if: github.event.inputs.environment == 'production'
+        id: deploy-production
+        working-directory: apps/website
+        run: |
+          echo "LOG=$(wrangler versions deploy)" >> $GITHUB_OUTPUT
+
+      - name: Extract deployment URL
+        id: extract-deployment-url
+        run: |
+          if [ -z "${{ steps.deploy-preview.outputs.LOG }}" ]; then
+            LOG=${{ steps.deploy-production.outputs.LOG }}
+          else
+            LOG=${{ steps.deploy-preview.outputs.LOG }}
+          fi
+
+          # `https://` を含む行を抽出し、DEPLOYMENT_URLに格納
+          DEPLOYMENT_URL=$(echo "$LOG" | grep -oP 'https://\S+')
+          echo "DEPLOYMENT_URL=$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
+
+      - name: Comment on PR (Preview)
+        if: github.event.inputs.environment == 'preview'
+        run: |
+          COMMENT="### Preview Deployment
+
+          ${{ steps.deploy-preview.outputs.LOG }}
+          ${{ needs.start-deploy-website.outputs.deployment_id }}"
+          gh pr comment ${{ github.ref_name }} \
+            --body "$COMMENT" \
+            --edit-last \
+            --create-if-none
+
+      # TODO: Production Deploy時に、Slack通知を飛ばす
+      # - name: Comment on PR (Production)
+      #   if: github.event.inputs.environment == 'production'
+      #   run: |
+      #     COMMENT="### Production Deployment 🚀
+
+      #     ${{ steps.deploy-production.outputs.LOG }}
+      #     ${{ needs.start-deploy-website.outputs.deployment_id }}"
+      #     gh pr comment ${{ github.ref_name }} \
+      #       --body "$COMMENT" \
+      #       --edit-last \
+      #       --create-if-none
+
+
+  update-deployment-status:
+    runs-on: ubuntu-24.04
+    needs:
+      - deploy-website
+      - start-deploy-website
+    timeout-minutes: 1
+    steps:
+      # https://github.com/bobheadxi/deployments
+      - name: Start deployment
+        uses: bobheadxi/deployments@648679e8e4915b27893bd7dbc35cb504dc915bc8 # v1.5.0
+        id: deployment
+        with:
+          step: update
+          token: ${{ secrets.GITHUB_TOKEN }}
+          env: PR-${{ github.event.number }}-website
+          ref: ${{ github.head_ref}}
+          env_url: ${{ needs.deploy-website.outputs.deployment_url }}
