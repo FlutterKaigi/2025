@@ -156,6 +156,16 @@ jobs:
           DEPLOYMENT_URL=$(echo "$LOG" | grep -o 'https://[^ ]*')
           echo "DEPLOYMENT_URL=$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
 
+      - name: Extract commit message
+        id: extract-commit-message
+        run: |
+          echo 'commit_message=$(git log --format=%B -n 1 ${{ github.event.pull_request.head.sha }})' >> $GITHUB_OUTPUT
+
+      - name: Extract timestamp
+        id: extract-timestamp
+        run: |
+          echo 'timestamp=$(date)' >> $GITHUB_OUTPUT
+
       - name: Comment on PR (Preview)
         if: ${{ needs.define-environment.outputs.environment != 'production' && github.event.pull_request.number != null }}
         env:
@@ -169,7 +179,8 @@ jobs:
           ## 🌍️ Website Preview Deployment
           URL: ${{ steps.extract-deployment-url.outputs.DEPLOYMENT_URL }}
           Commit Hash: `${{ github.sha }}`
-          Commit Message: `${{ github.event.head_commit.message }}`
+          Commit Message: `${{ steps.extract-commit-message.outputs.COMMIT_MESSAGE }}`
+          Timestamp: `${{ steps.extract-timestamp.outputs.TIMESTAMP }}`
 
           <details>
           <summary><h2>📦️ Build Logs</h2></summary>
