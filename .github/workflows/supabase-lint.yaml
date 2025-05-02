@@ -76,6 +76,7 @@ jobs:
         id: get-supabase-staging-project-id
         run: |
           PROJECT_ID=$(terraform output -raw supabase_staging_project_id)
+          echo $PROJECT_ID
           echo "project_id=$PROJECT_ID" >> $GITHUB_OUTPUT
 
       - name: Resolve bun dependencies
