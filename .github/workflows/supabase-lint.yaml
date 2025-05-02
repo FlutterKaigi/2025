@@ -62,11 +62,13 @@ jobs:
           install_args: "bun terraform"
 
       - name: Extract backend.tfbackend
+        working-directory: terraform/supabase
         run: |
           echo "${{ secrets.TERRAFORM_BACKEND_CONFIGURATION }}" | base64 -d  \
             > backend.tfbackend
 
       - name: Get supabase staging project id
+        working-directory: terraform/supabase
         id: get-supabase-staging-project-id
         run: |
           PROJECT_ID=$(terraform output -raw supabase_staging_project_id)
