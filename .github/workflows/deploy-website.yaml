@@ -150,10 +150,11 @@ jobs:
           ```log
           ${{ steps.deploy-preview.outputs.LOG }}
           ```"
-          gh pr comment ${{ github.ref_name }} \
-            --body "$COMMENT" \
+          cat <<EOF | gh pr comment \
+            ${{ github.ref_name }} \
             --edit-last \
-            --create-if-none
+            --create-if-none \
+            --body-file -
 
       # TODO: Production Deploy時に、Slack通知を飛ばす
 
