@@ -83,6 +83,11 @@ jobs:
           name: website-artifacts
           path: apps/website/build
 
+      - name: Extract SOPS secrets
+        run: |
+          mkdir -p ~/.config/mise
+          echo "${{ secrets.SOPS_FILE }}" > ~/.config/mise/flutterkaigi.txt
+
       # https://github.com/jdx/mise-action
       - name: Install Mise dependencies
         uses: jdx/mise-action@5083fe46898c414b2475087cc79da59e7da859e8 # v2.1.11
@@ -91,11 +96,6 @@ jobs:
 
       - name: Copy mise.ci.yaml to mise.yaml
         run: cat mise.ci.yaml >> mise.yaml
-
-      - name: Extract SOPS secrets
-        run: |
-          mkdir -p ~/.config/mise
-          echo "${{ secrets.SOPS_FILE }}" > ~/.config/mise/flutterkaigi.txt
 
       - name: Install dependencies
         working-directory: apps/website
