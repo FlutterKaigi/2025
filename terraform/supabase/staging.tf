@@ -13,14 +13,18 @@ data "supabase_apikeys" "staging" {
   project_ref = supabase_project.staging.id
 }
 
-output "staging_anon_key" {
+output "supabase_staging_anon_key" {
   value     = data.supabase_apikeys.staging.anon_key
   sensitive = true
 }
 
-output "staging_service_role_key" {
+output "supabase_staging_service_role_key" {
   value     = data.supabase_apikeys.staging.service_role_key
   sensitive = true
+}
+
+output "supabase_staging_project_id" {
+  value = supabase_project.staging.id
 }
 
 resource "supabase_settings" "staging" {

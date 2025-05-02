@@ -13,14 +13,18 @@ data "supabase_apikeys" "production" {
   project_ref = supabase_project.production.id
 }
 
-output "production_anon_key" {
+output "supabase_production_anon_key" {
   value     = data.supabase_apikeys.production.anon_key
   sensitive = true
 }
 
-output "production_service_role_key" {
+output "supabase_production_service_role_key" {
   value     = data.supabase_apikeys.production.service_role_key
   sensitive = true
+}
+
+output "supabase_production_project_id" {
+  value = supabase_project.production.id
 }
 
 resource "supabase_settings" "production" {
