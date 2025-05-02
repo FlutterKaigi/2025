@@ -27,7 +27,7 @@ bun install
 1. ローカル開発環境を起動する
 
 ```bash
-bun run supabase start
+bunx supabase start
 ```
 
 これにより、ローカルのPostgreSQLデータベースとSupabaseの各種サービスが起動します。

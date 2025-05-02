@@ -70,10 +70,10 @@ jobs:
         run: bun install --frozen-lockfile
 
       - name: Start supabase Database
-        run: bun run supabase Start
+        run: bunx supabase Start
 
       - name: Lint SQL
-        run: bun run supabase lint
+        run: bunx supabase lint
 
   define-project-id:
     name: Define Supabase Project ID
