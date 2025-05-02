@@ -98,8 +98,8 @@ jobs:
         with:
           install_args: "bun"
 
-      - name: Copy mise.ci.yaml to mise.yaml
-        run: cat mise.ci.yaml >> mise.yaml
+      - name: Copy mise.ci.toml to mise.toml
+        run: cat mise.ci.toml >> mise.toml
 
       - name: Install dependencies
         working-directory: apps/website
