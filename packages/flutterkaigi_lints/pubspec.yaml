@@ -5,10 +5,7 @@ resolution: workspace
 
 environment:
   sdk: ^3.7.2
-  flutter: ^3.29.2
 
-dependencies:
+dev_dependencies:
   altive_lints: ^1.19.1
   custom_lint: ^0.7.5
-  flutter:
-    sdk: flutter
