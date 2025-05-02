@@ -135,7 +135,7 @@ jobs:
         id: deploy-preview
         working-directory: apps/website
         run: |
-          LOG=$(bun run wrangler versions upload)
+          LOG=$(bunx wrangler versions upload)
           echo "$LOG"
           echo "LOG<<EOF" >> $GITHUB_OUTPUT
           echo "$LOG" >> $GITHUB_OUTPUT
@@ -146,7 +146,7 @@ jobs:
         id: deploy-production
         working-directory: apps/website
         run: |
-          LOG=$(bun run wrangler deploy)
+          LOG=$(bunx wrangler deploy)
           echo "$LOG"
           echo "LOG<<EOF" >> $GITHUB_OUTPUT
           echo "$LOG" >> $GITHUB_OUTPUT
