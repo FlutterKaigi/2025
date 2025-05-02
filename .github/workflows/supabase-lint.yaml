@@ -10,6 +10,8 @@ jobs:
     name: Lint SQL
     runs-on: ubuntu-24.04
     timeout-minutes: 5
+    outputs:
+      log: ${{ steps.lint.outputs.log }}
 
     steps:
       # https://github.com/actions/checkout
@@ -30,12 +32,14 @@ jobs:
         run: bunx supabase start
 
       - name: Lint SQL
-        run: bunx supabase lint
+        id: lint
+        run: |
+          LOG=$(bunx supabase db lint)
+          echo "$LOG" > $GITHUB_OUTPUT
+          echo "LOG=$LOG" >> $GITHUB_OUTPUT
 
   supabase-apply-dry-run:
     name: Apply Supabase Database (Dry Run)
-    needs:
-      - supabase-lint
     runs-on: ubuntu-24.04
     outputs:
       log: ${{ steps.dry-run.outputs.log }}
@@ -66,7 +70,7 @@ jobs:
         id: get-supabase-staging-project-id
         run: |
           PROJECT_ID=$(terraform output -raw supabase_staging_project_id)
-          echo "PROJECT_ID=$PROJECT_ID" >> $GITHUB_OUTPUT
+          echo "project_id=$PROJECT_ID" >> $GITHUB_OUTPUT
 
       - name: Resolve bun dependencies
         run: bun install --frozen-lockfile
@@ -74,7 +78,7 @@ jobs:
       - name: Link Supabase Project
         run: |
           bunx supabase link \
-            --project-ref ${{ needs.get-supabase-staging-project-id.outputs.project_id }}
+            --project-ref ${{ job.get-supabase-staging-project-id.outputs.project_id }}
 
       - name: Apply Supabase Database (Dry Run)
         id: dry-run
@@ -86,6 +90,7 @@ jobs:
   comment-on-pr:
     name: Comment Dry Run Log on PR
     needs:
+      - supabase-lint
       - supabase-apply-dry-run
     if: ${{ !cancelled() }} && ${{ github.event_name == 'pull_request' }}
     runs-on: ubuntu-24.04
@@ -96,6 +101,12 @@ jobs:
         uses: thollander/actions-comment-pull-request@24bffb9b452ba05a4f3f77933840a6a841d1b32b # v3.0.1
         with:
           message: |
+              ## 🔍️ Supabase Lint Log
+
+              ```log
+              ${{ needs.supabase-lint.outputs.log }}
+              ```
+
               ## 🔍️ Supabase Apply Dry Run Log
 
               ```log
