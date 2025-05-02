@@ -141,10 +141,12 @@ jobs:
           echo "DEPLOYMENT_URL=$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
 
       - name: Comment on PR (Preview)
-        if: github.event.inputs.environment != 'production'
+        if: github.event.inputs.environment != 'production' && github.event.pull_request.number != null
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cat <<EOF | gh pr comment \
-            ${{ github.ref_name }} \
+            ${{ github.event.pull_request.number }}\
             --edit-last \
             --create-if-none \
             --body-file -
