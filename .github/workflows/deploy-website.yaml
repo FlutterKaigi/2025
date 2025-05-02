@@ -112,7 +112,9 @@ jobs:
         run: |
           LOG=$(bun run wrangler versions upload)
           echo "$LOG"
-          echo "LOG=$LOG" >> $GITHUB_OUTPUT
+          echo "LOG<<EOF" >> $GITHUB_OUTPUT
+          echo "$LOG" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Deploy website (Production)
         if: github.event.inputs.environment == 'production'
@@ -121,7 +123,9 @@ jobs:
         run: |
           LOG=$(bun run wrangler deploy)
           echo "$LOG"
-          echo "LOG=$LOG" >> $GITHUB_OUTPUT
+          echo "LOG<<EOF" >> $GITHUB_OUTPUT
+          echo "$LOG" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Extract deployment URL
         id: extract-deployment-url
