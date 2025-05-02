@@ -161,7 +161,6 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          NOW=$(date)
           cat <<'EOF' | gh pr comment \
             ${{ github.event.pull_request.number }} \
             --edit-last \
@@ -169,6 +168,8 @@ jobs:
             --body-file -
           ## 🌍️ Website Preview Deployment
           URL: ${{ steps.extract-deployment-url.outputs.DEPLOYMENT_URL }}
+          Commit Hash: `${{ github.sha }}`
+          Commit Message: `${{ github.event.head_commit.message }}`
 
           <details>
           <summary><h2>📦️ Build Logs</h2></summary>
