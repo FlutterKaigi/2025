@@ -110,14 +110,14 @@ jobs:
         id: deploy-preview
         working-directory: apps/website
         run: |
-          echo "LOG=$(wrangler versions upload)" >> $GITHUB_OUTPUT
+          echo "LOG=$(bun run wrangler versions upload)" >> $GITHUB_OUTPUT
 
       - name: Deploy website (Production)
         if: github.event.inputs.environment == 'production'
         id: deploy-production
         working-directory: apps/website
         run: |
-          echo "LOG=$(wrangler versions deploy)" >> $GITHUB_OUTPUT
+          echo "LOG=$(bun run wrangler versions deploy)" >> $GITHUB_OUTPUT
 
       - name: Extract deployment URL
         id: extract-deployment-url
