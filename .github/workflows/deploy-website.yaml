@@ -5,8 +5,8 @@ on:
     branches:
       - main
   pull_request:
-    # paths:
-    #   - apps/website
+    paths:
+      - apps/website
   workflow_dispatch:
     inputs:
       environment:
