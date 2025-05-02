@@ -105,11 +105,13 @@ jobs:
           echo "${{ secrets.SOPS_FILE }}" > ~/.config/mise/flutterkaigi.txt
 
       - name: Extract backend.tfbackend
+        working-directory: terraform/supabase
         run: |
           echo "${{ secrets.TERRAFORM_BACKEND_CONFIGURATION }}" | base64 -d  \
             > backend.tfbackend
 
       - name: Get Supabase Project ID
+        working-directory: terraform/supabase
         id: get-supabase-project-id
         run: |
           PROJECT_ID=$(terraform output -raw supabase_${{ matrix.environment }}_project_id)
