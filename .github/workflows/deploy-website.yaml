@@ -159,12 +159,12 @@ jobs:
       - name: Extract commit message
         id: extract-commit-message
         run: |
-          echo 'commit_message=$(git log --format=%B -n 1 ${{ github.event.pull_request.head.sha }})' >> $GITHUB_OUTPUT
+          echo "commit_message=$(git log --format=%B -n 1 ${{ github.event.pull_request.head.sha }})" >> $GITHUB_OUTPUT
 
       - name: Extract timestamp
         id: extract-timestamp
         run: |
-          echo 'timestamp=$(date)' >> $GITHUB_OUTPUT
+          echo "timestamp=$(date)" >> $GITHUB_OUTPUT
 
       - name: Comment on PR (Preview)
         if: ${{ needs.define-environment.outputs.environment != 'production' && github.event.pull_request.number != null }}
@@ -177,10 +177,11 @@ jobs:
             --create-if-none \
             --body-file -
           ## 🌍️ Website Preview Deployment
-          URL: ${{ steps.extract-deployment-url.outputs.DEPLOYMENT_URL }}
-          Commit Hash: `${{ github.sha }}`
-          Commit Message: `${{ steps.extract-commit-message.outputs.COMMIT_MESSAGE }}`
-          Timestamp: `${{ steps.extract-timestamp.outputs.TIMESTAMP }}`
+          🔗URL: ${{ steps.extract-deployment-url.outputs.DEPLOYMENT_URL }}
+
+          🔑Commit Hash: `${{ github.sha }}`
+          💬Commit Message: `${{ steps.extract-commit-message.outputs.COMMIT_MESSAGE }}`
+          📅Timestamp: `${{ steps.extract-timestamp.outputs.TIMESTAMP }}`
 
           <details>
           <summary><h2>📦️ Build Logs</h2></summary>
