@@ -2,7 +2,7 @@ name: Lint SQL for Supabase Database
 on:
   pull_request:
     paths:
-      - supabase
+      - supabase/**
   workflow_dispatch:
 
 jobs:
