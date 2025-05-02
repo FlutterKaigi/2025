@@ -145,15 +145,17 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          cat <<EOF | gh pr comment \
-            ${{ github.event.pull_request.number }}\
+          NOW=$(date)
+          cat <<'EOF' | gh pr comment \
+            ${{ github.event.pull_request.number }} \
             --edit-last \
             --create-if-none \
             --body-file -
-          ### Preview Deployment
+          ## 🌍️ Website Preview Deployment
           URL: ${{ steps.extract-deployment-url.outputs.DEPLOYMENT_URL }}
+          Deployed at: $NOW
 
-          #### Build Logs
+          ## 📦️ Build Logs
           ```log
           ${{ steps.deploy-preview.outputs.LOG }}
           ```
