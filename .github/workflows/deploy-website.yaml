@@ -153,12 +153,15 @@ jobs:
             --body-file -
           ## 🌍️ Website Preview Deployment
           URL: ${{ steps.extract-deployment-url.outputs.DEPLOYMENT_URL }}
-          Deployed at: $NOW
 
-          ## 📦️ Build Logs
+
+          <details>
+          <summary><h2>📦️ Build Logs</h2></summary>
+
           ```log
           ${{ steps.deploy-preview.outputs.LOG }}
           ```
+          </details>
           EOF
 
       # TODO: Production Deploy時に、Slack通知を飛ばす
