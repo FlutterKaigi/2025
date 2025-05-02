@@ -22,6 +22,9 @@ concurrency:
   group: "deploy-website"
   cancel-in-progress: false
 
+env:
+  MISE_ENV: ci
+
 jobs:
   define-environment:
     runs-on: ubuntu-24.04
@@ -124,9 +127,6 @@ jobs:
         with:
           install_args: "bun"
 
-      - name: Copy mise.ci.toml to mise.toml
-        run: cat mise.ci.toml >> mise.toml
-
       - name: Install dependencies
         working-directory: apps/website
         run: bun install --frozen-lockfile
@@ -173,38 +173,33 @@ jobs:
         run: |
           echo "timestamp=$(date -Iseconds )" >> $GITHUB_OUTPUT
 
-      - name: Comment on PR (Preview)
-        if: ${{ needs.define-environment.outputs.environment != 'production' && github.event.pull_request.number != null }}
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          cat <<'EOF' | gh pr comment \
-            ${{ github.event.pull_request.number }} \
-            --edit-last \
-            --create-if-none \
-            --body-file -
-          ## 🌍️ Website Preview Deployment
-          🔗URL: ${{ steps.extract-deployment-url.outputs.DEPLOYMENT_URL }}
+      - name: Comment PR with execution number
+        uses: thollander/actions-comment-pull-request@24bffb9b452ba05a4f3f77933840a6a841d1b32b # v3.0.1
+        with:
+          message: |
+            ## 🌍️ Website Preview Deployment
+            🔗URL: ${{ steps.extract-deployment-url.outputs.DEPLOYMENT_URL }}
 
-          🔑Commit Hash: `${{ github.sha }}`
-          📅Timestamp: `${{ steps.extract-timestamp.outputs.TIMESTAMP }}`
+            🔑Commit Hash: `${{ github.sha }}`
+            📅Timestamp: `${{ steps.extract-timestamp.outputs.TIMESTAMP }}`
 
-          <details>
-          <summary><h2>📦️ Build Logs</h2></summary>
+            <details>
+            <summary><h2>📦️ Build Logs</h2></summary>
 
-          ```log
-          ${{ needs.build-website.outputs.build_log }}
-          ```
-          </details>
+            ```log
+            ${{ needs.build-website.outputs.build_log }}
+            ```
+            </details>
 
-          <details>
-          <summary><h2>✈️ Deployment Logs</h2></summary>
+            <details>
+            <summary><h2>✈️ Deployment Logs</h2></summary>
 
-          ```log
-          ${{ steps.deploy-preview.outputs.LOG }}
-          ```
-          </details>
-          EOF
+            ```log
+            ${{ steps.deploy-preview.outputs.LOG }}
+            ```
+            </details>
+          comment-tag: deploy-website
+
 
       # TODO: Production Deploy時に、Slack通知を飛ばす
 
