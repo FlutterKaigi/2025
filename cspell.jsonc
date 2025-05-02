@@ -23,6 +23,15 @@
             "name": "dart-term",
             "description": "Dart related terms",
             "words": [
+                "riverpod",
+                "unawaited",
+                "pubspec",
+                "interps",
+                "altive",
+                "ints",
+                "combinatiors",
+                "tearoffs",
+                "combinators",
                 // Dart web
                 "HTMLUListElement",
                 "HTMLLIElement"
@@ -99,7 +108,8 @@
         "*.plist",
         "*.properties",
         "supabase/migrations",
-        "supabase/config.toml"
+        "supabase/config.toml",
+        "worker-configuration.d.ts"
     ],
     "import": [
         "@cspell/dict-software-terms/cspell-ext.json",

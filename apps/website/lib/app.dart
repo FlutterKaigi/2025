@@ -1,8 +1,8 @@
+import 'package:flutterkaigi_2025_website/src/path.dart';
+import 'package:flutterkaigi_2025_website/src/routes.dart';
 import 'package:web/web.dart';
-import './src/routes.dart';
-import './src/path.dart';
 
-get app => _app;
+HTMLElement get app => _app;
 
 HTMLElement _app = () {
   window.onPopState.listen((_) => rerendering());
@@ -29,7 +29,9 @@ HTMLElement _routing(Routes routes, Path path) {
 void rerendering([Path? path]) {
   _resetState();
 
-  if (path != null) window.history.pushState(null, '', path.toString());
+  if (path != null) {
+    window.history.pushState(null, '', path.toString());
+  }
 
   final element = _routing(routes, path ?? currentPath);
   _app.replaceWith(element);

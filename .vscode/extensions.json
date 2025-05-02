@@ -6,6 +6,7 @@
     "dart-code.flutter",
     "djbkwon.flutter-dependency-docs",
     "renesaarsoo.sql-formatter-vsc",
-    "hverlin.mise-vscode"
+    "hverlin.mise-vscode",
+    "biomejs.biome"
   ]
 }

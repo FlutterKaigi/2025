@@ -1,6 +1,6 @@
-import 'package:test/test.dart';
-import 'package:flutterkaigi_2025_website/text.dart';
 import 'package:flutterkaigi_2025_website/src/path.dart';
+import 'package:flutterkaigi_2025_website/text.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('Path.withLang', testPathWithLang);

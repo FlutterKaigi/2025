@@ -11,7 +11,11 @@ dev_dependencies:
 workspace:
   # apps
   - apps/dashboard
+  - apps/website
   # packages
+  - packages/flutterkaigi_lints
+  # bff
+  - bff/engine
 
 melos:
   ide:

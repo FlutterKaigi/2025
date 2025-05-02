@@ -1,0 +1,16 @@
+{
+  "name": "bridge",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "cf-typegen": "wrangler types",
+    "check": "biome check --write ."
+  },
+  "devDependencies": {
+    "typescript": "^5.5.2",
+    "wrangler": "^4.13.2",
+    "@biomejs/biome": "^1.9.4"
+  }
+}
