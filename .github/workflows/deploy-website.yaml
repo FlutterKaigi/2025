@@ -143,14 +143,15 @@ jobs:
       - name: Comment on PR (Preview)
         if: github.event.inputs.environment != 'production'
         run: |
-          COMMENT="### Preview Deployment
+          cat <<EOF
+          ### Preview Deployment
           URL: ${{ steps.extract-deployment-url.outputs.DEPLOYMENT_URL }}
 
           #### Build Logs
           ```log
           ${{ steps.deploy-preview.outputs.LOG }}
-          ```"
-          cat <<EOF | gh pr comment \
+          ```
+          EOF | gh pr comment \
             ${{ github.ref_name }} \
             --edit-last \
             --create-if-none \
