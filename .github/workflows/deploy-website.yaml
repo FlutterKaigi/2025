@@ -110,14 +110,18 @@ jobs:
         id: deploy-preview
         working-directory: apps/website
         run: |
-          echo "LOG=$(bun run wrangler versions upload)" >> $GITHUB_OUTPUT
+          LOG=$(bun run wrangler versions upload)
+          echo "$LOG"
+          echo "LOG=$LOG" >> $GITHUB_OUTPUT
 
       - name: Deploy website (Production)
         if: github.event.inputs.environment == 'production'
         id: deploy-production
         working-directory: apps/website
         run: |
-          echo "LOG=$(bun run wrangler versions deploy)" >> $GITHUB_OUTPUT
+          LOG=$(bun run wrangler deploy)
+          echo "$LOG"
+          echo "LOG=$LOG" >> $GITHUB_OUTPUT
 
       - name: Extract deployment URL
         id: extract-deployment-url
@@ -138,7 +142,6 @@ jobs:
           COMMENT="### Preview Deployment
 
           ${{ steps.deploy-preview.outputs.LOG }}
-          ${{ needs.start-deploy-website.outputs.deployment_id }}"
           gh pr comment ${{ github.ref_name }} \
             --body "$COMMENT" \
             --edit-last \
