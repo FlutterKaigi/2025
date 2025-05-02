@@ -6,7 +6,7 @@ on:
       - main
   pull_request:
     paths:
-      - apps/website
+      - apps/website/**
   workflow_dispatch:
     inputs:
       environment:
