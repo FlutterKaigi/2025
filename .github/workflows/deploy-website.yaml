@@ -22,9 +22,6 @@ concurrency:
   group: "deploy-website"
   cancel-in-progress: false
 
-env:
-  MISE_ENV: ci
-
 jobs:
   define-environment:
     runs-on: ubuntu-24.04
@@ -101,6 +98,8 @@ jobs:
       - define-environment
       - build-website
     timeout-minutes: 5
+    env:
+      MISE_ENV: ci
     outputs:
       preview_log: ${{ steps.deploy-preview.outputs.LOG }}
       production_log: ${{ steps.deploy-production.outputs.LOG }}
