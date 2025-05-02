@@ -106,7 +106,7 @@ jobs:
         run: bun install --frozen-lockfile
 
       - name: Deploy website (Preview)
-        if: github.event.inputs.environment == 'preview'
+        if: github.event.inputs.environment != 'production'
         id: deploy-preview
         working-directory: apps/website
         run: |
@@ -133,7 +133,7 @@ jobs:
           echo "DEPLOYMENT_URL=$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
 
       - name: Comment on PR (Preview)
-        if: github.event.inputs.environment == 'preview'
+        if: github.event.inputs.environment != 'production'
         run: |
           COMMENT="### Preview Deployment
 
