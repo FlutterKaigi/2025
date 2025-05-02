@@ -110,6 +110,10 @@ jobs:
           echo "${{ secrets.TERRAFORM_BACKEND_CONFIGURATION }}" | base64 -d  \
             > backend.tfbackend
 
+      - name: Terraform init
+        working-directory: terraform/supabase
+        run: terraform init -backend-config=backend.tfbackend
+
       - name: Get Supabase Project ID
         working-directory: terraform/supabase
         id: get-supabase-project-id
