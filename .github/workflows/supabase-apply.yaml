@@ -1,0 +1,158 @@
+name: Apply Supabase Database
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - supabase
+  workflow_dispatch:
+    inputs:
+      deploy-production:
+        description: "Deploy to production"
+        required: false
+        default: "false"
+      deploy-staging:
+        description: "Deploy to staging"
+        required: false
+        default: "false"
+
+jobs:
+  define-matrix:
+    name: Define Environment Matrix
+    runs-on: ubuntu-24.04
+    timeout-minutes: 1
+    outputs:
+      environments: ${{ steps.define-environment.outputs.environments }}
+    steps:
+      - name: Define environment
+        id: define-environment
+        run: |
+          environments=()
+          # push時はproduction, staging
+          if [ "${{ github.event_name }}" = "push" ]; then
+            environments+=("production")
+            environments+=("staging")
+          # workflow_dispatch時はinputs.deploy-production, inputs.deploy-stagingを参照
+          elif [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            if [ "${{ inputs.deploy-production }}" = "true" ]; then
+              environments+=("production")
+            fi
+            if [ "${{ inputs.deploy-staging }}" = "true" ]; then
+              environments+=("staging")
+            fi
+          fi
+          echo "environments: $environments"
+
+          # JSON Arrayに変換
+          echo "environments=$(jq -c -n '$ARGS.positional' --args "${environments[@]}")" >> $GITHUB_OUTPUT
+
+  supabase-lint:
+    name: Lint SQL
+    needs:
+      - define-matrix
+    name: Lint SQL
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      # https://github.com/actions/checkout
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      # https://github.com/jdx/mise-action
+      - name: Install Mise dependencies
+        uses: jdx/mise-action@5083fe46898c414b2475087cc79da59e7da859e8 # v2.1.11
+        with:
+          install: true
+          install_args: "bun"
+
+      - name: Resolve bun dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Start supabase Database
+        run: bun run supabase Start
+
+      - name: Lint SQL
+        run: bun run supabase lint
+
+  define-project-id:
+    name: Define Supabase Project ID
+    needs:
+      - define-matrix
+    env:
+      MISE_ENV: ci
+    strategy:
+      matrix:
+        environment: ${{ fromJson(needs.define-matrix.outputs.environments) }}
+    outputs:
+      project_id: ${{ steps.get-supabase-project-id.outputs.project_id }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 2
+    steps:
+      # https://github.com/actions/checkout
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      # https://github.com/jdx/mise-action
+      - name: Install Mise dependencies
+        uses: jdx/mise-action@5083fe46898c414b2475087cc79da59e7da859e8 # v2.1.11
+        with:
+          install: true
+          install_args: "terraform"
+
+      - name: Extract SOPS secrets
+        run: |
+          mkdir -p ~/.config/mise
+          echo "${{ secrets.SOPS_FILE }}" > ~/.config/mise/flutterkaigi.txt
+
+      - name: Extract backend.tfbackend
+        run: |
+          echo "${{ secrets.TERRAFORM_BACKEND_CONFIGURATION }}" | base64 -d  \
+            > backend.tfbackend
+
+      - name: Get Supabase Project ID
+        id: get-supabase-project-id
+        run: |
+          PROJECT_ID=$(terraform output -raw supabase_${{ matrix.environment }}_project_id)
+          echo "PROJECT_ID=$PROJECT_ID" >> $GITHUB_OUTPUT
+
+  supabase-apply:
+    name: Apply Supabase Database
+    needs:
+      - define-matrix
+      - define-project-id
+      - supabase-lint
+    env:
+      MISE_ENV: ci
+    strategy:
+      matrix:
+        environment: ${{ fromJson(needs.define-matrix.outputs.environments) }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      # https://github.com/actions/checkout
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Extract SOPS secrets
+        run: |
+          mkdir -p ~/.config/mise
+          echo "${{ secrets.SOPS_FILE }}" > ~/.config/mise/flutterkaigi.txt
+
+      # https://github.com/jdx/mise-action
+      - name: Install Mise dependencies
+        uses: jdx/mise-action@5083fe46898c414b2475087cc79da59e7da859e8 # v2.1.11
+        with:
+          install: true
+          install_args: "bun"
+
+      - name: Resolve bun dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Link Supabase Project
+        run: |
+          bun run supabase link \
+            --project-ref ${{ needs.define-project-id.outputs.project_id }}
+
+      - name: Apply Supabase Database
+        run: bun run supabase db push

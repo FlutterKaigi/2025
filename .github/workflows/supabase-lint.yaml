@@ -1,0 +1,104 @@
+name: Lint SQL for Supabase Database
+on:
+  pull_request:
+    paths:
+      - supabase
+  workflow_dispatch:
+
+jobs:
+  supabase-lint:
+    name: Lint SQL
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+
+    steps:
+      # https://github.com/actions/checkout
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      # https://github.com/jdx/mise-action
+      - name: Install Mise dependencies
+        uses: jdx/mise-action@5083fe46898c414b2475087cc79da59e7da859e8 # v2.1.11
+        with:
+          install: true
+          install_args: "bun"
+
+      - name: Resolve bun dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Start supabase Database
+        run: bun run supabase Start
+
+      - name: Lint SQL
+        run: bun run supabase lint
+
+  supabase-apply-dry-run:
+    name: Apply Supabase Database (Dry Run)
+    needs:
+      - supabase-lint
+    runs-on: ubuntu-24.04
+    outputs:
+      log: ${{ steps.dry-run.outputs.log }}
+    timeout-minutes: 5
+    steps:
+      # https://github.com/actions/checkout
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Extract SOPS secrets
+        run: |
+          mkdir -p ~/.config/mise
+          echo "${{ secrets.SOPS_FILE }}" > ~/.config/mise/flutterkaigi.txt
+
+      # https://github.com/jdx/mise-action
+      - name: Install Mise dependencies
+        uses: jdx/mise-action@5083fe46898c414b2475087cc79da59e7da859e8 # v2.1.11
+        with:
+          install: true
+          install_args: "bun terraform"
+
+      - name: Extract backend.tfbackend
+        run: |
+          echo "${{ secrets.TERRAFORM_BACKEND_CONFIGURATION }}" | base64 -d  \
+            > backend.tfbackend
+
+      - name: Get supabase staging project id
+        id: get-supabase-staging-project-id
+        run: |
+          PROJECT_ID=$(terraform output -raw supabase_staging_project_id)
+          echo "PROJECT_ID=$PROJECT_ID" >> $GITHUB_OUTPUT
+
+      - name: Resolve bun dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Link Supabase Project
+        run: |
+          bun run supabase link \
+            --project-ref ${{ needs.get-supabase-staging-project-id.outputs.project_id }}
+
+      - name: Apply Supabase Database (Dry Run)
+        id: dry-run
+        run: |
+          LOG=$(bun run supabase db push --dry-run)
+          echo "$LOG" > $GITHUB_OUTPUT
+          echo "LOG=$LOG" >> $GITHUB_OUTPUT
+
+  comment-on-pr:
+    name: Comment Dry Run Log on PR
+    needs:
+      - supabase-apply-dry-run
+    if: ${{ !cancelled() }} && ${{ github.event_name == 'pull_request' }}
+    runs-on: ubuntu-24.04
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Comment PR with execution number
+        uses: thollander/actions-comment-pull-request@24bffb9b452ba05a4f3f77933840a6a841d1b32b # v3.0.1
+        with:
+          message: |
+              ## 🔍️ Supabase Apply Dry Run Log
+
+              ```log
+              ${{ needs.supabase-apply-dry-run.outputs.log }}
+              ```
+          comment-tag: supabase-lint
