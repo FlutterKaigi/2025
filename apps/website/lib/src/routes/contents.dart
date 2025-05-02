@@ -1,8 +1,8 @@
-import 'package:web/web.dart';
-import 'package:flutterkaigi_2025_website/text.dart';
 import 'package:flutterkaigi_2025_website/config.dart';
-import '../layouts.dart';
-import '../routes.dart' show Handler;
+import 'package:flutterkaigi_2025_website/src/layouts.dart';
+import 'package:flutterkaigi_2025_website/src/routes.dart' show Handler;
+import 'package:flutterkaigi_2025_website/text.dart';
+import 'package:web/web.dart';
 
 Handler handler(String id) => (
   title: makeTitle('Contents'),

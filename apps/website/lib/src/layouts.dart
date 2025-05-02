@@ -1,8 +1,8 @@
-import 'package:web/web.dart';
 import 'package:flutterkaigi_2025_website/config.dart';
+import 'package:flutterkaigi_2025_website/src/components.dart';
+import 'package:flutterkaigi_2025_website/src/path.dart' show currentPath;
 import 'package:flutterkaigi_2025_website/text.dart';
-import './components.dart';
-import './path.dart' show currentPath;
+import 'package:web/web.dart';
 
 HTMLElement basicLayout(HTMLElement child) =>
     HTMLDivElement()

@@ -1,6 +1,6 @@
-import 'package:web/web.dart';
-import './path.dart' show Path;
 import 'package:flutterkaigi_2025_website/app.dart' show rerendering;
+import 'package:flutterkaigi_2025_website/src/path.dart' show Path;
+import 'package:web/web.dart';
 
 /// サイト外リンク
 HTMLAnchorElement externalLink(
@@ -34,6 +34,6 @@ HTMLAnchorElement internalLink(
       ..textContent = text
       ..onClick.listen((event) {
         event.preventDefault();
-        final element = event.target as HTMLAnchorElement;
+        final element = event.target! as HTMLAnchorElement;
         rerendering(Path.fromPathname(URL(element.href).pathname));
       });
