@@ -79,29 +79,37 @@ HTMLElement get _countdown {
 
   final count = countdown(event.date.difference(DateTime.now()));
 
-  final days =
-      HTMLSpanElement()
-        ..style.color = 'var(--secondary-color)'
-        ..textContent = '${count.days}';
-  final hours =
-      HTMLSpanElement()
-        ..style.color = 'var(--secondary-color)'
-        ..textContent = '${count.hours}';
-  final minutes =
-      HTMLSpanElement()
-        ..style.color = 'var(--secondary-color)'
-        ..textContent = '${count.minutes}';
-  final seconds =
+  HTMLElement digit(String digit) =>
       HTMLSpanElement()
         ..style.color = 'var(--primary-color)'
-        ..textContent = '${count.seconds}';
+        ..style.animation = '3s linear 1s forwards color-change'
+        ..style.display = 'block'
+        ..style.width = '1.5em'
+        ..style.textAlign = 'center'
+        ..style.fontSize = '2rem'
+        ..textContent = digit;
+
+  HTMLElement newDigit(HTMLElement currentDigit, String d) {
+    if (currentDigit.textContent == d) {
+      return currentDigit;
+    }
+
+    final newDigit = digit(d);
+    currentDigit.replaceWith(newDigit);
+    return newDigit;
+  }
+
+  var days = digit('${count.days}');
+  var hours = digit('${count.hours}');
+  var minutes = digit('${count.minutes}');
+  var seconds = digit('${count.seconds}');
 
   final timer = Timer.periodic(const Duration(seconds: 1), (timer) {
     final count = countdown(event.date.difference(DateTime.now()));
-    days.textContent = '${count.days}';
-    hours.textContent = '${count.hours}';
-    minutes.textContent = '${count.minutes}';
-    seconds.textContent = '${count.seconds}';
+    days = newDigit(days, '${count.days}');
+    hours = newDigit(hours, '${count.hours}');
+    minutes = newDigit(minutes, '${count.minutes}');
+    seconds = newDigit(seconds, '${count.seconds}');
   });
   onRemove(timer.cancel);
 
@@ -111,14 +119,7 @@ HTMLElement get _countdown {
         ..style.flexDirection = 'column'
         ..style.alignItems = 'center'
         ..style.fontSize = '0.9rem'
-        ..appendAll([
-          element
-            ..style.display = 'block'
-            ..style.width = '1.5em'
-            ..style.textAlign = 'center'
-            ..style.fontSize = '2rem',
-          Text(text),
-        ]);
+        ..appendAll([element, Text(text)]);
 
   return HTMLParagraphElement()
     ..style.display = 'flex'

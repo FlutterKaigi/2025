@@ -32,3 +32,12 @@ body * {
     transform: translateY(2rem);
   }
 }
+
+@keyframes color-change {
+  from {
+    color: var(--primary-color);
+  }
+  to {
+    color: var(--secondary-color);
+  }
+}
