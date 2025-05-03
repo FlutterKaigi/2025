@@ -51,20 +51,21 @@ void testPathWithoutLang() {
 
 void testPathGo() {
   final tests = [
-    (Path([]), Path([]), '/'),
-    (Path(['ja']), Path([]), '/ja'),
-    (Path(['en']), Path([]), '/en'),
-    (Path(['ja']), Path(['en']), '/en'),
-    (Path(['en']), Path(['ja']), '/ja'),
-    (Path(['ja']), Path(['tests']), '/ja/tests'),
-    (Path(['en']), Path(['tests']), '/en/tests'),
-    (Path(['ja']), Path(['en', 'tests']), '/en/tests'),
-    (Path(['en']), Path(['ja', 'tests']), '/ja/tests'),
+    (Path([]), <String>[], '/'),
+    (Path(['ja']), <String>[], '/ja'),
+    (Path(['en']), <String>[], '/en'),
+    (Path(['ja']), ['en'], '/en'),
+    (Path(['en']), ['ja'], '/ja'),
+    (Path(['ja']), ['tests'], '/ja/tests'),
+    (Path(['en']), ['tests'], '/en/tests'),
+    (Path(['ja']), ['en', 'tests'], '/en/tests'),
+    (Path(['en']), ['ja', 'tests'], '/ja/tests'),
   ];
 
   for (final (path, newPath, want) in tests) {
     test('$path => $newPath', () {
-      expect(path.go(newPath).toString(), equals(want));
+      currentPath = path;
+      expect(Path.go(newPath).toString(), equals(want));
     });
   }
 }
