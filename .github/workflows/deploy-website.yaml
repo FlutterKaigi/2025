@@ -79,10 +79,11 @@ jobs:
         id: build
         working-directory: apps/website
         run: |
-          LOG=$(make all)
-          echo "LOG<<EOF" >> $GITHUB_OUTPUT
-          echo "$LOG" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          {
+            echo "LOG<<EOL"
+            make all 2>&1
+            echo "EOL"
+          } | tee -a $GITHUB_OUTPUT
 
       - name: Upload Dart website Artifacts
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
