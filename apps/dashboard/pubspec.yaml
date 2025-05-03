@@ -10,14 +10,17 @@ environment:
 resolution: workspace
 
 dependencies:
+  cupertino_icons: ^1.0.8
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.8
 
 dev_dependencies:
+  altive_lints: ^1.19.1
+  custom_lint: ^0.7.5
   flutter_test:
     sdk: flutter
-  flutter_lints: ^5.0.0
+  flutterkaigi_lints:
+    path: ../../packages/flutterkaigi_lints
 
 flutter:
   uses-material-design: true

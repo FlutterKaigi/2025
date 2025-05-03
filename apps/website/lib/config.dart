@@ -1,5 +1,6 @@
+import 'package:flutterkaigi_2025_website/config_stub.dart'
+    if (dart.library.js_interop) './config_web.dart';
 import 'package:flutterkaigi_2025_website/text.dart' show Language;
-import './config_stub.dart' if (dart.library.js_interop) './config_web.dart';
 
 String makeTitle([String? sub]) =>
     sub == null ? site.title : '$sub - ${site.title}';

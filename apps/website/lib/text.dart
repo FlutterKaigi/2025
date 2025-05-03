@@ -1,4 +1,4 @@
-import 'package:flutterkaigi_2025_website/config.dart' show user, event;
+import 'package:flutterkaigi_2025_website/config.dart' show event, user;
 
 const _month = {
   1: 'Jan',
@@ -19,8 +19,8 @@ const _month = {
 enum Language { ja, en }
 
 /// テキストコンテンツ
-/// - [ja] 日本語 (デフォルト言語)
-/// - [en] 英語
+/// - `ja` 日本語 (デフォルト言語)
+/// - `en` 英語
 typedef Content = ({String ja, String? en});
 
 final contents = (

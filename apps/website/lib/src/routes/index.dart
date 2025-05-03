@@ -1,12 +1,13 @@
 import 'dart:async';
-import 'package:web/web.dart';
-import 'package:flutterkaigi_2025_website/config.dart';
-import 'package:flutterkaigi_2025_website/text.dart';
+
 import 'package:flutterkaigi_2025_website/app.dart' show onRemove;
-import '../routes.dart' show Handler;
-import '../components.dart';
-import '../layouts.dart';
-import '../path.dart';
+import 'package:flutterkaigi_2025_website/config.dart';
+import 'package:flutterkaigi_2025_website/src/components.dart';
+import 'package:flutterkaigi_2025_website/src/layouts.dart';
+import 'package:flutterkaigi_2025_website/src/path.dart';
+import 'package:flutterkaigi_2025_website/src/routes.dart' show Handler;
+import 'package:flutterkaigi_2025_website/text.dart';
+import 'package:web/web.dart';
 
 Handler get handler => (title: makeTitle(), handle: () => index);
 
@@ -33,7 +34,7 @@ HTMLElement _countdown() {
     (timer) =>
         element.textContent = countdown(event.date.difference(DateTime.now())),
   );
-  onRemove(() => timer.cancel());
+  onRemove(timer.cancel);
 
   return element;
 }

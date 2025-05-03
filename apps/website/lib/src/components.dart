@@ -1,7 +1,7 @@
 import 'dart:js_interop';
-import 'package:web/web.dart';
 import 'package:flutterkaigi_2025_website/app.dart' show rerendering;
-import './path.dart' show Path;
+import 'package:flutterkaigi_2025_website/src/path.dart' show Path;
+import 'package:web/web.dart';
 
 extension HTMLElementAppendAll on HTMLElement {
   void appendAll(Iterable<JSAny> elements) {
@@ -43,6 +43,6 @@ HTMLAnchorElement internalLink(
       ..textContent = text
       ..onClick.listen((event) {
         event.preventDefault();
-        final element = event.target as HTMLAnchorElement;
+        final element = event.target! as HTMLAnchorElement;
         rerendering(Path.fromPathname(URL(element.href).pathname));
       });
