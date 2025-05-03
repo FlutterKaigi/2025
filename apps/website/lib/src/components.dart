@@ -4,7 +4,11 @@ import 'package:flutterkaigi_2025_website/src/path.dart' show Path;
 import 'package:web/web.dart';
 
 extension HTMLElementAppendAll on HTMLElement {
-  void appendAll(Iterable<JSAny> elements) => elements.forEach(append);
+  void appendAll(Iterable<JSAny> elements) {
+    for (final e in elements) {
+      append(e);
+    }
+  }
 }
 
 /// サイト外リンク
