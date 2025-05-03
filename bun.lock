@@ -12,6 +12,13 @@
         "supabase": "2.22.6",
       },
     },
+    "apps/website": {
+      "name": "flutterkaigi-2025",
+      "version": "0.0.0",
+      "devDependencies": {
+        "wrangler": "^4.13.0",
+      },
+    },
     "bff/bridge": {
       "name": "bridge",
       "version": "0.0.0",
@@ -391,6 +398,8 @@
     "flat-cache": ["flat-cache@5.0.0", "", { "dependencies": { "flatted": "^3.3.1", "keyv": "^4.5.4" } }, "sha512-JrqFmyUl2PnPi1OvLyTVHnQvwQ0S+e6lGSwu8OkAZlSaNIZciTY2H/cOOROxsBA1m/LZNHDsqAgDZt6akWcjsQ=="],
 
     "flatted": ["flatted@3.3.3", "", {}, "sha512-GX+ysw4PBCz0PzosHDepZGANEuFCMLrnRTiEy9McGjmkCQYwRq4A/X786G/fjM/+OjsWSU1ZrY5qyARZmO/uwg=="],
+
+    "flutterkaigi-2025": ["flutterkaigi-2025@workspace:apps/website"],
 
     "formdata-polyfill": ["formdata-polyfill@4.0.10", "", { "dependencies": { "fetch-blob": "^3.1.2" } }, "sha512-buewHzMvYL29jdeQTVILecSaZKnt/RJWjoZCF5OW60Z67/GmSLBkOFM7qh1PI3zFNtJbaZL5eQu1vLfazOwj4g=="],
 

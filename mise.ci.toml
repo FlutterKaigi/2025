@@ -1,4 +1,5 @@
 [env]
+'_'.source = "scripts/export_sops_key_path.sh"
 '_'.file.path = ".env.json"
 
 [settings.sops]
