@@ -10,20 +10,27 @@ HTMLElement basicLayout(HTMLElement child) =>
       ..style.flexDirection = 'column'
       ..style.width = 'auto'
       ..style.minHeight = '100vh'
-      ..appendAll([_header, child..style.flex = '1', _footer]);
-
-get _header =>
-    HTMLElement.header()
-      ..style.position = 'sticky'
-      ..style.top = '0'
-      ..style.zIndex = '10'
       ..style.backgroundColor = 'var(--background-color)'
+      ..appendAll([
+        _header
+          ..style.position = 'sticky'
+          ..style.top = '0'
+          ..style.margin = '0 0 1rem'
+          ..style.borderBottom = '1px solid var(--border-color)'
+          ..style.backgroundColor = 'var(--background-color)',
+        child..style.flex = '1',
+        _footer
+          ..style.margin = '1rem 1rem 0'
+          ..style.borderTop = '1px solid var(--border-color)',
+      ]);
+
+HTMLElement get _header =>
+    HTMLElement.header()
+      ..style.zIndex = '10'
       ..style.display = 'flex'
       ..style.justifyContent = 'end'
       ..style.gap = '1rem'
       ..style.padding = '1rem'
-      ..style.margin = '0 0 1rem'
-      ..style.borderBottom = '1px solid var(--border-color)'
       ..append(
         HTMLUListElement()
           ..style.display = 'flex'
@@ -37,28 +44,26 @@ get _header =>
           ]),
       );
 
-_languageLink(Language lang, String title) =>
+HTMLElement _languageLink(Language lang, String title) =>
     user.lang == lang
         ? (HTMLLIElement()..textContent = title)
         : (HTMLLIElement()
           ..append(internalLink(title, path: currentPath.withLang(lang))));
 
-get _footer =>
+HTMLElement get _footer =>
     HTMLElement.footer()
       ..style.display = 'flex'
       ..style.flexDirection = 'column'
       ..style.justifyContent = 'center'
       ..style.alignItems = 'center'
       ..style.gap = '1rem'
-      ..style.margin = '1rem'
-      ..style.padding = '1rem 0 0'
-      ..style.borderTop = '1px solid var(--border-color)'
+      ..style.padding = '1rem'
       ..append(_pastEvents)
       ..append(_snsLinks)
       ..append(_externalLinks)
       ..append(_copyright);
 
-get _pastEvents =>
+HTMLElement get _pastEvents =>
     HTMLUListElement()
       ..style.display = 'flex'
       ..style.flexDirection = 'row'
@@ -73,7 +78,7 @@ get _pastEvents =>
         ),
       );
 
-get _snsLinks =>
+HTMLElement get _snsLinks =>
     HTMLUListElement()
       ..style.display = 'flex'
       ..style.flexDirection = 'row'
@@ -102,7 +107,7 @@ get _snsLinks =>
         ),
       );
 
-get _externalLinks =>
+HTMLElement get _externalLinks =>
     HTMLUListElement()
       ..style.display = 'flex'
       ..style.flexDirection = 'row'
@@ -124,7 +129,7 @@ get _externalLinks =>
         ),
       );
 
-get _copyright =>
+HTMLElement get _copyright =>
     HTMLUListElement()
       ..style.display = 'flex'
       ..style.flexDirection = 'column'
@@ -139,7 +144,9 @@ get _copyright =>
         HTMLLIElement()
           ..style.fontSize = '0.8em'
           ..textContent =
-              'Flutter and the related logo are trademarks of Google LLC. FlutterKaigi is not affiliated with or otherwise sponsored by Google LLC.',
+              'Flutter and the related logo are trademarks of Google LLC.'
+              ' FlutterKaigi is not affiliated with or otherwise sponsored'
+              ' by Google LLC.',
         HTMLLIElement()
           ..style.fontSize = '0.8em'
           ..appendAll([
