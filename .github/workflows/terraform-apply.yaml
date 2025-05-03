@@ -144,6 +144,15 @@ jobs:
         id: init
         run: terraform init -backend-config=backend.tfbackend
 
+      - name: Debug
+        run: |
+          echo "TF_VAR_SUPABASE_DB_PASSWORD_STAGING"
+          echo $TF_VAR_SUPABASE_DB_PASSWORD_STAGING | md5sum
+          echo "TF_VAR_SUPABASE_ORGANIZATION_ID"
+          echo $TF_VAR_SUPABASE_ORGANIZATION_ID | md5sum
+          echo "CLOUDFLARE_ACCOUNT_ID"
+          echo $CLOUDFLARE_ACCOUNT_ID | md5sum
+
       - name: Terraform apply
         id: apply
         env:
