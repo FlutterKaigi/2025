@@ -148,18 +148,6 @@ jobs:
             exit 1
           fi
 
-      - name: Debug
-        run: |
-          echo TF_VAR_SUPABASE_DB_PASSWORD_STAGING | md5sum
-          echo TF_VAR_SUPABASE_ORGANIZATION_ID| md5sum
-          echo CLOUDFLARE_ACCOUNT_ID | md5sum
-
-          echo "--------------------------------"
-
-          mise exec -- echo $TF_VAR_SUPABASE_DB_PASSWORD_STAGING | md5sum
-          mise exec -- echo $TF_VAR_SUPABASE_ORGANIZATION_ID | md5sum
-          mise exec -- echo $CLOUDFLARE_ACCOUNT_ID | md5sum
-
       - name: Terraform init
         id: init
         run: terraform init -backend-config=backend.tfbackend
