@@ -34,9 +34,11 @@ jobs:
       - name: Lint SQL
         id: lint
         run: |
-          echo 'log<<EOF' | tee -a "$GITHUB_OUTPUT"
-          bunx supabase db lint | tee -a "$GITHUB_OUTPUT"
-          echo 'EOF' >> tee -a $GITHUB_OUTPUT
+          {
+            echo "LOG<<EOL"
+            bunx supabase db lint 2>&1
+            echo "EOL"
+          } | tee -a $GITHUB_OUTPUT
 
   supabase-apply-dry-run:
     name: Apply Supabase Database (Dry Run)
@@ -108,12 +110,14 @@ jobs:
         env:
           SUPABASE_DB_PASSWORD: ${{ steps.db-password.outputs.password }}
         run: |
-          echo 'log<<EOF' | tee -a "$GITHUB_OUTPUT"
-          bunx supabase db push --dry-run | tee -a "$GITHUB_OUTPUT"
-          echo 'EOF' >> tee -a $GITHUB_OUTPUT
+          {
+            echo "LOG<<EOL"
+            bunx supabase db push --dry-run 2>&1
+            echo "EOL"
+          } | tee -a $GITHUB_OUTPUT
 
   comment-on-pr:
-    name: Comment Dry Run Log on PR
+    name: Comment Log on PR
     needs:
       - supabase-lint
       - supabase-apply-dry-run
@@ -121,20 +125,32 @@ jobs:
     runs-on: ubuntu-24.04
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      LINT_LOG: ${{ needs.supabase-lint.outputs.log }}
+      APPLY_DRY_RUN_LOG: ${{ needs.supabase-apply-dry-run.outputs.log }}
     steps:
+      - name: Log lint log
+        run: |
+          echo $LINT_LOG
+          echo "--------------------------------"
+          echo $APPLY_DRY_RUN_LOG
+
       - name: Comment PR with execution number
         uses: thollander/actions-comment-pull-request@24bffb9b452ba05a4f3f77933840a6a841d1b32b # v3.0.1
         with:
           message: |
-              ## 🔍️ Supabase Lint Log
+              <details>
+              <summary><h2>🔍️ Supabase Lint Log</h2></summary>
 
               ```log
-              ${{ needs.supabase-lint.outputs.log }}
+              ${{ env.LINT_LOG }}
               ```
+              </details>
 
-              ## 🔍️ Supabase Apply Dry Run Log
+              <details>
+              <summary><h2>🔍️ Supabase Apply Dry Run Log</h2></summary>
 
               ```log
-              ${{ needs.supabase-apply-dry-run.outputs.log }}
+              ${{ env.APPLY_DRY_RUN_LOG }}
               ```
+              </details>
           comment-tag: supabase-lint

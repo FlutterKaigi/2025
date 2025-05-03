@@ -80,7 +80,6 @@ jobs:
         working-directory: apps/website
         run: |
           LOG=$(make all)
-          echo "$LOG"
           echo "LOG<<EOF" >> $GITHUB_OUTPUT
           echo "$LOG" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
@@ -135,22 +134,23 @@ jobs:
         id: deploy-preview
         working-directory: apps/website
         run: |
-          LOG=$(bunx wrangler versions upload)
-          echo "$LOG"
-          echo "LOG<<EOF" >> $GITHUB_OUTPUT
-          echo "$LOG" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          {
+            echo "LOG<<EOL"
+            bunx wrangler versions upload 2>&1
+            echo "EOL"
+          } | tee -a $GITHUB_OUTPUT
+
 
       - name: Deploy website (Production)
         if: ${{ needs.define-environment.outputs.environment == 'production' }}
         id: deploy-production
         working-directory: apps/website
         run: |
-          LOG=$(bunx wrangler deploy)
-          echo "$LOG"
-          echo "LOG<<EOF" >> $GITHUB_OUTPUT
-          echo "$LOG" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          {
+            echo "LOG<<EOL"
+            bunx wrangler deploy 2>&1
+            echo "EOL"
+          } | tee -a $GITHUB_OUTPUT
 
       - name: Extract deployment URL
         id: extract-deployment-url
