@@ -114,8 +114,8 @@ HTMLElement get index => basicLayout(
     ..append(_countdown())
     ..append(
       externalLink(
-        event.blog.sponsorship.title,
-        url: event.blog.sponsorship.url,
+        text(event.blog.sponsorship.title),
+        url: text(event.blog.sponsorship.url),
       ),
     )
     ..append(

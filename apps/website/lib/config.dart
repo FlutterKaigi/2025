@@ -71,9 +71,16 @@ final event = (
   place: (name: (ja: '東京', en: 'Tokyo'), url: 'https://example.com'),
   blog: (
     sponsorship: (
-      title: 'FlutterKaigi 2025 スポンサー募集について',
-      url:
-          'https://medium.com/flutterkaigi/flutterkaigi-2025-スポンサー募集について-034330881a94',
+      title: (
+        ja: 'FlutterKaigi 2025 スポンサー募集について',
+        en: 'FlutterKaigi 2025 About Sponsor Recruitment',
+      ),
+      url: (
+        ja:
+            'https://medium.com/flutterkaigi/flutterkaigi-2025-スポンサー募集について-034330881a94',
+        en:
+            'https://medium.com/flutterkaigi/sponsoring-flutterkaigi-2025-da290533feb6',
+      ),
     ),
   ),
   schedule: [
@@ -87,6 +94,10 @@ final event = (
     ),
     (
       title: (ja: 'チケット販売開始', en: null),
+      date: DateTime.parse('2038-01-03T12:00:00+0900').toLocal(),
+    ),
+    (
+      title: (ja: '前夜祭', en: null),
       date: DateTime.parse('2038-01-03T12:00:00+0900').toLocal(),
     ),
     (
