@@ -1,0 +1,225 @@
+name: Deploy Website
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    paths:
+      - apps/website/**
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Deploy environment"
+        required: true
+        default: "preview"
+        type: choice
+        options:
+          - preview
+          - production
+
+concurrency:
+  group: "deploy-website"
+  cancel-in-progress: false
+
+jobs:
+  define-environment:
+    runs-on: ubuntu-24.04
+    outputs:
+      environment: ${{ steps.define-environment.outputs.environment }}
+    steps:
+      - name: Define environment
+        id: define-environment
+        run: |
+          echo "environment=${{ inputs.environment }} || ${{ github.event_name == 'push' && 'production' || 'preview' }}" \
+            >> $GITHUB_OUTPUT
+
+  start-deploy-website:
+    needs:
+      - define-environment
+    if: ${{ needs.define-environment.outputs.environment == 'production' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 1
+    outputs:
+      deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+    steps:
+      # https://github.com/bobheadxi/deployments
+      - name: Start deployment
+        uses: bobheadxi/deployments@648679e8e4915b27893bd7dbc35cb504dc915bc8 # v1.5.0
+        id: deployment
+        with:
+          step: start
+          token: ${{ secrets.GITHUB_TOKEN }}
+          env: PR-${{ github.event.number }}-website
+          ref: ${{ github.head_ref}}
+
+  build-website:
+    needs:
+      - define-environment
+    runs-on: ubuntu-24.04
+    outputs:
+      build_log: ${{ steps.build.outputs.LOG }}
+    timeout-minutes: 5
+    steps:
+      # https://github.com/actions/checkout
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      # https://github.com/jdx/mise-action
+      - name: Install Mise dependencies
+        uses: jdx/mise-action@5083fe46898c414b2475087cc79da59e7da859e8 # v2.1.11
+        with:
+          install_args: "flutter"
+
+      - name: Resolve dependencies
+        working-directory: apps/website
+        run: dart pub get
+
+      - name: Build Dart WebAssembly
+        id: build
+        working-directory: apps/website
+        run: |
+          LOG=$(make all)
+          echo "$LOG"
+          echo "LOG<<EOF" >> $GITHUB_OUTPUT
+          echo "$LOG" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Upload Dart website Artifacts
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: website-artifacts
+          path: apps/website/build
+
+
+  deploy-website:
+    runs-on: ubuntu-24.04
+    needs:
+      - define-environment
+      - build-website
+    timeout-minutes: 5
+    env:
+      MISE_ENV: ci
+    outputs:
+      preview_log: ${{ steps.deploy-preview.outputs.LOG }}
+      production_log: ${{ steps.deploy-production.outputs.LOG }}
+      deployment_url: ${{ steps.extract-deployment-url.outputs.DEPLOYMENT_URL }}
+    steps:
+      # https://github.com/actions/checkout
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Download Dart Website Artifacts
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: website-artifacts
+          path: apps/website/build
+
+      - name: Extract SOPS secrets
+        run: |
+          mkdir -p ~/.config/mise
+          echo "${{ secrets.SOPS_FILE }}" > ~/.config/mise/flutterkaigi.txt
+
+      # https://github.com/jdx/mise-action
+      - name: Install Mise dependencies
+        uses: jdx/mise-action@5083fe46898c414b2475087cc79da59e7da859e8 # v2.1.11
+        with:
+          install_args: "bun"
+
+      - name: Install dependencies
+        working-directory: apps/website
+        run: bun install --frozen-lockfile
+
+      - name: Deploy website (Preview)
+        if: ${{ needs.define-environment.outputs.environment != 'production' }}
+        id: deploy-preview
+        working-directory: apps/website
+        run: |
+          LOG=$(bunx wrangler versions upload)
+          echo "$LOG"
+          echo "LOG<<EOF" >> $GITHUB_OUTPUT
+          echo "$LOG" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Deploy website (Production)
+        if: ${{ needs.define-environment.outputs.environment == 'production' }}
+        id: deploy-production
+        working-directory: apps/website
+        run: |
+          LOG=$(bunx wrangler deploy)
+          echo "$LOG"
+          echo "LOG<<EOF" >> $GITHUB_OUTPUT
+          echo "$LOG" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Extract deployment URL
+        id: extract-deployment-url
+        run: |
+          if [ -z "${{ steps.deploy-preview.outputs.LOG }}" ]; then
+            LOG="${{ steps.deploy-production.outputs.LOG }}"
+          else
+            LOG="${{ steps.deploy-preview.outputs.LOG }}"
+          fi
+
+          # `https://` を含む行を抽出し、DEPLOYMENT_URLに格納
+          DEPLOYMENT_URL=$(echo "$LOG" | grep -o 'https://[^ ]*')
+          echo "DEPLOYMENT_URL=$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
+
+      - name: Extract timestamp
+        id: extract-timestamp
+        env:
+          TZ: Asia/Tokyo
+        run: |
+          echo "timestamp=$(date -Iseconds )" >> $GITHUB_OUTPUT
+
+      - name: Comment PR with execution number
+        uses: thollander/actions-comment-pull-request@24bffb9b452ba05a4f3f77933840a6a841d1b32b # v3.0.1
+        with:
+          message: |
+            ## 🌍️ Website Preview Deployment
+            🔗URL: ${{ steps.extract-deployment-url.outputs.DEPLOYMENT_URL }}
+
+            🔑Commit Hash: `${{ github.sha }}`
+            📅Timestamp: `${{ steps.extract-timestamp.outputs.TIMESTAMP }}`
+
+            <details>
+            <summary><h2>📦️ Build Logs</h2></summary>
+
+            ```log
+            ${{ needs.build-website.outputs.build_log }}
+            ```
+            </details>
+
+            <details>
+            <summary><h2>✈️ Deployment Logs</h2></summary>
+
+            ```log
+            ${{ steps.deploy-preview.outputs.LOG }}
+            ```
+            </details>
+          comment-tag: deploy-website
+
+
+      # TODO: Production Deploy時に、Slack通知を飛ばす
+
+
+
+  update-deployment-status:
+    runs-on: ubuntu-24.04
+    needs:
+      - define-environment
+      - deploy-website
+      - start-deploy-website
+    if: ${{ needs.define-environment.outputs.environment == 'production' }}
+    timeout-minutes: 1
+    steps:
+      # https://github.com/bobheadxi/deployments
+      - name: Start deployment
+        uses: bobheadxi/deployments@648679e8e4915b27893bd7dbc35cb504dc915bc8 # v1.5.0
+        id: deployment
+        with:
+          step: update
+          token: ${{ secrets.GITHUB_TOKEN }}
+          env: PR-${{ github.event.number }}-website
+          ref: ${{ github.head_ref}}
+          env_url: ${{ needs.deploy-website.outputs.deployment_url }}
