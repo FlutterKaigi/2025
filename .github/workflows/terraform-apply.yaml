@@ -153,6 +153,20 @@ jobs:
           echo "CLOUDFLARE_ACCOUNT_ID"
           echo $CLOUDFLARE_ACCOUNT_ID | md5sum
 
+          echo "--------------------------------"
+
+          echo "TF_VAR_SUPABASE_DB_PASSWORD_STAGING"
+          mise exec -- echo $TF_VAR_SUPABASE_DB_PASSWORD_STAGING | md5sum
+          echo "TF_VAR_SUPABASE_ORGANIZATION_ID"
+          mise exec -- echo $TF_VAR_SUPABASE_ORGANIZATION_ID | md5sum
+          echo "CLOUDFLARE_ACCOUNT_ID"
+          mise exec -- echo $CLOUDFLARE_ACCOUNT_ID | md5sum
+
+
+
+
+
+
       - name: Terraform apply
         id: apply
         env:
