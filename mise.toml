@@ -11,3 +11,10 @@ tflint = "0.56.0"
 description = "Initialize the workspace."
 run = './tools/bootstrap.sh'
 alias = "bs"
+
+[tasks.clean]
+description = "Clean this workspace."
+run = [
+  'bun run clean',
+  'melos clean',
+]
