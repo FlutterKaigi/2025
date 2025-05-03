@@ -7,6 +7,8 @@
   --primary-color: var(--color-beyond-red);
   --secondary-color: var(--color-flutter-sky);
   --link-color: var(--secondary-color);
+  --border-color: var(--primary-color);
+  --background-color: white;
 }
 
 html, body {
