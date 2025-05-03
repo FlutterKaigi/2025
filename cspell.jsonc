@@ -109,7 +109,8 @@
         "*.properties",
         "supabase/migrations",
         "supabase/config.toml",
-        "worker-configuration.d.ts"
+        "worker-configuration.d.ts",
+        "*.svg"
     ],
     "import": [
         "@cspell/dict-software-terms/cspell-ext.json",

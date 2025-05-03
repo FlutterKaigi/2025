@@ -8,9 +8,59 @@ String makeTitle([String? sub]) =>
 /// サイト情報
 const site = (
   title: 'FlutterKaigi 2025',
-  since: '2025',
-  organizer: 'FlutterKaigi',
-  repository: (url: 'https://github.com/FlutterKaigi/2025'),
+  since: '2021',
+  until: '2025',
+  organizer: 'FlutterKaigi 実行委員会',
+  snsLinks: [
+    (
+      title: 'X',
+      url: 'https://x.com/FlutterKaigi',
+      icon: '/img/icon_sns_x.svg',
+    ),
+    (
+      title: 'GitHub',
+      url: 'https://github.com/FlutterKaigi',
+      icon: '/img/icon_sns_github.svg',
+    ),
+    (
+      title: 'Discord',
+      url: 'https://discord.com/invite/Nr7H8JTJSF',
+      icon: '/img/icon_sns_discord.svg',
+    ),
+    (
+      title: 'Medium',
+      url: 'https://medium.com/flutterkaigi',
+      icon: '/img/icon_sns_medium.svg',
+    ),
+  ],
+  externalLinks: [
+    (
+      title: (ja: '行動規範', en: 'Code of Conduct'),
+      url: (
+        ja: 'https://docs.flutterkaigi.jp/Code-of-Conduct.ja',
+        en: 'https://docs.flutterkaigi.jp/Code-of-Conduct',
+      ),
+    ),
+    (
+      title: (ja: 'プライバシーポリシー', en: 'Privacy Policy'),
+      url: (
+        ja: 'https://docs.flutterkaigi.jp/Privacy-Policy.ja',
+        en: 'https://docs.flutterkaigi.jp/Privacy-Policy',
+      ),
+    ),
+    (
+      title: (ja: '相談窓口', en: 'Contact'),
+      url: (
+        ja:
+            'https://docs.google.com/forms/d/e/1FAIpQLSemYPFEWpP8594MWI4k3Nz45RJzMS7pz1ufwtnX4t3V7z2TOw/viewform',
+        en: null,
+      ),
+    ),
+    (
+      title: (ja: 'リポジトリー', en: 'Repository'),
+      url: (ja: 'https://github.com/FlutterKaigi/2025', en: null),
+    ),
+  ],
 );
 
 /// イベント情報
@@ -54,6 +104,12 @@ final event = (
       title: (ja: 'FlutterKaigi 2025当日', en: null),
       date: DateTime.parse('2038-01-04T12:00:00+0900').toLocal(),
     ),
+  ],
+  pastEvents: [
+    (title: '2024', url: 'https://2024.flutterkaigi.jp/'),
+    (title: '2023', url: 'https://2023.flutterkaigi.jp/'),
+    (title: '2022', url: 'https://2022.flutterkaigi.jp/'),
+    (title: '2021', url: 'https://2021.flutterkaigi.jp/'),
   ],
 );
 
