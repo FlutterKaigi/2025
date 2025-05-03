@@ -29,6 +29,6 @@ body * {
     transform: translateY(0);
   }
   to {
-    transform: translateY(5rem);
+    transform: translateY(2rem);
   }
 }
