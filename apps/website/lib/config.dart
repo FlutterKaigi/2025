@@ -84,23 +84,23 @@ final event = (
   ),
   schedule: [
     (
-      title: (ja: 'スポンサー募集開始', en: null),
+      title: (ja: 'スポンサー募集開始', en: 'Call for Sponsors Opens'),
       date: DateTime.parse('2026-01-01T12:00:00+0900').toLocal(),
     ),
     (
-      title: (ja: 'プロポーザル募集開始', en: null),
+      title: (ja: 'プロポーザル募集開始', en: 'Call for Proposals Opens'),
       date: DateTime.parse('2026-01-02T12:00:00+0900').toLocal(),
     ),
     (
-      title: (ja: 'チケット販売開始', en: null),
+      title: (ja: 'チケット販売開始', en: 'Ticket Sales Begin'),
       date: DateTime.parse('2026-01-03T12:00:00+0900').toLocal(),
     ),
     (
-      title: (ja: '前夜祭', en: null),
+      title: (ja: '前夜祭', en: 'Pre-event Party'),
       date: DateTime.parse('2026-01-03T12:00:00+0900').toLocal(),
     ),
     (
-      title: (ja: 'FlutterKaigi 2025当日', en: null),
+      title: (ja: 'FlutterKaigi 2025当日', en: 'FlutterKaigi 2025 Event Day'),
       date: DateTime.parse('2026-01-04T12:00:00+0900').toLocal(),
     ),
   ],
