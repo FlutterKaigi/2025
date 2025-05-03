@@ -25,7 +25,6 @@ HTMLElement get _mainContent =>
       ..style.flexDirection = 'column'
       ..style.justifyContent = 'center'
       ..style.alignItems = 'center'
-      ..style.padding = '0 2rem'
       ..appendAll([
         HTMLHeadingElement.h1()..append(
           HTMLImageElement()
@@ -36,13 +35,19 @@ HTMLElement get _mainContent =>
         HTMLParagraphElement()
           ..style.fontSize = '2rem'
           ..textContent = formatDate(event.date),
-        HTMLParagraphElement()
+        HTMLDListElement()
+          ..style.display = 'grid'
+          ..style.gridGap = '0.5rem'
+          ..style.gridTemplateColumns = 'repeat(2, 1fr)'
           ..style.marginTop = '1rem'
           ..style.fontSize = '1.2rem'
-          ..textContent = text((
-            ja: '${contents.placeLabel.ja} ${event.place.name.ja}',
-            en: '${contents.placeLabel.en} ${event.place.name.en}',
-          )),
+          ..appendAll([
+            HTMLElement.dt()..textContent = text(contents.placeLabel),
+            HTMLElement.dd()..append(
+              externalLink(text(event.place.name), url: event.place.url)
+                ..style.fontSize = 'inherit',
+            ),
+          ]),
         HTMLParagraphElement()
           ..style.position = 'relative'
           ..style.marginTop = '1rem'
@@ -143,10 +148,9 @@ HTMLElement get _schedule =>
               .map(
                 (schedule) => [
                   HTMLElement.dt()
-                    ..style.whiteSpace = 'nowrap'
-                    ..style.textAlign = 'right'
-                    ..textContent = text(schedule.title),
-                  HTMLElement.dd()..textContent = formatDate(schedule.date),
+                    ..style.textAlign = 'center'
+                    ..textContent = formatDate(schedule.date),
+                  HTMLElement.dd()..textContent = text(schedule.title),
                 ],
               )
               .expand((e) => e),

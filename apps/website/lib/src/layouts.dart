@@ -15,15 +15,13 @@ HTMLElement basicLayout(HTMLElement child) =>
         _header
           ..style.position = 'sticky'
           ..style.top = '0'
-          ..style.margin = '0 0 1rem'
           ..style.borderBottom = '1px solid var(--border-color)'
           ..style.backgroundColor = 'var(--background-color)',
         child
+          ..style.padding = '1rem'
           ..style.flex = '1'
           ..style.overflow = 'hidden',
-        _footer
-          ..style.margin = '1rem 1rem 0'
-          ..style.borderTop = '1px solid var(--border-color)',
+        _footer..style.borderTop = '1px solid var(--border-color)',
       ]);
 
 HTMLElement get _header =>
@@ -34,24 +32,26 @@ HTMLElement get _header =>
       ..style.padding = '1rem'
       ..appendAll([
         HTMLUListElement()..appendAll([
-          HTMLLIElement()
-            ..style.display = 'flex'
-            ..style.flexDirection = 'row'
-            ..style.alignItems = 'center'
-            ..style.gap = '0.5em'
-            ..style.fontSize = '1.5em'
-            ..appendAll([
-              internalLink(
-                HTMLImageElement()
-                  ..style.height = '2em'
-                  ..style.verticalAlign = 'middle'
-                  ..style.cursor = 'pointer'
-                  ..alt = '${site.title} logo'
-                  ..src = '/img/icon_flutterkaigi.svg',
-                path: Path.go(),
-              ),
-              Text(site.title),
-            ]),
+          HTMLLIElement()..append(
+            HTMLHeadingElement.h1()
+              ..style.display = 'flex'
+              ..style.flexDirection = 'row'
+              ..style.alignItems = 'center'
+              ..style.gap = '0.5em'
+              ..style.fontSize = '1.5em'
+              ..appendAll([
+                internalLink(
+                  HTMLImageElement()
+                    ..style.height = '2em'
+                    ..style.verticalAlign = 'middle'
+                    ..style.cursor = 'pointer'
+                    ..alt = '${site.title} logo'
+                    ..src = '/img/icon_flutterkaigi.svg',
+                  path: Path.go(),
+                ),
+                Text(site.title),
+              ]),
+          ),
         ]),
         HTMLUListElement()
           ..style.display = 'flex'

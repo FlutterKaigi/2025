@@ -43,6 +43,5 @@ HTMLAnchorElement internalLink(
       ..append(content)
       ..onClick.listen((event) {
         event.preventDefault();
-        final element = event.target! as HTMLAnchorElement;
-        rerendering(Path.fromPathname(URL(element.href).pathname));
+        rerendering(path);
       });
