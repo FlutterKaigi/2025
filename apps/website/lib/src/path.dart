@@ -10,7 +10,7 @@ class Path {
   Path.fromPathname(String pathname)
     : _path = pathname.split('/').where((n) => n.isNotEmpty).toList();
 
-  factory Path.go(List<String> path) => currentPath.go(Path(path));
+  factory Path.go([List<String> path = const []]) => currentPath.go(Path(path));
 
   final List<String> _path;
 

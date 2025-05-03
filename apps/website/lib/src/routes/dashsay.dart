@@ -27,7 +27,7 @@ HTMLElement dashsay(String msg) => basicLayout(
       HTMLImageElement()
         ..style.width = '16em'
         ..style.animation = '1.5s ease-in-out infinite alternate bounding'
-        ..alt = 'Flutter Kaigi Dash'
+        ..alt = 'FlutterKaigi Dash'
         ..src = '/img/flutterkaigi_dash.png',
     ]),
 );

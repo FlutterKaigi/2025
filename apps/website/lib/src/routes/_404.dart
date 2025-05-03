@@ -20,5 +20,5 @@ HTMLElement get notFound => basicLayout(
     ..style.fontSize = '2rem'
     ..style.padding = '1rem'
     ..textContent = '404 Not Found'
-    ..append(internalLink(text(contents.moveToTop), path: Path.go([]))),
+    ..append(internalLink(Text(text(contents.moveToTop)), path: Path.go())),
 );

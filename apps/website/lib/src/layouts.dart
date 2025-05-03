@@ -1,6 +1,6 @@
 import 'package:flutterkaigi_2025_website/config.dart';
 import 'package:flutterkaigi_2025_website/src/components.dart';
-import 'package:flutterkaigi_2025_website/src/path.dart' show currentPath;
+import 'package:flutterkaigi_2025_website/src/path.dart' show Path, currentPath;
 import 'package:flutterkaigi_2025_website/text.dart';
 import 'package:web/web.dart';
 
@@ -18,7 +18,9 @@ HTMLElement basicLayout(HTMLElement child) =>
           ..style.margin = '0 0 1rem'
           ..style.borderBottom = '1px solid var(--border-color)'
           ..style.backgroundColor = 'var(--background-color)',
-        child..style.flex = '1',
+        child
+          ..style.flex = '1'
+          ..style.overflow = 'hidden',
         _footer
           ..style.margin = '1rem 1rem 0'
           ..style.borderTop = '1px solid var(--border-color)',
@@ -27,11 +29,30 @@ HTMLElement basicLayout(HTMLElement child) =>
 HTMLElement get _header =>
     HTMLElement.header()
       ..style.zIndex = '10'
-      ..style.display = 'flex'
-      ..style.justifyContent = 'end'
-      ..style.gap = '1rem'
+      ..style.display = 'grid'
+      ..style.gridTemplateColumns = '1fr 0fr'
       ..style.padding = '1rem'
-      ..append(
+      ..appendAll([
+        HTMLUListElement()..appendAll([
+          HTMLLIElement()
+            ..style.display = 'flex'
+            ..style.flexDirection = 'row'
+            ..style.alignItems = 'center'
+            ..style.gap = '0.5em'
+            ..style.fontSize = '1.5em'
+            ..appendAll([
+              internalLink(
+                HTMLImageElement()
+                  ..style.height = '2em'
+                  ..style.verticalAlign = 'middle'
+                  ..style.cursor = 'pointer'
+                  ..alt = '${site.title} logo'
+                  ..src = '/img/icon_flutterkaigi.svg',
+                path: Path.go(),
+              ),
+              Text(site.title),
+            ]),
+        ]),
         HTMLUListElement()
           ..style.display = 'flex'
           ..style.flexDirection = 'row'
@@ -42,13 +63,14 @@ HTMLElement get _header =>
             _languageLink(Language.ja, contents.lang.ja),
             _languageLink(Language.en, contents.lang.en),
           ]),
-      );
+      ]);
 
 HTMLElement _languageLink(Language lang, String title) =>
     user.lang == lang
         ? (HTMLLIElement()..textContent = title)
-        : (HTMLLIElement()
-          ..append(internalLink(title, path: currentPath.withLang(lang))));
+        : (HTMLLIElement()..append(
+          internalLink(Text(title), path: currentPath.withLang(lang)),
+        ));
 
 HTMLElement get _footer =>
     HTMLElement.footer()

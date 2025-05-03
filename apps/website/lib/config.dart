@@ -66,8 +66,7 @@ const site = (
 /// イベント情報
 final event = (
   title: 'FlutterKaigi 2025',
-  // FIXME 正しい日付を入れる
-  date: DateTime.parse('2038-11-01T10:00:00+0900').toLocal(),
+  date: DateTime.parse('2026-01-01T12:00:00+0900').toLocal(),
   place: (name: (ja: '東京', en: 'Tokyo'), url: 'https://example.com'),
   blog: (
     sponsorship: (
@@ -86,23 +85,23 @@ final event = (
   schedule: [
     (
       title: (ja: 'スポンサー募集開始', en: null),
-      date: DateTime.parse('2038-01-01T12:00:00+0900').toLocal(),
+      date: DateTime.parse('2026-01-01T12:00:00+0900').toLocal(),
     ),
     (
       title: (ja: 'プロポーザル募集開始', en: null),
-      date: DateTime.parse('2038-01-02T12:00:00+0900').toLocal(),
+      date: DateTime.parse('2026-01-02T12:00:00+0900').toLocal(),
     ),
     (
       title: (ja: 'チケット販売開始', en: null),
-      date: DateTime.parse('2038-01-03T12:00:00+0900').toLocal(),
+      date: DateTime.parse('2026-01-03T12:00:00+0900').toLocal(),
     ),
     (
       title: (ja: '前夜祭', en: null),
-      date: DateTime.parse('2038-01-03T12:00:00+0900').toLocal(),
+      date: DateTime.parse('2026-01-03T12:00:00+0900').toLocal(),
     ),
     (
       title: (ja: 'FlutterKaigi 2025当日', en: null),
-      date: DateTime.parse('2038-01-04T12:00:00+0900').toLocal(),
+      date: DateTime.parse('2026-01-04T12:00:00+0900').toLocal(),
     ),
   ],
   pastEvents: [

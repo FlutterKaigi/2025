@@ -26,11 +26,11 @@ HTMLAnchorElement externalLink(
       ..textContent = text;
 
 /// サイト内リンク
-/// - [text] リンクテキスト
+/// - [content] リンクコンテンツ
 /// - [path] リンクパス
 /// - [target] リンクターゲット
 HTMLAnchorElement internalLink(
-  String text, {
+  JSAny content, {
   required Path path,
   String target = '_top',
 }) =>
@@ -40,7 +40,7 @@ HTMLAnchorElement internalLink(
       ..style.cursor = 'pointer'
       ..target = target
       ..href = path.toString()
-      ..textContent = text
+      ..append(content)
       ..onClick.listen((event) {
         event.preventDefault();
         final element = event.target! as HTMLAnchorElement;
