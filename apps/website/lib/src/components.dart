@@ -1,5 +1,4 @@
 import 'dart:js_interop';
-
 import 'package:flutterkaigi_2025_website/app.dart' show rerendering;
 import 'package:flutterkaigi_2025_website/src/path.dart' show Path;
 import 'package:web/web.dart';
