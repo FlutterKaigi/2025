@@ -31,9 +31,7 @@
         {
             "name": "flutter-term",
             "description": "Flutter related terms",
-            "words": [
-                "cupertino"
-            ]
+            "path": ".cspell/flutter-term.txt"
         },
         {
             "name": "github-action-term",
