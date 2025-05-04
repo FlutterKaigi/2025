@@ -42,9 +42,7 @@
         {
             "name": "supabase-term",
             "description": "Supabase related terms",
-            "words": [
-                "Supabase"
-            ]
+            "path": ".cspell/supabase-term.txt"
         },
         {
             "name": "terraform-term",
