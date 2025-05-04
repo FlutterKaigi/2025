@@ -21,7 +21,7 @@ print_step() {
 
 print_result() {
   local code=$1; shift
-  if [ $code -eq 0 ]; then
+  if [ "$code" -eq 0 ]; then
     echo -e "${GREEN}[✔] $*${NC}"
   else
     echo -e "${RED}[✖] $* (exit ${code})${NC}"
