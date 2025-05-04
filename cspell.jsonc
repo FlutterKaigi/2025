@@ -2,16 +2,8 @@
     "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
     "version": "0.2",
     "useGitignore": true,
+    "enableGlobDot": true,
     "dictionaryDefinitions": [
-        {
-            "name": "android-term",
-            "description": "Android related terms",
-            "words": [
-                "allprojects",
-                "Subproject",
-                "subprojects"
-            ]
-        },
         {
             "name": "bun-term",
             "description": "Bun related terms",
@@ -48,8 +40,11 @@
             "name": "github-action-term",
             "description": "GitHub Actions related terms",
             "words": [
+                "bobheadxi",
+                "ghaction",
+                "Iseconds",
                 "stefanbuck",
-                "ghaction"
+                "thollander",
             ]
         },
         {
@@ -71,8 +66,7 @@
             "name": "supabase-term",
             "description": "Supabase related terms",
             "words": [
-                "Supabase",
-                "plpgsql"
+                "Supabase"
             ]
         },
         {
@@ -87,7 +81,6 @@
         }
     ],
     "dictionaries": [
-        "android-term",
         "bun-term",
         "dart-term",
         "flutter-term",
@@ -97,20 +90,15 @@
         "supabase-term",
         "terraform-term"
     ],
+    "files": [
+        "**/*.{md,yaml,yml,dart,ts,js}",
+    ],
     "ignorePaths": [
-        "cspell.jsonc",
-        "*.lock",
-        "Runner.xcodeproj",
-        "Runner.xcworkspace",
-        "*.xcconfig",
-        "*.xib",
-        "*.storyboard",
-        "*.plist",
-        "*.properties",
-        "supabase/migrations",
-        "supabase/config.toml",
+        // 自動生成ファイル
+        "*.*.dart",
         "worker-configuration.d.ts",
-        "*.svg"
+        // 隠しファイル
+        ".*.{yaml,yml}"
     ],
     "import": [
         "@cspell/dict-software-terms/cspell-ext.json",
