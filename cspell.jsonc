@@ -22,14 +22,7 @@
         {
             "name": "github-action-term",
             "description": "GitHub Actions related terms",
-            "words": [
-                "bobheadxi",
-                "ghaction",
-                "Iseconds",
-                "stefanbuck",
-                "thollander",
-                "dorny",
-            ]
+            "path": ".cspell/github-action-term.txt"
         },
         {
             "name": "ios-term",
