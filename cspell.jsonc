@@ -27,10 +27,7 @@
         {
             "name": "ios-term",
             "description": "iOS related terms",
-            "words": [
-                "xcassets",
-                "xcworkspace"
-            ]
+            "path": ".cspell/ios-term.txt"
         },
         {
             "name": "web-term",
