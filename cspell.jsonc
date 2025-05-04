@@ -32,10 +32,7 @@
         {
             "name": "web-term",
             "description": "Web related terms",
-            "words": [
-                "nowrap",
-                "dashsay"
-            ]
+            "path": ".cspell/web-term.txt"
         },
         {
             "name": "project-term",
