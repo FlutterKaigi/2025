@@ -12,21 +12,7 @@
         {
             "name": "dart-term",
             "description": "Dart related terms",
-            "words": [
-                "riverpod",
-                "unawaited",
-                "pubspec",
-                "interps",
-                "altive",
-                "ints",
-                "combinatiors",
-                "tearoffs",
-                "combinators",
-                // Dart web
-                "HTMLUListElement",
-                "HTMLDListElement",
-                "HTMLLIElement"
-            ]
+            "path": ".cspell/dart-term.txt"
         },
         {
             "name": "flutter-term",
