@@ -5,15 +5,6 @@
     "enableGlobDot": true,
     "dictionaryDefinitions": [
         {
-            "name": "android-term",
-            "description": "Android related terms",
-            "words": [
-                "allprojects",
-                "Subproject",
-                "subprojects"
-            ]
-        },
-        {
             "name": "bun-term",
             "description": "Bun related terms",
             "words": [
@@ -75,8 +66,7 @@
             "name": "supabase-term",
             "description": "Supabase related terms",
             "words": [
-                "Supabase",
-                "plpgsql"
+                "Supabase"
             ]
         },
         {
@@ -91,7 +81,6 @@
         }
     ],
     "dictionaries": [
-        "android-term",
         "bun-term",
         "dart-term",
         "flutter-term",
