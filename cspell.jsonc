@@ -47,12 +47,7 @@
         {
             "name": "terraform-term",
             "description": "Terraform related terms",
-            "words": [
-                "tfbackend",
-                "tflint",
-                "shunsuke",
-                "tfcmt"
-            ]
+            "path": ".cspell/terraform-term.txt"
         }
     ],
     "dictionaries": [
