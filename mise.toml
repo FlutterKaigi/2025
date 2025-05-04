@@ -6,3 +6,15 @@ flutter = "3.29.3-stable"
 node = "22.14.0"
 terraform = "1.11.4"
 tflint = "0.56.0"
+
+[tasks.bootstrap]
+description = "Initialize the workspace."
+run = './tools/bootstrap.sh'
+alias = "bs"
+
+[tasks.clean]
+description = "Clean this workspace."
+run = [
+  'bun run clean',
+  'melos clean',
+]
