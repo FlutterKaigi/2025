@@ -2,6 +2,7 @@
     "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
     "version": "0.2",
     "useGitignore": true,
+    "enableGlobDot": true,
     "dictionaryDefinitions": [
         {
             "name": "android-term",
@@ -101,7 +102,10 @@
         "**/*.{md,yaml,yml,dart,ts,js}",
     ],
     "ignorePaths": [
+        // 自動生成ファイル
         "worker-configuration.d.ts",
+        // 隠しファイル
+        ".*.{yaml,yml}"
     ],
     "import": [
         "@cspell/dict-software-terms/cspell-ext.json",
