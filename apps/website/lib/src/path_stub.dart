@@ -1,3 +1,4 @@
 import 'package:flutterkaigi_2025_website/src/path.dart';
 
-Path get currentPath => Path([]);
+/// テストで利用
+Path currentPath = Path([]);

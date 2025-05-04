@@ -1,4 +1,4 @@
-import 'package:flutterkaigi_2025_website/config.dart' show event, user;
+import 'package:flutterkaigi_2025_website/config.dart' show user;
 
 const _month = {
   1: 'Jan',
@@ -23,18 +23,19 @@ enum Language { ja, en }
 /// - `en` 英語
 typedef Content = ({String ja, String? en});
 
-final contents = (
-  lang: const (ja: 'JA', en: 'EN'),
+const contents = (
+  lang: (ja: 'JA', en: 'EN'),
   dateLabel: (ja: '開催日', en: 'Date'),
-  placeLabel: (ja: '開催場所', en: 'Place'),
+  placeLabel: (ja: '会場', en: 'Place'),
   scheduleLabel: (ja: 'スケジュール', en: 'Schedule'),
-  date: (
-    ja: '${event.date.year}年${event.date.month}月${event.date.day}日',
-    en: '${_month[event.date.month]} ${event.date.day}, ${event.date.year}',
-  ),
-  repository: (ja: 'Repository', en: null),
   moveToTop: (ja: 'トップ', en: 'Top'),
 );
+
+String formatDate(DateTime date, [Language? lang]) => switch (lang ??
+    user.lang) {
+  Language.en => '${_month[date.month]} ${date.day}, ${date.year}',
+  _ => '${date.year}年${date.month}月${date.day}日',
+};
 
 /// テキストコンテンツを取得する
 String text(Content content) => switch (user.lang) {

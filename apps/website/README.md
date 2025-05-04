@@ -31,6 +31,7 @@ dartでの実装のため，SPAを前提とした実装となっています．
 ### 参考リンク
 
 - [packages:web Docs](https://pub.dev/documentation/web/latest/index.html)
+- [MDN Web Docs](https://developer.mozilla.org/ja/)
 
 ### ディレクトリ構成
 

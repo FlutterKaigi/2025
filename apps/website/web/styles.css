@@ -6,8 +6,8 @@
 
   --primary-color: var(--color-beyond-red);
   --secondary-color: var(--color-flutter-sky);
-  --link-color: var(--secondary-color);
-  --border-color: var(--primary-color);
+  --link-color: steelblue;
+  --border-color: slategray;
   --background-color: white;
 }
 
@@ -29,6 +29,15 @@ body * {
     transform: translateY(0);
   }
   to {
-    transform: translateY(5rem);
+    transform: translateY(2rem);
+  }
+}
+
+@keyframes color-change {
+  from {
+    color: var(--primary-color);
+  }
+  to {
+    color: var(--secondary-color);
   }
 }

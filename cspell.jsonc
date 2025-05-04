@@ -26,6 +26,7 @@
                 "combinators",
                 // Dart web
                 "HTMLUListElement",
+                "HTMLDListElement",
                 "HTMLLIElement"
             ]
         },
@@ -53,6 +54,14 @@
             "words": [
                 "xcassets",
                 "xcworkspace"
+            ]
+        },
+        {
+            "name": "web-term",
+            "description": "Web related terms",
+            "words": [
+                "nowrap",
+                "dashsay"
             ]
         },
         {
@@ -86,6 +95,7 @@
         "flutter-term",
         "github-action-term",
         "ios-term",
+        "web-term",
         "project-term",
         "supabase-term",
         "terraform-term"
