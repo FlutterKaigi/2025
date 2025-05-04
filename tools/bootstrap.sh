@@ -11,11 +11,11 @@ RED='\033[0;31m'
 BLUE='\033[0;34m'
 NC='\033[0m'
 
-step=1
+step=0
 START_TIME=$(date +%s)
 
 print_step() {
-  echo -e "${BLUE}Step $((step++)): $1${NC}"
+  echo -e "${BLUE}Step $((++step)): $1${NC}"
 }
 
 print_result() {
