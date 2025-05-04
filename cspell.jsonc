@@ -7,9 +7,7 @@
         {
             "name": "bun-term",
             "description": "Bun related terms",
-            "words": [
-                "bunx"
-            ]
+            "path": ".cspell/bun-term.txt"
         },
         {
             "name": "dart-term",
