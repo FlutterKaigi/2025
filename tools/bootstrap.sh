@@ -11,6 +11,7 @@ RED='\033[0;31m'
 BLUE='\033[0;34m'
 NC='\033[0m'
 
+bootstrap_result=0
 step=0
 START_TIME=$(date +%s)
 
@@ -24,6 +25,7 @@ print_result() {
     echo -e "${GREEN}[✔] $*${NC}"
   else
     echo -e "${RED}[✖] $* (exit ${code})${NC}"
+    bootstrap_result=1
   fi
 }
 
@@ -96,3 +98,4 @@ echo ""
 ELAPSED=$(( $(date +%s) - START_TIME ))
 echo -e "${BLUE}[INFO] Total elapsed time: ${ELAPSED}s${NC}"
 echo -e "${BLUE}[END] Bootstrap finished${NC}"
+exit $bootstrap_result
