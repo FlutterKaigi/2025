@@ -32,7 +32,7 @@
     - GOOD: `users`
 - 列名
   - `flg`/`dt`等の略称は利用しない
-    - `flag`/`datatime`
+    - `flag`/`datetime`
   - 日付を表す列は、`[受動態]_on`
     - `start_on`
   - 時刻を表す列は、`[受動態]_at`
