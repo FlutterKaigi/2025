@@ -97,20 +97,11 @@
         "supabase-term",
         "terraform-term"
     ],
+    "files": [
+        "**/*.{md,yaml,yml,dart,ts,js}",
+    ],
     "ignorePaths": [
-        "cspell.jsonc",
-        "*.lock",
-        "Runner.xcodeproj",
-        "Runner.xcworkspace",
-        "*.xcconfig",
-        "*.xib",
-        "*.storyboard",
-        "*.plist",
-        "*.properties",
-        "supabase/migrations",
-        "supabase/config.toml",
         "worker-configuration.d.ts",
-        "*.svg"
     ],
     "import": [
         "@cspell/dict-software-terms/cspell-ext.json",
