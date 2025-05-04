@@ -37,9 +37,7 @@
         {
             "name": "project-term",
             "description": "Project specific terms",
-            "words": [
-                "FlutterKaigi"
-            ]
+            "path": ".cspell/project-term.txt"
         },
         {
             "name": "supabase-term",
