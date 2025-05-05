@@ -170,9 +170,9 @@ jobs:
         id: db-password
         run: |
           if [ "${{ matrix.environment }}" = "staging" ]; then
-            echo "db_password=$TF_VAR_SUPABASE_DB_PASSWORD_STAGING" >> $GITHUB_ENV
+            echo "db_password=$TF_VAR_SUPABASE_DB_PASSWORD_STAGING" >> $GITHUB_OUTPUT
           elif [ "${{ matrix.environment }}" = "production" ]; then
-            echo "db_password=$TF_VAR_SUPABASE_DB_PASSWORD_PRODUCTION" >> $GITHUB_ENV
+            echo "db_password=$TF_VAR_SUPABASE_DB_PASSWORD_PRODUCTION" >> $GITHUB_OUTPUT
           fi
 
       - name: Link Supabase Project
