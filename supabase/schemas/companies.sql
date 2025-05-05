@@ -1,0 +1,7 @@
+CREATE TABLE public.companies (
+  id SMALLINT PRIMARY KEY,
+  created_at TIMESTAMP DEFAULT now() NOT NULL,
+  updated_at TIMESTAMP DEFAULT now() NOT NULL
+);
+
+ALTER TABLE public.companies ENABLE ROW LEVEL SECURITY;
