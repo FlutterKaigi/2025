@@ -3,14 +3,14 @@ name: "Sync GitHub Labels"
 on:
   push:
     branches:
-      - 'main'
+      - "main"
     paths:
-      - '.github/labels.yaml'
-      - '.github/workflows/labels.yaml'
+      - ".github/labels.yaml"
+      - ".github/workflows/labels.yaml"
   pull_request:
     paths:
-      - '.github/labels.yaml'
-      - '.github/workflows/labels.yaml'
+      - ".github/labels.yaml"
+      - ".github/workflows/labels.yaml"
 
 jobs:
   labels:

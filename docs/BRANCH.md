@@ -20,6 +20,7 @@
 `<種別>/GH-<Issue 番号>/<目的や関連キーワード>`
 
 例:
+
 - `feat/GH-123/add-new-feature`
 - `feat/add-new-feature`
 - `feat/GH-123`
