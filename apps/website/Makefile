@@ -43,6 +43,10 @@ dev: serve
 serve:
 	bun dev
 
+.PHONY: check
+check:
+	dart analyze
+
 .PHONY: clean
 clean:
 	@rm -rf build
