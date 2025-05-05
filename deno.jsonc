@@ -13,7 +13,10 @@
       ".*/**/*.yml",
       ".*/**/*.md"
     ],
-    "exclude": [],
+    "exclude": [
+      "**/ios/Runner/**",
+      "**/macos/Runner/**"
+    ],
     "indentWidth": 2,
     "lineWidth": 120,
     "proseWrap": "preserve"
