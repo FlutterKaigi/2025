@@ -30,7 +30,7 @@ jobs:
   check-spell:
     needs: changes
     if: ${{ needs.changes.outputs.spell == 'true' }}
-    uses: ./.github/workflows/wc-check-spell.yaml 
+    uses: ./.github/workflows/wc-check-spell.yaml
 
   status-check:
     runs-on: ubuntu-24.04
@@ -39,4 +39,4 @@ jobs:
     permissions: {}
     if: failure()
     steps:
-      - run: exit 1 
+      - run: exit 1

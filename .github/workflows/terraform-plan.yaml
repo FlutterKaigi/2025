@@ -105,7 +105,6 @@ jobs:
       - name: TFLint
         run: tflint
 
-
   plan:
     name: Terraform Plan (${{ matrix.target }})
     needs:
