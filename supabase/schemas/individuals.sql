@@ -1,6 +1,8 @@
 CREATE TABLE public.individuals (
-  id INTEGER PRIMARY KEY,
-  user_id UUID REFERENCES public.users(id) ON DELETE CASCADE,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
+  id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+  user_id uuid REFERENCES public.users (id) ON DELETE CASCADE UNIQUE,
+  created_at timestamp DEFAULT now() NOT NULL,
+  updated_at timestamp DEFAULT now() NOT NULL
 );
+
+ALTER TABLE public.individuals enable ROW level security;

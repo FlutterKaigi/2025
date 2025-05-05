@@ -1,10 +1,6 @@
+CREATE TABLE public.users (id uuid PRIMARY KEY REFERENCES auth.users (id) ON DELETE CASCADE, created_at timestamp DEFAULT now() NOT NULL);
 
-CREATE TABLE public.users (
-  id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
-  created_at TIMESTAMP DEFAULT now() NOT NULL
-);
-
-ALTER TABLE public.users ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.users enable ROW level security;
 
 -- Supabase Auth　にユーザが追加されたときに profiles テーブルに追加する
 CREATE FUNCTION public.handle_new_user () returns trigger language plpgsql security definer

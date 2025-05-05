@@ -1,7 +1,7 @@
 CREATE TABLE public.companies (
-  id SMALLINT PRIMARY KEY,
-  created_at TIMESTAMP DEFAULT now() NOT NULL,
-  updated_at TIMESTAMP DEFAULT now() NOT NULL
+  id smallint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+  created_at timestamp DEFAULT now() NOT NULL,
+  updated_at timestamp DEFAULT now() NOT NULL
 );
 
-ALTER TABLE public.companies ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.companies enable ROW level security;
