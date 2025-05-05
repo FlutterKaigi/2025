@@ -3,7 +3,7 @@ CREATE TABLE public.individual_drafts (
   id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   individual_id integer REFERENCES public.individuals (id) ON DELETE CASCADE,
   name text NOT NULL CHECK (name <> ''),
-  name_en text NOT NULL CHECK (name_en <> ''),
+  slug text NOT NULL UNIQUE CHECK (slug <> ''),
   logo_name text,
   created_at timestamp DEFAULT now() NOT NULL,
   updated_at timestamp DEFAULT now() NOT NULL

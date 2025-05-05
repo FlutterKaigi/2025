@@ -3,7 +3,7 @@ CREATE TABLE public.company_drafts (
   id smallint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   company_id smallint REFERENCES public.companies (id) ON DELETE CASCADE NULL,
   name text NOT NULL CHECK (name <> ''),
-  name_en text NOT NULL CHECK (name_en <> ''),
+  slug text NOT NULL UNIQUE CHECK (slug <> ''),
   logo_name text,
   created_at timestamp DEFAULT now() NOT NULL,
   updated_at timestamp DEFAULT now() NOT NULL
