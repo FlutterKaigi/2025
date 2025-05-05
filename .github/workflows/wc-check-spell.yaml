@@ -1,15 +1,24 @@
 name: Check Spell
 
 on:
-  pull_request:
+  workflow_call:
+
+permissions:
+  contents: read
 
 jobs:
   check-spell:
     runs-on: ubuntu-24.04
+    timeout-minutes: 5
     steps:
       # https://github.com/actions/checkout
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          # Make sure the actual branch is checked out when running on pull requests
+          ref: ${{ github.head_ref }}
+          # This is important to fetch the changes to the previous commit
+          fetch-depth: 0
 
       # https://github.com/jdx/mise-action
       - name: Install Mise dependencies

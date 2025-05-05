@@ -7,86 +7,56 @@
         {
             "name": "bun-term",
             "description": "Bun related terms",
-            "words": [
-                "bunx"
-            ]
+            "path": "./.cspell/bun-term.txt",
+            "addWords": true
         },
         {
             "name": "dart-term",
             "description": "Dart related terms",
-            "words": [
-                "riverpod",
-                "unawaited",
-                "pubspec",
-                "interps",
-                "altive",
-                "ints",
-                "combinatiors",
-                "tearoffs",
-                "combinators",
-                // Dart web
-                "HTMLUListElement",
-                "HTMLDListElement",
-                "HTMLLIElement"
-            ]
+            "path": "./.cspell/dart-term.txt",
+            "addWords": true
         },
         {
             "name": "flutter-term",
             "description": "Flutter related terms",
-            "words": [
-                "cupertino"
-            ]
+            "path": "./.cspell/flutter-term.txt",
+            "addWords": true
         },
         {
             "name": "github-action-term",
             "description": "GitHub Actions related terms",
-            "words": [
-                "bobheadxi",
-                "ghaction",
-                "Iseconds",
-                "stefanbuck",
-                "thollander",
-            ]
+            "path": "./.cspell/github-action-term.txt",
+            "addWords": true
         },
         {
             "name": "ios-term",
             "description": "iOS related terms",
-            "words": [
-                "xcassets",
-                "xcworkspace"
-            ]
+            "path": "./.cspell/ios-term.txt",
+            "addWords": true
         },
         {
             "name": "web-term",
             "description": "Web related terms",
-            "words": [
-                "nowrap",
-                "dashsay"
-            ]
+            "path": "./.cspell/web-term.txt",
+            "addWords": true
         },
         {
             "name": "project-term",
             "description": "Project specific terms",
-            "words": [
-                "FlutterKaigi"
-            ]
+            "path": "./.cspell/project-term.txt",
+            "addWords": true
         },
         {
             "name": "supabase-term",
             "description": "Supabase related terms",
-            "words": [
-                "Supabase"
-            ]
+            "path": "./.cspell/supabase-term.txt",
+            "addWords": true
         },
         {
             "name": "terraform-term",
             "description": "Terraform related terms",
-            "words": [
-                "tfbackend",
-                "tflint",
-                "shunsuke",
-                "tfcmt"
-            ]
+            "path": "./.cspell/terraform-term.txt",
+            "addWords": true
         }
     ],
     "dictionaries": [
