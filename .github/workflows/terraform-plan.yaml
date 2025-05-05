@@ -96,7 +96,6 @@ jobs:
           fi
 
       - name: Terraform init
-        id: init
         run: terraform init -backend-config=backend.tfbackend
 
       - name: Terraform fmt

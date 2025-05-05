@@ -1,0 +1,150 @@
+name: Lint SQL for Supabase Database
+on:
+  pull_request:
+    paths:
+      - supabase/**
+  workflow_dispatch:
+
+jobs:
+  supabase-lint:
+    name: Lint SQL
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      log: ${{ steps.lint.outputs.LOG }}
+
+    steps:
+      # https://github.com/actions/checkout
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      # https://github.com/jdx/mise-action
+      - name: Install Mise dependencies
+        uses: jdx/mise-action@5083fe46898c414b2475087cc79da59e7da859e8 # v2.1.11
+        with:
+          install: true
+          install_args: "bun"
+
+      - name: Resolve bun dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Start supabase Database
+        run: bunx supabase start
+
+      - name: Lint SQL
+        id: lint
+        run: |
+          {
+            echo "LOG<<EOL"
+            bunx supabase db lint 2>&1
+            echo "EOL"
+          } | tee -a $GITHUB_OUTPUT
+
+  supabase-apply-dry-run:
+    name: Apply Supabase Database (Dry Run)
+    runs-on: ubuntu-24.04
+    outputs:
+      log: ${{ steps.dry-run.outputs.LOG }}
+    env:
+      MISE_ENV: ci
+    timeout-minutes: 5
+    steps:
+      # https://github.com/actions/checkout
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      # https://github.com/jdx/mise-action
+      - name: Install Mise dependencies
+        uses: jdx/mise-action@5083fe46898c414b2475087cc79da59e7da859e8 # v2.1.11
+        with:
+          install_args: "terraform bun"
+
+      - name: Extract SOPS secrets
+        run: |
+          mkdir -p ~/.config/mise
+          echo "${{ secrets.SOPS_FILE }}" > ~/.config/mise/flutterkaigi.txt
+
+      - name: Set environment variables
+        run: |
+          for line in $(mise env --dotenv); do
+            echo $line >> "$GITHUB_ENV"
+            echo "::add-mask::${line#*=}"
+          done
+
+      - name: Extract backend.tfbackend
+        working-directory: terraform/supabase
+        run: |
+          echo "${{ secrets.TERRAFORM_BACKEND_CONFIGURATION }}" | base64 -d  \
+            > backend.tfbackend
+
+      - name: Terraform init
+        working-directory: terraform/supabase
+        run: terraform init -backend-config=backend.tfbackend
+
+      - name: Get supabase staging project id
+        working-directory: terraform/supabase
+        id: get-supabase-staging-project-id
+        run: |
+          PROJECT_ID=$(terraform output -raw supabase_staging_project_id)
+          echo "project_id=$PROJECT_ID" >> $GITHUB_OUTPUT
+
+      - name: Resolve bun dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Set database password
+        id: db-password
+        run: |
+          echo "password=$TF_VAR_SUPABASE_DB_PASSWORD_STAGING" >> $GITHUB_OUTPUT
+
+      - name: Link Supabase Project
+        env:
+          PROJECT_ID: ${{ steps.get-supabase-staging-project-id.outputs.project_id }}
+          SUPABASE_DB_PASSWORD: ${{ steps.db-password.outputs.password }}
+        run: |
+          mise exec -- bun x supabase link \
+              --project-ref $PROJECT_ID
+
+      - name: Apply Supabase Database (Dry Run)
+        id: dry-run
+        env:
+          SUPABASE_DB_PASSWORD: ${{ steps.db-password.outputs.password }}
+        run: |
+          {
+            echo "LOG<<EOL"
+            bunx supabase db push --dry-run 2>&1
+            echo "EOL"
+          } | tee -a $GITHUB_OUTPUT
+
+  comment-on-pr:
+    name: Comment Log on PR
+    needs:
+      - supabase-lint
+      - supabase-apply-dry-run
+    if: ${{ !cancelled() }} && ${{ github.event_name == 'pull_request' }}
+    runs-on: ubuntu-24.04
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      LINT_LOG: ${{ needs.supabase-lint.outputs.log }}
+      APPLY_DRY_RUN_LOG: ${{ needs.supabase-apply-dry-run.outputs.log }}
+    steps:
+
+      - name: Comment PR with execution number
+        uses: thollander/actions-comment-pull-request@24bffb9b452ba05a4f3f77933840a6a841d1b32b # v3.0.1
+        with:
+          message: |
+              <details>
+              <summary><h2>🔍️ Supabase Lint Log</h2></summary>
+
+              ```log
+              ${{ env.LINT_LOG }}
+              ```
+              </details>
+
+              <details>
+              <summary><h2>🔍️ Supabase Apply Dry Run Log</h2></summary>
+
+              ```log
+              ${{ env.APPLY_DRY_RUN_LOG }}
+              ```
+              </details>
+          comment-tag: supabase-lint
