@@ -30,13 +30,19 @@ jobs:
   check-spell:
     needs: changes
     if: ${{ needs.changes.outputs.spell == 'true' }}
-    uses: ./.github/workflows/wc-check-spell.yaml 
+    uses: ./.github/workflows/wc-check-spell.yaml
+
+  check-style:
+    needs: changes
+    if: ${{ needs.changes.outputs.style-deno == 'true' }}
+    uses: ./.github/workflows/wc-check-style-deno.yaml
 
   status-check:
     runs-on: ubuntu-24.04
     needs:
       - check-spell
+      - check-style
     permissions: {}
     if: failure()
     steps:
-      - run: exit 1 
+      - run: exit 1

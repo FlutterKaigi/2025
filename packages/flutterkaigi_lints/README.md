@@ -6,41 +6,41 @@
 
 1. `pubspec.yaml`に以下を追加
 
-    (FlutterKaigi/2025配下の場合)
+   (FlutterKaigi/2025配下の場合)
 
-    ```yaml
-    dependencies:
-      flutterkaigi_lints:
-        path: ../flutterkaigi_lints
-    ```
+   ```yaml
+   dependencies:
+     flutterkaigi_lints:
+       path: ../flutterkaigi_lints
+   ```
 
-    (他のリポジトリの場合)
+   (他のリポジトリの場合)
 
-    ```yaml
-    dependencies:
-      flutterkaigi_lints:
-        git:
-          url: https://github.com/FlutterKaigi/2025
-          ref: main
-    ```
+   ```yaml
+   dependencies:
+     flutterkaigi_lints:
+       git:
+         url: https://github.com/FlutterKaigi/2025
+         ref: main
+   ```
 
 1. 以下コマンドを実行し、[`altive_lints`], [`custom_lint`]を依存関係に追加
 
-    ```bash
-    dart pub add dev:altive_lints dev:custom_lint
-    ```
+   ```bash
+   dart pub add dev:altive_lints dev:custom_lint
+   ```
 
 1. `analysis_options.yaml`に以下を追加
 
-    ```yaml
-    include: package:flutterkaigi_lints/analysis_options.yaml
+   ```yaml
+   include: package:flutterkaigi_lints/analysis_options.yaml
 
-    custom_lint:
-      rules:
-        - avoid_hardcoded_color: false
-        - avoid_hardcoded_japanese: false
-    - prefer_clock_now: false
-    ```
+   custom_lint:
+     rules:
+       - avoid_hardcoded_color: false
+       - avoid_hardcoded_japanese: false
+   - prefer_clock_now: false
+   ```
 
 1. 準備OKです! 開発頑張ってください💪
 

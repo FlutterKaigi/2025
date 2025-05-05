@@ -25,8 +25,8 @@ Closes #{issue_number}
 -->
 
 | Before | After | Design |
-|-|-|-|
-| | | |
+| ------ | ----- | ------ |
+|        |       |        |
 
 ## その他
 

@@ -91,7 +91,6 @@ jobs:
           name: website-artifacts
           path: apps/website/build
 
-
   deploy-website:
     runs-on: ubuntu-24.04
     needs:
@@ -200,10 +199,7 @@ jobs:
             </details>
           comment-tag: deploy-website
 
-
       # TODO: Production Deploy時に、Slack通知を飛ばす
-
-
 
   update-deployment-status:
     runs-on: ubuntu-24.04
