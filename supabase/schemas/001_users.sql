@@ -2,12 +2,12 @@ CREATE TABLE public.users (id uuid PRIMARY KEY REFERENCES auth.users (id) ON DEL
 
 ALTER TABLE public.users enable ROW level security;
 
--- Supabase Auth　にユーザが追加されたときに profiles テーブルに追加する
+-- Supabase Auth　にユーザが追加されたときに users テーブルに追加する
 CREATE FUNCTION public.handle_new_user () returns trigger language plpgsql security definer
 SET
   search_path = public AS $$
 begin
-  insert into public.profiles (id)
+  insert into public.users (id)
   values (new.id);
   return new;
 end;
