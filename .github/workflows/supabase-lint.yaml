@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     outputs:
-      log: ${{ steps.lint.outputs.log }}
+      log: ${{ steps.lint.outputs.LOG }}
 
     steps:
       # https://github.com/actions/checkout
@@ -44,7 +44,7 @@ jobs:
     name: Apply Supabase Database (Dry Run)
     runs-on: ubuntu-24.04
     outputs:
-      log: ${{ steps.dry-run.outputs.log }}
+      log: ${{ steps.dry-run.outputs.LOG }}
     env:
       MISE_ENV: ci
     timeout-minutes: 5
@@ -86,7 +86,6 @@ jobs:
         id: get-supabase-staging-project-id
         run: |
           PROJECT_ID=$(terraform output -raw supabase_staging_project_id)
-          echo $PROJECT_ID
           echo "project_id=$PROJECT_ID" >> $GITHUB_OUTPUT
 
       - name: Resolve bun dependencies
@@ -128,11 +127,6 @@ jobs:
       LINT_LOG: ${{ needs.supabase-lint.outputs.log }}
       APPLY_DRY_RUN_LOG: ${{ needs.supabase-apply-dry-run.outputs.log }}
     steps:
-      - name: Log lint log
-        run: |
-          echo $LINT_LOG
-          echo "--------------------------------"
-          echo $APPLY_DRY_RUN_LOG
 
       - name: Comment PR with execution number
         uses: thollander/actions-comment-pull-request@24bffb9b452ba05a4f3f77933840a6a841d1b32b # v3.0.1
