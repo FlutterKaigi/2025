@@ -35,7 +35,7 @@ jobs:
   check-style:
     needs: changes
     if: ${{ needs.changes.outputs.style == 'true' }}
-    uses: ./.github/workflows/wc-check-style.yaml
+    uses: ./.github/workflows/wc-check-style-deno.yaml
 
   status-check:
     runs-on: ubuntu-24.04
