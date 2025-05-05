@@ -18,6 +18,7 @@ jobs:
     outputs:
       any: ${{ steps.filter.outputs.changes != '[]' }}
       spell: ${{ steps.filter.outputs.spell }}
+      style: ${{ steps.filter.outputs.style }}
     steps:
       # https://github.com/actions/checkout
       - name: Checkout
@@ -31,3 +32,5 @@ jobs:
           filters: |
             spell:
               - "**/*.{md,yaml,yml,dart,ts,js}"
+            style:
+              - "**/*.{md,yaml,yml,json,jsonc}"

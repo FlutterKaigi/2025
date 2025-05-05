@@ -32,10 +32,16 @@ jobs:
     if: ${{ needs.changes.outputs.spell == 'true' }}
     uses: ./.github/workflows/wc-check-spell.yaml
 
+  check-style:
+    needs: changes
+    if: ${{ needs.changes.outputs.style == 'true' }}
+    uses: ./.github/workflows/wc-check-style.yaml
+
   status-check:
     runs-on: ubuntu-24.04
     needs:
       - check-spell
+      - check-style
     permissions: {}
     if: failure()
     steps:
