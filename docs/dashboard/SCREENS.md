@@ -17,7 +17,6 @@
 | A-PLXM | - | Google認証 | GoogleAuthScreen | InAppWebView | Modal |
 | A-URVN | - | 招待コード入力画面 | InvitationCodeScreen | Flutter | Push |
 | A-KYSD | - | アカウント作成エラーダイアログ | AccountCreationErrorDialog | Flutter | Dialog |
-| A-BWCE | - | アカウント作成 | CreateAccountScreen | Flutter | Modal |
 | D-HTFA | メイン | メイン画面 | MainScreen | Flutter | Replace |
 | E-NSQJ | イベント | イベント情報タブ画面 | EventInfoTabScreen | Flutter | Tab |
 | E-TRWA | - | 日程・場所画面 | ScheduleScreen | Flutter | Push |
