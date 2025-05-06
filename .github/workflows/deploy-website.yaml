@@ -18,6 +18,10 @@ on:
           - preview
           - production
 
+env:
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
 concurrency:
   group: "deploy-website"
   cancel-in-progress: false
@@ -31,8 +35,12 @@ jobs:
       - name: Define environment
         id: define-environment
         run: |
-          echo "environment=${{ inputs.environment }} || ${{ github.event_name == 'push' && 'production' || 'preview' }}" \
-            >> $GITHUB_OUTPUT
+          environment=${{ inputs.environment }}
+          if [ -z "$environment" ]; then
+            environment=$({{ github.event_name == 'push' && 'production' || 'preview' }})
+          fi
+          echo "Setting environment to $environment"
+          echo "environment=$environment" >> $GITHUB_OUTPUT
 
   start-deploy-website:
     needs:
@@ -50,8 +58,8 @@ jobs:
         with:
           step: start
           token: ${{ secrets.GITHUB_TOKEN }}
-          env: PR-${{ github.event.number }}-website
-          ref: ${{ github.head_ref}}
+          env: website
+          ref: ${{ github.head_ref }}
 
   build-website:
     needs:
@@ -100,9 +108,8 @@ jobs:
     env:
       MISE_ENV: ci
     outputs:
-      preview_log: ${{ steps.deploy-preview.outputs.LOG }}
-      production_log: ${{ steps.deploy-production.outputs.LOG }}
       deployment_url: ${{ steps.extract-deployment-url.outputs.DEPLOYMENT_URL }}
+      logs: ${{ steps.extract-logs.outputs.LOG }}
     steps:
       # https://github.com/actions/checkout
       - name: Checkout
@@ -161,8 +168,8 @@ jobs:
             LOG="${{ steps.deploy-preview.outputs.LOG }}"
           fi
 
-          # `https://` を含む行を抽出し、DEPLOYMENT_URLに格納
-          DEPLOYMENT_URL=$(echo "$LOG" | grep -o 'https://[^ ]*')
+          # `https://` を含む最初の行だけを抽出し、DEPLOYMENT_URLに格納
+          DEPLOYMENT_URL=$(echo "$LOG" | grep -o 'https://[^ ]*' | head -n 1)
           echo "DEPLOYMENT_URL=$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
 
       - name: Extract timestamp
@@ -172,34 +179,42 @@ jobs:
         run: |
           echo "timestamp=$(date -Iseconds )" >> $GITHUB_OUTPUT
 
+      - name: Extract logs
+        id: extract-logs
+        run: |
+          echo "LOG<<EOF" >> $GITHUB_OUTPUT
+          cat <<EOL | tee -a $GITHUB_OUTPUT
+          ## 🌍️ Website Preview Deployment
+          🔗URL: ${{ steps.extract-deployment-url.outputs.DEPLOYMENT_URL }}
+
+          🔑Commit Hash: \`${{ github.sha }}\`
+          📅Timestamp: \`${{ steps.extract-timestamp.outputs.TIMESTAMP }}\`
+
+          <details>
+          <summary><h2>📦️ Build Logs</h2></summary>
+
+          \`\`\`log
+          ${{ needs.build-website.outputs.build_log }}
+          \`\`\`
+          </details>
+
+          <details>
+          <summary><h2>✈️ Deployment Logs</h2></summary>
+
+          \`\`\`log
+          ${{ steps.deploy-preview.outputs.LOG }}
+          \`\`\`
+          </details>
+          EOL
+          echo "EOF" >> $GITHUB_OUTPUT
+
       - name: Comment PR with execution number
         uses: thollander/actions-comment-pull-request@24bffb9b452ba05a4f3f77933840a6a841d1b32b # v3.0.1
+        if: ${{ github.event_name == 'pull_request' }}
         with:
           message: |
-            ## 🌍️ Website Preview Deployment
-            🔗URL: ${{ steps.extract-deployment-url.outputs.DEPLOYMENT_URL }}
-
-            🔑Commit Hash: `${{ github.sha }}`
-            📅Timestamp: `${{ steps.extract-timestamp.outputs.TIMESTAMP }}`
-
-            <details>
-            <summary><h2>📦️ Build Logs</h2></summary>
-
-            ```log
-            ${{ needs.build-website.outputs.build_log }}
-            ```
-            </details>
-
-            <details>
-            <summary><h2>✈️ Deployment Logs</h2></summary>
-
-            ```log
-            ${{ steps.deploy-preview.outputs.LOG }}
-            ```
-            </details>
+            ${{ steps.extract-logs.outputs.LOG }}
           comment-tag: deploy-website
-
-      # TODO: Production Deploy時に、Slack通知を飛ばす
 
   update-deployment-status:
     runs-on: ubuntu-24.04
@@ -207,16 +222,34 @@ jobs:
       - define-environment
       - deploy-website
       - start-deploy-website
-    if: ${{ needs.define-environment.outputs.environment == 'production' }}
+    if: ${{ needs.define-environment.outputs.environment == 'production' && !cancelled() }}
     timeout-minutes: 1
     steps:
+      - name: Get previous jobs status
+        id: get-previous-jobs-status
+        run: |
+          function echo-needs() {
+            echo '${{ toJSON(needs) }}'
+          }
+          echo-needs
+          did_failure=$(echo-needs | jq '[.[].result] | any(. != "success")')
+          if [ "$did_failure" = "true" ]; then
+            echo "status=failure" >> $GITHUB_OUTPUT
+          else
+            echo "status=success" >> $GITHUB_OUTPUT
+          fi
+
       # https://github.com/bobheadxi/deployments
-      - name: Start deployment
+      - name: Update deployment status
         uses: bobheadxi/deployments@648679e8e4915b27893bd7dbc35cb504dc915bc8 # v1.5.0
         id: deployment
+        if: ${{ !cancelled() }}
         with:
-          step: update
+          step: finish
           token: ${{ secrets.GITHUB_TOKEN }}
-          env: PR-${{ github.event.number }}-website
-          ref: ${{ github.head_ref}}
+          status: ${{ steps.get-previous-jobs-status.outputs.status || 'failure' }}
+          deployment_id: ${{ needs.start-deploy-website.outputs.deployment_id }}
+          env: website
           env_url: ${{ needs.deploy-website.outputs.deployment_url }}
+          ref: ${{ github.head_ref }}
+          auto_inactive: true
