@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
 :root {
-  --color-beyond-red: #fa3030;
+  --color-beyond-red: #e50632;
   --color-flutter-sky: #027dfd;
 
   --primary-color: var(--color-beyond-red);

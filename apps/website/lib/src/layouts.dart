@@ -18,7 +18,7 @@ HTMLElement basicLayout(HTMLElement child) =>
           ..style.borderBottom = '1px solid var(--border-color)'
           ..style.backgroundColor = 'var(--background-color)',
         child
-          ..style.padding = '1rem'
+          ..style.padding = '0'
           ..style.flex = '1'
           ..style.overflow = 'hidden',
         _footer..style.borderTop = '1px solid var(--border-color)',

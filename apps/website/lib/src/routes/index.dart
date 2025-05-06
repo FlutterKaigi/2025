@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutterkaigi_2025_website/app.dart' show onRemove;
 import 'package:flutterkaigi_2025_website/config.dart';
 import 'package:flutterkaigi_2025_website/src/components.dart';
+import 'package:flutterkaigi_2025_website/src/components/wave.dart';
 import 'package:flutterkaigi_2025_website/src/layouts.dart';
 import 'package:flutterkaigi_2025_website/src/routes.dart' show Handler;
 import 'package:flutterkaigi_2025_website/text.dart';
@@ -16,7 +17,11 @@ HTMLElement get index => basicLayout(
     ..style.flexDirection = 'column'
     ..style.alignItems = 'center'
     ..style.gap = '2rem'
-    ..appendAll([_mainContent..style.minHeight = '70vh', _schedule]),
+    ..appendAll([
+      _mainContent..style.minHeight = '70vh',
+      waveCanvas,
+      _schedule,
+    ]),
 );
 
 HTMLElement get _mainContent =>
