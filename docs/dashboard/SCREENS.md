@@ -14,7 +14,7 @@
 |-|-|-|-|-|-|
 | L-SPLH | 起動 | スプラッシュ画面 | SplashScreen | Flutter | Replace |
 | A-QJTR | 認証 | ログイン画面 | LoginScreen | Flutter | Replace |
-| A-PLXM | - | Google認証 | GoogleAuthScreen | InAppWebView | Modal |
+| A-PLXM | - | Google認証画面 | GoogleAuthBottomSheet | InAppBrowser | BottomSheet |
 | A-URVN | - | 招待コード入力画面 | InvitationCodeScreen | Flutter | Push |
 | A-KYSD | - | アカウント作成エラーダイアログ | AccountCreationErrorDialog | Flutter | Dialog |
 | D-HTFA | メイン | メイン画面 | MainScreen | Flutter | Replace |
