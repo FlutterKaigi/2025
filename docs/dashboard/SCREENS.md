@@ -71,7 +71,6 @@ flowchart TD
       end
     end
     NewsScreen[お知らせ画面]
-    SponsorListScreen[スポンサー一覧画面]
     SponsorDetailScreen[スポンサー詳細画面]
     SponsorEditScreen[スポンサー編集画面]
     ProfileEditScreen[プロフィール編集画面]
