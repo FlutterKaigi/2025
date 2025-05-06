@@ -21,8 +21,8 @@
 | E-NSQJ | イベント | イベントタブ画面 | EventTabScreen | Flutter | Tab |
 | E-GLMB | - | お知らせ画面 | NewsScreen | Flutter | Push |
 | S-LKQZ | スポンサー | スポンサータブ画面 | SponsorTabScreen | Flutter | Tab |
-| S-DFMW | - | 自社情報管理画面 | OwnSponsorInfoScreen | Flutter | Push |
-| S-ABCN | - | 他社情報閲覧画面 | OtherSponsorInfoScreen | Flutter | Push |
+| S-DFMW | - | 自社スポンサー画面 | OwnSponsorScreen | Flutter | Push |
+| S-ABCN | - | 他社スポンサー画面 | OtherSponsorScreen | Flutter | Push |
 | S-YTRO | - | ロゴ編集画面 | LogoEditScreen | Flutter | Modal |
 | S-VXEI | - | 企業説明編集画面 | DescEditScreen | Flutter | Modal |
 | S-PQSU | - | URL編集画面 | URLEditScreen | Flutter | Modal |
@@ -80,12 +80,12 @@ flowchart TD
 
     EventTab --> News[お知らせ画面]
     
-    SponsorTab --> OwnInfo[自社情報管理画面]
-    SponsorTab --> OtherInfo[他社情報閲覧画面]
+    SponsorTab --> OwnSponsor[自社スポンサー画面]
+    SponsorTab --> OtherSponsor[他社スポンサー画面]
     
-    OwnInfo --> LogoEdit[ロゴ編集画面]
-    OwnInfo --> DescEdit[企業説明編集画面]
-    OwnInfo --> URLEdit[URL編集画面]
+    OwnSponsor --> LogoEdit[ロゴ編集画面]
+    OwnSponsor --> DescEdit[企業説明編集画面]
+    OwnSponsor --> URLEdit[URL編集画面]
     
     Account --> Profile[プロフィール編集画面]
     Account --> Withdrawal[退会申請画面]
