@@ -69,6 +69,7 @@ flowchart TD
     InvitationCode --> DomainCheck{ドメイン一致確認}
     DomainCheck --> |一致| CreateAccount((アカウント作成))
     DomainCheck --> |不一致| RegisterError[アカウント作成<br>エラーダイアログ]
+    RegisterError --> InvitationCode
     CreateAccount --> EventInfo
     
     %% メイン画面のタブ構成
