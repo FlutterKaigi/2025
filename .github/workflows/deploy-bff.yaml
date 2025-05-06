@@ -222,14 +222,17 @@ jobs:
       - name: Extract deployment URL
         id: extract-deployment-url
         run: |
-          if [ -z "${{ steps.deploy-bff-production.outputs.LOG }}" ]; then
-            LOG="${{ steps.deploy-bff-staging.outputs.LOG }}"
-          else
-            LOG="${{ steps.deploy-bff-production.outputs.LOG }}"
-          fi
+          function get-log() {
+            if [ -z "${{ steps.deploy-bff-production.outputs.LOG }}" ]; then
+              echo ${{ steps.deploy-bff-staging.outputs.LOG }}
+            else
+              echo ${{ steps.deploy-bff-production.outputs.LOG }}
+            fi
+          }
+          get-log
 
           # `https://` を含む最初の行だけを抽出し、DEPLOYMENT_URLに格納
-          DEPLOYMENT_URL=$(echo $LOG | grep -o 'https://[^ ]*' | head -n 1)
+          DEPLOYMENT_URL=$(get-log | grep -o 'https://[^ ]*' | head -n 1)
           echo "DEPLOYMENT_URL=$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
 
       - name: Set logs
