@@ -23,9 +23,7 @@
 | S-LKQZ | スポンサー | スポンサータブ画面 | SponsorTabScreen | Flutter | Tab |
 | S-DFMW | - | 自社スポンサー画面 | OwnSponsorScreen | Flutter | Push |
 | S-ABCN | - | 他社スポンサー画面 | OtherSponsorScreen | Flutter | Push |
-| S-YTRO | - | ロゴ編集画面 | LogoEditScreen | Flutter | Modal |
-| S-VXEI | - | 企業説明編集画面 | DescEditScreen | Flutter | Modal |
-| S-PQSU | - | URL編集画面 | URLEditScreen | Flutter | Modal |
+| S-YTRO | - | 自社スポンサー編集画面 | OwnSponsorEditScreen | Flutter | Modal |
 | K-EMQY | アカウント | アカウントタブ画面 | AccountTabScreen | Flutter | Tab |
 | K-OVJL | - | プロフィール編集画面 | ProfileEditScreen | Flutter | Modal |
 | K-XRPU | - | 退会申請画面 | WithdrawalScreen | Flutter | Modal |
@@ -83,9 +81,7 @@ flowchart TD
     SponsorTab --> OwnSponsor[自社スポンサー画面]
     SponsorTab --> OtherSponsor[他社スポンサー画面]
     
-    OwnSponsor --> LogoEdit[ロゴ編集画面]
-    OwnSponsor --> DescEdit[企業説明編集画面]
-    OwnSponsor --> URLEdit[URL編集画面]
+    OwnSponsor --> OwnSponsorEdit[自社スポンサー編集画面]
     
     Account --> Profile[プロフィール編集画面]
     Account --> Withdrawal[退会申請画面]
