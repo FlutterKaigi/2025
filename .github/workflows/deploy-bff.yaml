@@ -219,8 +219,11 @@ jobs:
             echo "EOL"
           } | tee -a $GITHUB_OUTPUT
 
-      - name: Extract deployment URL
-        id: extract-deployment-url
+      - name: Set logs
+        id: set-logs
+        env:
+          STAGING_LOG: ${{ steps.deploy-bff-staging.outputs.log }}
+          PRODUCTION_LOG: ${{ steps.deploy-bff-production.outputs.log }}
         run: |
           function get-log() {
             if [ -z "${{ steps.deploy-bff-production.outputs.LOG }}" ]; then
@@ -229,28 +232,19 @@ jobs:
               echo '${{ steps.deploy-bff-production.outputs.LOG }}'
             fi
           }
-          get-log
 
-          # `https://` を含む最初の行だけを抽出し、DEPLOYMENT_URLに格納
-          DEPLOYMENT_URL=$(get-log | grep -o 'https://[^ ]*' | head -n 1)
-          echo "DEPLOYMENT_URL=$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
-
-      - name: Set logs
-        id: set-logs
-        env:
-          STAGING_LOG: ${{ steps.deploy-bff-staging.outputs.log }}
-          PRODUCTION_LOG: ${{ steps.deploy-bff-production.outputs.log }}
-        run: |
           {
             echo "LOG<<'EOL'"
-            if [ "${{ env.STAGING_LOG }}" != "" ]; then
-              echo "${{ env.STAGING_LOG }}"
-            fi
-            if [ "${{ env.PRODUCTION_LOG }}" != "" ]; then
-              echo "${{ env.PRODUCTION_LOG }}"
-            fi
+            get-log
             echo "EOL"
           } | tee -a $GITHUB_OUTPUT
+
+      - name: Extract deployment URL
+        id: extract-deployment-url
+        run: |
+          # `https://` を含む最初の行だけを抽出し、DEPLOYMENT_URLに格納
+          DEPLOYMENT_URL=$(echo ${{ steps.set-logs.outputs.LOG }} | grep -o 'https://[^ ]*' | head -n 1)
+          echo "DEPLOYMENT_URL=$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
 
       - name: Extract timestamp
         id: extract-timestamp
