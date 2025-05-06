@@ -165,8 +165,8 @@ jobs:
             LOG="${{ steps.deploy-preview.outputs.LOG }}"
           fi
 
-          # `https://` を含む行を抽出し、DEPLOYMENT_URLに格納
-          DEPLOYMENT_URL=$(echo "$LOG" | grep -o 'https://[^ ]*')
+          # `https://` を含む最初の行だけを抽出し、DEPLOYMENT_URLに格納
+          DEPLOYMENT_URL=$(echo "$LOG" | grep -o 'https://[^ ]*' | head -n 1)
           echo "DEPLOYMENT_URL=$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
 
       - name: Extract timestamp
