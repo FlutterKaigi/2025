@@ -54,13 +54,13 @@
 flowchart TD
     Start((開始)) --> Splash[スプラッシュ画面]
     Splash --> SessionCheck{セッション確認}
-    SessionCheck --> |有効| EventTab[イベントタブ画面]
+    SessionCheck --> |有効| EventInfo
     SessionCheck --> |無効| Login[ログイン画面]
     
     %% 認証フロー
     Login --> GoogleAuth((Google認証))
     GoogleAuth --> AccountCheck{アカウント存在確認}
-    AccountCheck --> |存在する| EventTab[イベントタブ画面]
+    AccountCheck --> |存在する| EventInfo
     AccountCheck --> |存在しない| InvitationCode[招待コード入力画面]
     
     %% 新規登録フロー
@@ -68,7 +68,7 @@ flowchart TD
     DomainCheck --> |一致| CreateAccount((アカウント作成))
     DomainCheck --> |不一致| RegisterError[アカウント作成<br>エラーダイアログ]
     RegisterError --> InvitationCode
-    CreateAccount --> EventTab
+    CreateAccount --> EventInfo
     
     %% メイン画面のタブ構成
     subgraph Main[メイン画面]
@@ -84,12 +84,11 @@ flowchart TD
       end
     end
 
-    EventTab --> News[お知らせ画面]
+    EventInfo --> News[お知らせ画面]
     
-    SponsorTab --> SponsorDetail[スポンサー詳細画面]
-    
+    SponsorList --> SponsorDetail[スポンサー詳細画面]
     SponsorDetail --> SponsorEdit[スポンサー編集画面]
     
-    Account --> Profile[プロフィール編集画面]
-    Account --> Withdrawal[退会申請画面]
+    AccountInfo --> Profile[プロフィール編集画面]
+    AccountInfo --> Withdrawal[退会申請画面]
 ```
