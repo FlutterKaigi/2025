@@ -19,7 +19,6 @@
 | A-KYSD | - | アカウント作成エラーダイアログ | AccountCreationErrorDialog | Flutter | Dialog |
 | D-HTFA | メイン | メイン画面 | MainScreen | Flutter | Replace |
 | E-NSQJ | イベント | イベントタブ画面 | EventTabScreen | Flutter | Tab |
-| E-TRWA | - | イベント情報画面 | EventInfoScreen | Flutter | Push |
 | E-GLMB | - | お知らせ画面 | NewsScreen | Flutter | Push |
 | S-LKQZ | スポンサー | スポンサータブ画面 | SponsorTabScreen | Flutter | Tab |
 | S-DFMW | - | 自社情報管理画面 | OwnSponsorInfoScreen | Flutter | Push |
@@ -79,7 +78,6 @@ flowchart TD
       Account[アカウントタブ画面]
     end
 
-    EventTab --> EventInfo[イベント情報画面]
     EventTab --> News[お知らせ画面]
     
     SponsorTab --> OwnInfo[自社情報管理画面]
