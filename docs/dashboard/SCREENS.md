@@ -19,6 +19,7 @@
 | A-KYSD | - | アカウント作成エラーダイアログ | AccountCreationErrorDialog | Flutter | Dialog |
 | D-HTFA | メイン | メイン画面 | MainScreen | Flutter | Replace |
 | E-NSQJ | イベント | イベントタブ画面 | EventTabScreen | Flutter | Tab |
+| E-INFO | - | イベント情報画面 | EventInfoScreen | Flutter | - |
 | E-GLMB | - | お知らせ画面 | NewsScreen | Flutter | Push |
 | S-LKQZ | スポンサー | スポンサータブ画面 | SponsorTabScreen | Flutter | Tab |
 | S-DETAIL | - | スポンサー詳細画面 | SponsorDetailScreen | Flutter | Push |
@@ -70,7 +71,9 @@ flowchart TD
     %% メイン画面のタブ構成
     subgraph Main[メイン画面]
       direction LR
-      EventTab[イベントタブ画面]
+      subgraph EventTab[イベントタブ画面]
+        EventInfo[イベント情報画面]
+      end
       SponsorTab[スポンサータブ画面]
       Account[アカウントタブ画面]
     end
