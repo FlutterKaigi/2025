@@ -222,7 +222,7 @@ jobs:
       - define-environment
       - deploy-website
       - start-deploy-website
-    if: ${{ needs.define-environment.outputs.environment == 'production' }} && ${{ !cancelled() }}
+    if: ${{ needs.define-environment.outputs.environment == 'production' && !cancelled() }}
     timeout-minutes: 1
     steps:
       - name: Get previous jobs status
