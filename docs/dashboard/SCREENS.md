@@ -17,7 +17,7 @@
 | A-URVN | - | スポンサーコード入力画面 | SponsorCodeScreen | Flutter | Modal |
 | A-KYSD | - | エラー画面 | RegisterErrorScreen | Flutter | Dialog |
 | A-BWCE | - | アカウント作成 | CreateAccountScreen | Flutter | Modal |
-| D-HTFA | メイン | メイン画面 | MainScreen | Flutter | Replace/Tab |
+| D-HTFA | メイン | メイン画面 | MainScreen | Flutter | Replace |
 | K-EMQY | アカウント | アカウントタブ画面 | AccountTabScreen | Flutter | Tab |
 | K-OVJL | - | プロフィール編集画面 | ProfileEditScreen | Flutter | Modal |
 | K-XRPU | - | 退会申請画面 | WithdrawalScreen | Flutter | Modal |
