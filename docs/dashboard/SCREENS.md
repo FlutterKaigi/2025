@@ -22,15 +22,15 @@
 | E-NSQJ | イベント | イベント情報タブ画面 | EventInfoTabScreen | Flutter | Tab |
 | E-TRWA | - | 日程・場所画面 | ScheduleScreen | Flutter | Push |
 | E-GLMB | - | お知らせ一覧画面 | NewsScreen | Flutter | Push |
-| K-EMQY | アカウント | アカウントタブ画面 | AccountTabScreen | Flutter | Tab |
-| K-OVJL | - | プロフィール編集画面 | ProfileEditScreen | Flutter | Modal |
-| K-XRPU | - | 退会申請画面 | WithdrawalScreen | Flutter | Modal |
 | S-LKQZ | スポンサー | スポンサー情報タブ画面 | SponsorInfoTabScreen | Flutter | Tab |
 | S-DFMW | - | 自社情報管理画面 | OwnSponsorInfoScreen | Flutter | Push |
 | S-ABCN | - | 他社情報閲覧画面 | OtherSponsorInfoScreen | Flutter | Push |
 | S-YTRO | - | ロゴ編集画面 | LogoEditScreen | Flutter | Modal |
 | S-VXEI | - | 企業説明編集画面 | DescEditScreen | Flutter | Modal |
 | S-PQSU | - | URL編集画面 | URLEditScreen | Flutter | Modal |
+| K-EMQY | アカウント | アカウントタブ画面 | AccountTabScreen | Flutter | Tab |
+| K-OVJL | - | プロフィール編集画面 | ProfileEditScreen | Flutter | Modal |
+| K-XRPU | - | 退会申請画面 | WithdrawalScreen | Flutter | Modal |
 <!-- deno-fmt-ignore-end -->
 
 > [!NOTE]
