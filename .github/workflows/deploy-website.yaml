@@ -162,9 +162,9 @@ jobs:
         id: extract-deployment-url
         run: |
           if [ -z "${{ steps.deploy-preview.outputs.LOG }}" ]; then
-            LOG="${{ steps.deploy-production.outputs.LOG }}"
+            LOG='${{ steps.deploy-production.outputs.LOG }}'
           else
-            LOG="${{ steps.deploy-preview.outputs.LOG }}"
+            LOG='${{ steps.deploy-preview.outputs.LOG }}'
           fi
 
           # `https://` を含む最初の行だけを抽出し、DEPLOYMENT_URLに格納
