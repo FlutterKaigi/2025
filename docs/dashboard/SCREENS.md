@@ -19,6 +19,9 @@
 | A-KYSD | - | エラー画面 | RegisterErrorScreen | Flutter | Dialog |
 | A-BWCE | - | アカウント作成 | CreateAccountScreen | Flutter | Modal |
 | D-HTFA | メイン | メイン画面 | MainScreen | Flutter | Replace |
+| E-NSQJ | イベント | イベント情報タブ画面 | EventInfoTabScreen | Flutter | Tab |
+| E-TRWA | - | 日程・場所画面 | ScheduleScreen | Flutter | Push |
+| E-GLMB | - | お知らせ一覧画面 | NewsScreen | Flutter | Push |
 | K-EMQY | アカウント | アカウントタブ画面 | AccountTabScreen | Flutter | Tab |
 | K-OVJL | - | プロフィール編集画面 | ProfileEditScreen | Flutter | Modal |
 | K-XRPU | - | 退会申請画面 | WithdrawalScreen | Flutter | Modal |
@@ -28,9 +31,6 @@
 | S-YTRO | - | ロゴ編集画面 | LogoEditScreen | Flutter | Modal |
 | S-VXEI | - | 企業説明編集画面 | DescEditScreen | Flutter | Modal |
 | S-PQSU | - | URL編集画面 | URLEditScreen | Flutter | Modal |
-| E-NSQJ | イベント | イベント情報タブ画面 | EventInfoTabScreen | Flutter | Tab |
-| E-TRWA | - | 日程・場所画面 | ScheduleScreen | Flutter | Push |
-| E-GLMB | - | お知らせ一覧画面 | NewsScreen | Flutter | Push |
 <!-- deno-fmt-ignore-end -->
 
 > [!NOTE]
