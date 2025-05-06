@@ -1,0 +1,298 @@
+name: Deploy BFF
+
+on:
+  push:
+   branches:
+     - main
+  pull_request:
+   paths:
+    - 'bff/**'
+  workflow_dispatch:
+    inputs:
+      deploy-production:
+        description: "Deploy to production"
+        required: false
+        default: false
+        type: boolean
+      deploy-preview:
+        description: "Deploy to preview"
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  define-matrix:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 1
+    outputs:
+      environments: ${{ steps.define-matrix.outputs.environments }}
+      deploy-production: ${{ steps.define-matrix.outputs.deploy-production }}
+      deploy-preview: ${{ steps.define-matrix.outputs.deploy-preview }}
+    steps:
+      - name: Define matrix
+        id: define-matrix
+        run: |
+          environments=()
+          # workflow_dispatchの場合
+          if [ "${{ inputs.deploy-production }}" = "true" ]; then
+            if [ "${{ inputs.deploy-preview }}" = "true" ]; then
+              environments+=("preview")
+            elif [ "${{ inputs.deploy-preview }}" = "false" ]; then
+              environments+=("production")
+            fi
+          # pushの場合
+          elif [ "${{ github.event_name }}" = "push" ]; then
+            environments+=("production")
+          elif [ "${{ github.event_name }}" = "pull_request" ]; then
+            environments+=("preview")
+          fi
+
+          # 空だった場合はエラー
+          if [ -z "${environments[@]}" ]; then
+            echo "Error: No environment selected"
+            exit 1
+          fi
+
+          echo "Deploying to ${environments[@]}"
+          # JSONに変換し、環境変数にセット
+          echo "platforms=$(jq -c -n '$ARGS.positional' --args "${environments[@]}")" >> $GITHUB_OUTPUT
+
+
+          echo "deploy-production=$(environments[@] | contains('production'))" >> $GITHUB_OUTPUT
+          echo "deploy-preview=$(environments[@] | contains('preview'))" >> $GITHUB_OUTPUT
+
+
+  start-deploy-website:
+    needs:
+      - define-matrix
+    if: ${{ needs.define-matrix.outputs.deploy-production }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 1
+    outputs:
+      deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+    steps:
+      # https://github.com/bobheadxi/deployments
+      - name: Start deployment
+        uses: bobheadxi/deployments@648679e8e4915b27893bd7dbc35cb504dc915bc8 # v1.5.0
+        id: deployment
+        with:
+          step: start
+          token: ${{ secrets.GITHUB_TOKEN }}
+          env: bff
+          ref: ${{ github.head_ref }}
+
+  build-dart-engine:
+    needs:
+      - define-matrix
+    strategy:
+      matrix:
+        environment: ${{ fromJson(needs.define-matrix.outputs.environments) }}
+    outputs:
+      build_log: ${{ steps.build-dart-engine.outputs.build_log }}
+    runs-on: ubuntu-24.04
+    steps:
+      # https://github.com/actions/checkout
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      # https://github.com/jdx/mise-action
+      - name: Install Mise dependencies
+        uses: jdx/mise-action@5083fe46898c414b2475087cc79da59e7da859e8 # v2.1.11
+        with:
+          install_args: "flutter"
+
+      - name: Resolve dependencies
+        working-directory: bff/engine
+        run: dart pub get
+
+      - name: Build Dart Engine
+        working-directory: bff/engine
+        id: build-dart-engine
+        run: |
+          {
+            echo "LOG<<EOL"
+            dart compile wasm \
+              bin/server.dart \
+              -o build/main.wasm \
+              -O4
+            echo "EOL"
+          } | tee -a $GITHUB_OUTPUT
+
+      - name: Upload Dart website Artifacts
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: bff-engine-artifact
+          path: bff/engine/build
+
+  deploy-bff:
+    needs:
+      - define-matrix
+      - build-dart-engine
+    strategy:
+      matrix:
+        environment: ${{ fromJson(needs.define-matrix.outputs.environments) }}
+    outputs:
+      deployment_url: ${{ steps.extract-deployment-url.outputs.DEPLOYMENT_URL }}
+      logs: ${{ steps.extract-logs.outputs.LOG }}
+    runs-on: ubuntu-24.04
+    steps:
+      # https://github.com/actions/checkout
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Download Dart Engine Artifacts
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: bff-engine-artifact
+          path: bff/bridge/engine-artifact
+
+      # https://github.com/jdx/mise-action
+      - name: Install Mise dependencies
+        uses: jdx/mise-action@5083fe46898c414b2475087cc79da59e7da859e8 # v2.1.11
+        with:
+          install_args: "bun"
+
+      - name: Install dependencies
+        working-directory: bff/bridge
+        run: bun install --frozen-lockfile
+
+      - name: Deploy BFF(staging)
+        id: deploy-bff-staging
+        working-directory: bff/bridge
+        run: |
+          {
+            echo "LOG<<EOL"
+            bun run \
+              wrangler deploy \
+              --env staging \
+              --minify
+            echo "EOL"
+          } | tee -a $GITHUB_OUTPUT
+
+
+      - name: Deploy BFF(production)
+        id: deploy-bff-production
+        working-directory: bff/bridge
+        run: |
+          {
+            echo "LOG<<EOL"
+            bun run \
+              wrangler deploy \
+              --env production \
+              --minify
+            echo "EOL"
+          } | tee -a $GITHUB_OUTPUT
+
+      - name: Extract deployment URL
+        id: extract-deployment-url
+        run: |
+          if [ -z "${{ steps.deploy-bff-production.outputs.LOG }}" ]; then
+            LOG="${{ steps.deploy-bff-staging.outputs.LOG }}"
+          else
+            LOG="${{ steps.deploy-bff-production.outputs.LOG }}"
+          fi
+
+          # `https://` を含む最初の行だけを抽出し、DEPLOYMENT_URLに格納
+          DEPLOYMENT_URL=$(echo "$LOG" | grep -o 'https://[^ ]*' | head -n 1)
+          echo "DEPLOYMENT_URL=$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
+
+      - name: Set logs
+        id: set-logs
+        env:
+          STAGING_LOG: ${{ steps.deploy-bff-staging.outputs.log }}
+          PRODUCTION_LOG: ${{ steps.deploy-bff-production.outputs.log }}
+        run: |
+          {
+            echo "LOG<<EOL"
+            if [ "${{ env.STAGING_LOG }}" != "" ]; then
+              echo "${{ env.STAGING_LOG }}"
+            fi
+            if [ "${{ env.PRODUCTION_LOG }}" != "" ]; then
+              echo "${{ env.PRODUCTION_LOG }}"
+            fi
+            echo "EOL"
+          } | tee -a $GITHUB_OUTPUT
+
+      - name: Extract timestamp
+        id: extract-timestamp
+        env:
+          TZ: Asia/Tokyo
+        run: |
+          echo "timestamp=$(date -Iseconds )" >> $GITHUB_OUTPUT
+
+      - name: Extract logs
+        id: extract-logs
+        run: |
+          echo "LOG<<EOF" >> $GITHUB_OUTPUT
+          cat <<EOL | tee -a $GITHUB_OUTPUT
+          ## 🌍️ BFF Deployment
+          🔗URL: ${{ steps.extract-deployment-url.outputs.DEPLOYMENT_URL }}
+
+          🔑Commit Hash: \`${{ github.sha }}\`
+          📅Timestamp: \`${{ steps.extract-timestamp.outputs.TIMESTAMP }}\`
+
+          <details>
+          <summary><h2>📦️ Build Logs</h2></summary>
+
+          \`\`\`log
+          ${{ needs.build-dart-engine.outputs.build_log }}
+          \`\`\`
+          </details>
+
+          <details>
+          <summary><h2>✈️ Deployment Logs</h2></summary>
+
+          \`\`\`log
+          ${{ steps.set-logs.outputs.LOG }}
+          \`\`\`
+          </details>
+          EOL
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      # https://github.com/thollander/actions-comment-pull-request
+      - name: Comment PR
+        uses: thollander/actions-comment-pull-request@24bffb9b452ba05a4f3f77933840a6a841d1b32b # v3.0.1
+        if: ${{ github.event_name == 'pull_request' }}
+        with:
+          message: |
+            ${{ steps.extract-logs.outputs.LOG }}
+          comment-tag: deploy-bff
+
+  update-deployment-status:
+    runs-on: ubuntu-24.04
+    needs:
+      - define-matrix
+      - build-dart-engine
+      - start-deploy-website
+      - deploy-bff
+    if: ${{ needs.define-matrix.outputs.deploy-production }}
+    timeout-minutes: 1
+    steps:
+      - name: Get previous jobs status
+        id: get-previous-jobs-status
+        run: |
+          function echo-needs() {
+            echo '${{ toJSON(needs) }}'
+          }
+          echo-needs
+          did_failure=$(echo-needs | jq '[.[].result] | any(. != "success")')
+          if [ "$did_failure" = "true" ]; then
+            echo "status=failure" >> $GITHUB_OUTPUT
+          else
+            echo "status=success" >> $GITHUB_OUTPUT
+          fi
+
+      # https://github.com/bobheadxi/deployments
+      - name: Update deployment status
+        uses: bobheadxi/deployments@648679e8e4915b27893bd7dbc35cb504dc915bc8 # v1.5.0
+        id: deployment
+        if: ${{ !cancelled() }}
+        with:
+          step: finish
+          token: ${{ secrets.GITHUB_TOKEN }}
+          status: ${{ steps.get-previous-jobs-status.outputs.status || 'failure' }}
+          deployment_id: ${{ needs.start-deploy-website.outputs.deployment_id }}
+          env: bff
+          env_url: ${{ needs.deploy-bff.outputs.deployment_url }}
+          ref: ${{ github.head_ref }}
+          auto_inactive: true
