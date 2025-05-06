@@ -15,7 +15,7 @@
 | L-SPLH | 起動 | スプラッシュ画面 | SplashScreen | Flutter | Replace |
 | A-QJTR | 認証 | ログイン画面 | LoginScreen | Flutter | Replace |
 | A-PLXM | - | Google認証 | GoogleAuthScreen | InAppWebView | Modal |
-| A-URVN | - | スポンサーコード入力画面 | SponsorCodeScreen | Flutter | Modal |
+| A-URVN | - | スポンサーコード入力画面 | SponsorCodeScreen | Flutter | Push |
 | A-KYSD | - | アカウント作成エラーダイアログ | AccountCreationErrorDialog | Flutter | Dialog |
 | A-BWCE | - | アカウント作成 | CreateAccountScreen | Flutter | Modal |
 | D-HTFA | メイン | メイン画面 | MainScreen | Flutter | Replace |
