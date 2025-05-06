@@ -70,13 +70,13 @@ flowchart TD
     %% メイン画面のタブ構成
     subgraph Main[メイン画面]
       direction LR
-      SponsorInfo[スポンサー情報タブ画面]
       EventInfo[イベント情報タブ画面]
+      SponsorInfo[スポンサー情報タブ画面]
       Account[アカウントタブ画面]
     end
-    
-    Account --> Profile[プロフィール編集画面]
-    Account --> Withdrawal[退会申請画面]
+
+    EventInfo --> Schedule[日程・場所画面]
+    EventInfo --> News[お知らせ一覧画面]
     
     SponsorInfo --> OwnInfo[自社情報管理画面]
     SponsorInfo --> OtherInfo[他社情報閲覧画面]
@@ -85,6 +85,6 @@ flowchart TD
     OwnInfo --> DescEdit[企業説明編集画面]
     OwnInfo --> URLEdit[URL編集画面]
     
-    EventInfo --> Schedule[日程・場所画面]
-    EventInfo --> News[お知らせ一覧画面]
+    Account --> Profile[プロフィール編集画面]
+    Account --> Withdrawal[退会申請画面]
 ```
