@@ -234,7 +234,7 @@ jobs:
           }
 
           {
-            echo "LOG<<'EOL'"
+            echo "LOG<<EOL"
             get-log
             echo "EOL"
           } | tee -a $GITHUB_OUTPUT
