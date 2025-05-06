@@ -223,9 +223,9 @@ jobs:
         id: extract-deployment-url
         run: |
           if [ -z "${{ steps.deploy-bff-production.outputs.LOG }}" ]; then
-            LOG='${{ steps.deploy-bff-staging.outputs.LOG }}'
+            LOG="${{ steps.deploy-bff-staging.outputs.LOG }}"
           else
-            LOG='${{ steps.deploy-bff-production.outputs.LOG }}'
+            LOG="${{ steps.deploy-bff-production.outputs.LOG }}"
           fi
 
           # `https://` を含む最初の行だけを抽出し、DEPLOYMENT_URLに格納
