@@ -17,17 +17,17 @@
 | A-URVN | - | スポンサーコード入力画面 | SponsorCodeScreen | Flutter | Modal |
 | A-KYSD | - | エラー画面 | RegisterErrorScreen | Flutter | Dialog |
 | A-BWCE | - | アカウント作成 | CreateAccountScreen | Flutter | Modal |
-| D-HTFA | メイン | ダッシュボード画面 | DashboardScreen | Flutter | Replace/Tab |
-| K-EMQY | アカウント | アカウント管理画面 | AccountScreen | Flutter | Push |
+| D-HTFA | メイン | メイン画面 | MainScreen | Flutter | Replace/Tab |
+| K-EMQY | アカウント | アカウントタブ画面 | AccountTabScreen | Flutter | Tab |
 | K-OVJL | - | プロフィール編集画面 | ProfileEditScreen | Flutter | Modal |
 | K-XRPU | - | 退会申請画面 | WithdrawalScreen | Flutter | Modal |
-| S-LKQZ | スポンサー | スポンサー情報画面 | SponsorInfoScreen | Flutter | Push |
+| S-LKQZ | スポンサー | スポンサー情報タブ画面 | SponsorInfoTabScreen | Flutter | Tab |
 | S-DFMW | - | 自社情報管理画面 | OwnSponsorInfoScreen | Flutter | Push |
 | S-ABCN | - | 他社情報閲覧画面 | OtherSponsorInfoScreen | Flutter | Push |
 | S-YTRO | - | ロゴ編集画面 | LogoEditScreen | Flutter | Modal |
 | S-VXEI | - | 企業説明編集画面 | DescEditScreen | Flutter | Modal |
 | S-PQSU | - | URL編集画面 | URLEditScreen | Flutter | Modal |
-| E-NSQJ | イベント | イベント情報画面 | EventInfoScreen | Flutter | Push |
+| E-NSQJ | イベント | イベント情報タブ画面 | EventInfoTabScreen | Flutter | Tab |
 | E-TRWA | - | 日程・場所画面 | ScheduleScreen | Flutter | Push |
 | E-GLMB | - | お知らせ一覧画面 | NewsScreen | Flutter | Push |
 <!-- deno-fmt-ignore-end -->
@@ -58,19 +58,25 @@ flowchart TD
     %% 認証フロー
     Login --> GoogleAuth((Google認証))
     GoogleAuth --> AccountCheck{アカウント存在確認}
-    AccountCheck --> |存在する| Dashboard[ダッシュボード画面]
+    AccountCheck --> |存在する| Main[メイン画面]
     AccountCheck --> |存在しない| SponsorCode[スポンサーコード入力画面]
     
     %% 新規登録フロー
     SponsorCode --> DomainCheck{ドメイン一致確認}
     DomainCheck --> |一致| CreateAccount((アカウント作成))
     DomainCheck --> |不一致| RegisterError[エラー画面]
-    CreateAccount --> Dashboard
+    CreateAccount --> Main
     
-    %% ダッシュボード以降の画面遷移
-    Dashboard --> Account[アカウント管理画面]
-    Dashboard --> SponsorInfo[スポンサー情報画面]
-    Dashboard --> EventInfo[イベント情報画面]
+    %% メイン画面のタブ構成
+    subgraph Main[メイン画面]
+      direction LR
+      EventInfo[イベント情報タブ画面]
+      SponsorInfo[スポンサー情報タブ画面]
+      Account[アカウントタブ画面]
+    end
+    
+    %% メイン画面初期表示
+    Main --> EventInfo
     
     Account --> Profile[プロフィール編集画面]
     Account --> Withdrawal[退会申請画面]
