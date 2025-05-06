@@ -31,8 +31,12 @@ jobs:
       - name: Define environment
         id: define-environment
         run: |
-          echo "environment=${{ inputs.environment }} || ${{ github.event_name == 'push' && 'production' || 'preview' }}" \
-            >> $GITHUB_OUTPUT
+          environment=${{ inputs.environment }}
+          if [ -z "$environment" ]; then
+            environment=$({{ github.event_name == 'push' && 'production' || 'preview' }})
+          fi
+          echo "Setting environment to $environment"
+          echo "environment=$environment" >> $GITHUB_OUTPUT
 
   start-deploy-website:
     needs:
