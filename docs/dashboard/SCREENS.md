@@ -22,6 +22,7 @@
 | E-INFO | - | イベント情報画面 | EventInfoScreen | Flutter | - |
 | E-GLMB | - | お知らせ画面 | NewsScreen | Flutter | Push |
 | S-LKQZ | スポンサー | スポンサータブ画面 | SponsorTabScreen | Flutter | Tab |
+| S-LIST | - | スポンサー一覧画面 | SponsorListScreen | Flutter | - |
 | S-DETAIL | - | スポンサー詳細画面 | SponsorDetailScreen | Flutter | Push |
 | S-YTRO | - | スポンサー編集画面 | SponsorEditScreen | Flutter | Modal |
 | K-EMQY | アカウント | アカウントタブ画面 | AccountTabScreen | Flutter | Tab |
@@ -74,7 +75,9 @@ flowchart TD
       subgraph EventTab[イベントタブ画面]
         EventInfo[イベント情報画面]
       end
-      SponsorTab[スポンサータブ画面]
+      subgraph SponsorTab[スポンサータブ画面]
+        SponsorList[スポンサー一覧画面]
+      end
       Account[アカウントタブ画面]
     end
 
