@@ -28,7 +28,6 @@ major_version = 15
 
 [db.migrations]
 schema_paths = [
-  "./schemas/users.sql",
   "./schemas/*.sql",
 ]
 
