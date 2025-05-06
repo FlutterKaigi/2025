@@ -12,6 +12,7 @@
 <!-- cspell:ignoreRegExp [A-Z]{1}-[A-Z]{4} -->
 | ID | カテゴリ | 日本語名 | 英語名 | 実装種別 | 遷移種別 |
 |-|-|-|-|-|-|
+| L-SPLH | 起動 | スプラッシュ画面 | SplashScreen | Flutter | Replace |
 | A-QJTR | 認証 | ログイン画面 | LoginScreen | Flutter | Replace |
 | A-PLXM | - | Google認証 | GoogleAuthScreen | InAppWebView | Modal |
 | A-URVN | - | スポンサーコード入力画面 | SponsorCodeScreen | Flutter | Modal |
@@ -53,7 +54,8 @@
 
 ```mermaid
 flowchart TD
-    Start((開始)) --> SessionCheck{セッション確認}
+    Start((開始)) --> Splash[スプラッシュ画面]
+    Splash --> SessionCheck{セッション確認}
     SessionCheck --> |有効| EventInfo[イベント情報タブ画面]
     SessionCheck --> |無効| Login[ログイン画面]
     
