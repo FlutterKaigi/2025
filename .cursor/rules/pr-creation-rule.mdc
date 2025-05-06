@@ -1,0 +1,51 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# プルリクエスト作成ルール
+
+## 1. プルリクエストに必要な情報の取得
+
+```shell
+# 1. 作業ブランチの特定
+current_branch=$(git branch --show-current)
+echo "作業ブランチ: $current_branch"
+
+# 2. Issue番号の特定（ブランチ名から抽出）
+issue=$(echo "$current_branch" | grep -oE 'GH-[0-9]+' | grep -oE '[0-9]+')
+if [ -z "$issue" ]; then
+  echo "Issue番号が特定できませんでした。Issue番号を教えてください。"
+  exit 1
+else
+  echo "Issue番号: $issue"
+fi
+
+# 3. 派生元ブランチの特定（ローカル全ブランチから自動判定）
+candidates=($(git branch --format='%(refname:short)' | grep -v "^$current_branch$"))
+latest_base=""
+latest_commit=""
+for b in "${candidates[@]}"; do
+  commit=$(git merge-base $b $current_branch 2>/dev/null)
+  if [ -n "$commit" ]; then
+    if [ -z "$latest_commit" ] || [ "$(git log -1 --format=%ct $commit)" -gt "$(git log -1 --format=%ct $latest_commit)" ]; then
+      latest_commit=$commit
+      latest_base=$b
+    fi
+  fi
+done
+echo "派生元ブランチ: $latest_base"
+
+# 4. 差分の確認
+diff=$(git diff $latest_base...$current_branch)
+echo "差分: $diff"
+```
+
+## 2. プルリクエスト本文の作成
+
+- 手順1で取得した情報を元にして [`PULL_REQUEST_TEMPLATE.md`](mdc:.github/PULL_REQUEST_TEMPLATE.md) に従い、Issue番号・概要・詳細を記載。
+- 画像・その他は何も記述しない。
+
+## 3. MCPサーバー経由でプルリクエストを作成
+
+手順1で取得した「作業ブランチ名」「Issue番号」「派生元ブランチ」、手順2で取得した「プルリクエスト本文」をもとに、MCPサーバー経由でプルリクエストを作成してください。
