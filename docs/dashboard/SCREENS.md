@@ -53,7 +53,9 @@
 
 ```mermaid
 flowchart TD
-    Start[開始] --> Login[ログイン画面]
+    Start[開始] --> SessionCheck{セッション確認}
+    SessionCheck --> |有効| EventInfo[イベント情報タブ画面]
+    SessionCheck --> |無効| Login[ログイン画面]
     
     %% 認証フロー
     Login --> GoogleAuth((Google認証))
