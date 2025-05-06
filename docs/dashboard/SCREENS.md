@@ -22,7 +22,7 @@
 | E-GLMB | - | お知らせ画面 | NewsScreen | Flutter | Push |
 | S-LKQZ | スポンサー | スポンサータブ画面 | SponsorTabScreen | Flutter | Tab |
 | S-DETAIL | - | スポンサー詳細画面 | SponsorDetailScreen | Flutter | Push |
-| S-YTRO | - | 自社スポンサー編集画面 | OwnSponsorEditScreen | Flutter | Modal |
+| S-YTRO | - | スポンサー編集画面 | SponsorEditScreen | Flutter | Modal |
 | K-EMQY | アカウント | アカウントタブ画面 | AccountTabScreen | Flutter | Tab |
 | K-OVJL | - | プロフィール編集画面 | ProfileEditScreen | Flutter | Modal |
 | K-XRPU | - | 退会申請画面 | WithdrawalScreen | Flutter | Modal |
@@ -79,7 +79,7 @@ flowchart TD
     
     SponsorTab --> SponsorDetail[スポンサー詳細画面]
     
-    SponsorDetail --> OwnSponsorEdit[自社スポンサー編集画面]
+    SponsorDetail --> SponsorEdit[スポンサー編集画面]
     
     Account --> Profile[プロフィール編集画面]
     Account --> Withdrawal[退会申請画面]
