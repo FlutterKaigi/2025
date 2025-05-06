@@ -18,8 +18,8 @@
 | A-URVN | - | 招待コード入力画面 | InvitationCodeScreen | Flutter | Push |
 | A-KYSD | - | アカウント作成エラーダイアログ | AccountCreationErrorDialog | Flutter | Dialog |
 | D-HTFA | メイン | メイン画面 | MainScreen | Flutter | Replace |
-| E-NSQJ | イベント | イベント情報タブ画面 | EventInfoTabScreen | Flutter | Tab |
-| E-TRWA | - | 日程・場所画面 | ScheduleScreen | Flutter | Push |
+| E-NSQJ | イベント | イベントタブ画面 | EventTabScreen | Flutter | Tab |
+| E-TRWA | - | イベント情報画面 | EventInfoScreen | Flutter | Push |
 | E-GLMB | - | お知らせ一覧画面 | NewsScreen | Flutter | Push |
 | S-LKQZ | スポンサー | スポンサー情報タブ画面 | SponsorInfoTabScreen | Flutter | Tab |
 | S-DFMW | - | 自社情報管理画面 | OwnSponsorInfoScreen | Flutter | Push |
@@ -55,13 +55,13 @@
 flowchart TD
     Start((開始)) --> Splash[スプラッシュ画面]
     Splash --> SessionCheck{セッション確認}
-    SessionCheck --> |有効| EventInfo[イベント情報タブ画面]
+    SessionCheck --> |有効| EventTab[イベントタブ画面]
     SessionCheck --> |無効| Login[ログイン画面]
     
     %% 認証フロー
     Login --> GoogleAuth((Google認証))
     GoogleAuth --> AccountCheck{アカウント存在確認}
-    AccountCheck --> |存在する| EventInfo[イベント情報タブ画面]
+    AccountCheck --> |存在する| EventTab[イベントタブ画面]
     AccountCheck --> |存在しない| InvitationCode[招待コード入力画面]
     
     %% 新規登録フロー
@@ -69,18 +69,18 @@ flowchart TD
     DomainCheck --> |一致| CreateAccount((アカウント作成))
     DomainCheck --> |不一致| RegisterError[アカウント作成<br>エラーダイアログ]
     RegisterError --> InvitationCode
-    CreateAccount --> EventInfo
+    CreateAccount --> EventTab
     
     %% メイン画面のタブ構成
     subgraph Main[メイン画面]
       direction LR
-      EventInfo[イベント情報タブ画面]
+      EventTab[イベントタブ画面]
       SponsorInfo[スポンサー情報タブ画面]
       Account[アカウントタブ画面]
     end
 
-    EventInfo --> Schedule[日程・場所画面]
-    EventInfo --> News[お知らせ一覧画面]
+    EventTab --> EventInfo[イベント情報画面]
+    EventTab --> News[お知らせ一覧画面]
     
     SponsorInfo --> OwnInfo[自社情報管理画面]
     SponsorInfo --> OtherInfo[他社情報閲覧画面]
