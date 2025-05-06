@@ -20,7 +20,7 @@
 | D-HTFA | メイン | メイン画面 | MainScreen | Flutter | Replace |
 | E-NSQJ | イベント | イベントタブ画面 | EventTabScreen | Flutter | Tab |
 | E-TRWA | - | イベント情報画面 | EventInfoScreen | Flutter | Push |
-| E-GLMB | - | お知らせ一覧画面 | NewsScreen | Flutter | Push |
+| E-GLMB | - | お知らせ画面 | NewsScreen | Flutter | Push |
 | S-LKQZ | スポンサー | スポンサー情報タブ画面 | SponsorInfoTabScreen | Flutter | Tab |
 | S-DFMW | - | 自社情報管理画面 | OwnSponsorInfoScreen | Flutter | Push |
 | S-ABCN | - | 他社情報閲覧画面 | OtherSponsorInfoScreen | Flutter | Push |
@@ -80,7 +80,7 @@ flowchart TD
     end
 
     EventTab --> EventInfo[イベント情報画面]
-    EventTab --> News[お知らせ一覧画面]
+    EventTab --> News[お知らせ画面]
     
     SponsorInfo --> OwnInfo[自社情報管理画面]
     SponsorInfo --> OtherInfo[他社情報閲覧画面]
