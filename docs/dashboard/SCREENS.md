@@ -21,7 +21,7 @@
 | E-NSQJ | イベント | イベントタブ画面 | EventTabScreen | Flutter | Tab |
 | E-TRWA | - | イベント情報画面 | EventInfoScreen | Flutter | Push |
 | E-GLMB | - | お知らせ画面 | NewsScreen | Flutter | Push |
-| S-LKQZ | スポンサー | スポンサー情報タブ画面 | SponsorInfoTabScreen | Flutter | Tab |
+| S-LKQZ | スポンサー | スポンサータブ画面 | SponsorTabScreen | Flutter | Tab |
 | S-DFMW | - | 自社情報管理画面 | OwnSponsorInfoScreen | Flutter | Push |
 | S-ABCN | - | 他社情報閲覧画面 | OtherSponsorInfoScreen | Flutter | Push |
 | S-YTRO | - | ロゴ編集画面 | LogoEditScreen | Flutter | Modal |
@@ -75,15 +75,15 @@ flowchart TD
     subgraph Main[メイン画面]
       direction LR
       EventTab[イベントタブ画面]
-      SponsorInfo[スポンサー情報タブ画面]
+      SponsorTab[スポンサータブ画面]
       Account[アカウントタブ画面]
     end
 
     EventTab --> EventInfo[イベント情報画面]
     EventTab --> News[お知らせ画面]
     
-    SponsorInfo --> OwnInfo[自社情報管理画面]
-    SponsorInfo --> OtherInfo[他社情報閲覧画面]
+    SponsorTab --> OwnInfo[自社情報管理画面]
+    SponsorTab --> OtherInfo[他社情報閲覧画面]
     
     OwnInfo --> LogoEdit[ロゴ編集画面]
     OwnInfo --> DescEdit[企業説明編集画面]
