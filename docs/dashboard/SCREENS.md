@@ -26,6 +26,7 @@
 | S-DETAIL | - | スポンサー詳細画面 | SponsorDetailScreen | Flutter | Push |
 | S-YTRO | - | スポンサー編集画面 | SponsorEditScreen | Flutter | Modal |
 | K-EMQY | アカウント | アカウントタブ画面 | AccountTabScreen | Flutter | Tab |
+| K-INFO | - | アカウント情報画面 | AccountInfoScreen | Flutter | - |
 | K-OVJL | - | プロフィール編集画面 | ProfileEditScreen | Flutter | Modal |
 | K-XRPU | - | 退会申請画面 | WithdrawalScreen | Flutter | Modal |
 <!-- deno-fmt-ignore-end -->
@@ -78,7 +79,9 @@ flowchart TD
       subgraph SponsorTab[スポンサータブ画面]
         SponsorList[スポンサー一覧画面]
       end
-      Account[アカウントタブ画面]
+      subgraph Account[アカウントタブ画面]
+        AccountInfo[アカウント情報画面]
+      end
     end
 
     EventTab --> News[お知らせ画面]
