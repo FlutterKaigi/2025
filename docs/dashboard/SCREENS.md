@@ -15,7 +15,7 @@
 | L-SPLH | 起動 | スプラッシュ画面 | SplashScreen | Flutter | Replace |
 | A-QJTR | 認証 | ログイン画面 | LoginScreen | Flutter | Replace |
 | A-PLXM | - | Google認証 | GoogleAuthScreen | InAppWebView | Modal |
-| A-URVN | - | スポンサーコード入力画面 | SponsorCodeScreen | Flutter | Push |
+| A-URVN | - | 招待コード入力画面 | InvitationCodeScreen | Flutter | Push |
 | A-KYSD | - | アカウント作成エラーダイアログ | AccountCreationErrorDialog | Flutter | Dialog |
 | A-BWCE | - | アカウント作成 | CreateAccountScreen | Flutter | Modal |
 | D-HTFA | メイン | メイン画面 | MainScreen | Flutter | Replace |
@@ -63,10 +63,10 @@ flowchart TD
     Login --> GoogleAuth((Google認証))
     GoogleAuth --> AccountCheck{アカウント存在確認}
     AccountCheck --> |存在する| EventInfo[イベント情報タブ画面]
-    AccountCheck --> |存在しない| SponsorCode[スポンサーコード入力画面]
+    AccountCheck --> |存在しない| InvitationCode[招待コード入力画面]
     
     %% 新規登録フロー
-    SponsorCode --> DomainCheck{ドメイン一致確認}
+    InvitationCode --> DomainCheck{ドメイン一致確認}
     DomainCheck --> |一致| CreateAccount((アカウント作成))
     DomainCheck --> |不一致| RegisterError[アカウント作成<br>エラーダイアログ]
     CreateAccount --> EventInfo
