@@ -58,25 +58,22 @@ flowchart TD
     %% 認証フロー
     Login --> GoogleAuth((Google認証))
     GoogleAuth --> AccountCheck{アカウント存在確認}
-    AccountCheck --> |存在する| Main[メイン画面]
+    AccountCheck --> |存在する| EventInfo[イベント情報タブ画面]
     AccountCheck --> |存在しない| SponsorCode[スポンサーコード入力画面]
     
     %% 新規登録フロー
     SponsorCode --> DomainCheck{ドメイン一致確認}
     DomainCheck --> |一致| CreateAccount((アカウント作成))
     DomainCheck --> |不一致| RegisterError[エラー画面]
-    CreateAccount --> Main
+    CreateAccount --> EventInfo
     
     %% メイン画面のタブ構成
     subgraph Main[メイン画面]
       direction LR
-      EventInfo[イベント情報タブ画面]
       SponsorInfo[スポンサー情報タブ画面]
+      EventInfo[イベント情報タブ画面]
       Account[アカウントタブ画面]
     end
-    
-    %% メイン画面初期表示
-    Main --> EventInfo
     
     Account --> Profile[プロフィール編集画面]
     Account --> Withdrawal[退会申請画面]
