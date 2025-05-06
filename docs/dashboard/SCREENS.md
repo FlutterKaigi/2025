@@ -52,43 +52,53 @@
 
 ```mermaid
 flowchart TD
-    Start((開始)) --> Splash[スプラッシュ画面]
-    Splash --> SessionCheck{セッション確認}
-    SessionCheck --> |有効| EventInfo
-    SessionCheck --> |無効| Login[ログイン画面]
-    
-    %% 認証フロー
-    Login --> GoogleAuth((Google認証))
-    GoogleAuth --> AccountCheck{アカウント存在確認}
-    AccountCheck --> |存在する| EventInfo
-    AccountCheck --> |存在しない| InvitationCode[招待コード入力画面]
-    
-    %% 新規登録フロー
-    InvitationCode --> DomainCheck{ドメイン一致確認}
-    DomainCheck --> |一致| CreateAccount((アカウント作成))
-    DomainCheck --> |不一致| RegisterError[アカウント作成<br>エラーダイアログ]
-    RegisterError --> InvitationCode
-    CreateAccount --> EventInfo
-    
-    %% メイン画面のタブ構成
-    subgraph Main[メイン画面]
+    %% 画面一覧
+    SplashScreen[スプラッシュ画面]
+    LoginScreen[ログイン画面]
+    GoogleAuthBottomSheet[Google認証画面]
+    InvitationCodeScreen[招待コード入力画面]
+    AccountCreationErrorDialog[アカウント作成<br>エラーダイアログ]
+    subgraph MainScreen[メイン画面]
       direction LR
-      subgraph EventTab[イベントタブ画面]
-        EventInfo[イベント情報画面]
+      subgraph EventTabScreen[イベントタブ画面]
+        EventInfoScreen[イベント情報画面]
       end
-      subgraph SponsorTab[スポンサータブ画面]
-        SponsorList[スポンサー一覧画面]
+      subgraph SponsorTabScreen[スポンサータブ画面]
+        SponsorListScreen[スポンサー一覧画面]
       end
-      subgraph Account[アカウントタブ画面]
-        AccountInfo[アカウント情報画面]
+      subgraph AccountTabScreen[アカウントタブ画面]
+        AccountInfoScreen[アカウント情報画面]
       end
     end
+    NewsScreen[お知らせ画面]
+    SponsorListScreen[スポンサー一覧画面]
+    SponsorDetailScreen[スポンサー詳細画面]
+    SponsorEditScreen[スポンサー編集画面]
+    ProfileEditScreen[プロフィール編集画面]
+    WithdrawalScreen[退会申請画面]
 
-    EventInfo --> News[お知らせ画面]
+    Start((開始)) --> SplashScreen
+    SplashScreen --> SessionCheck{セッション確認}
+    SessionCheck --> |有効| EventInfoScreen
+    SessionCheck --> |無効| LoginScreen
     
-    SponsorList --> SponsorDetail[スポンサー詳細画面]
-    SponsorDetail --> SponsorEdit[スポンサー編集画面]
+    %% 認証フロー
+    LoginScreen --> GoogleAuthBottomSheet((Google認証))
+    GoogleAuthBottomSheet --> AccountCheck{アカウント存在確認}
+    AccountCheck --> |存在する| EventInfoScreen
+    AccountCheck --> |存在しない| InvitationCodeScreen
     
-    AccountInfo --> Profile[プロフィール編集画面]
-    AccountInfo --> Withdrawal[退会申請画面]
+    %% 新規登録フロー
+    InvitationCodeScreen --> DomainCheck{ドメイン一致確認}
+    DomainCheck --> |一致| CreateAccount((アカウント作成))
+    DomainCheck --> |不一致| AccountCreationErrorDialog
+    AccountCreationErrorDialog --> InvitationCodeScreen
+    CreateAccount --> EventInfoScreen
+    
+    %% メイン画面以降のフロー
+    EventInfoScreen --> NewsScreen
+    SponsorListScreen --> SponsorDetailScreen
+    SponsorDetailScreen --> SponsorEditScreen
+    AccountInfoScreen --> ProfileEditScreen
+    AccountInfoScreen --> WithdrawalScreen
 ```
