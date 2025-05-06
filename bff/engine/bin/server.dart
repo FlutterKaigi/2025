@@ -27,7 +27,12 @@ Future<void> main() async {
     final jsResponse = web.Response(
       Uint8List.fromList(bytes).buffer.toJS,
       web.ResponseInit(
-        headers: response.headers.toJSDeep,
+        headers:
+            {
+              ...response.headers,
+              'x-commit-hash':
+                  cfDartWorkers.env.get('COMMIT_HASH') ?? 'unknown',
+            }.toJSDeep,
         status: response.statusCode,
       ),
     );
