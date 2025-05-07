@@ -37,7 +37,7 @@ jobs:
         run: |
           environment=${{ inputs.environment }}
           if [ -z "$environment" ]; then
-            environment=$({{ github.event_name == 'push' && 'production' || 'preview' }})
+            environment=${{ github.event_name == 'push' && 'production' || 'preview' }}
           fi
           echo "Setting environment to $environment"
           echo "environment=$environment" >> $GITHUB_OUTPUT
