@@ -21,7 +21,6 @@ on:
 env:
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-
 concurrency:
   group: "deploy-website"
   cancel-in-progress: false
@@ -146,7 +145,6 @@ jobs:
             bunx wrangler versions upload 2>&1
             echo "EOL"
           } | tee -a $GITHUB_OUTPUT
-
 
       - name: Deploy website (Production)
         if: ${{ needs.define-environment.outputs.environment == 'production' }}
