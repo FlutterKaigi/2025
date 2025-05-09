@@ -5,11 +5,9 @@
   "mise.configureExtensionsUseSymLinks": true,
   // MEMO(YumNumm): miseの自動構成では、以下の拡張に関するパスを絶対パスで設定するため無効化
   "mise.configureExtensionsAutomaticallyIgnoreList": [
-    "dart-code.flutter",
-    "denoland.vscode-deno"
+    "dart-code.flutter"
   ],
-  "deno.enable": true,
-  "deno.path": "~/.local/share/mise/shims/deno",
+  "dprint.path": "~/.local/share/mise/shims/dprint",
   "bun.runtime": "${workspaceFolder}/.vscode/mise-tools/bun",
   "dart.flutterSdkPath": "~/.local/share/mise/installs/flutter/3.29.3-stable",
   "search.exclude": {
@@ -39,7 +37,7 @@
   },
   "editor.formatOnSave": true,
   "[json][jsonc][yaml][markdown]": {
-    "editor.defaultFormatter": "denoland.vscode-deno"
+    "editor.defaultFormatter": "dprint.dprint"
   },
   "[typescript][javascript]": {
     "editor.defaultFormatter": "biomejs.biome"
