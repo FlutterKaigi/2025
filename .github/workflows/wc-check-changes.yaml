@@ -7,8 +7,8 @@ on:
         value: ${{ jobs.changes.outputs.any }}
       spell:
         value: ${{ jobs.changes.outputs.spell }}
-      style-deno:
-        value: ${{ jobs.changes.outputs.style-deno }}
+      style-dprint:
+        value: ${{ jobs.changes.outputs.style-dprint }}
 
 permissions:
   contents: read
@@ -20,7 +20,7 @@ jobs:
     outputs:
       any: ${{ steps.filter.outputs.changes != '[]' }}
       spell: ${{ steps.filter.outputs.spell }}
-      style-deno: ${{ steps.filter.outputs.style-deno }}
+      style-dprint: ${{ steps.filter.outputs.style-dprint }}
     steps:
       # https://github.com/actions/checkout
       - name: Checkout
@@ -34,5 +34,5 @@ jobs:
           filters: |
             spell:
               - "**/*.{md,yaml,yml,dart,ts,js}"
-            style-deno:
+            style-dprint:
               - "**/*.{md,yaml,yml,json,jsonc}"

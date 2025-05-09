@@ -1,4 +1,4 @@
-name: Check Deno Style
+name: Check dprint Style
 
 on:
   workflow_call:
@@ -7,7 +7,7 @@ permissions:
   contents: read
 
 jobs:
-  check-style:
+  check-style-dprint:
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
@@ -23,7 +23,7 @@ jobs:
       - name: Install Mise dependencies
         uses: jdx/mise-action@5083fe46898c414b2475087cc79da59e7da859e8 # v2.1.11
         with:
-          install_args: "deno"
+          install_args: "dprint"
 
       - name: Run style check
-        run: deno fmt --check
+        run: dprint check
