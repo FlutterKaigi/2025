@@ -4,32 +4,32 @@
     "enabled": true,
     "clientKind": "git",
     "useIgnoreFile": true,
-    "defaultBranch": "main"
+    "defaultBranch": "main",
   },
   "files": {
     "ignoreUnknown": true,
     "ignore": [
       // wranglerによって自動作成されるファイル
-      "worker-configuration.d.ts"
-    ]
+      "worker-configuration.d.ts",
+    ],
   },
   "formatter": {
     "enabled": true,
     "indentStyle": "space",
-    "indentWidth": 2
+    "indentWidth": 2,
   },
   "organizeImports": {
-    "enabled": true
+    "enabled": true,
   },
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true
-    }
+      "recommended": true,
+    },
   },
   "javascript": {
     "formatter": {
-      "quoteStyle": "single"
-    }
-  }
+      "quoteStyle": "single",
+    },
+  },
 }

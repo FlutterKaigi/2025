@@ -2,11 +2,11 @@ name: Deploy BFF
 
 on:
   push:
-   branches:
-     - main
+    branches:
+      - main
   pull_request:
-   paths:
-    - 'bff/**'
+    paths:
+      - "bff/**"
   workflow_dispatch:
     inputs:
       deploy-production:
@@ -72,7 +72,6 @@ jobs:
             done
             echo "false"
           }
-
 
   start-deploy-website:
     needs:
@@ -203,7 +202,6 @@ jobs:
               --minify 2>&1
             echo "EOL"
           } | tee -a $GITHUB_OUTPUT
-
 
       - name: Deploy BFF (production)
         id: deploy-bff-production

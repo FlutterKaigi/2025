@@ -4,40 +4,40 @@
   "main": "src/index.ts",
   "compatibility_date": "2025-04-30",
   "observability": {
-    "enabled": true
+    "enabled": true,
   },
   "placement": {
-    "mode": "smart"
+    "mode": "smart",
   },
   "rules": [
     {
       "type": "CompiledWasm",
       "globs": ["**/*.wasm"],
-      "fallthrough": true
-    }
+      "fallthrough": true,
+    },
   ],
   "build": {
     "command": "scripts/build.sh",
     "cwd": "../engine",
-    "watch_dir": ["../engine", "src"]
+    "watch_dir": ["../engine", "src"],
   },
   "env": {
     "production": {
       "vars": {
-        "ENVIRONMENT": "production"
+        "ENVIRONMENT": "production",
       },
       "routes": [
         {
           "pattern": "2025-bff.flutterkaigi.jp",
-          "custom_domain": true
-        }
+          "custom_domain": true,
+        },
       ],
-      "workers_dev": false
+      "workers_dev": false,
     },
     "staging": {
       "vars": {
-        "ENVIRONMENT": "staging"
-      }
-    }
-  }
+        "ENVIRONMENT": "staging",
+      },
+    },
+  },
 }

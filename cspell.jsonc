@@ -8,82 +8,89 @@
       "name": "bun-term",
       "description": "Bun related terms",
       "path": "./.cspell/bun-term.txt",
-      "addWords": true
+      "addWords": true,
     },
     {
       "name": "dart-term",
       "description": "Dart related terms",
       "path": "./.cspell/dart-term.txt",
-      "addWords": true
+      "addWords": true,
+    },
+    {
+      "name": "dprint-term",
+      "description": "dprint related terms",
+      "path": "./.cspell/dprint-term.txt",
+      "addWords": true,
     },
     {
       "name": "flutter-term",
       "description": "Flutter related terms",
       "path": "./.cspell/flutter-term.txt",
-      "addWords": true
+      "addWords": true,
     },
     {
       "name": "github-action-term",
       "description": "GitHub Actions related terms",
       "path": "./.cspell/github-action-term.txt",
-      "addWords": true
+      "addWords": true,
     },
     {
       "name": "ios-term",
       "description": "iOS related terms",
       "path": "./.cspell/ios-term.txt",
-      "addWords": true
+      "addWords": true,
     },
     {
       "name": "web-term",
       "description": "Web related terms",
       "path": "./.cspell/web-term.txt",
-      "addWords": true
+      "addWords": true,
     },
     {
       "name": "project-term",
       "description": "Project specific terms",
       "path": "./.cspell/project-term.txt",
-      "addWords": true
+      "addWords": true,
     },
     {
       "name": "supabase-term",
       "description": "Supabase related terms",
       "path": "./.cspell/supabase-term.txt",
-      "addWords": true
+      "addWords": true,
     },
     {
       "name": "terraform-term",
       "description": "Terraform related terms",
       "path": "./.cspell/terraform-term.txt",
-      "addWords": true
-    }
+      "addWords": true,
+    },
   ],
   "dictionaries": [
     "bun-term",
     "dart-term",
+    "dprint-term",
     "flutter-term",
     "github-action-term",
     "ios-term",
     "web-term",
     "project-term",
     "supabase-term",
-    "terraform-term"
+    "terraform-term",
   ],
   "files": [
-    "**/*.{md,yaml,yml,dart,ts,js}"
+    "**/*.{md,yaml,yml,dart,ts,js}",
   ],
   "ignorePaths": [
     // 自動生成ファイル
     "*.*.dart",
     "worker-configuration.d.ts",
     // 隠しファイル
-    ".*.{yaml,yml}"
+    ".*.{yaml,yml}",
   ],
   "import": [
     "@cspell/dict-software-terms/cspell-ext.json",
     "@cspell/dict-dart/cspell-ext.json",
     "@cspell/dict-flutter/cspell-ext.json",
-    "@cspell/dict-sql/cspell-ext.json"
-  ]
+    "@cspell/dict-sql/cspell-ext.json",
+  ],
 }

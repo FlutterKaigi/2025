@@ -8,7 +8,7 @@
 
 ## 2. 画面一覧
 
-<!-- deno-fmt-ignore-start -->
+<!-- dprint-ignore-start -->
 <!-- cspell:ignoreRegExp [A-Z]{1}-[A-Z]{4} -->
 | ID | カテゴリ | 日本語名 | 英語名 | 実装種別 | 遷移種別 |
 |-|-|-|-|-|-|
@@ -29,7 +29,7 @@
 | K-INFO | - | アカウント情報画面 | AccountInfoScreen | Flutter | - |
 | K-OVJL | - | プロフィール編集画面 | ProfileEditScreen | Flutter | Modal |
 | K-XRPU | - | 退会申請画面 | WithdrawalScreen | Flutter | Modal |
-<!-- deno-fmt-ignore-end -->
+<!-- dprint-ignore-end -->
 
 > [!NOTE]
 >
