@@ -3,16 +3,21 @@
 ## 環境構築
 
 1. 初期化
+
    ```sh
    # dart pub getとbun installの実行
    make init
    ```
+
 2. ビルド
+
    ```sh
    # buildディレクトリの作成
    make
    ```
+
 3. 実行
+
    ```sh
    # bun devの実行
    make dev
@@ -36,7 +41,7 @@ dartでの実装のため，SPAを前提とした実装となっています．
 ### ディレクトリ構成
 
 - `web/` 静的ファイル & 実行ファイル\
-  一部のファイル(`main.dart`や`index.*`を除いて，全てホスティング対象です．
+  一部のファイル(`main.dart`や`index.*`)を除いて，全てホスティング対象です．
   - `main.dart` dartの実行ファイル\
     これを起点にmain.wasmをビルドしています
   - `index.js` Cloudflare workersの実行ファイル\
