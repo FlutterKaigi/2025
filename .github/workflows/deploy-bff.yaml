@@ -241,8 +241,12 @@ jobs:
       - name: Extract deployment URL
         id: extract-deployment-url
         run: |
-          # `https://` を含む最初の行だけを抽出し、DEPLOYMENT_URLに格納
-          DEPLOYMENT_URL=$(echo '${{ steps.set-logs.outputs.LOG }}' | grep -o 'https://[^ ]*' | head -n 1)
+          if [ "${{ matrix.environment }}" = "production" ]; then
+            # productionのデプロイは`2025-bff.flutterkaigi.jp`で固定値なので、その値を格納
+            DEPLOYMENT_URL="https://2025-bff.flutterkaigi.jp"
+          else
+            DEPLOYMENT_URL=$(echo '${{ steps.set-logs.outputs.LOG }}' | grep -o 'https://[^ ]*' | head -n 1)
+          fi
           echo "DEPLOYMENT_URL=$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
 
       - name: Extract timestamp
