@@ -1,1 +1,1 @@
-// TODO
+export 'model/model.dart';
