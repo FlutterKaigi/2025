@@ -27,9 +27,13 @@ melos:
       environment:
         sdk: ^3.7.2
         flutter: ^3.29.3
+      dependencies:
+        go_router: ^15.1.2
       dev_dependencies:
         altive_lints: ^1.19.1
+        build_runner: ^2.4.15
         custom_lint: ^0.7.5
+        go_router_builder: ^2.9.0
 
   scripts:
     gen:
