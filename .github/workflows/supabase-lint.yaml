@@ -127,24 +127,23 @@ jobs:
       LINT_LOG: ${{ needs.supabase-lint.outputs.log }}
       APPLY_DRY_RUN_LOG: ${{ needs.supabase-apply-dry-run.outputs.log }}
     steps:
-
       - name: Comment PR with execution number
         uses: thollander/actions-comment-pull-request@24bffb9b452ba05a4f3f77933840a6a841d1b32b # v3.0.1
         with:
           message: |
-              <details>
-              <summary><h2>🔍️ Supabase Lint Log</h2></summary>
+            <details>
+            <summary><h2>🔍️ Supabase Lint Log</h2></summary>
 
-              ```log
-              ${{ env.LINT_LOG }}
-              ```
-              </details>
+            ```log
+            ${{ env.LINT_LOG }}
+            ```
+            </details>
 
-              <details>
-              <summary><h2>🔍️ Supabase Apply Dry Run Log</h2></summary>
+            <details>
+            <summary><h2>🔍️ Supabase Apply Dry Run Log</h2></summary>
 
-              ```log
-              ${{ env.APPLY_DRY_RUN_LOG }}
-              ```
-              </details>
+            ```log
+            ${{ env.APPLY_DRY_RUN_LOG }}
+            ```
+            </details>
           comment-tag: supabase-lint
