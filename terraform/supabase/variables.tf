@@ -20,3 +20,14 @@ variable "SUPABASE_DB_PASSWORD_STAGING" {
   description = "Staging Database Password"
   sensitive   = true
 }
+
+variable "SUPABASE_GOOGLE_CLIENT_ID" {
+  type        = string
+  description = "Google Client ID"
+}
+
+variable "SUPABASE_GOOGLE_CLIENT_SECRET" {
+  type        = string
+  description = "Google Client Secret"
+  sensitive   = true
+}
