@@ -8,6 +8,8 @@ environment:
   sdk: ^3.8.0-278.2.beta
 
 dependencies:
+  db_types:
+    path: ../../packages/db_types
   js_interop_utils: ^1.0.7
   riverpod: ^2.6.1
   riverpod_annotation: ^2.6.1
