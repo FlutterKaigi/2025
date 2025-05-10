@@ -136,7 +136,7 @@ jobs:
           name: bff-engine-artifact-${{ matrix.environment }}
           path: bff/engine/build
 
-  get-supabase-service-role-key:
+  get-supabase-connection-info:
     env:
       MISE_ENV: ci
     needs:
@@ -216,7 +216,7 @@ jobs:
     needs:
       - define-matrix
       - build-dart-engine
-      - get-supabase-service-role-key
+      - get-supabase-connection-info
     strategy:
       matrix:
         environment: ${{ fromJson(needs.define-matrix.outputs.environments) }}
@@ -272,8 +272,8 @@ jobs:
         working-directory: bff/bridge
         if: ${{ matrix.environment == 'staging' }}
         env:
-          SUPABASE_PROJECT_ID: ${{ needs.get-supabase-service-role-key.outputs.SUPABASE_PROJECT_ID_STAGING }}
-          SUPABASE_SERVICE_ROLE_KEY: ${{ needs.get-supabase-service-role-key.outputs.SUPABASE_SERVICE_ROLE_KEY_STAGING }}
+          SUPABASE_PROJECT_ID: ${{ needs.get-supabase-connection-info.outputs.SUPABASE_PROJECT_ID_STAGING }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ needs.get-supabase-connection-info.outputs.SUPABASE_SERVICE_ROLE_KEY_STAGING }}
         run: |
           {
             echo "LOG<<EOL"
