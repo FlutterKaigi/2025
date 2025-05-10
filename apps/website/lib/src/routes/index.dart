@@ -33,7 +33,7 @@ HTMLElement get _mainContent {
     ..style.justifyContent = 'center'
     ..style.alignItems = 'center'
     ..appendAll([
-      HTMLDivElement()
+      HTMLHeadingElement.h1()
         ..style.position = 'relative'
         ..style.whiteSpace = 'nowrap'
         ..style.fontFamily = 'Lexend'
@@ -45,7 +45,7 @@ HTMLElement get _mainContent {
         ..style.backgroundRepeat = 'no-repeat'
         ..appendAll([
           for (var i = 0; i < tagLineWords.length; i++)
-            HTMLHeadingElement.h1()
+            HTMLSpanElement()
               ..textContent = tagLineWords[i]
               ..style.display = 'block'
               ..style.opacity = '0'
@@ -65,13 +65,13 @@ HTMLElement get _mainContent {
         ..style.fontWeight = 'bold'
         ..style.fontFamily = 'Lexend'
         ..style.marginTop = '6rem',
-      HTMLHeadingElement.h3()
+      HTMLParagraphElement()
         ..textContent = 'in Tokyo, Japan'
         ..style.fontSize = '1.5rem'
         ..style.fontWeight = 'bold'
         ..style.fontFamily = 'Lexend'
         ..style.marginTop = '2rem',
-      HTMLDivElement()
+      HTMLElement.section()
         ..style.position = 'relative'
         ..style.marginTop = '6rem'
         ..appendAll([
