@@ -16,7 +16,7 @@ _ErrorResponse _$ErrorResponseFromJson(Map<String, dynamic> json) =>
           (v) => $enumDecode(
             _$ErrorCodeEnumMap,
             v,
-            unknownValue: ErrorCode.notImplemented,
+            unknownValue: ErrorCode.unknownEnumField,
           ),
         ),
         message: $checkedConvert('message', (v) => v as String),

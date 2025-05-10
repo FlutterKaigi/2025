@@ -9,7 +9,7 @@ part 'error_response.g.dart';
 abstract class ErrorResponse with _$ErrorResponse {
   const factory ErrorResponse({
     /// エラーコード
-    @JsonKey(unknownEnumValue: ErrorCode.notImplemented)
+    @JsonKey(unknownEnumValue: ErrorCode.unknownEnumField)
     required ErrorCode code,
 
     /// エラーのメッセージ

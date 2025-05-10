@@ -17,7 +17,7 @@ T _$identity<T>(T value) => value;
 mixin _$ErrorResponse {
 
 /// エラーコード
-@JsonKey(unknownEnumValue: ErrorCode.notImplemented) ErrorCode get code;/// エラーのメッセージ
+@JsonKey(unknownEnumValue: ErrorCode.unknownEnumField) ErrorCode get code;/// エラーのメッセージ
 /// `code`の`message`に相当する
  String get message;/// エラーの詳細
 /// ユーザに表示することは想定されていない
@@ -54,7 +54,7 @@ abstract mixin class $ErrorResponseCopyWith<$Res>  {
   factory $ErrorResponseCopyWith(ErrorResponse value, $Res Function(ErrorResponse) _then) = _$ErrorResponseCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(unknownEnumValue: ErrorCode.notImplemented) ErrorCode code, String message, String? detail
+@JsonKey(unknownEnumValue: ErrorCode.unknownEnumField) ErrorCode code, String message, String? detail
 });
 
 
@@ -87,11 +87,11 @@ as String?,
 @JsonSerializable()
 
 class _ErrorResponse implements ErrorResponse {
-  const _ErrorResponse({@JsonKey(unknownEnumValue: ErrorCode.notImplemented) required this.code, required this.message, this.detail});
+  const _ErrorResponse({@JsonKey(unknownEnumValue: ErrorCode.unknownEnumField) required this.code, required this.message, this.detail});
   factory _ErrorResponse.fromJson(Map<String, dynamic> json) => _$ErrorResponseFromJson(json);
 
 /// エラーコード
-@override@JsonKey(unknownEnumValue: ErrorCode.notImplemented) final  ErrorCode code;
+@override@JsonKey(unknownEnumValue: ErrorCode.unknownEnumField) final  ErrorCode code;
 /// エラーのメッセージ
 /// `code`の`message`に相当する
 @override final  String message;
@@ -132,7 +132,7 @@ abstract mixin class _$ErrorResponseCopyWith<$Res> implements $ErrorResponseCopy
   factory _$ErrorResponseCopyWith(_ErrorResponse value, $Res Function(_ErrorResponse) _then) = __$ErrorResponseCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(unknownEnumValue: ErrorCode.notImplemented) ErrorCode code, String message, String? detail
+@JsonKey(unknownEnumValue: ErrorCode.unknownEnumField) ErrorCode code, String message, String? detail
 });
 
 
