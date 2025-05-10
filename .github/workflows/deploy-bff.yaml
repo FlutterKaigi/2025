@@ -41,7 +41,8 @@ jobs:
           if [ "${{ inputs.deploy-production }}" = "true" ]; then
             if [ "${{ inputs.deploy-staging }}" = "true" ]; then
               environments+=("staging")
-            elif [ "${{ inputs.deploy-production }}" = "true" ]; then
+            fi
+            if [ "${{ inputs.deploy-production }}" = "true" ]; then
               environments+=("production")
             fi
           # pushの場合
