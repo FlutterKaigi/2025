@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:engine/main.dart';
+import 'package:engine/provider/cf_workers_env.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shelf/shelf.dart';
@@ -19,6 +21,19 @@ class ApiService {
         'requested_at': DateTime.now().toIso8601String(),
         'request_headers': request.headers,
         'request_url': request.requestedUri.toString(),
+      }),
+    );
+  }
+
+  @Route.get('/env')
+  Future<Response> _getSupabaseConnectionInfo(Request request) async {
+    final cfWorkersEnv = container.read(cfWorkersEnvProvider);
+    return Response.ok(
+      jsonEncode({
+        'SUPABASE_URL': cfWorkersEnv.supabaseUrl,
+        'SUPABASE_SERVICE_ROLE_KEY.length':
+            cfWorkersEnv.supabaseServiceRoleKey.length,
+        'COMMIT_HASH': cfWorkersEnv.commitHash,
       }),
     );
   }

@@ -1,5 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: type=lint
+
 part of 'api_service.dart';
 
 // **************************************************************************
@@ -32,5 +34,6 @@ typedef ApiServiceRef = ProviderRef<ApiService>;
 Router _$ApiServiceRouter(ApiService service) {
   final router = Router();
   router.add('GET', r'/', service._getIndex);
+  router.add('GET', r'/env', service._getSupabaseConnectionInfo);
   return router;
 }
