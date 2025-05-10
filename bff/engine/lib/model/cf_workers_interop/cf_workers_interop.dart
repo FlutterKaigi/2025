@@ -1,3 +1,4 @@
+import 'package:engine/model/cf_workers_interop/cf_workers_env.dart';
 import 'package:js_interop_utils/js_interop_utils.dart';
 import 'package:web/web.dart' as web;
 
@@ -9,7 +10,7 @@ extension type CfDartWorkers._(JSObject _) implements JSObject {
   external factory CfDartWorkers();
 
   external web.Request request;
-  external JSObject env;
+  external CfWorkersJsEnv env;
   external JSExecutionContext ctx;
 
   /// Dart側でのリクエストハンドリングが完了したら、レスポンスをこの関数を通じてJS側に渡す
