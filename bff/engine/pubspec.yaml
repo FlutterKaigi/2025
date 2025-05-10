@@ -17,6 +17,7 @@ dependencies:
   riverpod_annotation: ^2.6.1
   shelf: ^1.4.2
   shelf_router: ^1.1.4
+  supabase: ^2.7.0
   web: ^1.1.1
 
 dev_dependencies:
