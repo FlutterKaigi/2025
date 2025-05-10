@@ -211,6 +211,7 @@ jobs:
             echo "Error: Supabase project ID not found"
             exit 1
           fi
+          echo "$SUPABASE_SERVICE_ROLE_KEY" | md5sum
 
   deploy-bff:
     needs:
