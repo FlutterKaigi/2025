@@ -124,7 +124,7 @@ jobs:
           {
             echo "LOG<<EOL"
             dart compile wasm \
-              bin/server.dart \
+              lib/main.dart \
               -o build/main.wasm \
               -O4
             echo "EOL"

@@ -12,5 +12,5 @@ fi
 
 # Unoptimized build
 echo "Building unoptimized wasm..."
-dart compile wasm bin/server.dart -o ../bridge/engine-artifact/main.wasm -O0
+dart compile wasm lib/main.dart -o ../bridge/engine-artifact/main.wasm -O0
 echo "Unoptimized wasm build completed."

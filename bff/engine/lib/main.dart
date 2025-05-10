@@ -1,7 +1,9 @@
 import 'dart:typed_data';
 
-import 'package:engine/cf_workers_interop.dart';
 import 'package:engine/extension/request_shelf_converter.dart';
+import 'package:engine/model/cf_workers_interop/cf_workers_env.dart';
+import 'package:engine/model/cf_workers_interop/cf_workers_interop.dart';
+import 'package:engine/provider/cf_workers_env.dart';
 import 'package:engine/provider/handler.dart';
 import 'package:js_interop_utils/js_interop_utils.dart';
 import 'package:riverpod/riverpod.dart';
@@ -11,10 +13,13 @@ late ProviderContainer container;
 
 Future<void> main() async {
   final cfDartWorkers = getCfDartWorkers();
+  final cfWorkersEnv = cfDartWorkers.env.toDart;
   final request = cfDartWorkers.request;
 
   try {
-    container = ProviderContainer();
+    container = ProviderContainer(
+      overrides: [cfWorkersEnvProvider.overrideWithValue(cfWorkersEnv)],
+    );
 
     final handler = container.read(handlerProvider);
     final response = await handler(request.toShelf);
@@ -30,8 +35,7 @@ Future<void> main() async {
         headers:
             {
               ...response.headers,
-              'x-commit-hash':
-                  cfDartWorkers.env.get('COMMIT_HASH') ?? 'unknown',
+              'x-commit-hash': cfWorkersEnv.commitHash,
             }.toJSDeep,
         status: response.statusCode,
       ),
