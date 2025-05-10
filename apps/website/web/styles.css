@@ -65,7 +65,6 @@ body * {
 
 .gradient-button {
   background: var(--base-gradient);
-  background-blend-mode: screen;
   padding: 1rem 2rem;
   border-radius: 4rem;
 }
