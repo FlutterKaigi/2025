@@ -29,6 +29,7 @@ abstract class ErrorResponse with _$ErrorResponse {
 enum ErrorCode {
   notImplemented('このエンドポイントは未実装です', HttpStatus.notImplemented),
   internalServerError('サーバ内部で予期しないエラーが発生しました', HttpStatus.internalServerError),
+  routeNotFound('ルーティングが見つかりませんでした', HttpStatus.notFound),
 
   // WARNING(YumNumm): 道のエラーコードが返ってきた時に利用されます
   // サーバ側からこのエラーコードが返ってくることはありません
