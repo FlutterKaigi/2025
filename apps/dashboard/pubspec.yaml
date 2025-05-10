@@ -13,14 +13,17 @@ dependencies:
   cupertino_icons: ^1.0.8
   flutter:
     sdk: flutter
+  go_router: ^15.1.2
 
 dev_dependencies:
   altive_lints: ^1.19.1
+  build_runner: ^2.4.15
   custom_lint: ^0.7.5
   flutter_test:
     sdk: flutter
   flutterkaigi_lints:
     path: ../../packages/flutterkaigi_lints
+  go_router_builder: ^2.9.0
 
 flutter:
   uses-material-design: true
