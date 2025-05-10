@@ -9,13 +9,15 @@ on:
   workflow_dispatch:
     inputs:
       deploy-production:
+        type: boolean
         description: "Deploy to production"
         required: false
-        default: "false"
+        default: false
       deploy-staging:
+        type: boolean
         description: "Deploy to staging"
         required: false
-        default: "false"
+        default: false
 
 jobs:
   define-matrix:
