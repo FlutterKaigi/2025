@@ -9,6 +9,8 @@ environment:
   sdk: ^3.8.0-278.2.beta
 
 dependencies:
+  db_types:
+    path: ../db_types
   freezed_annotation: ^3.0.0
   json_annotation: ^4.9.0
   retrofit: ^4.4.2
