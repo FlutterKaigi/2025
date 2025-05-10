@@ -85,8 +85,8 @@ jobs:
       matrix:
         environment: ${{ fromJson(needs.define-matrix.outputs.environments) }}
     outputs:
-      project_id_staging: ${{ steps.get-supabase-project-id.outputs.project_id_staging }}
-      project_id_production: ${{ steps.get-supabase-project-id.outputs.project_id_production }}
+      PROJECT_ID_STAGING: ${{ steps.get-supabase-project-id.outputs.PROJECT_ID_STAGING }}
+      PROJECT_ID_PRODUCTION: ${{ steps.get-supabase-project-id.outputs.PROJECT_ID_PRODUCTION }}
     runs-on: ubuntu-24.04
     timeout-minutes: 2
     steps:
@@ -127,7 +127,8 @@ jobs:
         id: get-supabase-project-id
         run: |
           PROJECT_ID=$(terraform output -raw supabase_${{ matrix.environment }}_project_id)
-          echo "project_id_${{ matrix.environment }}=$PROJECT_ID" >> $GITHUB_OUTPUT
+          ENVIRONMENT_UPPERCASE=$(echo "${{ matrix.environment }}" | tr '[:lower:]' '[:upper:]')
+          echo "PROJECT_ID_${ENVIRONMENT_UPPERCASE}=$PROJECT_ID" >> $GITHUB_OUTPUT
 
   supabase-apply:
     name: Apply Supabase Database
@@ -173,10 +174,10 @@ jobs:
         run: |
           if [ "${{ matrix.environment }}" = "staging" ]; then
             echo "db_password=$TF_VAR_SUPABASE_DB_PASSWORD_STAGING" >> $GITHUB_OUTPUT
-            echo "project_id=${{ needs.define-project-id.outputs.project_id_staging }}" >> $GITHUB_OUTPUT
+            echo "project_id=${{ needs.define-project-id.outputs.PROJECT_ID_STAGING }}" >> $GITHUB_OUTPUT
           elif [ "${{ matrix.environment }}" = "production" ]; then
             echo "db_password=$TF_VAR_SUPABASE_DB_PASSWORD_PRODUCTION" >> $GITHUB_OUTPUT
-            echo "project_id=${{ needs.define-project-id.outputs.project_id_production }}" >> $GITHUB_OUTPUT
+            echo "project_id=${{ needs.define-project-id.outputs.PROJECT_ID_PRODUCTION }}" >> $GITHUB_OUTPUT
           fi
 
       - name: Link Supabase Project
