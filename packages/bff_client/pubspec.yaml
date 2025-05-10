@@ -1,0 +1,23 @@
+name: bff_client
+description: A starting point for Dart libraries or applications.
+version: 1.0.0
+publish_to: none
+
+resolution: workspace
+
+environment:
+  sdk: ^3.7.2
+
+dev_dependencies:
+  altive_lints: ^1.19.1
+  build_runner: ^2.4.15
+  custom_lint: ^0.7.5
+  flutterkaigi_lints:
+    path: ../flutterkaigi_lints
+  freezed: ^3.0.6
+  json_serializable: ^6.9.5
+  retrofit_generator: ^9.1.9
+dependencies:
+  freezed_annotation: ^3.0.0
+  json_annotation: ^4.9.0
+  retrofit: ^4.4.2
