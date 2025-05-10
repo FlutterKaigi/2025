@@ -38,7 +38,7 @@ jobs:
         run: |
           environments=()
           # workflow_dispatchの場合
-          if [ "${{ inputs.deploy-production }}" = "true" ]; then
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             if [ "${{ inputs.deploy-staging }}" = "true" ]; then
               environments+=("staging")
             fi
