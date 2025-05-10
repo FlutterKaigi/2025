@@ -7,6 +7,8 @@ on:
         value: ${{ jobs.changes.outputs.any }}
       spell:
         value: ${{ jobs.changes.outputs.spell }}
+      style-deno:
+        value: ${{ jobs.changes.outputs.style-deno }}
 
 permissions:
   contents: read

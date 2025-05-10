@@ -32,7 +32,7 @@ jobs:
     if: ${{ needs.changes.outputs.spell == 'true' }}
     uses: ./.github/workflows/wc-check-spell.yaml
 
-  check-style:
+  check-style-deno:
     needs: changes
     if: ${{ needs.changes.outputs.style-deno == 'true' }}
     uses: ./.github/workflows/wc-check-style-deno.yaml
@@ -41,7 +41,7 @@ jobs:
     runs-on: ubuntu-24.04
     needs:
       - check-spell
-      - check-style
+      - check-style-deno
     permissions: {}
     if: failure()
     steps:
