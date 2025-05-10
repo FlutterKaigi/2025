@@ -36,8 +36,8 @@ resource "supabase_settings" "production" {
     db_extra_search_path                  = "public,extensions"
     max_rows                              = 1000
     external_google_enabled               = true
-    external_google_client_id             = ""
-    external_google_secret                = ""
+    external_google_client_id             = var.SUPABASE_GOOGLE_CLIENT_ID
+    external_google_secret                = var.SUPABASE_GOOGLE_CLIENT_SECRET
     external_google_additional_client_ids = null
     external_google_skip_nonce_check      = true
   })
