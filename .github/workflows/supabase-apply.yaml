@@ -179,14 +179,14 @@ jobs:
       - name: Link Supabase Project
         env:
           PROJECT_ID: ${{ needs.define-project-id.outputs.project_id }}
-          DB_PASSWORD: ${{ steps.db-password.outputs.db_password }}
+          SUPABASE_DB_PASSWORD: ${{ steps.db-password.outputs.db_password }}
         run: |
           bunx supabase link \
             --project-ref $PROJECT_ID
 
       - name: Apply Supabase Database
         env:
-          DB_PASSWORD: ${{ steps.db-password.outputs.db_password }}
+          SUPABASE_DB_PASSWORD: ${{ steps.db-password.outputs.db_password }}
         run: bunx supabase db push
 
       # TODO(YumNumm): Supabase db pushのログをSlack通知 or コメントさせる
