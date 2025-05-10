@@ -266,10 +266,15 @@ jobs:
             echo "LOG<<EOL"
             # SET SUPABASE_URL
             SUPABASE_URL="https://$(echo $SUPABASE_PROJECT_ID).supabase.co"
-            echo $SUPABASE_URL | bunx wrangler versions secret put SUPABASE_URL
+            echo $SUPABASE_URL | bunx wrangler versions secret \
+                --env staging \
+                put SUPABASE_URL
 
             # SET SUPABASE_SERVICE_ROLE_KEY_STAGING
-            echo $SUPABASE_SERVICE_ROLE_KEY_STAGING | bunx wrangler versions secret put SUPABASE_SERVICE_ROLE_KEY
+            echo $SUPABASE_SERVICE_ROLE_KEY_STAGING | bunx wrangler \
+                versions secret \
+                --env staging \
+                put SUPABASE_SERVICE_ROLE_KEY
 
             bunx wrangler versions upload \
               --env staging \
@@ -288,10 +293,14 @@ jobs:
 
             # SET SUPABASE_URL
             SUPABASE_URL="https://$(echo $SUPABASE_PROJECT_ID).supabase.co"
-            echo $SUPABASE_URL | bunx wrangler secret put SUPABASE_URL
+            echo $SUPABASE_URL | bunx wrangler secret \
+                --env production \
+                put SUPABASE_URL
 
             # SET SUPABASE_SERVICE_ROLE_KEY_PRODUCTION
-            echo $SUPABASE_SERVICE_ROLE_KEY_PRODUCTION | bunx wrangler secret put SUPABASE_SERVICE_ROLE_KEY
+            echo $SUPABASE_SERVICE_ROLE_KEY_PRODUCTION | bunx wrangler secret \
+                --env production \
+                put SUPABASE_SERVICE_ROLE_KEY
 
             bunx wrangler deploy \
               --env production \
