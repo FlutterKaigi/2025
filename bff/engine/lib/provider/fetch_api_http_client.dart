@@ -6,4 +6,4 @@ part 'fetch_api_http_client.g.dart';
 
 @Riverpod(keepAlive: true)
 FetchApiHttpClient fetchApiHttpClient(Ref ref) =>
-    throw UnimplementedError('ProviderConatinerからoverrideしてください');
+    throw UnimplementedError('ProviderContainerからoverrideしてください');
