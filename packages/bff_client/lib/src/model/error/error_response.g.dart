@@ -1,0 +1,39 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+// ignore_for_file: type=lint
+
+part of 'error_response.dart';
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+_ErrorResponse _$ErrorResponseFromJson(Map<String, dynamic> json) =>
+    $checkedCreate('_ErrorResponse', json, ($checkedConvert) {
+      final val = _ErrorResponse(
+        code: $checkedConvert(
+          'code',
+          (v) => $enumDecode(
+            _$ErrorCodeEnumMap,
+            v,
+            unknownValue: ErrorCode.notImplemented,
+          ),
+        ),
+        message: $checkedConvert('message', (v) => v as String),
+        detail: $checkedConvert('detail', (v) => v as String?),
+      );
+      return val;
+    });
+
+Map<String, dynamic> _$ErrorResponseToJson(_ErrorResponse instance) =>
+    <String, dynamic>{
+      'code': _$ErrorCodeEnumMap[instance.code]!,
+      'message': instance.message,
+      'detail': instance.detail,
+    };
+
+const _$ErrorCodeEnumMap = {
+  ErrorCode.notImplemented: 'NOT_IMPLEMENTED',
+  ErrorCode.internalServerError: 'INTERNAL_SERVER_ERROR',
+  ErrorCode.unknownEnumField: 'UNKNOWN_ENUM_FIELD',
+};
