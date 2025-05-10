@@ -66,14 +66,12 @@ const site = (
 /// イベント情報
 final event = (
   title: 'FlutterKaigi 2025',
+  tagLine: 'Dash into Innovation.',
   date: DateTime.parse('2026-01-01T12:00:00+0900').toLocal(),
   place: (name: (ja: '東京', en: 'Tokyo'), url: 'https://example.com'),
   blog: (
     sponsorship: (
-      title: (
-        ja: 'FlutterKaigi 2025 スポンサー募集について',
-        en: 'FlutterKaigi 2025 About Sponsor Recruitment',
-      ),
+      title: (ja: 'スポンサー募集について', en: 'About Sponsor Recruitment'),
       url: (
         ja:
             'https://medium.com/flutterkaigi/flutterkaigi-2025-スポンサー募集について-034330881a94',
