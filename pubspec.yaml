@@ -2,8 +2,8 @@ name: flutterkaigi_2025
 publish_to: none
 
 environment:
-  sdk: 3.7.2
-  flutter: 3.29.3
+  sdk: ^3.7.2
+  flutter: ^3.29.3
 
 dev_dependencies:
   melos: ^7.0.0-dev.8
@@ -21,6 +21,19 @@ melos:
   ide:
     intellij:
       enabled: false
+
+  command:
+    bootstrap:
+      environment:
+        sdk: ^3.7.2
+        flutter: ^3.29.3
+      dependencies:
+        go_router: ^15.1.2
+      dev_dependencies:
+        altive_lints: ^1.19.1
+        build_runner: ^2.4.15
+        custom_lint: ^0.7.5
+        go_router_builder: ^2.9.0
 
   scripts:
     gen:
