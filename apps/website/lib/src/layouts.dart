@@ -10,18 +10,36 @@ HTMLElement basicLayout(HTMLElement child) =>
       ..style.flexDirection = 'column'
       ..style.width = 'auto'
       ..style.minHeight = '100vh'
-      ..style.backgroundColor = 'var(--background-color)'
       ..appendAll([
         _header
           ..style.position = 'sticky'
           ..style.top = '0'
-          ..style.borderBottom = '1px solid var(--border-color)'
-          ..style.backgroundColor = 'var(--background-color)',
+          ..style.borderBottom = '1px solid var(--border-color)',
         child
           ..style.padding = '0'
           ..style.flex = '1'
           ..style.overflow = 'hidden',
         _footer..style.borderTop = '1px solid var(--border-color)',
+      ]);
+
+HTMLElement sectionLayout(String title, HTMLElement child) =>
+    HTMLElement.section()
+      ..style.display = 'flex'
+      ..style.flexDirection = 'column'
+      ..style.justifyContent = 'start'
+      ..style.gap = '2rem'
+      ..style.minWidth = 'min(600px, calc(100vw - 64px))'
+      ..style.margin = '0 32px'
+      ..appendAll([
+        HTMLHeadingElement.h2()
+          ..textContent = title
+          ..style.fontSize = '1.5rem'
+          ..style.fontWeight = 'bold'
+          ..style.fontFamily = 'Lexend'
+          ..style.marginTop = '8rem',
+        child
+          ..style.padding = '0'
+          ..style.flex = '1',
       ]);
 
 HTMLElement get _header =>
@@ -30,27 +48,19 @@ HTMLElement get _header =>
       ..style.display = 'grid'
       ..style.gridTemplateColumns = '1fr 0fr'
       ..style.padding = '1rem'
+      ..style.backdropFilter = 'blur(10px)'
       ..appendAll([
         HTMLUListElement()..appendAll([
           HTMLLIElement()..append(
-            HTMLHeadingElement.h1()
-              ..style.display = 'flex'
-              ..style.flexDirection = 'row'
-              ..style.alignItems = 'center'
-              ..style.gap = '0.5em'
-              ..style.fontSize = '1.5em'
-              ..appendAll([
-                internalLink(
-                  HTMLImageElement()
-                    ..style.height = '2em'
-                    ..style.verticalAlign = 'middle'
-                    ..style.cursor = 'pointer'
-                    ..alt = '${site.title} logo'
-                    ..src = '/img/icon_flutterkaigi.svg',
-                  path: Path.go(),
-                ),
-                Text(site.title),
-              ]),
+            internalLink(
+              HTMLImageElement()
+                ..style.height = '2em'
+                ..style.verticalAlign = 'middle'
+                ..style.cursor = 'pointer'
+                ..alt = '${site.title} logo'
+                ..src = '/img/icon_flutterkaigi_full_dark.svg',
+              path: Path.go(),
+            ),
           ),
         ]),
         HTMLUListElement()

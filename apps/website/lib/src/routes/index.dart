@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutterkaigi_2025_website/app.dart' show onRemove;
 import 'package:flutterkaigi_2025_website/config.dart';
 import 'package:flutterkaigi_2025_website/src/components.dart';
-import 'package:flutterkaigi_2025_website/src/components/wave.dart';
 import 'package:flutterkaigi_2025_website/src/layouts.dart';
 import 'package:flutterkaigi_2025_website/src/routes.dart' show Handler;
 import 'package:flutterkaigi_2025_website/text.dart';
@@ -19,8 +18,7 @@ HTMLElement get index => basicLayout(
     ..style.gap = '2rem'
     ..appendAll([
       _mainContent..style.minHeight = '70vh',
-      waveCanvas,
-      _schedule,
+      sectionLayout('Schedule', _schedule),
     ]),
 );
 
@@ -31,45 +29,47 @@ HTMLElement get _mainContent =>
       ..style.justifyContent = 'center'
       ..style.alignItems = 'center'
       ..appendAll([
-        HTMLHeadingElement.h1()..append(
-          HTMLImageElement()
-            ..style.width = '9rem'
-            ..alt = '${site.title} logo'
-            ..src = '/img/icon_flutterkaigi.svg',
-        ),
-        HTMLParagraphElement()
+        HTMLHeadingElement.h1()
+          ..textContent = 'Dash into Innovation.'
+          ..style.fontFamily = 'Lexend'
+          ..style.textAlign = 'center'
+          ..style.fontStyle = 'italic'
+          ..style.background =
+              'linear-gradient(90deg,'
+              'var(--primary-color),'
+              'var(--secondary-color))'
+          ..style.color = 'transparent'
+          ..style.fontSize = 'clamp(2.5rem, 6vw, 4.5rem)'
+          ..style.marginTop = '12rem',
+        HTMLHeadingElement.h2()
+          ..textContent = event.title
           ..style.fontSize = '2rem'
-          ..textContent = formatDate(event.date),
-        HTMLDListElement()
-          ..style.display = 'grid'
-          ..style.gridGap = '0.5rem'
-          ..style.gridTemplateColumns = 'repeat(2, 1fr)'
-          ..style.marginTop = '1rem'
-          ..style.fontSize = '1.2rem'
-          ..appendAll([
-            HTMLElement.dt()..textContent = text(contents.placeLabel),
-            HTMLElement.dd()..append(
-              externalLink(text(event.place.name), url: event.place.url)
-                ..style.fontSize = 'inherit',
-            ),
-          ]),
+          ..style.fontWeight = 'bold'
+          ..style.fontFamily = 'Lexend'
+          ..style.marginTop = '8rem',
+        HTMLHeadingElement.h3()
+          ..textContent = 'in Tokyo, Japan'
+          ..style.fontSize = '1.5rem'
+          ..style.fontWeight = 'bold'
+          ..style.fontFamily = 'Lexend'
+          ..style.marginTop = '2rem',
         HTMLParagraphElement()
           ..style.position = 'relative'
-          ..style.marginTop = '1rem'
+          ..style.marginTop = '6rem'
           ..appendAll([
             externalLink(
               text(event.blog.sponsorship.title),
               url: text(event.blog.sponsorship.url),
-            ),
+            )..style.fontSize = '1.2rem',
             HTMLImageElement()
               ..style.position = 'absolute'
               ..style.left = '100%'
-              ..style.bottom = '-50%'
+              ..style.bottom = 'calc(-2.5rem + 0.6rem)'
               ..style.height = '5rem'
               ..alt = 'FlutterKaigi Dash'
               ..src = '/img/flutterkaigi_dash.png',
           ]),
-        _countdown..style.marginTop = '1rem',
+        _countdown..style.marginTop = '4rem',
       ]);
 
 /// 秒数まで表示する
@@ -140,25 +140,22 @@ HTMLElement get _countdown {
 }
 
 HTMLElement get _schedule =>
-    HTMLElement.article()..appendAll([
-      HTMLHeadingElement.h1()
-        ..style.fontSize = '1.5rem'
-        ..textContent = text(contents.scheduleLabel),
-      HTMLDListElement()
-        ..style.display = 'grid'
-        ..style.gridGap = '0.5rem'
-        ..style.gridTemplateColumns = 'repeat(2, 1fr)'
-        ..style.marginTop = '1rem'
-        ..appendAll(
-          event.schedule
-              .map(
-                (schedule) => [
-                  HTMLElement.dt()
-                    ..style.textAlign = 'center'
-                    ..textContent = formatDate(schedule.date),
-                  HTMLElement.dd()..textContent = text(schedule.title),
-                ],
-              )
-              .expand((e) => e),
-        ),
-    ]);
+    HTMLDListElement()
+      ..style.display = 'grid'
+      ..style.gridGap = '0.5rem'
+      ..style.gridTemplateColumns = 'repeat(2, 1fr)'
+      ..style.marginTop = '1rem'
+      ..style.marginBottom = '4rem'
+      ..appendAll(
+        event.schedule
+            .map(
+              (schedule) => [
+                HTMLElement.dt()
+                  ..style.textAlign = 'center'
+                  ..style.lineHeight = '2rem'
+                  ..textContent = formatDate(schedule.date),
+                HTMLElement.dd()..textContent = text(schedule.title),
+              ],
+            )
+            .expand((e) => e),
+      );

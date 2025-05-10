@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@900&display=swap');
 
 :root {
   --color-beyond-red: #e50632;
@@ -8,7 +9,12 @@
   --secondary-color: var(--color-flutter-sky);
   --link-color: steelblue;
   --border-color: slategray;
-  --background-color: white;
+  --background-color: #121212;
+  --text-color: #ffffff;
+}
+
+html {
+  background-color: var(--background-color);
 }
 
 html, body {
@@ -22,6 +28,7 @@ html, body {
 body * {
   all: initial;
   font-family: inherit;
+  color: var(--text-color);
 }
 
 @keyframes bounding {
