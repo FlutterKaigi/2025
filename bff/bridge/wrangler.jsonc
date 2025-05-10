@@ -4,21 +4,21 @@
   "main": "src/index.ts",
   "compatibility_date": "2025-04-30",
   "observability": {
-    "enabled": true
+    "enabled": true,
   },
   "placement": {
-    "mode": "smart"
+    "mode": "smart",
   },
   "rules": [
     {
       "type": "CompiledWasm",
       "globs": ["**/*.wasm"],
-      "fallthrough": true
-    }
+      "fallthrough": true,
+    },
   ],
   "build": {
     "command": "dart compile wasm bin/server.dart -o ../bridge/engine-artifact/main.wasm -O4",
     "cwd": "../engine",
-    "watch_dir": ["../engine", "src"]
-  }
+    "watch_dir": ["../engine", "src"],
+  },
 }
