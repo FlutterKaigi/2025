@@ -11,6 +11,7 @@
   --border-color: slategray;
   --background-color: #121212;
   --text-color: #ffffff;
+  --base-gradient: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
 }
 
 html {
@@ -30,6 +31,32 @@ body * {
   all: initial;
   font-family: inherit;
   color: var(--text-color);
+}
+
+.gradient-button {
+  background: var(--base-gradient);
+  background-blend-mode: screen;
+  padding: 1rem 2rem;
+  border-radius: 4rem;
+}
+
+.gradient-button::after {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 4rem;
+  width: 100%;
+  height: calc(100% + 2rem);
+  background: var(--base-gradient);
+  filter: blur(12px);
+  opacity: 0.4;
+  transition: transform 0.25s ease-out;
+}
+
+.gradient-button:hover::after {
+  transform: scale(1.1);
 }
 
 @keyframes bounding {

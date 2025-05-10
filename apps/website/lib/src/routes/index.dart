@@ -19,8 +19,8 @@ HTMLElement get index => basicLayout(
     ..style.alignItems = 'center'
     ..style.gap = '2rem'
     ..appendAll([
-      _mainContent..style.minHeight = '70vh',
-      sectionLayout('Schedule', _schedule),
+      _mainContent,
+      sectionLayout('Schedule', _schedule)..style.marginTop = '2rem',
     ]),
 );
 
@@ -83,19 +83,18 @@ HTMLElement get _mainContent {
         ..style.position = 'relative'
         ..style.marginTop = '6rem'
         ..appendAll([
-          externalLink(
-            text(event.blog.sponsorship.title),
-            url: text(event.blog.sponsorship.url),
-          )..style.fontSize = '1.2rem',
-          HTMLImageElement()
-            ..style.position = 'absolute'
-            ..style.left = '100%'
-            ..style.bottom = 'calc(-2.5rem + 0.6rem)'
-            ..style.height = '5rem'
-            ..alt = 'FlutterKaigi Dash'
-            ..src = '/img/flutterkaigi_dash.png',
+          HTMLAnchorElement()
+            ..textContent = text(event.blog.sponsorship.title)
+            ..href = text(event.blog.sponsorship.url)
+            ..className = 'gradient-button'
+            ..style.fontSize = '1.2rem',
         ]),
       _countdown..style.marginTop = '4rem',
+      HTMLImageElement()
+        ..style.marginTop = '4rem'
+        ..style.height = '5rem'
+        ..alt = 'FlutterKaigi Dash'
+        ..src = '/img/flutterkaigi_dash.png',
     ]);
 }
 

@@ -35,8 +35,7 @@ HTMLElement sectionLayout(String title, HTMLElement child) =>
           ..textContent = title
           ..style.fontSize = '1.5rem'
           ..style.fontWeight = 'bold'
-          ..style.fontFamily = 'Lexend'
-          ..style.marginTop = '8rem',
+          ..style.fontFamily = 'Lexend',
         child
           ..style.padding = '0'
           ..style.flex = '1',
