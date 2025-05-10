@@ -145,10 +145,8 @@ jobs:
       matrix:
         environment: ${{ fromJson(needs.define-matrix.outputs.environments) }}
     outputs:
-      SUPABASE_SERVICE_ROLE_KEY_STAGING: ${{ steps.get-supabase-service-role-key.outputs.SUPABASE_SERVICE_ROLE_KEY_STAGING }}
-      SUPABASE_SERVICE_ROLE_KEY_PRODUCTION: ${{ steps.get-supabase-service-role-key.outputs.SUPABASE_SERVICE_ROLE_KEY_PRODUCTION }}
-      SUPABASE_PROJECT_ID_STAGING: ${{ steps.get-supabase-service-role-key.outputs.SUPABASE_PROJECT_ID_STAGING }}
-      SUPABASE_PROJECT_ID_PRODUCTION: ${{ steps.get-supabase-service-role-key.outputs.SUPABASE_PROJECT_ID_PRODUCTION }}
+      SUPABASE_PROJECT_ID_STAGING: ${{ steps.get-supabase-connection-info.outputs.SUPABASE_PROJECT_ID_STAGING }}
+      SUPABASE_PROJECT_ID_PRODUCTION: ${{ steps.get-supabase-connection-info.outputs.SUPABASE_PROJECT_ID_PRODUCTION }}
     runs-on: ubuntu-24.04
     timeout-minutes: 2
     steps:
@@ -184,34 +182,23 @@ jobs:
         working-directory: terraform/supabase
         run: terraform init -backend-config=backend.tfbackend
 
-      - name: Get Supabase Service Role Key
+      - name: Get Supabase Connection Info
         working-directory: terraform/supabase
-        id: get-supabase-service-role-key
+        id: get-supabase-connection-info
         run: |
           SUPABASE_PROJECT_ID=""
-          SUPABASE_SERVICE_ROLE_KEY=""
           if [ "${{ matrix.environment }}" = "staging" ]; then
             SUPABASE_PROJECT_ID=$(terraform output -raw supabase_staging_project_id)
-            SUPABASE_SERVICE_ROLE_KEY=$(terraform output -raw supabase_staging_service_role_key)
             echo "SUPABASE_PROJECT_ID_STAGING=$SUPABASE_PROJECT_ID" >> $GITHUB_OUTPUT
-            echo "SUPABASE_SERVICE_ROLE_KEY_STAGING=$SUPABASE_SERVICE_ROLE_KEY" >> $GITHUB_OUTPUT
           else
             SUPABASE_PROJECT_ID=$(terraform output -raw supabase_production_project_id)
-            SUPABASE_SERVICE_ROLE_KEY=$(terraform output -raw supabase_production_service_role_key)
             echo "SUPABASE_PROJECT_ID_PRODUCTION=$SUPABASE_PROJECT_ID" >> $GITHUB_OUTPUT
-            echo "SUPABASE_SERVICE_ROLE_KEY_PRODUCTION=$SUPABASE_SERVICE_ROLE_KEY" >> $GITHUB_OUTPUT
           fi
-          echo "::add-mask::$SUPABASE_SERVICE_ROLE_KEY"
 
-          if [ -z "$SUPABASE_SERVICE_ROLE_KEY" ]; then
-            echo "Error: Supabase service role key not found"
-            exit 1
-          fi
           if [ -z "$SUPABASE_PROJECT_ID" ]; then
             echo "Error: Supabase project ID not found"
             exit 1
           fi
-          echo "$SUPABASE_SERVICE_ROLE_KEY" | md5sum
 
   deploy-bff:
     needs:
@@ -274,7 +261,6 @@ jobs:
         if: ${{ matrix.environment == 'staging' }}
         env:
           SUPABASE_PROJECT_ID: ${{ needs.get-supabase-connection-info.outputs.SUPABASE_PROJECT_ID_STAGING }}
-          SUPABASE_SERVICE_ROLE_KEY: ${{ needs.get-supabase-connection-info.outputs.SUPABASE_SERVICE_ROLE_KEY_STAGING }}
         run: |
           {
             echo "LOG<<EOL"
@@ -282,14 +268,12 @@ jobs:
             SUPABASE_URL="https://$(echo $SUPABASE_PROJECT_ID).supabase.co"
             echo $SUPABASE_URL | bunx wrangler versions secret put SUPABASE_URL
 
-            # SET SUPABASE_SERVICE_ROLE_KEY
-            echo $SUPABASE_SERVICE_ROLE_KEY | bunx wrangler versions secret put SUPABASE_SERVICE_ROLE_KEY
+            # SET SUPABASE_SERVICE_ROLE_KEY_STAGING
+            echo $SUPABASE_SERVICE_ROLE_KEY_STAGING | bunx wrangler versions secret put SUPABASE_SERVICE_ROLE_KEY
 
             bunx wrangler versions upload \
               --env staging \
               --var COMMIT_HASH:$(git rev-parse HEAD) \
-              --var SUPABASE_URL:$(echo $SUPABASE_URL) \
-              --var SUPABASE_SERVICE_ROLE_KEY:$(echo $SUPABASE_SERVICE_ROLE_KEY) \
               --minify 2>&1
             echo "EOL"
           } | tee -a $GITHUB_OUTPUT
@@ -306,8 +290,8 @@ jobs:
             SUPABASE_URL="https://$(echo $SUPABASE_PROJECT_ID).supabase.co"
             echo $SUPABASE_URL | bunx wrangler secret put SUPABASE_URL
 
-            # SET SUPABASE_SERVICE_ROLE_KEY
-            echo $SUPABASE_SERVICE_ROLE_KEY | bunx wrangler secret put SUPABASE_SERVICE_ROLE_KEY
+            # SET SUPABASE_SERVICE_ROLE_KEY_PRODUCTION
+            echo $SUPABASE_SERVICE_ROLE_KEY_PRODUCTION | bunx wrangler secret put SUPABASE_SERVICE_ROLE_KEY
 
             bunx wrangler deploy \
               --env production \
