@@ -22,6 +22,12 @@ melos:
     intellij:
       enabled: false
 
+  command:
+    bootstrap:
+      environment:
+        sdk: ^3.7.2
+        flutter: ^3.29.3
+
   scripts:
     gen:
       description: build_runner と l10n の生成コマンドを実行します。
