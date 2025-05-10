@@ -8,6 +8,8 @@ import 'package:flutterkaigi_2025_website/src/routes.dart' show Handler;
 import 'package:flutterkaigi_2025_website/text.dart';
 import 'package:web/web.dart';
 
+const _tagLineAnimationCurve = 'cubic-bezier(0.64, 0.25, 0.18, 1.22)';
+
 Handler get handler => (title: makeTitle(), handle: () => index);
 
 HTMLElement get index => basicLayout(
@@ -22,55 +24,80 @@ HTMLElement get index => basicLayout(
     ]),
 );
 
-HTMLElement get _mainContent =>
-    HTMLElement.article()
-      ..style.display = 'flex'
-      ..style.flexDirection = 'column'
-      ..style.justifyContent = 'center'
-      ..style.alignItems = 'center'
-      ..appendAll([
-        HTMLHeadingElement.h1()
-          ..textContent = 'Dash into Innovation.'
-          ..style.fontFamily = 'Lexend'
-          ..style.textAlign = 'center'
-          ..style.fontStyle = 'italic'
-          ..style.background =
-              'linear-gradient(90deg,'
-              'var(--primary-color),'
-              'var(--secondary-color))'
-          ..style.color = 'transparent'
-          ..style.fontSize = 'clamp(2.5rem, 6vw, 4.5rem)'
-          ..style.marginTop = '12rem',
-        HTMLHeadingElement.h2()
-          ..textContent = event.title
-          ..style.fontSize = '2rem'
-          ..style.fontWeight = 'bold'
-          ..style.fontFamily = 'Lexend'
-          ..style.marginTop = '8rem',
-        HTMLHeadingElement.h3()
-          ..textContent = 'in Tokyo, Japan'
-          ..style.fontSize = '1.5rem'
-          ..style.fontWeight = 'bold'
-          ..style.fontFamily = 'Lexend'
-          ..style.marginTop = '2rem',
-        HTMLParagraphElement()
-          ..style.position = 'relative'
-          ..style.marginTop = '6rem'
-          ..appendAll([
-            externalLink(
-              text(event.blog.sponsorship.title),
-              url: text(event.blog.sponsorship.url),
-            )..style.fontSize = '1.2rem',
-            HTMLImageElement()
-              ..style.position = 'absolute'
-              ..style.left = '100%'
-              ..style.bottom = 'calc(-2.5rem + 0.6rem)'
-              ..style.height = '5rem'
-              ..alt = 'FlutterKaigi Dash'
-              ..src = '/img/flutterkaigi_dash.png',
-          ]),
-        _countdown..style.marginTop = '4rem',
-      ]);
+HTMLElement get _mainContent {
+  final tagLineWords = event.tagLine.split(' ');
+
+  return HTMLElement.article()
+    ..style.display = 'flex'
+    ..style.flexDirection = 'column'
+    ..style.justifyContent = 'center'
+    ..style.alignItems = 'center'
+    ..appendAll([
+      HTMLDivElement()
+        ..style.position = 'relative'
+        ..style.whiteSpace = 'nowrap'
+        ..style.fontFamily = 'Lexend'
+        ..style.textAlign = 'center'
+        ..style.color = 'white'
+        ..style.marginTop = '12rem'
+        ..appendAll([
+          HTMLDivElement()
+            ..style.position = 'absolute'
+            ..style.top = '0'
+            ..style.left = '-4rem'
+            ..style.right = '-4rem'
+            ..style.height = 'calc(clamp(2.5rem, 6vw, 4.5rem) * 4)'
+            ..style.backgroundImage =
+                'linear-gradient(90deg,'
+                'var(--primary-color),'
+                'var(--secondary-color))'
+            ..style.filter = 'blur(80px)',
+          for (var i = 0; i < tagLineWords.length; i++)
+            HTMLHeadingElement.h1()
+              ..textContent = tagLineWords[i]
+              ..style.display = 'block'
+              ..style.marginBottom = '0.5rem'
+              ..style.opacity = '0'
+              ..style.transform = 'translateX(100vw)'
+              ..style.fontStyle = 'italic'
+              ..style.fontSize = 'clamp(2.5rem, 6vw, 4.5rem)'
+              ..style.animationDelay = '${i * 0.3}s'
+              ..style.animationName = 'slide-in'
+              ..style.animationDuration = '0.5s'
+              ..style.animationTimingFunction = _tagLineAnimationCurve
+              ..style.animationFillMode = 'forwards',
+        ]),
+      HTMLHeadingElement.h2()
+        ..textContent = event.title
+        ..style.fontSize = '2rem'
+        ..style.fontWeight = 'bold'
+        ..style.fontFamily = 'Lexend'
+        ..style.marginTop = '8rem',
+      HTMLHeadingElement.h3()
+        ..textContent = 'in Tokyo, Japan'
+        ..style.fontSize = '1.5rem'
+        ..style.fontWeight = 'bold'
+        ..style.fontFamily = 'Lexend'
+        ..style.marginTop = '2rem',
+      HTMLParagraphElement()
+        ..style.position = 'relative'
+        ..style.marginTop = '6rem'
+        ..appendAll([
+          externalLink(
+            text(event.blog.sponsorship.title),
+            url: text(event.blog.sponsorship.url),
+          )..style.fontSize = '1.2rem',
+          HTMLImageElement()
+            ..style.position = 'absolute'
+            ..style.left = '100%'
+            ..style.bottom = 'calc(-2.5rem + 0.6rem)'
+            ..style.height = '5rem'
+            ..alt = 'FlutterKaigi Dash'
+            ..src = '/img/flutterkaigi_dash.png',
+        ]),
+      _countdown..style.marginTop = '4rem',
+    ]);
+}
 
 /// 秒数まで表示する
 HTMLElement get _countdown {
