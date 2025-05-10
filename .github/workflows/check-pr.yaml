@@ -32,16 +32,16 @@ jobs:
     if: ${{ needs.changes.outputs.spell == 'true' }}
     uses: ./.github/workflows/wc-check-spell.yaml
 
-  check-style-deno:
+  check-style-dprint:
     needs: changes
-    if: ${{ needs.changes.outputs.style-deno == 'true' }}
-    uses: ./.github/workflows/wc-check-style-deno.yaml
+    if: ${{ needs.changes.outputs.style-dprint == 'true' }}
+    uses: ./.github/workflows/wc-check-style-dprint.yaml
 
   status-check:
     runs-on: ubuntu-24.04
     needs:
       - check-spell
-      - check-style-deno
+      - check-style-dprint
     permissions: {}
     if: failure()
     steps:

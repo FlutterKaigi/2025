@@ -26,7 +26,7 @@ init:
 
 .PHONY: fmt
 fmt:
-	@deno fmt
+	@dprint fmt
 	@dart format .
 
 .PHONY: test
