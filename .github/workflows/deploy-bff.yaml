@@ -74,7 +74,7 @@ jobs:
             echo "false"
           }
 
-  start-deploy-website:
+  start-deploy-bff:
     needs:
       - define-matrix
     if: ${{ contains(fromJson(needs.define-matrix.outputs.environments), 'production') }}
@@ -130,16 +130,93 @@ jobs:
             echo "EOL"
           } | tee -a $GITHUB_OUTPUT
 
-      - name: Upload Dart website Artifacts
+      - name: Upload Dart BFF Artifacts
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: bff-engine-artifact-${{ matrix.environment }}
           path: bff/engine/build
 
+  get-supabase-service-role-key:
+    env:
+      MISE_ENV: ci
+    needs:
+      - define-matrix
+    strategy:
+      matrix:
+        environment: ${{ fromJson(needs.define-matrix.outputs.environments) }}
+    outputs:
+      SUPABASE_SERVICE_ROLE_KEY_STAGING: ${{ steps.get-supabase-service-role-key.outputs.SUPABASE_SERVICE_ROLE_KEY_STAGING }}
+      SUPABASE_SERVICE_ROLE_KEY_PRODUCTION: ${{ steps.get-supabase-service-role-key.outputs.SUPABASE_SERVICE_ROLE_KEY_PRODUCTION }}
+      SUPABASE_PROJECT_ID_STAGING: ${{ steps.get-supabase-service-role-key.outputs.SUPABASE_PROJECT_ID_STAGING }}
+      SUPABASE_PROJECT_ID_PRODUCTION: ${{ steps.get-supabase-service-role-key.outputs.SUPABASE_PROJECT_ID_PRODUCTION }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 2
+    steps:
+      # https://github.com/actions/checkout
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      # https://github.com/jdx/mise-action
+      - name: Install Mise dependencies
+        uses: jdx/mise-action@5083fe46898c414b2475087cc79da59e7da859e8 # v2.1.11
+        with:
+          install_args: "terraform"
+
+      - name: Extract SOPS secrets
+        run: |
+          mkdir -p ~/.config/mise
+          echo "${{ secrets.SOPS_FILE }}" > ~/.config/mise/flutterkaigi.txt
+
+      - name: Set environment variables
+        run: |
+          for line in $(mise env --dotenv); do
+            echo $line >> "$GITHUB_ENV"
+            echo "::add-mask::${line#*=}"
+          done
+
+      - name: Extract backend.tfbackend
+        working-directory: terraform/supabase
+        run: |
+          echo "${{ secrets.TERRAFORM_BACKEND_CONFIGURATION }}" | base64 -d  \
+            > backend.tfbackend
+
+      - name: Terraform init
+        working-directory: terraform/supabase
+        run: terraform init -backend-config=backend.tfbackend
+
+      - name: Get Supabase Service Role Key
+        working-directory: terraform/supabase
+        id: get-supabase-service-role-key
+        run: |
+          SUPABASE_PROJECT_ID=""
+          SUPABASE_SERVICE_ROLE_KEY=""
+          if [ "${{ matrix.environment }}" = "staging" ]; then
+            SUPABASE_PROJECT_ID=$(terraform output -raw supabase_staging_project_id)
+            SUPABASE_SERVICE_ROLE_KEY=$(terraform output -raw supabase_staging_service_role_key)
+            echo "SUPABASE_PROJECT_ID_STAGING=$SUPABASE_PROJECT_ID" >> $GITHUB_OUTPUT
+            echo "SUPABASE_SERVICE_ROLE_KEY_STAGING=$SUPABASE_SERVICE_ROLE_KEY" >> $GITHUB_OUTPUT
+          else
+            SUPABASE_PROJECT_ID=$(terraform output -raw supabase_production_project_id)
+            SUPABASE_SERVICE_ROLE_KEY=$(terraform output -raw supabase_production_service_role_key)
+            echo "SUPABASE_PROJECT_ID_PRODUCTION=$SUPABASE_PROJECT_ID" >> $GITHUB_OUTPUT
+            echo "SUPABASE_SERVICE_ROLE_KEY_PRODUCTION=$SUPABASE_SERVICE_ROLE_KEY" >> $GITHUB_OUTPUT
+          fi
+          echo "::add-mask::$SUPABASE_SERVICE_ROLE_KEY"
+
+          if [ -z "$SUPABASE_SERVICE_ROLE_KEY" ]; then
+            echo "Error: Supabase service role key not found"
+            exit 1
+          fi
+          if [ -z "$SUPABASE_PROJECT_ID" ]; then
+            echo "Error: Supabase project ID not found"
+            exit 1
+          fi
+
   deploy-bff:
     needs:
       - define-matrix
       - build-dart-engine
+      - get-supabase-service-role-key
     strategy:
       matrix:
         environment: ${{ fromJson(needs.define-matrix.outputs.environments) }}
@@ -194,12 +271,24 @@ jobs:
         id: deploy-bff-staging
         working-directory: bff/bridge
         if: ${{ matrix.environment == 'staging' }}
+        env:
+          SUPABASE_PROJECT_ID: ${{ needs.get-supabase-service-role-key.outputs.SUPABASE_PROJECT_ID_STAGING }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ needs.get-supabase-service-role-key.outputs.SUPABASE_SERVICE_ROLE_KEY_STAGING }}
         run: |
           {
             echo "LOG<<EOL"
+            # SET SUPABASE_URL
+            SUPABASE_URL="https://$(echo $SUPABASE_PROJECT_ID).supabase.co"
+            echo $SUPABASE_URL | bunx wrangler versions secret put SUPABASE_URL
+
+            # SET SUPABASE_SERVICE_ROLE_KEY
+            echo $SUPABASE_SERVICE_ROLE_KEY | bunx wrangler versions secret put SUPABASE_SERVICE_ROLE_KEY
+
             bunx wrangler versions upload \
               --env staging \
               --var COMMIT_HASH:$(git rev-parse HEAD) \
+              --var SUPABASE_URL:$(echo $SUPABASE_URL) \
+              --var SUPABASE_SERVICE_ROLE_KEY:$(echo $SUPABASE_SERVICE_ROLE_KEY) \
               --minify 2>&1
             echo "EOL"
           } | tee -a $GITHUB_OUTPUT
@@ -211,6 +300,14 @@ jobs:
         run: |
           {
             echo "LOG<<EOL"
+
+            # SET SUPABASE_URL
+            SUPABASE_URL="https://$(echo $SUPABASE_PROJECT_ID).supabase.co"
+            echo $SUPABASE_URL | bunx wrangler secret put SUPABASE_URL
+
+            # SET SUPABASE_SERVICE_ROLE_KEY
+            echo $SUPABASE_SERVICE_ROLE_KEY | bunx wrangler secret put SUPABASE_SERVICE_ROLE_KEY
+
             bunx wrangler deploy \
               --env production \
               --var COMMIT_HASH:$(git rev-parse HEAD) \
@@ -299,7 +396,7 @@ jobs:
     needs:
       - define-matrix
       - build-dart-engine
-      - start-deploy-website
+      - start-deploy-bff
       - deploy-bff
     if: ${{ contains(fromJson(needs.define-matrix.outputs.environments), 'production') }}
     timeout-minutes: 1
@@ -327,7 +424,7 @@ jobs:
           step: finish
           token: ${{ secrets.GITHUB_TOKEN }}
           status: ${{ steps.get-previous-jobs-status.outputs.status || 'failure' }}
-          deployment_id: ${{ needs.start-deploy-website.outputs.deployment_id }}
+          deployment_id: ${{ needs.start-deploy-bff.outputs.deployment_id }}
           env: bff
           env_url: ${{ needs.deploy-bff.outputs.deployment_url }}
           ref: ${{ github.head_ref }}
