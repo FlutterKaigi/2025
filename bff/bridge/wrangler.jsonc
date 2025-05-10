@@ -17,8 +17,27 @@
     }
   ],
   "build": {
-    "command": "dart compile wasm bin/server.dart -o ../bridge/engine-artifact/main.wasm -O4",
+    "command": "scripts/build.sh",
     "cwd": "../engine",
     "watch_dir": ["../engine", "src"]
+  },
+  "env": {
+    "production": {
+      "vars": {
+        "ENVIRONMENT": "production"
+      },
+      "routes": [
+        {
+          "pattern": "2025-bff.flutterkaigi.jp",
+          "custom_domain": true
+        }
+      ],
+      "workers_dev": false
+    },
+    "staging": {
+      "vars": {
+        "ENVIRONMENT": "staging"
+      }
+    }
   }
 }
