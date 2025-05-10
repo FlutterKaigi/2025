@@ -224,7 +224,7 @@ jobs:
           PRODUCTION_LOG: ${{ steps.deploy-bff-production.outputs.log }}
         run: |
           function get-log() {
-            if [ -z "${{ steps.deploy-bff-production.outputs.LOG }}" ]; then
+            if [ -z '${{ steps.deploy-bff-production.outputs.LOG }}' ]; then
               echo '${{ steps.deploy-bff-staging.outputs.LOG }}'
             else
               echo '${{ steps.deploy-bff-production.outputs.LOG }}'
