@@ -37,6 +37,9 @@ analyzer:
   exclude:
     - "build/**"
 
+formatter:
+  trailing_commas: preserve
+
 custom_lint:
   rules:
     - avoid_hardcoded_color: false
