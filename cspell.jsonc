@@ -17,6 +17,12 @@
       "addWords": true,
     },
     {
+      "name": "dprint-term",
+      "description": "dprint related terms",
+      "path": "./.cspell/dprint-term.txt",
+      "addWords": true,
+    },
+    {
       "name": "flutter-term",
       "description": "Flutter related terms",
       "path": "./.cspell/flutter-term.txt",
@@ -62,6 +68,7 @@
   "dictionaries": [
     "bun-term",
     "dart-term",
+    "dprint-term",
     "flutter-term",
     "github-action-term",
     "ios-term",
