@@ -32,13 +32,13 @@ resource "supabase_settings" "production" {
 
   # https://api.supabase.com/api/v1#tag/auth/PATCH/v1/projects/{ref}/config/auth
   api = jsonencode({
-    db_schema            = "public,graphql_public"
-    db_extra_search_path = "public,extensions"
-    max_rows             = 1000
-    external_google_enabled = true
-    external_google_client_id = ""
-    external_google_secret = ""
+    db_schema                             = "public,graphql_public"
+    db_extra_search_path                  = "public,extensions"
+    max_rows                              = 1000
+    external_google_enabled               = true
+    external_google_client_id             = ""
+    external_google_secret                = ""
     external_google_additional_client_ids = null
-    external_google_skip_nonce_check = true
+    external_google_skip_nonce_check      = true
   })
 }
