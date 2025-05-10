@@ -53,8 +53,5 @@
   "SQL-Formatter-VSCode.identifierCase": "lower",
   "debug.javascript.defaultRuntimeExecutable": {
     "pwa-node": "${workspaceFolder}/.vscode/mise-tools/node"
-  },
-  "cSpell.words": [
-    "webp"
-  ]
+  }
 }
