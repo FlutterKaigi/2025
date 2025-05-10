@@ -71,10 +71,7 @@ final event = (
   place: (name: (ja: '東京', en: 'Tokyo'), url: 'https://example.com'),
   blog: (
     sponsorship: (
-      title: (
-        ja: 'FlutterKaigi 2025 スポンサー募集について',
-        en: 'FlutterKaigi 2025 About Sponsor Recruitment',
-      ),
+      title: (ja: 'スポンサー募集について', en: 'About Sponsor Recruitment'),
       url: (
         ja:
             'https://medium.com/flutterkaigi/flutterkaigi-2025-スポンサー募集について-034330881a94',

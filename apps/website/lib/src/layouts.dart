@@ -57,7 +57,7 @@ HTMLElement get _header =>
                 ..style.verticalAlign = 'middle'
                 ..style.cursor = 'pointer'
                 ..alt = '${site.title} logo'
-                ..src = '/img/icon_flutterkaigi_full_dark.svg',
+                ..src = '/img/icon_flutterkaigi_full_light.svg',
               path: Path.go(),
             ),
           ),

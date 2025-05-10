@@ -39,25 +39,25 @@ HTMLElement get _mainContent {
         ..style.fontFamily = 'Lexend'
         ..style.textAlign = 'center'
         ..style.color = 'white'
-        ..style.marginTop = '12rem'
+        ..style.marginTop = '8rem'
         ..appendAll([
           HTMLDivElement()
             ..style.position = 'absolute'
-            ..style.top = '0'
-            ..style.left = '-4rem'
-            ..style.right = '-4rem'
-            ..style.height = 'calc(clamp(2.5rem, 6vw, 4.5rem) * 4)'
-            ..style.backgroundImage =
-                'linear-gradient(90deg,'
-                'var(--primary-color),'
-                'var(--secondary-color))'
-            ..style.filter = 'blur(80px)',
+            ..style.top = '-2rem'
+            ..style.left = '-12rem'
+            ..style.right = '-12rem'
+            ..style.bottom = '-3rem'
+            // ..style.height = 'calc(clamp(2.5rem, 6vw, 4.5rem) * 4)'
+            ..style.backgroundImage = 'var(--base-gradient)'
+            ..style.borderRadius = '8rem'
+            ..style.filter = 'blur(90px)',
           for (var i = 0; i < tagLineWords.length; i++)
             HTMLHeadingElement.h1()
               ..textContent = tagLineWords[i]
               ..style.display = 'block'
               ..style.marginBottom = '0.5rem'
               ..style.opacity = '0'
+              ..style.color = 'white'
               ..style.transform = 'translateX(100vw)'
               ..style.fontStyle = 'italic'
               ..style.fontSize = 'clamp(2.5rem, 6vw, 4.5rem)'
@@ -72,14 +72,14 @@ HTMLElement get _mainContent {
         ..style.fontSize = '2rem'
         ..style.fontWeight = 'bold'
         ..style.fontFamily = 'Lexend'
-        ..style.marginTop = '8rem',
+        ..style.marginTop = '10rem',
       HTMLHeadingElement.h3()
         ..textContent = 'in Tokyo, Japan'
         ..style.fontSize = '1.5rem'
         ..style.fontWeight = 'bold'
         ..style.fontFamily = 'Lexend'
         ..style.marginTop = '2rem',
-      HTMLParagraphElement()
+      HTMLDivElement()
         ..style.position = 'relative'
         ..style.marginTop = '6rem'
         ..appendAll([
@@ -87,7 +87,9 @@ HTMLElement get _mainContent {
             ..textContent = text(event.blog.sponsorship.title)
             ..href = text(event.blog.sponsorship.url)
             ..className = 'gradient-button'
-            ..style.fontSize = '1.2rem',
+            ..style.color = 'white'
+            ..style.cursor = 'pointer'
+            ..style.fontSize = 'clamp(1.5rem, 2vw, 1.5rem)',
         ]),
       _countdown..style.marginTop = '4rem',
       HTMLImageElement()
