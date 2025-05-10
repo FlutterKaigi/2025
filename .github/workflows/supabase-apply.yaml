@@ -193,9 +193,4 @@ jobs:
           SUPABASE_DB_PASSWORD: ${{ steps.db-parameters.outputs.db_password }}
         run: bunx supabase db push
 
-      - name: Apply Supabase Settings
-        env:
-          SUPABASE_DB_PASSWORD: ${{ steps.db-parameters.outputs.db_password }}
-        run: bunx supabase config push
-
       # TODO(YumNumm): Supabase db pushのログをSlack通知 or コメントさせる
