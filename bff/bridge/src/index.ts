@@ -10,13 +10,20 @@ declare global {
   };
 }
 
+// dart wasmを保持
+// リクエスト間で使い回す
+// See: https://developers.cloudflare.com/workers/runtime-apis/webassembly/javascript/#use-from-javascript
+let dartInstance: unknown | null = null;
+
 export default {
   async fetch(request, env, ctx): Promise<Response> {
     try {
-      const dartInstance = await instantiate(mod);
+      if (!dartInstance) {
+        dartInstance = await instantiate(mod);
+      }
 
       // __dart_cf_workers.response関数経由で Promiseが完了するのを待つ
-      return await new Promise<Response>((resolve) => {
+      return new Promise<Response>((resolve) => {
         globalThis.__dart_cf_workers = () => ({
           response: (response: Response) => resolve(response),
           request: request,
