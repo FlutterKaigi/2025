@@ -12,10 +12,10 @@
 ## 開発
 
 1. Supabaseに関する環境変数をセットする
-    - `bridge/.dev.vars`を作成し、`bridge/.dev.vars.example`を参考に環境変数をセットします
+   - `bridge/.dev.vars`を作成し、`bridge/.dev.vars.example`を参考に環境変数をセットします
 
 1. `bff/bridge`に移動し、以下のコマンドを実行します
-    - 依存関係を解決し、開発サーバーを起動します
+   - 依存関係を解決し、開発サーバーを起動します
 
    ```bash
    bun install
