@@ -38,29 +38,21 @@ HTMLElement get _mainContent {
         ..style.whiteSpace = 'nowrap'
         ..style.fontFamily = 'Lexend'
         ..style.textAlign = 'center'
-        ..style.color = 'white'
-        ..style.marginTop = '8rem'
+        ..style.marginTop = '6rem'
+        ..style.padding = '6rem 8rem'
+        ..style.backgroundImage = 'url(/img/brush.webp)'
+        ..style.backgroundSize = 'contain'
+        ..style.backgroundRepeat = 'no-repeat'
         ..appendAll([
-          HTMLDivElement()
-            ..style.position = 'absolute'
-            ..style.top = '-2rem'
-            ..style.left = '-12rem'
-            ..style.right = '-12rem'
-            ..style.bottom = '-3rem'
-            // ..style.height = 'calc(clamp(2.5rem, 6vw, 4.5rem) * 4)'
-            ..style.backgroundImage = 'var(--base-gradient)'
-            ..style.borderRadius = '8rem'
-            ..style.filter = 'blur(90px)',
           for (var i = 0; i < tagLineWords.length; i++)
             HTMLHeadingElement.h1()
               ..textContent = tagLineWords[i]
               ..style.display = 'block'
-              ..style.marginBottom = '0.5rem'
               ..style.opacity = '0'
-              ..style.color = 'white'
               ..style.transform = 'translateX(100vw)'
               ..style.fontStyle = 'italic'
               ..style.fontSize = 'clamp(2.5rem, 6vw, 4.5rem)'
+              ..style.color = 'white'
               ..style.animationDelay = '${i * 0.3}s'
               ..style.animationName = 'slide-in'
               ..style.animationDuration = '0.5s'
@@ -72,7 +64,7 @@ HTMLElement get _mainContent {
         ..style.fontSize = '2rem'
         ..style.fontWeight = 'bold'
         ..style.fontFamily = 'Lexend'
-        ..style.marginTop = '10rem',
+        ..style.marginTop = '6rem',
       HTMLHeadingElement.h3()
         ..textContent = 'in Tokyo, Japan'
         ..style.fontSize = '1.5rem'
