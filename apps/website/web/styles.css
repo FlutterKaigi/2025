@@ -41,6 +41,28 @@ body * {
   color: var(--text-color);
 }
 
+.bubble {
+  position: relative;
+  border: 2px solid var(--border-color);
+  background: var(--background-color);
+  padding: 1rem 2rem;
+  border-radius: 2rem;
+}
+
+.bubble::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0.5rem;
+  height: 0.5rem;
+  background: var(--background-color);
+  border-right: 2px solid var(--border-color);
+  border-bottom: 2px solid var(--border-color);
+  transform: translate(-50%, 60%) rotate(45deg);
+  transform-origin: center center;
+}
+
 .gradient-button {
   background: var(--base-gradient);
   background-blend-mode: screen;

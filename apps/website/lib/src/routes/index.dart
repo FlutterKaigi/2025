@@ -83,14 +83,18 @@ HTMLElement get _mainContent {
             ..style.cursor = 'pointer'
             ..style.fontSize = 'clamp(1.5rem, 2vw, 1.5rem)',
         ]),
-      _countdown..style.marginTop = '4rem',
+      _countdown
+        ..className = 'bubble'
+        ..style.marginTop = '8rem',
       HTMLImageElement()
-        ..style.marginTop = '4rem'
+        ..style.marginTop = '2rem'
         ..style.height = '5rem'
         ..alt = 'FlutterKaigi Dash'
         ..src = '/img/flutterkaigi_dash.png',
     ]);
 }
+
+String _formatDigit(int digit) => digit.toString().padLeft(2, '0');
 
 /// 秒数まで表示する
 HTMLElement get _countdown {
@@ -104,18 +108,20 @@ HTMLElement get _countdown {
 
   final count = countdown(event.date.difference(DateTime.now()));
 
-  HTMLElement digit(String digit) =>
+  HTMLElement colon() =>
       HTMLSpanElement()
-        ..style.color = 'var(--primary-color)'
-        ..style.animation = '3s linear 1s forwards color-change'
-        ..style.display = 'block'
-        ..style.width = '1.5em'
-        ..style.textAlign = 'center'
+        ..style.color = 'var(--secondary-color)'
         ..style.fontSize = '2rem'
-        ..textContent = digit;
+        ..textContent = ':';
 
-  HTMLElement newDigit(HTMLElement currentDigit, String d) {
-    if (currentDigit.textContent == d) {
+  HTMLElement digit(int digit) =>
+      HTMLSpanElement()
+        ..style.color = 'var(--secondary-color)'
+        ..style.fontSize = '2rem'
+        ..textContent = _formatDigit(digit);
+
+  HTMLElement newDigit(HTMLElement currentDigit, int d) {
+    if (currentDigit.textContent == _formatDigit(d)) {
       return currentDigit;
     }
 
@@ -124,39 +130,34 @@ HTMLElement get _countdown {
     return newDigit;
   }
 
-  var days = digit('${count.days}');
-  var hours = digit('${count.hours}');
-  var minutes = digit('${count.minutes}');
-  var seconds = digit('${count.seconds}');
+  var days = digit(count.days);
+  var hours = digit(count.hours);
+  var minutes = digit(count.minutes);
+  var seconds = digit(count.seconds);
 
   final timer = Timer.periodic(const Duration(seconds: 1), (timer) {
     final count = countdown(event.date.difference(DateTime.now()));
-    days = newDigit(days, '${count.days}');
-    hours = newDigit(hours, '${count.hours}');
-    minutes = newDigit(minutes, '${count.minutes}');
-    seconds = newDigit(seconds, '${count.seconds}');
+    days = newDigit(days, count.days);
+    hours = newDigit(hours, count.hours);
+    minutes = newDigit(minutes, count.minutes);
+    seconds = newDigit(seconds, count.seconds);
   });
   onRemove(timer.cancel);
 
-  HTMLElement cell(HTMLElement element, String text) =>
-      HTMLSpanElement()
-        ..style.display = 'flex'
-        ..style.flexDirection = 'column'
-        ..style.alignItems = 'center'
-        ..style.fontSize = '0.9rem'
-        ..appendAll([element, Text(text)]);
-
-  return HTMLParagraphElement()
-    ..style.display = 'flex'
-    ..style.flexDirection = 'row'
-    ..style.gap = '1rem'
-    ..style.justifyContent = 'center'
-    ..appendAll([
-      cell(days, 'days'),
-      cell(hours, 'hours'),
-      cell(minutes, 'minutes'),
-      cell(seconds, 'seconds'),
-    ]);
+  return HTMLDivElement()..appendAll([
+    HTMLSpanElement()
+      ..style.display = 'inline-flex'
+      ..style.alignItems = 'baseline'
+      ..style.fontSize = '0.9rem'
+      ..style.marginRight = '1rem'
+      ..style.gap = '0.5rem'
+      ..appendAll([days, Text('days')]),
+    hours,
+    colon(),
+    minutes,
+    colon(),
+    seconds,
+  ]);
 }
 
 HTMLElement get _schedule =>
