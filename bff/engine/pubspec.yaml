@@ -8,6 +8,8 @@ environment:
   sdk: ^3.8.0-278.2.beta
 
 dependencies:
+  bff_client:
+    path: ../../packages/bff_client
   db_types:
     path: ../../packages/db_types
   freezed_annotation: ^3.0.0
