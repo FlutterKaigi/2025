@@ -81,7 +81,7 @@ HTMLElement get _mainContent {
             ..className = 'gradient-button'
             ..style.color = 'white'
             ..style.cursor = 'pointer'
-            ..style.fontSize = 'clamp(1.5rem, 2vw, 1.5rem)',
+            ..style.fontSize = '1rem',
         ]),
       _countdown
         ..className = 'bubble'
