@@ -85,7 +85,8 @@ jobs:
       matrix:
         environment: ${{ fromJson(needs.define-matrix.outputs.environments) }}
     outputs:
-      project_id: ${{ steps.get-supabase-project-id.outputs.project_id }}
+      project_id_staging: ${{ steps.get-supabase-project-id.outputs.project_id_staging }}
+      project_id_production: ${{ steps.get-supabase-project-id.outputs.project_id_production }}
     runs-on: ubuntu-24.04
     timeout-minutes: 2
     steps:
@@ -126,7 +127,7 @@ jobs:
         id: get-supabase-project-id
         run: |
           PROJECT_ID=$(terraform output -raw supabase_${{ matrix.environment }}_project_id)
-          echo "PROJECT_ID=$PROJECT_ID" >> $GITHUB_OUTPUT
+          echo "project_id_${{ matrix.environment }}=$PROJECT_ID" >> $GITHUB_OUTPUT
 
   supabase-apply:
     name: Apply Supabase Database
@@ -167,26 +168,28 @@ jobs:
       - name: Resolve bun dependencies
         run: bun install --frozen-lockfile
 
-      - name: Set supabase database password
-        id: db-password
+      - name: Set supabase database parameters
+        id: db-parameters
         run: |
           if [ "${{ matrix.environment }}" = "staging" ]; then
             echo "db_password=$TF_VAR_SUPABASE_DB_PASSWORD_STAGING" >> $GITHUB_OUTPUT
+            echo "project_id=$TF_VAR_SUPABASE_PROJECT_ID_STAGING" >> $GITHUB_OUTPUT
           elif [ "${{ matrix.environment }}" = "production" ]; then
             echo "db_password=$TF_VAR_SUPABASE_DB_PASSWORD_PRODUCTION" >> $GITHUB_OUTPUT
+            echo "project_id=$TF_VAR_SUPABASE_PROJECT_ID_PRODUCTION" >> $GITHUB_OUTPUT
           fi
 
       - name: Link Supabase Project
         env:
-          PROJECT_ID: ${{ needs.define-project-id.outputs.project_id }}
-          SUPABASE_DB_PASSWORD: ${{ steps.db-password.outputs.db_password }}
+          PROJECT_ID: ${{ steps.db-parameters.outputs.project_id }}
+          SUPABASE_DB_PASSWORD: ${{ steps.db-parameters.outputs.db_password }}
         run: |
           bunx supabase link \
             --project-ref $PROJECT_ID
 
       - name: Apply Supabase Database
         env:
-          SUPABASE_DB_PASSWORD: ${{ steps.db-password.outputs.db_password }}
+          SUPABASE_DB_PASSWORD: ${{ steps.db-parameters.outputs.db_password }}
         run: bunx supabase db push
 
       # TODO(YumNumm): Supabase db pushのログをSlack通知 or コメントさせる
