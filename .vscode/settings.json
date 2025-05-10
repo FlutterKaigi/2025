@@ -4,12 +4,10 @@
   // 2025/05/02検証時では、bunのみ正常に設定され、それ以外のツールでは絶対パスで設定されました
   "mise.configureExtensionsUseSymLinks": true,
   // MEMO(YumNumm): miseの自動構成では、以下の拡張に関するパスを絶対パスで設定するため無効化
-  "mise.configureExtensionsAutomaticallyIgnoreList": [
-    "dart-code.flutter"
-  ],
+  "mise.configureExtensionsAutomaticallyIgnoreList": ["dart-code.flutter"],
   "dprint.path": "~/.local/share/mise/shims/dprint",
   "bun.runtime": "${workspaceFolder}/.vscode/mise-tools/bun",
-  "dart.flutterSdkPath": "~/.local/share/mise/installs/flutter/3.29.3-stable",
+  "dart.flutterSdkPath": "~/.local/share/mise/installs/flutter/3.32.0-0.3.pre-beta",
   "search.exclude": {
     "**/node_modules": true
   },
