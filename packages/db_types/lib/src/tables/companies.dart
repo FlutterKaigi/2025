@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part '../model/companies.freezed.dart';
-part '../model/companies.g.dart';
+part 'companies.freezed.dart';
+part 'companies.g.dart';
 
 @freezed
 abstract class Companies with _$Companies {
@@ -12,5 +12,5 @@ abstract class Companies with _$Companies {
   }) = _Companies;
 
   factory Companies.fromJson(Map<String, dynamic> json) =>
-    _$CompaniesFromJson(json);
+      _$CompaniesFromJson(json);
 }
