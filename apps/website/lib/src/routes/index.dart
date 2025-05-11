@@ -66,11 +66,16 @@ HTMLElement get _mainContent {
         ..style.fontFamily = 'Lexend'
         ..style.marginTop = '6rem',
       HTMLParagraphElement()
-        ..textContent = 'in Tokyo, Japan'
         ..style.fontSize = '1.5rem'
         ..style.fontWeight = 'bold'
-        ..style.fontFamily = 'Lexend'
-        ..style.marginTop = '2rem',
+        ..style.fontFamily = 'Lexend, sans-serif'
+        ..style.marginTop = '2rem'
+        ..appendAll([
+          Text('in '),
+          externalLink(text(event.place.name), url: event.place.url)
+            ..style.fontSize = 'inherit'
+            ..style.color = 'inherit',
+        ]),
       HTMLElement.section()
         ..style.position = 'relative'
         ..style.marginTop = '6rem'
