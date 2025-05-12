@@ -2,6 +2,8 @@ import 'package:flutterkaigi_2025_website/config_stub.dart'
     if (dart.library.js_interop) './config_web.dart';
 import 'package:flutterkaigi_2025_website/text.dart' show Language;
 
+final _eventDate = DateTime.parse('2025-11-13T10:00:00+0900').toLocal();
+
 String makeTitle([String? sub]) =>
     sub == null ? site.title : '$sub - ${site.title}';
 
@@ -67,8 +69,11 @@ const site = (
 final event = (
   title: 'FlutterKaigi 2025',
   tagLine: 'Dash into Innovation.',
-  date: DateTime.parse('2026-01-01T12:00:00+0900').toLocal(),
-  place: (name: (ja: '東京', en: 'Tokyo'), url: 'https://example.com'),
+  date: _eventDate,
+  place: (
+    name: (ja: 'Otemachi PLACE HALL & CONFERENCE', en: null),
+    url: 'https://otemachi-place-hc.jp/',
+  ),
   blog: (
     sponsorship: (
       title: (ja: 'スポンサー募集について', en: 'About Sponsor Recruitment'),
@@ -83,23 +88,23 @@ final event = (
   schedule: [
     (
       title: (ja: 'スポンサー募集開始', en: 'Call for Sponsors Opens'),
-      date: DateTime.parse('2026-01-01T12:00:00+0900').toLocal(),
+      date: DateTime.parse('2025-05-19T00:00:00+0900').toLocal(),
     ),
     (
       title: (ja: 'プロポーザル募集開始', en: 'Call for Proposals Opens'),
-      date: DateTime.parse('2026-01-02T12:00:00+0900').toLocal(),
+      date: DateTime.parse('2025-06-23T00:00:00+0900').toLocal(),
     ),
     (
       title: (ja: 'チケット販売開始', en: 'Ticket Sales Begin'),
-      date: DateTime.parse('2026-01-03T12:00:00+0900').toLocal(),
+      date: DateTime.parse('2025-07-28T00:00:00+0900').toLocal(),
     ),
     (
       title: (ja: '前夜祭', en: 'Pre-event Party'),
-      date: DateTime.parse('2026-01-03T12:00:00+0900').toLocal(),
+      date: DateTime.parse('2025-11-12T19:00:00+0900').toLocal(),
     ),
     (
       title: (ja: 'FlutterKaigi 2025当日', en: 'FlutterKaigi 2025 Event Day'),
-      date: DateTime.parse('2026-01-04T12:00:00+0900').toLocal(),
+      date: _eventDate,
     ),
   ],
   pastEvents: [

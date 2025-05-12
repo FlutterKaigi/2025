@@ -6,3 +6,7 @@ compatibility_date = "2025-04-23"
 [assets]
 directory = "./build"
 binding = "STATIC"
+
+[route]
+custom_domain = true
+pattern = "2025.flutterkaigi.jp"
