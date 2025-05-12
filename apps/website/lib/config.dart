@@ -2,6 +2,8 @@ import 'package:flutterkaigi_2025_website/config_stub.dart'
     if (dart.library.js_interop) './config_web.dart';
 import 'package:flutterkaigi_2025_website/text.dart' show Language;
 
+final eventDate = DateTime.parse('2025-11-13T10:00:00+0900').toLocal();
+
 String makeTitle([String? sub]) =>
     sub == null ? site.title : '$sub - ${site.title}';
 
@@ -86,7 +88,7 @@ final event = (
   schedule: [
     (
       title: (ja: 'スポンサー募集開始', en: 'Call for Sponsors Opens'),
-      date: DateTime.parse('2026-05-19T00:00:00+0900').toLocal(),
+      date: DateTime.parse('2025-05-19T00:00:00+0900').toLocal(),
     ),
     (
       title: (ja: 'プロポーザル募集開始', en: 'Call for Proposals Opens'),
@@ -102,7 +104,7 @@ final event = (
     ),
     (
       title: (ja: 'FlutterKaigi 2025当日', en: 'FlutterKaigi 2025 Event Day'),
-      date: DateTime.parse('2025-11-13T10:00:00+0900').toLocal(),
+      date: eventDate,
     ),
   ],
   pastEvents: [

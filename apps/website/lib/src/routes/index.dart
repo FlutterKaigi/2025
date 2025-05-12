@@ -66,13 +66,20 @@ HTMLElement get _mainContent {
         ..style.fontFamily = 'Lexend'
         ..style.marginTop = '6rem',
       HTMLParagraphElement()
+        ..textContent = 'on ${formatDate(eventDate)}'
+        ..style.fontSize = '1.5rem'
+        ..style.fontWeight = 'bold'
+        ..style.fontFamily = 'Lexend, sans-serif'
+        ..style.marginTop = '1rem'
+        ..style.textAlign = 'center',
+      HTMLParagraphElement()
         ..style.fontSize = '1.5rem'
         ..style.fontWeight = 'bold'
         ..style.fontFamily = 'Lexend, sans-serif'
         ..style.marginTop = '2rem'
         ..style.textAlign = 'center'
         ..appendAll([
-          Text('in '),
+          Text('at '),
           externalLink(text(event.place.name), url: event.place.url)
             ..style.fontSize = 'inherit'
             ..style.color = 'inherit',
