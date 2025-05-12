@@ -157,20 +157,22 @@ HTMLElement get _countdown {
   });
   onRemove(timer.cancel);
 
-  return HTMLDivElement()..appendAll([
-    HTMLSpanElement()
-      ..style.display = 'inline-flex'
-      ..style.alignItems = 'baseline'
-      ..style.fontSize = '0.9rem'
-      ..style.marginRight = '1rem'
-      ..style.gap = '0.5rem'
-      ..appendAll([days, Text('days')]),
-    hours,
-    colon(),
-    minutes,
-    colon(),
-    seconds,
-  ]);
+  return HTMLDivElement()
+    ..style.fontFamily = 'Lexend, sans-serif'
+    ..appendAll([
+      HTMLSpanElement()
+        ..style.display = 'inline-flex'
+        ..style.alignItems = 'baseline'
+        ..style.fontSize = '0.9rem'
+        ..style.marginRight = '1rem'
+        ..style.gap = '0.5rem'
+        ..appendAll([days, Text('days')]),
+      hours,
+      colon(),
+      minutes,
+      colon(),
+      seconds,
+    ]);
 }
 
 HTMLElement get _schedule =>
