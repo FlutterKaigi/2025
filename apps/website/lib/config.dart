@@ -69,7 +69,7 @@ final event = (
   tagLine: 'Dash into Innovation.',
   date: DateTime.parse('2025-11-13T10:00:00+0900').toLocal(),
   place: (
-    name: (ja: 'OtemachiPLACE HALL & CONFERENCE', en: null),
+    name: (ja: 'Otemachi PLACE HALL & CONFERENCE', en: null),
     url: 'https://otemachi-place-hc.jp/',
   ),
   blog: (
