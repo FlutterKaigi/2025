@@ -53,7 +53,7 @@ HTMLElement get _mainContent {
               ..style.transform = 'translateX(100vw)'
               ..style.fontStyle = 'italic'
               ..style.fontSize = 'clamp(2.5rem, 6vw, 4.5rem)'
-              ..style.fontWeight = 'inherit'
+              ..style.fontWeight = '900'
               ..style.color = 'white'
               ..style.animationDelay = '${i * 0.3}s'
               ..style.animationName = 'slide-in'
@@ -82,13 +82,11 @@ HTMLElement get _mainContent {
         ..style.textAlign = 'center'
         ..appendAll([
           Text('at '),
-          HTMLAnchorElement()
-            ..textContent = text(event.place.name)
-            ..href = event.place.url
-            ..style.cursor = 'pointer'
-            ..style.textDecoration = 'underline'
-            ..style.fontWeight = '900'
-            ..style.fontSize = 'inherit',
+          externalLink(text(event.place.name), url: event.place.url)
+            ..style.fontFamily = 'Lexend, sans-serif'
+            ..style.fontWeight = 'inherit'
+            ..style.fontSize = 'inherit'
+            ..style.color = 'inherit',
         ]),
       HTMLElement.section()
         ..style.position = 'relative'
