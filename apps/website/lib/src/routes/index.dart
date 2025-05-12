@@ -70,6 +70,7 @@ HTMLElement get _mainContent {
         ..style.fontWeight = 'bold'
         ..style.fontFamily = 'Lexend, sans-serif'
         ..style.marginTop = '2rem'
+        ..style.textAlign = 'center'
         ..appendAll([
           Text('in '),
           externalLink(text(event.place.name), url: event.place.url)
