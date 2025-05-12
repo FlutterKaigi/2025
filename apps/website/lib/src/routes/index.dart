@@ -68,7 +68,7 @@ HTMLElement get _mainContent {
         ..style.fontFamily = 'Lexend'
         ..style.marginTop = '6rem',
       HTMLParagraphElement()
-        ..textContent = 'on ${formatDate(event.date)}'
+        ..textContent = 'on ${formatDate(event.date, Language.en)}'
         ..style.fontSize = '1.5rem'
         ..style.fontWeight = '900'
         ..style.fontFamily = 'Lexend, sans-serif'
