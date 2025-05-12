@@ -30,7 +30,7 @@ enum ErrorCode {
   notImplemented('このエンドポイントは未実装です', HttpStatus.notImplemented),
   internalServerError('サーバ内部で予期しないエラーが発生しました', HttpStatus.internalServerError),
 
-  // WARNING(YumNumm): 道のエラーコードが返ってきた時に利用されます
+  // WARNING(YumNumm): 未知のエラーコードが返ってきた時に利用されます
   // サーバ側からこのエラーコードが返ってくることはありません
   unknownEnumField('不明なエラーです', -1);
 
