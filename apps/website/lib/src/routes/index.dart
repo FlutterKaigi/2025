@@ -37,6 +37,7 @@ HTMLElement get _mainContent {
         ..style.position = 'relative'
         ..style.whiteSpace = 'nowrap'
         ..style.fontFamily = 'Lexend'
+        ..style.fontWeight = '900'
         ..style.textAlign = 'center'
         ..style.marginTop = '6rem'
         ..style.padding = '6rem 8rem'
@@ -52,6 +53,7 @@ HTMLElement get _mainContent {
               ..style.transform = 'translateX(100vw)'
               ..style.fontStyle = 'italic'
               ..style.fontSize = 'clamp(2.5rem, 6vw, 4.5rem)'
+              ..style.fontWeight = 'inherit'
               ..style.color = 'white'
               ..style.animationDelay = '${i * 0.3}s'
               ..style.animationName = 'slide-in'
@@ -62,27 +64,31 @@ HTMLElement get _mainContent {
       HTMLHeadingElement.h2()
         ..textContent = event.title
         ..style.fontSize = '2rem'
-        ..style.fontWeight = 'bold'
+        ..style.fontWeight = '900'
         ..style.fontFamily = 'Lexend'
         ..style.marginTop = '6rem',
       HTMLParagraphElement()
-        ..textContent = 'on ${formatDate(eventDate)}'
+        ..textContent = 'on ${formatDate(event.date)}'
         ..style.fontSize = '1.5rem'
-        ..style.fontWeight = 'bold'
+        ..style.fontWeight = '900'
         ..style.fontFamily = 'Lexend, sans-serif'
         ..style.marginTop = '1rem'
         ..style.textAlign = 'center',
       HTMLParagraphElement()
         ..style.fontSize = '1.5rem'
-        ..style.fontWeight = 'bold'
+        ..style.fontWeight = '900'
         ..style.fontFamily = 'Lexend, sans-serif'
         ..style.marginTop = '2rem'
         ..style.textAlign = 'center'
         ..appendAll([
           Text('at '),
-          externalLink(text(event.place.name), url: event.place.url)
-            ..style.fontSize = 'inherit'
-            ..style.color = 'inherit',
+          HTMLAnchorElement()
+            ..textContent = text(event.place.name)
+            ..href = event.place.url
+            ..style.cursor = 'pointer'
+            ..style.textDecoration = 'underline'
+            ..style.fontWeight = '900'
+            ..style.fontSize = 'inherit',
         ]),
       HTMLElement.section()
         ..style.position = 'relative'
