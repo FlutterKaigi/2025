@@ -51,6 +51,13 @@ const site = (
       ),
     ),
     (
+      title: (ja: '反社会的勢力の排除に関して', en: 'Exclusion of Anti-Social Forces'),
+      url: (
+        ja: 'https://docs.flutterkaigi.jp/Exclusion-of-Anti-Social-Forces.ja',
+        en: 'https://docs.flutterkaigi.jp/Exclusion-of-Anti-Social-Forces',
+      ),
+    ),
+    (
       title: (ja: '相談窓口', en: 'Contact'),
       url: (
         ja:
