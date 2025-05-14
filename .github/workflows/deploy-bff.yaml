@@ -38,7 +38,7 @@ jobs:
         run: |
           environments=()
           # workflow_dispatchの場合
-          if [ "${{ inputs.deploy-production }}" = "true" ]; then
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             if [ "${{ inputs.deploy-staging }}" = "true" ]; then
               environments+=("staging")
             fi
@@ -74,7 +74,7 @@ jobs:
             echo "false"
           }
 
-  start-deploy-website:
+  start-deploy-bff:
     needs:
       - define-matrix
     if: ${{ contains(fromJson(needs.define-matrix.outputs.environments), 'production') }}
@@ -124,22 +124,87 @@ jobs:
           {
             echo "LOG<<EOL"
             dart compile wasm \
-              bin/server.dart \
+              lib/main.dart \
               -o build/main.wasm \
               -O4
             echo "EOL"
           } | tee -a $GITHUB_OUTPUT
 
-      - name: Upload Dart website Artifacts
+      - name: Upload Dart BFF Artifacts
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: bff-engine-artifact-${{ matrix.environment }}
           path: bff/engine/build
 
+  get-supabase-connection-info:
+    env:
+      MISE_ENV: ci
+    needs:
+      - define-matrix
+    strategy:
+      matrix:
+        environment: ${{ fromJson(needs.define-matrix.outputs.environments) }}
+    outputs:
+      SUPABASE_PROJECT_ID_STAGING: ${{ steps.get-supabase-connection-info.outputs.SUPABASE_PROJECT_ID_STAGING }}
+      SUPABASE_PROJECT_ID_PRODUCTION: ${{ steps.get-supabase-connection-info.outputs.SUPABASE_PROJECT_ID_PRODUCTION }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 2
+    steps:
+      # https://github.com/actions/checkout
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      # https://github.com/jdx/mise-action
+      - name: Install Mise dependencies
+        uses: jdx/mise-action@5083fe46898c414b2475087cc79da59e7da859e8 # v2.1.11
+        with:
+          install_args: "terraform"
+
+      - name: Extract SOPS secrets
+        run: |
+          mkdir -p ~/.config/mise
+          echo "${{ secrets.SOPS_FILE }}" > ~/.config/mise/flutterkaigi.txt
+
+      - name: Set environment variables
+        run: |
+          for line in $(mise env --dotenv); do
+            echo $line >> "$GITHUB_ENV"
+            echo "::add-mask::${line#*=}"
+          done
+
+      - name: Extract backend.tfbackend
+        working-directory: terraform/supabase
+        run: |
+          echo "${{ secrets.TERRAFORM_BACKEND_CONFIGURATION }}" | base64 -d  \
+            > backend.tfbackend
+
+      - name: Terraform init
+        working-directory: terraform/supabase
+        run: terraform init -backend-config=backend.tfbackend
+
+      - name: Get Supabase Connection Info
+        working-directory: terraform/supabase
+        id: get-supabase-connection-info
+        run: |
+          SUPABASE_PROJECT_ID=""
+          if [ "${{ matrix.environment }}" = "staging" ]; then
+            SUPABASE_PROJECT_ID=$(terraform output -raw supabase_staging_project_id)
+            echo "SUPABASE_PROJECT_ID_STAGING=$SUPABASE_PROJECT_ID" >> $GITHUB_OUTPUT
+          else
+            SUPABASE_PROJECT_ID=$(terraform output -raw supabase_production_project_id)
+            echo "SUPABASE_PROJECT_ID_PRODUCTION=$SUPABASE_PROJECT_ID" >> $GITHUB_OUTPUT
+          fi
+
+          if [ -z "$SUPABASE_PROJECT_ID" ]; then
+            echo "Error: Supabase project ID not found"
+            exit 1
+          fi
+
   deploy-bff:
     needs:
       - define-matrix
       - build-dart-engine
+      - get-supabase-connection-info
     strategy:
       matrix:
         environment: ${{ fromJson(needs.define-matrix.outputs.environments) }}
@@ -194,9 +259,23 @@ jobs:
         id: deploy-bff-staging
         working-directory: bff/bridge
         if: ${{ matrix.environment == 'staging' }}
+        env:
+          SUPABASE_PROJECT_ID: ${{ needs.get-supabase-connection-info.outputs.SUPABASE_PROJECT_ID_STAGING }}
         run: |
           {
             echo "LOG<<EOL"
+            # SET SUPABASE_URL
+            SUPABASE_URL="https://$(echo $SUPABASE_PROJECT_ID).supabase.co"
+            echo $SUPABASE_URL | bunx wrangler versions secret \
+                --env staging \
+                put SUPABASE_URL
+
+            # SET SUPABASE_SERVICE_ROLE_KEY_STAGING
+            echo $SUPABASE_SERVICE_ROLE_KEY_STAGING | bunx wrangler \
+                versions secret \
+                --env staging \
+                put SUPABASE_SERVICE_ROLE_KEY
+
             bunx wrangler versions upload \
               --env staging \
               --var COMMIT_HASH:$(git rev-parse HEAD) \
@@ -211,6 +290,18 @@ jobs:
         run: |
           {
             echo "LOG<<EOL"
+
+            # SET SUPABASE_URL
+            SUPABASE_URL="https://$(echo $SUPABASE_PROJECT_ID).supabase.co"
+            echo $SUPABASE_URL | bunx wrangler secret \
+                --env production \
+                put SUPABASE_URL
+
+            # SET SUPABASE_SERVICE_ROLE_KEY_PRODUCTION
+            echo $SUPABASE_SERVICE_ROLE_KEY_PRODUCTION | bunx wrangler secret \
+                --env production \
+                put SUPABASE_SERVICE_ROLE_KEY
+
             bunx wrangler deploy \
               --env production \
               --var COMMIT_HASH:$(git rev-parse HEAD) \
@@ -299,7 +390,7 @@ jobs:
     needs:
       - define-matrix
       - build-dart-engine
-      - start-deploy-website
+      - start-deploy-bff
       - deploy-bff
     if: ${{ contains(fromJson(needs.define-matrix.outputs.environments), 'production') }}
     timeout-minutes: 1
@@ -327,7 +418,7 @@ jobs:
           step: finish
           token: ${{ secrets.GITHUB_TOKEN }}
           status: ${{ steps.get-previous-jobs-status.outputs.status || 'failure' }}
-          deployment_id: ${{ needs.start-deploy-website.outputs.deployment_id }}
+          deployment_id: ${{ needs.start-deploy-bff.outputs.deployment_id }}
           env: bff
           env_url: ${{ needs.deploy-bff.outputs.deployment_url }}
           ref: ${{ github.head_ref }}
