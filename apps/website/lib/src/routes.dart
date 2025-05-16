@@ -15,10 +15,18 @@ Handler routes(Path path) => switch (path.pattern) {
   ['dashsay', final msg, ...final _] => dashsay.handler(msg),
   ['en', ...final sub] => () {
     config.user.lang = Language.en;
+    switch (document.documentElement) {
+      case final HTMLElement element:
+        element.lang = 'en';
+    }
     return routes(Path(sub));
   }(),
   ['ja', ...final sub] => () {
     config.user.lang = Language.ja;
+    switch (document.documentElement) {
+      case final HTMLElement element:
+        element.lang = 'ja';
+    }
     return routes(Path(sub));
   }(),
   _ => not_found.handler,
