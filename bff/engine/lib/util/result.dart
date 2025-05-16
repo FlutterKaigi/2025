@@ -10,12 +10,14 @@ sealed class Result<T, E extends Exception> {
   /// [error]には例外を指定する。
   factory Result.failure(E error, [StackTrace stackTrace]) = Failure<T, E>;
 
+  /// [unwrap]は、`Result`が`Success`を満たすことを前提として、値を取り出す時に利用します
+  /// `Failure`の場合は、例外をthrowします
   T get unwrap => switch (this) {
     Success(:final value) => value,
     Failure(:final error) => throw error,
   };
 
-  /// [fn]を実行し、成功した場合は[Result.success]にラップして返し、
+  /// 非同期関数[fn]を実行し、成功した場合は[Result.success]にラップして返し、
   /// [E]型の例外が発生した場合は[Result.failure]にラップして返す。
   static Future<Result<T, E>> capture<T, E extends Exception>(
     FutureOr<T> Function() fn,
@@ -27,6 +29,8 @@ sealed class Result<T, E extends Exception> {
     }
   }
 
+  /// 同期関数[fn]を実行し、成功した場合は[Result.success]にラップして返し、
+  /// [E]型の例外が発生した場合は[Result.failure]にラップして返す。
   static Result<T, E> captureSync<T, E extends Exception>(T Function() fn) {
     try {
       return Result.success(fn());
