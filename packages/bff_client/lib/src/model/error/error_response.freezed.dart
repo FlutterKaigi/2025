@@ -86,8 +86,8 @@ as String?,
 /// @nodoc
 @JsonSerializable()
 
-class _ErrorResponse implements ErrorResponse {
-  const _ErrorResponse({@JsonKey(unknownEnumValue: ErrorCode.unknownEnumField) required this.code, required this.message, this.detail});
+class _ErrorResponse extends ErrorResponse {
+  const _ErrorResponse({@JsonKey(unknownEnumValue: ErrorCode.unknownEnumField) required this.code, required this.message, this.detail}): super._();
   factory _ErrorResponse.fromJson(Map<String, dynamic> json) => _$ErrorResponseFromJson(json);
 
 /// エラーコード
@@ -121,7 +121,7 @@ int get hashCode => Object.hash(runtimeType,code,message,detail);
 
 @override
 String toString() {
-  return 'ErrorResponse(code: $code, message: $message, detail: $detail)';
+  return 'ErrorResponse._internal(code: $code, message: $message, detail: $detail)';
 }
 
 
