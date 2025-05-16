@@ -29,9 +29,8 @@ class ApiService {
   @Route.all('/<ignored|.*>')
   Response _notFound(Request request) {
     const errorCode = ErrorCode.routeNotFound;
-    final response = ErrorResponse(
+    final response = ErrorResponse.errorCode(
       code: errorCode,
-      message: errorCode.message,
       detail:
           'You requested ${request.requestedUri} '
           "which doesn't exist in this API.",
