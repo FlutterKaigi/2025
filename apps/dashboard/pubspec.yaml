@@ -10,6 +10,8 @@ environment:
 resolution: workspace
 
 dependencies:
+  auth_client:
+    path: ../../packages/auth_client
   cupertino_icons: ^1.0.8
   flutter:
     sdk: flutter

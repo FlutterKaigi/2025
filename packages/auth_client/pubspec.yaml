@@ -10,6 +10,7 @@ dependencies:
   db_types:
     path: ../db_types
   freezed_annotation: ^3.0.0
+  google_sign_in: ^6.3.0
   json_annotation: ^4.9.0
   retrofit: ^4.4.2
   supabase_flutter: ^2.9.0
