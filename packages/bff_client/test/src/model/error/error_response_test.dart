@@ -43,9 +43,8 @@ void main() {
     });
 
     test('toJson', () {
-      const errorResponse = ErrorResponse(
+      final errorResponse = ErrorResponse.errorCode(
         code: ErrorCode.internalServerError,
-        message: 'サーバ内部で予期しないエラーが発生しました',
         detail: 'エラーの詳細情報',
       );
 

@@ -7,7 +7,7 @@ part 'error_response.g.dart';
 
 @freezed
 abstract class ErrorResponse with _$ErrorResponse {
-  const factory ErrorResponse({
+  const factory ErrorResponse._internal({
     /// エラーコード
     @JsonKey(unknownEnumValue: ErrorCode.unknownEnumField)
     required ErrorCode code,
@@ -21,14 +21,25 @@ abstract class ErrorResponse with _$ErrorResponse {
     String? detail,
   }) = _ErrorResponse;
 
+  const ErrorResponse._();
+
+  factory ErrorResponse.errorCode({required ErrorCode code, String? detail}) =>
+      ErrorResponse._internal(
+        code: code,
+        message: code.message,
+        detail: detail,
+      );
+
   factory ErrorResponse.fromJson(Map<String, dynamic> json) =>
       _$ErrorResponseFromJson(json);
 }
 
 @JsonEnum(fieldRename: FieldRename.screamingSnake)
 enum ErrorCode {
+  unauthorized('認証に失敗しました', HttpStatus.unauthorized),
   notImplemented('このエンドポイントは未実装です', HttpStatus.notImplemented),
   internalServerError('サーバ内部で予期しないエラーが発生しました', HttpStatus.internalServerError),
+  routeNotFound('ルーティングが見つかりませんでした', HttpStatus.notFound),
 
   // WARNING(YumNumm): 未知のエラーコードが返ってきた時に利用されます
   // サーバ側からこのエラーコードが返ってくることはありません

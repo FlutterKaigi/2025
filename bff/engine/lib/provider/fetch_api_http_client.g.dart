@@ -2,27 +2,30 @@
 
 // ignore_for_file: type=lint, duplicate_ignore
 
-part of 'cf_workers_env.dart';
+part of 'fetch_api_http_client.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$cfWorkersEnvHash() => r'bb3cb13a13d353e8e1c54acb341a3ab6b41046fd';
+String _$fetchApiHttpClientHash() =>
+    r'8319646fea934b7e96d3e9706f97e72da130b82e';
 
-/// See also [cfWorkersEnv].
-@ProviderFor(cfWorkersEnv)
-final cfWorkersEnvProvider = Provider<CfWorkersEnv>.internal(
-  cfWorkersEnv,
-  name: r'cfWorkersEnvProvider',
+/// See also [fetchApiHttpClient].
+@ProviderFor(fetchApiHttpClient)
+final fetchApiHttpClientProvider = Provider<FetchApiHttpClient>.internal(
+  fetchApiHttpClient,
+  name: r'fetchApiHttpClientProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$cfWorkersEnvHash,
+      const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$fetchApiHttpClientHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef CfWorkersEnvRef = ProviderRef<CfWorkersEnv>;
+typedef FetchApiHttpClientRef = ProviderRef<FetchApiHttpClient>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
