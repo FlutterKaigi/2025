@@ -1,4 +1,6 @@
+import 'package:dashboard/features/auth/data/notifier/auth_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// ログイン画面
 ///
@@ -8,11 +10,98 @@ import 'package:flutter/material.dart';
 ///
 /// 参考:
 /// - [SCREENS.md](https://github.com/FlutterKaigi/2025/blob/main/docs/dashboard/SCREENS.md)
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends ConsumerWidget {
   const LoginScreen({super.key});
 
   @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
+    final authState = ref.watch(authNotifierProvider).valueOrNull;
+
+    return Scaffold(
+      body: SafeArea(
+        child: Center(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(48),
+              child: Card(
+                color: colorScheme.primaryContainer,
+                elevation: 4,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(32),
+                  child: DefaultTextStyle(
+                    style: TextStyle(color: colorScheme.onPrimaryContainer),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      spacing: 8,
+                      children: [
+                        // ロゴやタイトル
+                        Icon(
+                          Icons.flutter_dash,
+                          size: 120,
+                          color: colorScheme.onPrimaryContainer,
+                        ),
+                        Text(
+                          'FlutterKaigi 2025 Dashboard',
+                          style: theme.textTheme.headlineMedium?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: colorScheme.onPrimaryContainer,
+                          ),
+                        ),
+                        if (authState == null)
+                          // Googleログインボタン
+                          _GoogleSignInButton(
+                            onPressed:
+                                () async =>
+                                    ref
+                                        .read(authNotifierProvider.notifier)
+                                        .signInWithGoogle(),
+                          )
+                        else ...[
+                          Text(
+                            'You are logged in as '
+                            '${authState.email}: '
+                            '${authState.userMetadata?["full_name"]}',
+                          ),
+                          FilledButton(
+                            onPressed:
+                                () =>
+                                    ref
+                                        .read(authNotifierProvider.notifier)
+                                        .signOut(),
+                            child: const Text('ログアウト'),
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _GoogleSignInButton extends StatelessWidget {
+  const _GoogleSignInButton({required this.onPressed});
+
+  final VoidCallback onPressed;
+
+  @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: Center(child: Text('LoginScreen')));
+    return FilledButton.icon(
+      icon: const Icon(Icons.account_circle),
+      label: const Text('Googleでログイン'),
+      onPressed: onPressed,
+    );
   }
 }
