@@ -54,30 +54,14 @@ class LoginScreen extends ConsumerWidget {
                             color: colorScheme.onPrimaryContainer,
                           ),
                         ),
-                        if (authState == null)
-                          // Googleログインボタン
-                          _GoogleSignInButton(
-                            onPressed:
-                                () async =>
-                                    ref
-                                        .read(authNotifierProvider.notifier)
-                                        .signInWithGoogle(),
-                          )
-                        else ...[
-                          Text(
-                            'You are logged in as '
-                            '${authState.email}: '
-                            '${authState.userMetadata?["full_name"]}',
-                          ),
-                          FilledButton(
-                            onPressed:
-                                () =>
-                                    ref
-                                        .read(authNotifierProvider.notifier)
-                                        .signOut(),
-                            child: const Text('ログアウト'),
-                          ),
-                        ],
+                        // Googleログインボタン
+                        _GoogleSignInButton(
+                          onPressed:
+                              () async =>
+                                  ref
+                                      .read(authNotifierProvider.notifier)
+                                      .signInWithGoogle(),
+                        ),
                       ],
                     ),
                   ),
