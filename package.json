@@ -3,7 +3,8 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "clean": "git clean -xdf node_modules"
+    "clean": "git clean -xdf node_modules",
+    "supabase:generate": "supabase db diff -s public,auth"
   },
   "devDependencies": {
     "@cspell/dict-dart": "^2.3.0",
