@@ -42,7 +42,8 @@ Future<Response> exceptionHandler(Future<Response> Function() fn) async {
       HttpStatus.internalServerError,
     );
   }
-  // MEMO(@YumNumm): DartをWebAssemblyに変換した時、稀に`JavaScriptError`が発生します
+  // MEMO(@YumNumm): DartをWebAssemblyにトランスパイルし、Exceptionを投げると
+  // 稀に`JavaScriptError`が発生します
   // そのため、ここでハンドリングしています。詳しい条件等は調査中です。
   // ignore: avoid_catching_errors
   on Error catch (e) {
