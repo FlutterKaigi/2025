@@ -1,15 +1,11 @@
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthService {
-  late final GoogleOAuthClientId _googleOAuthClientId;
-
   /// Supabaseを初期化する。
   /// この関数を呼び出す前に`WidgetsFlutterBinding.ensureInitialized()`を呼び出す必要がある。
   Future<Supabase> initialize({
     required String supabaseUrl,
     required String supabaseKey,
-    required GoogleOAuthClientId googleOAuthClientId,
     bool isDebug = false,
   }) async => Supabase.initialize(
     url: supabaseUrl,
@@ -20,23 +16,28 @@ class AuthService {
   /// `initialize`を呼び出した後に使用できる。
   SupabaseClient get _client => Supabase.instance.client;
 
-  Future<User?> signInWithGoogle() async {
-    final googleSignIn = GoogleSignIn(clientId: _googleOAuthClientId.clientId);
-    final googleUser = await googleSignIn.signIn();
-    final googleAuth = await googleUser!.authentication;
-    final accessToken = googleAuth.accessToken!;
-    final idToken = googleAuth.idToken!;
-
-    final response = await _client.auth.signInWithIdToken(
-      provider: OAuthProvider.google,
-      idToken: idToken,
-      accessToken: accessToken,
+  /// Googleでログインする
+  /// [redirectTo] ログイン後にリダイレクトするURL Web以外のプラットフォームでは必須
+  /// [authScreenLaunchMode] 認証画面の起動モード
+  Future<User?> signInWithGoogle({
+    String? redirectTo,
+    LaunchMode authScreenLaunchMode = LaunchMode.externalApplication,
+  }) async {
+    await _client.auth.signInWithOAuth(
+      OAuthProvider.google,
+      redirectTo: redirectTo,
+      authScreenLaunchMode: authScreenLaunchMode,
     );
-    return response.user;
+    return currentUser();
   }
 
+  /// ログアウトする
+  Future<void> signOut() async => _client.auth.signOut();
+
+  /// 現在のユーザーを取得する
   User? currentUser() => _client.auth.currentUser;
 
+  /// 認証状態の変化を監視する
   Stream<AuthStateEvent> authStateChangeStream() =>
       _client.auth.onAuthStateChange.map((event) {
         return switch (event.event) {
@@ -50,16 +51,6 @@ class AuthService {
             ),
         };
       });
-}
-
-enum GoogleOAuthClientId {
-  dashboardiOS(
-    '106402217021-ql2va8nvujbqigkdqmoiiu4v0sgjbf4u.apps.googleusercontent.com',
-  );
-
-  const GoogleOAuthClientId(this.clientId);
-
-  final String clientId;
 }
 
 enum AuthStateEvent {
