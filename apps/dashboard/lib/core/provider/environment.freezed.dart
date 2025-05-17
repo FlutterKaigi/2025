@@ -12,6 +12,7 @@ part of 'environment.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
+
 /// @nodoc
 mixin _$Environment {
 
@@ -22,6 +23,8 @@ mixin _$Environment {
 @pragma('vm:prefer-inline')
 $EnvironmentCopyWith<Environment> get copyWith => _$EnvironmentCopyWithImpl<Environment>(this as Environment, _$identity);
 
+  /// Serializes this Environment to a JSON map.
+  Map<String, dynamic> toJson();
 
 
 @override
@@ -29,7 +32,7 @@ bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is Environment&&(identical(other.appIdSuffix, appIdSuffix) || other.appIdSuffix == appIdSuffix)&&(identical(other.appName, appName) || other.appName == appName)&&(identical(other.flavor, flavor) || other.flavor == flavor)&&(identical(other.supabaseUrl, supabaseUrl) || other.supabaseUrl == supabaseUrl)&&(identical(other.supabaseKey, supabaseKey) || other.supabaseKey == supabaseKey));
 }
 
-
+@JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode => Object.hash(runtimeType,appIdSuffix,appName,flavor,supabaseUrl,supabaseKey);
 
@@ -78,11 +81,11 @@ as String,
 
 
 /// @nodoc
-
+@JsonSerializable()
 
 class _Environment implements Environment {
   const _Environment({required this.appIdSuffix, required this.appName, required this.flavor, required this.supabaseUrl, required this.supabaseKey});
-  
+  factory _Environment.fromJson(Map<String, dynamic> json) => _$EnvironmentFromJson(json);
 
 @override final  String appIdSuffix;
 @override final  String appName;
@@ -96,14 +99,17 @@ class _Environment implements Environment {
 @pragma('vm:prefer-inline')
 _$EnvironmentCopyWith<_Environment> get copyWith => __$EnvironmentCopyWithImpl<_Environment>(this, _$identity);
 
-
+@override
+Map<String, dynamic> toJson() {
+  return _$EnvironmentToJson(this, );
+}
 
 @override
 bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is _Environment&&(identical(other.appIdSuffix, appIdSuffix) || other.appIdSuffix == appIdSuffix)&&(identical(other.appName, appName) || other.appName == appName)&&(identical(other.flavor, flavor) || other.flavor == flavor)&&(identical(other.supabaseUrl, supabaseUrl) || other.supabaseUrl == supabaseUrl)&&(identical(other.supabaseKey, supabaseKey) || other.supabaseKey == supabaseKey));
 }
 
-
+@JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode => Object.hash(runtimeType,appIdSuffix,appName,flavor,supabaseUrl,supabaseKey);
 
