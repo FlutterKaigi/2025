@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, duplicate_ignore
 
 part of 'fetch_api_http_client.dart';
 
@@ -9,7 +9,7 @@ part of 'fetch_api_http_client.dart';
 // **************************************************************************
 
 String _$fetchApiHttpClientHash() =>
-    r'3f190cc0fe8ba5ecf47dc0cee9b65033482c108f';
+    r'8319646fea934b7e96d3e9706f97e72da130b82e';
 
 /// See also [fetchApiHttpClient].
 @ProviderFor(fetchApiHttpClient)

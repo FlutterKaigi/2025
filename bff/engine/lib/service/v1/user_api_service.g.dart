@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, duplicate_ignore
 
 part of 'user_api_service.dart';
 
@@ -8,7 +8,7 @@ part of 'user_api_service.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$userApiServiceHash() => r'b657ac85cdaef35e4b78b87cf9f006e9abbe1829';
+String _$userApiServiceHash() => r'60a0c4198cc0195e58156dce942fd50a1d45e70b';
 
 /// See also [userApiService].
 @ProviderFor(userApiService)
