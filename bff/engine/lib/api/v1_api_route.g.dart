@@ -2,30 +2,28 @@
 
 // ignore_for_file: type=lint, duplicate_ignore
 
-part of 'user_api_service.dart';
+part of 'v1_api_route.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$userApiServiceHash() => r'60a0c4198cc0195e58156dce942fd50a1d45e70b';
+String _$v1ApiRouteHash() => r'007b30bd3478ceb87ceae6da26137d2f85141ce2';
 
-/// See also [userApiService].
-@ProviderFor(userApiService)
-final userApiServiceProvider = Provider<UserApiService>.internal(
-  userApiService,
-  name: r'userApiServiceProvider',
+/// See also [v1ApiRoute].
+@ProviderFor(v1ApiRoute)
+final v1ApiRouteProvider = Provider<V1ApiRoute>.internal(
+  v1ApiRoute,
+  name: r'v1ApiRouteProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$userApiServiceHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$v1ApiRouteHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef UserApiServiceRef = ProviderRef<UserApiService>;
+typedef V1ApiRouteRef = ProviderRef<V1ApiRoute>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
 
@@ -33,8 +31,8 @@ typedef UserApiServiceRef = ProviderRef<UserApiService>;
 // ShelfRouterGenerator
 // **************************************************************************
 
-Router _$UserApiServiceRouter(UserApiService service) {
+Router _$V1ApiRouteRouter(V1ApiRoute service) {
   final router = Router();
-  router.add('GET', r'/me', service._getMe);
+  router.mount(r'/users', service._usersRouter.call);
   return router;
 }
