@@ -6,14 +6,14 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 
-part 'user_api_service.g.dart';
+part 'user_api_route.g.dart';
 
 @Riverpod(keepAlive: true)
-UserApiService userApiService(Ref ref) =>
-    UserApiService(supabaseUtil: ref.watch(supabaseUtilProvider));
+UserApiRoute userApiRoute(Ref ref) =>
+    UserApiRoute(supabaseUtil: ref.watch(supabaseUtilProvider));
 
-class UserApiService {
-  UserApiService({required SupabaseUtil supabaseUtil})
+class UserApiRoute {
+  UserApiRoute({required SupabaseUtil supabaseUtil})
     : _supabaseUtil = supabaseUtil;
 
   final SupabaseUtil _supabaseUtil;
@@ -25,5 +25,5 @@ class UserApiService {
     final response = UserMeGetResponse(user: user);
     return response.toJson();
   });
-  Router get router => _$UserApiServiceRouter(this);
+  Router get router => _$UserApiRouteRouter(this);
 }
