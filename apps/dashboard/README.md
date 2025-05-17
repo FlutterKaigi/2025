@@ -1,16 +1,28 @@
-# dashboard
+# FlutterKaigi 2025 Dashboard Application
 
-A new Flutter project.
+[WIP]
 
-## Getting Started
+## 開発
 
-This project is a starting point for a Flutter application.
+1. 依存関係を解決する
 
-A few resources to get you started if this is your first Flutter project:
+   ```bash
+   flutter pub get
+   ```
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+1. Swift Package Managerを有効にする
+   - 本プロジェクトでは、Swift Package Managerを使用しています
+   - 以下のコマンドを実行して、Swift Package Managerを有効にします
+     - PC全体でSwift Package Managerを有効になるので、注意してください
+   - 参考: [Swift Package Manager for app developers - Flutter](https://docs.flutter.dev/packages-and-plugins/swift-package-manager/for-app-developers)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+   ```bash
+   # Swift Package Managerを有効にする
+   flutter config --enable-swift-package-manager
+   ```
+
+1. アプリケーションを開始する
+
+   ```bash
+   flutter run -d {任意のデバイス}
+   ```
