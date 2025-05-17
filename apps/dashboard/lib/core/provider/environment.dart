@@ -27,4 +27,7 @@ abstract class Environment with _$Environment {
     supabaseUrl: String.fromEnvironment('SUPABASE_URL'),
     supabaseKey: String.fromEnvironment('SUPABASE_KEY'),
   );
+
+  factory Environment.fromJson(Map<String, dynamic> json) =>
+      _$EnvironmentFromJson(json);
 }

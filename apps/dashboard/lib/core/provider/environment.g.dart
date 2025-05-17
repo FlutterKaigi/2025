@@ -5,6 +5,40 @@
 part of 'environment.dart';
 
 // **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+_Environment _$EnvironmentFromJson(Map<String, dynamic> json) => $checkedCreate(
+  '_Environment',
+  json,
+  ($checkedConvert) {
+    final val = _Environment(
+      appIdSuffix: $checkedConvert('app_id_suffix', (v) => v as String),
+      appName: $checkedConvert('app_name', (v) => v as String),
+      flavor: $checkedConvert('flavor', (v) => v as String),
+      supabaseUrl: $checkedConvert('supabase_url', (v) => v as String),
+      supabaseKey: $checkedConvert('supabase_key', (v) => v as String),
+    );
+    return val;
+  },
+  fieldKeyMap: const {
+    'appIdSuffix': 'app_id_suffix',
+    'appName': 'app_name',
+    'supabaseUrl': 'supabase_url',
+    'supabaseKey': 'supabase_key',
+  },
+);
+
+Map<String, dynamic> _$EnvironmentToJson(_Environment instance) =>
+    <String, dynamic>{
+      'app_id_suffix': instance.appIdSuffix,
+      'app_name': instance.appName,
+      'flavor': instance.flavor,
+      'supabase_url': instance.supabaseUrl,
+      'supabase_key': instance.supabaseKey,
+    };
+
+// **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
