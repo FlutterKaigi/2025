@@ -22,9 +22,6 @@ class MainScreen extends StatelessWidget {
   }
 }
 
-/// {@template dashboard._Body}
-///
-/// {@endtemplate}
 class _Body extends ConsumerWidget {
   const _Body({super.key});
 
