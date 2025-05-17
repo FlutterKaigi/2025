@@ -15,6 +15,10 @@ extension type CfDartWorkers._(JSObject _) implements JSObject {
 
   /// Dart側でのリクエストハンドリングが完了したら、レスポンスをこの関数を通じてJS側に渡す
   external void response(web.Response response);
+  external JSPromise<web.Response> fetch(
+    web.RequestInfo request, [
+    web.RequestInit? requestInit,
+  ]);
 }
 
 extension type JSExecutionContext._(JSObject _) implements JSObject {
