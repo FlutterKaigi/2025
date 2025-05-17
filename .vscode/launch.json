@@ -6,7 +6,24 @@
       "cwd": "apps/dashboard",
       "request": "launch",
       "program": "lib/main.dart",
-      "type": "dart"
+      "type": "dart",
+      "args": ["--dart-define-from-file", "environments/.env.dev"]
+    },
+    {
+      "name": "dashboard-staging-debug",
+      "cwd": "apps/dashboard",
+      "request": "launch",
+      "program": "lib/main.dart",
+      "type": "dart",
+      "args": ["--dart-define-from-file", "environments/.env.stg"]
+    },
+    {
+      "name": "dashboard-production-debug",
+      "cwd": "apps/dashboard",
+      "request": "launch",
+      "program": "lib/main.dart",
+      "type": "dart",
+      "args": ["--dart-define-from-file", "environments/.env.prod"]
     }
   ]
 }
