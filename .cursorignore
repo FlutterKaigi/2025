@@ -18,17 +18,13 @@
 # --------------------------------
 *.lock
 .tool-versions
-cspell.jsonc
 package.json
 
 # --------------------------------
 # Flutter プロジェクトのファイル群
 # --------------------------------
-ios/
-android/
-macos/
 assets/
 .metadata
 *.g.dart
 *.freezed.dart
-*.gen.dart 
+*.gen.dart
