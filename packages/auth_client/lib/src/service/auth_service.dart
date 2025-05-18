@@ -41,6 +41,7 @@ class AuthService {
   Stream<AuthStateEvent> authStateChangeStream() =>
       _client.auth.onAuthStateChange.map((event) {
         return switch (event.event) {
+          AuthChangeEvent.initialSession => AuthStateEvent.initialSession,
           AuthChangeEvent.signedIn => AuthStateEvent.signedIn,
           AuthChangeEvent.signedOut => AuthStateEvent.signedOut,
           AuthChangeEvent.tokenRefreshed => AuthStateEvent.tokenRefreshed,
