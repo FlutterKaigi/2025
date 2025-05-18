@@ -16,6 +16,7 @@ workspace:
   - packages/flutterkaigi_lints
   - packages/bff_client
   - packages/db_types
+  - packages/auth_client
   # bff
   - bff/engine
 
