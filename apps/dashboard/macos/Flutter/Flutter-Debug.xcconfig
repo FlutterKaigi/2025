@@ -1,1 +1,2 @@
 #include "ephemeral/Flutter-Generated.xcconfig"
+#include "Environment.xcconfig"
