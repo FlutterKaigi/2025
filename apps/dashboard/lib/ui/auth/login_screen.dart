@@ -18,8 +18,6 @@ class LoginScreen extends ConsumerWidget {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
-    final authState = ref.watch(authNotifierProvider).valueOrNull;
-
     return Scaffold(
       body: SafeArea(
         child: Center(
