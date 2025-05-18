@@ -10,7 +10,7 @@
   },
   "devDependencies": {
     "typescript": "^5.8.3",
-    "wrangler": "^4.14.1",
+    "wrangler": "^4.15.2",
     "@biomejs/biome": "^1.9.4"
   }
 }
