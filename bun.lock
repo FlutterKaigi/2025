@@ -23,9 +23,9 @@
       "name": "bridge",
       "version": "0.0.0",
       "devDependencies": {
-        "@biomejs/biome": "latest",
-        "typescript": "latest",
-        "wrangler": "latest",
+        "@biomejs/biome": "^1.9.4",
+        "typescript": "^5.8.3",
+        "wrangler": "^4.14.1",
       },
     },
   },
