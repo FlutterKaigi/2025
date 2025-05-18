@@ -22,8 +22,9 @@ class UserApiRoute {
   Future<Response> _getMe(Request request) async => jsonResponse(() async {
     final result = await _supabaseUtil.extractUser(request);
     final (_, user) = result.unwrap; // AuthorizationExceptionの場合はthrowされる
-    final response = UserMeGetResponse(user: user);
+    final response = UserGetResponse(user: user);
     return response.toJson();
   });
+
   Router get router => _$UserApiRouteRouter(this);
 }

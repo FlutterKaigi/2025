@@ -2,15 +2,15 @@
 
 // ignore_for_file: type=lint
 
-part of 'user_me_get_response.dart';
+part of 'user_get_response.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_UserMeGetResponse _$UserMeGetResponseFromJson(Map<String, dynamic> json) =>
-    $checkedCreate('_UserMeGetResponse', json, ($checkedConvert) {
-      final val = _UserMeGetResponse(
+_UserGetResponse _$UserGetResponseFromJson(Map<String, dynamic> json) =>
+    $checkedCreate('_UserGetResponse', json, ($checkedConvert) {
+      final val = _UserGetResponse(
         user: $checkedConvert(
           'user',
           (v) => Users.fromJson(v as Map<String, dynamic>),
@@ -19,5 +19,5 @@ _UserMeGetResponse _$UserMeGetResponseFromJson(Map<String, dynamic> json) =>
       return val;
     });
 
-Map<String, dynamic> _$UserMeGetResponseToJson(_UserMeGetResponse instance) =>
+Map<String, dynamic> _$UserGetResponseToJson(_UserGetResponse instance) =>
     <String, dynamic>{'user': instance.user};
