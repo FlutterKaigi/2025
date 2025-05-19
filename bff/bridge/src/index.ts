@@ -1,5 +1,6 @@
 import { instantiate, invoke } from "../engine-artifact/main.mjs";
 import mod from "../engine-artifact/main.wasm";
+import { HyperdrivePg } from "./hyperdrive_pg";
 
 declare global {
   function __dart_cf_workers(): {
@@ -7,6 +8,10 @@ declare global {
     response: (response: Response) => void;
     env: Env;
     ctx: ExecutionContext;
+    hyperdrive: {
+      cache: HyperdrivePg;
+      noCache: HyperdrivePg;
+    };
   };
 }
 
@@ -31,6 +36,10 @@ export default {
             fetch(request, requestInit),
           env: env,
           ctx: ctx,
+          hyperdrive: {
+            cache: new HyperdrivePg(env.HYPERDRIVE.connectionString),
+            noCache: new HyperdrivePg(env.HYPERDRIVE_NO_CACHE.connectionString),
+          },
         });
         invoke(dartInstance, request, env, ctx);
       });

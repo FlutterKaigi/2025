@@ -9,6 +9,7 @@
   "placement": {
     "mode": "smart",
   },
+  "compatibility_flags": ["nodejs_compat"],
   "rules": [
     {
       "type": "CompiledWasm",
@@ -38,6 +39,16 @@
       "vars": {
         "ENVIRONMENT": "staging",
       },
+      "hyperdrive": [
+        {
+          "binding": "HYPERDRIVE",
+          "id": "af34727d372f40cf975cb87f7de8461b",
+        },
+        {
+          "binding": "HYPERDRIVE_NO_CACHE",
+          "id": "a5ad3285bc2146929cf7b6e5fab52aa8",
+        },
+      ],
     },
   },
 }
