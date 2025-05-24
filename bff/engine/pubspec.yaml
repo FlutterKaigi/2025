@@ -34,3 +34,4 @@ dev_dependencies:
   riverpod_generator: ^2.6.5
   riverpod_lint: ^2.6.5
   shelf_router_generator: ^1.1.1
+  mockito: ^5.4.4 # Add mockito

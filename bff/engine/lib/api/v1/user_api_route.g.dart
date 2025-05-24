@@ -34,5 +34,6 @@ typedef UserApiRouteRef = ProviderRef<UserApiRoute>;
 Router _$UserApiRouteRouter(UserApiRoute service) {
   final router = Router();
   router.add('GET', r'/me', service._getMe);
+  router.add('GET', r'/list', service._listUsers);
   return router;
 }
