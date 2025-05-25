@@ -74,25 +74,18 @@ class _LargeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Drawer(
-          child: Column(
-            children: destinations.map(
-              (d) {
-                final index = destinations.indexOf(d);
-                return ListTile(
-                  leading: Icon(d.icon),
-                  title: Text(d.title),
-                  selected: index == currentIndex,
-                  onTap: () {
-                    if (index == currentIndex) {
-                      return;
-                    }
-                    onNavigationIndexChange(index);
-                  },
-                );
-              },
-            ).toList(),
-          ),
+        NavigationDrawer(
+          selectedIndex: currentIndex,
+          onDestinationSelected: onNavigationIndexChange,
+          children: [
+            const SizedBox(height: 16),
+            ...destinations.map(
+              (d) => NavigationDrawerDestination(
+                icon: Icon(d.icon),
+                label: Text(d.title),
+              ),
+            ),
+          ],
         ),
         Expanded(child: Scaffold(body: body)),
       ],
