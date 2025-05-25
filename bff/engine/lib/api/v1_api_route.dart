@@ -1,6 +1,5 @@
 import 'package:engine/api/v1/user_api_route.dart';
 import 'package:engine/main.dart';
-import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shelf_router/shelf_router.dart';
 

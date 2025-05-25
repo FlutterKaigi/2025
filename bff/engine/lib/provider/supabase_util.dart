@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:db_types/db_types.dart';
 import 'package:engine/provider/supabase_client.dart';
 import 'package:engine/util/result.dart';
-import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shelf/shelf.dart';
 import 'package:supabase/supabase.dart';
