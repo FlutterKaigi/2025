@@ -15,8 +15,9 @@ String _$handlerHash() => r'2a7350fca968338310c816d0ff4d94b24eb35773';
 final handlerProvider = Provider<Handler>.internal(
   handler,
   name: r'handlerProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$handlerHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$handlerHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

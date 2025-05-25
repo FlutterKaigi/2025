@@ -46,10 +46,9 @@ class AuthService {
           AuthChangeEvent.signedOut => AuthStateEvent.signedOut,
           AuthChangeEvent.tokenRefreshed => AuthStateEvent.tokenRefreshed,
           AuthChangeEvent.userUpdated => AuthStateEvent.userUpdated,
-          _ =>
-            throw UnimplementedError(
-              'Unknown auth state event: ${event.event}',
-            ),
+          _ => throw UnimplementedError(
+            'Unknown auth state event: ${event.event}',
+          ),
         };
       });
 }

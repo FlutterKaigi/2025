@@ -15,8 +15,9 @@ String _$cfWorkersEnvHash() => r'bb3cb13a13d353e8e1c54acb341a3ab6b41046fd';
 final cfWorkersEnvProvider = Provider<CfWorkersEnv>.internal(
   cfWorkersEnv,
   name: r'cfWorkersEnvProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$cfWorkersEnvHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$cfWorkersEnvHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

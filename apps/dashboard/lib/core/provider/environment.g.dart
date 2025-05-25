@@ -49,8 +49,9 @@ String _$environmentHash() => r'eaecc2d26f9e24d09890f13ed63c1edb0a92a7a9';
 final environmentProvider = Provider<Environment>.internal(
   environment,
   name: r'environmentProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$environmentHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$environmentHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

@@ -31,11 +31,11 @@ const contents = (
   moveToTop: (ja: 'トップ', en: 'Top'),
 );
 
-String formatDate(DateTime date, [Language? lang]) => switch (lang ??
-    user.lang) {
-  Language.en => '${_month[date.month]} ${date.day}, ${date.year}',
-  _ => '${date.year}年${date.month}月${date.day}日',
-};
+String formatDate(DateTime date, [Language? lang]) =>
+    switch (lang ?? user.lang) {
+      Language.en => '${_month[date.month]} ${date.day}, ${date.year}',
+      _ => '${date.year}年${date.month}月${date.day}日',
+    };
 
 /// テキストコンテンツを取得する
 String text(Content content) => switch (user.lang) {
