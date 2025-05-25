@@ -16,10 +16,9 @@ String _$fetchApiHttpClientHash() =>
 final fetchApiHttpClientProvider = Provider<FetchApiHttpClient>.internal(
   fetchApiHttpClient,
   name: r'fetchApiHttpClientProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$fetchApiHttpClientHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$fetchApiHttpClientHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

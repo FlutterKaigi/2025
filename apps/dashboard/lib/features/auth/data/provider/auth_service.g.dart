@@ -15,8 +15,9 @@ String _$authServiceHash() => r'21d842d4dceafa3d239c0196a0f2b890d37c0b71';
 final authServiceProvider = Provider<AuthService>.internal(
   authService,
   name: r'authServiceProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$authServiceHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$authServiceHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

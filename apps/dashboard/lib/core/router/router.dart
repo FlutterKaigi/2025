@@ -29,12 +29,10 @@ GoRouter router(Ref ref) {
     initialLocation: const MainRoute().location,
     redirect: (context, state) {
       final isAuthorized = isAuthorizedNotifier.value;
-      if (!isAuthorized &&
-          state.fullPath != const LoginRoute().location) {
+      if (!isAuthorized && state.fullPath != const LoginRoute().location) {
         return const LoginRoute().location;
       }
-      if (isAuthorized &&
-          state.fullPath == const LoginRoute().location) {
+      if (isAuthorized && state.fullPath == const LoginRoute().location) {
         return const MainRoute().location;
       }
       return null;

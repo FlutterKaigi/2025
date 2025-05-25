@@ -60,8 +60,7 @@ const site = (
     (
       title: (ja: '相談窓口', en: 'Contact'),
       url: (
-        ja:
-            'https://docs.google.com/forms/d/e/1FAIpQLSemYPFEWpP8594MWI4k3Nz45RJzMS7pz1ufwtnX4t3V7z2TOw/viewform',
+        ja: 'https://docs.google.com/forms/d/e/1FAIpQLSemYPFEWpP8594MWI4k3Nz45RJzMS7pz1ufwtnX4t3V7z2TOw/viewform',
         en: null,
       ),
     ),
@@ -85,10 +84,8 @@ final event = (
     sponsorship: (
       title: (ja: 'スポンサー募集について', en: 'About Sponsor Recruitment'),
       url: (
-        ja:
-            'https://medium.com/flutterkaigi/flutterkaigi-2025-スポンサー募集について-034330881a94',
-        en:
-            'https://medium.com/flutterkaigi/sponsoring-flutterkaigi-2025-da290533feb6',
+        ja: 'https://medium.com/flutterkaigi/flutterkaigi-2025-スポンサー募集について-034330881a94',
+        en: 'https://medium.com/flutterkaigi/sponsoring-flutterkaigi-2025-da290533feb6',
       ),
     ),
   ),

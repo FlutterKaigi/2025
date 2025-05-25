@@ -16,10 +16,9 @@ String _$authStateChangeStreamHash() =>
 final _authStateChangeStreamProvider = StreamProvider<AuthStateEvent>.internal(
   _authStateChangeStream,
   name: r'_authStateChangeStreamProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$authStateChangeStreamHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$authStateChangeStreamHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
@@ -35,10 +34,9 @@ final authNotifierProvider =
     StreamNotifierProvider<AuthNotifier, User?>.internal(
       AuthNotifier.new,
       name: r'authNotifierProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$authNotifierHash,
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$authNotifierHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );

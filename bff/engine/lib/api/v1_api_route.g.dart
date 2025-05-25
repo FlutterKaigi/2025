@@ -15,8 +15,9 @@ String _$v1ApiRouteHash() => r'007b30bd3478ceb87ceae6da26137d2f85141ce2';
 final v1ApiRouteProvider = Provider<V1ApiRoute>.internal(
   v1ApiRoute,
   name: r'v1ApiRouteProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$v1ApiRouteHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$v1ApiRouteHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

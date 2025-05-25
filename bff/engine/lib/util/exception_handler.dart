@@ -12,33 +12,30 @@ Future<Response> exceptionHandler(Future<Response> Function() fn) async {
     return await fn();
   } on AuthorizationException catch (e) {
     return jsonResponse(
-      () async =>
-          ErrorResponse.errorCode(
-            code: ErrorCode.unauthorized,
-            detail:
-                '認証エラーが発生しました: '
-                '[${e.type.name}]: ${e.message ?? ""}',
-          ).toJson(),
+      () async => ErrorResponse.errorCode(
+        code: ErrorCode.unauthorized,
+        detail:
+            '認証エラーが発生しました: '
+            '[${e.type.name}]: ${e.message ?? ""}',
+      ).toJson(),
       HttpStatus.unauthorized,
     );
   } on PostgrestException catch (e) {
     return jsonResponse(
-      () async =>
-          ErrorResponse.errorCode(
-            code: ErrorCode.internalServerError,
-            detail:
-                'データベースとの通信中にエラーが発生しました: '
-                '[${e.code}]: ${e.message}',
-          ).toJson(),
+      () async => ErrorResponse.errorCode(
+        code: ErrorCode.internalServerError,
+        detail:
+            'データベースとの通信中にエラーが発生しました: '
+            '[${e.code}]: ${e.message}',
+      ).toJson(),
       HttpStatus.internalServerError,
     );
   } on Exception catch (e) {
     return jsonResponse(
-      () async =>
-          ErrorResponse.errorCode(
-            code: ErrorCode.internalServerError,
-            detail: 'ハンドルされていない例外が発生しました: ${e.runtimeType}',
-          ).toJson(),
+      () async => ErrorResponse.errorCode(
+        code: ErrorCode.internalServerError,
+        detail: 'ハンドルされていない例外が発生しました: ${e.runtimeType}',
+      ).toJson(),
       HttpStatus.internalServerError,
     );
   }
@@ -48,11 +45,10 @@ Future<Response> exceptionHandler(Future<Response> Function() fn) async {
   // ignore: avoid_catching_errors
   on Error catch (e) {
     return jsonResponse(
-      () async =>
-          ErrorResponse.errorCode(
-            code: ErrorCode.internalServerError,
-            detail: 'ハンドルされていないエラーが発生しました: ${e.runtimeType}',
-          ).toJson(),
+      () async => ErrorResponse.errorCode(
+        code: ErrorCode.internalServerError,
+        detail: 'ハンドルされていないエラーが発生しました: ${e.runtimeType}',
+      ).toJson(),
       HttpStatus.internalServerError,
     );
   }

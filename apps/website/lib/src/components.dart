@@ -16,14 +16,13 @@ HTMLAnchorElement externalLink(
   String text, {
   required String url,
   String target = '_blank',
-}) =>
-    HTMLAnchorElement()
-      ..style.textDecoration = 'underline'
-      ..style.color = 'var(--link-color)'
-      ..style.cursor = 'pointer'
-      ..target = target
-      ..href = url
-      ..textContent = text;
+}) => HTMLAnchorElement()
+  ..style.textDecoration = 'underline'
+  ..style.color = 'var(--link-color)'
+  ..style.cursor = 'pointer'
+  ..target = target
+  ..href = url
+  ..textContent = text;
 
 /// サイト内リンク
 /// - [content] リンクコンテンツ
@@ -33,15 +32,14 @@ HTMLAnchorElement internalLink(
   JSAny content, {
   required Path path,
   String target = '_top',
-}) =>
-    HTMLAnchorElement()
-      ..style.textDecoration = 'underline'
-      ..style.color = 'var(--link-color)'
-      ..style.cursor = 'pointer'
-      ..target = target
-      ..href = path.toString()
-      ..append(content)
-      ..onClick.listen((event) {
-        event.preventDefault();
-        rerendering(path);
-      });
+}) => HTMLAnchorElement()
+  ..style.textDecoration = 'underline'
+  ..style.color = 'var(--link-color)'
+  ..style.cursor = 'pointer'
+  ..target = target
+  ..href = path.toString()
+  ..append(content)
+  ..onClick.listen((event) {
+    event.preventDefault();
+    rerendering(path);
+  });

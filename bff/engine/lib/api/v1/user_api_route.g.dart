@@ -15,8 +15,9 @@ String _$userApiRouteHash() => r'a279c2bdceeb481401e6de8b9fd9169c16549d00';
 final userApiRouteProvider = Provider<UserApiRoute>.internal(
   userApiRoute,
   name: r'userApiRouteProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$userApiRouteHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$userApiRouteHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
