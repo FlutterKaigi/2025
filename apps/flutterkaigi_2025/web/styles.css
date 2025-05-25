@@ -1,0 +1,128 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@900&&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@700&&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@400&&display=swap');
+
+:root {
+  --color-beyond-red: #e50632;
+  --color-flutter-sky: #027dfd;
+
+  --color-gradient-center: #822fe0;
+
+  --primary-color: var(--color-beyond-red);
+  --secondary-color: var(--color-flutter-sky);
+  --link-color: steelblue;
+  --border-color: slategray;
+  /* TODO: Darkにも対応できるようにする */
+  /* --background-color: #121212; */
+  /* --text-color: #ffffff; */
+  --background-color: #ffffff;
+  --text-color: #121212;
+  --base-gradient: linear-gradient(120deg,
+      var(--primary-color) 0%,
+      var(--color-gradient-center) 50%,
+      var(--secondary-color) 100%);
+}
+
+html {
+  background-color: var(--background-color);
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+}
+
+body * {
+  all: initial;
+  font-family: inherit;
+  color: var(--text-color);
+}
+
+.bubble {
+  position: relative;
+  border: 2px solid var(--border-color);
+  background: var(--background-color);
+  padding: 1rem 2rem;
+  border-radius: 2rem;
+}
+
+.bubble::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0.5rem;
+  height: 0.5rem;
+  background: var(--background-color);
+  border-right: 2px solid var(--border-color);
+  border-bottom: 2px solid var(--border-color);
+  transform: translate(-50%, 60%) rotate(45deg);
+  transform-origin: center center;
+}
+
+.gradient-button {
+  background: var(--base-gradient);
+  padding: 1rem 2rem;
+  border-radius: 4rem;
+}
+
+.gradient-button::after {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 4rem;
+  width: 100%;
+  height: calc(100% + 2rem);
+  background: var(--base-gradient);
+  filter: blur(12px);
+  opacity: 0.4;
+  transition: transform 0.25s ease-out;
+}
+
+.gradient-button:hover::after {
+  transform: scale(1.1);
+}
+
+@keyframes bounding {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(2rem);
+  }
+}
+
+@keyframes color-change {
+  from {
+    color: var(--primary-color);
+  }
+
+  to {
+    color: var(--secondary-color);
+  }
+}
+
+@keyframes slide-in {
+  30% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-in {
+  to {
+    opacity: 1;
+  }
+}
