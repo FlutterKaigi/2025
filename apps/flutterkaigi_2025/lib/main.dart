@@ -1,44 +1,62 @@
-// The entrypoint for the **server** environment.
-//
-// The [main] method will only be executed on the server during pre-rendering.
-// To run code on the client, use the @client annotation.
-
-// Server-specific jaspr import.
 import 'package:jaspr/server.dart';
-
-// Imports the [App] component.
 import 'app.dart';
-
-// This file is generated automatically by Jaspr, do not remove or edit.
 import 'jaspr_options.dart';
 
 void main() {
-  // Initializes the server environment with the generated default options.
   Jaspr.initializeApp(
     options: defaultJasprOptions,
   );
 
-  // Starts the app.
-  //
-  // [Document] renders the root document structure (<html>, <head> and <body>)
-  // with the provided parameters and components.
   runApp(Document(
     title: 'flutterkaigi_2025',
-    styles: [
-      // Special import rule to include to another css file.
-      css.import('https://fonts.googleapis.com/css?family=Roboto'),
-      // Each style rule takes a valid css selector and a set of styles.
-      // Styles are defined using type-safe css bindings and can be freely chained and nested.
-      css('html, body').styles(
-        width: 100.percent,
-        minHeight: 100.vh,
-        padding: Padding.zero,
-        margin: Margin.zero,
-        fontFamily: const FontFamily.list([FontFamily('Roboto'), FontFamilies.sansSerif]),
+    head: [
+      meta(charset: 'utf-8'),
+      meta(httpEquiv: "X-UA-Compatible", content: "IE=edge"),
+      meta(name: 'viewport', content: 'width=device-width, initial-scale=1.0'),
+      // OGP
+      DomComponent(tag: 'meta', attributes: {
+        'property': 'og:title',
+        'content': 'FlutterKaigi 2025',
+      }),
+      DomComponent(tag: 'meta', attributes: {
+        'property': 'og:description',
+        'content':
+            '2025年、日本国内でFlutterをメインに扱う技術カンファレンス。FlutterやDartの深い知見を持つ開発者によるセッションを多数企画します。',
+      }),
+      DomComponent(tag: 'meta', attributes: {
+        'property': 'og:image',
+        'content': 'https://2025.flutterkaigi.jp/img/ogp.png',
+      }),
+      DomComponent(tag: 'meta', attributes: {
+        'property': 'og:type',
+        'content': 'website',
+      }),
+      DomComponent(tag: 'meta', attributes: {
+        'property': 'og:url',
+        'content': 'https://2025.flutterkaigi.jp',
+      }),
+      meta(name: 'twitter:card', content: 'summary_large_image'),
+      meta(name: 'twitter:site', content: '@FlutterKaigi'),
+      link(rel: 'icon', href: '/img/favicon.ico', type: 'image/png'),
+      link(rel: 'apple-touch-icon', href: '/img/favicon.png'),
+      link(rel: 'stylesheet', href: '/style.css'),
+      script(
+        [],
+        src: 'https://www.googletagmanager.com/gtag/js?id=G-L9WHLCCTGM',
+        async: true,
       ),
-      css('h1').styles(
-        margin: Margin.unset,
-        fontSize: 4.rem,
+      DomComponent(
+        tag: 'script',
+        children: [
+          RawText('''
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'G-L9WHLCCTGM');
+''')
+        ],
       ),
     ],
     body: App(),
