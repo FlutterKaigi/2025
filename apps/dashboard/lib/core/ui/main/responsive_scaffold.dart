@@ -94,11 +94,6 @@ class _LargeScreen extends StatelessWidget {
             ).toList(),
           ),
         ),
-        VerticalDivider(
-          width: 1,
-          thickness: 1,
-          color: Colors.grey[300],
-        ),
         Expanded(child: Scaffold(body: body)),
       ],
     );
@@ -134,11 +129,6 @@ class _MediumScreen extends StatelessWidget {
                 .toList(),
             selectedIndex: currentIndex,
             onDestinationSelected: onNavigationIndexChange,
-          ),
-          VerticalDivider(
-            width: 1,
-            thickness: 1,
-            color: Colors.grey[300],
           ),
           Expanded(child: body),
         ],
