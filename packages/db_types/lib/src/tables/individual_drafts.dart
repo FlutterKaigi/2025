@@ -16,9 +16,8 @@ abstract class IndividualDrafts with _$IndividualDrafts {
   }) = _IndividualDrafts;
 
   factory IndividualDrafts.fromJson(Map<String, dynamic> json) =>
-    _$IndividualDraftsFromJson(json);
+      _$IndividualDraftsFromJson(json);
 }
-
 
 @freezed
 abstract class IndividualDraftApprovals with _$IndividualDraftApprovals {
@@ -31,5 +30,5 @@ abstract class IndividualDraftApprovals with _$IndividualDraftApprovals {
   }) = _IndividualDraftApprovals;
 
   factory IndividualDraftApprovals.fromJson(Map<String, dynamic> json) =>
-    _$IndividualDraftApprovalsFromJson(json);
+      _$IndividualDraftApprovalsFromJson(json);
 }

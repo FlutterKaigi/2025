@@ -44,11 +44,10 @@ Future<void> main() async {
   final jsResponse = web.Response(
     Uint8List.fromList(bytes).buffer.toJS,
     web.ResponseInit(
-      headers:
-          {
-            ...response.headers,
-            'x-commit-hash': cfWorkersEnv.commitHash,
-          }.toJSDeep,
+      headers: {
+        ...response.headers,
+        'x-commit-hash': cfWorkersEnv.commitHash,
+      }.toJSDeep,
       status: response.statusCode,
     ),
   );

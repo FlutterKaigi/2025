@@ -125,17 +125,15 @@ HTMLElement get _countdown {
 
   final count = countdown(event.date.difference(DateTime.now()));
 
-  HTMLElement colon() =>
-      HTMLSpanElement()
-        ..style.color = 'var(--secondary-color)'
-        ..style.fontSize = '2rem'
-        ..textContent = ':';
+  HTMLElement colon() => HTMLSpanElement()
+    ..style.color = 'var(--secondary-color)'
+    ..style.fontSize = '2rem'
+    ..textContent = ':';
 
-  HTMLElement digit(int digit) =>
-      HTMLSpanElement()
-        ..style.color = 'var(--secondary-color)'
-        ..style.fontSize = '2rem'
-        ..textContent = _formatDigit(digit);
+  HTMLElement digit(int digit) => HTMLSpanElement()
+    ..style.color = 'var(--secondary-color)'
+    ..style.fontSize = '2rem'
+    ..textContent = _formatDigit(digit);
 
   HTMLElement newDigit(HTMLElement currentDigit, int d) {
     if (currentDigit.textContent == _formatDigit(d)) {
@@ -179,23 +177,22 @@ HTMLElement get _countdown {
     ]);
 }
 
-HTMLElement get _schedule =>
-    HTMLDListElement()
-      ..style.display = 'grid'
-      ..style.gridGap = '0.5rem'
-      ..style.gridTemplateColumns = 'repeat(2, 1fr)'
-      ..style.marginTop = '1rem'
-      ..style.marginBottom = '4rem'
-      ..appendAll(
-        event.schedule
-            .map(
-              (schedule) => [
-                HTMLElement.dt()
-                  ..style.textAlign = 'center'
-                  ..style.lineHeight = '2rem'
-                  ..textContent = formatDate(schedule.date),
-                HTMLElement.dd()..textContent = text(schedule.title),
-              ],
-            )
-            .expand((e) => e),
-      );
+HTMLElement get _schedule => HTMLDListElement()
+  ..style.display = 'grid'
+  ..style.gridGap = '0.5rem'
+  ..style.gridTemplateColumns = 'repeat(2, 1fr)'
+  ..style.marginTop = '1rem'
+  ..style.marginBottom = '4rem'
+  ..appendAll(
+    event.schedule
+        .map(
+          (schedule) => [
+            HTMLElement.dt()
+              ..style.textAlign = 'center'
+              ..style.lineHeight = '2rem'
+              ..textContent = formatDate(schedule.date),
+            HTMLElement.dd()..textContent = text(schedule.title),
+          ],
+        )
+        .expand((e) => e),
+  );

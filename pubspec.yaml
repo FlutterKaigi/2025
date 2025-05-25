@@ -2,8 +2,8 @@ name: flutterkaigi_2025
 publish_to: none
 
 environment:
-  sdk: ^3.8.0-278.2.beta
-  flutter: ^3.32.0-0.3.pre
+  sdk: ^3.9.0-100.2.beta
+  flutter: ^3.33.0-0.1.pre
 
 dev_dependencies:
   melos: ^7.0.0-dev.8
@@ -28,8 +28,8 @@ melos:
   command:
     bootstrap:
       environment:
-        sdk: ^3.8.0-278.2.beta
-        flutter: ^3.32.0-0.3.pre
+        sdk: ^3.9.0-100.2.beta
+        flutter: ^3.33.0-0.1.pre
       dependencies:
         go_router: ^15.1.2
       dev_dependencies:

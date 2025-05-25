@@ -11,5 +11,5 @@ abstract class UserMeGetResponse with _$UserMeGetResponse {
   }) = _UserMeGetResponse;
 
   factory UserMeGetResponse.fromJson(Map<String, dynamic> json) =>
-    _$UserMeGetResponseFromJson(json);
+      _$UserMeGetResponseFromJson(json);
 }

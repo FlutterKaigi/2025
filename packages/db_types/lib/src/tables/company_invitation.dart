@@ -14,5 +14,5 @@ abstract class CompanyInvitation with _$CompanyInvitation {
   }) = _CompanyInvitation;
 
   factory CompanyInvitation.fromJson(Map<String, dynamic> json) =>
-    _$CompanyInvitationFromJson(json);
+      _$CompanyInvitationFromJson(json);
 }

@@ -49,5 +49,23 @@ final class SupabaseClientProvider
 
 String _$supabaseClientHash() => r'3a614836a79d8824f79d9b67027b371ab4646e95';
 
+<<<<<<< HEAD
+=======
+/// See also [supabaseClient].
+@ProviderFor(supabaseClient)
+final supabaseClientProvider = Provider<SupabaseClient>.internal(
+  supabaseClient,
+  name: r'supabaseClientProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$supabaseClientHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef SupabaseClientRef = ProviderRef<SupabaseClient>;
+>>>>>>> 3a076a172db06becf9c680aa237e2b555521731b
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

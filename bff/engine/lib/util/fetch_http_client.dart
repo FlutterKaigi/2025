@@ -55,34 +55,32 @@ class FetchApiHttpClient extends BaseClient {
 
     final bodyBytes = await request.finalize().toBytes();
     try {
-      final response =
-          await fetch(
-            web.Request(
-              '${request.url}'.toJS,
-              RequestInit(
-                method: request.method,
-                body: bodyBytes.isNotEmpty ? bodyBytes.toJS : null,
-                credentials: withCredentials ? 'include' : 'same-origin',
-                headers:
-                    {
-                          if (request.contentLength case final contentLength?)
-                            'content-length': contentLength,
-                          for (final header in request.headers.entries)
-                            header.key: header.value,
-                        }.jsify()!
-                        as HeadersInit,
-                signal: _abortController.signal,
-                redirect: request.followRedirects ? 'follow' : 'error',
-              ),
-            ),
-          ).toDart;
+      final response = await fetch(
+        web.Request(
+          '${request.url}'.toJS,
+          RequestInit(
+            method: request.method,
+            body: bodyBytes.isNotEmpty ? bodyBytes.toJS : null,
+            credentials: withCredentials ? 'include' : 'same-origin',
+            headers:
+                {
+                      if (request.contentLength case final contentLength?)
+                        'content-length': contentLength,
+                      for (final header in request.headers.entries)
+                        header.key: header.value,
+                    }.jsify()!
+                    as HeadersInit,
+            signal: _abortController.signal,
+            redirect: request.followRedirects ? 'follow' : 'error',
+          ),
+        ),
+      ).toDart;
 
       final contentLengthHeader = response.headers.get('content-length');
 
-      final contentLength =
-          contentLengthHeader != null
-              ? int.tryParse(contentLengthHeader)
-              : null;
+      final contentLength = contentLengthHeader != null
+          ? int.tryParse(contentLengthHeader)
+          : null;
 
       if (contentLength == null && contentLengthHeader != null) {
         throw ClientException(

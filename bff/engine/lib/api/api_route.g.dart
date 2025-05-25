@@ -48,6 +48,24 @@ final class ApiRouteProvider extends $FunctionalProvider<ApiRoute, ApiRoute>
 
 String _$apiRouteHash() => r'a2b73512173823e60d4869f50df57cfacc9725e5';
 
+<<<<<<< HEAD
+=======
+/// See also [apiRoute].
+@ProviderFor(apiRoute)
+final apiRouteProvider = Provider<ApiRoute>.internal(
+  apiRoute,
+  name: r'apiRouteProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$apiRouteHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef ApiRouteRef = ProviderRef<ApiRoute>;
+>>>>>>> 3a076a172db06becf9c680aa237e2b555521731b
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
 
