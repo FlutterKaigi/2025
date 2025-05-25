@@ -7,6 +7,7 @@ class ResponsiveScaffoldDestination {
     required this.title,
     required this.icon,
   });
+
   final String title;
   final IconData icon;
 }

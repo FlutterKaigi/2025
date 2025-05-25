@@ -8,25 +8,7 @@ part of 'router.dart';
 // GoRouterGenerator
 // **************************************************************************
 
-List<RouteBase> get $appRoutes => [$mainRoute, $loginRoute];
-
-RouteBase get $mainRoute =>
-    GoRouteData.$route(path: '/', factory: $MainRouteExtension._fromState);
-
-extension $MainRouteExtension on MainRoute {
-  static MainRoute _fromState(GoRouterState state) => const MainRoute();
-
-  String get location => GoRouteData.$location('/');
-
-  void go(BuildContext context) => context.go(location);
-
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
-
-  void replace(BuildContext context) => context.replace(location);
-}
+List<RouteBase> get $appRoutes => [$loginRoute, $mainRoute];
 
 RouteBase get $loginRoute => GoRouteData.$route(
   path: '/login',
@@ -38,6 +20,91 @@ extension $LoginRouteExtension on LoginRoute {
   static LoginRoute _fromState(GoRouterState state) => const LoginRoute();
 
   String get location => GoRouteData.$location('/login');
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $mainRoute => StatefulShellRouteData.$route(
+  factory: $MainRouteExtension._fromState,
+  branches: [
+    StatefulShellBranchData.$branch(
+      routes: [
+        GoRouteData.$route(
+          path: '/event',
+
+          factory: $EventInfoRouteExtension._fromState,
+        ),
+      ],
+    ),
+    StatefulShellBranchData.$branch(
+      routes: [
+        GoRouteData.$route(
+          path: '/sponsors',
+
+          factory: $SponsorListRouteExtension._fromState,
+        ),
+      ],
+    ),
+    StatefulShellBranchData.$branch(
+      routes: [
+        GoRouteData.$route(
+          path: '/account',
+
+          factory: $AccountInfoRouteExtension._fromState,
+        ),
+      ],
+    ),
+  ],
+);
+
+extension $MainRouteExtension on MainRoute {
+  static MainRoute _fromState(GoRouterState state) => const MainRoute();
+}
+
+extension $EventInfoRouteExtension on EventInfoRoute {
+  static EventInfoRoute _fromState(GoRouterState state) =>
+      const EventInfoRoute();
+
+  String get location => GoRouteData.$location('/event');
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $SponsorListRouteExtension on SponsorListRoute {
+  static SponsorListRoute _fromState(GoRouterState state) =>
+      const SponsorListRoute();
+
+  String get location => GoRouteData.$location('/sponsors');
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $AccountInfoRouteExtension on AccountInfoRoute {
+  static AccountInfoRoute _fromState(GoRouterState state) =>
+      const AccountInfoRoute();
+
+  String get location => GoRouteData.$location('/account');
 
   void go(BuildContext context) => context.go(location);
 
@@ -91,7 +158,7 @@ final class RouterProvider extends $FunctionalProvider<GoRouter, GoRouter>
   }
 }
 
-String _$routerHash() => r'0e44149e7f0e3e81881bf8916eea9445305acb3e';
+String _$routerHash() => r'529f08a3cab04410aedb49fb9aaf9b38cccf2bfc';
 
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
