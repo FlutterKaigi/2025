@@ -53,21 +53,45 @@ extension $LoginRouteExtension on LoginRoute {
 // RiverpodGenerator
 // **************************************************************************
 
+@ProviderFor(router)
+const routerProvider = RouterProvider._();
+
+final class RouterProvider extends $FunctionalProvider<GoRouter, GoRouter>
+    with $Provider<GoRouter> {
+  const RouterProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'routerProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$routerHash();
+
+  @$internal
+  @override
+  $ProviderElement<GoRouter> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  GoRouter create(Ref ref) {
+    return router(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(GoRouter value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $ValueProvider<GoRouter>(value),
+    );
+  }
+}
+
 String _$routerHash() => r'0161b1a83b81cdd96d1e72df265fc91bc8ec79dd';
 
-/// See also [router].
-@ProviderFor(router)
-final routerProvider = Provider<GoRouter>.internal(
-  router,
-  name: r'routerProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$routerHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef RouterRef = ProviderRef<GoRouter>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
