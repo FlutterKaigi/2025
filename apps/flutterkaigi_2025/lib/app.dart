@@ -21,13 +21,37 @@ class App extends StatelessComponent {
     // create and return a [List] here.
 
     // Renders a <div class="main"> html element with children.
-    yield div(classes: 'main', [
-      const Header(),
-      Router(routes: [
-        Route(path: '/', title: 'Home', builder: (context, state) => const Home()),
-        Route(path: '/about', title: 'About', builder: (context, state) => const About()),
-      ]),
-    ]);
+    yield div(
+      styles: Styles(
+        display: Display.flex,
+        flexDirection: FlexDirection.column,
+        minHeight: 100.vh,
+        width: Unit.auto,
+      ),
+      [
+        Header(
+          styles: Styles(
+            position: Position.sticky(top: 0.px),
+            border: Border.only(
+              bottom: BorderSide.solid(
+                color: Color.variable('--border-color'),
+                width: 1.px,
+              ),
+            ),
+          ),
+        ),
+        Router(routes: [
+          Route(
+              path: '/',
+              title: 'Home',
+              builder: (context, state) => const Home()),
+          Route(
+              path: '/about',
+              title: 'About',
+              builder: (context, state) => const About()),
+        ]),
+      ],
+    );
   }
 
   // Defines the css styles for elements of this component.

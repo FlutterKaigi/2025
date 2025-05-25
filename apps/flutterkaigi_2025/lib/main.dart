@@ -10,9 +10,7 @@ void main() {
   runApp(Document(
     title: 'flutterkaigi_2025',
     head: [
-      meta(charset: 'utf-8'),
       meta(httpEquiv: "X-UA-Compatible", content: "IE=edge"),
-      meta(name: 'viewport', content: 'width=device-width, initial-scale=1.0'),
       // OGP
       DomComponent(tag: 'meta', attributes: {
         'property': 'og:title',
@@ -39,7 +37,7 @@ void main() {
       meta(name: 'twitter:site', content: '@FlutterKaigi'),
       link(rel: 'icon', href: '/img/favicon.ico', type: 'image/png'),
       link(rel: 'apple-touch-icon', href: '/img/favicon.png'),
-      link(rel: 'stylesheet', href: '/style.css'),
+      link(rel: 'stylesheet', href: 'styles.css', type: 'text/css'),
       script(
         [],
         src: 'https://www.googletagmanager.com/gtag/js?id=G-L9WHLCCTGM',

@@ -1,71 +1,82 @@
+import 'package:flutterkaigi_2025/components/internal_link.dart';
+import 'package:flutterkaigi_2025/config.dart';
+import 'package:flutterkaigi_2025/path.dart' show Path;
+import 'package:flutterkaigi_2025/text.dart';
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr_router/jaspr_router.dart';
-
-import '../constants/theme.dart';
 
 class Header extends StatelessComponent {
-  const Header({super.key});
+  const Header({super.key, this.styles});
+
+  final Styles? styles;
 
   @override
   Iterable<Component> build(BuildContext context) sync* {
-    var activePath = context.url;
+    final baseStyles = Styles(
+      padding: Spacing.all(1.rem),
+      zIndex: ZIndex(10),
+      display: Display.flex,
+      flexDirection: FlexDirection.row,
+      justifyContent: JustifyContent.spaceBetween,
+      alignItems: AlignItems.center,
+      raw: {
+        'backdrop-filter': 'blur(10px)',
+      },
+    );
+    final combined = styles?.combine(baseStyles) ?? baseStyles;
 
-    yield header([
-      nav([
-        for (var route in [
-          (label: 'Home', path: '/'),
-          (label: 'About', path: '/about'),
-        ])
-          div(classes: activePath == route.path ? 'active' : null, [
-            Link(to: route.path, child: text(route.label)),
-          ]),
+    yield header(styles: combined, [
+      div([
+        InternalLink(
+          content: img(
+            src: '/img/icon_flutterkaigi_full_light.svg',
+            styles: Styles(
+              height: 2.em,
+              cursor: Cursor.pointer,
+              raw: {
+                'vertical-align': 'middle',
+              },
+            ),
+            alt: '${site.title} logo',
+          ),
+          path: Path.go(),
+        ),
       ]),
+      nav(
+        styles: Styles(
+          display: Display.flex,
+          flexDirection: FlexDirection.row,
+          alignItems: AlignItems.center,
+          gap: Gap(row: 0.5.em, column: 0.5.em),
+          fontSize: Unit.inherit,
+        ),
+        [
+          _LanguageLink(language: Language.ja, title: contents.lang.ja),
+          _LanguageLink(language: Language.en, title: contents.lang.en),
+        ],
+      ),
     ]);
   }
+}
 
-  @css
-  static final styles = [
-    css('header', [
-      css('&').styles(
-        display: Display.flex,
-        padding: Padding.all(1.em),
-        justifyContent: JustifyContent.center,
-      ),
-      css('nav', [
-        css('&').styles(
-          display: Display.flex,
-          height: 3.em,
-          radius: BorderRadius.all(Radius.circular(10.px)), 
-          overflow: Overflow.clip,
-          justifyContent: JustifyContent.spaceBetween,
-          backgroundColor: primaryColor,
-        ),
-        css('a', [
-          css('&').styles(
-            display: Display.flex,
-            height: 100.percent,
-            padding: Padding.symmetric(horizontal: 2.em),
-            alignItems: AlignItems.center,
-            color: Colors.white,
-            fontWeight: FontWeight.w700,
-            textDecoration: const TextDecoration(line: TextDecorationLine.none),
-          ),
-          css('&:hover').styles(
-            backgroundColor: const Color('#0005'),
-          ),
-        ]),
-        css('div.active', [
-          css('&').styles(position: const Position.relative()),
-          css('&::before').styles(
-            content: '',
-            display: Display.block,
-            position: Position.absolute(bottom: 0.5.em, left: 20.px, right: 20.px),
-            height: 2.px,
-            radius: BorderRadius.circular(1.px),
-            backgroundColor: Colors.white,
-          ),
-        ])
-      ]),
-    ]),
-  ];
+class _LanguageLink extends StatelessComponent {
+  const _LanguageLink({
+    required this.language,
+    required this.title,
+  });
+
+  final Language language;
+  final String title;
+
+  @override
+  Iterable<Component> build(BuildContext context) sync* {
+    final path = context.url;
+    if (user.lang == language) {
+      yield Text(title);
+      return;
+    }
+    yield InternalLink(
+      content: Text(title),
+      path: Path.fromPathname(path).withLang(language),
+    );
+  }
 }
