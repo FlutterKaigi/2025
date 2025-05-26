@@ -1,0 +1,94 @@
+import 'package:flutterkaigi_2025/components/external_link.dart';
+import 'package:flutterkaigi_2025/config.dart';
+import 'package:flutterkaigi_2025/text.dart';
+import 'package:jaspr/jaspr.dart';
+
+class Footer extends StatelessComponent {
+  const Footer({super.key});
+
+  @override
+  Iterable<Component> build(BuildContext context) sync* {
+    yield footer(
+      styles: Styles(
+        display: Display.flex,
+        flexDirection: FlexDirection.column,
+        alignItems: AlignItems.center,
+        gap: Gap.all(1.rem),
+        padding: Padding.all(1.rem),
+        border: Border.only(
+          top: BorderSide.solid(
+            color: Color.variable('--border-color'),
+            width: 1.px,
+          ),
+        ),
+      ),
+      [
+        _Navigations(links: event.pastEvents),
+        _Navigations(links: site.snsLinks),
+        _Navigations(links: site.externalLinks),
+      ],
+    );
+  }
+}
+
+class _Navigations extends StatelessComponent {
+  const _Navigations({required this.links});
+
+  final List<LinkBase> links;
+
+  @override
+  Iterable<Component> build(BuildContext context) sync* {
+    yield nav(
+      styles: Styles(
+        display: Display.flex,
+        flexDirection: FlexDirection.row,
+        flexWrap: FlexWrap.wrap,
+        justifyContent: JustifyContent.center,
+        gap: Gap.all(1.em),
+      ),
+      [
+        for (final link in links) _Link(link: link),
+      ],
+    );
+  }
+}
+
+class _Link extends StatelessComponent {
+  _Link({required this.link});
+  final LinkBase link;
+
+  @override
+  Iterable<Component> build(BuildContext context) sync* {
+    yield switch (link) {
+      SnsLink(:final title, :final url, :final icon) => div(
+          styles: Styles(
+            display: Display.flex,
+            flexDirection: FlexDirection.row,
+            justifyContent: JustifyContent.center,
+            alignItems: AlignItems.center,
+            gap: Gap.all(0.1.em),
+          ),
+          [
+            img(
+              styles: Styles(
+                height: 1.5.em,
+                raw: {
+                  'vertical-align': 'middle',
+                },
+              ),
+              src: icon,
+              alt: '$title logo',
+            ),
+            ExternalLink(
+              url: url,
+              content: Text(title),
+            ),
+          ],
+        ),
+      RelatedLink(:final title, :final url) =>
+        ExternalLink(url: url.text, content: Text(title.text)),
+      PastEventLink(:final title, :final url) =>
+        ExternalLink(url: url, content: Text(title)),
+    };
+  }
+}

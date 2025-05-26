@@ -1,3 +1,4 @@
+import 'package:flutterkaigi_2025/components/footer.dart';
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_router/jaspr_router.dart';
 
@@ -50,6 +51,7 @@ class App extends StatelessComponent {
               title: 'About',
               builder: (context, state) => const About()),
         ]),
+        Footer(),
       ],
     );
   }
