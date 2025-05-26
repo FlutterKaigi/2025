@@ -26,6 +26,53 @@ class Footer extends StatelessComponent {
         _Navigations(links: event.pastEvents),
         _Navigations(links: site.snsLinks),
         _Navigations(links: site.externalLinks),
+        div(
+          styles: Styles(
+            display: Display.flex,
+            flexDirection: FlexDirection.column,
+            justifyContent: JustifyContent.center,
+            alignItems: AlignItems.center,
+            gap: Gap.all(0.5.em),
+          ),
+          [
+            p([
+              Text('© ${site.since} - ${site.until} ${site.organizer}'),
+            ]),
+            p(
+              styles: Styles(
+                fontSize: 0.8.em,
+              ),
+              [
+                Text(
+                  'Flutter and the related logo are trademarks of Google LLC.'
+                  ' FlutterKaigi is not affiliated with or otherwise sponsored'
+                  ' by Google LLC.',
+                )
+              ],
+            ),
+            p(
+              styles: Styles(
+                fontSize: 0.8.em,
+              ),
+              [
+                Text(
+                  'The Flutter name and the Flutter logo ',
+                ),
+                img(
+                  src: '/img/icon_flutter.svg',
+                  alt: 'Flutter logo',
+                  styles: Styles(
+                    height: 0.8.em,
+                    raw: {
+                      'vertical-align': 'middle',
+                    },
+                  ),
+                ),
+                Text(' are trademarks of Google LLC.'),
+              ],
+            ),
+          ],
+        ),
       ],
     );
   }
