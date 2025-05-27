@@ -1,5 +1,7 @@
 import 'package:flutterkaigi_2025/components/countdown_view.dart';
 import 'package:flutterkaigi_2025/components/external_link.dart';
+import 'package:flutterkaigi_2025/components/schedule_view.dart';
+import 'package:flutterkaigi_2025/components/section_layout.dart';
 import 'package:flutterkaigi_2025/config.dart';
 import 'package:flutterkaigi_2025/constants/styles.dart';
 import 'package:flutterkaigi_2025/text.dart';
@@ -25,6 +27,10 @@ class Home extends StatelessComponent {
       ),
       [
         const _MainArticle(),
+        SectionLayout(
+          title: 'Schedule',
+          children: [ScheduleView()],
+        ),
       ],
     );
   }

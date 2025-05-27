@@ -1,0 +1,47 @@
+import 'package:flutterkaigi_2025/config.dart';
+import 'package:flutterkaigi_2025/text.dart';
+import 'package:jaspr/jaspr.dart';
+
+class ScheduleView extends StatelessComponent {
+  @override
+  Iterable<Component> build(BuildContext context) sync* {
+    yield DomComponent(
+      tag: 'dl',
+      styles: Styles(
+        display: Display.grid,
+        gap: Gap.all(0.5.rem),
+        gridTemplate: GridTemplate(
+          columns: GridTracks([
+            GridTrack.repeat(
+              TrackRepeat(2),
+              [
+                GridTrack(TrackSize.fr(1)),
+              ],
+            )
+          ]),
+        ),
+        margin: Spacing.only(top: 1.rem, bottom: 4.rem),
+      ),
+      children: [
+        ...event.schedule
+            .map(
+              (schedule) => [
+                DomComponent(
+                  tag: 'dt',
+                  styles: Styles(
+                    textAlign: TextAlign.center,
+                    lineHeight: 2.rem,
+                  ),
+                  child: text(formatDate(schedule.date)),
+                ),
+                DomComponent(
+                  tag: 'dd',
+                  child: text(schedule.title.text),
+                ),
+              ],
+            )
+            .expand((e) => e),
+      ],
+    );
+  }
+}
