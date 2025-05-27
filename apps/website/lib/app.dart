@@ -27,7 +27,7 @@ class App extends StatelessComponent {
           routes: [
             ..._createLanguageRoutes(
               path: '/',
-              title: 'Home',
+              title: 'FlutterKaigi 2025',
               builder: (context, state) => const Home(),
             ),
             ..._createLanguageRoutes(
