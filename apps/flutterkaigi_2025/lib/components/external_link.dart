@@ -7,25 +7,28 @@ class ExternalLink extends StatelessComponent {
     required this.content,
     required this.url,
     this.target = Target.blank,
+    this.styles,
   });
 
   final Component content;
   final String url;
   final Target target;
+  final Styles? styles;
 
   @override
   Iterable<Component> build(BuildContext context) sync* {
+    final baseStyle = Styles(
+      textDecoration: TextDecoration(
+        line: TextDecorationLine.underline,
+      ),
+      color: Color.variable('--link-color'),
+      cursor: Cursor.pointer,
+    );
     yield Link(
       to: url,
       child: content,
       target: target,
-      styles: Styles(
-        textDecoration: TextDecoration(
-          line: TextDecorationLine.underline,
-        ),
-        color: Color.variable('--link-color'),
-        cursor: Cursor.pointer,
-      ),
+      styles: baseStyle.combine(styles ?? Styles()),
     );
   }
 }

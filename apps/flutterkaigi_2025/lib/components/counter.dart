@@ -2,6 +2,7 @@ import 'package:jaspr/jaspr.dart';
 
 import '../constants/theme.dart';
 
+@client
 class Counter extends StatefulComponent {
   const Counter({super.key});
 

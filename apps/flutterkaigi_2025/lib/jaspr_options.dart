@@ -5,8 +5,7 @@
 // Generated with jaspr_builder
 
 import 'package:jaspr/jaspr.dart';
-import 'package:flutterkaigi_2025/components/counter.dart' as prefix0;
-import 'package:flutterkaigi_2025/pages/home.dart' as prefix1;
+import 'package:flutterkaigi_2025/components/countdown_view.dart' as prefix0;
 
 /// Default [JasprOptions] for use with your jaspr project.
 ///
@@ -25,6 +24,10 @@ import 'package:flutterkaigi_2025/pages/home.dart' as prefix1;
 /// }
 /// ```
 JasprOptions get defaultJasprOptions => JasprOptions(
-  clients: {prefix1.Home: ClientTarget<prefix1.Home>('pages/home')},
-  styles: () => [...prefix0.CounterState.styles],
+  clients: {
+    prefix0.CountdownView: ClientTarget<prefix0.CountdownView>(
+      'components/countdown_view',
+    ),
+  },
+  styles: () => [],
 );
