@@ -1,5 +1,7 @@
 import 'package:flutterkaigi_2025/components/footer.dart';
-import 'package:flutterkaigi_2025/config.dart' show user;
+import 'package:flutterkaigi_2025/config.dart' show makeTitle, user;
+import 'package:flutterkaigi_2025/pages/404.dart';
+import 'package:flutterkaigi_2025/pages/dashsay.dart';
 import 'package:flutterkaigi_2025/text.dart' show Language;
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_router/jaspr_router.dart';
@@ -20,13 +22,25 @@ class App extends StatelessComponent {
         width: Unit.auto,
       ),
       [
-        Router(routes: [
-          ..._createLanguageRoutes(
-            path: '/',
-            title: 'Home',
-            builder: (context, state) => const Home(),
+        Router(
+          routes: [
+            ..._createLanguageRoutes(
+              path: '/',
+              title: 'Home',
+              builder: (context, state) => const Home(),
+            ),
+            ..._createLanguageRoutes(
+              path: '/dashsay',
+              title: makeTitle('Dash say'),
+              builder: (context, state) => Dashsay(
+                message: state.queryParams['m'] ?? '',
+              ),
+            )
+          ],
+          errorBuilder: (context, state) => _BasicLayout(
+            child: const NotFound(),
           ),
-        ]),
+        ),
       ],
     );
   }
