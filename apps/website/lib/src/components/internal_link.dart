@@ -1,4 +1,4 @@
-import 'package:flutterkaigi_2025/path.dart' show Path;
+import 'package:flutterkaigi_2025_website/src/path.dart' show Path;
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_router/jaspr_router.dart';
 

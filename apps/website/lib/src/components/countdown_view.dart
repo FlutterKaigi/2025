@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:flutterkaigi_2025/config.dart';
-import 'package:flutterkaigi_2025/constants/styles.dart';
+import 'package:flutterkaigi_2025_website/src/config/config.dart';
+import 'package:flutterkaigi_2025_website/src/constants/styles.dart';
 import 'package:jaspr/jaspr.dart';
 
 @client

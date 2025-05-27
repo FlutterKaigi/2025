@@ -1,5 +1,5 @@
-import 'package:flutterkaigi_2025/config.dart';
-import 'package:flutterkaigi_2025/text.dart';
+import 'package:flutterkaigi_2025_website/src/config/config.dart';
+import 'package:flutterkaigi_2025_website/text.dart';
 import 'package:jaspr/jaspr.dart';
 
 class ScheduleView extends StatelessComponent {

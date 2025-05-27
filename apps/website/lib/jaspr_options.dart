@@ -5,7 +5,8 @@
 // Generated with jaspr_builder
 
 import 'package:jaspr/jaspr.dart';
-import 'package:flutterkaigi_2025/components/countdown_view.dart' as prefix0;
+import 'package:flutterkaigi_2025_website/src/components/countdown_view.dart'
+    as prefix0;
 
 /// Default [JasprOptions] for use with your jaspr project.
 ///
@@ -26,7 +27,7 @@ import 'package:flutterkaigi_2025/components/countdown_view.dart' as prefix0;
 JasprOptions get defaultJasprOptions => JasprOptions(
   clients: {
     prefix0.CountdownView: ClientTarget<prefix0.CountdownView>(
-      'components/countdown_view',
+      'src/components/countdown_view',
     ),
   },
   styles: () => [],

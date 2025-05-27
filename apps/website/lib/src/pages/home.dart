@@ -1,10 +1,10 @@
-import 'package:flutterkaigi_2025/components/countdown_view.dart';
-import 'package:flutterkaigi_2025/components/external_link.dart';
-import 'package:flutterkaigi_2025/components/schedule_view.dart';
-import 'package:flutterkaigi_2025/components/section_layout.dart';
-import 'package:flutterkaigi_2025/config.dart';
-import 'package:flutterkaigi_2025/constants/styles.dart';
-import 'package:flutterkaigi_2025/text.dart';
+import 'package:flutterkaigi_2025_website/src/components/countdown_view.dart';
+import 'package:flutterkaigi_2025_website/src/components/external_link.dart';
+import 'package:flutterkaigi_2025_website/src/components/schedule_view.dart';
+import 'package:flutterkaigi_2025_website/src/components/section_layout.dart';
+import 'package:flutterkaigi_2025_website/src/config/config.dart';
+import 'package:flutterkaigi_2025_website/src/constants/styles.dart';
+import 'package:flutterkaigi_2025_website/text.dart';
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_router/jaspr_router.dart';
 

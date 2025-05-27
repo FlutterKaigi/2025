@@ -35,7 +35,7 @@ void main() {
       }),
       meta(name: 'twitter:card', content: 'summary_large_image'),
       meta(name: 'twitter:site', content: '@FlutterKaigi'),
-      link(rel: 'icon', href: '/img/favicon.ico', type: 'image/png'),
+      link(rel: 'icon', href: '/img/favicon.png', type: 'image/png'),
       link(rel: 'apple-touch-icon', href: '/img/favicon.png'),
       link(rel: 'stylesheet', href: 'styles.css', type: 'text/css'),
       script(

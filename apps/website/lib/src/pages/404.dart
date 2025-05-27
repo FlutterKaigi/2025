@@ -1,6 +1,6 @@
-import 'package:flutterkaigi_2025/components/internal_link.dart';
-import 'package:flutterkaigi_2025/path.dart';
-import 'package:flutterkaigi_2025/text.dart';
+import 'package:flutterkaigi_2025_website/src/components/internal_link.dart';
+import 'package:flutterkaigi_2025_website/src/path.dart';
+import 'package:flutterkaigi_2025_website/text.dart';
 import 'package:jaspr/jaspr.dart';
 
 class NotFound extends StatelessComponent {
