@@ -22,8 +22,13 @@ class _CountdownState extends State<CountdownView> {
       return;
     }
     _updateRemainingTime();
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+    final now = DateTime.now();
+    final millisToNextSecond = 1000 - now.millisecond;
+    Timer(Duration(milliseconds: millisToNextSecond), () {
       _updateRemainingTime();
+      _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+        _updateRemainingTime();
+      });
     });
   }
 
@@ -36,8 +41,9 @@ class _CountdownState extends State<CountdownView> {
 
   void _updateRemainingTime() {
     if (kIsWeb) {
+      final now = DateTime.now();
       setState(() {
-        _remainingTime = _targetDate.difference(DateTime.now());
+        _remainingTime = _targetDate.difference(now) + Duration(seconds: 1);
       });
     }
   }
