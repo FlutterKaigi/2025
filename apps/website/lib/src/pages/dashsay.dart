@@ -1,17 +1,14 @@
 import 'package:jaspr/jaspr.dart';
 
 class Dashsay extends StatelessComponent {
-  const Dashsay({
-    super.key,
-    required this.message,
-  });
+  const Dashsay({required this.message, super.key});
 
   final String message;
 
   @override
   Iterable<Component> build(BuildContext context) sync* {
     yield div(
-      styles: Styles(
+      styles: const Styles(
         display: Display.flex,
         flexDirection: FlexDirection.row,
         justifyContent: JustifyContent.center,
@@ -22,9 +19,7 @@ class Dashsay extends StatelessComponent {
         p(
           styles: Styles(
             padding: Padding.all(1.rem),
-            border: Border(
-              color: Color.variable('--border-color'),
-            ),
+            border: const Border(color: Color.variable('--border-color')),
             radius: BorderRadius.only(
               topLeft: Radius.circular(1.rem),
               topRight: Radius.circular(1.rem),
@@ -33,16 +28,12 @@ class Dashsay extends StatelessComponent {
             ),
             fontSize: 1.5.em,
           ),
-          [
-            text(Uri.decodeFull(message)),
-          ],
+          [text(Uri.decodeFull(message))],
         ),
         img(
           styles: Styles(
             width: 12.em,
-            raw: {
-              'animation': '1.5s ease-in-out infinite alternate bounding',
-            },
+            raw: {'animation': '1.5s ease-in-out infinite alternate bounding'},
           ),
           alt: 'FlutterKaigi Dash',
           src: '/img/flutterkaigi_dash.png',

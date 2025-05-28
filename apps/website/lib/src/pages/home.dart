@@ -23,14 +23,11 @@ class Home extends StatelessComponent {
         gap: Gap.all(2.rem),
         padding: Padding.all(0.px),
         overflow: Overflow.hidden,
-        flex: Flex(grow: 1),
+        flex: const Flex(grow: 1),
       ),
       [
         const _MainArticle(),
-        SectionLayout(
-          title: 'Schedule',
-          children: [ScheduleView()],
-        ),
+        SectionLayout(title: 'Schedule', children: [ScheduleView()]),
       ],
     );
   }
@@ -44,7 +41,7 @@ class _MainArticle extends StatelessComponent {
   @override
   Iterable<Component> build(BuildContext context) sync* {
     yield article(
-      styles: Styles(
+      styles: const Styles(
         display: Display.flex,
         flexDirection: FlexDirection.column,
         justifyContent: JustifyContent.center,
@@ -53,14 +50,14 @@ class _MainArticle extends StatelessComponent {
       [
         h1(
           styles: Styles(
-            position: Position.relative(),
+            position: const Position.relative(),
             whiteSpace: WhiteSpace.noWrap,
-            fontFamily: FontFamily('Lexend'),
+            fontFamily: const FontFamily('Lexend'),
             fontWeight: FontWeight.w900,
             textAlign: TextAlign.center,
             margin: Spacing.only(top: 6.rem),
             padding: Padding.symmetric(vertical: 6.rem, horizontal: 8.rem),
-            backgroundImage: ImageStyle.url('/img/brush.webp'),
+            backgroundImage: const ImageStyle.url('/img/brush.webp'),
             backgroundSize: BackgroundSize.contain,
             backgroundRepeat: BackgroundRepeat.noRepeat,
           ),
@@ -130,7 +127,7 @@ class _MainArticle extends StatelessComponent {
         ),
         section(
           styles: Styles(
-            position: Position.relative(),
+            position: const Position.relative(),
             margin: Spacing.only(top: 6.rem),
           ),
           [
@@ -150,7 +147,10 @@ class _MainArticle extends StatelessComponent {
         img(
           src: '/img/flutterkaigi_dash.png',
           alt: 'FlutterKaigi Dash',
-          styles: Styles(margin: Spacing.only(top: 2.rem), height: 5.rem),
+          styles: Styles(
+            margin: Spacing.only(top: 2.rem),
+            height: 5.rem,
+          ),
         ),
       ],
     );

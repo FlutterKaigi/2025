@@ -17,7 +17,7 @@ class ScheduleView extends StatelessComponent {
               [
                 GridTrack(TrackSize.fr(1)),
               ],
-            )
+            ),
           ]),
         ),
         margin: Spacing.only(top: 1.rem, bottom: 4.rem),

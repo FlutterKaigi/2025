@@ -47,7 +47,7 @@ class Footer extends StatelessComponent {
                   'Flutter and the related logo are trademarks of Google LLC.'
                   ' FlutterKaigi is not affiliated with or otherwise sponsored'
                   ' by Google LLC.',
-                )
+                ),
               ],
             ),
             p(
@@ -108,34 +108,38 @@ class _Link extends StatelessComponent {
   Iterable<Component> build(BuildContext context) sync* {
     yield switch (link) {
       SnsLink(:final title, :final url, :final icon) => div(
-          styles: Styles(
-            display: Display.flex,
-            flexDirection: FlexDirection.row,
-            justifyContent: JustifyContent.center,
-            alignItems: AlignItems.center,
-            gap: Gap.all(0.1.em),
-          ),
-          [
-            img(
-              styles: Styles(
-                height: 1.5.em,
-                raw: {
-                  'vertical-align': 'middle',
-                },
-              ),
-              src: icon,
-              alt: '$title logo',
-            ),
-            ExternalLink(
-              url: url,
-              content: Text(title),
-            ),
-          ],
+        styles: Styles(
+          display: Display.flex,
+          flexDirection: FlexDirection.row,
+          justifyContent: JustifyContent.center,
+          alignItems: AlignItems.center,
+          gap: Gap.all(0.1.em),
         ),
-      RelatedLink(:final title, :final url) =>
-        ExternalLink(url: url.text, content: Text(title.text)),
-      PastEventLink(:final title, :final url) =>
-        ExternalLink(url: url, content: Text(title)),
+        [
+          img(
+            styles: Styles(
+              height: 1.5.em,
+              raw: {
+                'vertical-align': 'middle',
+              },
+            ),
+            src: icon,
+            alt: '$title logo',
+          ),
+          ExternalLink(
+            url: url,
+            content: Text(title),
+          ),
+        ],
+      ),
+      RelatedLink(:final title, :final url) => ExternalLink(
+        url: url.text,
+        content: Text(title.text),
+      ),
+      PastEventLink(:final title, :final url) => ExternalLink(
+        url: url,
+        content: Text(title),
+      ),
     };
   }
 }

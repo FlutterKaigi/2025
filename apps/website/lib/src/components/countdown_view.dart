@@ -48,7 +48,8 @@ class _CountdownState extends State<CountdownView> {
     }
   }
 
-  String get remainingTimeString => '${_remainingTime.inHours.remainder(24)}:'
+  String get remainingTimeString =>
+      '${_remainingTime.inHours.remainder(24)}:'
       '${(_remainingTime.inMinutes.remainder(60)).toString().padLeft(2, '0')}:'
       '${(_remainingTime.inSeconds.remainder(60)).toString().padLeft(2, '0')}';
 
@@ -90,7 +91,7 @@ class _CountdownState extends State<CountdownView> {
                 fontSize: 2.rem,
               ),
               [text(remainingTimeString)],
-            )
+            ),
           ],
         ),
       ],

@@ -8,7 +8,7 @@ class Path {
   Path(this._path);
 
   Path.fromPathname(String pathname)
-      : _path = pathname.split('/').where((n) => n.isNotEmpty).toList();
+    : _path = pathname.split('/').where((n) => n.isNotEmpty).toList();
 
   factory Path.go([List<String> path = const []]) =>
       currentPath._go(Path(path));
@@ -34,9 +34,9 @@ class Path {
 
   /// 言語情報を含むパス
   Path withLang(Language nextLang) => switch (lang) {
-        Language _ => Path([nextLang.name, ..._path.skip(1)]),
-        _ => Path([nextLang.name, ..._path]),
-      };
+    Language _ => Path([nextLang.name, ..._path.skip(1)]),
+    _ => Path([nextLang.name, ..._path]),
+  };
 
   /// 言語情報を含まないパス
   Path withoutLang() {
@@ -49,9 +49,9 @@ class Path {
   /// 新しいパスを生成
   /// - [nextPath] 新しいパス
   Path _go(Path nextPath) => switch ((lang, nextPath.lang)) {
-        (final Language currentLang, null) => nextPath.withLang(currentLang),
-        _ => nextPath,
-      };
+    (final Language currentLang, null) => nextPath.withLang(currentLang),
+    _ => nextPath,
+  };
 
   @override
   String toString() => '/${_path.join('/')}';

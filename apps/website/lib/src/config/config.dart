@@ -2,43 +2,27 @@ import 'package:flutterkaigi_2025_website/src/config/config_stub.dart'
     if (dart.library.js_interop) './config_web.dart';
 import 'package:flutterkaigi_2025_website/text.dart' show Language;
 
-typedef LangBlock = ({
-  String ja,
-  String en,
-});
+typedef LangBlock = ({String ja, String en});
 
 sealed class LinkBase {}
 
 final class SnsLink implements LinkBase {
+  const SnsLink({required this.title, required this.url, required this.icon});
   final String title;
   final String url;
   final String icon;
-
-  const SnsLink({
-    required this.title,
-    required this.url,
-    required this.icon,
-  });
 }
 
 final class RelatedLink implements LinkBase {
+  const RelatedLink({required this.title, required this.url});
   final LangBlock title;
   final LangBlock url;
-
-  const RelatedLink({
-    required this.title,
-    required this.url,
-  });
 }
 
 final class PastEventLink implements LinkBase {
+  const PastEventLink({required this.title, required this.url});
   final String title;
   final String url;
-
-  const PastEventLink({
-    required this.title,
-    required this.url,
-  });
 }
 
 final _eventDate = DateTime.parse('2025-11-13T10:00:00+0900').toLocal();
@@ -107,7 +91,7 @@ const site = (
       title: (ja: 'リポジトリー', en: 'Repository'),
       url: (
         ja: 'https://github.com/FlutterKaigi/2025',
-        en: 'https://github.com/FlutterKaigi/2025'
+        en: 'https://github.com/FlutterKaigi/2025',
       ),
     ),
   ],
@@ -154,10 +138,10 @@ final event = (
     ),
   ],
   pastEvents: <LinkBase>[
-    PastEventLink(title: '2024', url: 'https://2024.flutterkaigi.jp/'),
-    PastEventLink(title: '2023', url: 'https://2023.flutterkaigi.jp/'),
-    PastEventLink(title: '2022', url: 'https://2022.flutterkaigi.jp/'),
-    PastEventLink(title: '2021', url: 'https://2021.flutterkaigi.jp/'),
+    const PastEventLink(title: '2024', url: 'https://2024.flutterkaigi.jp/'),
+    const PastEventLink(title: '2023', url: 'https://2023.flutterkaigi.jp/'),
+    const PastEventLink(title: '2022', url: 'https://2022.flutterkaigi.jp/'),
+    const PastEventLink(title: '2021', url: 'https://2021.flutterkaigi.jp/'),
   ],
 );
 

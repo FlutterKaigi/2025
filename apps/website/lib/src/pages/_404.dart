@@ -16,14 +16,11 @@ class NotFound extends StatelessComponent {
         alignItems: AlignItems.center,
         fontSize: 2.rem,
         padding: Padding.all(1.rem),
-        flex: Flex(grow: 1),
+        flex: const Flex(grow: 1),
       ),
       [
         text('404 Not Found'),
-        InternalLink(
-          path: Path.go(),
-          content: text(contents.moveToTop.text),
-        ),
+        InternalLink(path: Path.go(), content: text(contents.moveToTop.text)),
       ],
     );
   }

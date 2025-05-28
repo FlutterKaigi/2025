@@ -39,7 +39,8 @@ class CounterState extends State<Counter> {
         display: Display.flex,
         padding: Padding.symmetric(vertical: 10.px),
         border: Border.symmetric(
-            vertical: BorderSide.solid(color: beyondRed, width: 2.px)),
+          vertical: BorderSide.solid(color: beyondRed, width: 2.px),
+        ),
         alignItems: AlignItems.center,
       ),
       css('button', [

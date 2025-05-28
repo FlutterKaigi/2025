@@ -1,14 +1,13 @@
 import 'package:flutterkaigi_2025_website/src/components/footer.dart';
+import 'package:flutterkaigi_2025_website/src/components/header.dart';
 import 'package:flutterkaigi_2025_website/src/config/config.dart'
     show makeTitle, user;
-import 'package:flutterkaigi_2025_website/src/pages/404.dart';
+import 'package:flutterkaigi_2025_website/src/pages/_404.dart';
 import 'package:flutterkaigi_2025_website/src/pages/dashsay.dart';
+import 'package:flutterkaigi_2025_website/src/pages/home.dart';
 import 'package:flutterkaigi_2025_website/text.dart' show Language;
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_router/jaspr_router.dart';
-
-import 'src/components/header.dart';
-import 'src/pages/home.dart';
 
 class App extends StatelessComponent {
   const App({super.key});
@@ -28,9 +27,8 @@ class App extends StatelessComponent {
             Route(
               path: '/404',
               title: 'Not Found',
-              builder: (context, state) => _BasicLayout(
-                child: const NotFound(),
-              ),
+              builder: (context, state) =>
+                  const _BasicLayout(child: NotFound()),
             ),
             ..._createLanguageRoutes(
               path: '/',
@@ -40,14 +38,12 @@ class App extends StatelessComponent {
             ..._createLanguageRoutes(
               path: '/dashsay',
               title: makeTitle('Dash say'),
-              builder: (context, state) => Dashsay(
-                message: state.queryParams['m'] ?? '',
-              ),
-            )
+              builder: (context, state) =>
+                  Dashsay(message: state.queryParams['m'] ?? ''),
+            ),
           ],
-          errorBuilder: (context, state) => _BasicLayout(
-            child: const NotFound(),
-          ),
+          errorBuilder: (context, state) =>
+              const _BasicLayout(child: NotFound()),
         ),
       ],
     );
@@ -55,7 +51,7 @@ class App extends StatelessComponent {
 }
 
 class _BasicLayout extends StatelessComponent {
-  _BasicLayout({required this.child});
+  const _BasicLayout({required this.child});
   final Component child;
 
   @override
@@ -65,14 +61,14 @@ class _BasicLayout extends StatelessComponent {
         position: Position.sticky(top: 0.px),
         border: Border.only(
           bottom: BorderSide.solid(
-            color: Color.variable('--border-color'),
+            color: const Color.variable('--border-color'),
             width: 1.px,
           ),
         ),
       ),
     );
     yield child;
-    yield Footer();
+    yield const Footer();
   }
 }
 

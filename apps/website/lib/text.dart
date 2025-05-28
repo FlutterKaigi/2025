@@ -40,7 +40,7 @@ String formatDate(DateTime date, [Language? lang]) =>
 extension ContentEx on Content {
   /// テキストコンテンツを取得する
   String get text => switch (user.lang) {
-        Language.en => this.en ?? this.ja,
-        _ => this.ja,
-      };
+    Language.en => this.en ?? this.ja,
+    _ => this.ja,
+  };
 }
