@@ -17,9 +17,9 @@ class App extends StatelessComponent {
     yield div(
       styles: Styles(
         display: Display.flex,
-        flexDirection: FlexDirection.column,
-        minHeight: 100.vh,
         width: Unit.auto,
+        minHeight: 100.vh,
+        flexDirection: FlexDirection.column,
       ),
       [
         Router(

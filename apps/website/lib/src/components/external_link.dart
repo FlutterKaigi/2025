@@ -3,9 +3,9 @@ import 'package:jaspr_router/jaspr_router.dart';
 
 class ExternalLink extends StatelessComponent {
   const ExternalLink({
-    super.key,
     required this.content,
     required this.url,
+    super.key,
     this.target = Target.blank,
     this.styles,
   });
@@ -17,18 +17,16 @@ class ExternalLink extends StatelessComponent {
 
   @override
   Iterable<Component> build(BuildContext context) sync* {
-    final baseStyle = Styles(
-      textDecoration: TextDecoration(
-        line: TextDecorationLine.underline,
-      ),
-      color: Color.variable('--link-color'),
+    const baseStyle = Styles(
       cursor: Cursor.pointer,
+      color: Color.variable('--link-color'),
+      textDecoration: TextDecoration(line: TextDecorationLine.underline),
     );
     yield Link(
       to: url,
       child: content,
       target: target,
-      styles: baseStyle.combine(styles ?? Styles()),
+      styles: baseStyle.combine(styles ?? const Styles()),
     );
   }
 }

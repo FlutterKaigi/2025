@@ -11,16 +11,16 @@ class Footer extends StatelessComponent {
     yield footer(
       styles: Styles(
         display: Display.flex,
-        flexDirection: FlexDirection.column,
-        alignItems: AlignItems.center,
-        gap: Gap.all(1.rem),
         padding: Padding.all(1.rem),
         border: Border.only(
           top: BorderSide.solid(
-            color: Color.variable('--border-color'),
+            color: const Color.variable('--border-color'),
             width: 1.px,
           ),
         ),
+        flexDirection: FlexDirection.column,
+        alignItems: AlignItems.center,
+        gap: Gap.all(1.rem),
       ),
       [
         _Navigations(links: event.pastEvents),
@@ -43,7 +43,7 @@ class Footer extends StatelessComponent {
                 fontSize: 0.8.em,
               ),
               [
-                Text(
+                const Text(
                   'Flutter and the related logo are trademarks of Google LLC.'
                   ' FlutterKaigi is not affiliated with or otherwise sponsored'
                   ' by Google LLC.',
@@ -55,7 +55,7 @@ class Footer extends StatelessComponent {
                 fontSize: 0.8.em,
               ),
               [
-                Text(
+                const Text(
                   'The Flutter name and the Flutter logo ',
                 ),
                 img(
@@ -68,7 +68,7 @@ class Footer extends StatelessComponent {
                     },
                   ),
                 ),
-                Text(' are trademarks of Google LLC.'),
+                const Text(' are trademarks of Google LLC.'),
               ],
             ),
           ],
@@ -101,7 +101,7 @@ class _Navigations extends StatelessComponent {
 }
 
 class _Link extends StatelessComponent {
-  _Link({required this.link});
+  const _Link({required this.link});
   final LinkBase link;
 
   @override

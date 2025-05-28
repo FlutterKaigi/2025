@@ -12,15 +12,13 @@ class Header extends StatelessComponent {
   @override
   Iterable<Component> build(BuildContext context) sync* {
     final baseStyles = Styles(
-      padding: Spacing.all(1.rem),
-      zIndex: ZIndex(10),
       display: Display.flex,
+      zIndex: const ZIndex(10),
+      padding: Spacing.all(1.rem),
       flexDirection: FlexDirection.row,
       justifyContent: JustifyContent.spaceBetween,
       alignItems: AlignItems.center,
-      raw: {
-        'backdrop-filter': 'blur(10px)',
-      },
+      raw: {'backdrop-filter': 'blur(10px)'},
     );
     final combined = styles?.combine(baseStyles) ?? baseStyles;
 

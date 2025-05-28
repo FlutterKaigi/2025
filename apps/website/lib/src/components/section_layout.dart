@@ -11,18 +11,18 @@ class SectionLayout extends StatelessComponent {
     yield section(
       styles: Styles(
         display: Display.flex,
+        margin: Spacing.fromLTRB(32.px, 2.rem, 32.px, 0.px),
         flexDirection: FlexDirection.column,
         justifyContent: JustifyContent.start,
         gap: Gap.all(2.rem),
-        margin: Spacing.fromLTRB(32.px, 2.rem, 32.px, 0.px),
         raw: {'min-width': 'min(600px, calc(100vw - 64px))'},
       ),
       [
         h2(
           styles: Styles(
             fontFamily: const FontFamily('Lexend'),
-            fontWeight: FontWeight.bold,
             fontSize: 1.5.rem,
+            fontWeight: FontWeight.bold,
           ),
           [text(title)],
         ),

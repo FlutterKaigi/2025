@@ -11,12 +11,12 @@ class NotFound extends StatelessComponent {
     yield main_(
       styles: Styles(
         display: Display.flex,
+        padding: Padding.all(1.rem),
         flexDirection: FlexDirection.column,
         justifyContent: JustifyContent.center,
         alignItems: AlignItems.center,
-        fontSize: 2.rem,
-        padding: Padding.all(1.rem),
         flex: const Flex(grow: 1),
+        fontSize: 2.rem,
       ),
       [
         text('404 Not Found'),

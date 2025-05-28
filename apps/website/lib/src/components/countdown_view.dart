@@ -43,15 +43,16 @@ class _CountdownState extends State<CountdownView> {
     if (kIsWeb) {
       final now = DateTime.now();
       setState(() {
-        _remainingTime = _targetDate.difference(now) + Duration(seconds: 1);
+        _remainingTime =
+            _targetDate.difference(now) + const Duration(seconds: 1);
       });
     }
   }
 
   String get remainingTimeString =>
       '${_remainingTime.inHours.remainder(24)}:'
-      '${(_remainingTime.inMinutes.remainder(60)).toString().padLeft(2, '0')}:'
-      '${(_remainingTime.inSeconds.remainder(60)).toString().padLeft(2, '0')}';
+      '${_remainingTime.inMinutes.remainder(60).toString().padLeft(2, '0')}:'
+      '${_remainingTime.inSeconds.remainder(60).toString().padLeft(2, '0')}';
 
   @override
   Iterable<Component> build(BuildContext context) sync* {
@@ -62,22 +63,22 @@ class _CountdownState extends State<CountdownView> {
       ),
       [
         div(
-          styles: Styles(
+          styles: const Styles(
             fontFamily: lexendFontFamily,
           ),
           [
             span(
               styles: Styles(
                 display: Display.inlineFlex,
-                alignItems: AlignItems.baseline,
-                fontSize: 0.9.rem,
                 margin: Spacing.only(right: 1.rem),
+                alignItems: AlignItems.baseline,
                 gap: Gap.all(0.5.rem),
+                fontSize: 0.9.rem,
               ),
               [
                 span(
                   styles: Styles(
-                    color: Color.variable('--secondary-color'),
+                    color: const Color.variable('--secondary-color'),
                     fontSize: 2.rem,
                   ),
                   [text(_remainingTime.inDays.toString())],
@@ -87,7 +88,7 @@ class _CountdownState extends State<CountdownView> {
             ),
             span(
               styles: Styles(
-                color: Color.variable('--secondary-color'),
+                color: const Color.variable('--secondary-color'),
                 fontSize: 2.rem,
               ),
               [text(remainingTimeString)],

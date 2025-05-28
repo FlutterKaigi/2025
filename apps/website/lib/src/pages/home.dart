@@ -18,11 +18,11 @@ class Home extends StatelessComponent {
     yield main_(
       styles: Styles(
         display: Display.flex,
+        padding: Padding.all(0.px),
+        overflow: Overflow.hidden,
         flexDirection: FlexDirection.column,
         alignItems: AlignItems.center,
         gap: Gap.all(2.rem),
-        padding: Padding.all(0.px),
-        overflow: Overflow.hidden,
         flex: const Flex(grow: 1),
       ),
       [
@@ -51,15 +51,15 @@ class _MainArticle extends StatelessComponent {
         h1(
           styles: Styles(
             position: const Position.relative(),
-            whiteSpace: WhiteSpace.noWrap,
+            padding: Padding.symmetric(vertical: 6.rem, horizontal: 8.rem),
+            margin: Spacing.only(top: 6.rem),
+            textAlign: TextAlign.center,
             fontFamily: const FontFamily('Lexend'),
             fontWeight: FontWeight.w900,
-            textAlign: TextAlign.center,
-            margin: Spacing.only(top: 6.rem),
-            padding: Padding.symmetric(vertical: 6.rem, horizontal: 8.rem),
+            whiteSpace: WhiteSpace.noWrap,
             backgroundImage: const ImageStyle.url('/img/brush.webp'),
-            backgroundSize: BackgroundSize.contain,
             backgroundRepeat: BackgroundRepeat.noRepeat,
+            backgroundSize: BackgroundSize.contain,
           ),
           [
             for (var i = 0; i < tagLineWords.length; i++)
@@ -68,9 +68,9 @@ class _MainArticle extends StatelessComponent {
                   display: Display.block,
                   opacity: 0,
                   transform: Transform.translate(x: 100.vw),
-                  fontStyle: FontStyle.italic,
-                  fontWeight: FontWeight.w900,
                   color: Colors.white,
+                  fontWeight: FontWeight.w900,
+                  fontStyle: FontStyle.italic,
                   raw: {
                     'font-size': 'clamp(2.5rem, 6vw, 4.5rem)',
                     'animation-delay': '${i * 0.3}s',
@@ -86,30 +86,30 @@ class _MainArticle extends StatelessComponent {
         ),
         h2(
           styles: Styles(
+            margin: Spacing.only(top: 6.rem),
+            fontFamily: lexendFontFamily,
             fontSize: 2.rem,
             fontWeight: FontWeight.w900,
-            fontFamily: lexendFontFamily,
-            margin: Spacing.only(top: 6.rem),
           ),
           [text(event.title)],
         ),
         p(
           styles: Styles(
-            fontSize: 1.5.rem,
-            fontWeight: FontWeight.w900,
-            fontFamily: lexendFontFamily,
             margin: Spacing.only(top: 1.rem),
             textAlign: TextAlign.center,
+            fontFamily: lexendFontFamily,
+            fontSize: 1.5.rem,
+            fontWeight: FontWeight.w900,
           ),
           [text('on ${formatDate(event.date, Language.en)}')],
         ),
         p(
           styles: Styles(
-            fontSize: 1.5.rem,
-            fontWeight: FontWeight.w900,
-            fontFamily: lexendFontFamily,
             margin: Spacing.only(top: 2.rem),
             textAlign: TextAlign.center,
+            fontFamily: lexendFontFamily,
+            fontSize: 1.5.rem,
+            fontWeight: FontWeight.w900,
           ),
           [
             text('at '),
@@ -117,10 +117,10 @@ class _MainArticle extends StatelessComponent {
               content: text(event.place.name.text),
               url: event.place.url,
               styles: Styles(
-                fontFamily: lexendFontFamily,
-                fontWeight: FontWeight.w900,
-                fontSize: 1.5.rem,
                 color: Color.inherit,
+                fontFamily: lexendFontFamily,
+                fontSize: 1.5.rem,
+                fontWeight: FontWeight.w900,
               ),
             ),
           ],
@@ -135,8 +135,8 @@ class _MainArticle extends StatelessComponent {
               to: event.blog.sponsorship.url.text,
               classes: 'gradient-button',
               styles: Styles(
-                color: Colors.white,
                 cursor: Cursor.pointer,
+                color: Colors.white,
                 fontSize: 1.rem,
               ),
               child: text(event.blog.sponsorship.title.text),
@@ -148,8 +148,8 @@ class _MainArticle extends StatelessComponent {
           src: '/img/flutterkaigi_dash.png',
           alt: 'FlutterKaigi Dash',
           styles: Styles(
-            margin: Spacing.only(top: 2.rem),
             height: 5.rem,
+            margin: Spacing.only(top: 2.rem),
           ),
         ),
       ],

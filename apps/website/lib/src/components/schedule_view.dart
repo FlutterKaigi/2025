@@ -9,18 +9,13 @@ class ScheduleView extends StatelessComponent {
       tag: 'dl',
       styles: Styles(
         display: Display.grid,
-        gap: Gap.all(0.5.rem),
-        gridTemplate: GridTemplate(
+        margin: Spacing.only(top: 1.rem, bottom: 4.rem),
+        gridTemplate: const GridTemplate(
           columns: GridTracks([
-            GridTrack.repeat(
-              TrackRepeat(2),
-              [
-                GridTrack(TrackSize.fr(1)),
-              ],
-            ),
+            GridTrack.repeat(TrackRepeat(2), [GridTrack(TrackSize.fr(1))]),
           ]),
         ),
-        margin: Spacing.only(top: 1.rem, bottom: 4.rem),
+        gap: Gap.all(0.5.rem),
       ),
       children: [
         ...event.schedule

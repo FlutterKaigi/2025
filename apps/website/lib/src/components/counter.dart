@@ -1,6 +1,5 @@
+import 'package:flutterkaigi_2025_website/src/constants/theme.dart';
 import 'package:jaspr/jaspr.dart';
-
-import '../constants/theme.dart';
 
 @client
 class Counter extends StatefulComponent {

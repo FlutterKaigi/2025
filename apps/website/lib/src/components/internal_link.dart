@@ -4,9 +4,9 @@ import 'package:jaspr_router/jaspr_router.dart';
 
 class InternalLink extends StatelessComponent {
   const InternalLink({
-    super.key,
     required this.content,
     required this.path,
+    super.key,
     this.target = Target.top,
   });
 
@@ -20,12 +20,10 @@ class InternalLink extends StatelessComponent {
       to: path.toString(),
       child: content,
       target: target,
-      styles: Styles(
-        textDecoration: TextDecoration(
-          line: TextDecorationLine.underline,
-        ),
-        color: Color.variable('--link-color'),
+      styles: const Styles(
         cursor: Cursor.pointer,
+        color: Color.variable('--link-color'),
+        textDecoration: TextDecoration(line: TextDecorationLine.underline),
       ),
     );
   }
