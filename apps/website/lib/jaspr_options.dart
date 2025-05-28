@@ -30,5 +30,4 @@ JasprOptions get defaultJasprOptions => JasprOptions(
       'src/components/countdown_view',
     ),
   },
-  styles: () => [],
 );
