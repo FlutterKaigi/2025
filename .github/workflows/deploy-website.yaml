@@ -83,7 +83,7 @@ jobs:
         run: |
           dart pub get
           dart pub global activate jaspr_cli
-          export PATH="$PATH":"$HOME/.pub-cache/bin"
+          echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
 
       - name: Build Dart WebAssembly
         id: build
