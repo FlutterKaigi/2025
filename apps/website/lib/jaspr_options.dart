@@ -25,10 +25,10 @@ import 'package:flutterkaigi_2025_website/src/components/countdown_view.dart'
 /// }
 /// ```
 JasprOptions get defaultJasprOptions => JasprOptions(
-  clients: {
-    prefix0.CountdownView: ClientTarget<prefix0.CountdownView>(
-      'src/components/countdown_view',
-    ),
-  },
-  styles: () => [],
-);
+      clients: {
+        prefix0.CountdownView: ClientTarget<prefix0.CountdownView>(
+          'src/components/countdown_view',
+        ),
+      },
+      styles: () => [],
+    );

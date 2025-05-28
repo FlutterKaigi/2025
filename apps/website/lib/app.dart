@@ -25,6 +25,13 @@ class App extends StatelessComponent {
       [
         Router(
           routes: [
+            Route(
+              path: '/404',
+              title: 'Not Found',
+              builder: (context, state) => _BasicLayout(
+                child: const NotFound(),
+              ),
+            ),
             ..._createLanguageRoutes(
               path: '/',
               title: 'FlutterKaigi 2025',

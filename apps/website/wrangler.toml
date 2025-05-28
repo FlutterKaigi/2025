@@ -4,8 +4,9 @@ main = "web/index.js"
 compatibility_date = "2025-04-23"
 
 [assets]
-directory = "./build"
+directory = "./build/jaspr"
 binding = "STATIC"
+not_found_handling = "404-page"
 
 [route]
 custom_domain = true
