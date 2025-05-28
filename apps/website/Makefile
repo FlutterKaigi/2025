@@ -30,7 +30,11 @@ dev: serve
 
 .PHONY: serve
 serve:
-	bun dev
+	jaspr serve
+
+.PHONY: start
+start:
+	bun start
 
 .PHONY: check
 check:

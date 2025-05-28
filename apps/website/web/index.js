@@ -8,21 +8,7 @@ export default {
         status: 404,
       });
     }
-    try {
-      return await STATIC.fetch(request);
-    } catch (error) {
-      const path = url.pathname.split("/").at(1);
-      console.error("Error fetching static file:", error);
-      if (!path) {
-        return new Response("Not Found", {
-          status: 404,
-        });
-      }
-      const notFoundResponse = await STATIC.fetch(`${path}/404/index.html`);
-      return new Response(notFoundResponse.body, {
-        status: 200,
-        headers: notFoundResponse.headers,
-      });
-    }
+
+    return await STATIC.fetch(request);
   },
 };
