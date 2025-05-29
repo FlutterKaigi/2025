@@ -10,18 +10,18 @@ void main() {
 
 void testPathWithLang() {
   final tests = [
-    (Path([]), Language.en, '/en'),
-    (Path([]), Language.ja, '/ja'),
-    (Path(['en']), Language.en, '/en'),
-    (Path(['ja']), Language.ja, '/ja'),
-    (Path(['en']), Language.ja, '/ja'),
-    (Path(['ja']), Language.en, '/en'),
-    (Path(['tests']), Language.en, '/en/tests'),
-    (Path(['tests']), Language.ja, '/ja/tests'),
-    (Path(['en', 'tests']), Language.en, '/en/tests'),
-    (Path(['ja', 'tests']), Language.ja, '/ja/tests'),
-    (Path(['en', 'tests']), Language.ja, '/ja/tests'),
-    (Path(['ja', 'tests']), Language.en, '/en/tests'),
+    (const Path([]), Language.en, '/en'),
+    (const Path([]), Language.ja, '/ja'),
+    (const Path(['en']), Language.en, '/en'),
+    (const Path(['ja']), Language.ja, '/ja'),
+    (const Path(['en']), Language.ja, '/ja'),
+    (const Path(['ja']), Language.en, '/en'),
+    (const Path(['tests']), Language.en, '/en/tests'),
+    (const Path(['tests']), Language.ja, '/ja/tests'),
+    (const Path(['en', 'tests']), Language.en, '/en/tests'),
+    (const Path(['ja', 'tests']), Language.ja, '/ja/tests'),
+    (const Path(['en', 'tests']), Language.ja, '/ja/tests'),
+    (const Path(['ja', 'tests']), Language.en, '/en/tests'),
   ];
 
   for (final (path, lang, want) in tests) {
@@ -33,13 +33,13 @@ void testPathWithLang() {
 
 void testPathWithoutLang() {
   final tests = [
-    (Path([]), '/'),
-    (Path(['en']), '/'),
-    (Path(['ja']), '/'),
-    (Path(['tests']), '/tests'),
-    (Path(['tests']), '/tests'),
-    (Path(['en', 'tests']), '/tests'),
-    (Path(['ja', 'tests']), '/tests'),
+    (const Path([]), '/'),
+    (const Path(['en']), '/'),
+    (const Path(['ja']), '/'),
+    (const Path(['tests']), '/tests'),
+    (const Path(['tests']), '/tests'),
+    (const Path(['en', 'tests']), '/tests'),
+    (const Path(['ja', 'tests']), '/tests'),
   ];
 
   for (final (path, want) in tests) {
@@ -51,21 +51,20 @@ void testPathWithoutLang() {
 
 void testPathGo() {
   final tests = [
-    (Path([]), <String>[], '/'),
-    (Path(['ja']), <String>[], '/ja'),
-    (Path(['en']), <String>[], '/en'),
-    (Path(['ja']), ['en'], '/en'),
-    (Path(['en']), ['ja'], '/ja'),
-    (Path(['ja']), ['tests'], '/ja/tests'),
-    (Path(['en']), ['tests'], '/en/tests'),
-    (Path(['ja']), ['en', 'tests'], '/en/tests'),
-    (Path(['en']), ['ja', 'tests'], '/ja/tests'),
+    (const Path([]), <String>[], '/'),
+    (const Path(['ja']), <String>[], '/ja'),
+    (const Path(['en']), <String>[], '/en'),
+    (const Path(['ja']), ['en'], '/en'),
+    (const Path(['en']), ['ja'], '/ja'),
+    (const Path(['ja']), ['tests'], '/ja/tests'),
+    (const Path(['en']), ['tests'], '/en/tests'),
+    (const Path(['ja']), ['en', 'tests'], '/en/tests'),
+    (const Path(['en']), ['ja', 'tests'], '/ja/tests'),
   ];
 
   for (final (path, newPath, want) in tests) {
     test('$path => $newPath', () {
-      currentPath = path;
-      expect(Path.go(newPath).toString(), equals(want));
+      expect(path.go(Path(newPath)).toString(), equals(want));
     });
   }
 }

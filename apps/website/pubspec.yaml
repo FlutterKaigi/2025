@@ -10,7 +10,6 @@ environment:
 dependencies:
   jaspr: ^0.19.0
   jaspr_router: ^0.7.0
-  universal_web:
 
 dev_dependencies:
   build_runner: ^2.4.15
@@ -22,6 +21,9 @@ dev_dependencies:
 
 dependency_overrides:
   analyzer_plugin: ^0.13.0
+  # NOTE
+  # package:web のラッパー package:universal_web が package:web 1.1.0 に依存しており、
+  # 現在engineが1.1.1に依存しているので、対応途中なもののPRでoverrideする形にしています。
   universal_web:
     git:
       url: https://github.com/parlough/universal_web.git

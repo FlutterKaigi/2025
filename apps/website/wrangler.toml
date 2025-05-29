@@ -1,12 +1,11 @@
 "$schema" = "node_modules/wrangler/config-schema.json"
 name = "flutterkaigi-2025-website"
-main = "web/index.js"
+main = "bin/main.js"
 compatibility_date = "2025-04-23"
 
 [assets]
 directory = "./build/jaspr"
 binding = "STATIC"
-not_found_handling = "404-page"
 
 [route]
 custom_domain = true

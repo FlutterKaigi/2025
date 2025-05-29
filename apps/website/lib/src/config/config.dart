@@ -1,7 +1,3 @@
-import 'package:flutterkaigi_2025_website/src/config/config_stub.dart'
-    if (dart.library.js_interop) './config_web.dart';
-import 'package:flutterkaigi_2025_website/text.dart' show Language;
-
 typedef LangBlock = ({String ja, String en});
 
 sealed class LinkBase {}
@@ -144,10 +140,3 @@ final event = (
     const PastEventLink(title: '2021', url: 'https://2021.flutterkaigi.jp/'),
   ],
 );
-
-/// ユーザー設定
-final user = _User();
-
-final class _User {
-  Language lang = systemLang;
-}

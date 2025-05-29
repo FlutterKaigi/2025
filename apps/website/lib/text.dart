@@ -1,4 +1,5 @@
-import 'package:flutterkaigi_2025_website/src/config/config.dart' show user;
+import 'package:flutterkaigi_2025_website/src/path.dart' show Path;
+import 'package:jaspr/jaspr.dart' as jaspr;
 
 const _month = {
   1: 'Jan',
@@ -31,16 +32,24 @@ const contents = (
   moveToTop: (ja: 'トップ', en: 'Top'),
 );
 
-String formatDate(DateTime date, [Language? lang]) =>
-    switch (lang ?? user.lang) {
-      Language.en => '${_month[date.month]} ${date.day}, ${date.year}',
-      _ => '${date.year}年${date.month}月${date.day}日',
-    };
+String formatDate(
+  jaspr.BuildContext context,
+  DateTime date, [
+  Language? lang,
+]) => switch (lang ?? Path.fromPathname(context.url).lang) {
+  Language.en => '${_month[date.month]} ${date.day}, ${date.year}',
+  _ => '${date.year}年${date.month}月${date.day}日',
+};
 
 extension ContentEx on Content {
   /// テキストコンテンツを取得する
-  String get text => switch (user.lang) {
-    Language.en => this.en ?? this.ja,
-    _ => this.ja,
-  };
+  String text(jaspr.BuildContext context) =>
+      switch (Path.fromPathname(context.url).lang) {
+        Language.en => this.en ?? this.ja,
+        _ => this.ja,
+      };
+}
+
+extension StringToComponent on String {
+  jaspr.Component get toComponent => jaspr.text(this);
 }
