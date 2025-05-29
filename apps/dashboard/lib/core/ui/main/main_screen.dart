@@ -27,33 +27,36 @@ class _Body extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final authState = ref.watch(authNotifierProvider).valueOrNull;
-    if (authState == null) {
-      return const Center(child: CircularProgressIndicator());
-    }
+    final authState = ref.watch(authNotifierProvider);
 
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        spacing: 16,
-        children: [
-          Text(
-            'You are logged in as '
-            '${authState.email}: '
-            '${authState.userMetadata?["full_name"]}',
-          ),
-          CircleAvatar(
-            foregroundImage: NetworkImage(
-              authState.userMetadata?['avatar_url'].toString() ?? '',
+    return switch (authState) {
+      AsyncData(value: final user) when user != null => Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          spacing: 16,
+          children: [
+            Text(
+              'You are logged in as '
+              '${user.email}: '
+              '${user.userMetadata?["full_name"]}',
             ),
-            radius: 48,
-          ),
-          FilledButton(
-            onPressed: () => ref.read(authNotifierProvider.notifier).signOut(),
-            child: const Text('ログアウト'),
-          ),
-        ],
+            CircleAvatar(
+              foregroundImage: NetworkImage(
+                user.userMetadata?['avatar_url'].toString() ?? '',
+              ),
+              radius: 48,
+            ),
+            FilledButton(
+              onPressed: () =>
+                  ref.read(authNotifierProvider.notifier).signOut(),
+              child: const Text('ログアウト'),
+            ),
+          ],
+        ),
       ),
-    );
+      AsyncData() => const Center(child: Text('ログインしていません')),
+      AsyncError(error: final error) => Center(child: Text(error.toString())),
+      AsyncLoading() => const Center(child: CircularProgressIndicator()),
+    };
   }
 }

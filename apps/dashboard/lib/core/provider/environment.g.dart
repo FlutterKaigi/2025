@@ -42,22 +42,46 @@ Map<String, dynamic> _$EnvironmentToJson(_Environment instance) =>
 // RiverpodGenerator
 // **************************************************************************
 
+@ProviderFor(environment)
+const environmentProvider = EnvironmentProvider._();
+
+final class EnvironmentProvider
+    extends $FunctionalProvider<Environment, Environment>
+    with $Provider<Environment> {
+  const EnvironmentProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'environmentProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$environmentHash();
+
+  @$internal
+  @override
+  $ProviderElement<Environment> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  Environment create(Ref ref) {
+    return environment(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(Environment value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $ValueProvider<Environment>(value),
+    );
+  }
+}
+
 String _$environmentHash() => r'eaecc2d26f9e24d09890f13ed63c1edb0a92a7a9';
 
-/// See also [environment].
-@ProviderFor(environment)
-final environmentProvider = Provider<Environment>.internal(
-  environment,
-  name: r'environmentProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$environmentHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef EnvironmentRef = ProviderRef<Environment>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

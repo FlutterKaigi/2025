@@ -4,7 +4,6 @@ import 'package:dashboard/features/auth/ui/login_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'router.g.dart';
@@ -12,12 +11,12 @@ part 'router.g.dart';
 @Riverpod(keepAlive: true)
 GoRouter router(Ref ref) {
   final isAuthorizedNotifier = ValueNotifier<bool>(
-    ref.read(authNotifierProvider.select((v) => v.valueOrNull != null)),
+    ref.read(authNotifierProvider.select((v) => v.value != null)),
   );
   ref
     ..listen(authNotifierProvider, (_, __) {
       isAuthorizedNotifier.value = ref.read(
-        authNotifierProvider.select((v) => v.valueOrNull != null),
+        authNotifierProvider.select((v) => v.value != null),
       );
     })
     ..onDispose(isAuthorizedNotifier.dispose);

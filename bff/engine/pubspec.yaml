@@ -16,8 +16,8 @@ dependencies:
   http: ^1.4.0
   js_interop_utils: ^1.0.7
   json_annotation: ^4.9.0
-  riverpod: ^2.6.1
-  riverpod_annotation: ^2.6.1
+  riverpod: ^3.0.0-dev.15
+  riverpod_annotation: ^3.0.0-dev.15
   shelf: ^1.4.2
   shelf_router: ^1.1.4
   supabase: ^2.7.0
@@ -31,6 +31,6 @@ dev_dependencies:
     path: ../../packages/flutterkaigi_lints
   freezed: ^3.0.6
   json_serializable: ^6.9.5
-  riverpod_generator: ^2.6.5
-  riverpod_lint: ^2.6.5
+  riverpod_generator: ^3.0.0-dev.15
+  riverpod_lint: ^3.0.0-dev.15
   shelf_router_generator: ^1.1.1
