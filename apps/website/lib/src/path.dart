@@ -1,11 +1,7 @@
 import 'package:flutterkaigi_2025_website/text.dart' show Language;
-import 'package:universal_web/web.dart';
 
 /// 現在のパス
-Path get currentPath {
-  final pathname = window.location.pathname;
-  return Path.fromPathname(pathname);
-}
+final currentPath = Path([]);
 
 class Path {
   Path(this._path);
