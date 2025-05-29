@@ -1,5 +1,5 @@
-import notFound from "../build/jaspr/404/index.html";
-import notFoundEn from "../build/jaspr/en/404/index.html";
+import notFound from "../build/_404/ja/index.html";
+import notFoundEn from "../build/_404/en/index.html";
 
 export default {
   async fetch(request, { STATIC }) {

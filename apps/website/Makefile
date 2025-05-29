@@ -4,6 +4,9 @@ build:
 		--experimental-wasm \
 		--verbose \
 		--optimize=4
+	@mkdir -p build/_404
+	@mv build/jaspr/ja/404 build/_404/ja
+	@mv build/jaspr/en/404 build/_404/en
 
 .PHONY: init
 init:

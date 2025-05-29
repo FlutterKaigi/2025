@@ -24,11 +24,6 @@ class App extends StatelessComponent {
         Router(
           routes: [
             ..._createLanguageRoutes(
-              path: '/404',
-              title: 'Not Found',
-              builder: (context, state) => const NotFound(),
-            ),
-            ..._createLanguageRoutes(
               path: '/',
               title: 'FlutterKaigi 2025',
               builder: (context, state) => const Home(),
@@ -39,6 +34,20 @@ class App extends StatelessComponent {
               builder: (context, state) => Dashsay(
                 // TODO static buildだとqueryParamが無効になる
                 message: state.queryParams['m'] ?? 'FlutterKaigi 2025!',
+              ),
+            ),
+            Route(
+              path: '/en/404',
+              title: 'Not Found',
+              builder: (context, state) => const _BasicLayout(
+                child: NotFound(),
+              ),
+            ),
+            Route(
+              path: '/ja/404',
+              title: 'Not Found',
+              builder: (context, state) => const _BasicLayout(
+                child: NotFound(),
               ),
             ),
           ],
@@ -90,23 +99,17 @@ List<Route> _createLanguageRoutes({
     Route(
       path: '/ja${path == '/' ? '' : path}',
       title: title,
-      builder: (context, state) {
-        // Set language to Japanese
-        return _BasicLayout(
-          child: builder(context, state),
-        );
-      },
+      builder: (context, state) => _BasicLayout(
+        child: builder(context, state),
+      ),
     ),
     // English route
     Route(
       path: '/en${path == '/' ? '' : path}',
       title: title,
-      builder: (context, state) {
-        // Set language to English
-        return _BasicLayout(
-          child: builder(context, state),
-        );
-      },
+      builder: (context, state) => _BasicLayout(
+        child: builder(context, state),
+      ),
     ),
   ];
 }
