@@ -1,6 +1,6 @@
+import 'package:dashboard/core/ui/main/main_screen.dart';
 import 'package:dashboard/features/auth/data/notifier/auth_notifier.dart';
-import 'package:dashboard/ui/auth/login_screen.dart';
-import 'package:dashboard/ui/main/main_screen.dart';
+import 'package:dashboard/features/auth/ui/login_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

@@ -54,11 +54,9 @@ class LoginScreen extends ConsumerWidget {
                         ),
                         // Googleログインボタン
                         _GoogleSignInButton(
-                          onPressed:
-                              () async =>
-                                  ref
-                                      .read(authNotifierProvider.notifier)
-                                      .signInWithGoogle(),
+                          onPressed: () async => ref
+                              .read(authNotifierProvider.notifier)
+                              .signInWithGoogle(),
                         ),
                       ],
                     ),

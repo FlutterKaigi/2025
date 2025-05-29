@@ -1,7 +1,7 @@
 import 'dart:js_interop';
 
 import 'package:flutterkaigi_2025_website/src/path.dart';
-import 'package:web/web.dart';
+import 'package:universal_web/web.dart';
 
 /// 現在のパス
 Path get currentPath {

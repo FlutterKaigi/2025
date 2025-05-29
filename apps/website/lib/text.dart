@@ -1,4 +1,4 @@
-import 'package:flutterkaigi_2025_website/config.dart' show user;
+import 'package:flutterkaigi_2025_website/src/config/config.dart' show user;
 
 const _month = {
   1: 'Jan',
@@ -31,14 +31,16 @@ const contents = (
   moveToTop: (ja: 'トップ', en: 'Top'),
 );
 
-String formatDate(DateTime date, [Language? lang]) => switch (lang ??
-    user.lang) {
-  Language.en => '${_month[date.month]} ${date.day}, ${date.year}',
-  _ => '${date.year}年${date.month}月${date.day}日',
-};
+String formatDate(DateTime date, [Language? lang]) =>
+    switch (lang ?? user.lang) {
+      Language.en => '${_month[date.month]} ${date.day}, ${date.year}',
+      _ => '${date.year}年${date.month}月${date.day}日',
+    };
 
-/// テキストコンテンツを取得する
-String text(Content content) => switch (user.lang) {
-  Language.en => content.en ?? content.ja,
-  _ => content.ja,
-};
+extension ContentEx on Content {
+  /// テキストコンテンツを取得する
+  String get text => switch (user.lang) {
+    Language.en => this.en ?? this.ja,
+    _ => this.ja,
+  };
+}

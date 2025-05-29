@@ -1,53 +1,107 @@
-import 'package:flutterkaigi_2025_website/src/path.dart';
-import 'package:flutterkaigi_2025_website/src/routes.dart';
-import 'package:web/web.dart';
+import 'package:flutterkaigi_2025_website/src/components/footer.dart';
+import 'package:flutterkaigi_2025_website/src/components/header.dart';
+import 'package:flutterkaigi_2025_website/src/config/config.dart'
+    show makeTitle, user;
+import 'package:flutterkaigi_2025_website/src/pages/_404.dart';
+import 'package:flutterkaigi_2025_website/src/pages/dashsay.dart';
+import 'package:flutterkaigi_2025_website/src/pages/home.dart';
+import 'package:flutterkaigi_2025_website/text.dart' show Language;
+import 'package:jaspr/jaspr.dart';
+import 'package:jaspr_router/jaspr_router.dart';
 
-HTMLElement get app => _app;
+class App extends StatelessComponent {
+  const App({super.key});
 
-HTMLElement _app = () {
-  window.onPopState.listen((_) => rerendering());
-  return _routing(routes, currentPath);
-}();
-
-HTMLElement _routing(Routes routes, Path path) {
-  final timeLabel = 'dart routing $path';
-
-  try {
-    console.time(timeLabel);
-
-    // if (path == currentPath) return _app;
-    final page = routes(path);
-
-    document.title = page.title;
-
-    return page.handle();
-  } finally {
-    console.timeEnd(timeLabel);
+  @override
+  Iterable<Component> build(BuildContext context) sync* {
+    yield div(
+      styles: Styles(
+        display: Display.flex,
+        width: Unit.auto,
+        minHeight: 100.vh,
+        flexDirection: FlexDirection.column,
+      ),
+      [
+        Router(
+          routes: [
+            Route(
+              path: '/404',
+              title: 'Not Found',
+              builder: (context, state) =>
+                  const _BasicLayout(child: NotFound()),
+            ),
+            ..._createLanguageRoutes(
+              path: '/',
+              title: 'FlutterKaigi 2025',
+              builder: (context, state) => const Home(),
+            ),
+            ..._createLanguageRoutes(
+              path: '/dashsay',
+              title: makeTitle('Dash say'),
+              builder: (context, state) =>
+                  Dashsay(message: state.queryParams['m'] ?? ''),
+            ),
+          ],
+          errorBuilder: (context, state) =>
+              const _BasicLayout(child: NotFound()),
+        ),
+      ],
+    );
   }
 }
 
-void rerendering([Path? path]) {
-  _resetState();
+class _BasicLayout extends StatelessComponent {
+  const _BasicLayout({required this.child});
+  final Component child;
 
-  if (path != null) {
-    window.history.pushState(null, '', path.toString());
+  @override
+  Iterable<Component> build(BuildContext context) sync* {
+    yield Header(
+      styles: Styles(
+        position: Position.sticky(top: 0.px),
+        border: Border.only(
+          bottom: BorderSide.solid(
+            color: const Color.variable('--border-color'),
+            width: 1.px,
+          ),
+        ),
+      ),
+    );
+    yield child;
+    yield const Footer();
   }
-
-  final element = _routing(routes, path ?? currentPath);
-  _app.replaceWith(element);
-  _app = element;
 }
 
-final _onRemoves = <void Function()>[];
-
-void _resetState() {
-  for (final callback in _onRemoves) {
-    callback();
-  }
-  _onRemoves.clear();
-}
-
-/// 画面更新時に実行されるコールバックを登録する
-void onRemove(void Function() callback) {
-  _onRemoves.add(callback);
+List<Route> _createLanguageRoutes({
+  required String path,
+  required String title,
+  required Component Function(BuildContext, RouteState) builder,
+}) {
+  return [
+    Route(
+      path: path,
+      title: title,
+      builder: (context, state) => _BasicLayout(child: builder(context, state)),
+    ),
+    // Japanese route
+    Route(
+      path: '/ja${path == '/' ? '' : path}',
+      title: title,
+      builder: (context, state) {
+        // Set language to Japanese
+        user.lang = Language.ja;
+        return _BasicLayout(child: builder(context, state));
+      },
+    ),
+    // English route
+    Route(
+      path: '/en${path == '/' ? '' : path}',
+      title: title,
+      builder: (context, state) {
+        // Set language to English
+        user.lang = Language.en;
+        return _BasicLayout(child: builder(context, state));
+      },
+    ),
+  ];
 }

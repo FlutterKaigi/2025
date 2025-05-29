@@ -91,7 +91,7 @@ final class RouterProvider extends $FunctionalProvider<GoRouter, GoRouter>
   }
 }
 
-String _$routerHash() => r'0161b1a83b81cdd96d1e72df265fc91bc8ec79dd';
+String _$routerHash() => r'0e44149e7f0e3e81881bf8916eea9445305acb3e';
 
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

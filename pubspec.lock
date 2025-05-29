@@ -26,7 +26,7 @@ packages:
     source: hosted
     version: "7.3.0"
   analyzer_plugin:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
       name: analyzer_plugin
       sha256: b3075265c5ab222f8b3188342dcb50b476286394a40323e85d1fa725035d40a4
@@ -105,6 +105,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.3"
+  binary_codec:
+    dependency: transitive
+    description:
+      name: binary_codec
+      sha256: "368144225d749e1e33f2f4628d0c70bffff99b99b1d6c0777b039f8967365b07"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.3"
   boolean_selector:
     dependency: transitive
     description:
@@ -173,10 +181,10 @@ packages:
     dependency: transitive
     description:
       name: build_web_compilers
-      sha256: "0713ad9045ae0ee7f97187ae7bd2f42bdec929c22f32caa78e031338d4894bd7"
+      sha256: f9b8e84dbfa7688221c2376e6f68ffd796597785a0a5b1e8cd2516a92fdc0a3c
       url: "https://pub.dev"
     source: hosted
-    version: "4.1.4"
+    version: "4.1.5"
   built_collection:
     dependency: transitive
     description:
@@ -305,6 +313,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.6"
+  csslib:
+    dependency: transitive
+    description:
+      name: csslib
+      sha256: "09bad715f418841f976c77db72d5398dc1253c21fb9c0c7f0b0b985860b2d58e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
   cupertino_icons:
     dependency: transitive
     description:
@@ -528,6 +544,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.3.0"
+  html:
+    dependency: transitive
+    description:
+      name: html
+      sha256: "6d1264f2dffa1b1101c25a91dff0dc2daee4c18e87cd8538729773c073dbf602"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.15.6"
   http:
     dependency: transitive
     description:
@@ -576,6 +600,38 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.5"
+  jaspr:
+    dependency: transitive
+    description:
+      name: jaspr
+      sha256: "76418277035a6bdaf39a1cb4a8ac11a384f447280d59a2311bb8773cdeba5be4"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.19.0"
+  jaspr_builder:
+    dependency: transitive
+    description:
+      name: jaspr_builder
+      sha256: "5a3f5557df6b93c3c26fcf8a216d1d0594018f4806cca167a5ef4b2c532a1d53"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.19.0"
+  jaspr_lints:
+    dependency: transitive
+    description:
+      name: jaspr_lints
+      sha256: "17e73c818c409454ea150e0641928bf1d340c2704016aba5efd223302bee72f7"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.1"
+  jaspr_router:
+    dependency: transitive
+    description:
+      name: jaspr_router
+      sha256: d9c9dd28b759709c5e37afaef64fb98e1821f162b9dbc96f51db9d42181cda3b
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.7.0"
   js:
     dependency: transitive
     description:
@@ -620,26 +676,26 @@ packages:
     dependency: transitive
     description:
       name: leak_tracker
-      sha256: "6bb818ecbdffe216e81182c2f0714a2e62b593f4a4f13098713ff1685dfb6ab0"
+      sha256: "8dcda04c3fc16c14f48a7bb586d4be1f0d1572731b6d81d51772ef47c02081e0"
       url: "https://pub.dev"
     source: hosted
-    version: "10.0.9"
+    version: "11.0.1"
   leak_tracker_flutter_testing:
     dependency: transitive
     description:
       name: leak_tracker_flutter_testing
-      sha256: f8b613e7e6a13ec79cfdc0e97638fddb3ab848452eff057653abd3edba760573
+      sha256: "1dbc140bb5a23c75ea9c4811222756104fbcd1a27173f0c34ca01e16bea473c1"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.9"
+    version: "3.0.10"
   leak_tracker_testing:
     dependency: transitive
     description:
       name: leak_tracker_testing
-      sha256: "6ba465d5d76e67ddf503e1161d1f4a6bc42306f9d66ca1e8f079a47290fb06d3"
+      sha256: "8d5a2d49f4a66b49744b23b018848400d23e54caf9463f4eb20df3eb8acb2eb1"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.1"
+    version: "3.0.2"
   lints:
     dependency: transitive
     description:
@@ -1024,6 +1080,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.2"
+  shelf_gzip:
+    dependency: transitive
+    description:
+      name: shelf_gzip
+      sha256: "4f4b793c0f969f348aece1ab4cc05fceba9fea431c1ce76b1bc0fa369cecfc15"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.1.0"
   shelf_packages_handler:
     dependency: transitive
     description:
@@ -1032,6 +1096,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.2"
+  shelf_proxy:
+    dependency: transitive
+    description:
+      name: shelf_proxy
+      sha256: a71d2307f4393211930c590c3d2c00630f6c5a7a77edc1ef6436dfd85a6a7ee3
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.4"
   shelf_router:
     dependency: transitive
     description:
@@ -1229,6 +1301,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.0"
+  universal_web:
+    dependency: "direct overridden"
+    description:
+      path: web
+      ref: "feat/web-1-1-1"
+      resolved-ref: "24dbef3a6719bac498b9f37a9a65fca2e5c3d1b1"
+      url: "https://github.com/parlough/universal_web.git"
+    source: git
+    version: "1.1.1"
   url_launcher:
     dependency: transitive
     description:
@@ -1390,5 +1471,5 @@ packages:
     source: hosted
     version: "2.1.0"
 sdks:
-  dart: ">=3.8.0-278.2.beta <3.9.0-z"
-  flutter: ">=3.32.0-0.3.pre"
+  dart: ">=3.9.0-100.2.beta <3.9.0-z"
+  flutter: ">=3.33.0-0.1.pre"

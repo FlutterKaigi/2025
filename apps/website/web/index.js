@@ -1,5 +1,3 @@
-import indexHtml from "./index.html";
-
 const STATIC_FILE = /.*\..*$/;
 
 export default {
@@ -11,10 +9,6 @@ export default {
       });
     }
 
-    return new Response(indexHtml, {
-      headers: {
-        "Content-Type": "text/html; charset=UTF-8",
-      },
-    });
+    return await STATIC.fetch(request);
   },
 };

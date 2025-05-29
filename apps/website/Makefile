@@ -1,28 +1,17 @@
-# Dartのソースコード
-SRC := $(shell find ./lib -type f -name '*.dart')
-
-# 静的ファイル
-STATIC := $(shell find web -type f -not -name '*.dart'  -not -name 'index.*')
-STATIC_BUILD := $(patsubst web/%,build/%,$(STATIC))
-
-all: build/main.wasm $(STATIC_BUILD)
-
-build/%.wasm: web/%.dart $(SRC)
-	@dart compile wasm \
-		--output=$@ \
-		--optimization-level=4 \
-		--no-source-maps \
+all:
+	@jaspr build \
+		--experimental-wasm \
+		--verbose \
+		--optimize=4 \
 		$<
-
-build/%: web/%
-	@mkdir -p $(@D)
-	@cp $< $@
-	@echo $@
+	mv build/jaspr/404/index.html build/jaspr/404.html
+	@rm -rf build/jaspr/404
 
 .PHONY: init
 init:
 	dart pub get
 	bun install
+	dart pub global activate jaspr_cli
 
 .PHONY: fmt
 fmt:
@@ -41,7 +30,11 @@ dev: serve
 
 .PHONY: serve
 serve:
-	bun dev
+	jaspr serve
+
+.PHONY: start
+start:
+	bun start
 
 .PHONY: check
 check:
