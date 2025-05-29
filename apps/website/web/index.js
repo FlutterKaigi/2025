@@ -1,14 +1,18 @@
-const STATIC_FILE = /.*\..*$/;
+import notFound from "../build/jaspr/404/index.html";
+import notFoundEn from "../build/jaspr/en/404/index.html";
 
 export default {
   async fetch(request, { STATIC }) {
     const url = new URL(request.url);
-    if (url.pathname.match(STATIC_FILE)) {
-      return new Response("Not Found", {
-        status: 404,
-      });
-    }
 
-    return await STATIC.fetch(request);
+    return new Response(
+      url.pathname.startsWith("/en/") ? notFoundEn : notFound,
+      {
+        status: 404,
+        headers: {
+          "Content-Type": "text/html; charset=utf-8",
+        },
+      },
+    );
   },
 };

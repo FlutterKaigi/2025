@@ -24,11 +24,10 @@ class App extends StatelessComponent {
       [
         Router(
           routes: [
-            Route(
+            ..._createLanguageRoutes(
               path: '/404',
               title: 'Not Found',
-              builder: (context, state) =>
-                  const _BasicLayout(child: NotFound()),
+              builder: (context, state) => const NotFound(),
             ),
             ..._createLanguageRoutes(
               path: '/',

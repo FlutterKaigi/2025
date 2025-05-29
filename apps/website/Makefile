@@ -1,11 +1,9 @@
-all:
+.PHONY: build
+build:
 	@jaspr build \
 		--experimental-wasm \
 		--verbose \
-		--optimize=4 \
-		$<
-	mv build/jaspr/404/index.html build/jaspr/404.html
-	@rm -rf build/jaspr/404
+		--optimize=4
 
 .PHONY: init
 init:
