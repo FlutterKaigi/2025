@@ -133,8 +133,8 @@ class _Link extends StatelessComponent {
         ],
       ),
       RelatedLink(:final title, :final url) => ExternalLink(
-        url: url.text,
-        content: Text(title.text),
+        url: url.text(context),
+        content: title.text(context).toComponent,
       ),
       PastEventLink(:final title, :final url) => ExternalLink(
         url: url,

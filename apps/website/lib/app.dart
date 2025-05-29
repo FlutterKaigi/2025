@@ -1,11 +1,10 @@
 import 'package:flutterkaigi_2025_website/src/components/footer.dart';
 import 'package:flutterkaigi_2025_website/src/components/header.dart';
 import 'package:flutterkaigi_2025_website/src/config/config.dart'
-    show makeTitle, user;
+    show makeTitle;
 import 'package:flutterkaigi_2025_website/src/pages/_404.dart';
 import 'package:flutterkaigi_2025_website/src/pages/dashsay.dart';
 import 'package:flutterkaigi_2025_website/src/pages/home.dart';
-import 'package:flutterkaigi_2025_website/text.dart' show Language;
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_router/jaspr_router.dart';
 
@@ -43,8 +42,9 @@ class App extends StatelessComponent {
               ),
             ),
           ],
-          errorBuilder: (context, state) =>
-              const _BasicLayout(child: NotFound()),
+          errorBuilder: (context, state) => const _BasicLayout(
+            child: NotFound(),
+          ),
         ),
       ],
     );
@@ -82,7 +82,9 @@ List<Route> _createLanguageRoutes({
     Route(
       path: path,
       title: title,
-      builder: (context, state) => _BasicLayout(child: builder(context, state)),
+      builder: (context, state) => _BasicLayout(
+        child: builder(context, state),
+      ),
     ),
     // Japanese route
     Route(
@@ -90,8 +92,9 @@ List<Route> _createLanguageRoutes({
       title: title,
       builder: (context, state) {
         // Set language to Japanese
-        user.lang = Language.ja;
-        return _BasicLayout(child: builder(context, state));
+        return _BasicLayout(
+          child: builder(context, state),
+        );
       },
     ),
     // English route
@@ -100,8 +103,9 @@ List<Route> _createLanguageRoutes({
       title: title,
       builder: (context, state) {
         // Set language to English
-        user.lang = Language.en;
-        return _BasicLayout(child: builder(context, state));
+        return _BasicLayout(
+          child: builder(context, state),
+        );
       },
     ),
   ];

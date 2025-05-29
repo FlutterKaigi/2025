@@ -36,7 +36,7 @@ class Header extends StatelessComponent {
             ),
             alt: '${site.title} logo',
           ),
-          path: Path.go(),
+          path: Path.fromPathname(context.url).go(),
         ),
       ]),
       nav(
@@ -48,8 +48,14 @@ class Header extends StatelessComponent {
           fontSize: Unit.inherit,
         ),
         [
-          _LanguageLink(language: Language.ja, title: contents.lang.ja),
-          _LanguageLink(language: Language.en, title: contents.lang.en),
+          _LanguageLink(
+            language: Language.ja,
+            title: contents.lang.ja,
+          ),
+          _LanguageLink(
+            language: Language.en,
+            title: contents.lang.en,
+          ),
         ],
       ),
     ]);
@@ -67,14 +73,14 @@ class _LanguageLink extends StatelessComponent {
 
   @override
   Iterable<Component> build(BuildContext context) sync* {
-    final path = context.url;
-    if (user.lang == language) {
+    final path = Path.fromPathname(context.url);
+    if ((path.lang ?? Language.ja) == language) {
       yield Text(title);
       return;
     }
     yield InternalLink(
       content: Text(title),
-      path: Path.fromPathname(path).withLang(language),
+      path: path.withLang(language),
     );
   }
 }

@@ -1,7 +1,3 @@
-import 'package:flutterkaigi_2025_website/text.dart' show Language;
-
-Language get systemLang => Language.ja;
-
 typedef LangBlock = ({String ja, String en});
 
 sealed class LinkBase {}
@@ -144,10 +140,3 @@ final event = (
     const PastEventLink(title: '2021', url: 'https://2021.flutterkaigi.jp/'),
   ],
 );
-
-/// ユーザー設定
-final user = _User();
-
-final class _User {
-  Language lang = systemLang;
-}

@@ -101,7 +101,7 @@ class _MainArticle extends StatelessComponent {
             fontSize: 1.5.rem,
             fontWeight: FontWeight.w900,
           ),
-          [text('on ${formatDate(event.date, Language.en)}')],
+          [text('on ${formatDate(context, event.date, Language.en)}')],
         ),
         p(
           styles: Styles(
@@ -114,7 +114,7 @@ class _MainArticle extends StatelessComponent {
           [
             text('at '),
             ExternalLink(
-              content: text(event.place.name.text),
+              content: event.place.name.text(context).toComponent,
               url: event.place.url,
               styles: Styles(
                 color: Color.inherit,
@@ -132,14 +132,14 @@ class _MainArticle extends StatelessComponent {
           ),
           [
             Link(
-              to: event.blog.sponsorship.url.text,
+              to: event.blog.sponsorship.url.text(context),
               classes: 'gradient-button',
               styles: Styles(
                 cursor: Cursor.pointer,
                 color: Colors.white,
                 fontSize: 1.rem,
               ),
-              child: text(event.blog.sponsorship.title.text),
+              child: event.blog.sponsorship.title.text(context).toComponent,
             ),
           ],
         ),

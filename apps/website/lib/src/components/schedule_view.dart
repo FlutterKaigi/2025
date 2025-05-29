@@ -27,11 +27,11 @@ class ScheduleView extends StatelessComponent {
                     textAlign: TextAlign.center,
                     lineHeight: 2.rem,
                   ),
-                  child: text(formatDate(schedule.date)),
+                  child: text(formatDate(context, schedule.date)),
                 ),
                 DomComponent(
                   tag: 'dd',
-                  child: text(schedule.title.text),
+                  child: schedule.title.text(context).toComponent,
                 ),
               ],
             )
