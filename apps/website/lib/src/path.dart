@@ -2,7 +2,7 @@ import 'package:flutterkaigi_2025_website/src/path_stub.dart'
     if (dart.library.js_interop) './path_web.dart';
 import 'package:flutterkaigi_2025_website/text.dart' show Language;
 
-export './path_stub.dart' if (dart.library.js_interop) './path_web.dart';
+export 'path_stub.dart' if (dart.library.js_interop) './path_web.dart';
 
 class Path {
   Path(this._path);

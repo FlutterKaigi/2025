@@ -80,7 +80,10 @@ jobs:
 
       - name: Resolve dependencies
         working-directory: apps/website
-        run: dart pub get
+        run: |
+          dart pub get
+          dart pub global activate jaspr_cli
+          echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
 
       - name: Build Dart WebAssembly
         id: build
@@ -96,7 +99,7 @@ jobs:
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: website-artifacts
-          path: apps/website/build
+          path: apps/website/build/jaspr
 
   deploy-website:
     runs-on: ubuntu-24.04
@@ -118,7 +121,7 @@ jobs:
         uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
         with:
           name: website-artifacts
-          path: apps/website/build
+          path: apps/website/build/jaspr
 
       - name: Extract SOPS secrets
         run: |
