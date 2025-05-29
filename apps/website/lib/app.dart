@@ -37,8 +37,10 @@ class App extends StatelessComponent {
             ..._createLanguageRoutes(
               path: '/dashsay',
               title: makeTitle('Dash say'),
-              builder: (context, state) =>
-                  Dashsay(message: state.queryParams['m'] ?? ''),
+              builder: (context, state) => Dashsay(
+                // TODO static buildだとqueryParamが無効になる
+                message: state.queryParams['m'] ?? 'FlutterKaigi 2025!',
+              ),
             ),
           ],
           errorBuilder: (context, state) =>
