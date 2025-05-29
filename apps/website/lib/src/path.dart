@@ -1,8 +1,11 @@
-import 'package:flutterkaigi_2025_website/src/path_stub.dart'
-    if (dart.library.js_interop) './path_web.dart';
 import 'package:flutterkaigi_2025_website/text.dart' show Language;
+import 'package:universal_web/web.dart';
 
-export 'path_stub.dart' if (dart.library.js_interop) './path_web.dart';
+/// 現在のパス
+Path get currentPath {
+  final pathname = window.location.pathname;
+  return Path.fromPathname(pathname);
+}
 
 class Path {
   Path(this._path);

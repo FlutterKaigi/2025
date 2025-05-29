@@ -1,6 +1,10 @@
-import 'package:flutterkaigi_2025_website/src/config/config_stub.dart'
-    if (dart.library.js_interop) './config_web.dart';
 import 'package:flutterkaigi_2025_website/text.dart' show Language;
+import 'package:universal_web/web.dart';
+
+Language get systemLang => switch (window.navigator.language.split('-').first) {
+  'en' => Language.en,
+  _ => Language.ja,
+};
 
 typedef LangBlock = ({String ja, String en});
 
