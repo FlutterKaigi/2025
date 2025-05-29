@@ -47,8 +47,8 @@ class _Body extends ConsumerWidget {
               radius: 48,
             ),
             FilledButton(
-              onPressed:
-                  () => ref.read(authNotifierProvider.notifier).signOut(),
+              onPressed: () =>
+                  ref.read(authNotifierProvider.notifier).signOut(),
               child: const Text('ログアウト'),
             ),
           ],
