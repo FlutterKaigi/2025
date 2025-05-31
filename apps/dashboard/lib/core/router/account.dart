@@ -1,5 +1,9 @@
 part of 'router.dart';
 
+const _accountRoutes = [
+  TypedGoRoute<AccountInfoRoute>(path: '/account'),
+];
+
 class AccountBranch extends StatefulShellBranchData {}
 
 class AccountInfoRoute extends GoRouteData {

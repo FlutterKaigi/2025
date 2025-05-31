@@ -57,15 +57,9 @@ class LoginRoute extends GoRouteData {
 
 @TypedStatefulShellRoute<MainRoute>(
   branches: [
-    TypedStatefulShellBranch<EventBranch>(
-      routes: [TypedGoRoute<EventInfoRoute>(path: '/event')],
-    ),
-    TypedStatefulShellBranch<SponsorBranch>(
-      routes: [TypedGoRoute<SponsorListRoute>(path: '/sponsors')],
-    ),
-    TypedStatefulShellBranch<AccountBranch>(
-      routes: [TypedGoRoute<AccountInfoRoute>(path: '/account')],
-    ),
+    TypedStatefulShellBranch<EventBranch>(routes: _eventRoutes),
+    TypedStatefulShellBranch<SponsorBranch>(routes: _sponsorRoutes),
+    TypedStatefulShellBranch<AccountBranch>(routes: _accountRoutes),
   ],
 )
 class MainRoute extends StatefulShellRouteData {

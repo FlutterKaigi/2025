@@ -1,5 +1,9 @@
 part of 'router.dart';
 
+const _eventRoutes = [
+  TypedGoRoute<EventInfoRoute>(path: '/event'),
+];
+
 class EventBranch extends StatefulShellBranchData {}
 
 class EventInfoRoute extends GoRouteData {

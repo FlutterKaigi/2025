@@ -1,5 +1,9 @@
 part of 'router.dart';
 
+const _sponsorRoutes = [
+  TypedGoRoute<SponsorListRoute>(path: '/sponsors'),
+];
+
 class SponsorBranch extends StatefulShellBranchData {}
 
 class SponsorListRoute extends GoRouteData {
