@@ -40,6 +40,13 @@ RouteBase get $mainRoute => StatefulShellRouteData.$route(
           path: '/event',
 
           factory: $EventInfoRouteExtension._fromState,
+          routes: [
+            GoRouteData.$route(
+              path: 'news',
+
+              factory: $NewsRouteExtension._fromState,
+            ),
+          ],
         ),
       ],
     ),
@@ -73,6 +80,21 @@ extension $EventInfoRouteExtension on EventInfoRoute {
       const EventInfoRoute();
 
   String get location => GoRouteData.$location('/event');
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $NewsRouteExtension on NewsRoute {
+  static NewsRoute _fromState(GoRouterState state) => const NewsRoute();
+
+  String get location => GoRouteData.$location('/event/news');
 
   void go(BuildContext context) => context.go(location);
 

@@ -1,3 +1,4 @@
+import 'package:dashboard/core/router/router.dart';
 import 'package:flutter/material.dart';
 
 /// イベント情報画面
@@ -13,6 +14,13 @@ class EventInfoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: Center(child: Text('EventInfoScreen')));
+    return Scaffold(
+      body: Center(
+        child: TextButton(
+          onPressed: () async => const NewsRoute().go(context),
+          child: const Text('GO TO NEWS'),
+        ),
+      ),
+    );
   }
 }
