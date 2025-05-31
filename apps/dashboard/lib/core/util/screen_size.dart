@@ -5,8 +5,8 @@ enum ScreenSize {
 
   factory ScreenSize.fromWidth(double width) {
     return switch (width) {
-      > 960 => ScreenSize.large,
-      > 640 => ScreenSize.medium,
+      > 840 => ScreenSize.large,
+      > 600 => ScreenSize.medium,
       _ => ScreenSize.small,
     };
   }
