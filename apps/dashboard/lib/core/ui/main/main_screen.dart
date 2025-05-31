@@ -1,6 +1,6 @@
-import 'package:dashboard/features/auth/data/notifier/auth_notifier.dart';
+import 'package:dashboard/core/ui/main/responsive_scaffold.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 /// メイン画面
 ///
@@ -11,52 +11,29 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// 参考:
 /// - [SCREENS.md](https://github.com/FlutterKaigi/2025/blob/main/docs/dashboard/SCREENS.md)
 class MainScreen extends StatelessWidget {
-  const MainScreen({super.key});
+  const MainScreen({
+    required this.navigationShell,
+    super.key,
+  });
+
+  final StatefulNavigationShell navigationShell;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Dashboard')),
-      body: const _Body(),
+    return ResponsiveScaffold(
+      currentIndex: navigationShell.currentIndex,
+      destinations: const [
+        ResponsiveScaffoldDestination(icon: Icons.event, title: 'イベント'),
+        ResponsiveScaffoldDestination(icon: Icons.business, title: 'スポンサー'),
+        ResponsiveScaffoldDestination(icon: Icons.person, title: 'アカウント'),
+      ],
+      onNavigationIndexChange: (index) async {
+        navigationShell.goBranch(
+          index,
+          initialLocation: index == navigationShell.currentIndex,
+        );
+      },
+      body: navigationShell,
     );
-  }
-}
-
-class _Body extends ConsumerWidget {
-  const _Body({super.key});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final authState = ref.watch(authNotifierProvider);
-
-    return switch (authState) {
-      AsyncData(value: final user) when user != null => Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          spacing: 16,
-          children: [
-            Text(
-              'You are logged in as '
-              '${user.email}: '
-              '${user.userMetadata?["full_name"]}',
-            ),
-            CircleAvatar(
-              foregroundImage: NetworkImage(
-                user.userMetadata?['avatar_url'].toString() ?? '',
-              ),
-              radius: 48,
-            ),
-            FilledButton(
-              onPressed: () =>
-                  ref.read(authNotifierProvider.notifier).signOut(),
-              child: const Text('ログアウト'),
-            ),
-          ],
-        ),
-      ),
-      AsyncData() => const Center(child: Text('ログインしていません')),
-      AsyncError(error: final error) => Center(child: Text(error.toString())),
-      AsyncLoading() => const Center(child: CircularProgressIndicator()),
-    };
   }
 }

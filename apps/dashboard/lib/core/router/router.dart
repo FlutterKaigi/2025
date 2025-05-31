@@ -1,6 +1,9 @@
 import 'package:dashboard/core/ui/main/main_screen.dart';
+import 'package:dashboard/features/account/ui/account_info_screen.dart';
 import 'package:dashboard/features/auth/data/notifier/auth_notifier.dart';
 import 'package:dashboard/features/auth/ui/login_screen.dart';
+import 'package:dashboard/features/event/ui/event_info_screen.dart';
+import 'package:dashboard/features/sponsor/ui/sponsor_list_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -25,28 +28,18 @@ GoRouter router(Ref ref) {
     routes: $appRoutes,
     debugLogDiagnostics: kDebugMode,
     refreshListenable: isAuthorizedNotifier,
-    initialLocation: const MainRoute().location,
+    initialLocation: const EventInfoRoute().location,
     redirect: (context, state) {
       final isAuthorized = isAuthorizedNotifier.value;
       if (!isAuthorized && state.fullPath != const LoginRoute().location) {
         return const LoginRoute().location;
       }
       if (isAuthorized && state.fullPath == const LoginRoute().location) {
-        return const MainRoute().location;
+        return const EventInfoRoute().location;
       }
       return null;
     },
   );
-}
-
-@TypedGoRoute<MainRoute>(path: '/')
-class MainRoute extends GoRouteData {
-  const MainRoute();
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) {
-    return const MainScreen();
-  }
 }
 
 @TypedGoRoute<LoginRoute>(path: '/login')
@@ -57,4 +50,60 @@ class LoginRoute extends GoRouteData {
   Widget build(BuildContext context, GoRouterState state) {
     return const LoginScreen();
   }
+}
+
+@TypedStatefulShellRoute<MainRoute>(
+  branches: [
+    TypedStatefulShellBranch<EventBranch>(
+      routes: [TypedGoRoute<EventInfoRoute>(path: '/event')],
+    ),
+    TypedStatefulShellBranch<SponsorBranch>(
+      routes: [TypedGoRoute<SponsorListRoute>(path: '/sponsors')],
+    ),
+    TypedStatefulShellBranch<AccountBranch>(
+      routes: [TypedGoRoute<AccountInfoRoute>(path: '/account')],
+    ),
+  ],
+)
+class MainRoute extends StatefulShellRouteData {
+  const MainRoute();
+
+  @override
+  Widget builder(
+    BuildContext context,
+    GoRouterState state,
+    StatefulNavigationShell navigationShell,
+  ) {
+    return MainScreen(navigationShell: navigationShell);
+  }
+}
+
+class EventBranch extends StatefulShellBranchData {}
+
+class SponsorBranch extends StatefulShellBranchData {}
+
+class AccountBranch extends StatefulShellBranchData {}
+
+class EventInfoRoute extends GoRouteData {
+  const EventInfoRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const EventInfoScreen();
+}
+
+class SponsorListRoute extends GoRouteData {
+  const SponsorListRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const SponsorListScreen();
+}
+
+class AccountInfoRoute extends GoRouteData {
+  const AccountInfoRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const AccountInfoScreen();
 }

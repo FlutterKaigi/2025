@@ -1,4 +1,6 @@
+import 'package:dashboard/features/auth/data/notifier/auth_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// アカウント情報画面
 ///
@@ -13,6 +15,45 @@ class AccountInfoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: Center(child: Text('AccountInfoScreen')));
+    return const Scaffold(body: _Body());
+  }
+}
+
+class _Body extends ConsumerWidget {
+  const _Body({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final authState = ref.watch(authNotifierProvider);
+
+    return switch (authState) {
+      AsyncData(value: final user) when user != null => Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          spacing: 16,
+          children: [
+            Text(
+              'You are logged in as '
+              '${user.email}: '
+              '${user.userMetadata?["full_name"]}',
+            ),
+            CircleAvatar(
+              foregroundImage: NetworkImage(
+                user.userMetadata?['avatar_url'].toString() ?? '',
+              ),
+              radius: 48,
+            ),
+            FilledButton(
+              onPressed: () =>
+                  ref.read(authNotifierProvider.notifier).signOut(),
+              child: const Text('ログアウト'),
+            ),
+          ],
+        ),
+      ),
+      AsyncData() => const Center(child: Text('ログインしていません')),
+      AsyncError(error: final error) => Center(child: Text(error.toString())),
+      AsyncLoading() => const Center(child: CircularProgressIndicator()),
+    };
   }
 }
