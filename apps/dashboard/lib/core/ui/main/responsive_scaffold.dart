@@ -1,4 +1,4 @@
-import 'package:dashboard/core/util/screen_size.dart';
+import 'package:dashboard/core/util/window_size.dart';
 import 'package:flutter/material.dart';
 
 /// A destination for the [ResponsiveScaffold].
@@ -33,22 +33,22 @@ class ResponsiveScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.widthOf(context);
-    final screenSize = ScreenSize.fromWidth(width);
+    final screenSize = WindowSize.fromWidth(width);
 
     return switch (screenSize) {
-      ScreenSize.large => _LargeScreen(
+      WindowSize.expanded => _ExpandedScreen(
         destinations: destinations,
         currentIndex: currentIndex,
         onNavigationIndexChange: onNavigationIndexChange,
         body: body,
       ),
-      ScreenSize.medium => _MediumScreen(
+      WindowSize.medium => _MediumScreen(
         destinations: destinations,
         currentIndex: currentIndex,
         onNavigationIndexChange: onNavigationIndexChange,
         body: body,
       ),
-      ScreenSize.small => _SmallScreen(
+      WindowSize.compact => _CompactScreen(
         destinations: destinations,
         currentIndex: currentIndex,
         onNavigationIndexChange: onNavigationIndexChange,
@@ -58,8 +58,8 @@ class ResponsiveScaffold extends StatelessWidget {
   }
 }
 
-class _LargeScreen extends StatelessWidget {
-  const _LargeScreen({
+class _ExpandedScreen extends StatelessWidget {
+  const _ExpandedScreen({
     required this.currentIndex,
     required this.destinations,
     required this.onNavigationIndexChange,
@@ -133,8 +133,8 @@ class _MediumScreen extends StatelessWidget {
   }
 }
 
-class _SmallScreen extends StatelessWidget {
-  const _SmallScreen({
+class _CompactScreen extends StatelessWidget {
+  const _CompactScreen({
     required this.currentIndex,
     required this.destinations,
     required this.onNavigationIndexChange,
