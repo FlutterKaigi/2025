@@ -115,6 +115,7 @@ class _MediumScreen extends StatelessWidget {
       body: Row(
         children: [
           NavigationRail(
+            labelType: NavigationRailLabelType.all,
             destinations: destinations
                 .map(
                   (d) => NavigationRailDestination(
