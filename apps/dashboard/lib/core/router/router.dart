@@ -4,6 +4,8 @@ import 'package:dashboard/features/auth/data/notifier/auth_notifier.dart';
 import 'package:dashboard/features/auth/ui/login_screen.dart';
 import 'package:dashboard/features/event/ui/event_info_screen.dart';
 import 'package:dashboard/features/news/ui/news_screen.dart';
+import 'package:dashboard/features/sponsor/ui/sponsor_detail_screen.dart';
+import 'package:dashboard/features/sponsor/ui/sponsor_edit_screen.dart';
 import 'package:dashboard/features/sponsor/ui/sponsor_list_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

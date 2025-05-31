@@ -56,6 +56,20 @@ RouteBase get $mainRoute => StatefulShellRouteData.$route(
           path: '/sponsors',
 
           factory: $SponsorListRouteExtension._fromState,
+          routes: [
+            GoRouteData.$route(
+              path: ':slug',
+
+              factory: $SponsorDetailRouteExtension._fromState,
+              routes: [
+                GoRouteData.$route(
+                  path: 'edit',
+
+                  factory: $SponsorEditRouteExtension._fromState,
+                ),
+              ],
+            ),
+          ],
         ),
       ],
     ),
@@ -111,6 +125,40 @@ extension $SponsorListRouteExtension on SponsorListRoute {
       const SponsorListRoute();
 
   String get location => GoRouteData.$location('/sponsors');
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $SponsorDetailRouteExtension on SponsorDetailRoute {
+  static SponsorDetailRoute _fromState(GoRouterState state) =>
+      SponsorDetailRoute(slug: state.pathParameters['slug']!);
+
+  String get location =>
+      GoRouteData.$location('/sponsors/${Uri.encodeComponent(slug)}');
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $SponsorEditRouteExtension on SponsorEditRoute {
+  static SponsorEditRoute _fromState(GoRouterState state) =>
+      SponsorEditRoute(slug: state.pathParameters['slug']!);
+
+  String get location =>
+      GoRouteData.$location('/sponsors/${Uri.encodeComponent(slug)}/edit');
 
   void go(BuildContext context) => context.go(location);
 

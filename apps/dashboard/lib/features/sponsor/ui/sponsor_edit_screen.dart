@@ -9,10 +9,18 @@ import 'package:flutter/material.dart';
 /// 参考:
 /// - [SCREENS.md](https://github.com/FlutterKaigi/2025/blob/main/docs/dashboard/SCREENS.md)
 class SponsorEditScreen extends StatelessWidget {
-  const SponsorEditScreen({super.key});
+  const SponsorEditScreen({required this.slug, super.key});
+  final String slug;
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: Center(child: Text('SponsorEditScreen')));
+    return Scaffold(
+      body: Center(
+        child: Text(
+          'SponsorEditScreen: slug = '
+          '[1m$slug[0m',
+        ),
+      ),
+    );
   }
 }
