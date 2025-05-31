@@ -10,6 +10,9 @@ import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'router.g.dart';
+part 'event.dart';
+part 'sponsor.dart';
+part 'account.dart';
 
 @Riverpod(keepAlive: true)
 GoRouter router(Ref ref) {
@@ -76,34 +79,4 @@ class MainRoute extends StatefulShellRouteData {
   ) {
     return MainScreen(navigationShell: navigationShell);
   }
-}
-
-class EventBranch extends StatefulShellBranchData {}
-
-class SponsorBranch extends StatefulShellBranchData {}
-
-class AccountBranch extends StatefulShellBranchData {}
-
-class EventInfoRoute extends GoRouteData {
-  const EventInfoRoute();
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      const EventInfoScreen();
-}
-
-class SponsorListRoute extends GoRouteData {
-  const SponsorListRoute();
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      const SponsorListScreen();
-}
-
-class AccountInfoRoute extends GoRouteData {
-  const AccountInfoRoute();
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      const AccountInfoScreen();
 }
