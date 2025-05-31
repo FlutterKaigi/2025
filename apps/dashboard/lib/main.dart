@@ -20,7 +20,10 @@ Future<void> main() async {
         isDebug: kDebugMode,
       );
   try {
+    // `authNotifierProvider` のビルド時に中断されないようにするために監視しておく
+    final authSubscription = container.listen(authNotifierProvider, (_, _) {});
     await container.read(authNotifierProvider.future);
+    authSubscription.close();
   } on Exception catch (e) {
     log(e.toString());
   }
