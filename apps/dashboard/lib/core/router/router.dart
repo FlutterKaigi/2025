@@ -9,10 +9,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'router.g.dart';
-part 'event.dart';
-part 'sponsor.dart';
 part 'account.dart';
+part 'event.dart';
+part 'router.g.dart';
+part 'sponsor.dart';
 
 @Riverpod(keepAlive: true)
 GoRouter router(Ref ref) {
