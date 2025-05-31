@@ -73,23 +73,25 @@ class _LargeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        NavigationDrawer(
-          selectedIndex: currentIndex,
-          onDestinationSelected: onNavigationIndexChange,
-          children: [
-            const SizedBox(height: 16),
-            ...destinations.map(
-              (d) => NavigationDrawerDestination(
-                icon: Icon(d.icon),
-                label: Text(d.title),
-              ),
-            ),
-          ],
-        ),
-        Expanded(child: Scaffold(body: body)),
-      ],
+    return Scaffold(
+      body: Row(
+        children: [
+          NavigationRail(
+            extended: true,
+            destinations: destinations
+                .map(
+                  (d) => NavigationRailDestination(
+                    icon: Icon(d.icon),
+                    label: Text(d.title),
+                  ),
+                )
+                .toList(),
+            selectedIndex: currentIndex,
+            onDestinationSelected: onNavigationIndexChange,
+          ),
+          Expanded(child: body),
+        ],
+      ),
     );
   }
 }
