@@ -1,6 +1,7 @@
 import 'package:dashboard/features/auth/data/notifier/auth_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:dashboard/core/router/router.dart';
 
 /// アカウント情報画面
 ///
@@ -47,6 +48,16 @@ class _Body extends ConsumerWidget {
               onPressed: () =>
                   ref.read(authNotifierProvider.notifier).signOut(),
               child: const Text('ログアウト'),
+            ),
+            const SizedBox(height: 16),
+            TextButton(
+              onPressed: () => const ProfileEditRoute().go(context),
+              child: const Text('GO TO PROFILE EDIT'),
+            ),
+            const SizedBox(height: 8),
+            TextButton(
+              onPressed: () => const WithdrawalRoute().go(context),
+              child: const Text('GO TO WITHDRAWAL'),
             ),
           ],
         ),

@@ -13,6 +13,11 @@ class ProfileEditScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: Center(child: Text('ProfileEditScreen')));
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('ProfileEditScreen'),
+      ),
+      body: const Center(),
+    );
   }
 }
