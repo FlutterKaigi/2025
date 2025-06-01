@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 import 'package:dashboard/core/router/router.dart';
 import 'package:flutter/material.dart';
@@ -65,7 +66,6 @@ class _DraggableButtonState extends State<_DraggableButton>
     with WidgetsBindingObserver {
   double _dx = 0;
   double _dy = 0;
-  bool _isVisible = false;
 
   @override
   void initState() {
@@ -122,28 +122,26 @@ class _DraggableButtonState extends State<_DraggableButton>
       left: _dx,
       child: AnimatedSwitcher(
         duration: const Duration(milliseconds: 300),
-        child: _isVisible
-            ? const SizedBox.shrink()
-            : Draggable(
-                feedback: _buildButton(context),
-                childWhenDragging: const SizedBox.shrink(),
-                onDragEnd: (dragDetails) {
-                  final dx = dragDetails.offset.dx;
-                  final dy = dragDetails.offset.dy;
-                  setState(() {
-                    // ボタンが画面端にめり込まないように調整
-                    _dx = min(
-                      size.width - (_buttonSize.width + _padding),
-                      max(_padding, dx),
-                    );
-                    _dy = min(
-                      size.height - (_buttonSize.height + _padding),
-                      max(_padding, dy),
-                    );
-                  });
-                },
-                child: _buildButton(context),
-              ),
+        child: Draggable(
+          feedback: _buildButton(context),
+          childWhenDragging: const SizedBox.shrink(),
+          onDragEnd: (dragDetails) {
+            final dx = dragDetails.offset.dx;
+            final dy = dragDetails.offset.dy;
+            setState(() {
+              // ボタンが画面端にめり込まないように調整
+              _dx = min(
+                size.width - (_buttonSize.width + _padding),
+                max(_padding, dx),
+              );
+              _dy = min(
+                size.height - (_buttonSize.height + _padding),
+                max(_padding, dy),
+              );
+            });
+          },
+          child: _buildButton(context),
+        ),
       ),
     );
   }
@@ -151,9 +149,9 @@ class _DraggableButtonState extends State<_DraggableButton>
   Widget _buildButton(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        setState(() => _isVisible = true);
-        await const DebugRoute().push<void>(context);
-        setState(() => _isVisible = false);
+        unawaited(
+          const DebugRoute().push<void>(context),
+        );
       },
       child: AbsorbPointer(
         child: Container(
