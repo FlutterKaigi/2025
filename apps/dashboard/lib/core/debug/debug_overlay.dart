@@ -1,11 +1,9 @@
 import 'dart:math';
 import 'package:dashboard/core/router/router.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class DebugOverlay extends StatelessWidget {
+class DebugOverlay extends HookWidget {
   const DebugOverlay({
     required this.child,
     super.key,
@@ -15,29 +13,14 @@ class DebugOverlay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (!kDebugMode) {
-      return child;
-    }
-
-    return Overlay(
-      initialEntries: [
-        OverlayEntry(
-          builder: (context) => HookConsumer(
-            builder: (context, ref, child) {
-              useEffect(
-                () {
-                  _DebugOverlay.attach(context: context);
-                  return _DebugOverlay.remove;
-                },
-                [],
-              );
-              return child!;
-            },
-            child: child,
-          ),
-        ),
-      ],
+    useEffect(
+      () {
+        _DebugOverlay.attach(context: context);
+        return _DebugOverlay.remove;
+      },
+      [],
     );
+    return child;
   }
 }
 
@@ -169,7 +152,7 @@ class _DraggableButtonState extends State<_DraggableButton>
     return GestureDetector(
       onTap: () async {
         setState(() => _isVisible = true);
-        await const DebugRoute().push<void>(rootNavigatorKey.currentContext!);
+        await const DebugRoute().push<void>(context);
         setState(() => _isVisible = false);
       },
       child: AbsorbPointer(

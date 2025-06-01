@@ -32,7 +32,8 @@ class AccountInfoRoute extends GoRouteData {
 class ProfileEditRoute extends GoRouteData {
   const ProfileEditRoute();
 
-  static final GlobalKey<NavigatorState> $parentNavigatorKey = rootNavigatorKey;
+  static final GlobalKey<NavigatorState> $parentNavigatorKey =
+      _rootNavigatorKey;
 
   @override
   Widget build(BuildContext context, GoRouterState state) =>
@@ -42,7 +43,8 @@ class ProfileEditRoute extends GoRouteData {
 class WithdrawalRoute extends GoRouteData {
   const WithdrawalRoute();
 
-  static final GlobalKey<NavigatorState> $parentNavigatorKey = rootNavigatorKey;
+  static final GlobalKey<NavigatorState> $parentNavigatorKey =
+      _rootNavigatorKey;
 
   @override
   Widget build(BuildContext context, GoRouterState state) =>
