@@ -1,7 +1,7 @@
 import 'dart:async';
 
+import 'package:dashboard/core/debug/talker.dart';
 import 'package:dashboard/core/router/router.dart';
-import 'package:dashboard/core/util/talker.dart';
 import 'package:flutter/material.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
