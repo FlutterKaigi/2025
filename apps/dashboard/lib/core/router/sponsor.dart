@@ -16,7 +16,10 @@ const _sponsorRoutes = [
   ),
 ];
 
-class SponsorBranch extends StatefulShellBranchData {}
+// ignore: avoid_classes_with_only_static_members
+class SponsorBranch extends StatefulShellBranchData {
+  static final List<NavigatorObserver> $observers = _navigationObservers;
+}
 
 class SponsorListRoute extends GoRouteData {
   const SponsorListRoute();

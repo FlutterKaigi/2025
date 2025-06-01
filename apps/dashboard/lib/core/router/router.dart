@@ -1,4 +1,5 @@
 import 'package:dashboard/core/ui/main/main_screen.dart';
+import 'package:dashboard/core/util/talker.dart';
 import 'package:dashboard/features/account/ui/account_info_screen.dart';
 import 'package:dashboard/features/account/ui/profile_edit_screen.dart';
 import 'package:dashboard/features/account/ui/withdrawal_screen.dart';
@@ -13,6 +14,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
 part 'account.dart';
 part 'event.dart';
@@ -20,6 +22,10 @@ part 'router.g.dart';
 part 'sponsor.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
+
+final _navigationObservers = [
+  TalkerRouteObserver(talker),
+];
 
 @Riverpod(keepAlive: true)
 GoRouter router(Ref ref) {
@@ -36,6 +42,7 @@ GoRouter router(Ref ref) {
 
   return GoRouter(
     navigatorKey: _rootNavigatorKey,
+    observers: _navigationObservers,
     routes: $appRoutes,
     debugLogDiagnostics: kDebugMode,
     refreshListenable: isAuthorizedNotifier,
