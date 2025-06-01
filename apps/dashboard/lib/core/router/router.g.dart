@@ -65,6 +65,8 @@ RouteBase get $mainRoute => StatefulShellRouteData.$route(
                 GoRouteData.$route(
                   path: 'edit',
 
+                  parentNavigatorKey: SponsorEditRoute.$parentNavigatorKey,
+
                   factory: $SponsorEditRouteExtension._fromState,
                 ),
               ],
@@ -83,10 +85,14 @@ RouteBase get $mainRoute => StatefulShellRouteData.$route(
             GoRouteData.$route(
               path: 'profile-edit',
 
+              parentNavigatorKey: ProfileEditRoute.$parentNavigatorKey,
+
               factory: $ProfileEditRouteExtension._fromState,
             ),
             GoRouteData.$route(
               path: 'withdrawal',
+
+              parentNavigatorKey: WithdrawalRoute.$parentNavigatorKey,
 
               factory: $WithdrawalRouteExtension._fromState,
             ),
@@ -272,7 +278,7 @@ final class RouterProvider extends $FunctionalProvider<GoRouter, GoRouter>
   }
 }
 
-String _$routerHash() => r'529f08a3cab04410aedb49fb9aaf9b38cccf2bfc';
+String _$routerHash() => r'ecc626acb78b04853f89f21c9027f94b9d700e5f';
 
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

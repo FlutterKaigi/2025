@@ -19,6 +19,8 @@ part 'event.dart';
 part 'router.g.dart';
 part 'sponsor.dart';
 
+final _rootNavigatorKey = GlobalKey<NavigatorState>();
+
 @Riverpod(keepAlive: true)
 GoRouter router(Ref ref) {
   final isAuthorizedNotifier = ValueNotifier<bool>(
@@ -33,6 +35,7 @@ GoRouter router(Ref ref) {
     ..onDispose(isAuthorizedNotifier.dispose);
 
   return GoRouter(
+    navigatorKey: _rootNavigatorKey,
     routes: $appRoutes,
     debugLogDiagnostics: kDebugMode,
     refreshListenable: isAuthorizedNotifier,
