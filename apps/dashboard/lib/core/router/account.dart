@@ -16,7 +16,9 @@ const _accountRoutes = [
 
 // ignore: avoid_classes_with_only_static_members
 class AccountBranch extends StatefulShellBranchData {
-  static final List<NavigatorObserver> $observers = _navigationObservers;
+  static final List<NavigatorObserver> $observers = [
+    TalkerRouteObserver(talker),
+  ];
 }
 
 class AccountInfoRoute extends GoRouteData {

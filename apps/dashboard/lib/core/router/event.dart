@@ -13,7 +13,9 @@ const _eventRoutes = [
 
 // ignore: avoid_classes_with_only_static_members
 class EventBranch extends StatefulShellBranchData {
-  static final List<NavigatorObserver> $observers = _navigationObservers;
+  static final List<NavigatorObserver> $observers = [
+    TalkerRouteObserver(talker),
+  ];
 }
 
 class EventInfoRoute extends GoRouteData {

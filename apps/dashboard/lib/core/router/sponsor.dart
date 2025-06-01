@@ -18,7 +18,9 @@ const _sponsorRoutes = [
 
 // ignore: avoid_classes_with_only_static_members
 class SponsorBranch extends StatefulShellBranchData {
-  static final List<NavigatorObserver> $observers = _navigationObservers;
+  static final List<NavigatorObserver> $observers = [
+    TalkerRouteObserver(talker),
+  ];
 }
 
 class SponsorListRoute extends GoRouteData {

@@ -35,6 +35,8 @@ RouteBase get $mainRoute => StatefulShellRouteData.$route(
   factory: $MainRouteExtension._fromState,
   branches: [
     StatefulShellBranchData.$branch(
+      observers: EventBranch.$observers,
+
       routes: [
         GoRouteData.$route(
           path: '/event',
@@ -51,6 +53,8 @@ RouteBase get $mainRoute => StatefulShellRouteData.$route(
       ],
     ),
     StatefulShellBranchData.$branch(
+      observers: SponsorBranch.$observers,
+
       routes: [
         GoRouteData.$route(
           path: '/sponsors',
@@ -76,6 +80,8 @@ RouteBase get $mainRoute => StatefulShellRouteData.$route(
       ],
     ),
     StatefulShellBranchData.$branch(
+      observers: AccountBranch.$observers,
+
       routes: [
         GoRouteData.$route(
           path: '/account',
@@ -278,7 +284,7 @@ final class RouterProvider extends $FunctionalProvider<GoRouter, GoRouter>
   }
 }
 
-String _$routerHash() => r'ecc626acb78b04853f89f21c9027f94b9d700e5f';
+String _$routerHash() => r'bdda21070b710cfd1f2311cc44e739a292cf9a98';
 
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

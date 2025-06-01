@@ -23,7 +23,7 @@ part 'sponsor.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
-final _navigationObservers = [
+final _rootObservers = [
   TalkerRouteObserver(talker),
 ];
 
@@ -42,7 +42,7 @@ GoRouter router(Ref ref) {
 
   return GoRouter(
     navigatorKey: _rootNavigatorKey,
-    observers: _navigationObservers,
+    observers: _rootObservers,
     routes: $appRoutes,
     debugLogDiagnostics: kDebugMode,
     refreshListenable: isAuthorizedNotifier,
