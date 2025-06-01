@@ -26,7 +26,7 @@ class SponsorDetailScreen extends StatelessWidget {
       body: Center(
         child: FilledButton(
           onPressed: () => SponsorEditRoute(slug: slug).go(context),
-          child: const Text('GO TO SPONSOR EDIT'),
+          child: const Text('スポンサー編集へ'),
         ),
       ),
     );

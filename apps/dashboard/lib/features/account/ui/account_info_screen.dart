@@ -52,12 +52,12 @@ class _Body extends ConsumerWidget {
             const SizedBox(height: 16),
             FilledButton(
               onPressed: () => const ProfileEditRoute().go(context),
-              child: const Text('GO TO PROFILE EDIT'),
+              child: const Text('プロフィール編集へ'),
             ),
             const SizedBox(height: 8),
             FilledButton(
               onPressed: () => const WithdrawalRoute().go(context),
-              child: const Text('GO TO WITHDRAWAL'),
+              child: const Text('退会申請へ'),
             ),
           ],
         ),

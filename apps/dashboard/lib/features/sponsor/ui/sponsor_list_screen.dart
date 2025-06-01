@@ -19,7 +19,7 @@ class SponsorListScreen extends StatelessWidget {
         child: FilledButton(
           onPressed: () =>
               const SponsorDetailRoute(slug: 'sample-sponsor').go(context),
-          child: const Text('GO TO SPONSOR DETAIL'),
+          child: const Text('スポンサー詳細へ'),
         ),
       ),
     );

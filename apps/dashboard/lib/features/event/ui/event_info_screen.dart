@@ -18,7 +18,7 @@ class EventInfoScreen extends StatelessWidget {
       body: Center(
         child: FilledButton(
           onPressed: () async => const NewsRoute().go(context),
-          child: const Text('GO TO NEWS'),
+          child: const Text('ニュース画面へ'),
         ),
       ),
     );
