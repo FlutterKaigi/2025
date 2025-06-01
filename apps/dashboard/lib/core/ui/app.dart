@@ -1,3 +1,4 @@
+import 'package:dashboard/core/debug/debug_overlay.dart';
 import 'package:dashboard/core/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -15,6 +16,11 @@ class App extends ConsumerWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
       ),
       themeMode: ThemeMode.dark,
+      builder: (context, child) {
+        return DebugOverlay(
+          child: child!,
+        );
+      },
     );
   }
 }
