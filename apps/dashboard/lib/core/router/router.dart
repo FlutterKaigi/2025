@@ -1,3 +1,4 @@
+import 'package:dashboard/core/debug/debug_screen.dart';
 import 'package:dashboard/core/ui/main/main_screen.dart';
 import 'package:dashboard/core/util/talker.dart';
 import 'package:dashboard/features/account/ui/account_info_screen.dart';
@@ -43,7 +44,11 @@ GoRouter router(Ref ref) {
   return GoRouter(
     navigatorKey: rootNavigatorKey,
     observers: _rootObservers,
-    routes: $appRoutes,
+    routes: [
+      $loginRoute,
+      $mainRoute,
+      if (kDebugMode) $debugRoute,
+    ],
     debugLogDiagnostics: kDebugMode,
     refreshListenable: isAuthorizedNotifier,
     initialLocation: const EventInfoRoute().location,
@@ -87,5 +92,31 @@ class MainRoute extends StatefulShellRouteData {
     StatefulNavigationShell navigationShell,
   ) {
     return MainScreen(navigationShell: navigationShell);
+  }
+}
+
+@TypedGoRoute<DebugRoute>(
+  path: '/debug',
+  routes: [
+    TypedGoRoute<TalkerRoute>(
+      path: 'talker',
+    ),
+  ],
+)
+class DebugRoute extends GoRouteData {
+  const DebugRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const DebugScreen();
+  }
+}
+
+class TalkerRoute extends GoRouteData {
+  const TalkerRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return TalkerScreen(talker: talker);
   }
 }

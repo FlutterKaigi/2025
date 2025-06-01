@@ -1,11 +1,9 @@
 import 'dart:math';
 import 'package:dashboard/core/router/router.dart';
-import 'package:dashboard/core/util/talker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:talker_flutter/talker_flutter.dart';
 
 class DebugOverlay extends StatelessWidget {
   const DebugOverlay({
@@ -171,13 +169,7 @@ class _DraggableButtonState extends State<_DraggableButton>
     return GestureDetector(
       onTap: () async {
         setState(() => _isVisible = true);
-        await Navigator.of(rootNavigatorKey.currentContext!).push(
-          MaterialPageRoute<void>(
-            builder: (context) => TalkerScreen(
-              talker: talker,
-            ),
-          ),
-        );
+        await const DebugRoute().push<void>(rootNavigatorKey.currentContext!);
         setState(() => _isVisible = false);
       },
       child: AbsorbPointer(
