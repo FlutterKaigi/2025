@@ -1,7 +1,7 @@
+import 'package:dashboard/core/router/router.dart';
 import 'package:dashboard/features/auth/data/notifier/auth_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:dashboard/core/router/router.dart';
 
 /// アカウント情報画面
 ///
