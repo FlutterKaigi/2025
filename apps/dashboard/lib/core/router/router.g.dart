@@ -79,6 +79,18 @@ RouteBase get $mainRoute => StatefulShellRouteData.$route(
           path: '/account',
 
           factory: $AccountInfoRouteExtension._fromState,
+          routes: [
+            GoRouteData.$route(
+              path: 'profile-edit',
+
+              factory: $ProfileEditRouteExtension._fromState,
+            ),
+            GoRouteData.$route(
+              path: 'withdrawal',
+
+              factory: $WithdrawalRouteExtension._fromState,
+            ),
+          ],
         ),
       ],
     ),
@@ -175,6 +187,38 @@ extension $AccountInfoRouteExtension on AccountInfoRoute {
       const AccountInfoRoute();
 
   String get location => GoRouteData.$location('/account');
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $ProfileEditRouteExtension on ProfileEditRoute {
+  static ProfileEditRoute _fromState(GoRouterState state) =>
+      const ProfileEditRoute();
+
+  String get location => GoRouteData.$location('/account/profile-edit');
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $WithdrawalRouteExtension on WithdrawalRoute {
+  static WithdrawalRoute _fromState(GoRouterState state) =>
+      const WithdrawalRoute();
+
+  String get location => GoRouteData.$location('/account/withdrawal');
 
   void go(BuildContext context) => context.go(location);
 
