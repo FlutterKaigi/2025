@@ -16,7 +16,7 @@ class EventInfoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: TextButton(
+        child: FilledButton(
           onPressed: () async => const NewsRoute().go(context),
           child: const Text('GO TO NEWS'),
         ),

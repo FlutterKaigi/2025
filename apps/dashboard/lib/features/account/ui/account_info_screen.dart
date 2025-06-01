@@ -50,12 +50,12 @@ class _Body extends ConsumerWidget {
               child: const Text('ログアウト'),
             ),
             const SizedBox(height: 16),
-            TextButton(
+            FilledButton(
               onPressed: () => const ProfileEditRoute().go(context),
               child: const Text('GO TO PROFILE EDIT'),
             ),
             const SizedBox(height: 8),
-            TextButton(
+            FilledButton(
               onPressed: () => const WithdrawalRoute().go(context),
               child: const Text('GO TO WITHDRAWAL'),
             ),

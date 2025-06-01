@@ -16,7 +16,7 @@ class SponsorListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: TextButton(
+        child: FilledButton(
           onPressed: () =>
               const SponsorDetailRoute(slug: 'sample-sponsor').go(context),
           child: const Text('GO TO SPONSOR DETAIL'),

@@ -24,7 +24,7 @@ class SponsorDetailScreen extends StatelessWidget {
         title: Text('SponsorDetailScreen: $slug'),
       ),
       body: Center(
-        child: TextButton(
+        child: FilledButton(
           onPressed: () => SponsorEditRoute(slug: slug).go(context),
           child: const Text('GO TO SPONSOR EDIT'),
         ),
