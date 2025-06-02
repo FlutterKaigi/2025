@@ -1,17 +1,10 @@
-import 'package:flutterkaigi_2025_website/src/path_stub.dart'
-    if (dart.library.js_interop) './path_web.dart';
 import 'package:flutterkaigi_2025_website/text.dart' show Language;
 
-export 'path_stub.dart' if (dart.library.js_interop) './path_web.dart';
-
 class Path {
-  Path(this._path);
+  const Path(this._path);
 
   Path.fromPathname(String pathname)
     : _path = pathname.split('/').where((n) => n.isNotEmpty).toList();
-
-  factory Path.go([List<String> path = const []]) =>
-      currentPath._go(Path(path));
 
   final List<String> _path;
 
@@ -48,7 +41,7 @@ class Path {
 
   /// 新しいパスを生成
   /// - [nextPath] 新しいパス
-  Path _go(Path nextPath) => switch ((lang, nextPath.lang)) {
+  Path go([Path nextPath = const Path([])]) => switch ((lang, nextPath.lang)) {
     (final Language currentLang, null) => nextPath.withLang(currentLang),
     _ => nextPath,
   };

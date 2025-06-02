@@ -20,7 +20,10 @@ class NotFound extends StatelessComponent {
       ),
       [
         text('404 Not Found'),
-        InternalLink(path: Path.go(), content: text(contents.moveToTop.text)),
+        InternalLink(
+          path: Path.fromPathname(context.url).go(),
+          content: contents.moveToTop.text(context).toComponent,
+        ),
       ],
     );
   }

@@ -1,11 +1,10 @@
 import 'package:flutterkaigi_2025_website/src/components/footer.dart';
 import 'package:flutterkaigi_2025_website/src/components/header.dart';
 import 'package:flutterkaigi_2025_website/src/config/config.dart'
-    show makeTitle, user;
+    show makeTitle;
 import 'package:flutterkaigi_2025_website/src/pages/_404.dart';
 import 'package:flutterkaigi_2025_website/src/pages/dashsay.dart';
 import 'package:flutterkaigi_2025_website/src/pages/home.dart';
-import 'package:flutterkaigi_2025_website/text.dart' show Language;
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_router/jaspr_router.dart';
 
@@ -24,12 +23,6 @@ class App extends StatelessComponent {
       [
         Router(
           routes: [
-            Route(
-              path: '/404',
-              title: 'Not Found',
-              builder: (context, state) =>
-                  const _BasicLayout(child: NotFound()),
-            ),
             ..._createLanguageRoutes(
               path: '/',
               title: 'FlutterKaigi 2025',
@@ -38,12 +31,29 @@ class App extends StatelessComponent {
             ..._createLanguageRoutes(
               path: '/dashsay',
               title: makeTitle('Dash say'),
-              builder: (context, state) =>
-                  Dashsay(message: state.queryParams['m'] ?? ''),
+              builder: (context, state) => Dashsay(
+                // TODO static buildだとqueryParamが無効になる
+                message: state.queryParams['m'] ?? 'FlutterKaigi 2025!',
+              ),
+            ),
+            Route(
+              path: '/en/404',
+              title: 'Not Found',
+              builder: (context, state) => const _BasicLayout(
+                child: NotFound(),
+              ),
+            ),
+            Route(
+              path: '/ja/404',
+              title: 'Not Found',
+              builder: (context, state) => const _BasicLayout(
+                child: NotFound(),
+              ),
             ),
           ],
-          errorBuilder: (context, state) =>
-              const _BasicLayout(child: NotFound()),
+          errorBuilder: (context, state) => const _BasicLayout(
+            child: NotFound(),
+          ),
         ),
       ],
     );
@@ -81,27 +91,25 @@ List<Route> _createLanguageRoutes({
     Route(
       path: path,
       title: title,
-      builder: (context, state) => _BasicLayout(child: builder(context, state)),
+      builder: (context, state) => _BasicLayout(
+        child: builder(context, state),
+      ),
     ),
     // Japanese route
     Route(
       path: '/ja${path == '/' ? '' : path}',
       title: title,
-      builder: (context, state) {
-        // Set language to Japanese
-        user.lang = Language.ja;
-        return _BasicLayout(child: builder(context, state));
-      },
+      builder: (context, state) => _BasicLayout(
+        child: builder(context, state),
+      ),
     ),
     // English route
     Route(
       path: '/en${path == '/' ? '' : path}',
       title: title,
-      builder: (context, state) {
-        // Set language to English
-        user.lang = Language.en;
-        return _BasicLayout(child: builder(context, state));
-      },
+      builder: (context, state) => _BasicLayout(
+        child: builder(context, state),
+      ),
     ),
   ];
 }
