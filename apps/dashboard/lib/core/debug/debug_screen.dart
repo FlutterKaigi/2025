@@ -53,16 +53,16 @@ class _TransitionArea extends HookWidget {
               autovalidateMode: AutovalidateMode.always,
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Please enter a valid path';
+                  return 'パスを入力してください';
                 }
                 if (!value.startsWith('/')) {
-                  return 'Path must start with /';
+                  return 'パスは / で始めてください';
                 }
                 if (value.contains('debug') || value.contains('login')) {
-                  return 'Path cannot contain `debug` or `login`';
+                  return 'パスに「debug」または「login」を含めることはできません';
                 }
                 if (!router.canNavigate(value)) {
-                  return 'Invalid path';
+                  return '無効なパスです';
                 }
                 return null;
               },
