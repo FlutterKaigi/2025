@@ -48,27 +48,52 @@ class _TransitionArea extends HookWidget {
         children: [
           const SizedBox(width: 16),
           Expanded(
-            child: TextFormField(
-              controller: textController,
-              autovalidateMode: AutovalidateMode.always,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'パスを入力してください';
+            child: Autocomplete<String>(
+              optionsBuilder: (textEditingValue) {
+                final text = textEditingValue.text;
+                if (text.isEmpty) {
+                  return const Iterable<String>.empty();
                 }
-                if (!value.startsWith('/')) {
-                  return 'パスは / で始めてください';
-                }
-                if (value.contains('debug') || value.contains('login')) {
-                  return 'パスに「debug」または「login」を含めることはできません';
-                }
-                if (!router.canNavigate(value)) {
-                  return '無効なパスです';
-                }
-                return null;
+                return router.paths.where((p) => p.contains(text));
               },
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-              ),
+              fieldViewBuilder:
+                  (
+                    context,
+                    textEditingController,
+                    focusNode,
+                    onFieldSubmitted,
+                  ) {
+                    return TextFormField(
+                      controller: textEditingController,
+                      focusNode: focusNode,
+                      autovalidateMode: AutovalidateMode.always,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'パスを入力してください';
+                        }
+                        if (!value.startsWith('/')) {
+                          return 'パスは / で始めてください';
+                        }
+                        if (value.contains('debug') ||
+                            value.contains('login')) {
+                          return 'パスに「debug」または「login」を含めることはできません';
+                        }
+                        if (!router.canNavigate(value)) {
+                          return '無効なパスです';
+                        }
+                        return null;
+                      },
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                      ),
+                      onFieldSubmitted: (value) {
+                        onFieldSubmitted();
+                      },
+                    );
+                  },
+              onSelected: (selection) {
+                textController.text = selection;
+              },
             ),
           ),
           const SizedBox(width: 8),
