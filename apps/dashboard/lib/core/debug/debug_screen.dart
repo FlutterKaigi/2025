@@ -92,7 +92,7 @@ class _TransitionArea extends HookWidget {
                     );
                   },
               onSelected: (selection) {
-                textController.text = selection;
+                textController.text = selection.replaceAll(':', '');
               },
             ),
           ),
