@@ -48,7 +48,9 @@ class _TransitionArea extends HookWidget {
         children: [
           const SizedBox(width: 16),
           Expanded(
-            child: Autocomplete<String>(
+            child: RawAutocomplete<String>(
+              focusNode: FocusNode(),
+              textEditingController: textController,
               optionsBuilder: (textEditingValue) {
                 final text = textEditingValue.text;
                 if (text.isEmpty) {
@@ -93,6 +95,46 @@ class _TransitionArea extends HookWidget {
                   },
               onSelected: (selection) {
                 textController.text = selection.replaceAll(':', '');
+              },
+              optionsViewBuilder: (context, onSelected, options) {
+                final highlightedIndex = AutocompleteHighlightedOption.of(
+                  context,
+                );
+                return Align(
+                  alignment: AlignmentDirectional.topStart,
+                  child: Material(
+                    elevation: 4,
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(maxHeight: 200),
+                      // デバッグ画面なのでパフォーマンスは気にしない
+                      // ignore: avoid_shrink_wrap_in_list_view
+                      child: ListView.builder(
+                        padding: EdgeInsets.zero,
+                        shrinkWrap: true,
+                        itemCount: options.length,
+                        itemBuilder: (context, index) {
+                          final option = options.elementAt(index);
+                          return InkWell(
+                            key: GlobalObjectKey(option),
+                            onTap: () => onSelected(option),
+                            child: Builder(
+                              builder: (context) {
+                                final isHighlight = highlightedIndex == index;
+                                return Container(
+                                  color: isHighlight
+                                      ? Theme.of(context).focusColor
+                                      : null,
+                                  padding: const EdgeInsets.all(16),
+                                  child: Text(option),
+                                );
+                              },
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                );
               },
             ),
           ),
