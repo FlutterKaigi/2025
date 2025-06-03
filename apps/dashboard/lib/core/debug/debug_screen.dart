@@ -38,7 +38,7 @@ class _TransitionArea extends HookWidget {
   Widget build(BuildContext context) {
     final router = GoRouter.of(context);
 
-    final textController = useTextEditingController();
+    final textController = useTextEditingController(text: '/event');
     final formKey = useMemoized(GlobalKey<FormState>.new, []);
     return Form(
       key: formKey,
