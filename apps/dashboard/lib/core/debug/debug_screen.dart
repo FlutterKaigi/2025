@@ -127,10 +127,9 @@ extension _ToPaths on List<RouteBase> {
     for (final routeBase in this) {
       switch (routeBase) {
         case GoRoute():
-          var path = routeBase.path;
-          if (parentPath != null) {
-            path = p.join(parentPath, path);
-          }
+          final path = parentPath == null
+              ? routeBase.path
+              : p.join(parentPath, routeBase.path);
           routes.add(path);
 
           final childRouteBases = routeBase.routes;
