@@ -1,4 +1,6 @@
+import 'package:dashboard/core/debug/debug_overlay.dart';
 import 'package:dashboard/core/ui/main/responsive_scaffold.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -20,7 +22,7 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveScaffold(
+    final content = ResponsiveScaffold(
       currentIndex: navigationShell.currentIndex,
       destinations: const [
         ResponsiveScaffoldDestination(icon: Icons.event, title: 'イベント'),
@@ -35,5 +37,11 @@ class MainScreen extends StatelessWidget {
       },
       body: navigationShell,
     );
+
+    if (kDebugMode) {
+      return DebugOverlay(child: content);
+    }
+
+    return content;
   }
 }

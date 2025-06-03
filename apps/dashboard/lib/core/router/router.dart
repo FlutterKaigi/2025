@@ -1,3 +1,5 @@
+import 'package:dashboard/core/debug/debug_screen.dart';
+import 'package:dashboard/core/debug/talker.dart';
 import 'package:dashboard/core/ui/main/main_screen.dart';
 import 'package:dashboard/features/account/ui/account_info_screen.dart';
 import 'package:dashboard/features/account/ui/profile_edit_screen.dart';
@@ -13,6 +15,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
 part 'account.dart';
 part 'event.dart';
@@ -20,6 +23,10 @@ part 'router.g.dart';
 part 'sponsor.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
+
+final _rootObservers = [
+  TalkerRouteObserver(talker),
+];
 
 @Riverpod(keepAlive: true)
 GoRouter router(Ref ref) {
@@ -36,7 +43,12 @@ GoRouter router(Ref ref) {
 
   return GoRouter(
     navigatorKey: _rootNavigatorKey,
-    routes: $appRoutes,
+    observers: _rootObservers,
+    routes: [
+      $loginRoute,
+      $mainRoute,
+      if (kDebugMode) $debugRoute,
+    ],
     debugLogDiagnostics: kDebugMode,
     refreshListenable: isAuthorizedNotifier,
     initialLocation: const EventInfoRoute().location,
@@ -80,5 +92,31 @@ class MainRoute extends StatefulShellRouteData {
     StatefulNavigationShell navigationShell,
   ) {
     return MainScreen(navigationShell: navigationShell);
+  }
+}
+
+@TypedGoRoute<DebugRoute>(
+  path: '/debug',
+  routes: [
+    TypedGoRoute<TalkerRoute>(
+      path: 'talker',
+    ),
+  ],
+)
+class DebugRoute extends GoRouteData {
+  const DebugRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const DebugScreen();
+  }
+}
+
+class TalkerRoute extends GoRouteData {
+  const TalkerRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return TalkerScreen(talker: talker);
   }
 }

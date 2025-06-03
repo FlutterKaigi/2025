@@ -8,7 +8,7 @@ part of 'router.dart';
 // GoRouterGenerator
 // **************************************************************************
 
-List<RouteBase> get $appRoutes => [$loginRoute, $mainRoute];
+List<RouteBase> get $appRoutes => [$loginRoute, $mainRoute, $debugRoute];
 
 RouteBase get $loginRoute => GoRouteData.$route(
   path: '/login',
@@ -35,6 +35,8 @@ RouteBase get $mainRoute => StatefulShellRouteData.$route(
   factory: $MainRouteExtension._fromState,
   branches: [
     StatefulShellBranchData.$branch(
+      observers: EventBranch.$observers,
+
       routes: [
         GoRouteData.$route(
           path: '/event',
@@ -51,6 +53,8 @@ RouteBase get $mainRoute => StatefulShellRouteData.$route(
       ],
     ),
     StatefulShellBranchData.$branch(
+      observers: SponsorBranch.$observers,
+
       routes: [
         GoRouteData.$route(
           path: '/sponsors',
@@ -76,6 +80,8 @@ RouteBase get $mainRoute => StatefulShellRouteData.$route(
       ],
     ),
     StatefulShellBranchData.$branch(
+      observers: AccountBranch.$observers,
+
       routes: [
         GoRouteData.$route(
           path: '/account',
@@ -236,6 +242,49 @@ extension $WithdrawalRouteExtension on WithdrawalRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
+RouteBase get $debugRoute => GoRouteData.$route(
+  path: '/debug',
+
+  factory: $DebugRouteExtension._fromState,
+  routes: [
+    GoRouteData.$route(
+      path: 'talker',
+
+      factory: $TalkerRouteExtension._fromState,
+    ),
+  ],
+);
+
+extension $DebugRouteExtension on DebugRoute {
+  static DebugRoute _fromState(GoRouterState state) => const DebugRoute();
+
+  String get location => GoRouteData.$location('/debug');
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $TalkerRouteExtension on TalkerRoute {
+  static TalkerRoute _fromState(GoRouterState state) => const TalkerRoute();
+
+  String get location => GoRouteData.$location('/debug/talker');
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
@@ -278,7 +327,7 @@ final class RouterProvider extends $FunctionalProvider<GoRouter, GoRouter>
   }
 }
 
-String _$routerHash() => r'ecc626acb78b04853f89f21c9027f94b9d700e5f';
+String _$routerHash() => r'd09fa110c7fa3cc2e3334043a1797740a21d9d0a';
 
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
