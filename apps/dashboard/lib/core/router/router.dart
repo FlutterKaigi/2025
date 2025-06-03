@@ -1,15 +1,25 @@
 import 'package:dashboard/core/ui/main/main_screen.dart';
 import 'package:dashboard/features/account/ui/account_info_screen.dart';
+import 'package:dashboard/features/account/ui/profile_edit_screen.dart';
+import 'package:dashboard/features/account/ui/withdrawal_screen.dart';
 import 'package:dashboard/features/auth/data/notifier/auth_notifier.dart';
 import 'package:dashboard/features/auth/ui/login_screen.dart';
 import 'package:dashboard/features/event/ui/event_info_screen.dart';
+import 'package:dashboard/features/news/ui/news_screen.dart';
+import 'package:dashboard/features/sponsor/ui/sponsor_detail_screen.dart';
+import 'package:dashboard/features/sponsor/ui/sponsor_edit_screen.dart';
 import 'package:dashboard/features/sponsor/ui/sponsor_list_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+part 'account.dart';
+part 'event.dart';
 part 'router.g.dart';
+part 'sponsor.dart';
+
+final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
 @Riverpod(keepAlive: true)
 GoRouter router(Ref ref) {
@@ -25,6 +35,7 @@ GoRouter router(Ref ref) {
     ..onDispose(isAuthorizedNotifier.dispose);
 
   return GoRouter(
+    navigatorKey: _rootNavigatorKey,
     routes: $appRoutes,
     debugLogDiagnostics: kDebugMode,
     refreshListenable: isAuthorizedNotifier,
@@ -54,15 +65,9 @@ class LoginRoute extends GoRouteData {
 
 @TypedStatefulShellRoute<MainRoute>(
   branches: [
-    TypedStatefulShellBranch<EventBranch>(
-      routes: [TypedGoRoute<EventInfoRoute>(path: '/event')],
-    ),
-    TypedStatefulShellBranch<SponsorBranch>(
-      routes: [TypedGoRoute<SponsorListRoute>(path: '/sponsors')],
-    ),
-    TypedStatefulShellBranch<AccountBranch>(
-      routes: [TypedGoRoute<AccountInfoRoute>(path: '/account')],
-    ),
+    TypedStatefulShellBranch<EventBranch>(routes: _eventRoutes),
+    TypedStatefulShellBranch<SponsorBranch>(routes: _sponsorRoutes),
+    TypedStatefulShellBranch<AccountBranch>(routes: _accountRoutes),
   ],
 )
 class MainRoute extends StatefulShellRouteData {
@@ -76,34 +81,4 @@ class MainRoute extends StatefulShellRouteData {
   ) {
     return MainScreen(navigationShell: navigationShell);
   }
-}
-
-class EventBranch extends StatefulShellBranchData {}
-
-class SponsorBranch extends StatefulShellBranchData {}
-
-class AccountBranch extends StatefulShellBranchData {}
-
-class EventInfoRoute extends GoRouteData {
-  const EventInfoRoute();
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      const EventInfoScreen();
-}
-
-class SponsorListRoute extends GoRouteData {
-  const SponsorListRoute();
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      const SponsorListScreen();
-}
-
-class AccountInfoRoute extends GoRouteData {
-  const AccountInfoRoute();
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      const AccountInfoScreen();
 }

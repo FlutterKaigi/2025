@@ -1,3 +1,4 @@
+import 'package:dashboard/core/router/router.dart';
 import 'package:flutter/material.dart';
 
 /// スポンサー詳細画面
@@ -9,10 +10,25 @@ import 'package:flutter/material.dart';
 /// 参考:
 /// - [SCREENS.md](https://github.com/FlutterKaigi/2025/blob/main/docs/dashboard/SCREENS.md)
 class SponsorDetailScreen extends StatelessWidget {
-  const SponsorDetailScreen({super.key});
+  const SponsorDetailScreen({
+    required this.slug,
+    super.key,
+  });
+
+  final String slug;
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: Center(child: Text('SponsorDetailScreen')));
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('SponsorDetailScreen: $slug'),
+      ),
+      body: Center(
+        child: FilledButton(
+          onPressed: () => SponsorEditRoute(slug: slug).go(context),
+          child: const Text('スポンサー編集へ'),
+        ),
+      ),
+    );
   }
 }

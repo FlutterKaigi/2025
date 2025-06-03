@@ -1,3 +1,4 @@
+import 'package:dashboard/core/router/router.dart';
 import 'package:dashboard/features/auth/data/notifier/auth_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -47,6 +48,16 @@ class _Body extends ConsumerWidget {
               onPressed: () =>
                   ref.read(authNotifierProvider.notifier).signOut(),
               child: const Text('ログアウト'),
+            ),
+            const SizedBox(height: 16),
+            FilledButton(
+              onPressed: () => const ProfileEditRoute().go(context),
+              child: const Text('プロフィール編集へ'),
+            ),
+            const SizedBox(height: 8),
+            FilledButton(
+              onPressed: () => const WithdrawalRoute().go(context),
+              child: const Text('退会申請へ'),
             ),
           ],
         ),
