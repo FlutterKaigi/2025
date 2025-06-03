@@ -145,8 +145,13 @@ extension _ToPaths on List<RouteBase> {
 }
 
 extension _GoRouter on GoRouter {
+  List<String> get paths => configuration.routes
+      .toPaths()
+      // debug と login は除外
+      .where((path) => !path.contains('debug') && !path.contains('login'))
+      .toList();
+
   bool canNavigate(String path) {
-    final paths = configuration.routes.toPaths();
     for (final routePattern in paths) {
       final regExp = RegExp(
         '^${routePattern.replaceAll(RegExp(r':[^\\/]+'), '[a-zA-Z0-9]+')}/?\$',
