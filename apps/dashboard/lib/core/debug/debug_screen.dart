@@ -44,7 +44,7 @@ class _TransitionArea extends HookWidget {
       key: formKey,
       autovalidateMode: AutovalidateMode.always,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(width: 16),
           Expanded(
@@ -97,15 +97,18 @@ class _TransitionArea extends HookWidget {
             ),
           ),
           const SizedBox(width: 8),
-          FilledButton(
-            onPressed: () {
-              if (!formKey.currentState!.validate()) {
-                return;
-              }
-              final path = textController.text;
-              router.go(path);
-            },
-            child: const Text('GO'),
+          Padding(
+            padding: const EdgeInsets.only(top: 8),
+            child: FilledButton(
+              onPressed: () {
+                if (!formKey.currentState!.validate()) {
+                  return;
+                }
+                final path = textController.text;
+                router.go(path);
+              },
+              child: const Text('GO'),
+            ),
           ),
           const SizedBox(width: 8),
         ],
