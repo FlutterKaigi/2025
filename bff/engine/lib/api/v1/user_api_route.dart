@@ -61,6 +61,8 @@ class UserApiRoute {
         final result = await _supabaseUtil.extractUser(request);
         final (_, user, roles) =
             result.unwrap; // AuthorizationExceptionの場合はthrowされる
+
+        // 管理者以外はUnauthorized
         if (!roles.contains(Role.admin)) {
           throw ErrorResponse.errorCode(
             code: ErrorCode.unauthorized,
