@@ -13,5 +13,5 @@ abstract class Individuals with _$Individuals {
   }) = _Individuals;
 
   factory Individuals.fromJson(Map<String, dynamic> json) =>
-    _$IndividualsFromJson(json);
+      _$IndividualsFromJson(json);
 }

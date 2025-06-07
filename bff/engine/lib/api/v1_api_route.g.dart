@@ -8,22 +8,47 @@ part of 'v1_api_route.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+@ProviderFor(v1ApiRoute)
+const v1ApiRouteProvider = V1ApiRouteProvider._();
+
+final class V1ApiRouteProvider
+    extends $FunctionalProvider<V1ApiRoute, V1ApiRoute>
+    with $Provider<V1ApiRoute> {
+  const V1ApiRouteProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'v1ApiRouteProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$v1ApiRouteHash();
+
+  @$internal
+  @override
+  $ProviderElement<V1ApiRoute> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  V1ApiRoute create(Ref ref) {
+    return v1ApiRoute(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(V1ApiRoute value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $ValueProvider<V1ApiRoute>(value),
+    );
+  }
+}
+
 String _$v1ApiRouteHash() => r'007b30bd3478ceb87ceae6da26137d2f85141ce2';
 
-/// See also [v1ApiRoute].
-@ProviderFor(v1ApiRoute)
-final v1ApiRouteProvider = Provider<V1ApiRoute>.internal(
-  v1ApiRoute,
-  name: r'v1ApiRouteProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$v1ApiRouteHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef V1ApiRouteRef = ProviderRef<V1ApiRoute>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
 
