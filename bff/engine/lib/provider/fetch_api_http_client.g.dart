@@ -51,26 +51,5 @@ final class FetchApiHttpClientProvider
 String _$fetchApiHttpClientHash() =>
     r'8319646fea934b7e96d3e9706f97e72da130b82e';
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-/// See also [fetchApiHttpClient].
-@ProviderFor(fetchApiHttpClient)
-final fetchApiHttpClientProvider = Provider<FetchApiHttpClient>.internal(
-  fetchApiHttpClient,
-  name: r'fetchApiHttpClientProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$fetchApiHttpClientHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef FetchApiHttpClientRef = ProviderRef<FetchApiHttpClient>;
->>>>>>> 3a076a172db06becf9c680aa237e2b555521731b
-=======
->>>>>>> 4aacf15e679fadeecbfc43350c87eea949914f8b
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
