@@ -37,7 +37,8 @@ class UserApiRoute {
         final result = await _supabaseUtil.extractUser(request);
         final (_, user, roles) =
             result.unwrap; // AuthorizationExceptionの場合はthrowされる
-        if (!roles.contains(Role.admin)) {
+        // 管理者か、自分のユーザー情報を取得する場合以外はUnauthorized
+        if (!roles.contains(Role.admin) || user.id != userId) {
           throw ErrorResponse.errorCode(
             code: ErrorCode.unauthorized,
             detail: 'You are not authorized to access this resource',
@@ -73,8 +74,8 @@ class UserApiRoute {
         final db = await container.read(
           dbClientProvider(HyperdriveType.noCache).future,
         );
-        final roles = await db.user.updateUserRoles(userId, requestData.roles);
-        return UserGetResponse(user: user, roles: roles).toJson();
+        await db.user.updateUserRoles(userId, requestData.roles);
+        return UserGetResponse(user: user, roles: requestData.roles).toJson();
       });
 
   Router get router => _$UserApiRouteRouter(this);

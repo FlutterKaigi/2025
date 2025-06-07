@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$UserGetResponse {
 
- Users get user;
+ Users get user; List<Role> get roles;
 /// Create a copy of UserGetResponse
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,16 +29,16 @@ $UserGetResponseCopyWith<UserGetResponse> get copyWith => _$UserGetResponseCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserGetResponse&&(identical(other.user, user) || other.user == user));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserGetResponse&&(identical(other.user, user) || other.user == user)&&const DeepCollectionEquality().equals(other.roles, roles));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,user);
+int get hashCode => Object.hash(runtimeType,user,const DeepCollectionEquality().hash(roles));
 
 @override
 String toString() {
-  return 'UserGetResponse(user: $user)';
+  return 'UserGetResponse(user: $user, roles: $roles)';
 }
 
 
@@ -49,7 +49,7 @@ abstract mixin class $UserGetResponseCopyWith<$Res>  {
   factory $UserGetResponseCopyWith(UserGetResponse value, $Res Function(UserGetResponse) _then) = _$UserGetResponseCopyWithImpl;
 @useResult
 $Res call({
- Users user
+ Users user, List<Role> roles
 });
 
 
@@ -66,10 +66,11 @@ class _$UserGetResponseCopyWithImpl<$Res>
 
 /// Create a copy of UserGetResponse
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? user = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? user = null,Object? roles = null,}) {
   return _then(_self.copyWith(
 user: null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
-as Users,
+as Users,roles: null == roles ? _self.roles : roles // ignore: cast_nullable_to_non_nullable
+as List<Role>,
   ));
 }
 /// Create a copy of UserGetResponse
@@ -89,10 +90,17 @@ $UsersCopyWith<$Res> get user {
 @JsonSerializable()
 
 class _UserGetResponse implements UserGetResponse {
-  const _UserGetResponse({required this.user});
+  const _UserGetResponse({required this.user, required final  List<Role> roles}): _roles = roles;
   factory _UserGetResponse.fromJson(Map<String, dynamic> json) => _$UserGetResponseFromJson(json);
 
 @override final  Users user;
+ final  List<Role> _roles;
+@override List<Role> get roles {
+  if (_roles is EqualUnmodifiableListView) return _roles;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_roles);
+}
+
 
 /// Create a copy of UserGetResponse
 /// with the given fields replaced by the non-null parameter values.
@@ -107,16 +115,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserGetResponse&&(identical(other.user, user) || other.user == user));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserGetResponse&&(identical(other.user, user) || other.user == user)&&const DeepCollectionEquality().equals(other._roles, _roles));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,user);
+int get hashCode => Object.hash(runtimeType,user,const DeepCollectionEquality().hash(_roles));
 
 @override
 String toString() {
-  return 'UserGetResponse(user: $user)';
+  return 'UserGetResponse(user: $user, roles: $roles)';
 }
 
 
@@ -127,7 +135,7 @@ abstract mixin class _$UserGetResponseCopyWith<$Res> implements $UserGetResponse
   factory _$UserGetResponseCopyWith(_UserGetResponse value, $Res Function(_UserGetResponse) _then) = __$UserGetResponseCopyWithImpl;
 @override @useResult
 $Res call({
- Users user
+ Users user, List<Role> roles
 });
 
 
@@ -144,10 +152,11 @@ class __$UserGetResponseCopyWithImpl<$Res>
 
 /// Create a copy of UserGetResponse
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? user = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? user = null,Object? roles = null,}) {
   return _then(_UserGetResponse(
 user: null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
-as Users,
+as Users,roles: null == roles ? _self._roles : roles // ignore: cast_nullable_to_non_nullable
+as List<Role>,
   ));
 }
 

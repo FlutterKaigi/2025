@@ -1,3 +1,4 @@
+import 'package:db_client/db_client.dart';
 import 'package:engine/model/cf_workers_interop/cf_workers_env.dart';
 import 'package:js_interop_utils/js_interop_utils.dart';
 import 'package:web/web.dart' as web;
@@ -19,6 +20,7 @@ extension type CfDartWorkers._(JSObject _) implements JSObject {
     web.RequestInfo request, [
     web.RequestInit? requestInit,
   ]);
+  external HyperdriveJsInterop hyperdrive;
 }
 
 extension type JSExecutionContext._(JSObject _) implements JSObject {

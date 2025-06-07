@@ -12,19 +12,16 @@ part of 'cf_workers_env.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
-
 /// @nodoc
 mixin _$CfWorkersEnv {
 
- String get commitHash; String get supabaseUrl; String get supabaseServiceRoleKey;
+ String? get commitHash; String get supabaseUrl; String get supabaseServiceRoleKey;
 /// Create a copy of CfWorkersEnv
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
 $CfWorkersEnvCopyWith<CfWorkersEnv> get copyWith => _$CfWorkersEnvCopyWithImpl<CfWorkersEnv>(this as CfWorkersEnv, _$identity);
 
-  /// Serializes this CfWorkersEnv to a JSON map.
-  Map<String, dynamic> toJson();
 
 
 @override
@@ -32,7 +29,7 @@ bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is CfWorkersEnv&&(identical(other.commitHash, commitHash) || other.commitHash == commitHash)&&(identical(other.supabaseUrl, supabaseUrl) || other.supabaseUrl == supabaseUrl)&&(identical(other.supabaseServiceRoleKey, supabaseServiceRoleKey) || other.supabaseServiceRoleKey == supabaseServiceRoleKey));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
 int get hashCode => Object.hash(runtimeType,commitHash,supabaseUrl,supabaseServiceRoleKey);
 
@@ -49,7 +46,7 @@ abstract mixin class $CfWorkersEnvCopyWith<$Res>  {
   factory $CfWorkersEnvCopyWith(CfWorkersEnv value, $Res Function(CfWorkersEnv) _then) = _$CfWorkersEnvCopyWithImpl;
 @useResult
 $Res call({
- String commitHash, String supabaseUrl, String supabaseServiceRoleKey
+ String? commitHash, String supabaseUrl, String supabaseServiceRoleKey
 });
 
 
@@ -66,10 +63,10 @@ class _$CfWorkersEnvCopyWithImpl<$Res>
 
 /// Create a copy of CfWorkersEnv
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? commitHash = null,Object? supabaseUrl = null,Object? supabaseServiceRoleKey = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? commitHash = freezed,Object? supabaseUrl = null,Object? supabaseServiceRoleKey = null,}) {
   return _then(_self.copyWith(
-commitHash: null == commitHash ? _self.commitHash : commitHash // ignore: cast_nullable_to_non_nullable
-as String,supabaseUrl: null == supabaseUrl ? _self.supabaseUrl : supabaseUrl // ignore: cast_nullable_to_non_nullable
+commitHash: freezed == commitHash ? _self.commitHash : commitHash // ignore: cast_nullable_to_non_nullable
+as String?,supabaseUrl: null == supabaseUrl ? _self.supabaseUrl : supabaseUrl // ignore: cast_nullable_to_non_nullable
 as String,supabaseServiceRoleKey: null == supabaseServiceRoleKey ? _self.supabaseServiceRoleKey : supabaseServiceRoleKey // ignore: cast_nullable_to_non_nullable
 as String,
   ));
@@ -79,13 +76,13 @@ as String,
 
 
 /// @nodoc
-@JsonSerializable()
+
 
 class _CfWorkersEnv implements CfWorkersEnv {
   const _CfWorkersEnv({required this.commitHash, required this.supabaseUrl, required this.supabaseServiceRoleKey});
-  factory _CfWorkersEnv.fromJson(Map<String, dynamic> json) => _$CfWorkersEnvFromJson(json);
+  
 
-@override final  String commitHash;
+@override final  String? commitHash;
 @override final  String supabaseUrl;
 @override final  String supabaseServiceRoleKey;
 
@@ -95,17 +92,14 @@ class _CfWorkersEnv implements CfWorkersEnv {
 @pragma('vm:prefer-inline')
 _$CfWorkersEnvCopyWith<_CfWorkersEnv> get copyWith => __$CfWorkersEnvCopyWithImpl<_CfWorkersEnv>(this, _$identity);
 
-@override
-Map<String, dynamic> toJson() {
-  return _$CfWorkersEnvToJson(this, );
-}
+
 
 @override
 bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is _CfWorkersEnv&&(identical(other.commitHash, commitHash) || other.commitHash == commitHash)&&(identical(other.supabaseUrl, supabaseUrl) || other.supabaseUrl == supabaseUrl)&&(identical(other.supabaseServiceRoleKey, supabaseServiceRoleKey) || other.supabaseServiceRoleKey == supabaseServiceRoleKey));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
 int get hashCode => Object.hash(runtimeType,commitHash,supabaseUrl,supabaseServiceRoleKey);
 
@@ -122,7 +116,7 @@ abstract mixin class _$CfWorkersEnvCopyWith<$Res> implements $CfWorkersEnvCopyWi
   factory _$CfWorkersEnvCopyWith(_CfWorkersEnv value, $Res Function(_CfWorkersEnv) _then) = __$CfWorkersEnvCopyWithImpl;
 @override @useResult
 $Res call({
- String commitHash, String supabaseUrl, String supabaseServiceRoleKey
+ String? commitHash, String supabaseUrl, String supabaseServiceRoleKey
 });
 
 
@@ -139,10 +133,10 @@ class __$CfWorkersEnvCopyWithImpl<$Res>
 
 /// Create a copy of CfWorkersEnv
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? commitHash = null,Object? supabaseUrl = null,Object? supabaseServiceRoleKey = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? commitHash = freezed,Object? supabaseUrl = null,Object? supabaseServiceRoleKey = null,}) {
   return _then(_CfWorkersEnv(
-commitHash: null == commitHash ? _self.commitHash : commitHash // ignore: cast_nullable_to_non_nullable
-as String,supabaseUrl: null == supabaseUrl ? _self.supabaseUrl : supabaseUrl // ignore: cast_nullable_to_non_nullable
+commitHash: freezed == commitHash ? _self.commitHash : commitHash // ignore: cast_nullable_to_non_nullable
+as String?,supabaseUrl: null == supabaseUrl ? _self.supabaseUrl : supabaseUrl // ignore: cast_nullable_to_non_nullable
 as String,supabaseServiceRoleKey: null == supabaseServiceRoleKey ? _self.supabaseServiceRoleKey : supabaseServiceRoleKey // ignore: cast_nullable_to_non_nullable
 as String,
   ));

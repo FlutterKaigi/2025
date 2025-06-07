@@ -1,6 +1,9 @@
 import 'dart:io';
 
+import 'package:db_client/db_client.dart';
 import 'package:db_types/db_types.dart';
+import 'package:engine/main.dart';
+import 'package:engine/provider/db_client.dart';
 import 'package:engine/provider/supabase_client.dart';
 import 'package:engine/util/result.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -46,32 +49,29 @@ class SupabaseUtil {
 
   /// ユーザーを取得する
   /// Supabaseのユーザと、`public.users`テーブルのユーザを返す
-  Future<Result<(User, Users), AuthorizationException>> extractUser(
-    Request request,
-  ) async => Result.capture(() async {
+  Future<Result<(User, Users, List<Role>), AuthorizationException>>
+  extractUser(Request request) async => Result.capture(() async {
     final supabaseUserResult = await extractSupabaseUser(request);
     final supabaseUser = supabaseUserResult.unwrap;
 
-    final user = await _supabaseClient
-        .from('users')
-        .select()
-        .eq('id', supabaseUser.id)
-        .maybeSingle()
-        .withConverter((json) {
-          if (json == null) {
-            return null;
-          }
-          return Users.fromJson(json);
-        });
+    final noCacheDb = await container.read(
+      dbClientProvider(HyperdriveType.noCache).future,
+    );
 
-    if (user == null) {
-      throw const AuthorizationException(
-        AuthorizationExceptionType.userNotFound,
-        'User exists but not found in the database',
+    try {
+      final userAndUserRoles = await noCacheDb.user.getUserAndUserRoles(
+        supabaseUser.id,
       );
+      return (supabaseUser, userAndUserRoles.user, userAndUserRoles.roles);
+    } on DbException catch (e) {
+      if (e.type == DbExceptionType.notFound) {
+        throw const AuthorizationException(
+          AuthorizationExceptionType.userNotFound,
+          'User exists but not found in the database',
+        );
+      }
+      rethrow;
     }
-
-    return (supabaseUser, user);
   });
 }
 

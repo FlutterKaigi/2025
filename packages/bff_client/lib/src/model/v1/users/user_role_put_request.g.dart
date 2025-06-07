@@ -2,19 +2,15 @@
 
 // ignore_for_file: type=lint
 
-part of 'user_get_response.dart';
+part of 'user_role_put_request.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_UserGetResponse _$UserGetResponseFromJson(Map<String, dynamic> json) =>
-    $checkedCreate('_UserGetResponse', json, ($checkedConvert) {
-      final val = _UserGetResponse(
-        user: $checkedConvert(
-          'user',
-          (v) => Users.fromJson(v as Map<String, dynamic>),
-        ),
+_UserRolePutRequest _$UserRolePutRequestFromJson(Map<String, dynamic> json) =>
+    $checkedCreate('_UserRolePutRequest', json, ($checkedConvert) {
+      final val = _UserRolePutRequest(
         roles: $checkedConvert(
           'roles',
           (v) =>
@@ -26,9 +22,8 @@ _UserGetResponse _$UserGetResponseFromJson(Map<String, dynamic> json) =>
       return val;
     });
 
-Map<String, dynamic> _$UserGetResponseToJson(_UserGetResponse instance) =>
+Map<String, dynamic> _$UserRolePutRequestToJson(_UserRolePutRequest instance) =>
     <String, dynamic>{
-      'user': instance.user,
       'roles': instance.roles.map((e) => _$RoleEnumMap[e]!).toList(),
     };
 
