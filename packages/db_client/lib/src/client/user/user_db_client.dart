@@ -12,7 +12,7 @@ class UserDbClient {
     final result = await _db.query(
       query: r'''
 SELECT
-  u.*,
+  to_json(u.*) AS user,
   json_agg(ur.role) AS roles
 FROM
   public.users AS u

@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$UserAndUserRoles {
 
-@JsonKey(readValue: extractRootJson) Users get user; List<Role> get roles;
+ Users get user; List<Role> get roles;
 /// Create a copy of UserAndUserRoles
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -49,7 +49,7 @@ abstract mixin class $UserAndUserRolesCopyWith<$Res>  {
   factory $UserAndUserRolesCopyWith(UserAndUserRoles value, $Res Function(UserAndUserRoles) _then) = _$UserAndUserRolesCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(readValue: extractRootJson) Users user, List<Role> roles
+ Users user, List<Role> roles
 });
 
 
@@ -90,10 +90,10 @@ $UsersCopyWith<$Res> get user {
 @JsonSerializable()
 
 class _UserAndUserRoles implements UserAndUserRoles {
-  const _UserAndUserRoles({@JsonKey(readValue: extractRootJson) required this.user, required final  List<Role> roles}): _roles = roles;
+  const _UserAndUserRoles({required this.user, required final  List<Role> roles}): _roles = roles;
   factory _UserAndUserRoles.fromJson(Map<String, dynamic> json) => _$UserAndUserRolesFromJson(json);
 
-@override@JsonKey(readValue: extractRootJson) final  Users user;
+@override final  Users user;
  final  List<Role> _roles;
 @override List<Role> get roles {
   if (_roles is EqualUnmodifiableListView) return _roles;
@@ -135,7 +135,7 @@ abstract mixin class _$UserAndUserRolesCopyWith<$Res> implements $UserAndUserRol
   factory _$UserAndUserRolesCopyWith(_UserAndUserRoles value, $Res Function(_UserAndUserRoles) _then) = __$UserAndUserRolesCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(readValue: extractRootJson) Users user, List<Role> roles
+ Users user, List<Role> roles
 });
 
 

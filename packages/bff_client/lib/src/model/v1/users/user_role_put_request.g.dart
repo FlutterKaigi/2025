@@ -13,10 +13,9 @@ _UserRolePutRequest _$UserRolePutRequestFromJson(Map<String, dynamic> json) =>
       final val = _UserRolePutRequest(
         roles: $checkedConvert(
           'roles',
-          (v) =>
-              (v as List<dynamic>)
-                  .map((e) => $enumDecode(_$RoleEnumMap, e))
-                  .toList(),
+          (v) => (v as List<dynamic>)
+              .map((e) => $enumDecode(_$RoleEnumMap, e))
+              .toList(),
         ),
       );
       return val;

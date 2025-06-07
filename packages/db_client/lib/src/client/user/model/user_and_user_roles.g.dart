@@ -14,14 +14,12 @@ _UserAndUserRoles _$UserAndUserRolesFromJson(Map<String, dynamic> json) =>
         user: $checkedConvert(
           'user',
           (v) => Users.fromJson(v as Map<String, dynamic>),
-          readValue: extractRootJson,
         ),
         roles: $checkedConvert(
           'roles',
-          (v) =>
-              (v as List<dynamic>)
-                  .map((e) => $enumDecode(_$RoleEnumMap, e))
-                  .toList(),
+          (v) => (v as List<dynamic>)
+              .map((e) => $enumDecode(_$RoleEnumMap, e))
+              .toList(),
         ),
       );
       return val;
