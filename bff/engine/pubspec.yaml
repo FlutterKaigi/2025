@@ -10,6 +10,8 @@ environment:
 dependencies:
   bff_client:
     path: ../../packages/bff_client
+  db_client:
+    path: ../../packages/db_client
   db_types:
     path: ../../packages/db_types
   freezed_annotation: ^3.0.0
