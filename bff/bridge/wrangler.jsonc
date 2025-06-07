@@ -4,51 +4,65 @@
   "main": "src/index.ts",
   "compatibility_date": "2025-04-30",
   "observability": {
-    "enabled": true,
+    "enabled": true
   },
   "placement": {
-    "mode": "smart",
+    "mode": "smart"
   },
   "compatibility_flags": ["nodejs_compat"],
   "rules": [
     {
       "type": "CompiledWasm",
       "globs": ["**/*.wasm"],
-      "fallthrough": true,
-    },
+      "fallthrough": true
+    }
   ],
   "build": {
     "command": "scripts/build.sh",
     "cwd": "../engine",
-    "watch_dir": ["../engine", "src"],
+    "watch_dir": ["../engine", "src"]
   },
+  "hyperdrive": [
+    {
+      "binding": "HYPERDRIVE",
+      "id": "af34727d372f40cf975cb87f7de8461b",
+      "localConnectionString": "postgresql://postgres:postgres@127.0.0.1:54322/postgres"
+    },
+    {
+      "binding": "HYPERDRIVE_NO_CACHE",
+      "id": "a5ad3285bc2146929cf7b6e5fab52aa8",
+      "localConnectionString": "postgresql://postgres:postgres@127.0.0.1:54322/postgres"
+    }
+  ],
   "env": {
     "production": {
       "vars": {
-        "ENVIRONMENT": "production",
+        "ENVIRONMENT": "production"
       },
       "routes": [
         {
           "pattern": "2025-bff.flutterkaigi.jp",
-          "custom_domain": true,
-        },
+          "custom_domain": true
+        }
       ],
-      "workers_dev": false,
+      "workers_dev": false
     },
     "staging": {
       "vars": {
-        "ENVIRONMENT": "staging",
+        "ENVIRONMENT": "staging"
       },
       "hyperdrive": [
         {
           "binding": "HYPERDRIVE",
           "id": "af34727d372f40cf975cb87f7de8461b",
+          "localConnectionString": "postgresql://postgres:postgres@127.0.0.1:54322/postgres"
         },
         {
           "binding": "HYPERDRIVE_NO_CACHE",
           "id": "a5ad3285bc2146929cf7b6e5fab52aa8",
-        },
-      ],
-    },
-  },
+          "localConnectionString": "postgresql://postgres:postgres@127.0.0.1:54322/postgres"
+        }
+      ]
+    }
+  }
 }
