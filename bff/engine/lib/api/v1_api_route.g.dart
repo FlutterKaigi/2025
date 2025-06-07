@@ -50,6 +50,7 @@ final class V1ApiRouteProvider
 String _$v1ApiRouteHash() => r'007b30bd3478ceb87ceae6da26137d2f85141ce2';
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 /// See also [v1ApiRoute].
 @ProviderFor(v1ApiRoute)
@@ -67,6 +68,8 @@ final v1ApiRouteProvider = Provider<V1ApiRoute>.internal(
 // ignore: unused_element
 typedef V1ApiRouteRef = ProviderRef<V1ApiRoute>;
 >>>>>>> 3a076a172db06becf9c680aa237e2b555521731b
+=======
+>>>>>>> 4aacf15e679fadeecbfc43350c87eea949914f8b
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
 

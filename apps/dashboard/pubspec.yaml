@@ -20,7 +20,9 @@ dependencies:
   go_router: ^15.1.2
   hooks_riverpod: ^3.0.0-dev.15
   json_annotation: ^4.9.0
+  path: ^1.9.1
   riverpod_annotation: ^3.0.0-dev.15
+  talker_flutter: ^4.8.0
 
 dev_dependencies:
   altive_lints: ^1.19.1

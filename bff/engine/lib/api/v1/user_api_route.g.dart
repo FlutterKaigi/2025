@@ -50,6 +50,7 @@ final class UserApiRouteProvider
 String _$userApiRouteHash() => r'a279c2bdceeb481401e6de8b9fd9169c16549d00';
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 /// See also [userApiRoute].
 @ProviderFor(userApiRoute)
@@ -67,6 +68,8 @@ final userApiRouteProvider = Provider<UserApiRoute>.internal(
 // ignore: unused_element
 typedef UserApiRouteRef = ProviderRef<UserApiRoute>;
 >>>>>>> 3a076a172db06becf9c680aa237e2b555521731b
+=======
+>>>>>>> 4aacf15e679fadeecbfc43350c87eea949914f8b
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
 

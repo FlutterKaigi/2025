@@ -50,6 +50,7 @@ final class CfWorkersEnvProvider
 String _$cfWorkersEnvHash() => r'bb3cb13a13d353e8e1c54acb341a3ab6b41046fd';
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 /// See also [cfWorkersEnv].
 @ProviderFor(cfWorkersEnv)
@@ -67,5 +68,7 @@ final cfWorkersEnvProvider = Provider<CfWorkersEnv>.internal(
 // ignore: unused_element
 typedef CfWorkersEnvRef = ProviderRef<CfWorkersEnv>;
 >>>>>>> 3a076a172db06becf9c680aa237e2b555521731b
+=======
+>>>>>>> 4aacf15e679fadeecbfc43350c87eea949914f8b
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

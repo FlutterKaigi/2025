@@ -1,3 +1,4 @@
+import 'package:dashboard/core/router/router.dart';
 import 'package:flutter/material.dart';
 
 /// スポンサー一覧画面
@@ -13,6 +14,14 @@ class SponsorListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: Center(child: Text('SponsorListScreen')));
+    return Scaffold(
+      body: Center(
+        child: FilledButton(
+          onPressed: () =>
+              const SponsorDetailRoute(slug: 'sample-sponsor').go(context),
+          child: const Text('スポンサー詳細へ'),
+        ),
+      ),
+    );
   }
 }

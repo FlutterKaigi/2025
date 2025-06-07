@@ -50,6 +50,7 @@ final class SupabaseUtilProvider
 String _$supabaseUtilHash() => r'ab4b3c58f33f5db630f943c5f094cc65798fe427';
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 /// See also [supabaseUtil].
 @ProviderFor(supabaseUtil)
@@ -67,5 +68,7 @@ final supabaseUtilProvider = Provider<SupabaseUtil>.internal(
 // ignore: unused_element
 typedef SupabaseUtilRef = ProviderRef<SupabaseUtil>;
 >>>>>>> 3a076a172db06becf9c680aa237e2b555521731b
+=======
+>>>>>>> 4aacf15e679fadeecbfc43350c87eea949914f8b
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
