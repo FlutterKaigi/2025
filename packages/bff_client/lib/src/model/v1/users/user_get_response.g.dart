@@ -17,10 +17,9 @@ _UserGetResponse _$UserGetResponseFromJson(Map<String, dynamic> json) =>
         ),
         roles: $checkedConvert(
           'roles',
-          (v) =>
-              (v as List<dynamic>)
-                  .map((e) => $enumDecode(_$RoleEnumMap, e))
-                  .toList(),
+          (v) => (v as List<dynamic>)
+              .map((e) => $enumDecode(_$RoleEnumMap, e))
+              .toList(),
         ),
       );
       return val;

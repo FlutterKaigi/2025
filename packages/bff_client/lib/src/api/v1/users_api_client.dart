@@ -1,4 +1,4 @@
-import 'package:db_types/db_types.dart';
+import 'package:bff_client/bff_client.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -11,5 +11,5 @@ abstract class UsersApiClient {
   /// ユーザ情報を取得します
   /// Authorization Headerが必須
   @GET('/users/me')
-  Future<HttpResponse<Users>> getUserMe();
+  Future<HttpResponse<UserGetResponse>> getUserMe();
 }
