@@ -11,6 +11,8 @@
     "ignore": [
       // wranglerによって自動作成されるファイル
       "worker-configuration.d.ts",
+      // dart2wasmのビルド結果
+      "**/engine-artifact/*",
     ],
   },
   "formatter": {
