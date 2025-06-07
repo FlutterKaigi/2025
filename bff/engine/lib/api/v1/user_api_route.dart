@@ -1,4 +1,9 @@
+import 'dart:convert';
+
 import 'package:bff_client/bff_client.dart';
+import 'package:db_types/db_types.dart';
+import 'package:engine/main.dart';
+import 'package:engine/provider/db_client.dart';
 import 'package:engine/provider/supabase_util.dart';
 import 'package:engine/util/json_response.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -20,10 +25,57 @@ class UserApiRoute {
   @Route.get('/me')
   Future<Response> _getMe(Request request) async => jsonResponse(() async {
     final result = await _supabaseUtil.extractUser(request);
-    final (_, user) = result.unwrap; // AuthorizationExceptionの場合はthrowされる
-    final response = UserGetResponse(user: user);
+    final (_, user, roles) =
+        result.unwrap; // AuthorizationExceptionの場合はthrowされる
+    final response = UserGetResponse(user: user, roles: roles);
     return response.toJson();
   });
+
+  @Route.get('/<userId>')
+  Future<Response> _getUser(Request request, String userId) async =>
+      jsonResponse(() async {
+        final result = await _supabaseUtil.extractUser(request);
+        final (_, user, roles) =
+            result.unwrap; // AuthorizationExceptionの場合はthrowされる
+        if (!roles.contains(Role.admin)) {
+          throw ErrorResponse.errorCode(
+            code: ErrorCode.unauthorized,
+            detail: 'You are not authorized to access this resource',
+          );
+        }
+
+        final db = await container.read(
+          dbClientProvider(HyperdriveType.noCache).future,
+        );
+        final matchedUser = await db.user.getUserAndUserRoles(userId);
+        return UserGetResponse(
+          user: matchedUser.user,
+          roles: matchedUser.roles,
+        ).toJson();
+      });
+
+  @Route.put('/<userId>/roles')
+  Future<Response> _putUserRoles(Request request, String userId) async =>
+      jsonResponse(() async {
+        final result = await _supabaseUtil.extractUser(request);
+        final (_, user, roles) =
+            result.unwrap; // AuthorizationExceptionの場合はthrowされる
+        if (!roles.contains(Role.admin)) {
+          throw ErrorResponse.errorCode(
+            code: ErrorCode.unauthorized,
+            detail: 'You are not authorized to access this resource',
+          );
+        }
+
+        final bodyString = await request.readAsString();
+        final body = jsonDecode(bodyString) as Map<String, dynamic>;
+        final requestData = UserRolePutRequest.fromJson(body);
+        final db = await container.read(
+          dbClientProvider(HyperdriveType.noCache).future,
+        );
+        final roles = await db.user.updateUserRoles(userId, requestData.roles);
+        return UserGetResponse(user: user, roles: roles).toJson();
+      });
 
   Router get router => _$UserApiRouteRouter(this);
 }
