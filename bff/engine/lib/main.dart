@@ -22,7 +22,6 @@ Future<void> main() async {
     final cfDartWorkers = getCfDartWorkers();
     final cfWorkersEnv = cfDartWorkers.env;
     final request = cfDartWorkers.request;
-
     container = ProviderContainer(
       overrides: [
         cfWorkersEnvProvider.overrideWithValue(cfWorkersEnv.toDart),
@@ -52,11 +51,10 @@ Future<void> main() async {
     final jsResponse = web.Response(
       Uint8List.fromList(bytes).buffer.toJS,
       web.ResponseInit(
-        headers:
-            {
-              ...response.headers,
-              'x-commit-hash': cfWorkersEnv.commitHash,
-            }.toJSDeep,
+        headers: {
+          ...response.headers,
+          'x-commit-hash': cfWorkersEnv.commitHash,
+        }.toJSDeep,
         status: response.statusCode,
       ),
     );
@@ -64,30 +62,26 @@ Future<void> main() async {
     cfDartWorkers.response(jsResponse);
     // ignore: avoid_catches_without_on_clauses
   } catch (e) {
-    print(e);
-    if (e is StateError) {
-      print(e.message);
-      print(e.stackTrace);
-    }
-    final cfDartWorkers = getCfDartWorkers();
-
-    cfDartWorkers.response(
-      web.Response(
-        jsonEncode(
-          ErrorResponse.errorCode(
-            code: ErrorCode.internalServerError,
-            detail: 'Unhandled Exception: ${e.runtimeType}',
-          ),
-        ).toJS,
-        web.ResponseInit(
-          status: 500,
-          headers:
-              {
-                HttpHeaders.contentTypeHeader: ContentType.json.mimeType,
-              }.toJSDeep,
+    final jsResponse = web.Response(
+      jsonEncode(
+        ErrorResponse.errorCode(
+          code: ErrorCode.internalServerError,
+          detail: 'Unhandled Exception: ${e.runtimeType}',
         ),
+      ).toJS,
+      web.ResponseInit(
+        status: 500,
+        headers: {
+          HttpHeaders.contentTypeHeader: ContentType.json.mimeType,
+        }.toJSDeep,
       ),
     );
+    print(2);
+    final cfDartWorkers = getCfDartWorkers();
+    cfDartWorkers.response(
+      jsResponse,
+    );
+    print(3);
     rethrow;
   }
 }

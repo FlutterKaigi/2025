@@ -59,6 +59,7 @@ String _$userApiRouteHash() => r'a279c2bdceeb481401e6de8b9fd9169c16549d00';
 Router _$UserApiRouteRouter(UserApiRoute service) {
   final router = Router();
   router.add('GET', r'/me', service._getMe);
+  router.add('GET', r'/list', service._getUserList);
   router.add('GET', r'/<userId>', service._getUser);
   router.add('PUT', r'/<userId>/roles', service._putUserRoles);
   return router;
