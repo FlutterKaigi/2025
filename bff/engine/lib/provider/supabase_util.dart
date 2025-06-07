@@ -49,8 +49,9 @@ class SupabaseUtil {
 
   /// ユーザーを取得する
   /// Supabaseのユーザと、`public.users`テーブルのユーザを返す
-  Future<Result<(User, Users, List<Role>), AuthorizationException>>
-  extractUser(Request request) async => Result.capture(() async {
+  Future<Result<(User, Users, List<Role>), AuthorizationException>> extractUser(
+    Request request,
+  ) async => Result.capture(() async {
     final supabaseUserResult = await extractSupabaseUser(request);
     final supabaseUser = supabaseUserResult.unwrap;
 

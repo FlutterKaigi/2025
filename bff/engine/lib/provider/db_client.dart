@@ -1,6 +1,5 @@
 import 'package:db_client/db_client.dart';
 import 'package:engine/provider/hyperdrive_env.dart';
-import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'db_client.g.dart';
