@@ -26,7 +26,6 @@ export default {
       if (!dartInstance) {
         dartInstance = await instantiate(mod);
       }
-
       // __dart_cf_workers.response関数経由で Promiseが完了するのを待つ
       return new Promise<Response>((resolve) => {
         globalThis.__dart_cf_workers = () => ({
@@ -41,7 +40,7 @@ export default {
             noCache: new HyperdrivePg(env.HYPERDRIVE_NO_CACHE.connectionString),
           },
         });
-        invoke(dartInstance, request, env, ctx);
+        invoke(dartInstance);
       });
     } catch (e) {
       console.error(e);
