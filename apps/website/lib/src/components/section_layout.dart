@@ -14,7 +14,6 @@ class SectionLayout extends StatelessComponent {
         margin: Spacing.fromLTRB(32.px, 2.rem, 32.px, 0.px),
         flexDirection: FlexDirection.column,
         justifyContent: JustifyContent.start,
-        gap: Gap.all(2.rem),
         raw: {'min-width': 'min(600px, calc(100vw - 64px))'},
       ),
       [
