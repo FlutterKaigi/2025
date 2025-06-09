@@ -4,6 +4,7 @@ import 'package:flutterkaigi_2025_website/src/components/schedule_view.dart';
 import 'package:flutterkaigi_2025_website/src/components/section_layout.dart';
 import 'package:flutterkaigi_2025_website/src/config/config.dart';
 import 'package:flutterkaigi_2025_website/src/constants/styles.dart';
+import 'package:flutterkaigi_2025_website/src/pages/call_for_proposal.dart';
 import 'package:flutterkaigi_2025_website/text.dart';
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_router/jaspr_router.dart';
@@ -28,6 +29,10 @@ class Home extends StatelessComponent {
       [
         const _MainArticle(),
         SectionLayout(title: 'Schedule', children: [ScheduleView()]),
+        const SectionLayout(
+          title: 'Call for Proposaldsa',
+          children: [CallForProposal()],
+        ),
       ],
     );
   }
