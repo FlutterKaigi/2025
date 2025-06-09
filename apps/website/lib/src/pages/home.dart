@@ -30,7 +30,7 @@ class Home extends StatelessComponent {
         const _MainArticle(),
         SectionLayout(title: 'Schedule', children: [ScheduleView()]),
         const SectionLayout(
-          title: 'Call for Proposaldsa',
+          title: 'Call for Proposal',
           children: [CallForProposal()],
         ),
       ],
