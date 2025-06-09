@@ -111,6 +111,17 @@ final event = (
       ),
     ),
   ),
+  applyForCfp: (
+    title: (
+      ja: 'CfPの申し込みはこちら',
+      en: 'Click here to apply for CfP',
+    ),
+    url: (
+      //TODO リンクを載せる
+      ja: '',
+      en: '',
+    ),
+  ),
   schedule: [
     (
       title: (ja: 'スポンサー募集開始', en: 'Call for Sponsors Opens'),

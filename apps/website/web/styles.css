@@ -66,7 +66,7 @@ body * {
 }
 
 .gradient-button {
-  background: var(--base-gradient);
+  background: var(--color-beyond-red);
   padding: 1rem 2rem;
   border-radius: 4rem;
 }
@@ -79,8 +79,8 @@ body * {
   left: 0;
   border-radius: 4rem;
   width: 100%;
-  height: calc(100% + 2rem);
-  background: var(--base-gradient);
+  height: calc(100% + 0.625rem);
+  background: var(--color-beyond-red);
   filter: blur(12px);
   opacity: 0.4;
   transition: transform 0.25s ease-out;

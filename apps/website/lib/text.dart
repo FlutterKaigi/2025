@@ -1,3 +1,5 @@
+// ignore_for_file: lines_longer_than_80_chars
+
 import 'package:flutterkaigi_2025_website/src/path.dart' show Path;
 import 'package:jaspr/jaspr.dart' as jaspr;
 
@@ -30,6 +32,29 @@ const contents = (
   placeLabel: (ja: '会場', en: 'Place'),
   scheduleLabel: (ja: 'スケジュール', en: 'Schedule'),
   moveToTop: (ja: 'トップ', en: 'Top'),
+
+  proposalContents: (
+    ja:
+        'FlutterKaigi 2025でのセッションスピーカーを募集開始しました！\n'
+        'FlutterKaigiは、技術者が自分の知識と経験を共有するためのカンファレンスです。\n'
+        'テーマはFlutterやDartに関連していれば何でもOKです。'
+        '初心者向けのヒントから上級者向けのテクニック、チュートリアル、ライブラリの紹介、'
+        'ベストプラクティス、挑戦した事例など、聞いて面白く、他の開発者に有益な内容を'
+        '募集しています。\n'
+        'ただし、自社製品の宣伝を目的としたトークや、FlutterやDartと無関係なトピックは'
+        '避けてください。（Flutter開発支援ツールについては除きます。）',
+    en:
+        'We are now accepting session speaker proposals for FlutterKaigi 2025!\n'
+        'FlutterKaigi is a conference where technologists share their knowledge and '
+        'experiences.\n'
+        'Any topic related to Flutter or Dart is welcome. '
+        'From beginner tips to advanced techniques, tutorials, library introductions, '
+        'best practices, and challenging case studies, we are looking for content that is '
+        'interesting to hear and beneficial to other developers.\n'
+        'Please avoid talks that are primarily for promoting your company products or '
+        'topics unrelated to Flutter or Dart. '
+        '(Flutter development support tools are an exception.)',
+  ),
 );
 
 String formatDate(
