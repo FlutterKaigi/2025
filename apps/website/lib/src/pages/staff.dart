@@ -1,0 +1,58 @@
+import 'package:flutterkaigi_2025_website/src/components/staff_card.dart';
+import 'package:jaspr/jaspr.dart';
+
+class Staff extends StatelessComponent {
+  const Staff({super.key});
+
+  @override
+  Iterable<Component> build(BuildContext context) sync* {
+    final staffList = [
+      const StaffCard(
+        name: 'John Doe',
+        role: 'Event Organizer',
+        imageUrl: 'assets/images/staff/placeholder.jpg',
+      ),
+      const StaffCard(
+        name: 'Jane Smith',
+        role: 'Speaker Coordinator',
+        imageUrl: 'assets/images/staff/placeholder.jpg',
+      ),
+    ];
+
+    yield div(
+      styles: Styles(
+        display: Display.flex,
+        flexDirection: FlexDirection.column,
+        alignItems: AlignItems.center,
+        gap: Gap.all(1.rem),
+      ),
+      [
+        div(
+          styles: Styles(
+            display: Display.flex,
+            flexDirection: FlexDirection.row,
+            flexWrap: FlexWrap.wrap,
+            gap: Gap.all(2.rem),
+            width: 100.percent,
+            maxWidth: 1200.px,
+            padding: Spacing.all(2.rem),
+            overflow: Overflow.auto,
+            maxHeight: 80.vh,
+            justifyContent: JustifyContent.center,
+          ),
+          [
+            for (final staff in staffList)
+              div(
+                styles: Styles(
+                  display: Display.flex,
+                  justifyContent: JustifyContent.center,
+                  width: 400.px,
+                ),
+                [staff],
+              ),
+          ],
+        ),
+      ],
+    );
+  }
+}
