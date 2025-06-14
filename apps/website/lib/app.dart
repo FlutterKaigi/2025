@@ -6,6 +6,7 @@ import 'package:flutterkaigi_2025_website/src/pages/_404.dart';
 import 'package:flutterkaigi_2025_website/src/pages/call_for_proposal.dart';
 import 'package:flutterkaigi_2025_website/src/pages/dashsay.dart';
 import 'package:flutterkaigi_2025_website/src/pages/home.dart';
+import 'package:flutterkaigi_2025_website/src/pages/timeline.dart';
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_router/jaspr_router.dart';
 
@@ -33,6 +34,11 @@ class App extends StatelessComponent {
               path: '/call-for-proposal',
               title: 'Call for Proposal',
               builder: (context, state) => const CallForProposal(),
+            ),
+            ..._createLanguageRoutes(
+              path: '/timeline',
+              title: 'Timeline',
+              builder: (context, state) => const Timeline(),
             ),
             ..._createLanguageRoutes(
               path: '/dashsay',
