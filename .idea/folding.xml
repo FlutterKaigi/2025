@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CodeFoldingSettings">
+    <option name="COLLAPSE_IMPORTS" value="true" />
+    <option name="COLLAPSE_FILE_HEADER" value="true" />
+    <option name="COLLAPSE_METHODS" value="false" />
+    <option name="COLLAPSE_CONSTRUCTOR" value="false" />
+    <option name="COLLAPSE_DOC_COMMENTS" value="false" />
+    <option name="COLLAPSE_GENERIC_PARAMETERS" value="false" />
+    <option name="COLLAPSE_CUSTOM_FOLDING_REGIONS" value="false" />
+  </component>
+</project>

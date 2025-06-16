@@ -1,5 +1,25 @@
 # Default ignored files
 /*
 !/.gitignore
-# Keep the run configurations.
+
+# Keep code style settings
+!/codeStyles/
+!/codeStyles/Project.xml
+!/codeStyles/codeStyleConfig.xml
+
+# Keep editor settings
+!/editor.xml
+!/folding.xml
+
+# Keep Dart and Flutter settings
+!/dart.xml
+!/dartCodeStyle.xml
+!/externalDependencies.xml
+
+# Keep inspection profiles
+!/inspectionProfiles/
+!/inspectionProfiles/Project_Default.xml
+
+# Keep the run configurations
+!/runConfigurations/
 !/runConfigurations/flutter_run_dashboard_development_debug.xml
