@@ -1,0 +1,175 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base",
+    ":automergeMinor"
+  ],
+  "timezone": "Asia/Tokyo",
+  "schedule": [
+    "after 7am on Monday and Thursday"
+  ],
+  "dependencyDashboard": false,
+  "prConcurrentLimit": 10,
+  "labels": [
+    "dependencies"
+  ],
+  "packageRules": [
+    {
+      // GitHub Actionsのマイナー・パッチ更新をグループ化
+      "groupName": "github-actions non-major dependencies",
+      "groupSlug": "github-actions-minor-patch",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "matchPackagePatterns": [
+        "*"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+    },
+    {
+      // Bunパッケージのマイナー・パッチ更新をグループ化
+      "groupName": "bun non-major dependencies",
+      "groupSlug": "bun-minor-patch",
+      "matchManagers": [
+        "bun",
+        "npm"
+      ],
+      "matchPackagePatterns": [
+        "*"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+    },
+    {
+      // Dart/Flutterパッケージのマイナー・パッチ更新をグループ化
+      "groupName": "pub non-major dependencies",
+      "groupSlug": "pub-minor-patch",
+      "matchManagers": [
+        "pub"
+      ],
+      "matchPackagePatterns": [
+        "*"
+      ],
+      "excludePackageNames": [
+        "collection",
+        "intl"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+    },
+    {
+      // Flutter SDKとDart SDKをグループ化
+      "groupName": "flutter",
+      "matchPackageNames": [
+        "dart",
+        "flutter"
+      ],
+    },
+    {
+      // Riverpod関連パッケージをグループ化
+      "groupName": "riverpod",
+      "matchPackageNames": [
+        "flutter_riverpod",
+        "hooks_riverpod",
+        "riverpod"
+      ],
+      "matchPackagePrefixes": [
+        "riverpod_"
+      ]
+    },
+    {
+      // Flutter SDKに含まれる内部Gradleプラグインの更新チェックを無効化
+      "description": "Ignore Flutter internal gradle plugins",
+      "matchFiles": [
+        "**/settings.gradle.kts"
+      ],
+      "matchPackageNames": [
+        "dev.flutter.flutter-plugin-loader"
+      ],
+      "enabled": false
+    },
+    {
+      // Terraformプロバイダーのマイナー・パッチ更新をグループ化
+      "groupName": "terraform non-major dependencies",
+      "groupSlug": "terraform-minor-patch",
+      "matchManagers": [
+        "terraform"
+      ],
+      "matchPackagePatterns": [
+        "*"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ]
+    },
+    {
+      // Gradleパッケージのマイナー・パッチ更新をグループ化
+      "groupName": "gradle non-major dependencies",
+      "groupSlug": "gradle-minor-patch",
+      "matchManagers": [
+        "gradle",
+        "gradle-wrapper"
+      ],
+      "matchPackagePatterns": [
+        "*"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ]
+    },
+    {
+      // Jasprフレームワーク関連パッケージをグループ化
+      "groupName": "jaspr",
+      "matchPackageNames": [
+        "jaspr",
+        "jaspr_router",
+        "jaspr_builder",
+        "jaspr_lints"
+      ]
+    },
+    {
+      // Supabase関連パッケージをグループ化
+      "groupName": "supabase",
+      "matchPackageNames": [
+        "supabase"
+      ],
+      "matchPackagePrefixes": [
+        "@supabase/"
+      ],
+      "matchManagers": [
+        "pub"
+      ]
+    },
+    {
+      // 開発ツール（Biome、cspell等）をグループ化
+      "groupName": "dev-tools",
+      "matchPackageNames": [
+        "@biomejs/biome",
+        "cspell",
+        "dprint"
+      ],
+      "matchPackagePrefixes": [
+        "@cspell/"
+      ]
+    },
+    {
+      // Cloudflare関連パッケージをグループ化
+      "groupName": "cloudflare",
+      "matchPackageNames": [
+        "wrangler"
+      ],
+      "matchPackagePrefixes": [
+        "@cloudflare/"
+      ]
+    }
+  ]
+}
