@@ -156,7 +156,7 @@ final event = (
 typedef SponsorInfo = ({
   String name,
   String url,
-  ({String x}) sns,
+  ({String? x}) sns,
   String pr,
   String logo,
   SponsorType type,
@@ -181,9 +181,12 @@ extension SponsorTypeExtension on SponsorType {
 const _sponsors = <SponsorInfo>[
   (
     name: '株式会社ゆめみ',
-    url: '',
-    sns: (x: ''),
-    pr: '',
+    url: 'https://yumemi.co.jp/',
+    sns: (x: 'yumemiinc'),
+    pr:
+        '6000万人のみんな知ってるあのサービスも、ゆめみが一緒に作ってます。'
+        '大手企業や急成長スタートアップと共創型でWeb/スマホのサービス作りや内製化支援を行っています。'
+        '【エンジニアが最も成長できる会社No.1】を目標にした、アジャイル組織として先端を走るエンジニア集団です。',
     logo: '/img/sponsor/yumemi.png',
     type: SponsorType.platinum,
   ),
@@ -197,25 +200,32 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社サイバーエージェント',
-    url: '',
-    sns: (x: ''),
-    pr: '',
+    url: 'https://www.cyberagent.co.jp/',
+    sns: (x: 'ca_developers'),
+    pr:
+        'サイバーエージェントはインターネットを軸に、メディア&IP事業、インターネット広告事業、ゲーム事業と主に3つの事業を展開しています。'
+        'その他にもIP・コンテンツ、AI、DXを強化分野として事業創出に取り組んでおり、様々な事業でFlutterの活用事例があります。'
+        '社内発の社外向けの勉強会である「CA.flutter」も定期的に開催しています。',
     logo: '/img/sponsor/cyberagent.png',
     type: SponsorType.gold,
   ),
   (
     name: 'ZOZO, Inc.',
-    url: '',
-    sns: (x: ''),
-    pr: '',
+    url: 'https://corp.zozo.com/',
+    sns: (x: 'zozotech'),
+    pr:
+        'ファッションEC「ZOZOTOWN」、ファッションコーディネートアプリ「WEAR by ZOZO」など'
+        '各種サービスの企画・展開のほか、「ZOZOSUIT」「ZOZOMAT」「ZOZOGLASS」など計測技術の開発・活用にも取り組んでいます。',
     logo: '/img/sponsor/zozo.png',
     type: SponsorType.silver,
   ),
   (
     name: '株式会社GENDA',
-    url: '',
-    sns: (x: ''),
-    pr: '',
+    url: 'https://genda.jp/',
+    sns: (x: 'GENDA_jp'),
+    pr:
+        '「世界中の人々の人生をより楽しく」をAspirationに掲げるエンタメ企業。'
+        '「GiGO」等のアミューズメント施設運営やカラオケ、キャラクターMD、F&B、コンテンツ&プロモーションなどエンタメ領域で事業を展開しています。',
     logo: '/img/sponsor/genda.png',
     type: SponsorType.silver,
   ),
@@ -229,9 +239,12 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: "株式会社Linc'well",
-    url: '',
-    sns: (x: ''),
-    pr: '',
+    url: 'https://linc-well.com/',
+    sns: (x: 'lincwell_dev'),
+    pr:
+        "Linc'wellは「テクノロジーを通じて、医療を一歩前へ」をミッションに掲げ、"
+        '医療を効率化し患者の医療体験と医療の質の向上を目指した事業展開を行っています。'
+        '2023年リリースのFlutterアプリ「クリフォア」を開発する仲間を募集中です！',
     logo: '/img/sponsor/lincwell.png',
     type: SponsorType.silver,
   ),
@@ -245,25 +258,33 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: 'CodeRabbit',
-    url: '',
-    sns: (x: ''),
-    pr: '',
+    url: 'https://www.coderabbit.ai',
+    sns: (x: 'Coderabbitaija'),
+    pr:
+        'CodeRabbitはAIコードレビューサービスです。'
+        'GitHub/GitLabなどのPRに対して、自動的にコードレビューを行います。'
+        'レビューの負荷軽減、時間削減、チーム開発効率化に貢献します！',
     logo: '/img/sponsor/coderabbit.png',
     type: SponsorType.silver,
   ),
   (
     name: '株式会社MIXI',
-    url: '',
-    sns: (x: ''),
-    pr: '',
+    url: 'https://mixi.co.jp/',
+    sns: (x: 'mixi_engineers'),
+    pr:
+        'MIXIは、「豊かなコミュニケーションを広げ、世界を幸せな驚きで包む。」というパーパスのもと、'
+        '「mixi」や「モンスターストライク」など、友人や家族間で一緒に楽しむコミュニケーションサービスを提供しています。',
     logo: '/img/sponsor/mixi.png',
     type: SponsorType.bronze,
   ),
   (
     name: 'スタディプラス株式会社',
-    url: '',
-    sns: (x: ''),
-    pr: '',
+    url: 'https://info.studyplus.co.jp/',
+    sns: (x: 'studyplus_dev'),
+    pr:
+        'スタディプラスは「学ぶ喜びをすべての人へ」をミッションに、'
+        '学習の記録・可視化・共有をサポートするStudyplusを提供しています。'
+        '楽しく学びを広げるプラットフォームを一緒に作りませんか？あなたのアイデアが、学びを豊かにする力になります。',
     logo: '/img/sponsor/studyplus.png',
     type: SponsorType.bronze,
   ),
@@ -285,25 +306,34 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: 'パイオニア株式会社',
-    url: '',
-    sns: (x: ''),
-    pr: '',
+    url: 'https://jpn.pioneer/ja/',
+    sns: (x: 'Pioneer_PR'),
+    pr:
+        '企業ミッション「より多くの人と、感動を」のもと、'
+        'カーエレクトロニクス分野を中心に、斬新でユニークな発想とテクノロジーを活かし、'
+        '車室内の快適性、感動、安心・安全を実現する製品・サービスを提供することで、新たな価値を提案していく会社です',
     logo: '/img/sponsor/pioneer.png',
     type: SponsorType.bronze,
   ),
   (
     name: '株式会社メドレー',
-    url: '',
-    sns: (x: ''),
-    pr: '',
+    url: 'https://www.medley.jp/',
+    sns: (x: 'medley_dev'),
+    pr:
+        'メドレーは、「医療ヘルスケアの未来をつくる」ミッションのもと、'
+        'テクノロジーを活用した事業やプロジェクトを通じて、医療ヘルスケア分野の課題を解決していきます。'
+        'それにより、「持続可能な医療」の実現と、「納得できる医療」の実現を目指しています。',
     logo: '/img/sponsor/medley.png',
     type: SponsorType.bronze,
   ),
   (
     name: 'Hamee株式会社',
-    url: '',
-    sns: (x: ''),
-    pr: '',
+    url: 'https://hamee.co.jp/recruit/love-odawara',
+    sns: (x: null),
+    pr:
+        '私たちHameeのPurposeは「クリエイティブ魂に火をつける」です。\n'
+        'クリエイティブ魂は、自分らしさを最大限に発揮し、挑戦し、成し遂げる時に燃え盛ります。\n'
+        'この炎を広げ、世界中を熱くすることが私たちの使命です。 ',
     logo: '/img/sponsor/hamee.png',
     type: SponsorType.bronze,
   ),
@@ -317,25 +347,32 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社LayerX',
-    url: '',
-    sns: (x: ''),
-    pr: '',
+    url: 'https://layerx.co.jp',
+    sns: (x: 'LayerX_Tech'),
+    pr:
+        'LayerXは「すべての経済活動を、デジタル化する。」をミッションに掲げ、'
+        'SaaS+Fintechを軸に、AIを中心としたソフトウェア体験を社会実装するスタートアップです。'
+        'AIを活用し「時間を創造するモバイルアプリ」を一緒に作りませんか？',
     logo: '/img/sponsor/layerx.png',
     type: SponsorType.bronze,
   ),
   (
     name: 'NTTレゾナントテクノロジー株式会社',
-    url: '',
-    sns: (x: ''),
-    pr: '',
+    url: 'https://nttr-tech.co.jp/',
+    sns: (x: 'nttr_tech'),
+    pr:
+        'FlutterKaigi参加者の皆さんへ──NTTレゾナントテクノロジーはUXにこだわるNTTドコモグループの技術カンパニーです。'
+        '技術を活かし、共に革新的な体験を創りませんか？フルリモート・フルフレックスで挑戦できる環境が整っています。',
     logo: '/img/sponsor/ntt-resonant-tech.png',
     type: SponsorType.bronze,
   ),
   (
     name: '株式会社IBJ',
-    url: '',
-    sns: (x: ''),
-    pr: '',
+    url: 'https://www.ibjapan.jp/',
+    sns: (x: 'IBJ_renmei'),
+    pr:
+        '様々な婚活サービスとライフデザインサービスを提供し、日本の婚姻数の3％、最も多くの結婚カップルを創出しています。\n'
+        '「IT×ヒト」を強みにサービス部門だけでなく、アプリやシステムを改修・開発などクリエイターやエンジニアも活躍している会社です。',
     logo: '/img/sponsor/ibj.png',
     type: SponsorType.bronze,
   ),
