@@ -3,3 +3,5 @@
 !/.gitignore
 # Keep the run configurations.
 !/runConfigurations/flutter_run_dashboard_development_debug.xml
+!/runConfigurations/flutter_run_dashboard_production_debug.xml
+!/runConfigurations/flutter_run_dashboard_staging_debug.xml
