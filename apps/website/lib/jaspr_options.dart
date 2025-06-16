@@ -43,4 +43,6 @@ Map<String, dynamic> _prefix1Sponsor(prefix1.Sponsor c) => {
   'name': c.name,
   'logo': c.logo,
   'width': c.width,
+  'pr': c.pr,
+  'url': c.url,
 };
