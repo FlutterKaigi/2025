@@ -77,12 +77,6 @@ class _SponsorState extends State<Sponsor> {
                 ),
               ),
               p(
-                [text(component.pr)],
-                styles: Styles(
-                  width: 100.percent,
-                ),
-              ),
-              p(
                 [
                   ExternalLink(
                     content: text(component.url),
@@ -93,9 +87,16 @@ class _SponsorState extends State<Sponsor> {
                   width: 100.percent,
                 ),
               ),
+              p(
+                [text(component.pr)],
+                styles: Styles(
+                  width: 100.percent,
+                ),
+              ),
             ],
             styles: Styles(
               display: Display.flex,
+              gap: Gap.all(1.rem),
               padding: Spacing.all(1.rem),
               backgroundColor: Colors.white,
               radius: BorderRadius.circular(1.rem),
