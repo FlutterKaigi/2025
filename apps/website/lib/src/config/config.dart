@@ -214,8 +214,9 @@ const _sponsors = <SponsorInfo>[
     url: 'https://corp.zozo.com/',
     sns: (x: 'zozotech'),
     pr:
-        'ファッションEC「ZOZOTOWN」、ファッションコーディネートアプリ「WEAR by ZOZO」など'
-        '各種サービスの企画・展開のほか、「ZOZOSUIT」「ZOZOMAT」「ZOZOGLASS」など計測技術の開発・活用にも取り組んでいます。',
+        'ファッションEC「ZOZOTOWN」、'
+        'ファッションコーディネートアプリ「WEAR by ZOZO」など各種サービスの企画・展開のほか、 '
+        '「ZOZOSUIT」「ZOZOMAT」「ZOZOGLASS」など計測技術の開発・活用にも取り組んでいます。',
     logo: '/img/sponsor/zozo.png',
     type: SponsorType.silver,
   ),
@@ -225,7 +226,8 @@ const _sponsors = <SponsorInfo>[
     sns: (x: 'GENDA_jp'),
     pr:
         '「世界中の人々の人生をより楽しく」をAspirationに掲げるエンタメ企業。'
-        '「GiGO」等のアミューズメント施設運営やカラオケ、キャラクターMD、F&B、コンテンツ&プロモーションなどエンタメ領域で事業を展開しています。',
+        '「GiGO」等のアミューズメント施設運営やカラオケ、キャラクターMD、F&B、'
+        'コンテンツ&プロモーションなどエンタメ領域で事業を展開しています。',
     logo: '/img/sponsor/genda.png',
     type: SponsorType.silver,
   ),
@@ -250,9 +252,16 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社ディー・エヌ・エー',
-    url: '',
-    sns: (x: ''),
-    pr: '',
+    url: 'https://dena.com/jp/',
+    sns: (x: 'DeNAxTech'),
+    pr:
+        'DeNAは、事業価値の最大化と課題解決のためのAI活用と独自のデータ分析手法によって、'
+        'ゲーム、ライブスコミュニティ、スポーツ・まちづくり、ヘルスケア・メディカルなど幅広い事業を展開しています。\n'
+        '\n'
+        'At DeNA (pronounced "D-N-A") we use AI technology and our unique data'
+        ' analysis methods to maximize business value and solve problems'
+        ' to engage in a variety of businesses, from games and live communities'
+        ' to sports & the community and healthcare & medical.',
     logo: '/img/sponsor/dena.png',
     type: SponsorType.silver,
   ),
@@ -290,9 +299,12 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社ギークニア',
-    url: '',
-    sns: (x: ''),
-    pr: '',
+    url: 'https://geekneer.com/',
+    sns: (x: 'geekneerjp'),
+    pr:
+        'ギークニアは、転職エージェントが全員元エンジニアの人材紹介会社です。'
+        'エンジニア、ITコンサル、PM、データサイエンティスト、PdM、SRE、QAエンジニアなど'
+        'IT専門職の方のキャリアサクセスを応援しております。',
     logo: '/img/sponsor/geekneer.png',
     type: SponsorType.bronze,
   ),
