@@ -30,3 +30,4 @@ Fintech
 layerx
 nttr
 renmei
+Ichizoku
