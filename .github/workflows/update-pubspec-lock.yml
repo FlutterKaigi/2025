@@ -1,0 +1,165 @@
+name: Update pubspec.lock
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    paths:
+      - "**/pubspec.yaml"
+
+jobs:
+  update-lock:
+    # Renovateが作成したPRの場合のみ実行
+    if: startsWith(github.head_ref, 'renovate/')
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+
+    steps:
+      # https://github.com/marketplace/actions/checkout
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      # https://github.com/marketplace/actions/mise-action
+      - name: mise action
+        uses: jdx/mise-action@13abe502c30c1559a5c37dff303831bab82c9402 # v2.2.3
+        with:
+          install_args: "flutter"
+
+      - name: Install dependencies and update lock files
+        id: update-deps
+        run: |
+          # Flutterパッケージの更新（エラー出力をキャプチャ）
+          set +e  # エラーでも続行
+          ERROR_OUTPUT=$(flutter pub get 2>&1)
+          EXIT_CODE=$?
+          set -e
+
+          # 出力を表示
+          echo "$ERROR_OUTPUT"
+
+          # エラーの場合はGITHUB_OUTPUTに保存
+          if [ $EXIT_CODE -ne 0 ]; then
+            ERROR_LOG=$(echo "$ERROR_OUTPUT" | tail -n 100)
+            echo "error_log<<EOF" >> $GITHUB_OUTPUT
+            echo "$ERROR_LOG" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          fi
+
+          # 元の終了コードで終了
+          exit $EXIT_CODE
+
+      - name: Check for changes
+        id: changes
+        run: |
+          if [[ -n "$(git status --porcelain)" ]]; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          fi
+
+      # https://github.com/marketplace/actions/github-script
+      - name: Commit and push changes
+        if: steps.changes.outputs.has_changes == 'true'
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+
+            // ルートのpubspec.lockファイルのパス
+            const lockFilePath = 'pubspec.lock';
+
+            // 現在のコミット情報を取得
+            const { data: currentCommit } = await github.rest.repos.getCommit({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: context.sha
+            });
+
+            // pubspec.lockファイルの内容をGitのblobオブジェクトとして作成
+            // blobはGitでファイルの内容を表すオブジェクト
+            const content = fs.readFileSync(lockFilePath, 'utf8');
+            const { data: blob } = await github.rest.git.createBlob({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              content: content,
+              encoding: 'utf-8'
+            });
+
+            // 現在のGitツリーを取得
+            // ツリーはディレクトリ構造を表すGitオブジェクト
+            const { data: baseTree } = await github.rest.git.getTree({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tree_sha: currentCommit.commit.tree.sha
+            });
+
+            // 更新されたファイルを含む新しいツリーを作成
+            const { data: newTree } = await github.rest.git.createTree({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              base_tree: baseTree.sha,
+              tree: [{
+                path: lockFilePath,
+                sha: blob.sha,
+                mode: '100644',  // ファイルのパーミッション（通常のファイル）
+                type: 'blob'
+              }]
+            });
+
+            // 新しいコミットを作成
+            const { data: newCommit } = await github.rest.git.createCommit({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              message: 'chore: update lock file',
+              tree: newTree.sha,
+              parents: [context.sha]  // 親コミット（現在のコミット）
+            });
+
+            // ブランチの参照を新しいコミットに更新（プッシュに相当）
+            await github.rest.git.updateRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: `heads/${context.ref.replace('refs/heads/', '')}`,
+              sha: newCommit.sha
+            });
+
+      # エラー時のコメント投稿
+      - name: Comment on PR on failure
+        if: failure()
+        uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043 # v4.0.0
+        env:
+          ERROR_LOG: ${{ steps.update-deps.outputs.error_log }}
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            ## ❌ pubspec.lock の更新に失敗しました
+
+            ### エラー内容
+            依存関係の更新処理でエラーが発生しました。
+
+            <details>
+            <summary>エラーログ（クリックして展開）</summary>
+
+            ```
+            ${{ env.ERROR_LOG }}
+            ```
+
+            </details>
+
+            ### 考えられる原因
+            - pubspec.yaml に構文エラーがある可能性があります
+            - 依存関係の競合が発生している可能性があります
+            - 削除されたパッケージや利用できないバージョンが指定されている可能性があります
+
+            ### 対処方法
+            1. ローカル環境で `flutter pub get` を実行し、エラーを確認してください
+            2. pubspec.yaml の構文を確認してください
+            3. 必要に応じて依存関係のバージョンを調整してください
+
+            ### 詳細
+            ワークフローの実行ログは[こちら](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})で確認できます。
