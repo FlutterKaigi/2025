@@ -298,9 +298,12 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: 'Sentry',
-    url: '',
-    sns: (x: ''),
-    pr: '',
+    url: 'https://sentry.ichizoku.io/',
+    sns: (x: 'SentryJapan'),
+    pr:
+        'Sentryはリアルタイムエラー追跡と詳細情報提供で迅速な問題特定を実現。'
+        '多言語対応でウェブ、モバイル、バックエンドを一気通貫で監視が可能。'
+        'Ichizokuとの協業で日本市場向けに特化した強力なサポートを提供し、迅速な対応を実現しています。',
     logo: '/img/sponsor/sentry.png',
     type: SponsorType.bronze,
   ),
