@@ -17,14 +17,23 @@ class StaffCard extends StatelessComponent {
     yield div(
       styles: Styles(
         display: Display.flex,
+        width: 300.px,
+        padding: Spacing.all(1.rem),
         flexDirection: FlexDirection.column,
         alignItems: AlignItems.center,
-        padding: Spacing.all(1.rem),
-        width: 300.px,
       ),
       [
         div(
-          classes: 'staff-card-avatar',
+          styles: Styles(
+            display: Display.flex,
+            width: 100.px,
+            height: 100.px,
+            margin: Spacing.only(bottom: 1.rem),
+            justifyContent: JustifyContent.center,
+            alignItems: AlignItems.center,
+            backgroundColor: const Color.rgba(200, 200, 200, 0.3),
+            raw: {'border-radius': '50px'},
+          ),
           [
             img(
               src: imageUrl,
