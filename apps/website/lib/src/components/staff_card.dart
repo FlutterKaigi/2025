@@ -23,7 +23,9 @@ class StaffCard extends StatelessComponent {
         alignItems: AlignItems.center,
       ),
       [
-        div(
+        img(
+          src: imageUrl,
+          alt: 'Staff photo',
           styles: Styles(
             display: Display.flex,
             width: 100.px,
@@ -32,14 +34,8 @@ class StaffCard extends StatelessComponent {
             justifyContent: JustifyContent.center,
             alignItems: AlignItems.center,
             backgroundColor: const Color.rgba(200, 200, 200, 0.3),
-            raw: {'border-radius': '50px'},
+            raw: {'border-radius' : '50px'},
           ),
-          [
-            img(
-              src: imageUrl,
-              alt: 'Staff photo',
-            ),
-          ],
         ),
         p(
           styles: Styles(
