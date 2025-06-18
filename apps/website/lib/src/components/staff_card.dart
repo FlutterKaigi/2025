@@ -41,23 +41,27 @@ class StaffCard extends StatelessComponent {
             ),
           ],
         ),
-        div(
+        p(
           styles: Styles(
             margin: Spacing.only(bottom: 0.5.rem),
             fontSize: 1.25.rem,
             fontWeight: FontWeight.w400,
             lineHeight: 2.rem,
           ),
-          [Text(name)],
+          [
+            Text(name),
+          ],
         ),
-        div(
+        p(
           styles: Styles(
             margin: Spacing.only(bottom: 1.rem),
             color: const Color.rgba(0, 0, 0, 0.5),
             fontSize: 1.rem,
             lineHeight: 1.71.rem,
           ),
-          [Text(role)],
+          [
+            Text(role),
+          ],
         ),
       ],
     );
