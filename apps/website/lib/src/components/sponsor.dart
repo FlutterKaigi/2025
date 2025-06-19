@@ -1,4 +1,5 @@
 import 'package:flutterkaigi_2025_website/src/components/external_link.dart';
+import 'package:flutterkaigi_2025_website/text.dart';
 import 'package:flutterkaigi_2025_website/src/config/config.dart';
 import 'package:jaspr/jaspr.dart';
 
@@ -165,7 +166,7 @@ class _TypedSponsors extends StatelessComponent {
                       name: info.name,
                       logo: info.logo,
                       url: info.url,
-                      pr: info.pr,
+                      pr: info.pr.text(context),
                       width: switch (info.type) {
                         SponsorType.platinum => 16,
                         SponsorType.gold => 12,
