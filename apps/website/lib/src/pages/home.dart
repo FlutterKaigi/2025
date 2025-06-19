@@ -2,6 +2,7 @@ import 'package:flutterkaigi_2025_website/src/components/countdown_view.dart';
 import 'package:flutterkaigi_2025_website/src/components/external_link.dart';
 import 'package:flutterkaigi_2025_website/src/components/schedule_view.dart';
 import 'package:flutterkaigi_2025_website/src/components/section_layout.dart';
+import 'package:flutterkaigi_2025_website/src/components/sponsor.dart';
 import 'package:flutterkaigi_2025_website/src/config/config.dart';
 import 'package:flutterkaigi_2025_website/src/constants/styles.dart';
 import 'package:flutterkaigi_2025_website/src/pages/call_for_proposal.dart';
@@ -31,6 +32,7 @@ class Home extends StatelessComponent {
       [
         const _MainArticle(),
         SectionLayout(title: 'Schedule', children: [ScheduleView()]),
+        const SectionLayout(title: 'Sponsor', children: [Sponsors()]),
         const SectionLayout(
           title: 'Call for Proposal',
           children: [CallForProposal()],
