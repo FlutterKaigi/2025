@@ -6,7 +6,7 @@ part 'error_response.freezed.dart';
 part 'error_response.g.dart';
 
 @freezed
-abstract class ErrorResponse with _$ErrorResponse {
+abstract class ErrorResponse with _$ErrorResponse implements Exception {
   const factory ErrorResponse._internal({
     /// エラーコード
     @JsonKey(unknownEnumValue: ErrorCode.unknownEnumField)
@@ -37,6 +37,7 @@ abstract class ErrorResponse with _$ErrorResponse {
 @JsonEnum(fieldRename: FieldRename.screamingSnake)
 enum ErrorCode {
   unauthorized('認証に失敗しました', HttpStatus.unauthorized),
+  forbidden('リソースにアクセスする権限がありません', HttpStatus.forbidden),
   notImplemented('このエンドポイントは未実装です', HttpStatus.notImplemented),
   internalServerError('サーバ内部で予期しないエラーが発生しました', HttpStatus.internalServerError),
   routeNotFound('ルーティングが見つかりませんでした', HttpStatus.notFound),
