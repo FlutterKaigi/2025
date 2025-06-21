@@ -65,13 +65,13 @@ body * {
   transform-origin: center center;
 }
 
-.gradient-button {
+.primary-button {
   background: var(--color-beyond-red);
   padding: 1rem 2rem;
   border-radius: 4rem;
 }
 
-.gradient-button::after {
+.primary-button::after {
   z-index: -1;
   content: "";
   position: absolute;
@@ -86,9 +86,18 @@ body * {
   transition: transform 0.25s ease-out;
 }
 
-.gradient-button:hover::after {
+.primary-button:hover::after {
   transform: scale(1.1);
 }
+
+.primary-button-reverse {
+  background: white;
+}
+
+.primary-button-reverse::after {
+  background: rgba(0, 0, 0, 0.25);
+}
+
 
 @keyframes bounding {
   from {

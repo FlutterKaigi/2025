@@ -8,6 +8,7 @@ environment:
   sdk: ^3.9.0-100.2.beta
 
 dependencies:
+  intl: ^0.20.2
   jaspr: ^0.19.0
   jaspr_router: ^0.7.0
 
