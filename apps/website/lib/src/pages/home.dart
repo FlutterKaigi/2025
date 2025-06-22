@@ -1,6 +1,7 @@
 import 'package:flutterkaigi_2025_website/src/components/countdown_view.dart';
 import 'package:flutterkaigi_2025_website/src/components/external_link.dart';
 import 'package:flutterkaigi_2025_website/src/components/section_layout.dart';
+import 'package:flutterkaigi_2025_website/src/components/sized_dashsay.dart';
 import 'package:flutterkaigi_2025_website/src/components/sponsor.dart';
 import 'package:flutterkaigi_2025_website/src/components/top_event_info.dart';
 import 'package:flutterkaigi_2025_website/src/config/config.dart';
@@ -34,6 +35,12 @@ class Home extends StatelessComponent {
         const SectionLayout(
           title: 'Call for Proposal',
           children: [CallForProposal()],
+        ),
+        SizedDashsay(
+          message: 'Day0 企画中！',
+          isBold: true,
+          fontSize: 1.25.rem,
+          dashSize: 8.rem,
         ),
         const SectionLayout(
           title: 'Timeline',
@@ -96,10 +103,7 @@ class _MainArticle extends StatelessComponent {
               ),
               [
                 div(
-                  styles: Styles(
-                    width: 350.px,
-                    height: 240.px,
-                  ),
+                  styles: Styles(width: 350.px, height: 240.px),
                   [],
                 ),
               ],
@@ -152,37 +156,26 @@ class _MainArticle extends StatelessComponent {
                       contents: ExternalLink(
                         content: event.place.name.text(context).toComponent,
                         url: event.place.url,
-                        styles: const Styles(
-                          color: Color.inherit,
-                        ),
+                        styles: const Styles(color: Color.inherit),
                       ),
                     ),
                   ],
                 ),
-                div(
-                  styles: const Styles(
-                    position: Position.relative(),
+                div(styles: const Styles(position: Position.relative()), [
+                  Link(
+                    to: event.blog.sponsorship.url.text(context),
+                    child: button(
+                      classes: 'primary-button primary-button-reverse',
+                      styles: Styles(
+                        cursor: Cursor.pointer,
+                        color: beyondRed,
+                        fontSize: 1.rem,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      [event.blog.sponsorship.title.text(context).toComponent],
+                    ),
                   ),
-                  [
-                    Link(
-                      to: event.blog.sponsorship.url.text(context),
-                      child: button(
-                        classes: 'primary-button primary-button-reverse',
-                        styles: Styles(
-                          cursor: Cursor.pointer,
-                          color: beyondRed,
-                          fontSize: 1.rem,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        [
-                          event.blog.sponsorship.title
-                              .text(context)
-                              .toComponent,
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                ]),
               ],
             ),
           ],
