@@ -34,7 +34,7 @@ class StaffCard extends StatelessComponent {
             justifyContent: JustifyContent.center,
             alignItems: AlignItems.center,
             backgroundColor: const Color.rgba(200, 200, 200, 0.3),
-            raw: {'border-radius' : '50px'},
+            raw: {'border-radius': '50px'},
           ),
         ),
         p(
