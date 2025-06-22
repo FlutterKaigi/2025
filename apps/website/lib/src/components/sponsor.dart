@@ -178,52 +178,58 @@ class _TypedSponsors extends StatelessComponent {
 
   @override
   Iterable<Component> build(BuildContext context) sync* {
-    yield div([
-      h3(
-        styles: Styles(
-          display: Display.block,
-          fontFamily: lexendFontFamily,
-          fontSize: 1.2.rem,
-          fontWeight: FontWeight.bold,
-        ),
-        [text(type.name)],
+    yield div(
+      styles: Styles(
+        margin: Margin.only(top: 1.rem),
       ),
-      div(
-        styles: Styles(
-          display: Display.flex,
-          margin: Spacing.only(top: 1.rem, bottom: 1.25.rem),
-          justifyContent: JustifyContent.center,
-        ),
-        [
-          ul(
-            styles: Styles(
-              display: Display.flex,
-              flexWrap: FlexWrap.wrap,
-              justifyContent: JustifyContent.start,
-              gap: Gap.all(1.rem),
-            ),
-            [
-              for (final info in sponsors)
-                li([
-                  Sponsor(
-                    name: info.name,
-                    logo: info.logo,
-                    url: info.url,
-                    pr: info.pr.text(context),
-                    snsX: info.sns.x,
-                    width: switch (info.type) {
-                      SponsorType.platinum => 16,
-                      SponsorType.gold => 12,
-                      SponsorType.silver => 9,
-                      SponsorType.bronze => 9,
-                    },
-                  ),
-                ]),
-            ],
+      [
+        h3(
+          styles: Styles(
+            display: Display.block,
+            textAlign: TextAlign.center,
+            fontFamily: lexendFontFamily,
+            fontSize: 1.5.rem,
+            fontWeight: FontWeight.bold,
           ),
-        ],
-      ),
-    ]);
+          [text(type.name)],
+        ),
+        div(
+          styles: Styles(
+            display: Display.flex,
+            margin: Spacing.only(top: 1.rem, bottom: 1.25.rem),
+            justifyContent: JustifyContent.center,
+          ),
+          [
+            ul(
+              styles: Styles(
+                display: Display.flex,
+                flexWrap: FlexWrap.wrap,
+                justifyContent: JustifyContent.center,
+                gap: Gap.all(1.rem),
+              ),
+              [
+                for (final info in sponsors)
+                  li([
+                    Sponsor(
+                      name: info.name,
+                      logo: info.logo,
+                      url: info.url,
+                      pr: info.pr.text(context),
+                      snsX: info.sns.x,
+                      width: switch (info.type) {
+                        SponsorType.platinum => 16,
+                        SponsorType.gold => 12,
+                        SponsorType.silver => 9,
+                        SponsorType.bronze => 9,
+                      },
+                    ),
+                  ]),
+              ],
+            ),
+          ],
+        ),
+      ],
+    );
   }
 }
 
