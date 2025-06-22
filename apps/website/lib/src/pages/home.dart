@@ -38,7 +38,7 @@ class Home extends StatelessComponent {
           children: [CallForProposal()],
         ),
         SizedDashsay(
-          message: 'Day0 企画中！',
+          message: contents.dayZeroPlanning.text(context),
           isBold: true,
           fontSize: 1.25.rem,
           dashSize: 8.rem,

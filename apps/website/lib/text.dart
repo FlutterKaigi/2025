@@ -43,6 +43,10 @@ const contents = (
         'topics unrelated to Flutter or Dart. '
         '(Flutter development support tools are an exception.)',
   ),
+  dayZeroPlanning: (
+    ja: 'Day0 企画中！',
+    en: 'Now planning Day0 :)',
+  ),
 );
 
 String formatDate(
