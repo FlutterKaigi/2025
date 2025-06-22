@@ -5,25 +5,16 @@ class Timeline extends StatelessComponent {
 
   @override
   Iterable<Component> build(BuildContext context) sync* {
-    yield div(
+    yield p(
       styles: Styles(
-        display: Display.flex,
-        flexDirection: FlexDirection.column,
-        alignItems: AlignItems.center,
-        gap: Gap.all(1.rem),
+        margin: Margin.symmetric(vertical: 1.5.rem),
+        textAlign: TextAlign.center,
+        fontSize: 1.5.rem,
+        fontWeight: FontWeight.bold,
+        lineHeight: 2.rem,
       ),
       [
-        p(
-          styles: Styles(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 1.5.rem,
-            lineHeight: 2.rem,
-          ),
-          [
-            const Text('Coming Soon...'),
-          ],
-        ),
+        const Text('Coming Soon...'),
       ],
     );
   }

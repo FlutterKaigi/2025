@@ -16,7 +16,7 @@
   /* TODO: Darkにも対応できるようにする */
   /* --background-color: #121212; */
   /* --text-color: #ffffff; */
-  --background-color: #ffffff;
+  --background-color: #fafcff;
   --text-color: #121212;
   --base-gradient: linear-gradient(120deg,
       var(--primary-color) 0%,
@@ -65,17 +65,17 @@ body * {
   transform-origin: center center;
 }
 
-.gradient-button {
+.primary-button {
   background: var(--color-beyond-red);
   padding: 1rem 2rem;
   border-radius: 4rem;
 }
 
-.gradient-button::after {
+.primary-button::after {
   z-index: -1;
   content: "";
   position: absolute;
-  top: 0;
+  top: 8px;
   left: 0;
   border-radius: 4rem;
   width: 100%;
@@ -86,8 +86,22 @@ body * {
   transition: transform 0.25s ease-out;
 }
 
-.gradient-button:hover::after {
+.primary-button:hover::after {
   transform: scale(1.1);
+}
+
+.primary-button-reverse {
+  background: white;
+}
+
+.primary-button-reverse::after {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.main-background {
+  background-image: url('/img/graphic-overall-left.svg'), url('/img/graphic-overall-right.svg');
+  background-repeat: repeat-y, repeat-y;
+  background-position-x: left, right;
 }
 
 @keyframes bounding {

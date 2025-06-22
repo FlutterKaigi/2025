@@ -1,10 +1,11 @@
 import 'package:flutterkaigi_2025_website/src/components/countdown_view.dart';
 import 'package:flutterkaigi_2025_website/src/components/external_link.dart';
-import 'package:flutterkaigi_2025_website/src/components/schedule_view.dart';
 import 'package:flutterkaigi_2025_website/src/components/section_layout.dart';
 import 'package:flutterkaigi_2025_website/src/components/sponsor.dart';
+import 'package:flutterkaigi_2025_website/src/components/top_event_info.dart';
 import 'package:flutterkaigi_2025_website/src/config/config.dart';
 import 'package:flutterkaigi_2025_website/src/constants/styles.dart';
+import 'package:flutterkaigi_2025_website/src/constants/theme.dart';
 import 'package:flutterkaigi_2025_website/src/pages/call_for_proposal.dart';
 import 'package:flutterkaigi_2025_website/src/pages/staff.dart';
 import 'package:flutterkaigi_2025_website/src/pages/timeline.dart';
@@ -12,14 +13,13 @@ import 'package:flutterkaigi_2025_website/text.dart';
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_router/jaspr_router.dart';
 
-const _tagLineAnimationCurve = 'cubic-bezier(0.64, 0.25, 0.18, 1.22)';
-
 class Home extends StatelessComponent {
   const Home({super.key});
 
   @override
   Iterable<Component> build(BuildContext context) sync* {
     yield main_(
+      classes: 'main-background',
       styles: Styles(
         display: Display.flex,
         padding: Padding.all(0.px),
@@ -31,8 +31,6 @@ class Home extends StatelessComponent {
       ),
       [
         const _MainArticle(),
-        SectionLayout(title: 'Schedule', children: [ScheduleView()]),
-        const SectionLayout(title: 'Sponsor', children: [Sponsors()]),
         const SectionLayout(
           title: 'Call for Proposal',
           children: [CallForProposal()],
@@ -42,9 +40,14 @@ class Home extends StatelessComponent {
           children: [Timeline()],
         ),
         const SectionLayout(
+          title: 'Sponsor',
+          children: [Sponsors()],
+        ),
+        const SectionLayout(
           title: 'Staffs',
           children: [Staff()],
         ),
+        CountdownView(),
       ],
     );
   }
@@ -53,121 +56,136 @@ class Home extends StatelessComponent {
 class _MainArticle extends StatelessComponent {
   const _MainArticle();
 
-  static final tagLineWords = event.tagLine.split(' ');
-
   @override
   Iterable<Component> build(BuildContext context) sync* {
     yield article(
-      styles: const Styles(
+      styles: Styles(
         display: Display.flex,
+        margin: Margin.only(top: 2.rem),
         flexDirection: FlexDirection.column,
         justifyContent: JustifyContent.center,
         alignItems: AlignItems.center,
       ),
       [
-        h1(
+        div(
           styles: Styles(
-            position: const Position.relative(),
-            padding: Padding.symmetric(vertical: 6.rem, horizontal: 8.rem),
-            margin: Spacing.only(top: 6.rem),
-            textAlign: TextAlign.center,
-            fontFamily: const FontFamily('Lexend'),
-            fontWeight: FontWeight.w900,
-            whiteSpace: WhiteSpace.noWrap,
-            backgroundImage: const ImageStyle.url('/img/brush.webp'),
-            backgroundRepeat: BackgroundRepeat.noRepeat,
-            backgroundSize: BackgroundSize.contain,
+            display: Display.flex,
+            position: Position.absolute(
+              top: const Unit.expression('calc(65px + 2rem)'),
+              left: 0.px,
+              right: 0.px,
+            ),
+            width: 100.percent,
+            padding: Padding.only(bottom: 32.px),
+            overflow: Overflow.hidden,
+            justifyContent: JustifyContent.center,
+            alignItems: AlignItems.center,
           ),
           [
-            for (var i = 0; i < tagLineWords.length; i++)
-              span(
-                styles: Styles(
-                  display: Display.block,
-                  opacity: 0,
-                  transform: Transform.translate(x: 100.vw),
-                  color: Colors.white,
-                  fontWeight: FontWeight.w900,
-                  fontStyle: FontStyle.italic,
-                  raw: {
-                    'font-size': 'clamp(2.5rem, 6vw, 4.5rem)',
-                    'animation-delay': '${i * 0.3}s',
-                    'animation-name': 'slide-in',
-                    'animation-duration': '0.5s',
-                    'animation-timing-function': _tagLineAnimationCurve,
-                    'animation-fill-mode': 'forwards',
-                  },
+            img(src: '/img/graphic-top-sub.svg'),
+            div(
+              styles: Styles(
+                display: Display.flex,
+                padding: Padding.fromLTRB(250.px, 160.px, 270.px, 190.px),
+                backgroundImage: const ImageStyle.url(
+                  '/img/graphic-top-main.svg',
                 ),
-                [text(tagLineWords[i])],
+                backgroundPosition: BackgroundPosition.initial,
+                backgroundRepeat: BackgroundRepeat.noRepeat,
+                raw: {'filter': 'drop-shadow(4px 32px 0px #EAEAEA)'},
               ),
+              [
+                div(
+                  styles: Styles(
+                    width: 350.px,
+                    height: 240.px,
+                  ),
+                  [],
+                ),
+              ],
+            ),
+            img(src: '/img/graphic-top-sub.svg'),
           ],
         ),
-        h2(
+        div(
           styles: Styles(
-            margin: Spacing.only(top: 6.rem),
-            fontFamily: lexendFontFamily,
-            fontSize: 2.rem,
-            fontWeight: FontWeight.w900,
-          ),
-          [text(event.title)],
-        ),
-        p(
-          styles: Styles(
-            margin: Spacing.only(top: 1.rem),
-            textAlign: TextAlign.center,
-            fontFamily: lexendFontFamily,
-            fontSize: 1.5.rem,
-            fontWeight: FontWeight.w900,
-          ),
-          [text('on ${formatDate(context, event.date, Language.en)}')],
-        ),
-        p(
-          styles: Styles(
-            margin: Spacing.only(top: 2.rem),
-            textAlign: TextAlign.center,
-            fontFamily: lexendFontFamily,
-            fontSize: 1.5.rem,
-            fontWeight: FontWeight.w900,
+            display: Display.flex,
+            zIndex: const ZIndex(2),
+            padding: Padding.fromLTRB(250.px, 160.px, 270.px, 190.px),
           ),
           [
-            text('at '),
-            ExternalLink(
-              content: event.place.name.text(context).toComponent,
-              url: event.place.url,
+            div(
               styles: Styles(
-                color: Color.inherit,
-                fontFamily: lexendFontFamily,
-                fontSize: 1.5.rem,
-                fontWeight: FontWeight.w900,
+                display: Display.flex,
+                width: 350.px,
+                height: 240.px,
+                flexDirection: FlexDirection.column,
+                justifyContent: JustifyContent.center,
+                alignItems: AlignItems.center,
+                gap: Gap.all(1.rem),
               ),
+              [
+                h1(
+                  styles: Styles(
+                    color: Colors.white,
+                    fontFamily: lexendFontFamily,
+                    fontSize: 2.rem,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  [text(event.title)],
+                ),
+                div(
+                  styles: const Styles(
+                    display: Display.flex,
+                    flexDirection: FlexDirection.column,
+                    alignItems: AlignItems.center,
+                  ),
+                  [
+                    TopEventInfo(
+                      iconPath: '/img/icon/event.svg',
+                      contents: text(
+                        formatDate(context, event.date, Language.en),
+                      ),
+                    ),
+                    TopEventInfo(
+                      iconPath: '/img/icon/map.svg',
+                      contents: ExternalLink(
+                        content: event.place.name.text(context).toComponent,
+                        url: event.place.url,
+                        styles: const Styles(
+                          color: Color.inherit,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                div(
+                  styles: const Styles(
+                    position: Position.relative(),
+                  ),
+                  [
+                    Link(
+                      to: event.blog.sponsorship.url.text(context),
+                      child: button(
+                        classes: 'primary-button primary-button-reverse',
+                        styles: Styles(
+                          cursor: Cursor.pointer,
+                          color: beyondRed,
+                          fontSize: 1.rem,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        [
+                          event.blog.sponsorship.title
+                              .text(context)
+                              .toComponent,
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ],
-        ),
-        section(
-          styles: Styles(
-            position: const Position.relative(),
-            margin: Spacing.only(top: 6.rem),
-          ),
-          [
-            Link(
-              to: event.blog.sponsorship.url.text(context),
-              classes: 'gradient-button',
-              styles: Styles(
-                cursor: Cursor.pointer,
-                color: Colors.white,
-                fontSize: 1.rem,
-              ),
-              child: event.blog.sponsorship.title.text(context).toComponent,
-            ),
-          ],
-        ),
-        CountdownView(),
-        img(
-          src: '/img/flutterkaigi_dash.png',
-          alt: 'FlutterKaigi Dash',
-          styles: Styles(
-            height: 5.rem,
-            margin: Spacing.only(top: 2.rem),
-          ),
         ),
       ],
     );

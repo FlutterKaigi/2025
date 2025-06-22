@@ -1,22 +1,10 @@
 // ignore_for_file: lines_longer_than_80_chars
 
 import 'package:flutterkaigi_2025_website/src/path.dart' show Path;
+import 'package:intl/intl.dart' show DateFormat;
 import 'package:jaspr/jaspr.dart' as jaspr;
 
-const _month = {
-  1: 'Jan',
-  2: 'Feb',
-  3: 'Mar',
-  4: 'Apr',
-  5: 'May',
-  6: 'Jun',
-  7: 'Jul',
-  8: 'Aug',
-  9: 'Sep',
-  10: 'Oct',
-  11: 'Nov',
-  12: 'Dec',
-};
+final _engDateFormat = DateFormat.yMMMMd('en_US');
 
 /// 表示言語
 enum Language { ja, en }
@@ -62,7 +50,7 @@ String formatDate(
   DateTime date, [
   Language? lang,
 ]) => switch (lang ?? Path.fromPathname(context.url).lang) {
-  Language.en => '${_month[date.month]} ${date.day}, ${date.year}',
+  Language.en => _engDateFormat.format(date),
   _ => '${date.year}年${date.month}月${date.day}日',
 };
 

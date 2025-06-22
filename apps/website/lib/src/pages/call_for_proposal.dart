@@ -13,15 +13,14 @@ class CallForProposal extends StatelessComponent {
         display: Display.flex,
         flexDirection: FlexDirection.column,
         alignItems: AlignItems.center,
-        gap: Gap.all(1.rem),
+        gap: Gap.all(1.5.rem),
       ),
       [
         p(
           styles: Styles(
             color: Colors.black,
+            fontSize: 1.rem,
             fontWeight: FontWeight.w400,
-            whiteSpace: WhiteSpace.preLine,
-            fontSize: 0.875.rem,
             lineHeight: 180.percent,
           ),
           [
@@ -31,25 +30,27 @@ class CallForProposal extends StatelessComponent {
         div(
           styles: Styles(
             display: Display.flex,
-            justifyContent: JustifyContent.center,
+            position: const Position.relative(),
             width: 100.percent,
             margin: Spacing.only(bottom: 2.rem),
-            position: const Position.relative(),
+            justifyContent: JustifyContent.center,
           ),
           [
             Link(
               to: event.applyForCfp.url.text(context),
-              classes: 'gradient-button',
-              styles: Styles(
-                cursor: Cursor.pointer,
-                color: Colors.white,
-                fontSize: 1.rem,
-                padding: Spacing.all(1.rem),
-                textAlign: TextAlign.center,
-                width: 240.px,
-                position: const Position.relative(),
+              child: button(
+                styles: Styles(
+                  position: const Position.relative(),
+                  width: 240.px,
+                  padding: Spacing.all(1.rem),
+                  cursor: Cursor.pointer,
+                  color: Colors.white,
+                  textAlign: TextAlign.center,
+                  fontSize: 1.rem,
+                ),
+                classes: 'primary-button',
+                [event.applyForCfp.title.text(context).toComponent],
               ),
-              child: event.applyForCfp.title.text(context).toComponent,
             ),
           ],
         ),
