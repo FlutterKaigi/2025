@@ -17,42 +17,36 @@ class StaffCard extends StatelessComponent {
     yield div(
       styles: Styles(
         display: Display.flex,
-        width: 300.px,
+        width: 100.px,
         padding: Spacing.all(1.rem),
         flexDirection: FlexDirection.column,
         alignItems: AlignItems.center,
       ),
       [
-        div(
-          [
-            img(
-              src: info.avatar,
-              alt: 'Staff photo: ${info.name}',
-              styles: Styles(
-                maxWidth: 100.px,
-                maxHeight: 100.px,
-              ),
-            ),
-          ],
+        img(
+          src: info.avatar,
+          alt: 'Staff photo: ${info.name}',
           styles: Styles(
-            display: Display.flex,
-            width: 100.px,
-            height: 100.px,
-            justifyContent: JustifyContent.center,
-            alignItems: AlignItems.center,
+            width: 72.px,
+            height: 72.px,
             margin: Spacing.only(bottom: 1.rem),
-            backgroundColor: const Color.rgba(200, 200, 200, 0.3),
             radius: BorderRadius.all(Radius.circular(50.px)),
             overflow: Overflow.hidden,
+            justifyContent: JustifyContent.center,
+            alignItems: AlignItems.center,
+            backgroundColor: const Color.rgba(200, 200, 200, 0.3),
+            raw: {
+              'object-fit': 'cover',
+            },
           ),
         ),
         p(
           styles: Styles(
             margin: Spacing.only(bottom: 0.5.rem),
-            fontSize: 1.25.rem,
+            textAlign: TextAlign.center,
+            fontSize: 1.rem,
             fontWeight: FontWeight.w400,
             lineHeight: 2.rem,
-            textAlign: TextAlign.center,
           ),
           [
             Text(info.name),
@@ -63,19 +57,22 @@ class StaffCard extends StatelessComponent {
             snsLinks,
             styles: Styles(
               display: Display.flex,
+              padding: Padding.zero,
+              margin: Margin.zero,
               flexDirection: FlexDirection.row,
               flexWrap: FlexWrap.wrap,
               justifyContent: JustifyContent.center,
               gap: Gap.all(0.5.em),
               listStyle: ListStyle.none,
-              padding: Padding.zero,
-              margin: Margin.zero,
             ),
           ),
         p(
           styles: Styles(
-            fontSize: 0.9.rem,
+            fontSize: 0.8.rem,
             lineHeight: 1.4.rem,
+            raw: {
+              'line-break': 'anywhere',
+            },
           ),
           [
             Text(info.comment),
@@ -152,8 +149,8 @@ class StaffCard extends StatelessComponent {
           src: icon,
           alt: alt,
           styles: Styles(
-            height: 1.5.em,
             width: 1.5.em,
+            height: 1.5.em,
             cursor: Cursor.pointer,
           ),
         ),
