@@ -162,6 +162,7 @@ typedef SponsorInfo = ({
   Content pr,
   String logo,
   SponsorType type,
+  bool disable,
 });
 
 enum SponsorType {
@@ -194,14 +195,16 @@ const _sponsors = <SponsorInfo>[
     ),
     logo: '/img/sponsor/yumemi.png',
     type: SponsorType.platinum,
+    disable: false,
   ),
   (
     name: '株式会社出前館',
     url: '',
-    sns: (x: ''),
+    sns: (x: null),
     pr: (ja: '', en: null),
     logo: '/img/sponsor/demae-can.png',
     type: SponsorType.platinum,
+    disable: true,
   ),
   (
     name: '株式会社アサイン',
@@ -209,10 +212,10 @@ const _sponsors = <SponsorInfo>[
     sns: (x: null),
     pr: (
       ja:
-          'アサインは「人」と「技術」の力で、若手ハイエンド向けのキャリア支援サービスを提供しています。\n'
+          'アサインは「人」と「技術」の力で、若手ハイエンド向けのキャリア支援サービスを提供しています。\n\n'
           '転職サイト『ASSIGN』は、単なる転職支援に留まらず、長期のキャリア形成をサポートするために、'
           'キャリア実現に欠かせないパーソナライズされた情報へのアクセスを容易にしています。'
-          '技術の力を最大限活用し、ユーザーへの提供価値を向上させています。\n'
+          '技術の力を最大限活用し、ユーザーへの提供価値を向上させています。\n\n'
           '若手ハイエンド特化の転職サイト『ASSIGN』\n'
           '・2019年のサービス開始以来 累計ユーザー数66万人突破\n'
           '・2021年4月からFlutterで開発',
@@ -220,6 +223,16 @@ const _sponsors = <SponsorInfo>[
     ),
     logo: '/img/sponsor/assign.png',
     type: SponsorType.platinum,
+    disable: false,
+  ),
+  (
+    name: 'RevenueCat, Inc.',
+    url: '',
+    sns: (x: null),
+    pr: (ja: '', en: null),
+    logo: '',
+    type: SponsorType.platinum,
+    disable: true,
   ),
   (
     name: '株式会社サイバーエージェント',
@@ -234,6 +247,16 @@ const _sponsors = <SponsorInfo>[
     ),
     logo: '/img/sponsor/cyberagent.png',
     type: SponsorType.gold,
+    disable: false,
+  ),
+  (
+    name: '株式会社iiba',
+    url: '',
+    sns: (x: null),
+    pr: (ja: '', en: null),
+    logo: '',
+    type: SponsorType.gold,
+    disable: true,
   ),
   (
     name: 'ZOZO, Inc.',
@@ -248,6 +271,7 @@ const _sponsors = <SponsorInfo>[
     ),
     logo: '/img/sponsor/zozo.png',
     type: SponsorType.silver,
+    disable: false,
   ),
   (
     name: '株式会社GENDA',
@@ -262,14 +286,16 @@ const _sponsors = <SponsorInfo>[
     ),
     logo: '/img/sponsor/genda.png',
     type: SponsorType.silver,
+    disable: false,
   ),
   (
     name: 'エムスリー株式会社',
     url: '',
-    sns: (x: ''),
+    sns: (x: null),
     pr: (ja: '', en: null),
     logo: '/img/sponsor/m3.png',
     type: SponsorType.silver,
+    disable: true,
   ),
   (
     name: "株式会社Linc'well",
@@ -284,6 +310,7 @@ const _sponsors = <SponsorInfo>[
     ),
     logo: '/img/sponsor/lincwell.png',
     type: SponsorType.silver,
+    disable: false,
   ),
   (
     name: '株式会社ディー・エヌ・エー',
@@ -302,6 +329,7 @@ const _sponsors = <SponsorInfo>[
     ),
     logo: '/img/sponsor/dena.png',
     type: SponsorType.silver,
+    disable: false,
   ),
   (
     name: 'CodeRabbit',
@@ -316,6 +344,34 @@ const _sponsors = <SponsorInfo>[
     ),
     logo: '/img/sponsor/coderabbit.png',
     type: SponsorType.silver,
+    disable: false,
+  ),
+  (
+    name: '株式会社YOUTRUST',
+    url: '',
+    sns: (x: null),
+    pr: (ja: '', en: null),
+    logo: '',
+    type: SponsorType.silver,
+    disable: true,
+  ),
+  (
+    name: 'ソニー株式会社',
+    url: '',
+    sns: (x: null),
+    pr: (ja: '', en: null),
+    logo: '',
+    type: SponsorType.silver,
+    disable: true,
+  ),
+  (
+    name: 'チームラボ株式会社',
+    url: '',
+    sns: (x: null),
+    pr: (ja: '', en: null),
+    logo: '',
+    type: SponsorType.silver,
+    disable: true,
   ),
   (
     name: '株式会社MIXI',
@@ -329,6 +385,7 @@ const _sponsors = <SponsorInfo>[
     ),
     logo: '/img/sponsor/mixi.png',
     type: SponsorType.bronze,
+    disable: false,
   ),
   (
     name: 'スタディプラス株式会社',
@@ -343,6 +400,7 @@ const _sponsors = <SponsorInfo>[
     ),
     logo: '/img/sponsor/studyplus.png',
     type: SponsorType.bronze,
+    disable: false,
   ),
   (
     name: '株式会社ギークニア',
@@ -357,6 +415,7 @@ const _sponsors = <SponsorInfo>[
     ),
     logo: '/img/sponsor/geekneer.png',
     type: SponsorType.bronze,
+    disable: false,
   ),
   (
     name: 'Sentry',
@@ -371,6 +430,7 @@ const _sponsors = <SponsorInfo>[
     ),
     logo: '/img/sponsor/sentry.png',
     type: SponsorType.bronze,
+    disable: false,
   ),
   (
     name: 'パイオニア株式会社',
@@ -385,6 +445,7 @@ const _sponsors = <SponsorInfo>[
     ),
     logo: '/img/sponsor/pioneer.png',
     type: SponsorType.bronze,
+    disable: false,
   ),
   (
     name: '株式会社メドレー',
@@ -399,6 +460,7 @@ const _sponsors = <SponsorInfo>[
     ),
     logo: '/img/sponsor/medley.png',
     type: SponsorType.bronze,
+    disable: false,
   ),
   (
     name: 'Hamee株式会社',
@@ -413,6 +475,7 @@ const _sponsors = <SponsorInfo>[
     ),
     logo: '/img/sponsor/hamee.png',
     type: SponsorType.bronze,
+    disable: false,
   ),
   (
     name: '株式会社アイビス',
@@ -426,6 +489,7 @@ const _sponsors = <SponsorInfo>[
     ),
     logo: '/img/sponsor/ibis.png',
     type: SponsorType.bronze,
+    disable: false,
   ),
   (
     name: '株式会社LayerX',
@@ -440,6 +504,7 @@ const _sponsors = <SponsorInfo>[
     ),
     logo: '/img/sponsor/layerx.png',
     type: SponsorType.bronze,
+    disable: false,
   ),
   (
     name: 'NTTレゾナントテクノロジー株式会社',
@@ -453,6 +518,7 @@ const _sponsors = <SponsorInfo>[
     ),
     logo: '/img/sponsor/ntt-resonant-tech.png',
     type: SponsorType.bronze,
+    disable: false,
   ),
   (
     name: '株式会社IBJ',
@@ -466,5 +532,6 @@ const _sponsors = <SponsorInfo>[
     ),
     logo: '/img/sponsor/ibj.png',
     type: SponsorType.bronze,
+    disable: false,
   ),
 ];
