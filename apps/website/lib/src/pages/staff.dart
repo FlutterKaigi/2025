@@ -24,20 +24,10 @@ class Staff extends StatelessComponent {
             width: 100.percent,
             maxWidth: 1200.px,
             padding: Spacing.all(2.rem),
-            overflow: Overflow.auto,
-            maxHeight: 80.vh,
             justifyContent: JustifyContent.center,
           ),
           [
-            for (final staff in event.staff)
-              div(
-                styles: Styles(
-                  display: Display.flex,
-                  justifyContent: JustifyContent.center,
-                  width: 400.px,
-                ),
-                [StaffCard(info: staff)],
-              ),
+            for (final staff in event.staff) StaffCard(info: staff),
           ],
         ),
       ],
