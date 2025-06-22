@@ -9,6 +9,7 @@ import 'package:flutterkaigi_2025_website/src/config/config.dart';
 import 'package:flutterkaigi_2025_website/src/constants/styles.dart';
 import 'package:flutterkaigi_2025_website/src/constants/theme.dart';
 import 'package:flutterkaigi_2025_website/src/pages/call_for_proposal.dart';
+import 'package:flutterkaigi_2025_website/src/pages/news.dart';
 import 'package:flutterkaigi_2025_website/src/pages/staff.dart';
 import 'package:flutterkaigi_2025_website/src/pages/timeline.dart';
 import 'package:flutterkaigi_2025_website/text.dart';
@@ -37,6 +38,7 @@ class Home extends StatelessComponent {
           title: 'Call for Proposal',
           children: [CallForProposal()],
         ),
+        const SectionLayout(title: 'News', children: [News()]),
         SizedDashsay(
           message: contents.dayZeroPlanning.text(context),
           isBold: true,
