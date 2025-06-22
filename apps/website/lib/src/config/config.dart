@@ -105,6 +105,7 @@ final event = (
     url: 'https://otemachi-place-hc.jp/',
   ),
   blog: (
+    topUrl: 'https://medium.com/flutterkaigi',
     sponsorship: (
       title: (ja: 'スポンサー募集について', en: 'About Sponsor Recruitment'),
       url: (

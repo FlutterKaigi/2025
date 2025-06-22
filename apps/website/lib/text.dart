@@ -47,6 +47,10 @@ const contents = (
     ja: 'Day0 企画中！',
     en: 'Now planning Day0 :)',
   ),
+  checkNews: (
+    ja: '全てのお知らせを見る',
+    en: 'See all news',
+  ),
 );
 
 String formatDate(
