@@ -23,9 +23,10 @@ class StaffCard extends StatelessComponent {
         alignItems: AlignItems.center,
       ),
       [
-        div(
+        img(
+          src: info.avatar,
+          alt: 'Staff photo: ${info.name}',
           styles: Styles(
-            display: Display.flex,
             width: 72.px,
             height: 72.px,
             margin: Spacing.only(bottom: 1.rem),
@@ -34,17 +35,10 @@ class StaffCard extends StatelessComponent {
             justifyContent: JustifyContent.center,
             alignItems: AlignItems.center,
             backgroundColor: const Color.rgba(200, 200, 200, 0.3),
+            raw: {
+              'object-fit': 'cover',
+            },
           ),
-          [
-            img(
-              src: info.avatar,
-              alt: 'Staff photo: ${info.name}',
-              styles: Styles(
-                maxWidth: 100.px,
-                maxHeight: 100.px,
-              ),
-            ),
-          ],
         ),
         p(
           styles: Styles(
@@ -76,6 +70,9 @@ class StaffCard extends StatelessComponent {
           styles: Styles(
             fontSize: 0.8.rem,
             lineHeight: 1.4.rem,
+            raw: {
+              'line-break': 'anywhere',
+            },
           ),
           [
             Text(info.comment),
