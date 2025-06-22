@@ -22,6 +22,9 @@ class CallForProposal extends StatelessComponent {
             fontSize: 1.rem,
             fontWeight: FontWeight.w400,
             lineHeight: 180.percent,
+            whiteSpace: WhiteSpace.preLine,
+            textAlign: TextAlign.left,
+            maxWidth: 800.px,
           ),
           [
             Text(contents.proposalContents.text(context)),
@@ -30,27 +33,55 @@ class CallForProposal extends StatelessComponent {
         div(
           styles: Styles(
             display: Display.flex,
-            position: const Position.relative(),
-            width: 100.percent,
+            flexDirection: FlexDirection.column,
+            alignItems: AlignItems.center,
+            gap: Gap.all(1.rem),
             margin: Spacing.only(bottom: 2.rem),
-            justifyContent: JustifyContent.center,
           ),
           [
-            Link(
-              to: event.applyForCfp.url.text(context),
-              child: button(
-                styles: Styles(
-                  position: const Position.relative(),
-                  width: 240.px,
-                  padding: Spacing.all(1.rem),
-                  cursor: Cursor.pointer,
-                  color: Colors.white,
-                  textAlign: TextAlign.center,
-                  fontSize: 1.rem,
-                ),
-                classes: 'primary-button',
-                [event.applyForCfp.title.text(context).toComponent],
+            p(
+              styles: Styles(
+                color: Colors.black,
+                fontSize: 1.125.rem,
+                fontWeight: FontWeight.w700,
+                textAlign: TextAlign.center,
+                margin: Spacing.only(bottom: 0.5.rem),
               ),
+              [
+                contents.applyFromHere.text(context).toComponent,
+              ],
+            ),
+            ul(
+              styles: Styles(
+                display: Display.flex,
+                justifyContent: JustifyContent.center,
+                gap: Gap.all(1.rem),
+                flexWrap: FlexWrap.wrap,
+                listStyle: ListStyle.none,
+                padding: Spacing.zero,
+                margin: Spacing.zero,
+              ),
+              [
+                for (final cfp in event.applyForCfp)
+                  li([
+                    Link(
+                      to: cfp.url,
+                      child: button(
+                        styles: Styles(
+                          position: const Position.relative(),
+                          width: 240.px,
+                          padding: Spacing.all(1.rem),
+                          cursor: Cursor.pointer,
+                          color: Colors.white,
+                          textAlign: TextAlign.center,
+                          fontSize: 1.rem,
+                        ),
+                        classes: 'primary-button',
+                        [cfp.title.text(context).toComponent],
+                      ),
+                    ),
+                  ]),
+              ],
             ),
           ],
         ),
