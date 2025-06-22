@@ -9,6 +9,8 @@ import 'package:flutterkaigi_2025_website/src/components/countdown_view.dart'
     as prefix0;
 import 'package:flutterkaigi_2025_website/src/components/sponsor.dart'
     as prefix1;
+import 'package:flutterkaigi_2025_website/src/components/tagline.dart'
+    as prefix2;
 
 /// Default [JasprOptions] for use with your jaspr project.
 ///
@@ -37,6 +39,7 @@ JasprOptions get defaultJasprOptions => JasprOptions(
       params: _prefix1Sponsor,
     ),
   },
+  styles: () => [...prefix2.Tagline.styles],
 );
 
 Map<String, dynamic> _prefix1Sponsor(prefix1.Sponsor c) => {
