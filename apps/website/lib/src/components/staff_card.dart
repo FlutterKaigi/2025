@@ -23,18 +23,27 @@ class StaffCard extends StatelessComponent {
         alignItems: AlignItems.center,
       ),
       [
-        img(
-          src: info.avatar,
-          alt: 'Staff photo',
+        div(
+          [
+            img(
+              src: info.avatar,
+              alt: 'Staff photo: ${info.name}',
+              styles: Styles(
+                maxWidth: 100.px,
+                maxHeight: 100.px,
+              ),
+            ),
+          ],
           styles: Styles(
             display: Display.flex,
             width: 100.px,
             height: 100.px,
-            margin: Spacing.only(bottom: 1.rem),
             justifyContent: JustifyContent.center,
             alignItems: AlignItems.center,
+            margin: Spacing.only(bottom: 1.rem),
             backgroundColor: const Color.rgba(200, 200, 200, 0.3),
-            raw: {'border-radius': '50px'},
+            radius: BorderRadius.all(Radius.circular(50.px)),
+            overflow: Overflow.hidden,
           ),
         ),
         p(

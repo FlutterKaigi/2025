@@ -556,8 +556,8 @@ typedef StaffInfo = ({
 
 const _staff = <StaffInfo>[
   (
-    name: 'Kunodayo_oboete',
-    avatar: '/img/staffs/Kunodayo_oboete.png',
+    name: 'kuno',
+    avatar: '/img/staff/Kunodayo_oboete.png',
     comment: '盛り上げていきマッショイ！！！！！！！！！！！！！！！',
     sns: (
       x: 'Kunodayo_oboete',
@@ -571,8 +571,8 @@ const _staff = <StaffInfo>[
     ),
   ),
   (
-    name: 'cardseditor',
-    avatar: '/img/staffs/cardseditor.png',
+    name: 'CardsEditor',
+    avatar: '/img/staff/cardseditor.jpg',
     comment: '',
     sns: (
       x: 'cardseditor',
@@ -586,8 +586,8 @@ const _staff = <StaffInfo>[
     ),
   ),
   (
-    name: 'endotakumi_dev',
-    avatar: '/img/staffs/endotakumi_dev.png',
+    name: 'ENDO Takumi',
+    avatar: '/img/staff/endotakumi_dev.png',
     comment: '',
     sns: (
       x: 'endotakumi_dev',
@@ -601,8 +601,8 @@ const _staff = <StaffInfo>[
     ),
   ),
   (
-    name: 'magnet_0113_eng',
-    avatar: '/img/staffs/magnet_0113_eng.png',
+    name: '白崎 紀充',
+    avatar: '/img/staff/magnet_0113_eng.png',
     comment: '',
     sns: (
       x: 'magnet_0113_eng',
@@ -616,8 +616,8 @@ const _staff = <StaffInfo>[
     ),
   ),
   (
-    name: 'kosuke_mtm',
-    avatar: '/img/staffs/kosuke_mtm.png',
+    name: 'm.kosuke',
+    avatar: '/img/staff/kosuke_mtm.jpg',
     comment: 'フロサポ🐬',
     sns: (
       x: 'kosuke_mtm',
@@ -631,8 +631,8 @@ const _staff = <StaffInfo>[
     ),
   ),
   (
-    name: 'sohichiro',
-    avatar: '/img/staffs/sohichiro.png',
+    name: 'Sohichiro/そーちゃん',
+    avatar: '/img/staff/sohichiro.jpg',
     comment: '今年もやっていき！',
     sns: (
       x: 'sohichiro',
@@ -646,8 +646,8 @@ const _staff = <StaffInfo>[
     ),
   ),
   (
-    name: 'blendthink',
-    avatar: '/img/staffs/blendthink.png',
+    name: 'おかやまん',
+    avatar: '/img/staff/blendthink.jpg',
     comment: '開発楽しむ！',
     sns: (
       x: 'blendthink',
@@ -661,8 +661,8 @@ const _staff = <StaffInfo>[
     ),
   ),
   (
-    name: 'chippy_ao',
-    avatar: '/img/staffs/chippy_ao.png',
+    name: 'ちっぴー',
+    avatar: '/img/staff/chippy_ao.png',
     comment: 'アプリの人として頑張ります。',
     sns: (
       x: 'chippy_ao',
@@ -676,8 +676,8 @@ const _staff = <StaffInfo>[
     ),
   ),
   (
-    name: 'YumNumm',
-    avatar: '/img/staffs/YumNumm.png',
+    name: 'もぐもぐ',
+    avatar: '/img/staff/YumNumm.jpg',
     comment: '2025年もよろしくお願いします!',
     sns: (
       x: 'YumNumm',
@@ -691,8 +691,8 @@ const _staff = <StaffInfo>[
     ),
   ),
   (
-    name: 'jiyuujinlab',
-    avatar: '/img/staffs/jiyuujinlab.png',
+    name: 'jiyuujin',
+    avatar: '/img/staff/jiyuujinlab.png',
     comment: '',
     sns: (
       x: 'jiyuujinlab',
@@ -706,8 +706,8 @@ const _staff = <StaffInfo>[
     ),
   ),
   (
-    name: 'techkeito',
-    avatar: '/img/staffs/techkeito.png',
+    name: 'Keito',
+    avatar: '/img/staff/techkeito.jpg',
     comment: 'アプリ開発チームやってました！宜しくお願い致します！',
     sns: (
       x: 'techkeito',
@@ -721,8 +721,8 @@ const _staff = <StaffInfo>[
     ),
   ),
   (
-    name: 'umechanhika',
-    avatar: '/img/staffs/umechanhika.png',
+    name: 'うめちゃん',
+    avatar: '/img/staff/umechanhika.png',
     comment: '参加者の皆さんが楽しめる会になるように頑張ります！',
     sns: (
       x: 'umechanhika',
@@ -737,8 +737,8 @@ const _staff = <StaffInfo>[
     ),
   ),
   (
-    name: 'tatsutakein',
-    avatar: '/img/staffs/tatsutakein.png',
+    name: 'たっつー',
+    avatar: '/img/staff/tatsutakein.png',
     comment: 'アプリチーム頑張ります 💪',
     sns: (
       x: 'tatsutakein',
@@ -752,8 +752,8 @@ const _staff = <StaffInfo>[
     ),
   ),
   (
-    name: 'a_skua',
-    avatar: '/img/staffs/a_skua.png',
+    name: 'asuka',
+    avatar: '/img/staff/a_skua.png',
     comment: 'I □ Flutter',
     sns: (
       x: 'a_skua',
@@ -767,8 +767,8 @@ const _staff = <StaffInfo>[
     ),
   ),
   (
-    name: 'Krgm4D',
-    avatar: '/img/staffs/Krgm4D.png',
+    name: 'Kurogoma4D',
+    avatar: '/img/staff/Krgm4D.png',
     comment: 'アプリつくります',
     sns: (
       x: 'Krgm4D',
@@ -782,8 +782,8 @@ const _staff = <StaffInfo>[
     ),
   ),
   (
-    name: 'isekiryu',
-    avatar: '/img/staffs/isekiryu.png',
+    name: 'いせりゅー',
+    avatar: '/img/staff/isekiryu.png',
     comment: '個人開発で「FoodGram」のアプリを作っています！',
     sns: (
       x: 'isekiryu',
@@ -798,7 +798,7 @@ const _staff = <StaffInfo>[
   ),
   (
     name: 'katsuumy',
-    avatar: '/img/staffs/katsuumy.png',
+    avatar: '/img/staff/katsuumy.png',
     comment: '',
     sns: (
       x: 'katsuumy',
@@ -812,8 +812,8 @@ const _staff = <StaffInfo>[
     ),
   ),
   (
-    name: 'okaryoX',
-    avatar: '/img/staffs/okaryoX.png',
+    name: 'okaryo',
+    avatar: '/img/staff/okaryoX.png',
     comment: '💪☺️👍',
     sns: (
       x: 'okaryoX',
@@ -827,8 +827,8 @@ const _staff = <StaffInfo>[
     ),
   ),
   (
-    name: 'K9i_apps',
-    avatar: '/img/staffs/K9i_apps.png',
+    name: 'K9i',
+    avatar: '/img/staff/K9i_apps.png',
     comment: '🐙',
     sns: (
       x: 'K9i_apps',
@@ -842,8 +842,8 @@ const _staff = <StaffInfo>[
     ),
   ),
   (
-    name: 'minn_flutter',
-    avatar: '/img/staffs/minn_flutter.png',
+    name: 'minn',
+    avatar: '/img/staff/minn_flutter.jpg',
     comment: '',
     sns: (
       x: 'minn_flutter',
@@ -857,8 +857,8 @@ const _staff = <StaffInfo>[
     ),
   ),
   (
-    name: 'heyhey1028',
-    avatar: '/img/staffs/heyhey1028.png',
+    name: 'Shohei Ogawa',
+    avatar: '/img/staff/heyhey1028.png',
     comment: 'ヒトと技術とお酒が好き',
     sns: (
       x: 'heyhey1028',
@@ -872,8 +872,8 @@ const _staff = <StaffInfo>[
     ),
   ),
   (
-    name: 'ma12441469',
-    avatar: '/img/staffs/ma12441469.png',
+    name: 'masa-futa',
+    avatar: '/img/staff/ma12441469.jpg',
     comment: "wai wai ٩( 'ω' )و",
     sns: (
       x: 'ma12441469',
@@ -887,8 +887,8 @@ const _staff = <StaffInfo>[
     ),
   ),
   (
-    name: 'yu_s1127',
-    avatar: '/img/staffs/yu_s1127.png',
+    name: 'ゆう',
+    avatar: '/img/staff/yu_s1127.jpg',
     comment: 'よろしくお願いいたします！',
     sns: (
       x: 'yu_s1127',
@@ -902,8 +902,8 @@ const _staff = <StaffInfo>[
     ),
   ),
   (
-    name: 'ThomasS2558',
-    avatar: '/img/staffs/ThomasS2558.png',
+    name: 'Tommy (Thomas Aquinas)',
+    avatar: '/img/staff/ThomasS2558.png',
     comment: '',
     sns: (
       x: 'ThomasS2558',
