@@ -1,6 +1,5 @@
 import 'package:flutterkaigi_2025_website/src/components/countdown_view.dart';
 import 'package:flutterkaigi_2025_website/src/components/external_link.dart';
-import 'package:flutterkaigi_2025_website/src/components/schedule_view.dart';
 import 'package:flutterkaigi_2025_website/src/components/section_layout.dart';
 import 'package:flutterkaigi_2025_website/src/components/sponsor.dart';
 import 'package:flutterkaigi_2025_website/src/components/top_event_info.dart';
@@ -31,8 +30,6 @@ class Home extends StatelessComponent {
       ),
       [
         const _MainArticle(),
-        SectionLayout(title: 'Schedule', children: [ScheduleView()]),
-        const SectionLayout(title: 'Sponsor', children: [Sponsors()]),
         const SectionLayout(
           title: 'Call for Proposal',
           children: [CallForProposal()],
@@ -45,6 +42,7 @@ class Home extends StatelessComponent {
           title: 'Staffs',
           children: [Staff()],
         ),
+        const SectionLayout(title: 'Sponsor', children: [Sponsors()]),
       ],
     );
   }
@@ -66,13 +64,44 @@ class _MainArticle extends StatelessComponent {
         div(
           styles: Styles(
             display: Display.flex,
-            padding: Padding.fromLTRB(250.px, 160.px, 270.px, 190.px),
-            backgroundImage: const ImageStyle.url(
-              '/img/graphic-top-main-no-shadow.svg',
+            position: Position.absolute(top: 65.px, left: 0.px, right: 0.px),
+            zIndex: const ZIndex(-1),
+            width: 100.percent,
+            padding: Padding.only(bottom: 32.px),
+            overflow: Overflow.hidden,
+            justifyContent: JustifyContent.center,
+            alignItems: AlignItems.center,
+          ),
+          [
+            img(src: '/img/graphic-top-sub.svg'),
+            div(
+              styles: Styles(
+                display: Display.flex,
+                padding: Padding.fromLTRB(250.px, 160.px, 270.px, 190.px),
+                backgroundImage: const ImageStyle.url(
+                  '/img/graphic-top-main.svg',
+                ),
+                backgroundPosition: BackgroundPosition.center,
+                backgroundRepeat: BackgroundRepeat.noRepeat,
+                raw: {'filter': 'drop-shadow(4px 32px 0px #EAEAEA)'},
+              ),
+              [
+                div(
+                  styles: Styles(
+                    width: 350.px,
+                    height: 240.px,
+                  ),
+                  [],
+                ),
+              ],
             ),
-            backgroundRepeat: BackgroundRepeat.noRepeat,
-            backgroundClip: BackgroundClip.borderBox,
-            raw: {'filter': 'drop-shadow(4px 32px 0px #EAEAEA)'},
+            img(src: '/img/graphic-top-sub.svg'),
+          ],
+        ),
+        div(
+          styles: Styles(
+            display: Display.flex,
+            padding: Padding.fromLTRB(250.px, 160.px, 270.px, 190.px),
           ),
           [
             div(
@@ -147,13 +176,6 @@ class _MainArticle extends StatelessComponent {
               ],
             ),
           ],
-        ),
-        section(
-          styles: Styles(
-            position: const Position.relative(),
-            margin: Spacing.only(top: 6.rem),
-          ),
-          [],
         ),
         CountdownView(),
         img(

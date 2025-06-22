@@ -59,7 +59,7 @@ class _CountdownState extends State<CountdownView> {
     yield div(
       classes: 'bubble',
       styles: Styles(
-        margin: Spacing.only(top: 8.rem),
+        margin: Spacing.only(top: 4.rem),
       ),
       [
         div(

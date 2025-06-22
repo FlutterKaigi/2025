@@ -1,5 +1,4 @@
 import 'package:flutterkaigi_2025_website/src/config/config.dart';
-import 'package:flutterkaigi_2025_website/src/constants/styles.dart';
 import 'package:flutterkaigi_2025_website/text.dart';
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_router/jaspr_router.dart';
@@ -12,10 +11,9 @@ class CallForProposal extends StatelessComponent {
     yield div(
       styles: Styles(
         display: Display.flex,
-        maxWidth: globalMaxWidth,
         flexDirection: FlexDirection.column,
         alignItems: AlignItems.center,
-        gap: Gap.all(1.rem),
+        gap: Gap.all(1.5.rem),
       ),
       [
         p(
