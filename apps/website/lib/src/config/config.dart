@@ -204,6 +204,24 @@ const _sponsors = <SponsorInfo>[
     type: SponsorType.platinum,
   ),
   (
+    name: '株式会社アサイン',
+    url: 'https://assign-inc.com/',
+    sns: (x: null),
+    pr: (
+      ja:
+          'アサインは「人」と「技術」の力で、若手ハイエンド向けのキャリア支援サービスを提供しています。\n'
+          '転職サイト『ASSIGN』は、単なる転職支援に留まらず、長期のキャリア形成をサポートするために、'
+          'キャリア実現に欠かせないパーソナライズされた情報へのアクセスを容易にしています。'
+          '技術の力を最大限活用し、ユーザーへの提供価値を向上させています。\n'
+          '若手ハイエンド特化の転職サイト『ASSIGN』\n'
+          '・2019年のサービス開始以来 累計ユーザー数66万人突破\n'
+          '・2021年4月からFlutterで開発',
+      en: null,
+    ),
+    logo: '/img/sponsor/assign.png',
+    type: SponsorType.platinum,
+  ),
+  (
     name: '株式会社サイバーエージェント',
     url: 'https://www.cyberagent.co.jp/',
     sns: (x: 'ca_developers'),
@@ -276,9 +294,10 @@ const _sponsors = <SponsorInfo>[
           'DeNAは、事業価値の最大化と課題解決のためのAI活用と独自のデータ分析手法によって、'
           'ゲーム、ライブスコミュニティ、スポーツ・まちづくり、ヘルスケア・メディカルなど幅広い事業を展開しています。',
       en:
-          'At DeNA (pronounced "D-N-A") we use AI technology and our unique data'
-          ' analysis methods to maximize business value and solve problems'
-          ' to engage in a variety of businesses, from games and live communities'
+          'At DeNA (pronounced "D-N-A") we use AI technology'
+          ' and our unique data analysis methods to maximize business value'
+          ' and solve problems to engage in a variety of businesses,'
+          ' from games and live communities'
           ' to sports & the community and healthcare & medical.',
     ),
     logo: '/img/sponsor/dena.png',
@@ -397,9 +416,14 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社アイビス',
-    url: '',
-    sns: (x: ''),
-    pr: (ja: '', en: null),
+    url: 'https://i-bis.jp/company/profile/',
+    sns: (x: 'Ibis_official_'),
+    pr: (
+      ja:
+          'アイビスはFlutterでの開発支援を通じて、関わるすべての人と企業が成長できる持続可能な関係づくりを目指しています。\n'
+          '共にアイビスを創る仲間も募集しています。',
+      en: null,
+    ),
     logo: '/img/sponsor/ibis.png',
     type: SponsorType.bronze,
   ),

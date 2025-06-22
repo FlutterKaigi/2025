@@ -1,6 +1,6 @@
 import 'package:flutterkaigi_2025_website/src/components/external_link.dart';
-import 'package:flutterkaigi_2025_website/text.dart';
 import 'package:flutterkaigi_2025_website/src/config/config.dart';
+import 'package:flutterkaigi_2025_website/text.dart';
 import 'package:jaspr/jaspr.dart';
 
 @client
