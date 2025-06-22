@@ -11,12 +11,14 @@ class Sponsor extends StatefulComponent {
     required this.width,
     required this.pr,
     required this.url,
+    required this.snsX,
   });
   final String name;
   final String logo;
   final num width;
   final String pr;
   final String url;
+  final String? snsX;
 
   @override
   State<Sponsor> createState() => _SponsorState();
@@ -77,15 +79,43 @@ class _SponsorState extends State<Sponsor> {
                   width: 100.percent,
                 ),
               ),
-              p(
+              ul(
                 [
-                  ExternalLink(
-                    content: text(component.url),
-                    url: component.url,
-                  ),
+                  li([
+                    ExternalLink(
+                      content: text(component.url),
+                      url: component.url,
+                    ),
+                  ]),
+                  if (component.snsX != null)
+                    li([
+                      img(
+                        src: '/img/icon_sns_x.svg',
+                        alt: 'X logo',
+                        styles: Styles(
+                          height: 1.2.em,
+                          raw: {
+                            'vertical-align': 'middle',
+                          },
+                        ),
+                      ),
+                      text(' '),
+                      ExternalLink(
+                        content: text('@${component.snsX}'),
+                        url: 'https://x.com/${component.snsX}',
+                      ),
+                    ]),
                 ],
                 styles: Styles(
+                  display: Display.flex,
+                  flexDirection: FlexDirection.row,
+                  flexWrap: FlexWrap.wrap,
+                  alignItems: AlignItems.center,
+                  gap: Gap.all(1.em),
                   width: 100.percent,
+                  listStyle: ListStyle.none,
+                  padding: Padding.zero,
+                  margin: Margin.zero,
                 ),
               ),
               p(
@@ -168,6 +198,7 @@ class _TypedSponsors extends StatelessComponent {
                       logo: info.logo,
                       url: info.url,
                       pr: info.pr.text(context),
+                      snsX: info.sns.x,
                       width: switch (info.type) {
                         SponsorType.platinum => 16,
                         SponsorType.gold => 12,
