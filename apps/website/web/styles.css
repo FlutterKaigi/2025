@@ -16,7 +16,7 @@
   /* TODO: Darkにも対応できるようにする */
   /* --background-color: #121212; */
   /* --text-color: #ffffff; */
-  --background-color: #ffffff;
+  --background-color: #fafcff;
   --text-color: #121212;
   --base-gradient: linear-gradient(120deg,
       var(--primary-color) 0%,

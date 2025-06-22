@@ -40,10 +40,13 @@ class Home extends StatelessComponent {
           children: [Timeline()],
         ),
         const SectionLayout(
+          title: 'Sponsor',
+          children: [Sponsors()],
+        ),
+        const SectionLayout(
           title: 'Staffs',
           children: [Staff()],
         ),
-        const SectionLayout(title: 'Sponsor', children: [Sponsors()]),
       ],
     );
   }

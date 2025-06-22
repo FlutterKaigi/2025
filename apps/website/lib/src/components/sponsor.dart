@@ -1,5 +1,6 @@
 import 'package:flutterkaigi_2025_website/src/components/external_link.dart';
 import 'package:flutterkaigi_2025_website/src/config/config.dart';
+import 'package:flutterkaigi_2025_website/src/constants/styles.dart';
 import 'package:flutterkaigi_2025_website/text.dart';
 import 'package:jaspr/jaspr.dart';
 
@@ -34,22 +35,19 @@ class _SponsorState extends State<Sponsor> {
   Iterable<Component> build(BuildContext context) sync* {
     yield div([
       button(
-        [
-          text(component.name),
-        ],
         styles: Styles(
           position: const Position.relative(),
-          cursor: Cursor.pointer,
           width: width,
           height: height,
-          color: Colors.transparent,
-          backgroundColor: const Color.rgba(255, 255, 255, 0.6),
           shadow: BoxShadow(
-            offsetX: 0.5.rem,
-            offsetY: 0.5.rem,
-            blur: 1.rem,
-            color: const Color.rgba(0, 0, 0, 0.1),
+            offsetX: 2.px,
+            offsetY: 2.px,
+            blur: 4.px,
+            color: const Color.rgba(168, 168, 168, 0.25),
           ),
+          cursor: Cursor.pointer,
+          color: Colors.transparent,
+          backgroundColor: Colors.white,
           backgroundImage: ImageStyle.url(component.logo),
           backgroundSize: BackgroundSize.cover,
         ),
@@ -58,10 +56,50 @@ class _SponsorState extends State<Sponsor> {
             isOpen = !isOpen;
           });
         },
+        [
+          text(component.name),
+        ],
       ),
       dialog(
+        open: isOpen,
+        styles: Styles(
+          display: isOpen ? Display.flex : Display.none,
+          position: Position.fixed(top: 0.px, left: 0.px),
+          zIndex: const ZIndex(10),
+          width: 100.vw,
+          height: 100.vh,
+          padding: Spacing.all(1.rem),
+          boxSizing: BoxSizing.borderBox,
+          cursor: Cursor.pointer,
+          justifyContent: JustifyContent.center,
+          alignItems: AlignItems.center,
+          backgroundColor: const Color.rgba(0, 0, 0, 0.5),
+        ),
+        events: {
+          'click': (event) {
+            setState(() {
+              isOpen = false;
+            });
+          },
+        },
         [
           section(
+            styles: Styles(
+              display: Display.flex,
+              width: 100.percent,
+              maxWidth: 960.px,
+              padding: Spacing.all(1.rem),
+              radius: BorderRadius.circular(1.rem),
+              flexDirection: FlexDirection.column,
+              alignItems: AlignItems.center,
+              gap: Gap.all(1.rem),
+              backgroundColor: Colors.white,
+            ),
+            events: {
+              'click': (event) {
+                event.stopPropagation();
+              },
+            },
             [
               img(
                 src: component.logo,
@@ -71,15 +109,26 @@ class _SponsorState extends State<Sponsor> {
                 ),
               ),
               h3(
-                [text(component.name)],
                 styles: Styles(
-                  fontFamily: const FontFamily('Lexend'),
+                  width: 100.percent,
+                  fontFamily: lexendFontFamily,
                   fontSize: 1.5.rem,
                   fontWeight: FontWeight.bold,
-                  width: 100.percent,
                 ),
+                [text(component.name)],
               ),
               ul(
+                styles: Styles(
+                  display: Display.flex,
+                  width: 100.percent,
+                  padding: Padding.zero,
+                  margin: Margin.zero,
+                  flexDirection: FlexDirection.row,
+                  flexWrap: FlexWrap.wrap,
+                  alignItems: AlignItems.center,
+                  gap: Gap.all(1.em),
+                  listStyle: ListStyle.none,
+                ),
                 [
                   li([
                     ExternalLink(
@@ -106,65 +155,17 @@ class _SponsorState extends State<Sponsor> {
                       ),
                     ]),
                 ],
-                styles: Styles(
-                  display: Display.flex,
-                  flexDirection: FlexDirection.row,
-                  flexWrap: FlexWrap.wrap,
-                  alignItems: AlignItems.center,
-                  gap: Gap.all(1.em),
-                  width: 100.percent,
-                  listStyle: ListStyle.none,
-                  padding: Padding.zero,
-                  margin: Margin.zero,
-                ),
               ),
               p(
-                [text(component.pr)],
                 styles: Styles(
                   width: 100.percent,
                   whiteSpace: WhiteSpace.preWrap,
                 ),
+                [text(component.pr)],
               ),
             ],
-            styles: Styles(
-              display: Display.flex,
-              gap: Gap.all(1.rem),
-              padding: Spacing.all(1.rem),
-              backgroundColor: Colors.white,
-              radius: BorderRadius.circular(1.rem),
-              flexDirection: FlexDirection.column,
-              alignItems: AlignItems.center,
-              width: 100.percent,
-              maxWidth: 960.px,
-            ),
-            events: {
-              'click': (event) {
-                event.stopPropagation();
-              },
-            },
           ),
         ],
-        open: isOpen,
-        styles: Styles(
-          position: Position.fixed(top: 0.px, left: 0.px),
-          backgroundColor: const Color.rgba(0, 0, 0, 0.5),
-          zIndex: const ZIndex(10),
-          height: 100.vh,
-          width: 100.vw,
-          display: isOpen ? Display.flex : Display.none,
-          justifyContent: JustifyContent.center,
-          alignItems: AlignItems.center,
-          cursor: Cursor.pointer,
-          padding: Spacing.all(1.rem),
-          boxSizing: BoxSizing.borderBox,
-        ),
-        events: {
-          'click': (event) {
-            setState(() {
-              isOpen = false;
-            });
-          },
-        },
       ),
     ]);
   }
@@ -179,49 +180,48 @@ class _TypedSponsors extends StatelessComponent {
   Iterable<Component> build(BuildContext context) sync* {
     yield div([
       h3(
-        [text(type.name)],
         styles: Styles(
           display: Display.block,
-          fontFamily: const FontFamily('Lexend'),
+          fontFamily: lexendFontFamily,
           fontSize: 1.2.rem,
           fontWeight: FontWeight.bold,
         ),
+        [text(type.name)],
       ),
       div(
-        [
-          ul(
-            sponsors
-                .map(
-                  (info) => li([
-                    Sponsor(
-                      name: info.name,
-                      logo: info.logo,
-                      url: info.url,
-                      pr: info.pr.text(context),
-                      snsX: info.sns.x,
-                      width: switch (info.type) {
-                        SponsorType.platinum => 16,
-                        SponsorType.gold => 12,
-                        SponsorType.silver => 9,
-                        SponsorType.bronze => 9,
-                      },
-                    ),
-                  ]),
-                )
-                .toList(),
-            styles: Styles(
-              display: Display.flex,
-              justifyContent: JustifyContent.start,
-              flexWrap: FlexWrap.wrap,
-              gap: Gap.all(1.rem),
-            ),
-          ),
-        ],
         styles: Styles(
           display: Display.flex,
+          margin: Spacing.only(top: 1.rem, bottom: 1.25.rem),
           justifyContent: JustifyContent.center,
-          margin: Spacing.only(top: 1.rem),
         ),
+        [
+          ul(
+            styles: Styles(
+              display: Display.flex,
+              flexWrap: FlexWrap.wrap,
+              justifyContent: JustifyContent.start,
+              gap: Gap.all(1.rem),
+            ),
+            [
+              for (final info in sponsors)
+                li([
+                  Sponsor(
+                    name: info.name,
+                    logo: info.logo,
+                    url: info.url,
+                    pr: info.pr.text(context),
+                    snsX: info.sns.x,
+                    width: switch (info.type) {
+                      SponsorType.platinum => 16,
+                      SponsorType.gold => 12,
+                      SponsorType.silver => 9,
+                      SponsorType.bronze => 9,
+                    },
+                  ),
+                ]),
+            ],
+          ),
+        ],
       ),
     ]);
   }
@@ -233,6 +233,9 @@ class Sponsors extends StatelessComponent {
   @override
   Iterable<Component> build(BuildContext context) sync* {
     yield ul(
+      styles: const Styles(
+        display: Display.grid,
+      ),
       [
         _TypedSponsors(
           SponsorType.platinum,
@@ -257,9 +260,6 @@ class Sponsors extends StatelessComponent {
           ),
         ),
       ],
-      styles: const Styles(
-        display: Display.grid,
-      ),
     );
   }
 }
