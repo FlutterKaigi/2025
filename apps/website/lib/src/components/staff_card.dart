@@ -1,19 +1,19 @@
+import 'package:flutterkaigi_2025_website/src/components/external_link.dart';
+import 'package:flutterkaigi_2025_website/src/config/config.dart';
 import 'package:jaspr/jaspr.dart';
 
 class StaffCard extends StatelessComponent {
   const StaffCard({
-    required this.name,
-    required this.role,
-    required this.imageUrl,
+    required this.info,
     super.key,
   });
 
-  final String name;
-  final String role;
-  final String imageUrl;
+  final StaffInfo info;
 
   @override
   Iterable<Component> build(BuildContext context) sync* {
+    final snsLinks = _buildSnsLinks();
+
     yield div(
       styles: Styles(
         display: Display.flex,
@@ -24,7 +24,7 @@ class StaffCard extends StatelessComponent {
       ),
       [
         img(
-          src: imageUrl,
+          src: info.avatar,
           alt: 'Staff photo',
           styles: Styles(
             display: Display.flex,
@@ -43,23 +43,143 @@ class StaffCard extends StatelessComponent {
             fontSize: 1.25.rem,
             fontWeight: FontWeight.w400,
             lineHeight: 2.rem,
+            textAlign: TextAlign.center,
           ),
           [
-            Text(name),
+            Text(info.name),
           ],
         ),
+        if (snsLinks.isNotEmpty)
+          ul(
+            snsLinks,
+            styles: Styles(
+              display: Display.flex,
+              flexDirection: FlexDirection.row,
+              flexWrap: FlexWrap.wrap,
+              justifyContent: JustifyContent.center,
+              gap: Gap.all(0.5.em),
+              listStyle: ListStyle.none,
+              padding: Padding.zero,
+              margin: Margin.zero,
+            ),
+          ),
         p(
           styles: Styles(
-            margin: Spacing.only(bottom: 1.rem),
-            color: const Color.rgba(0, 0, 0, 0.5),
-            fontSize: 1.rem,
-            lineHeight: 1.71.rem,
+            fontSize: 0.9.rem,
+            lineHeight: 1.4.rem,
           ),
           [
-            Text(role),
+            Text(info.comment),
           ],
         ),
       ],
     );
+  }
+
+  List<Component> _buildSnsLinks() {
+    final links = <Component>[];
+    final sns = info.sns;
+
+    if (sns.x != null) {
+      links.add(
+        _buildSnsLink(
+          icon: '/img/icon_sns_x.svg',
+          alt: 'X',
+          url: 'https://x.com/${sns.x}',
+        ),
+      );
+    }
+
+    if (sns.bluesky != null) {
+      links.add(
+        _buildSnsLink(
+          icon: '/img/icon_sns_bluesky.svg',
+          alt: 'Bluesky',
+          url: 'https://bsky.app/profile/${sns.bluesky}',
+        ),
+      );
+    }
+
+    if (sns.mixi2 != null) {
+      links.add(
+        _buildSnsLink(
+          icon: '/img/icon_sns_mixi2.svg',
+          alt: 'mixi2',
+          url: 'https://mixi.jp/${sns.mixi2}',
+        ),
+      );
+    }
+
+    if (sns.medium != null) {
+      links.add(
+        _buildSnsLink(
+          icon: '/img/icon_sns_medium.svg',
+          alt: 'Medium',
+          url: 'https://medium.com/@${sns.medium}',
+        ),
+      );
+    }
+
+    if (sns.qiita != null) {
+      links.add(
+        _buildSnsLink(
+          icon: '/img/icon_sns_qiita.svg',
+          alt: 'Qiita',
+          url: 'https://qiita.com/${sns.qiita}',
+        ),
+      );
+    }
+
+    if (sns.zenn != null) {
+      links.add(
+        _buildSnsLink(
+          icon: '/img/icon_sns_zenn.svg',
+          alt: 'Zenn',
+          url: 'https://zenn.dev/${sns.zenn}',
+        ),
+      );
+    }
+
+    if (sns.note != null) {
+      links.add(
+        _buildSnsLink(
+          icon: '/img/icon_sns_note.svg',
+          alt: 'note',
+          url: 'https://note.com/${sns.note}',
+        ),
+      );
+    }
+
+    if (sns.website != null) {
+      links.add(
+        _buildSnsLink(
+          icon: '/img/icon_website.svg',
+          alt: 'Website',
+          url: sns.website!,
+        ),
+      );
+    }
+
+    return links;
+  }
+
+  Component _buildSnsLink({
+    required String icon,
+    required String alt,
+    required String url,
+  }) {
+    return li([
+      ExternalLink(
+        url: url,
+        content: img(
+          src: icon,
+          alt: alt,
+          styles: Styles(
+            height: 1.5.em,
+            width: 1.5.em,
+          ),
+        ),
+      ),
+    ]);
   }
 }

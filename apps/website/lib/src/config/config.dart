@@ -153,6 +153,7 @@ final event = (
     const PastEventLink(title: '2021', url: 'https://2021.flutterkaigi.jp/'),
   ],
   sponsors: _sponsors,
+  staff: _staff,
 );
 
 typedef SponsorInfo = ({
@@ -533,5 +534,55 @@ const _sponsors = <SponsorInfo>[
     logo: '/img/sponsor/ibj.png',
     type: SponsorType.bronze,
     disable: false,
+  ),
+];
+
+typedef StaffInfo = ({
+  String name,
+  String avatar,
+  String comment,
+  ({
+    String? x,
+    String? bluesky,
+    String? mixi2,
+    String? medium,
+    String? qiita,
+    String? zenn,
+    String? note,
+    String? website,
+  })
+  sns,
+});
+
+const _staff = <StaffInfo>[
+  (
+    name: 'John Doe',
+    avatar: '/img/staff/placeholder.jpg',
+    comment: 'イベントの企画・運営を担当しています。',
+    sns: (
+      x: 'johndoe',
+      bluesky: 'johndoe.bsky.social',
+      mixi2: null,
+      medium: 'johndoe',
+      qiita: 'johndoe',
+      zenn: null,
+      note: null,
+      website: 'https://johndoe.dev',
+    ),
+  ),
+  (
+    name: 'Jane Smith',
+    avatar: '/img/staff/placeholder.jpg',
+    comment: 'スピーカーとの調整を担当しています。',
+    sns: (
+      x: 'janesmith',
+      bluesky: null,
+      mixi2: null,
+      medium: null,
+      qiita: 'janesmith',
+      zenn: 'janesmith',
+      note: 'janesmith',
+      website: null,
+    ),
   ),
 ];
