@@ -19,6 +19,7 @@ class Home extends StatelessComponent {
   @override
   Iterable<Component> build(BuildContext context) sync* {
     yield main_(
+      classes: 'main-background',
       styles: Styles(
         display: Display.flex,
         padding: Padding.all(0.px),
@@ -70,7 +71,6 @@ class _MainArticle extends StatelessComponent {
               left: 0.px,
               right: 0.px,
             ),
-            zIndex: const ZIndex(-1),
             width: 100.percent,
             padding: Padding.only(bottom: 32.px),
             overflow: Overflow.hidden,
@@ -86,7 +86,7 @@ class _MainArticle extends StatelessComponent {
                 backgroundImage: const ImageStyle.url(
                   '/img/graphic-top-main.svg',
                 ),
-                backgroundPosition: BackgroundPosition.center,
+                backgroundPosition: BackgroundPosition.initial,
                 backgroundRepeat: BackgroundRepeat.noRepeat,
                 raw: {'filter': 'drop-shadow(4px 32px 0px #EAEAEA)'},
               ),
@@ -106,6 +106,7 @@ class _MainArticle extends StatelessComponent {
         div(
           styles: Styles(
             display: Display.flex,
+            zIndex: const ZIndex(2),
             padding: Padding.fromLTRB(250.px, 160.px, 270.px, 190.px),
           ),
           [
