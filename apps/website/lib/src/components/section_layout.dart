@@ -21,9 +21,10 @@ class SectionLayout extends StatelessComponent {
       [
         h2(
           styles: Styles(
+            margin: Margin.only(bottom: 1.5.rem),
             fontFamily: const FontFamily('Lexend'),
-            fontSize: 1.5.rem,
-            fontWeight: FontWeight.bold,
+            fontSize: 2.rem,
+            fontWeight: FontWeight.w900,
           ),
           [text(title)],
         ),

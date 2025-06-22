@@ -19,10 +19,9 @@ class CallForProposal extends StatelessComponent {
         p(
           styles: Styles(
             color: Colors.black,
-            fontSize: 0.875.rem,
+            fontSize: 1.rem,
             fontWeight: FontWeight.w400,
             lineHeight: 180.percent,
-            whiteSpace: WhiteSpace.preLine,
           ),
           [
             Text(contents.proposalContents.text(context)),
