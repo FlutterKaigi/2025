@@ -1,4 +1,5 @@
 import 'package:flutterkaigi_2025_website/src/components/staff_card.dart';
+import 'package:flutterkaigi_2025_website/src/config/config.dart';
 import 'package:jaspr/jaspr.dart';
 
 class Staff extends StatelessComponent {
@@ -6,19 +7,6 @@ class Staff extends StatelessComponent {
 
   @override
   Iterable<Component> build(BuildContext context) sync* {
-    final staffList = [
-      const StaffCard(
-        name: 'John Doe',
-        role: 'Event Organizer',
-        imageUrl: 'assets/images/staff/placeholder.jpg',
-      ),
-      const StaffCard(
-        name: 'Jane Smith',
-        role: 'Speaker Coordinator',
-        imageUrl: 'assets/images/staff/placeholder.jpg',
-      ),
-    ];
-
     yield div(
       styles: Styles(
         display: Display.flex,
@@ -36,20 +24,10 @@ class Staff extends StatelessComponent {
             width: 100.percent,
             maxWidth: 1200.px,
             padding: Spacing.all(2.rem),
-            overflow: Overflow.auto,
-            maxHeight: 80.vh,
             justifyContent: JustifyContent.center,
           ),
           [
-            for (final staff in staffList)
-              div(
-                styles: Styles(
-                  display: Display.flex,
-                  justifyContent: JustifyContent.center,
-                  width: 400.px,
-                ),
-                [staff],
-              ),
+            for (final staff in event.staff) StaffCard(info: staff),
           ],
         ),
       ],
