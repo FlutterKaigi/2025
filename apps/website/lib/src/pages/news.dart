@@ -12,8 +12,7 @@ class News extends StatelessComponent {
       styles: Styles(
         display: Display.flex,
         padding: Padding.symmetric(vertical: 1.rem),
-        flexDirection: FlexDirection.column,
-        alignItems: AlignItems.center,
+        justifyContent: JustifyContent.spaceAround,
         gap: Gap.all(1.rem),
       ),
       [
@@ -24,9 +23,8 @@ class News extends StatelessComponent {
             styles: Styles(
               display: Display.flex,
               position: const Position.relative(),
-              padding: Padding.symmetric(horizontal: 8.rem),
               cursor: Cursor.pointer,
-              alignItems: AlignItems.center,
+              justifyContent: JustifyContent.center,
               gap: Gap.all(1.rem),
             ),
             [
