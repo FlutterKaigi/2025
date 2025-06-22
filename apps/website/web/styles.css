@@ -98,14 +98,6 @@ body * {
   background: rgba(0, 0, 0, 0.25);
 }
 
-/* .main-background {
-  background-image: url('/img/graphic-overall-left.svg'), url('/img/graphic-overall-right.svg');
-  background-repeat: repeat-y, repeat-y;
-  background-position-x: left, right;
-  background-position-y: left top 600px, left top 600px;
-} */
-
-
 .main-background {
   background-image: url('/img/graphic-overall-left.svg'), url('/img/graphic-overall-right.svg');
   background-repeat: repeat-y, repeat-y;
