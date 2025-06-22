@@ -54,8 +54,9 @@ class _MainArticle extends StatelessComponent {
   @override
   Iterable<Component> build(BuildContext context) sync* {
     yield article(
-      styles: const Styles(
+      styles: Styles(
         display: Display.flex,
+        margin: Margin.only(top: 2.rem),
         flexDirection: FlexDirection.column,
         justifyContent: JustifyContent.center,
         alignItems: AlignItems.center,
@@ -64,7 +65,11 @@ class _MainArticle extends StatelessComponent {
         div(
           styles: Styles(
             display: Display.flex,
-            position: Position.absolute(top: 65.px, left: 0.px, right: 0.px),
+            position: Position.absolute(
+              top: const Unit.expression('calc(65px + 2rem)'),
+              left: 0.px,
+              right: 0.px,
+            ),
             zIndex: const ZIndex(-1),
             width: 100.percent,
             padding: Padding.only(bottom: 32.px),
