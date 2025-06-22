@@ -21,14 +21,6 @@ dev_dependencies:
 
 dependency_overrides:
   analyzer_plugin: ^0.13.0
-  # NOTE
-  # package:web のラッパー package:universal_web が package:web 1.1.0 に依存しており、
-  # 現在engineが1.1.1に依存しているので、対応途中なもののPRでoverrideする形にしています。
-  universal_web:
-    git:
-      url: https://github.com/parlough/universal_web.git
-      path: web/
-      ref: feat/web-1-1-1
 
 jaspr:
   mode: static
