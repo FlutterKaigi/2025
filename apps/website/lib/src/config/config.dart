@@ -162,6 +162,7 @@ typedef SponsorInfo = ({
   Content pr,
   String logo,
   SponsorType type,
+  bool disable,
 });
 
 enum SponsorType {
@@ -194,14 +195,16 @@ const _sponsors = <SponsorInfo>[
     ),
     logo: '/img/sponsor/yumemi.png',
     type: SponsorType.platinum,
+    disable: false,
   ),
   (
     name: '株式会社出前館',
     url: '',
-    sns: (x: ''),
+    sns: (x: null),
     pr: (ja: '', en: null),
     logo: '/img/sponsor/demae-can.png',
     type: SponsorType.platinum,
+    disable: true,
   ),
   (
     name: '株式会社アサイン',
@@ -220,6 +223,7 @@ const _sponsors = <SponsorInfo>[
     ),
     logo: '/img/sponsor/assign.png',
     type: SponsorType.platinum,
+    disable: false,
   ),
   (
     name: '株式会社サイバーエージェント',
@@ -234,6 +238,7 @@ const _sponsors = <SponsorInfo>[
     ),
     logo: '/img/sponsor/cyberagent.png',
     type: SponsorType.gold,
+    disable: false,
   ),
   (
     name: 'ZOZO, Inc.',
@@ -248,6 +253,7 @@ const _sponsors = <SponsorInfo>[
     ),
     logo: '/img/sponsor/zozo.png',
     type: SponsorType.silver,
+    disable: false,
   ),
   (
     name: '株式会社GENDA',
@@ -262,14 +268,16 @@ const _sponsors = <SponsorInfo>[
     ),
     logo: '/img/sponsor/genda.png',
     type: SponsorType.silver,
+    disable: false,
   ),
   (
     name: 'エムスリー株式会社',
     url: '',
-    sns: (x: ''),
+    sns: (x: null),
     pr: (ja: '', en: null),
     logo: '/img/sponsor/m3.png',
     type: SponsorType.silver,
+    disable: true,
   ),
   (
     name: "株式会社Linc'well",
@@ -284,6 +292,7 @@ const _sponsors = <SponsorInfo>[
     ),
     logo: '/img/sponsor/lincwell.png',
     type: SponsorType.silver,
+    disable: false,
   ),
   (
     name: '株式会社ディー・エヌ・エー',
@@ -302,6 +311,7 @@ const _sponsors = <SponsorInfo>[
     ),
     logo: '/img/sponsor/dena.png',
     type: SponsorType.silver,
+    disable: false,
   ),
   (
     name: 'CodeRabbit',
@@ -316,6 +326,7 @@ const _sponsors = <SponsorInfo>[
     ),
     logo: '/img/sponsor/coderabbit.png',
     type: SponsorType.silver,
+    disable: false,
   ),
   (
     name: '株式会社MIXI',
@@ -329,6 +340,7 @@ const _sponsors = <SponsorInfo>[
     ),
     logo: '/img/sponsor/mixi.png',
     type: SponsorType.bronze,
+    disable: false,
   ),
   (
     name: 'スタディプラス株式会社',
@@ -343,6 +355,7 @@ const _sponsors = <SponsorInfo>[
     ),
     logo: '/img/sponsor/studyplus.png',
     type: SponsorType.bronze,
+    disable: false,
   ),
   (
     name: '株式会社ギークニア',
@@ -357,6 +370,7 @@ const _sponsors = <SponsorInfo>[
     ),
     logo: '/img/sponsor/geekneer.png',
     type: SponsorType.bronze,
+    disable: false,
   ),
   (
     name: 'Sentry',
@@ -371,6 +385,7 @@ const _sponsors = <SponsorInfo>[
     ),
     logo: '/img/sponsor/sentry.png',
     type: SponsorType.bronze,
+    disable: false,
   ),
   (
     name: 'パイオニア株式会社',
@@ -385,6 +400,7 @@ const _sponsors = <SponsorInfo>[
     ),
     logo: '/img/sponsor/pioneer.png',
     type: SponsorType.bronze,
+    disable: false,
   ),
   (
     name: '株式会社メドレー',
@@ -399,6 +415,7 @@ const _sponsors = <SponsorInfo>[
     ),
     logo: '/img/sponsor/medley.png',
     type: SponsorType.bronze,
+    disable: false,
   ),
   (
     name: 'Hamee株式会社',
@@ -413,6 +430,7 @@ const _sponsors = <SponsorInfo>[
     ),
     logo: '/img/sponsor/hamee.png',
     type: SponsorType.bronze,
+    disable: false,
   ),
   (
     name: '株式会社アイビス',
@@ -426,6 +444,7 @@ const _sponsors = <SponsorInfo>[
     ),
     logo: '/img/sponsor/ibis.png',
     type: SponsorType.bronze,
+    disable: false,
   ),
   (
     name: '株式会社LayerX',
@@ -440,6 +459,7 @@ const _sponsors = <SponsorInfo>[
     ),
     logo: '/img/sponsor/layerx.png',
     type: SponsorType.bronze,
+    disable: false,
   ),
   (
     name: 'NTTレゾナントテクノロジー株式会社',
@@ -453,6 +473,7 @@ const _sponsors = <SponsorInfo>[
     ),
     logo: '/img/sponsor/ntt-resonant-tech.png',
     type: SponsorType.bronze,
+    disable: false,
   ),
   (
     name: '株式会社IBJ',
@@ -466,5 +487,6 @@ const _sponsors = <SponsorInfo>[
     ),
     logo: '/img/sponsor/ibj.png',
     type: SponsorType.bronze,
+    disable: false,
   ),
 ];

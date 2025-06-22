@@ -204,19 +204,19 @@ class Sponsors extends StatelessComponent {
       [
         _TypedSponsors(
           SponsorType.platinum,
-          event.sponsors.where((s) => s.type == SponsorType.platinum),
+          event.sponsors.where((s) => s.type == SponsorType.platinum && !s.disable),
         ),
         _TypedSponsors(
           SponsorType.gold,
-          event.sponsors.where((s) => s.type == SponsorType.gold),
+          event.sponsors.where((s) => s.type == SponsorType.gold && !s.disable),
         ),
         _TypedSponsors(
           SponsorType.silver,
-          event.sponsors.where((s) => s.type == SponsorType.silver),
+          event.sponsors.where((s) => s.type == SponsorType.silver && !s.disable),
         ),
         _TypedSponsors(
           SponsorType.bronze,
-          event.sponsors.where((s) => s.type == SponsorType.bronze),
+          event.sponsors.where((s) => s.type == SponsorType.bronze && !s.disable),
         ),
       ],
       styles: const Styles(
