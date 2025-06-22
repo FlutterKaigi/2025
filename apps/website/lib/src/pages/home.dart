@@ -3,6 +3,7 @@ import 'package:flutterkaigi_2025_website/src/components/external_link.dart';
 import 'package:flutterkaigi_2025_website/src/components/section_layout.dart';
 import 'package:flutterkaigi_2025_website/src/components/sized_dashsay.dart';
 import 'package:flutterkaigi_2025_website/src/components/sponsor.dart';
+import 'package:flutterkaigi_2025_website/src/components/tagline.dart';
 import 'package:flutterkaigi_2025_website/src/components/top_event_info.dart';
 import 'package:flutterkaigi_2025_website/src/config/config.dart';
 import 'package:flutterkaigi_2025_website/src/constants/styles.dart';
@@ -42,6 +43,7 @@ class Home extends StatelessComponent {
           fontSize: 1.25.rem,
           dashSize: 8.rem,
         ),
+        const Tagline(),
         const SectionLayout(
           title: 'Timeline',
           children: [Timeline()],
