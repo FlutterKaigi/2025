@@ -22,12 +22,17 @@ class CallForProposal extends StatelessComponent {
             fontSize: 1.rem,
             fontWeight: FontWeight.w400,
             lineHeight: 180.percent,
-            whiteSpace: WhiteSpace.preLine,
             textAlign: TextAlign.left,
             maxWidth: 800.px,
           ),
           [
-            Text(contents.proposalContents.text(context)),
+            for (final part
+                in contents.proposalContents.text(context).split('\n')) ...[
+              Text(part),
+              if (part !=
+                  contents.proposalContents.text(context).split('\n').last)
+                br(),
+            ],
           ],
         ),
         div(
