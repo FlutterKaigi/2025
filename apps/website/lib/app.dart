@@ -83,10 +83,24 @@ class _BasicLayout extends StatelessComponent {
         position: Position.sticky(top: 0.px),
         border: Border.only(
           bottom: BorderSide.solid(
-            color: const Color.variable('--border-color'),
+            color: const Color.rgba(255, 255, 255, 0.4),
             width: 1.px,
           ),
         ),
+        shadow: BoxShadow.combine([
+          BoxShadow(
+            offsetX: 0.px,
+            offsetY: (-8).px,
+            blur: 12.px,
+            color: const Color.rgba(0, 0, 0, 0.25),
+          ),
+        ]),
+        backgroundColor: const Color.rgba(255, 255, 255, 0.4),
+        raw: {
+          'box-shadow':
+              '0px -8px 12px rgba(0, 0, 0, 0.25), '
+              'inset 0px -8px 16px 0px rgba(0, 0, 0, 0.06)',
+        },
       ),
     );
     yield child;
