@@ -23,18 +23,27 @@ class StaffCard extends StatelessComponent {
         alignItems: AlignItems.center,
       ),
       [
-        img(
-          src: info.avatar,
-          alt: 'Staff photo',
+        div(
+          [
+            img(
+              src: info.avatar,
+              alt: 'Staff photo: ${info.name}',
+              styles: Styles(
+                maxWidth: 100.px,
+                maxHeight: 100.px,
+              ),
+            ),
+          ],
           styles: Styles(
             display: Display.flex,
             width: 100.px,
             height: 100.px,
-            margin: Spacing.only(bottom: 1.rem),
             justifyContent: JustifyContent.center,
             alignItems: AlignItems.center,
+            margin: Spacing.only(bottom: 1.rem),
             backgroundColor: const Color.rgba(200, 200, 200, 0.3),
-            raw: {'border-radius': '50px'},
+            radius: BorderRadius.all(Radius.circular(50.px)),
+            overflow: Overflow.hidden,
           ),
         ),
         p(
@@ -86,45 +95,45 @@ class StaffCard extends StatelessComponent {
           alt: 'X',
           url: 'https://x.com/${sns.x}',
         ),
-      if (sns.bluesky != null)
-        _buildSnsLink(
-          icon: '/img/icon_sns_bluesky.svg',
-          alt: 'Bluesky',
-          url: 'https://bsky.app/profile/${sns.bluesky}',
-        ),
-      if (sns.mixi2 != null)
-        _buildSnsLink(
-          icon: '/img/icon_sns_mixi2.svg',
-          alt: 'mixi2',
-          url: 'https://mixi.jp/${sns.mixi2}',
-        ),
+      // if (sns.bluesky != null)
+      //   _buildSnsLink(
+      //     icon: '/img/icon_sns_bluesky.svg',
+      //     alt: 'Bluesky',
+      //     url: 'https://bsky.app/profile/${sns.bluesky}',
+      //   ),
+      // if (sns.mixi2 != null)
+      //   _buildSnsLink(
+      //     icon: '/img/icon_sns_mixi2.svg',
+      //     alt: 'mixi2',
+      //     url: 'https://mixi.jp/${sns.mixi2}',
+      //   ),
       if (sns.medium != null)
         _buildSnsLink(
           icon: '/img/icon_sns_medium.svg',
           alt: 'Medium',
           url: 'https://medium.com/@${sns.medium}',
         ),
-      if (sns.qiita != null)
-        _buildSnsLink(
-          icon: '/img/icon_sns_qiita.svg',
-          alt: 'Qiita',
-          url: 'https://qiita.com/${sns.qiita}',
-        ),
-      if (sns.zenn != null)
-        _buildSnsLink(
-          icon: '/img/icon_sns_zenn.svg',
-          alt: 'Zenn',
-          url: 'https://zenn.dev/${sns.zenn}',
-        ),
+      // if (sns.qiita != null)
+      //   _buildSnsLink(
+      //     icon: '/img/icon/qiita.svg',
+      //     alt: 'Qiita',
+      //     url: 'https://qiita.com/${sns.qiita}',
+      //   ),
+      // if (sns.zenn != null)
+      //   _buildSnsLink(
+      //     icon: '/img/icon_sns_zenn.svg',
+      //     alt: 'Zenn',
+      //     url: 'https://zenn.dev/${sns.zenn}',
+      //   ),
       if (sns.note != null)
         _buildSnsLink(
-          icon: '/img/icon_sns_note.svg',
+          icon: '/img/icon/note.svg',
           alt: 'note',
           url: 'https://note.com/${sns.note}',
         ),
       if (sns.website != null)
         _buildSnsLink(
-          icon: '/img/icon_website.svg',
+          icon: '/img/icon/link.svg',
           alt: 'Website',
           url: sns.website!,
         ),
