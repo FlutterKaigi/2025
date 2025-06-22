@@ -55,7 +55,7 @@ class CallForProposal extends StatelessComponent {
               styles: Styles(
                 display: Display.flex,
                 justifyContent: JustifyContent.center,
-                gap: Gap.all(1.rem),
+                gap: Gap(row: 2.rem, column: 1.rem),
                 flexWrap: FlexWrap.wrap,
                 listStyle: ListStyle.none,
                 padding: Spacing.zero,
