@@ -97,5 +97,12 @@ class _CountdownState extends State<CountdownView> {
         ),
       ],
     );
+    yield img(
+      src: '/img/flutterkaigi_dash.png',
+      alt: 'FlutterKaigi Dash',
+      styles: Styles(
+        height: 6.rem,
+      ),
+    );
   }
 }

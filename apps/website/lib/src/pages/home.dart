@@ -47,6 +47,7 @@ class Home extends StatelessComponent {
           title: 'Staffs',
           children: [Staff()],
         ),
+        CountdownView(),
       ],
     );
   }
@@ -185,15 +186,6 @@ class _MainArticle extends StatelessComponent {
               ],
             ),
           ],
-        ),
-        CountdownView(),
-        img(
-          src: '/img/flutterkaigi_dash.png',
-          alt: 'FlutterKaigi Dash',
-          styles: Styles(
-            height: 5.rem,
-            margin: Spacing.only(top: 2.rem),
-          ),
         ),
       ],
     );
