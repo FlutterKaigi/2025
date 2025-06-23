@@ -3,8 +3,10 @@ import 'package:flutterkaigi_2025_website/src/components/header.dart';
 import 'package:flutterkaigi_2025_website/src/config/config.dart'
     show makeTitle;
 import 'package:flutterkaigi_2025_website/src/pages/_404.dart';
+import 'package:flutterkaigi_2025_website/src/pages/call_for_proposal.dart';
 import 'package:flutterkaigi_2025_website/src/pages/dashsay.dart';
 import 'package:flutterkaigi_2025_website/src/pages/home.dart';
+import 'package:flutterkaigi_2025_website/src/pages/timeline.dart';
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_router/jaspr_router.dart';
 
@@ -27,6 +29,16 @@ class App extends StatelessComponent {
               path: '/',
               title: 'FlutterKaigi 2025',
               builder: (context, state) => const Home(),
+            ),
+            ..._createLanguageRoutes(
+              path: '/call-for-proposal',
+              title: 'Call for Proposal',
+              builder: (context, state) => const CallForProposal(),
+            ),
+            ..._createLanguageRoutes(
+              path: '/timeline',
+              title: 'Timeline',
+              builder: (context, state) => const Timeline(),
             ),
             ..._createLanguageRoutes(
               path: '/dashsay',
@@ -71,10 +83,24 @@ class _BasicLayout extends StatelessComponent {
         position: Position.sticky(top: 0.px),
         border: Border.only(
           bottom: BorderSide.solid(
-            color: const Color.variable('--border-color'),
+            color: const Color.rgba(255, 255, 255, 0.4),
             width: 1.px,
           ),
         ),
+        shadow: BoxShadow.combine([
+          BoxShadow(
+            offsetX: 0.px,
+            offsetY: (-8).px,
+            blur: 12.px,
+            color: const Color.rgba(0, 0, 0, 0.25),
+          ),
+        ]),
+        backgroundColor: const Color.rgba(255, 255, 255, 0.4),
+        raw: {
+          'box-shadow':
+              '0px -8px 12px rgba(0, 0, 0, 0.25), '
+              'inset 0px -8px 16px 0px rgba(0, 0, 0, 0.06)',
+        },
       ),
     );
     yield child;

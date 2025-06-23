@@ -1,7 +1,6 @@
 .PHONY: build
 build:
 	@jaspr build \
-		--experimental-wasm \
 		--verbose \
 		--optimize=4
 	@mkdir -p build/_404
