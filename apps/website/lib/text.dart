@@ -47,6 +47,10 @@ const contents = (
     ja: 'Day0 企画中！',
     en: 'Now planning Day0 :)',
   ),
+  applyFromHere: (
+    ja: '応募はこちらから',
+    en: 'Apply from here',
+  ),
   checkNews: (
     ja: '全てのお知らせを見る',
     en: 'See all news',
