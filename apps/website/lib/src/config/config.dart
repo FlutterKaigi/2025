@@ -932,4 +932,19 @@ const _staff = <StaffInfo>[
       website: null,
     ),
   ),
+  (
+    name: 'おはぎ(あきばこ)',
+    avatar: '/img/staff/a_key_bako.jpg',
+    comment: '',
+    sns: (
+      x: 'a_key_bako',
+      bluesky: null,
+      mixi2: null,
+      medium: null,
+      qiita: null,
+      zenn: null,
+      note: null,
+      website: null,
+    ),
+  ),
 ];
