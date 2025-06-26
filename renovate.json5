@@ -2,7 +2,7 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:base",
-    ":automergeMinor"
+    ":automergePatch"
   ],
   "timezone": "Asia/Tokyo",
   "schedule": [
@@ -11,7 +11,7 @@
   "dependencyDashboard": false,
   "prConcurrentLimit": 10,
   "labels": [
-    "dependencies"
+    "category/dependencies"
   ],
   "packageRules": [
     {
@@ -140,10 +140,8 @@
       // Supabase関連パッケージをグループ化
       "groupName": "supabase",
       "matchPackageNames": [
-        "supabase"
-      ],
-      "matchPackagePrefixes": [
-        "@supabase/"
+        "supabase",
+        "supabase_flutter"
       ],
       "matchManagers": [
         "pub"
