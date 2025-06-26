@@ -216,12 +216,20 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社出前館',
-    url: '',
+    url: 'https://recruit.demae-can.co.jp/',
     sns: (x: null),
-    pr: (ja: '', en: null),
+    pr: (
+      ja:
+          '出前館はクイックコマースサービスとして領域を拡大し、'
+          '当社のコーポレートミッション「テクノロジーで時間価値を高める」に基づき、'
+          '利用いただいた皆さまに対して“時間価値の最大化“を実現していきたいと考えています。\n'
+          '地域活性化とともに、少子高齢化や買い物難民の増加をはじめとした地域や社会課題の解決に向き合い、'
+          '社会にとって不可欠なライフインフラとして日本経済の発展に貢献できるサービスを目指して挑戦を続けています。',
+      en: null,
+    ),
     logo: '/img/sponsor/demae-can.png',
     type: SponsorType.platinum,
-    disable: true,
+    disable: false,
   ),
   (
     name: '株式会社アサイン',
