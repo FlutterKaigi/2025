@@ -315,12 +315,17 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: 'エムスリー株式会社',
-    url: '',
-    sns: (x: null),
-    pr: (ja: '', en: null),
+    url: 'https://jobs.m3.com/product/',
+    sns: (x: 'm3_engineering'),
+    pr: (
+      ja:
+          'エムスリーは"インターネットを活用し、健康で楽しく長生きする人を１人でも増やし、不必要な医療コストを１円でも減らすこと"をミッションに、'
+          'テクノロジーの力で日本および世界の医療の変革にチャレンジしています。',
+      en: null,
+    ),
     logo: '/img/sponsor/m3.png',
     type: SponsorType.silver,
-    disable: true,
+    disable: false,
   ),
   (
     name: "株式会社Linc'well",
