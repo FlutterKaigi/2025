@@ -8,7 +8,7 @@
   "schedule": [
     "after 7am on Monday and Thursday"
   ],
-  "dependencyDashboard": false,
+  "dependencyDashboard": true,
   "prConcurrentLimit": 10,
   "labels": [
     "category/dependencies"
