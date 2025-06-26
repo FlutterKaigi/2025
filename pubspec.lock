@@ -1366,13 +1366,12 @@ packages:
     source: hosted
     version: "1.4.0"
   universal_web:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
-      path: web
-      ref: "feat/web-1-1-1"
-      resolved-ref: "24dbef3a6719bac498b9f37a9a65fca2e5c3d1b1"
-      url: "https://github.com/parlough/universal_web.git"
-    source: git
+      name: universal_web
+      sha256: "045d5d5277f7dd3b6838b08098f5ec4cfb15b790c5d3deb8e79f642ae1af3ad2"
+      url: "https://pub.dev"
+    source: hosted
     version: "1.1.1"
   url_launcher:
     dependency: transitive
