@@ -496,7 +496,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社アイビス',
-    url: 'https://i-bis.jp/company/profile/',
+    url: 'https://i-bis.jp/',
     sns: (x: 'Ibis_official_'),
     pr: (
       ja:
