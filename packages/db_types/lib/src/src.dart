@@ -1,3 +1,4 @@
+export 'models/user_and_user_roles.dart';
 export 'tables/companies.dart';
 export 'tables/company_drafts.dart';
 export 'tables/company_invitation.dart';
