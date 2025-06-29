@@ -13,3 +13,7 @@ targets:
           ignore_for_file:
             - type=lint
             - duplicate_ignore
+      # https://github.com/FlutterGen/flutter_gen/#configuration-file
+      flutter_gen_runner:
+        options:
+          output: lib/core/assets/
