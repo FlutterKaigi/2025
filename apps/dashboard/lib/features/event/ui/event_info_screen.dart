@@ -15,14 +15,12 @@ class EventInfoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            _NotificationListTile(),
-            _EventInfoCard(),
-          ],
-        ),
+    return Scaffold(
+      body: ListView(
+        children: const [
+          _NotificationListTile(),
+          _EventInfoCard(),
+        ],
       ),
     );
   }
@@ -94,6 +92,7 @@ class _EventInfoCard extends StatelessWidget {
             subtitle: Text('東京都千代田区大手町二丁目3番1号'),
             dense: true,
           ),
+          const SizedBox(height: 20),
         ],
       ),
     );
