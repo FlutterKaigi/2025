@@ -1,4 +1,5 @@
 import 'package:dashboard/core/assets/assets.gen.dart';
+import 'package:dashboard/core/gen/l10n/l10n.dart';
 import 'package:dashboard/core/router/router.dart';
 import 'package:flutter/material.dart';
 
@@ -33,6 +34,7 @@ class _NotificationListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = L10n.of(context);
     return Ink(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -46,8 +48,8 @@ class _NotificationListTile extends StatelessWidget {
       ),
       child: ListTile(
         leading: const Icon(Icons.notifications_outlined),
-        title: const Text('最新のお知らせ'),
-        subtitle: const Text('最新のお知らせをご確認ください'),
+        title: Text(l10n.notificationTileTitle),
+        subtitle: Text(l10n.notificationTileSubtitle),
         trailing: const Icon(Icons.arrow_right),
         onTap: () async => const NewsRoute().go(context),
       ),
@@ -64,6 +66,7 @@ class _EventInfoCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
+    final l10n = L10n.of(context);
 
     return Card.outlined(
       margin: const EdgeInsets.all(16),
@@ -75,21 +78,21 @@ class _EventInfoCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Text(
-              '''2025年、日本国内で Flutter をメインに扱う技術カンファレンス。Flutter や Dart の深い知見を持つ開発者によるセッションを多数企画します。''',
+              l10n.eventDescription,
               style: textTheme.bodyMedium,
             ),
           ),
           const SizedBox(height: 8),
-          const ListTile(
-            leading: Icon(Icons.calendar_today),
-            title: Text('2025年11月13日(金)'),
-            subtitle: Text('10:00 ~ 19:00'),
+          ListTile(
+            leading: const Icon(Icons.calendar_today),
+            title: Text(l10n.eventDate),
+            subtitle: Text(l10n.eventTime),
             dense: true,
           ),
-          const ListTile(
-            leading: Icon(Icons.location_on),
-            title: Text('大手町プレイス ホール＆カンファレンス'),
-            subtitle: Text('東京都千代田区大手町二丁目3番1号'),
+          ListTile(
+            leading: const Icon(Icons.location_on),
+            title: Text(l10n.eventVenue),
+            subtitle: Text(l10n.eventAddress),
             dense: true,
           ),
           const SizedBox(height: 20),
