@@ -16,4 +16,4 @@ targets:
       # https://github.com/FlutterGen/flutter_gen/#configuration-file
       flutter_gen_runner:
         options:
-          output: lib/core/assets/
+          output: lib/core/gen/assets/

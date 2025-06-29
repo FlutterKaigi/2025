@@ -1,4 +1,4 @@
-import 'package:dashboard/core/assets/assets.gen.dart';
+import 'package:dashboard/core/gen/assets/assets.gen.dart';
 import 'package:dashboard/core/gen/l10n/l10n.dart';
 import 'package:dashboard/core/router/router.dart';
 import 'package:flutter/material.dart';
