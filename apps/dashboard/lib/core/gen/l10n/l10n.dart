@@ -120,7 +120,7 @@ abstract class L10n {
   /// No description provided for @eventTime.
   ///
   /// In ja, this message translates to:
-  /// **'10:00 ~ 19:00'**
+  /// **'10:00 ~ 18:00'**
   String get eventTime;
 
   /// No description provided for @eventVenue.

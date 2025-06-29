@@ -22,7 +22,7 @@ class L10nJa extends L10n {
   String get eventDate => '2025年11月13日(金)';
 
   @override
-  String get eventTime => '10:00 ~ 19:00';
+  String get eventTime => '10:00 ~ 18:00';
 
   @override
   String get eventVenue => '大手町プレイス ホール＆カンファレンス';
