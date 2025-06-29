@@ -73,7 +73,7 @@ class _EventInfoCard extends StatelessWidget {
       child: Column(
         children: [
           const SizedBox(height: 20),
-          Assets.logo.image(height: 126),
+          Assets.res.assets.logo.image(height: 126),
           const SizedBox(height: 20),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),

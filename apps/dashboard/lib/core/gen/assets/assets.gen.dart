@@ -9,13 +9,27 @@
 
 import 'package:flutter/widgets.dart';
 
+class $ResGen {
+  const $ResGen();
+
+  /// Directory path: res/assets
+  $ResAssetsGen get assets => const $ResAssetsGen();
+}
+
+class $ResAssetsGen {
+  const $ResAssetsGen();
+
+  /// File path: res/assets/logo.webp
+  AssetGenImage get logo => const AssetGenImage('res/assets/logo.webp');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [logo];
+}
+
 class Assets {
   const Assets._();
 
-  static const AssetGenImage logo = AssetGenImage('assets/logo.webp');
-
-  /// List of all assets
-  static List<AssetGenImage> get values => [logo];
+  static const $ResGen res = $ResGen();
 }
 
 class AssetGenImage {
