@@ -18,15 +18,12 @@
 | A-URVN | - | 招待コード入力画面 | InvitationCodeScreen | Flutter | Push |
 | A-KYSD | - | アカウント作成エラーダイアログ | AccountCreationErrorDialog | Flutter | Dialog |
 | D-HTFA | メイン | メイン画面 | MainScreen | Flutter | Replace |
-| E-NSQJ | イベント | イベントタブ画面 | EventTabScreen | Flutter | Tab |
-| E-INFO | - | イベント情報画面 | EventInfoScreen | Flutter | - |
+| E-INFO | イベント | イベント情報画面 | EventInfoScreen | Flutter | - |
 | E-GLMB | - | お知らせ画面 | NewsScreen | Flutter | Push |
-| S-LKQZ | スポンサー | スポンサータブ画面 | SponsorTabScreen | Flutter | Tab |
-| S-LIST | - | スポンサー一覧画面 | SponsorListScreen | Flutter | - |
-| S-DETAIL | - | スポンサー詳細画面 | SponsorDetailScreen | Flutter | Push |
+| S-LIST | スポンサー | スポンサー一覧画面 | SponsorListScreen | Flutter | - |
+| S-DETA | - | スポンサー詳細画面 | SponsorDetailScreen | Flutter | Push |
 | S-YTRO | - | スポンサー編集画面 | SponsorEditScreen | Flutter | Modal |
-| K-EMQY | アカウント | アカウントタブ画面 | AccountTabScreen | Flutter | Tab |
-| K-INFO | - | アカウント情報画面 | AccountInfoScreen | Flutter | - |
+| K-INFO | アカウント | アカウント情報画面 | AccountInfoScreen | Flutter | - |
 | K-OVJL | - | プロフィール編集画面 | ProfileEditScreen | Flutter | Modal |
 | K-XRPU | - | 退会申請画面 | WithdrawalScreen | Flutter | Modal |
 <!-- dprint-ignore-end -->

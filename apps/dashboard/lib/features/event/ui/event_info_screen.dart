@@ -1,3 +1,5 @@
+import 'package:dashboard/core/gen/assets/assets.gen.dart';
+import 'package:dashboard/core/gen/l10n/l10n.dart';
 import 'package:dashboard/core/router/router.dart';
 import 'package:flutter/material.dart';
 
@@ -15,11 +17,86 @@ class EventInfoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: FilledButton(
-          onPressed: () async => const NewsRoute().go(context),
-          child: const Text('ニュース画面へ'),
+      body: ListView(
+        children: const [
+          _NotificationListTile(),
+          _EventInfoCard(),
+        ],
+      ),
+    );
+  }
+}
+
+class _NotificationListTile extends StatelessWidget {
+  const _NotificationListTile({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = L10n.of(context);
+    return Ink(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            Color(0xFFE50632),
+            Color(0xFF822FE0),
+            Color(0xFF007AFF),
+          ],
+          stops: [0.04, 0.5, 0.95],
         ),
+      ),
+      child: ListTile(
+        leading: const Icon(Icons.notifications_outlined),
+        title: Text(l10n.notificationTileTitle),
+        subtitle: Text(l10n.notificationTileSubtitle),
+        trailing: const Icon(Icons.arrow_right),
+        onTap: () async => const NewsRoute().go(context),
+      ),
+    );
+  }
+}
+
+class _EventInfoCard extends StatelessWidget {
+  const _EventInfoCard({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
+    final l10n = L10n.of(context);
+
+    return Card.outlined(
+      margin: const EdgeInsets.all(16),
+      child: Column(
+        children: [
+          const SizedBox(height: 20),
+          Assets.res.assets.logo.image(height: 126),
+          const SizedBox(height: 20),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Text(
+              l10n.eventDescription,
+              style: textTheme.bodyMedium,
+            ),
+          ),
+          const SizedBox(height: 8),
+          ListTile(
+            leading: const Icon(Icons.calendar_today),
+            title: Text(l10n.eventDate),
+            subtitle: Text(l10n.eventTime),
+            dense: true,
+          ),
+          ListTile(
+            leading: const Icon(Icons.location_on),
+            title: Text(l10n.eventVenue),
+            subtitle: Text(l10n.eventAddress),
+            dense: true,
+          ),
+          const SizedBox(height: 20),
+        ],
       ),
     );
   }
