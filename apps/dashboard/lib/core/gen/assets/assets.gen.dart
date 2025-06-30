@@ -19,11 +19,15 @@ class $ResGen {
 class $ResAssetsGen {
   const $ResAssetsGen();
 
+  /// File path: res/assets/google_sign_in_button.webp
+  AssetGenImage get googleSignInButton =>
+      const AssetGenImage('res/assets/google_sign_in_button.webp');
+
   /// File path: res/assets/logo.webp
   AssetGenImage get logo => const AssetGenImage('res/assets/logo.webp');
 
   /// List of all assets
-  List<AssetGenImage> get values => [logo];
+  List<AssetGenImage> get values => [googleSignInButton, logo];
 }
 
 class Assets {

@@ -1,3 +1,4 @@
+import 'package:dashboard/core/gen/assets/assets.gen.dart';
 import 'package:dashboard/features/auth/data/notifier/auth_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -78,10 +79,15 @@ class _GoogleSignInButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FilledButton.icon(
-      icon: const Icon(Icons.account_circle),
-      label: const Text('Googleでログイン'),
-      onPressed: onPressed,
+    return Ink.image(
+      width: 210,
+      height: 48,
+      image: Assets.res.assets.googleSignInButton.provider(),
+      fit: BoxFit.contain,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(40),
+        onTap: onPressed,
+      ),
     );
   }
 }
