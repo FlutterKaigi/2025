@@ -31,7 +31,10 @@ melos:
         sdk: ^3.9.0-100.2.beta
         flutter: ^3.33.0-0.1.pre
       dependencies:
+        flutter_localizations:
+          sdk: flutter
         go_router: ^15.1.2
+        intl: ^0.20.2
       dev_dependencies:
         altive_lints: ^1.19.1
         build_runner: ^2.4.15

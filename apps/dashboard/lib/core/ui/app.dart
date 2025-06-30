@@ -1,4 +1,5 @@
 import 'package:dashboard/core/designsystem/theme/theme.dart';
+import 'package:dashboard/core/gen/l10n/l10n.dart';
 import 'package:dashboard/core/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -14,6 +15,8 @@ class App extends ConsumerWidget {
       routerConfig: router,
       darkTheme: darkTheme(),
       themeMode: ThemeMode.dark,
+      localizationsDelegates: L10n.localizationsDelegates,
+      supportedLocales: L10n.supportedLocales,
     );
   }
 }
