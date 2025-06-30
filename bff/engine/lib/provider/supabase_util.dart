@@ -1,18 +1,9 @@
 import 'dart:io';
 
+import 'package:dart_frog/dart_frog.dart';
 import 'package:db_types/db_types.dart';
-import 'package:engine/provider/supabase_client.dart';
 import 'package:engine/util/result.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:shelf/shelf.dart';
 import 'package:supabase/supabase.dart';
-
-part 'supabase_util.g.dart';
-
-@Riverpod(keepAlive: true)
-SupabaseUtil supabaseUtil(Ref ref) {
-  return SupabaseUtil(supabaseClient: ref.watch(supabaseClientProvider));
-}
 
 class SupabaseUtil {
   SupabaseUtil({required SupabaseClient supabaseClient})

@@ -1,0 +1,17 @@
+[tools]
+dart = "3.9.0-100.2.beta"
+
+[tasks.build]
+description = "Build the Dart application"
+run = [
+  'dart pub get',
+  'dart compile exe main.dart -o build/main'
+]
+
+[tasks.dev]
+description = "Run the development server"
+run = 'dart_frog dev'
+
+[tasks.test]
+description = "Run tests"
+run = 'dart test'
