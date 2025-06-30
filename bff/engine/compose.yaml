@@ -9,12 +9,6 @@ services:
       - SUPABASE_URL=${SUPABASE_URL:-https://default-url.supabase.co}
       - SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY:-default-key}
       - PORT=8080
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 10s
     restart: unless-stopped
     
   # Optional: Add a reverse proxy for production
@@ -26,8 +20,13 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
-      bff-engine:
-        condition: service_healthy
+      - bff-engine
     restart: unless-stopped
     profiles:
       - production
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://bff-engine:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s

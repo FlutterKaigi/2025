@@ -1,7 +1,7 @@
 # Use the official Dart image as the base
-FROM dart:3.9.0-beta as builder
+FROM dart:stable AS build
 
-# Install curl for downloading mise
+# Install curl for downloading mise (needed for builder stage)
 RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
 
 # Install mise
@@ -14,47 +14,38 @@ WORKDIR /app
 # Copy mise configuration
 COPY mise.toml .
 
-# Install tools defined in mise.toml
+# Install tools defined in mise.toml (just dart for now)
 RUN mise install
+
+# Copy pubspec files first for dependency resolution
+COPY pubspec.* ./
+RUN dart pub get
 
 # Copy the entire project
 COPY . .
 
-# Get dependencies
-RUN dart pub get
+# Install dart_frog CLI globally
+RUN dart pub global activate dart_frog_cli
 
-# Build the application
-RUN dart compile exe main.dart -o build/main
+# Generate a production build using dart_frog
+RUN dart pub global run dart_frog_cli:dart_frog build
 
-# Create a minimal runtime image
-FROM debian:12-slim
+# Ensure packages are still up-to-date
+RUN dart pub get --offline
 
-# Install OpenSSL for secure HTTP requests
-RUN apt-get update && apt-get install -y \
-    ca-certificates \
-    && rm -rf /var/lib/apt/lists/*
+# Compile the server to an executable
+RUN dart compile exe build/bin/server.dart -o build/bin/server
 
-# Create a non-root user
-RUN useradd -m -s /bin/bash appuser
+# Build minimal serving image from AOT-compiled `/server` and required system
+# libraries and configuration files stored in `/runtime/` from the build stage.
+FROM scratch
 
-# Set working directory
-WORKDIR /app
-
-# Copy the compiled binary from builder
-COPY --from=builder /app/build/main /app/main
-
-# Change ownership to appuser
-RUN chown -R appuser:appuser /app
-
-# Switch to non-root user
-USER appuser
+# Copy the runtime and the compiled server
+COPY --from=build /runtime/ /
+COPY --from=build /app/build/bin/server /app/bin/server
 
 # Expose port
 EXPOSE 8080
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-  CMD curl -f http://localhost:8080/health || exit 1
-
-# Run the application
-CMD ["./main"]
+# Start the server
+CMD ["/app/bin/server"]

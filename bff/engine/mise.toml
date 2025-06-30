@@ -1,11 +1,13 @@
 [tools]
-dart = "3.9.0-100.2.beta"
+dart = "stable"
 
 [tasks.build]
-description = "Build the Dart application"
+description = "Build the Dart Frog application"
 run = [
   'dart pub get',
-  'dart compile exe main.dart -o build/main'
+  'dart pub global activate dart_frog_cli',
+  'dart pub global run dart_frog_cli:dart_frog build',
+  'dart compile exe build/bin/server.dart -o build/bin/server'
 ]
 
 [tasks.dev]
