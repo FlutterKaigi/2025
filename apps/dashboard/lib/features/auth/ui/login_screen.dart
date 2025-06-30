@@ -1,4 +1,5 @@
 import 'package:dashboard/core/gen/assets/assets.gen.dart';
+import 'package:dashboard/core/gen/l10n/l10n.dart';
 import 'package:dashboard/features/auth/data/notifier/auth_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -17,6 +18,7 @@ class LoginScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final l10n = L10n.of(context);
 
     return Scaffold(
       body: SafeArea(
@@ -35,7 +37,7 @@ class LoginScreen extends ConsumerWidget {
                       fit: BoxFit.fitHeight,
                     ),
                     Text(
-                      'FlutterKaigi 2025 Dashboard',
+                      l10n.appName,
                       style: theme.textTheme.titleMedium,
                     ),
                     _GoogleSignInButton(

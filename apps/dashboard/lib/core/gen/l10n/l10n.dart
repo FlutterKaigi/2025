@@ -93,6 +93,12 @@ abstract class L10n {
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[Locale('ja')];
 
+  /// No description provided for @appName.
+  ///
+  /// In ja, this message translates to:
+  /// **'FlutterKaigi 2025 Dashboard'**
+  String get appName;
+
   /// No description provided for @notificationTileTitle.
   ///
   /// In ja, this message translates to:
