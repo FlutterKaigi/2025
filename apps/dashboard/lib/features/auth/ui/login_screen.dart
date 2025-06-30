@@ -17,51 +17,33 @@ class LoginScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
 
     return Scaffold(
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(48),
-              child: Card(
-                color: colorScheme.primaryContainer,
-                elevation: 4,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(32),
-                  child: DefaultTextStyle(
-                    style: TextStyle(color: colorScheme.onPrimaryContainer),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      spacing: 8,
-                      children: [
-                        // ロゴやタイトル
-                        Icon(
-                          Icons.flutter_dash,
-                          size: 120,
-                          color: colorScheme.onPrimaryContainer,
-                        ),
-                        Text(
-                          'FlutterKaigi 2025 Dashboard',
-                          style: theme.textTheme.headlineMedium?.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: colorScheme.onPrimaryContainer,
-                          ),
-                        ),
-                        // Googleログインボタン
-                        _GoogleSignInButton(
-                          onPressed: () async => ref
-                              .read(authNotifierProvider.notifier)
-                              .signInWithGoogle(),
-                        ),
-                      ],
+            child: Card.outlined(
+              child: Padding(
+                padding: const EdgeInsets.all(36),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  spacing: 24,
+                  children: [
+                    Assets.res.assets.logo.image(
+                      height: 160,
+                      fit: BoxFit.fitHeight,
                     ),
-                  ),
+                    Text(
+                      'FlutterKaigi 2025 Dashboard',
+                      style: theme.textTheme.titleMedium,
+                    ),
+                    _GoogleSignInButton(
+                      onPressed: () async => ref
+                          .read(authNotifierProvider.notifier)
+                          .signInWithGoogle(),
+                    ),
+                  ],
                 ),
               ),
             ),
