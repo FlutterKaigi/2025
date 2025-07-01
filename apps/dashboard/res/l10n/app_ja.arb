@@ -1,5 +1,7 @@
 {
   "@@locale": "ja",
+  "appName": "FlutterKaigi 2025 Dashboard",
+  "@appName": {},
   "notificationTileTitle": "最新のお知らせ",
   "@notificationTileTitle": {},
   "notificationTileSubtitle": "最新のお知らせをご確認ください",
