@@ -81,14 +81,14 @@ as DateTime?,
 
 
 class _News implements News {
-  const _News({required this.id, required this.text, required this.url, required this.startedAt, required this.endedAt});
+  const _News({required this.id, required this.text, required this.url, required this.startedAt, this.endedAt = null});
   
 
 @override final  int id;
 @override final  String text;
 @override final  Uri url;
 @override final  DateTime startedAt;
-@override final  DateTime? endedAt;
+@override@JsonKey() final  DateTime? endedAt;
 
 /// Create a copy of News
 /// with the given fields replaced by the non-null parameter values.
