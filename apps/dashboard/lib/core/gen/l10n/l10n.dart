@@ -99,17 +99,17 @@ abstract class L10n {
   /// **'FlutterKaigi 2025 Dashboard'**
   String get appName;
 
-  /// No description provided for @notificationTileTitle.
+  /// No description provided for @newsTileTitle.
   ///
   /// In ja, this message translates to:
   /// **'最新のお知らせ'**
-  String get notificationTileTitle;
+  String get newsTileTitle;
 
-  /// No description provided for @notificationTileSubtitle.
+  /// No description provided for @newsTileSubtitle.
   ///
   /// In ja, this message translates to:
   /// **'最新のお知らせをご確認ください'**
-  String get notificationTileSubtitle;
+  String get newsTileSubtitle;
 
   /// No description provided for @newsScreenTitle.
   ///
