@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:bff_client/bff_client.dart';
+import 'package:db_client/db_client.dart';
 import 'package:engine/provider/supabase_util.dart';
 import 'package:engine/util/json_response.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shelf/shelf.dart';
 import 'package:supabase/supabase.dart';
 
@@ -20,6 +22,27 @@ Future<Response> exceptionHandler(Future<Response> Function() fn) async {
       ).toJson(),
       HttpStatus.unauthorized,
     );
+  } on CheckedFromJsonException catch (e) {
+    return jsonResponse(
+      () async =>
+          ErrorResponse.errorCode(
+            code: ErrorCode.internalServerError,
+            detail: 'JSONのデコード中にエラーが発生しました: ${e.key}, ${e.message}',
+          ).toJson(),
+      HttpStatus.internalServerError,
+    );
+  } on PgResultError catch (e) {
+    print('error: ${e.error}');
+    return jsonResponse(() async {
+      // See: https://www.postgresql.jp/document/16/html/errcodes-appendix.html
+      final postgresErrorCode = e.error['code'] ?? '';
+      return ErrorResponse.errorCode(
+        code: ErrorCode.internalServerError,
+        detail: 'データベースとの通信中にエラーが発生しました: $postgresErrorCode',
+      ).toJson();
+    }, HttpStatus.internalServerError);
+  } on ErrorResponse catch (e) {
+    return jsonResponse(() async => e.toJson(), e.code.statusCode);
   } on PostgrestException catch (e) {
     return jsonResponse(
       () async => ErrorResponse.errorCode(
@@ -31,6 +54,7 @@ Future<Response> exceptionHandler(Future<Response> Function() fn) async {
       HttpStatus.internalServerError,
     );
   } on Exception catch (e) {
+    print(e);
     return jsonResponse(
       () async => ErrorResponse.errorCode(
         code: ErrorCode.internalServerError,
@@ -44,6 +68,11 @@ Future<Response> exceptionHandler(Future<Response> Function() fn) async {
   // そのため、ここでハンドリングしています。詳しい条件等は調査中です。
   // ignore: avoid_catching_errors
   on Error catch (e) {
+    if (e is StateError) {
+      print('error: ${e.message}');
+    }
+    print('error: $e');
+    print('stackTrace: ${e.stackTrace}');
     return jsonResponse(
       () async => ErrorResponse.errorCode(
         code: ErrorCode.internalServerError,
