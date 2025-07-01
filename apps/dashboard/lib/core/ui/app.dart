@@ -1,3 +1,5 @@
+import 'package:dashboard/core/designsystem/theme/theme.dart';
+import 'package:dashboard/core/gen/l10n/l10n.dart';
 import 'package:dashboard/core/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -11,10 +13,10 @@ class App extends ConsumerWidget {
 
     return MaterialApp.router(
       routerConfig: router,
-      darkTheme: ThemeData.dark(useMaterial3: true).copyWith(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
-      ),
+      darkTheme: darkTheme(),
       themeMode: ThemeMode.dark,
+      localizationsDelegates: L10n.localizationsDelegates,
+      supportedLocales: L10n.supportedLocales,
     );
   }
 }

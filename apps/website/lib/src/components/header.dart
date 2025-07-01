@@ -18,7 +18,10 @@ class Header extends StatelessComponent {
       flexDirection: FlexDirection.row,
       justifyContent: JustifyContent.spaceBetween,
       alignItems: AlignItems.center,
-      raw: {'backdrop-filter': 'blur(10px)'},
+      raw: {
+        'backdrop-filter': 'blur(10px)',
+        '-webkit-backdrop-filter': 'blur(10px)',
+      },
     );
     final combined = styles?.combine(baseStyles) ?? baseStyles;
 
