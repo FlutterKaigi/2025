@@ -1,4 +1,12 @@
+import 'dart:async';
+
+import 'package:dashboard/core/gen/l10n/l10n.dart';
+import 'package:dashboard/features/news/data/news.dart';
+import 'package:dashboard/features/news/data/news_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 /// お知らせ画面
 ///
@@ -13,15 +21,62 @@ class NewsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = L10n.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('News'),
+        title: Text(l10n.newsScreenTitle),
       ),
-      body: const Center(
-        child: Text(
-          'NewsScreen',
-        ),
+      body: const _NewsList(),
+    );
+  }
+}
+
+class _NewsList extends ConsumerWidget {
+  const _NewsList();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final news = ref.watch(newsProvider);
+    return switch (news) {
+      AsyncData(:final value) => ListView.separated(
+        itemCount: value.length,
+        itemBuilder: (context, index) {
+          final news = value[index];
+          return _NewsListItem(news: news);
+        },
+        separatorBuilder: (context, index) {
+          return const Divider(
+            height: 1,
+          );
+        },
       ),
+      AsyncLoading() => const Center(child: CircularProgressIndicator()),
+      AsyncError(:final error) => Center(child: Text(error.toString())),
+    };
+  }
+}
+
+final _dateFormatter = DateFormat.yMMMMd('ja_JP');
+
+class _NewsListItem extends StatelessWidget {
+  const _NewsListItem({required this.news});
+
+  final News news;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(news.text),
+      subtitle: Text(_dateFormatter.format(news.startedAt)),
+      trailing: const Icon(Icons.open_in_new),
+      onTap: () {
+        unawaited(
+          launchUrl(
+            news.url,
+            mode: LaunchMode.externalApplication,
+          ),
+        );
+      },
     );
   }
 }
