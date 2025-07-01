@@ -17,6 +17,12 @@
       "addWords": true,
     },
     {
+      "name": "cloudflare-term",
+      "description": "Cloudflare related terms",
+      "path": "./.cspell/cloudflare-term.txt",
+      "addWords": true,
+    },
+    {
       "name": "dprint-term",
       "description": "dprint related terms",
       "path": "./.cspell/dprint-term.txt",
@@ -67,6 +73,7 @@
   ],
   "dictionaries": [
     "bun-term",
+    "cloudflare-term",
     "dart-term",
     "dprint-term",
     "flutter-term",
