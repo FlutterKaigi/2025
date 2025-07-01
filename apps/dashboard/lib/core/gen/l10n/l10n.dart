@@ -111,6 +111,12 @@ abstract class L10n {
   /// **'最新のお知らせをご確認ください'**
   String get notificationTileSubtitle;
 
+  /// No description provided for @newsScreenTitle.
+  ///
+  /// In ja, this message translates to:
+  /// **'お知らせ'**
+  String get newsScreenTitle;
+
   /// No description provided for @eventDescription.
   ///
   /// In ja, this message translates to:

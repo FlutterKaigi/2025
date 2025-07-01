@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dashboard/core/gen/l10n/l10n.dart';
 import 'package:dashboard/features/news/data/news.dart';
 import 'package:dashboard/features/news/data/news_provider.dart';
 import 'package:flutter/material.dart';
@@ -20,9 +21,10 @@ class NewsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = L10n.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('お知らせ'),
+        title: Text(l10n.newsScreenTitle),
       ),
       body: const _NewsList(),
     );

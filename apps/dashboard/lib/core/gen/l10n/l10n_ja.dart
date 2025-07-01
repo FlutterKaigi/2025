@@ -18,6 +18,9 @@ class L10nJa extends L10n {
   String get notificationTileSubtitle => '最新のお知らせをご確認ください';
 
   @override
+  String get newsScreenTitle => 'お知らせ';
+
+  @override
   String get eventDescription =>
       '2025年、日本国内で Flutter をメインに扱う技術カンファレンス。Flutter や Dart の深い知見を持つ開発者によるセッションを多数企画します。';
 
