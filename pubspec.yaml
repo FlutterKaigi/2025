@@ -37,6 +37,7 @@ melos:
           sdk: flutter
         go_router: ^15.1.2
         intl: ^0.20.2
+        url_launcher: ^6.3.1
       dev_dependencies:
         altive_lints: ^1.19.1
         build_runner: ^2.4.15
