@@ -37,11 +37,17 @@ jobs:
     if: ${{ needs.changes.outputs.style-dprint == 'true' }}
     uses: ./.github/workflows/wc-check-style-dprint.yaml
 
+  test-bff:
+    needs: changes
+    if: ${{ contains(github.event.pull_request.changed_files, 'bff/') || contains(github.event.pull_request.changed_files, 'packages/bff_client/') || contains(github.event.pull_request.changed_files, 'packages/db_types/') }}
+    uses: ./.github/workflows/test-bff.yaml
+
   status-check:
     runs-on: ubuntu-24.04
     needs:
       - check-spell
       - check-style-dprint
+      - test-bff
     permissions: {}
     if: failure()
     steps:
