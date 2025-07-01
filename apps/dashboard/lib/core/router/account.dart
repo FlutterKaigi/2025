@@ -26,7 +26,10 @@ class AccountInfoRoute extends GoRouteData {
 
   @override
   Widget build(BuildContext context, GoRouterState state) =>
-      const AccountInfoScreen();
+      AccountInfoScreen(
+        onProfileEdit: () => const ProfileEditRoute().go(context),
+        onWithdrawal: () => const WithdrawalRoute().go(context),
+      );
 }
 
 class ProfileEditRoute extends GoRouteData {

@@ -9,6 +9,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "80.0.0"
+  accessibility_tools:
+    dependency: transitive
+    description:
+      name: accessibility_tools
+      sha256: aaa782bf794d823f371f45d232efe8605cffe081c34a1d83fe4db491ddbba0c7
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.6.0"
   altive_lints:
     dependency: transitive
     description:
@@ -401,6 +409,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  device_frame_plus:
+    dependency: transitive
+    description:
+      name: device_frame_plus
+      sha256: ccc94abccd4d9f0a9f19ef239001b3a59896e678ad42601371d7065889f2bf78
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.5.0"
   dio:
     dependency: transitive
     description:
@@ -661,6 +677,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.4.0"
+  inspector:
+    dependency: transitive
+    description:
+      name: inspector
+      sha256: "4df4a50b36975550ecd76dc30720ffe03ecb8003f594e3e0b2d34916735094d2"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.0"
   intl:
     dependency: transitive
     description:
@@ -845,6 +869,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.0"
+  nested:
+    dependency: transitive
+    description:
+      name: nested
+      sha256: "03bac4c528c64c95c722ec99280375a6f2fc708eec17c7b3f07253b626cd2a20"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   node_preamble:
     dependency: transitive
     description:
@@ -1029,6 +1061,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.5.0"
+  resizable_widget:
+    dependency: transitive
+    description:
+      name: resizable_widget
+      sha256: db2919754b93f386b9b3fb15e9f48f6c9d6d41f00a24397629133c99df86606a
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.5"
   retrofit:
     dependency: transitive
     description:
@@ -1594,6 +1634,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.1"
+  widgetbook:
+    dependency: transitive
+    description:
+      name: widgetbook
+      sha256: a9d58080174ba5666e8515311b4c952ba02ddcb5cc9d9db244d0aac447988052
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.14.3"
+  widgetbook_annotation:
+    dependency: transitive
+    description:
+      name: widgetbook_annotation
+      sha256: "41662c48c2a0e82cac676a83727203d863621a5f6fb2505395287b8789afdf38"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.5.0"
+  widgetbook_generator:
+    dependency: transitive
+    description:
+      name: widgetbook_generator
+      sha256: "38320c313a425e5a354bfdf6d2922efd69b5c3e9c0bf414d3ba7f947c303448a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.13.0"
   win32:
     dependency: transitive
     description:
