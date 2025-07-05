@@ -21,6 +21,8 @@ Future<List<Sponsor>> sponsors(Ref ref) async {
         logoUrl: Uri.parse(
           'https://picsum.photos/seed/platinum"+i.toString()+"/200',
         ),
+        description: faker.lorem.sentences(2).join(' '),
+        websiteUrl: Uri.parse('https://2025.flutterkaigi.jp'),
       ),
     ),
   );
@@ -35,6 +37,8 @@ Future<List<Sponsor>> sponsors(Ref ref) async {
         logoUrl: Uri.parse(
           'https://picsum.photos/seed/gold"+i.toString()+"/200',
         ),
+        description: faker.lorem.sentences(2).join(' '),
+        websiteUrl: Uri.parse('https://2025.flutterkaigi.jp'),
       ),
     ),
   );
@@ -49,6 +53,8 @@ Future<List<Sponsor>> sponsors(Ref ref) async {
         logoUrl: Uri.parse(
           'https://picsum.photos/seed/silver"+i.toString()+"/200',
         ),
+        description: faker.lorem.sentences(2).join(' '),
+        websiteUrl: Uri.parse('https://2025.flutterkaigi.jp'),
       ),
     ),
   );
@@ -63,6 +69,8 @@ Future<List<Sponsor>> sponsors(Ref ref) async {
         logoUrl: Uri.parse(
           'https://picsum.photos/seed/bronze"+i.toString()+"/200',
         ),
+        description: faker.lorem.sentences(2).join(' '),
+        websiteUrl: Uri.parse('https://2025.flutterkaigi.jp'),
       ),
     ),
   );
@@ -77,6 +85,8 @@ Future<List<Sponsor>> sponsors(Ref ref) async {
         logoUrl: Uri.parse(
           'https://picsum.photos/seed/other"+i.toString()+"/200',
         ),
+        description: faker.lorem.sentences(2).join(' '),
+        websiteUrl: Uri.parse('https://2025.flutterkaigi.jp'),
       ),
     ),
   );
@@ -91,6 +101,8 @@ Future<List<Sponsor>> sponsors(Ref ref) async {
         logoUrl: Uri.parse(
           'https://picsum.photos/seed/individual"+i.toString()+"/200',
         ),
+        enthusiasm: faker.lorem.words(3).join(' '),
+        websiteUrl: Uri.parse('https://2025.flutterkaigi.jp'),
       ),
     ),
   );
