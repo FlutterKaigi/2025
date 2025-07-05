@@ -1,3 +1,6 @@
+import 'package:flutter/foundation.dart';
+
+@immutable
 sealed class Sponsor {
   const Sponsor({
     required this.id,
@@ -9,9 +12,25 @@ sealed class Sponsor {
   final String id;
   final String name;
   final String slug;
-  final String logoUrl;
+  final Uri logoUrl;
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    return other is Sponsor &&
+        id == other.id &&
+        name == other.name &&
+        slug == other.slug &&
+        logoUrl == other.logoUrl;
+  }
+
+  @override
+  int get hashCode => Object.hash(id, name, slug, logoUrl);
 }
 
+@immutable
 sealed class CompanySponsor extends Sponsor {
   const CompanySponsor({
     required super.id,
@@ -19,38 +38,114 @@ sealed class CompanySponsor extends Sponsor {
     required super.slug,
     required super.logoUrl,
   });
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    return other is CompanySponsor &&
+        id == other.id &&
+        name == other.name &&
+        slug == other.slug &&
+        logoUrl == other.logoUrl;
+  }
+
+  @override
+  int get hashCode => Object.hash(id, name, slug, logoUrl);
 }
 
+@immutable
 sealed class NamingRight {
   const NamingRight();
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    return other is NamingRight;
+  }
+
+  @override
+  int get hashCode => identityHashCode(this);
 }
 
+@immutable
 final class NotAppliedNamingRight extends NamingRight {
   const NotAppliedNamingRight();
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    return other is NotAppliedNamingRight;
+  }
+
+  @override
+  int get hashCode => identityHashCode(this);
 }
 
+@immutable
 sealed class AppliedNamingRight extends NamingRight {
   const AppliedNamingRight({
     required this.name,
   });
 
   final String name;
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    return other is AppliedNamingRight && name == other.name;
+  }
+
+  @override
+  int get hashCode => name.hashCode;
 }
 
+@immutable
 final class HallNamingRight extends AppliedNamingRight {
   const HallNamingRight({
     required super.name,
   });
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    return other is HallNamingRight && name == other.name;
+  }
+
+  @override
+  int get hashCode => name.hashCode;
 }
 
+@immutable
 final class RoomNamingRight extends AppliedNamingRight {
   const RoomNamingRight({
     required super.name,
   });
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    return other is RoomNamingRight && name == other.name;
+  }
+
+  @override
+  int get hashCode => name.hashCode;
 }
 
+@immutable
 final class PlatinumSponsor extends CompanySponsor {
-  PlatinumSponsor({
+  const PlatinumSponsor({
     required super.id,
     required super.name,
     required super.slug,
@@ -63,10 +158,30 @@ final class PlatinumSponsor extends CompanySponsor {
   final NamingRight namingRight;
   final bool namePlate;
   final bool scholarship;
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    return other is PlatinumSponsor &&
+        id == other.id &&
+        name == other.name &&
+        slug == other.slug &&
+        logoUrl == other.logoUrl &&
+        namingRight == other.namingRight &&
+        namePlate == other.namePlate &&
+        scholarship == other.scholarship;
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(id, name, slug, logoUrl, namingRight, namePlate, scholarship);
 }
 
+@immutable
 final class GoldSponsor extends CompanySponsor {
-  GoldSponsor({
+  const GoldSponsor({
     required super.id,
     required super.name,
     required super.slug,
@@ -79,10 +194,30 @@ final class GoldSponsor extends CompanySponsor {
   final NamingRight? namingRight;
   final bool namePlate;
   final bool scholarship;
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    return other is GoldSponsor &&
+        id == other.id &&
+        name == other.name &&
+        slug == other.slug &&
+        logoUrl == other.logoUrl &&
+        namingRight == other.namingRight &&
+        namePlate == other.namePlate &&
+        scholarship == other.scholarship;
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(id, name, slug, logoUrl, namingRight, namePlate, scholarship);
 }
 
+@immutable
 final class SilverSponsor extends CompanySponsor {
-  SilverSponsor({
+  const SilverSponsor({
     required super.id,
     required super.name,
     required super.slug,
@@ -97,10 +232,39 @@ final class SilverSponsor extends CompanySponsor {
   final bool namePlate;
   final bool lunchSponsor;
   final bool scholarship;
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    return other is SilverSponsor &&
+        id == other.id &&
+        name == other.name &&
+        slug == other.slug &&
+        logoUrl == other.logoUrl &&
+        namingRight == other.namingRight &&
+        namePlate == other.namePlate &&
+        lunchSponsor == other.lunchSponsor &&
+        scholarship == other.scholarship;
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    name,
+    slug,
+    logoUrl,
+    namingRight,
+    namePlate,
+    lunchSponsor,
+    scholarship,
+  );
 }
 
+@immutable
 final class BronzeSponsor extends CompanySponsor {
-  BronzeSponsor({
+  const BronzeSponsor({
     required super.id,
     required super.name,
     required super.slug,
@@ -113,10 +277,37 @@ final class BronzeSponsor extends CompanySponsor {
   final bool namePlate;
   final bool lunchSponsor;
   final bool scholarship;
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    return other is BronzeSponsor &&
+        id == other.id &&
+        name == other.name &&
+        slug == other.slug &&
+        logoUrl == other.logoUrl &&
+        namePlate == other.namePlate &&
+        lunchSponsor == other.lunchSponsor &&
+        scholarship == other.scholarship;
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    name,
+    slug,
+    logoUrl,
+    namePlate,
+    lunchSponsor,
+    scholarship,
+  );
 }
 
+@immutable
 final class OtherSponsor extends CompanySponsor {
-  OtherSponsor({
+  const OtherSponsor({
     required super.id,
     required super.name,
     required super.slug,
@@ -125,13 +316,45 @@ final class OtherSponsor extends CompanySponsor {
   });
 
   final bool scholarship;
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    return other is OtherSponsor &&
+        id == other.id &&
+        name == other.name &&
+        slug == other.slug &&
+        logoUrl == other.logoUrl &&
+        scholarship == other.scholarship;
+  }
+
+  @override
+  int get hashCode => Object.hash(id, name, slug, logoUrl, scholarship);
 }
 
+@immutable
 final class IndividualSponsor extends Sponsor {
-  IndividualSponsor({
+  const IndividualSponsor({
     required super.id,
     required super.name,
     required super.slug,
     required super.logoUrl,
   });
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    return other is IndividualSponsor &&
+        id == other.id &&
+        name == other.name &&
+        slug == other.slug &&
+        logoUrl == other.logoUrl;
+  }
+
+  @override
+  int get hashCode => Object.hash(id, name, slug, logoUrl);
 }
