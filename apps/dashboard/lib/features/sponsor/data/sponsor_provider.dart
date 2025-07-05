@@ -19,8 +19,10 @@ Future<List<Sponsor>> sponsors(Ref ref) async {
         name: faker.company.name(),
         slug: faker.lorem.word() + i.toString(),
         logoUrl: Uri.parse(
-          'https://picsum.photos/seed/platinum"+i.toString()+"/200',
+          'https://placehold.co/400/png',
         ),
+        description: faker.lorem.sentences(2).join(' '),
+        websiteUrl: Uri.parse('https://2025.flutterkaigi.jp'),
       ),
     ),
   );
@@ -33,8 +35,10 @@ Future<List<Sponsor>> sponsors(Ref ref) async {
         name: faker.company.name(),
         slug: faker.lorem.word() + (i + 10).toString(),
         logoUrl: Uri.parse(
-          'https://picsum.photos/seed/gold"+i.toString()+"/200',
+          'https://placehold.co/400/png',
         ),
+        description: faker.lorem.sentences(2).join(' '),
+        websiteUrl: Uri.parse('https://2025.flutterkaigi.jp'),
       ),
     ),
   );
@@ -47,8 +51,10 @@ Future<List<Sponsor>> sponsors(Ref ref) async {
         name: faker.company.name(),
         slug: faker.lorem.word() + (i + 20).toString(),
         logoUrl: Uri.parse(
-          'https://picsum.photos/seed/silver"+i.toString()+"/200',
+          'https://placehold.co/400/png',
         ),
+        description: faker.lorem.sentences(2).join(' '),
+        websiteUrl: Uri.parse('https://2025.flutterkaigi.jp'),
       ),
     ),
   );
@@ -61,8 +67,10 @@ Future<List<Sponsor>> sponsors(Ref ref) async {
         name: faker.company.name(),
         slug: faker.lorem.word() + (i + 40).toString(),
         logoUrl: Uri.parse(
-          'https://picsum.photos/seed/bronze"+i.toString()+"/200',
+          'https://placehold.co/400/png',
         ),
+        description: faker.lorem.sentences(2).join(' '),
+        websiteUrl: Uri.parse('https://2025.flutterkaigi.jp'),
       ),
     ),
   );
@@ -75,8 +83,10 @@ Future<List<Sponsor>> sponsors(Ref ref) async {
         name: faker.company.name(),
         slug: faker.lorem.word() + (i + 60).toString(),
         logoUrl: Uri.parse(
-          'https://picsum.photos/seed/other"+i.toString()+"/200',
+          'https://placehold.co/400/png',
         ),
+        description: faker.lorem.sentences(2).join(' '),
+        websiteUrl: Uri.parse('https://2025.flutterkaigi.jp'),
       ),
     ),
   );
@@ -89,8 +99,10 @@ Future<List<Sponsor>> sponsors(Ref ref) async {
         name: faker.person.name(),
         slug: faker.internet.userName() + (i + 70).toString(),
         logoUrl: Uri.parse(
-          'https://picsum.photos/seed/individual"+i.toString()+"/200',
+          'https://placehold.co/400/png',
         ),
+        enthusiasm: faker.lorem.words(3).join(' '),
+        websiteUrl: Uri.parse('https://2025.flutterkaigi.jp'),
       ),
     ),
   );

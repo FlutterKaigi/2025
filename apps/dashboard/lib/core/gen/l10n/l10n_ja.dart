@@ -35,4 +35,19 @@ class L10nJa extends L10n {
 
   @override
   String get eventAddress => '東京都千代田区大手町二丁目3番1号';
+
+  @override
+  String get sponsorDescription => '会社概要';
+
+  @override
+  String get sponsorEnthusiasm => '意気込み';
+
+  @override
+  String get sponsorWebsite => 'ウェブサイト';
+
+  @override
+  String get sponsorWebsiteNotSet => '設定されていません';
+
+  @override
+  String get sponsorEditButtonLabel => 'スポンサー情報を編集する';
 }
