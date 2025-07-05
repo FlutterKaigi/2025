@@ -1,4 +1,5 @@
 import 'package:dashboard/features/sponsor/data/sponsor.dart';
+import 'package:faker/faker.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'sponsor_provider.g.dart';
@@ -6,25 +7,93 @@ part 'sponsor_provider.g.dart';
 @riverpod
 Future<List<Sponsor>> sponsors(Ref ref) async {
   await Future<void>.delayed(const Duration(seconds: 1));
-  final sponsors = [
-    PlatinumSponsor(
-      id: '0',
-      name: 'Flutter',
-      slug: 'flutter',
-      logoUrl: Uri.parse(
-        'https://2024.flutterkaigi.jp/ogp.png',
-      ),
-      namingRight: const HallNamingRight(name: 'Hall 1'),
-      namePlate: true,
-    ),
-    IndividualSponsor(
-      id: '0',
-      name: 'blendthink',
-      slug: 'blendthink',
-      logoUrl: Uri.parse(
-        'https://avatars.githubusercontent.com/u/32213113?v=4',
+  final faker = Faker();
+
+  final sponsors = <Sponsor>[];
+
+  sponsors.addAll(
+    List.generate(
+      4,
+      (i) => PlatinumSponsor(
+        id: i.toString(),
+        name: faker.company.name(),
+        slug: faker.lorem.word() + i.toString(),
+        logoUrl: Uri.parse(
+          'https://picsum.photos/seed/platinum"+i.toString()+"/200',
+        ),
       ),
     ),
-  ];
+  );
+
+  sponsors.addAll(
+    List.generate(
+      6,
+      (i) => GoldSponsor(
+        id: (i + 10).toString(),
+        name: faker.company.name(),
+        slug: faker.lorem.word() + (i + 10).toString(),
+        logoUrl: Uri.parse(
+          'https://picsum.photos/seed/gold"+i.toString()+"/200',
+        ),
+      ),
+    ),
+  );
+
+  sponsors.addAll(
+    List.generate(
+      11,
+      (i) => SilverSponsor(
+        id: (i + 20).toString(),
+        name: faker.company.name(),
+        slug: faker.lorem.word() + (i + 20).toString(),
+        logoUrl: Uri.parse(
+          'https://picsum.photos/seed/silver"+i.toString()+"/200',
+        ),
+      ),
+    ),
+  );
+
+  sponsors.addAll(
+    List.generate(
+      20,
+      (i) => BronzeSponsor(
+        id: (i + 40).toString(),
+        name: faker.company.name(),
+        slug: faker.lorem.word() + (i + 40).toString(),
+        logoUrl: Uri.parse(
+          'https://picsum.photos/seed/bronze"+i.toString()+"/200',
+        ),
+      ),
+    ),
+  );
+
+  sponsors.addAll(
+    List.generate(
+      5,
+      (i) => OtherSponsor(
+        id: (i + 60).toString(),
+        name: faker.company.name(),
+        slug: faker.lorem.word() + (i + 60).toString(),
+        logoUrl: Uri.parse(
+          'https://picsum.photos/seed/other"+i.toString()+"/200',
+        ),
+      ),
+    ),
+  );
+
+  sponsors.addAll(
+    List.generate(
+      30,
+      (i) => IndividualSponsor(
+        id: (i + 70).toString(),
+        name: faker.person.name(),
+        slug: faker.internet.userName() + (i + 70).toString(),
+        logoUrl: Uri.parse(
+          'https://picsum.photos/seed/individual"+i.toString()+"/200',
+        ),
+      ),
+    ),
+  );
+
   return sponsors;
 }
