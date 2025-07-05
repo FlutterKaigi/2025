@@ -1,10 +1,10 @@
 import 'dart:async';
-import 'dart:ui';
 
 import 'package:dashboard/core/gen/l10n/l10n.dart';
 import 'package:dashboard/core/router/router.dart';
 import 'package:dashboard/features/sponsor/data/sponsor.dart';
 import 'package:dashboard/features/sponsor/data/sponsor_provider.dart';
+import 'package:dashboard/features/sponsor/ui/sponsor_flexible_space_bar.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -73,45 +73,8 @@ class _SponsorDetail extends ConsumerWidget {
         },
         icon: const Icon(Icons.arrow_back),
       ),
-      flexibleSpace: FlexibleSpaceBar(
-        title: Text(sponsor.name),
-        expandedTitleScale: 1.2,
-        background: SizedBox(
-          width: double.infinity,
-          child: Stack(
-            children: [
-              Align(
-                child: Image.network(
-                  fit: BoxFit.contain,
-                  sponsor.logoUrl.toString(),
-                  errorBuilder: (context, error, stackTrace) => Center(
-                    child: Icon(
-                      Icons.image_not_supported,
-                      size: 64,
-                      color: Colors.grey.shade700,
-                    ),
-                  ),
-                ),
-              ),
-              // ロゴ画像は白背景で渡ってくるため、ブラーで黒くしてスポンサー名を見やすくする
-              Positioned.fill(
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(),
-                  child: const DecoratedBox(
-                    decoration: BoxDecoration(
-                      color: Colors.black45,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        stretchModes: const <StretchMode>[
-          StretchMode.zoomBackground,
-          StretchMode.blurBackground,
-          StretchMode.fadeTitle,
-        ],
+      flexibleSpace: SponsorFlexibleSpaceBar(
+        sponsor: sponsor,
       ),
     );
 
@@ -260,14 +223,4 @@ class _SponsorDetail extends ConsumerWidget {
           : null,
     );
   }
-}
-
-extension _CompanySponsorDetailX on CompanySponsor {
-  String get basicPlanName => switch (this) {
-    PlatinumSponsor() => 'Platinum',
-    GoldSponsor() => 'Gold',
-    SilverSponsor() => 'Silver',
-    BronzeSponsor() => 'Bronze',
-    OtherSponsor() => 'Other',
-  };
 }
