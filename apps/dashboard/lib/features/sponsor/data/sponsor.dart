@@ -404,7 +404,7 @@ final class IndividualSponsor extends Sponsor {
   });
 
   final String enthusiasm;
-  final Uri websiteUrl;
+  final Uri? websiteUrl;
 
   @override
   bool operator ==(Object other) {
