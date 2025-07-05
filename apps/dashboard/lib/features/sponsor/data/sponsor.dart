@@ -399,9 +399,11 @@ final class IndividualSponsor extends Sponsor {
     required super.name,
     required super.slug,
     required super.logoUrl,
+    required this.enthusiasm,
     required this.websiteUrl,
   });
 
+  final String enthusiasm;
   final Uri websiteUrl;
 
   @override
@@ -414,9 +416,17 @@ final class IndividualSponsor extends Sponsor {
         name == other.name &&
         slug == other.slug &&
         logoUrl == other.logoUrl &&
+        enthusiasm == other.enthusiasm &&
         websiteUrl == other.websiteUrl;
   }
 
   @override
-  int get hashCode => Object.hash(id, name, slug, logoUrl, websiteUrl);
+  int get hashCode => Object.hash(
+    id,
+    name,
+    slug,
+    logoUrl,
+    enthusiasm,
+    websiteUrl,
+  );
 }
