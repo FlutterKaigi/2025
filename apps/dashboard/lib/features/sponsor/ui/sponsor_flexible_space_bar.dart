@@ -50,21 +50,38 @@ class SponsorFlexibleSpaceBar extends StatelessWidget {
           height = constraints.maxHeight;
         }
 
+        // パララックス効果
+        final parallax = -Tween<double>(
+          begin: 0,
+          end: deltaExtent / 4.0,
+        ).transform(t);
+        // 透過度（フェード）
+        final fadeStart = deltaExtent == 0
+            ? 0.0
+            : (1.0 - kToolbarHeight / deltaExtent).clamp(0.0, 1.0);
+        const fadeEnd = 1.0;
+        final opacity = deltaExtent == 0
+            ? 1.0
+            : 1.0 - Interval(fadeStart, fadeEnd).transform(t);
+
         // 背景
         children.add(
           Positioned(
-            top: 0,
+            top: parallax,
             left: 0,
             right: 0,
             height: height,
-            child: Image.network(
-              sponsor.logoUrl.toString(),
-              fit: BoxFit.contain,
-              errorBuilder: (context, error, stackTrace) => Center(
-                child: Icon(
-                  Icons.image_not_supported,
-                  size: 64,
-                  color: Colors.grey.shade700,
+            child: Opacity(
+              opacity: opacity,
+              child: Image.network(
+                sponsor.logoUrl.toString(),
+                fit: BoxFit.contain,
+                errorBuilder: (context, error, stackTrace) => Center(
+                  child: Icon(
+                    Icons.image_not_supported,
+                    size: 64,
+                    color: Colors.grey.shade700,
+                  ),
                 ),
               ),
             ),
