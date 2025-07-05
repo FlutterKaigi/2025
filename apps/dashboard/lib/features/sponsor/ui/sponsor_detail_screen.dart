@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:ui';
 
+import 'package:dashboard/core/gen/l10n/l10n.dart';
 import 'package:dashboard/core/router/router.dart';
 import 'package:dashboard/features/sponsor/data/sponsor.dart';
 import 'package:dashboard/features/sponsor/data/sponsor_provider.dart';
@@ -55,6 +56,8 @@ class _SponsorDetail extends ConsumerWidget {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
     final colorScheme = theme.colorScheme;
+
+    final l10n = L10n.of(context);
 
     final header = SliverAppBar(
       stretch: true,
@@ -126,7 +129,7 @@ class _SponsorDetail extends ConsumerWidget {
         // 会社概要
         const SizedBox(height: 8),
         Text(
-          '会社概要',
+          l10n.sponsorDescription,
           style: titleStyle,
         ),
         const SizedBox(height: 8),
@@ -139,7 +142,7 @@ class _SponsorDetail extends ConsumerWidget {
         // ウェブサイト
         const SizedBox(height: 8),
         Text(
-          'ウェブサイト',
+          l10n.sponsorWebsite,
           style: titleStyle,
         ),
         const SizedBox(height: 8),
@@ -165,7 +168,7 @@ class _SponsorDetail extends ConsumerWidget {
         // 意気込み
         const SizedBox(height: 8),
         Text(
-          '意気込み',
+          l10n.sponsorEnthusiasm,
           style: titleStyle,
         ),
         const SizedBox(height: 8),
@@ -178,13 +181,13 @@ class _SponsorDetail extends ConsumerWidget {
         // ウェブサイト
         const SizedBox(height: 8),
         Text(
-          'ウェブサイト',
+          l10n.sponsorWebsite,
           style: titleStyle,
         ),
         const SizedBox(height: 8),
         if (individual.websiteUrl == null)
           Text(
-            '設定されていません',
+            l10n.sponsorWebsiteNotSet,
             style: bodyTextStyle?.copyWith(
               color: colorScheme.onSurfaceVariant,
             ),
@@ -248,7 +251,7 @@ class _SponsorDetail extends ConsumerWidget {
                   foregroundColor: colorScheme.onSurface,
                 ),
                 icon: const Icon(Icons.edit),
-                label: const Text('スポンサー情報を編集する'),
+                label: Text(l10n.sponsorEditButtonLabel),
                 onPressed: () {
                   SponsorEditRoute(slug: sponsor.slug).go(context);
                 },
