@@ -133,8 +133,6 @@ class SponsorFlexibleSpaceBar extends StatelessWidget {
                 1.0,
               );
         }
-        // Chipの透明度（collapsed時は非表示）
-        final chipOpacity = 1.0 - t;
         children.add(
           Positioned(
             left: 16,
@@ -158,15 +156,14 @@ class SponsorFlexibleSpaceBar extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  AnimatedOpacity(
-                    opacity: chipOpacity,
-                    duration: const Duration(milliseconds: 200),
-                    child: Chip(
-                      label: Text(sponsor.basicPlanName),
-                      backgroundColor: colorScheme.secondaryContainer,
-                      labelStyle: textTheme.labelMedium?.copyWith(
-                        color: colorScheme.onSecondaryContainer,
-                      ),
+                  Chip(
+                    label: Text(sponsor.basicPlanName),
+                    side: BorderSide(
+                      color: colorScheme.outline,
+                    ),
+                    backgroundColor: colorScheme.surfaceContainerLow,
+                    labelStyle: textTheme.labelMedium?.copyWith(
+                      color: colorScheme.onSurface,
                     ),
                   ),
                 ],
