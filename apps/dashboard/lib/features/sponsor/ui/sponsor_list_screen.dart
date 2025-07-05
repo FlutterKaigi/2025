@@ -36,17 +36,39 @@ class _SponsorList extends ConsumerWidget {
             .whereType<IndividualSponsor>()
             .toList();
 
-        return ListView(
-          children: [
-            if (companySponsors.isNotEmpty) ...[
-              const _SectionHeader(title: '企業スポンサー'),
-              ...companySponsors.map((s) => _SponsorListItem(sponsor: s)),
-            ],
-            if (individualSponsors.isNotEmpty) ...[
-              const _SectionHeader(title: '個人スポンサー'),
-              ...individualSponsors.map((s) => _SponsorListItem(sponsor: s)),
-            ],
+        final slivers = <Widget>[
+          if (companySponsors.isNotEmpty) ...[
+            SliverPersistentHeader(
+              pinned: true,
+              delegate: _SectionHeaderDelegate(title: '企業スポンサー'),
+            ),
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) =>
+                    _SponsorListItem(sponsor: companySponsors[index]),
+                childCount: companySponsors.length,
+              ),
+            ),
           ],
+          if (individualSponsors.isNotEmpty) ...[
+            SliverPersistentHeader(
+              pinned: true,
+              delegate: _SectionHeaderDelegate(title: '個人スポンサー'),
+            ),
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) =>
+                    _SponsorListItem(sponsor: individualSponsors[index]),
+                childCount: individualSponsors.length,
+              ),
+            ),
+          ],
+        ];
+
+        return SafeArea(
+          child: CustomScrollView(
+            slivers: slivers,
+          ),
         );
       }(),
       AsyncLoading() => const Center(child: CircularProgressIndicator()),
@@ -55,13 +77,22 @@ class _SponsorList extends ConsumerWidget {
   }
 }
 
-class _SectionHeader extends StatelessWidget {
-  const _SectionHeader({required this.title});
+class _SectionHeaderDelegate extends SliverPersistentHeaderDelegate {
+  _SectionHeaderDelegate({required this.title});
 
   final String title;
 
   @override
-  Widget build(BuildContext context) {
+  double get minExtent => 40;
+  @override
+  double get maxExtent => 40;
+
+  @override
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
     final theme = Theme.of(context);
     return ColoredBox(
       color: theme.colorScheme.surfaceContainer,
@@ -76,6 +107,10 @@ class _SectionHeader extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
+      false;
 }
 
 class _SponsorListItem extends StatelessWidget {
