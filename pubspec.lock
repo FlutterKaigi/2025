@@ -385,6 +385,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0+7.3.0"
+  dart_frog:
+    dependency: transitive
+    description:
+      name: dart_frog
+      sha256: "569db68a710bcadf96d8addc8988d09a93c4a9521cb6467c2df5ee0ab939c8a4"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.0"
   dart_style:
     dependency: transitive
     description:
@@ -717,14 +725,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.2"
-  js_interop_utils:
-    dependency: transitive
-    description:
-      name: js_interop_utils
-      sha256: "7570549051ec66257b1a048aa5d614d757427398a84af7a2558a41f5c8cde5d6"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.7"
   json_annotation:
     dependency: transitive
     description:
@@ -837,6 +837,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.4.5"
+  mocktail:
+    dependency: transitive
+    description:
+      name: mocktail
+      sha256: "890df3f9688106f25755f26b1c60589a92b3ab91a22b8b224947ad041bf172d8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.4"
   mustache_template:
     dependency: transitive
     description:
@@ -1197,6 +1205,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.1.0"
+  shelf_hotreload:
+    dependency: transitive
+    description:
+      name: shelf_hotreload
+      sha256: d7099618b18d3c63ba5272491c1812c306629495129ef9996115f0417902f963
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.5.0"
   shelf_packages_handler:
     dependency: transitive
     description:
@@ -1213,22 +1229,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
-  shelf_router:
-    dependency: transitive
-    description:
-      name: shelf_router
-      sha256: f5e5d492440a7fb165fe1e2e1a623f31f734d3370900070b2b1e0d0428d59864
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.4"
-  shelf_router_generator:
-    dependency: transitive
-    description:
-      name: shelf_router_generator
-      sha256: e7ee1ce30c6655586a57eaf0a8ae977a6759bad490ec21e08ec6100e9249c1cc
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.1"
   shelf_static:
     dependency: transitive
     description:

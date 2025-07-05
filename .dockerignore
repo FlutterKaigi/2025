@@ -1,0 +1,28 @@
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+
+# Flutter/Dart/Pub related
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+custom_lint.log
+
+
+# Node.js
+node_modules/
+
+# macOS
+.DS_Store
+
+# Cloudflare
+.wrangler/
+
+# Flutter DevTools
+devtools_options.yaml
+
+build/
+
+Dockerfile
+compose.yaml
