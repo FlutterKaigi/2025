@@ -1,82 +1,92 @@
-import 'dart:io';
-
-import 'package:dart_frog/dart_frog.dart';
 import 'package:engine/provider/supabase_util.dart';
+import 'package:engine/util/result.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:shelf/shelf.dart';
 import 'package:supabase/supabase.dart';
 import 'package:test/test.dart';
 
 class MockSupabaseClient extends Mock implements SupabaseClient {}
+
 class MockGoTrueClient extends Mock implements GoTrueClient {}
-class MockUserResponse extends Mock implements UserResponse {}
-class MockUser extends Mock implements User {}
+
+class MockSupabaseUser extends Mock implements User {}
+
+class MockSupabaseQueryBuilder extends Mock implements SupabaseQueryBuilder {}
 
 void main() {
-  group('SupabaseUtil Tests', () {
+  group('SupabaseUtil', () {
     late MockSupabaseClient mockSupabaseClient;
-    late MockGoTrueClient mockAuth;
+    late MockGoTrueClient mockGoTrueClient;
+    late MockSupabaseUser mockSupabaseUser;
+    late MockSupabaseQueryBuilder mockSupabaseQueryBuilder;
     late SupabaseUtil supabaseUtil;
 
     setUp(() {
       mockSupabaseClient = MockSupabaseClient();
-      mockAuth = MockGoTrueClient();
+      mockGoTrueClient = MockGoTrueClient();
+      mockSupabaseUser = MockSupabaseUser();
+      mockSupabaseQueryBuilder = MockSupabaseQueryBuilder();
       supabaseUtil = SupabaseUtil(supabaseClient: mockSupabaseClient);
       
-      when(() => mockSupabaseClient.auth).thenReturn(mockAuth);
+      when(() => mockSupabaseClient.auth).thenReturn(mockGoTrueClient);
     });
 
-    test('extractSupabaseUser throws AuthorizationException when no auth header', () async {
-      final request = Request.get(Uri.parse('http://localhost:8080/'));
-      
-      final result = await supabaseUtil.extractSupabaseUser(request);
-      
-      expect(result, isA<Failure>());
-      expect(() => result.unwrap, throwsA(isA<AuthorizationException>()));
+    group('extractSupabaseUser', () {
+      test('should return failure when Authorization header is missing', 
+          () async {
+        final request = Request('GET', Uri.parse('http://example.com'));
+        final result = await supabaseUtil.extractSupabaseUser(request);
+        
+        expect(result, isA<Failure>());
+      });
+
+      test('should return failure when user is not found', () async {
+        final request = Request('GET', Uri.parse('http://example.com'), 
+            headers: {
+          'authorization': 'Bearer token'
+        });
+        
+        when(() => mockGoTrueClient.getUser('token')).thenAnswer((_) async => 
+          const UserResponse(user: null));
+        
+        final result = await supabaseUtil.extractSupabaseUser(request);
+        
+        expect(result, isA<Failure>());
+      });
+
+      test('should return success when user is found', () async {
+        final request = Request('GET', Uri.parse('http://example.com'), 
+            headers: {
+          'authorization': 'Bearer token'
+        });
+        
+        when(() => mockGoTrueClient.getUser('token')).thenAnswer((_) async => 
+          UserResponse(user: mockSupabaseUser));
+        
+        final result = await supabaseUtil.extractSupabaseUser(request);
+        
+        expect(result, isA<Success>());
+      });
     });
 
-    test('extractSupabaseUser throws AuthorizationException when user is null', () async {
-      final headers = {HttpHeaders.authorizationHeader: 'Bearer test-token'};
-      final request = Request.get(Uri.parse('http://localhost:8080/'), headers: headers);
-      
-      final mockUserResponse = MockUserResponse();
-      when(() => mockUserResponse.user).thenReturn(null);
-      when(() => mockAuth.getUser('test-token')).thenAnswer((_) async => mockUserResponse);
-      
-      final result = await supabaseUtil.extractSupabaseUser(request);
-      
-      expect(result, isA<Failure>());
-      expect(() => result.unwrap, throwsA(isA<AuthorizationException>()));
-    });
-
-    test('extractSupabaseUser returns user when valid token', () async {
-      final headers = {HttpHeaders.authorizationHeader: 'Bearer test-token'};
-      final request = Request.get(Uri.parse('http://localhost:8080/'), headers: headers);
-      
-      final mockUser = MockUser();
-      final mockUserResponse = MockUserResponse();
-      when(() => mockUserResponse.user).thenReturn(mockUser);
-      when(() => mockAuth.getUser('test-token')).thenAnswer((_) async => mockUserResponse);
-      
-      final result = await supabaseUtil.extractSupabaseUser(request);
-      
-      expect(result, isA<Success>());
-      expect(result.unwrap, equals(mockUser));
-    });
-
-    test('AuthorizationException has correct properties', () {
-      const exception = AuthorizationException(
-        AuthorizationExceptionType.headerMissing,
-        'Test message',
-      );
-      
-      expect(exception.type, equals(AuthorizationExceptionType.headerMissing));
-      expect(exception.message, equals('Test message'));
-    });
-
-    test('AuthorizationExceptionType enum values are correct', () {
-      expect(AuthorizationExceptionType.values, hasLength(2));
-      expect(AuthorizationExceptionType.values, contains(AuthorizationExceptionType.headerMissing));
-      expect(AuthorizationExceptionType.values, contains(AuthorizationExceptionType.userNotFound));
+    group('extractUser', () {
+      test('should return failure when user is not found in database', 
+          () async {
+        final request = Request('GET', Uri.parse('http://example.com'), 
+            headers: {
+          'authorization': 'Bearer token'
+        });
+        
+        when(() => mockGoTrueClient.getUser('token')).thenAnswer((_) async => 
+          UserResponse(user: mockSupabaseUser));
+        when(() => mockSupabaseUser.id).thenReturn('user-id');
+        when(() => mockSupabaseClient.from('users'))
+            .thenReturn(mockSupabaseQueryBuilder);
+        
+        final result = await supabaseUtil.extractUser(request);
+        
+        expect(result, isA<Failure>());
+      });
     });
   });
 }

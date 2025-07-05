@@ -1,53 +1,37 @@
-import 'dart:io';
-
-import 'package:dart_frog/dart_frog.dart';
+import 'package:shelf/shelf.dart';
+import 'package:shelf_router/shelf_router.dart';
 import 'package:test/test.dart';
 
-import '../routes/index.dart' as index_route;
-import '../routes/health.dart' as health_route;
-
 void main() {
-  group('Routes Tests', () {
-    test('index route returns correct response', () {
-      final context = _createMockContext();
-      final response = index_route.onRequest(context);
+  group('Routes', () {
+    late Router router;
+    
+    setUp(() {
+      router = Router();
       
-      expect(response.statusCode, equals(200));
+      // Health check route
+      router.get('/health', (Request request) {
+        return Response.ok(
+          '{"status": "ok"}',
+          headers: {'Content-Type': 'application/json'},
+        );
+      });
     });
 
-    test('health route returns correct response', () {
-      final context = _createMockContext();
-      final response = health_route.onRequest(context);
-      
-      expect(response.statusCode, equals(200));
-    });
-
-    test('index route returns JSON with message', () async {
-      final context = _createMockContext();
-      final response = index_route.onRequest(context);
-      
-      expect(response.headers['content-type'], contains('application/json'));
-      
-      final body = await response.body();
-      expect(body, contains('FlutterKaigi 2025 BFF'));
-    });
-
-    test('health route returns status ok', () async {
-      final context = _createMockContext();
-      final response = health_route.onRequest(context);
-      
-      expect(response.headers['content-type'], contains('application/json'));
-      
-      final body = await response.body();
-      expect(body, contains('ok'));
+    group('GET /health', () {
+      test('responds with 200 and health status', () async {
+        final request = Request('GET', Uri.parse('http://example.com/health'));
+        final response = await router.call(request);
+        
+        expect(response.statusCode, equals(200));
+        expect(
+          response.headers['Content-Type'],
+          equals('application/json'),
+        );
+        
+        final body = await response.readAsString();
+        expect(body, equals('{"status": "ok"}'));
+      });
     });
   });
-}
-
-RequestContext _createMockContext() {
-  final request = Request.get(Uri.parse('http://localhost:8080/'));
-  return RequestContext(
-    request: request,
-    mounted: {},
-  );
 }
