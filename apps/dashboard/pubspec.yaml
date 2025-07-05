@@ -13,6 +13,7 @@ dependencies:
   auth_client:
     path: ../../packages/auth_client
   cupertino_icons: ^1.0.8
+  faker: ^2.2.0
   flutter:
     sdk: flutter
   flutter_localizations:
