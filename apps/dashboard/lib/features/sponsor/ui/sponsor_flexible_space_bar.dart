@@ -2,17 +2,6 @@ import 'dart:ui';
 import 'package:dashboard/features/sponsor/data/sponsor.dart';
 import 'package:flutter/material.dart';
 
-extension _BasicPlanName on Sponsor {
-  String get basicPlanName => switch (this) {
-    PlatinumSponsor() => 'Platinum',
-    GoldSponsor() => 'Gold',
-    SilverSponsor() => 'Silver',
-    BronzeSponsor() => 'Bronze',
-    OtherSponsor() => 'Other',
-    IndividualSponsor() => 'Individual',
-  };
-}
-
 class SponsorFlexibleSpaceBar extends StatelessWidget {
   const SponsorFlexibleSpaceBar({
     required this.sponsor,
@@ -180,4 +169,15 @@ class SponsorFlexibleSpaceBar extends StatelessWidget {
       },
     );
   }
+}
+
+extension _BasicPlanName on Sponsor {
+  String get basicPlanName => switch (this) {
+    PlatinumSponsor() => 'Platinum',
+    GoldSponsor() => 'Gold',
+    SilverSponsor() => 'Silver',
+    BronzeSponsor() => 'Bronze',
+    OtherSponsor() => 'Other',
+    IndividualSponsor() => 'Individual',
+  };
 }
