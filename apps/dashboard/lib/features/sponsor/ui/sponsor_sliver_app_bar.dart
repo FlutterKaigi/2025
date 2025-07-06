@@ -200,37 +200,29 @@ class _SponsorFlexibleSpace extends HookWidget {
           end: 1,
         ).transform(t);
 
-        // スポンサー名の位置移動アニメーション
+        // スポンサー名の左位置
         final nameLeft = Tween<double>(
           begin: 16, // 初期位置（左端）
           end: 56, // leading右端（leadingボタンの幅56）
         ).transform(t);
 
-        const chipBottomMargin = 16.0;
+        const basicPlanNameChipBottomMargin = 16.0;
 
-        // 初期位置はベーシックプラン名の 8 ポイント上の位置
-        final nameTopBegin =
-            settings.maxExtent -
-            chipBottomMargin -
-            basicPlanNameChipHeight.value -
-            8.0 -
-            sponsorNameTextHeight.value;
-        // 最終位置は SliverAppBar の縦中央
-        // => ステータスバーの高さ + ( アプリバーの高さ - タイトルの高さ ) / 2
-        final statusBarHeight = MediaQuery.paddingOf(context).top;
-        final nameTopEnd =
-            statusBarHeight +
+        // スポンサー名の下位置
+        final nameBottomBegin =
+            basicPlanNameChipBottomMargin + basicPlanNameChipHeight.value + 8.0;
+        final nameBottomEnd =
             (kToolbarHeight - sponsorNameTextHeight.value) / 2;
 
-        final nameTop = Tween<double>(
-          begin: nameTopBegin,
-          end: nameTopEnd,
+        final nameBottom = Tween<double>(
+          begin: nameBottomBegin,
+          end: nameBottomEnd,
         ).transform(t);
 
         children.add(
           Positioned(
             left: nameLeft,
-            top: nameTop,
+            bottom: nameBottom,
             child: Transform.scale(
               scale: scaleValue,
               alignment: Alignment.centerLeft,
@@ -261,7 +253,7 @@ class _SponsorFlexibleSpace extends HookWidget {
         children.add(
           Positioned(
             left: 16,
-            bottom: 16,
+            bottom: basicPlanNameChipBottomMargin,
             child: Opacity(
               // 高さが取得できていない場合は位置がずれているため透明にする
               opacity: basicPlanNameChipHeight.value == 0
