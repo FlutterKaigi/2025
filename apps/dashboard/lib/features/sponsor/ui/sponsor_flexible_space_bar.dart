@@ -137,8 +137,8 @@ class SponsorFlexibleSpaceBar extends StatelessWidget {
                     opacity: titleOpacity,
                     child: DefaultTextStyle(
                       style: textTheme.titleLarge!.copyWith(
-                        color: textTheme.titleLarge!.color!.withOpacity(
-                          settings.toolbarOpacity,
+                        color: textTheme.titleLarge!.color!.withValues(
+                          alpha: settings.toolbarOpacity,
                         ),
                       ),
                       child: Text(sponsor.name),
