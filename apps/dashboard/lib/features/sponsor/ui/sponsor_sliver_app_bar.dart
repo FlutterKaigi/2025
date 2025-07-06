@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:dashboard/features/sponsor/data/sponsor.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 class SponsorSliverAppBar extends StatelessWidget {
   const SponsorSliverAppBar({
@@ -35,7 +36,7 @@ class SponsorSliverAppBar extends StatelessWidget {
   }
 }
 
-class _SponsorFlexibleSpace extends StatelessWidget {
+class _SponsorFlexibleSpace extends HookWidget {
   const _SponsorFlexibleSpace({required this.sponsor});
 
   final Sponsor sponsor;
@@ -44,6 +45,68 @@ class _SponsorFlexibleSpace extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+
+    // スポンサー名
+    final sponsorNameTextKey = GlobalObjectKey(sponsor.name);
+    final sponsorNameText = Text(
+      key: sponsorNameTextKey,
+      sponsor.name,
+      style: theme.textTheme.titleLarge,
+    );
+
+    final sponsorNameTextHeight = useState<double>(0);
+
+    // 実際の sponsorNameText の高さを取得
+    useEffect(
+      () {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          final textRenderBox =
+              sponsorNameTextKey.currentContext?.findRenderObject()
+                  as RenderBox?;
+          if (textRenderBox != null) {
+            sponsorNameTextHeight.value = textRenderBox.size.height;
+          }
+        });
+        return null;
+      },
+      [
+        sponsor.name,
+        theme.textTheme.titleLarge,
+      ],
+    );
+
+    // ベーシックプラン名
+    final basicPlanNameChipKey = GlobalObjectKey(sponsor.basicPlanName);
+    final basicPlanNameChip = Chip(
+      key: basicPlanNameChipKey,
+      label: Text(sponsor.basicPlanName),
+      side: BorderSide(color: colorScheme.outline),
+      backgroundColor: colorScheme.surfaceContainerLow,
+      labelStyle: theme.textTheme.labelMedium?.copyWith(
+        color: colorScheme.onSurface,
+      ),
+    );
+
+    final basicPlanNameChipHeight = useState<double>(0);
+
+    // 実際の basicPlanNameChip の高さを取得
+    useEffect(
+      () {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          final chipRenderBox =
+              basicPlanNameChipKey.currentContext?.findRenderObject()
+                  as RenderBox?;
+          if (chipRenderBox != null) {
+            basicPlanNameChipHeight.value = chipRenderBox.size.height;
+          }
+        });
+        return null;
+      },
+      [
+        sponsor.basicPlanName,
+        theme.textTheme.labelMedium,
+      ],
+    );
 
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -156,21 +219,21 @@ class _SponsorFlexibleSpace extends StatelessWidget {
           end: 56, // leading右端（leadingボタンの幅56）
         ).transform(t);
 
-        const chipHeight = 48.0;
         const chipBottomMargin = 16.0;
-        const nameHeight = 24.0; // titleLargeの概算高さ
 
         // 初期位置は Chip の 8 ポイント上の位置
         final nameTopBegin =
             settings.maxExtent -
             chipBottomMargin -
-            chipHeight -
+            basicPlanNameChipHeight.value -
             8.0 -
-            nameHeight;
+            sponsorNameTextHeight.value;
         // 最終位置は SliverAppBar の縦中央
         // => ステータスバーの高さ + ( アプリバーの高さ - タイトルの高さ ) / 2
         final statusBarHeight = MediaQuery.paddingOf(context).top;
-        final nameTopEnd = statusBarHeight + (kToolbarHeight - nameHeight) / 2;
+        final nameTopEnd =
+            statusBarHeight +
+            (kToolbarHeight - sponsorNameTextHeight.value) / 2;
 
         final nameTop = Tween<double>(
           begin: nameTopBegin,
@@ -184,33 +247,23 @@ class _SponsorFlexibleSpace extends StatelessWidget {
             child: Transform.scale(
               scale: scaleValue,
               alignment: Alignment.centerLeft,
-              child: Text(
-                '${sponsor.name} ${sponsor.name}',
-                style: theme.textTheme.titleLarge,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
+              child: Opacity(
+                // 高さが取得できていない場合は位置がずれているため透明にする
+                opacity: sponsorNameTextHeight.value == 0 ? 0 : 1,
+                child: sponsorNameText,
               ),
             ),
           ),
         );
 
-        // Chip（SliverAppBarの裏側に隠れる効果）
         children.add(
           Positioned(
             left: 16,
             bottom: 16,
             child: Opacity(
-              opacity: chipOpacity,
-              child: Chip(
-                label: Text(sponsor.basicPlanName),
-                side: BorderSide(
-                  color: colorScheme.outline,
-                ),
-                backgroundColor: colorScheme.surfaceContainerLow,
-                labelStyle: theme.textTheme.labelMedium?.copyWith(
-                  color: colorScheme.onSurface,
-                ),
-              ),
+              // 高さが取得できていない場合は位置がずれているため透明にする
+              opacity: basicPlanNameChipHeight.value == 0 ? 0 : chipOpacity,
+              child: basicPlanNameChip,
             ),
           ),
         );
