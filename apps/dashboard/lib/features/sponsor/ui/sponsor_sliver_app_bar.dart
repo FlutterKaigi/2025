@@ -52,6 +52,8 @@ class _SponsorFlexibleSpace extends HookWidget {
       key: sponsorNameTextKey,
       sponsor.name,
       style: theme.textTheme.titleLarge,
+      maxLines: 2,
+      overflow: TextOverflow.ellipsis,
     );
 
     final sponsorNameTextHeight = useState<double>(0);
