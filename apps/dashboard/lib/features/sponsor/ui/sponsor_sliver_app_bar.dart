@@ -57,8 +57,6 @@ class _SponsorFlexibleSpace extends HookWidget {
     );
 
     final sponsorNameTextHeight = useState<double>(0);
-
-    // 実際の sponsorNameText の高さを取得
     useEffect(
       () {
         WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -90,8 +88,6 @@ class _SponsorFlexibleSpace extends HookWidget {
     );
 
     final basicPlanNameChipHeight = useState<double>(0);
-
-    // 実際の basicPlanNameChip の高さを取得
     useEffect(
       () {
         WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -205,9 +201,6 @@ class _SponsorFlexibleSpace extends HookWidget {
           ),
         );
 
-        // sponsor.nameとChipの配置（スクロールで位置変更）
-        final chipOpacity = (1.0 - t).clamp(0.0, 1.0);
-
         // サイズのアニメーション（1.2 → 1.0）
         const expandedTitleScale = 1.2;
         final scaleValue = Tween<double>(
@@ -215,7 +208,7 @@ class _SponsorFlexibleSpace extends HookWidget {
           end: 1,
         ).transform(t);
 
-        // sponsor.nameの位置移動アニメーション
+        // スポンサー名の位置移動アニメーション
         final nameLeft = Tween<double>(
           begin: 16, // 初期位置（左端）
           end: 56, // leading右端（leadingボタンの幅56）
@@ -223,7 +216,7 @@ class _SponsorFlexibleSpace extends HookWidget {
 
         const chipBottomMargin = 16.0;
 
-        // 初期位置は Chip の 8 ポイント上の位置
+        // 初期位置はベーシックプラン名の 8 ポイント上の位置
         final nameTopBegin =
             settings.maxExtent -
             chipBottomMargin -
@@ -270,13 +263,18 @@ class _SponsorFlexibleSpace extends HookWidget {
           ),
         );
 
+        // ベーシックプラン名の透明度
+        final basicPlanNameChipOpacity = (1.0 - t).clamp(0.0, 1.0);
+
         children.add(
           Positioned(
             left: 16,
             bottom: 16,
             child: Opacity(
               // 高さが取得できていない場合は位置がずれているため透明にする
-              opacity: basicPlanNameChipHeight.value == 0 ? 0 : chipOpacity,
+              opacity: basicPlanNameChipHeight.value == 0
+                  ? 0
+                  : basicPlanNameChipOpacity,
               child: basicPlanNameChip,
             ),
           ),
