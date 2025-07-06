@@ -121,10 +121,9 @@ class _SponsorFlexibleSpace extends HookWidget {
         final children = <Widget>[];
 
         // 背景画像の高さ
-        var flexibleSpaceHeight = settings.maxExtent;
-        if (constraints.maxHeight > flexibleSpaceHeight) {
-          flexibleSpaceHeight = constraints.maxHeight;
-        }
+        final flexibleSpaceHeight = constraints.maxHeight > settings.maxExtent
+            ? constraints.maxHeight
+            : settings.maxExtent;
 
         // パララックス効果
         final parallax = -Tween<double>(
