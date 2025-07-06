@@ -24,10 +24,6 @@ concurrency:
   group: "deploy-bff"
   cancel-in-progress: false
 
-env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}/bff-engine
-
 jobs:
   define-matrix:
     runs-on: ubuntu-24.04
@@ -66,6 +62,18 @@ jobs:
           # JSONに変換し、環境変数にセット
           echo "environments=$(jq -c -n '$ARGS.positional' --args "${environments[@]}")" >> $GITHUB_OUTPUT
 
+          function has_value() {
+            local target="$1"
+            local value="$2"
+            for element in $target; do
+              if [ "$element" = "$value" ]; then
+                echo "true"
+                return
+              fi
+            done
+            echo "false"
+          }
+
   start-deploy-bff:
     needs:
       - define-matrix
@@ -85,76 +93,48 @@ jobs:
           env: bff
           ref: ${{ github.head_ref }}
 
-  build-and-push-docker:
+  build-dart-engine:
     needs:
       - define-matrix
     strategy:
       matrix:
         environment: ${{ fromJson(needs.define-matrix.outputs.environments) }}
-    runs-on: ubuntu-24.04
-    permissions:
-      contents: read
-      packages: write
     outputs:
-      image: ${{ steps.image.outputs.image }}
-      digest: ${{ steps.build.outputs.digest }}
-      logs: ${{ steps.build-logs.outputs.logs }}
+      log: ${{ steps.build-dart-engine.outputs.LOG }}
+    runs-on: ubuntu-24.04
     steps:
       # https://github.com/actions/checkout
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
-      # https://github.com/docker/setup-buildx-action
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@c47758b77c9736f4b2ef4073d4d51994fabfe349 # v3.7.1
-
-      # https://github.com/docker/login-action
-      - name: Log in to Container Registry
-        uses: docker/login-action@1f36f5b7a2d2f7bfd524795fc966e6d88c37baa9 # v3.3.0
+      # https://github.com/jdx/mise-action
+      - name: Install Mise dependencies
+        uses: jdx/mise-action@5083fe46898c414b2475087cc79da59e7da859e8 # v2.1.11
         with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          install_args: "flutter"
 
-      # https://github.com/docker/metadata-action
-      - name: Extract metadata
-        id: meta
-        uses: docker/metadata-action@70b2cdc6480c1bd2bb1255b343536f8b7abeb20e # v5.6.1
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          tags: |
-            type=ref,event=branch
-            type=ref,event=pr
-            type=sha,prefix={{branch}}-
-            type=raw,value=${{ matrix.environment }}
-            type=raw,value=latest,enable={{is_default_branch}}
+      - name: Resolve dependencies
+        working-directory: bff/engine
+        run: dart pub get
 
-      # https://github.com/docker/build-push-action
-      - name: Build and push Docker image
-        id: build
-        uses: docker/build-push-action@4f58ea79222b3b9dc2c8bbdd6debcef730109a75 # v6.9.0
-        with:
-          context: bff/engine
-          file: bff/engine/Dockerfile
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-          platforms: linux/amd64
-
-      - name: Output image
-        id: image
-        run: echo "image=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.environment }}" >> $GITHUB_OUTPUT
-
-      - name: Capture build logs
-        id: build-logs
+      - name: Build Dart Engine
+        working-directory: bff/engine
+        id: build-dart-engine
         run: |
-          echo "logs<<EOF" >> $GITHUB_OUTPUT
-          echo "✅ Docker image built successfully" >> $GITHUB_OUTPUT
-          echo "🏷️ Tags: ${{ steps.meta.outputs.tags }}" >> $GITHUB_OUTPUT
-          echo "📦 Digest: ${{ steps.build.outputs.digest }}" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          {
+            echo "LOG<<EOL"
+            dart compile wasm \
+              lib/main.dart \
+              -o build/main.wasm \
+              -O4
+            echo "EOL"
+          } | tee -a $GITHUB_OUTPUT
+
+      - name: Upload Dart BFF Artifacts
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: bff-engine-artifact-${{ matrix.environment }}
+          path: bff/engine/build
 
   get-supabase-connection-info:
     env:
@@ -167,8 +147,6 @@ jobs:
     outputs:
       SUPABASE_PROJECT_ID_STAGING: ${{ steps.get-supabase-connection-info.outputs.SUPABASE_PROJECT_ID_STAGING }}
       SUPABASE_PROJECT_ID_PRODUCTION: ${{ steps.get-supabase-connection-info.outputs.SUPABASE_PROJECT_ID_PRODUCTION }}
-      SUPABASE_URL_STAGING: ${{ steps.get-supabase-connection-info.outputs.SUPABASE_URL_STAGING }}
-      SUPABASE_URL_PRODUCTION: ${{ steps.get-supabase-connection-info.outputs.SUPABASE_URL_PRODUCTION }}
     runs-on: ubuntu-24.04
     timeout-minutes: 2
     steps:
@@ -208,16 +186,13 @@ jobs:
         working-directory: terraform/supabase
         id: get-supabase-connection-info
         run: |
+          SUPABASE_PROJECT_ID=""
           if [ "${{ matrix.environment }}" = "staging" ]; then
             SUPABASE_PROJECT_ID=$(terraform output -raw supabase_staging_project_id)
-            SUPABASE_URL="https://${SUPABASE_PROJECT_ID}.supabase.co"
             echo "SUPABASE_PROJECT_ID_STAGING=$SUPABASE_PROJECT_ID" >> $GITHUB_OUTPUT
-            echo "SUPABASE_URL_STAGING=$SUPABASE_URL" >> $GITHUB_OUTPUT
           else
             SUPABASE_PROJECT_ID=$(terraform output -raw supabase_production_project_id)
-            SUPABASE_URL="https://${SUPABASE_PROJECT_ID}.supabase.co"
             echo "SUPABASE_PROJECT_ID_PRODUCTION=$SUPABASE_PROJECT_ID" >> $GITHUB_OUTPUT
-            echo "SUPABASE_URL_PRODUCTION=$SUPABASE_URL" >> $GITHUB_OUTPUT
           fi
 
           if [ -z "$SUPABASE_PROJECT_ID" ]; then
@@ -225,62 +200,145 @@ jobs:
             exit 1
           fi
 
-  # This is a placeholder for actual deployment
-  # You would replace this with your actual deployment method
-  # (e.g., deploy to Kubernetes, Cloud Run, etc.)
   deploy-bff:
     needs:
       - define-matrix
-      - build-and-push-docker
+      - build-dart-engine
       - get-supabase-connection-info
     strategy:
       matrix:
         environment: ${{ fromJson(needs.define-matrix.outputs.environments) }}
     outputs:
-      deployment_url: ${{ steps.set-deployment-info.outputs.DEPLOYMENT_URL }}
+      deployment_url: ${{ steps.extract-deployment-url.outputs.DEPLOYMENT_URL }}
       logs: ${{ steps.extract-logs.outputs.LOG }}
     runs-on: ubuntu-24.04
+    env:
+      MISE_ENV: ci
     steps:
       # https://github.com/actions/checkout
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
-      # Simulate deployment - replace with actual deployment steps
-      - name: Deploy to ${{ matrix.environment }}
-        id: deploy
-        run: |
-          echo "🚀 Deploying Docker image to ${{ matrix.environment }}"
-          echo "📦 Image: ${{ needs.build-and-push-docker.outputs.image }}"
-          
-          # Add your actual deployment commands here
-          # Examples:
-          # - kubectl apply -f k8s/
-          # - gcloud run deploy --image=${{ needs.build-and-push-docker.outputs.image }}
-          # - docker-compose up -d
-          
-          echo "✅ Deployment completed successfully"
+      - name: Download Dart Engine Artifacts
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: bff-engine-artifact-${{ matrix.environment }}
+          path: bff/bridge/engine-artifact
 
-      - name: Set deployment info
-        id: set-deployment-info
-        env:
-          SUPABASE_URL_STAGING: ${{ needs.get-supabase-connection-info.outputs.SUPABASE_URL_STAGING }}
-          SUPABASE_URL_PRODUCTION: ${{ needs.get-supabase-connection-info.outputs.SUPABASE_URL_PRODUCTION }}
+      - name: Extract SOPS secrets
         run: |
-          # Set deployment URL based on environment
+          mkdir -p ~/.config/mise
+          echo "${{ secrets.SOPS_FILE }}" > ~/.config/mise/flutterkaigi.txt
+
+      # https://github.com/jdx/mise-action
+      - name: Install Mise dependencies
+        uses: jdx/mise-action@5083fe46898c414b2475087cc79da59e7da859e8 # v2.1.11
+        with:
+          install_args: "bun"
+
+      - name: Set environment variables
+        run: |
+          for line in $(mise env --dotenv); do
+            echo $line >> "$GITHUB_ENV"
+            echo "::add-mask::${line#*=}"
+          done
+
+      - name: Install dependencies
+        working-directory: bff/bridge
+        run: bun install --frozen-lockfile
+
+      - name: Check main.wasm exists
+        working-directory: bff/bridge/engine-artifact
+        run: |
+          if [ ! -f "main.wasm" ]; then
+            echo "Error: main.wasm not found!"
+            exit 1
+          fi
+
+      - name: Deploy BFF (staging)
+        id: deploy-bff-staging
+        working-directory: bff/bridge
+        if: ${{ matrix.environment == 'staging' }}
+        env:
+          SUPABASE_PROJECT_ID: ${{ needs.get-supabase-connection-info.outputs.SUPABASE_PROJECT_ID_STAGING }}
+        run: |
+          {
+            echo "LOG<<EOL"
+            # SET SUPABASE_URL
+            SUPABASE_URL="https://$(echo $SUPABASE_PROJECT_ID).supabase.co"
+            echo $SUPABASE_URL | bunx wrangler versions secret \
+                --env staging \
+                put SUPABASE_URL
+
+            # SET SUPABASE_SERVICE_ROLE_KEY_STAGING
+            echo $SUPABASE_SERVICE_ROLE_KEY_STAGING | bunx wrangler \
+                versions secret \
+                --env staging \
+                put SUPABASE_SERVICE_ROLE_KEY
+
+            bunx wrangler versions upload \
+              --env staging \
+              --var COMMIT_HASH:$(git rev-parse HEAD) \
+              --minify 2>&1
+            echo "EOL"
+          } | tee -a $GITHUB_OUTPUT
+
+      - name: Deploy BFF (production)
+        id: deploy-bff-production
+        working-directory: bff/bridge
+        if: ${{ matrix.environment == 'production' }}
+        run: |
+          {
+            echo "LOG<<EOL"
+
+            # SET SUPABASE_URL
+            SUPABASE_URL="https://$(echo $SUPABASE_PROJECT_ID).supabase.co"
+            echo $SUPABASE_URL | bunx wrangler secret \
+                --env production \
+                put SUPABASE_URL
+
+            # SET SUPABASE_SERVICE_ROLE_KEY_PRODUCTION
+            echo $SUPABASE_SERVICE_ROLE_KEY_PRODUCTION | bunx wrangler secret \
+                --env production \
+                put SUPABASE_SERVICE_ROLE_KEY
+
+            bunx wrangler deploy \
+              --env production \
+              --var COMMIT_HASH:$(git rev-parse HEAD) \
+              --minify 2>&1
+            echo "EOL"
+          } | tee -a $GITHUB_OUTPUT
+
+      - name: Set logs
+        id: set-logs
+        env:
+          STAGING_LOG: ${{ steps.deploy-bff-staging.outputs.log }}
+          PRODUCTION_LOG: ${{ steps.deploy-bff-production.outputs.log }}
+        run: |
+          function get-log() {
+            if [ -z '${{ steps.deploy-bff-production.outputs.LOG }}' ]; then
+              echo '${{ steps.deploy-bff-staging.outputs.LOG }}'
+            else
+              echo '${{ steps.deploy-bff-production.outputs.LOG }}'
+            fi
+          }
+
+          {
+            echo "LOG<<EOL"
+            get-log
+            echo "EOL"
+          } | tee -a $GITHUB_OUTPUT
+
+      - name: Extract deployment URL
+        id: extract-deployment-url
+        run: |
           if [ "${{ matrix.environment }}" = "production" ]; then
+            # productionのデプロイは`2025-bff.flutterkaigi.jp`で固定値なので、その値を格納
             DEPLOYMENT_URL="https://2025-bff.flutterkaigi.jp"
           else
-            DEPLOYMENT_URL="https://staging-bff.flutterkaigi.jp"
+            DEPLOYMENT_URL=$(echo '${{ steps.set-logs.outputs.LOG }}' | grep -o 'https://[^ ]*' | head -n 1)
           fi
           echo "DEPLOYMENT_URL=$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
-          
-          # Log environment variables for deployment
-          echo "Environment variables configured:"
-          if [ "${{ matrix.environment }}" = "staging" ]; then
-            echo "SUPABASE_URL=$SUPABASE_URL_STAGING" 
-          else
-            echo "SUPABASE_URL=$SUPABASE_URL_PRODUCTION"
-          fi
 
       - name: Extract timestamp
         id: extract-timestamp
@@ -294,33 +352,27 @@ jobs:
         run: |
           echo "LOG<<EOF" >> $GITHUB_OUTPUT
           cat <<EOL | tee -a $GITHUB_OUTPUT
-          ## 🐳 BFF Docker Deployment
-          🔗URL: ${{ steps.set-deployment-info.outputs.DEPLOYMENT_URL }}
-          📦Image: \`${{ needs.build-and-push-docker.outputs.image }}\`
+          ## 🌍️ BFF Deployment
+          🔗URL: ${{ steps.extract-deployment-url.outputs.DEPLOYMENT_URL }}
 
           🔑Commit Hash: \`${{ github.sha }}\`
           📅Timestamp: \`${{ steps.extract-timestamp.outputs.TIMESTAMP }}\`
 
           <details>
-          <summary><h3>🏗️ Build Logs</h3></summary>
+          <summary><h2>📦️ Build Logs</h2></summary>
 
           \`\`\`log
-          ${{ needs.build-and-push-docker.outputs.logs }}
+          ${{ needs.build-dart-engine.outputs.log }}
           \`\`\`
           </details>
 
           <details>
-          <summary><h3>🚀 Deployment Logs</h3></summary>
+          <summary><h2>✈️ Deployment Logs</h2></summary>
 
           \`\`\`log
-          ${{ steps.deploy.outputs.log || '✅ Deployment completed successfully' }}
+          ${{ steps.set-logs.outputs.LOG }}
           \`\`\`
           </details>
-
-          ## 🔧 Configuration
-          - Environment: \`${{ matrix.environment }}\`
-          - Docker Registry: \`${{ env.REGISTRY }}\`
-          - Image Digest: \`${{ needs.build-and-push-docker.outputs.digest }}\`
           EOL
           echo "EOF" >> $GITHUB_OUTPUT
 
@@ -337,7 +389,7 @@ jobs:
     runs-on: ubuntu-24.04
     needs:
       - define-matrix
-      - build-and-push-docker
+      - build-dart-engine
       - start-deploy-bff
       - deploy-bff
     if: ${{ contains(fromJson(needs.define-matrix.outputs.environments), 'production') }}
