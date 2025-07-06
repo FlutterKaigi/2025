@@ -37,10 +37,12 @@ final supabaseUtilProvider = Provider<SupabaseUtil>((ref) {
 Middleware providerMiddleware(ProviderContainer container) {
   return (Handler handler) {
     return (Request request) async {
-      final newRequest = request.change(context: {
-        'container': container,
-        'supabaseUtil': container.read(supabaseUtilProvider),
-      });
+      final newRequest = request.change(
+        context: {
+          'container': container,
+          'supabaseUtil': container.read(supabaseUtilProvider),
+        },
+      );
       return await handler(newRequest);
     };
   };
@@ -87,12 +89,15 @@ Router createRouter() {
 }
 
 Future<void> main() async {
-  // Create provider container
-  final container = ProviderContainer(
-    overrides: const [
-      // Override providers with environment-based implementations
-    ],
+  print('Starting server...');
+  print('SUPABASE_URL: ${Platform.environment['SUPABASE_URL']}');
+  print(
+    'SUPABASE_SERVICE_ROLE_KEY: ${Platform.environment['SUPABASE_SERVICE_ROLE_KEY']?.substring(0, 5)}...',
   );
+  print('PORT: ${Platform.environment['PORT']}');
+
+  // Create provider container
+  final container = ProviderContainer();
 
   // Create router
   final router = createRouter();
