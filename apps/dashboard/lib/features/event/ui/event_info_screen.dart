@@ -19,7 +19,7 @@ class EventInfoScreen extends StatelessWidget {
     return Scaffold(
       body: ListView(
         children: const [
-          _NotificationListTile(),
+          _NewsListTile(),
           _EventInfoCard(),
         ],
       ),
@@ -27,8 +27,8 @@ class EventInfoScreen extends StatelessWidget {
   }
 }
 
-class _NotificationListTile extends StatelessWidget {
-  const _NotificationListTile({
+class _NewsListTile extends StatelessWidget {
+  const _NewsListTile({
     super.key,
   });
 
@@ -48,8 +48,8 @@ class _NotificationListTile extends StatelessWidget {
       ),
       child: ListTile(
         leading: const Icon(Icons.notifications_outlined),
-        title: Text(l10n.notificationTileTitle),
-        subtitle: Text(l10n.notificationTileSubtitle),
+        title: Text(l10n.newsTileTitle),
+        subtitle: Text(l10n.newsTileSubtitle),
         trailing: const Icon(Icons.arrow_right),
         onTap: () async => const NewsRoute().go(context),
       ),

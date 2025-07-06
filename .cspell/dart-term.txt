@@ -7,7 +7,8 @@ ints
 combinatiors
 tearoffs
 combinators
+widgetbook
 # Dart web
 HTMLUListElement
 HTMLDListElement
-HTMLLIElement 
+HTMLLIElement

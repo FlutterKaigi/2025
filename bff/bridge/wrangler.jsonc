@@ -9,6 +9,18 @@
   "placement": {
     "mode": "smart"
   },
+  "hyperdrive": [
+    {
+      "binding": "HYPERDRIVE",
+      "id": "af34727d372f40cf975cb87f7de8461b",
+      "localConnectionString": "postgresql://postgres:postgres@127.0.0.1:54322/postgres",
+    },
+    {
+      "binding": "HYPERDRIVE_NO_CACHE",
+      "id": "a5ad3285bc2146929cf7b6e5fab52aa8",
+      "localConnectionString": "postgresql://postgres:postgres@127.0.0.1:54322/postgres",
+    },
+  ],
   "env": {
     "staging": {
       "containers": [
@@ -66,6 +78,7 @@
           }
         ]
       },
+<<<<<<< HEAD
       "migrations": [
         {
           "new_sqlite_classes": ["BffEngine"],
@@ -77,4 +90,20 @@
       }
     }
   }
+=======
+      "hyperdrive": [
+        {
+          "binding": "HYPERDRIVE",
+          "id": "af34727d372f40cf975cb87f7de8461b",
+          "localConnectionString": "postgresql://postgres:postgres@127.0.0.1:54322/postgres",
+        },
+        {
+          "binding": "HYPERDRIVE_NO_CACHE",
+          "id": "a5ad3285bc2146929cf7b6e5fab52aa8",
+          "localConnectionString": "postgresql://postgres:postgres@127.0.0.1:54322/postgres",
+        },
+      ],
+    },
+  },
+>>>>>>> 8df4bb71dd9d61645f76ac6b60a5b83c69374f0f
 }

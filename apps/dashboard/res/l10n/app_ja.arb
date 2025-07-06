@@ -1,9 +1,13 @@
 {
   "@@locale": "ja",
-  "notificationTileTitle": "最新のお知らせ",
-  "@notificationTileTitle": {},
-  "notificationTileSubtitle": "最新のお知らせをご確認ください",
-  "@notificationTileSubtitle": {},
+  "appName": "FlutterKaigi 2025 Dashboard",
+  "@appName": {},
+  "newsTileTitle": "最新のお知らせ",
+  "@newsTileTitle": {},
+  "newsTileSubtitle": "最新のお知らせをご確認ください",
+  "@newsTileSubtitle": {},
+  "newsScreenTitle": "お知らせ",
+  "@newsScreenTitle": {},
   "eventDescription": "2025年、日本国内で Flutter をメインに扱う技術カンファレンス。Flutter や Dart の深い知見を持つ開発者によるセッションを多数企画します。",
   "@eventDescription": {},
   "eventDate": "2025年11月13日(金)",
@@ -13,5 +17,15 @@
   "eventVenue": "大手町プレイス ホール＆カンファレンス",
   "@eventVenue": {},
   "eventAddress": "東京都千代田区大手町二丁目3番1号",
-  "@eventAddress": {}
-} 
+  "@eventAddress": {},
+  "sponsorDescription": "会社概要",
+  "@sponsorDescription": {},
+  "sponsorEnthusiasm": "意気込み",
+  "@sponsorEnthusiasm": {},
+  "sponsorWebsite": "ウェブサイト",
+  "@sponsorWebsite": {},
+  "sponsorWebsiteNotSet": "設定されていません",
+  "@sponsorWebsiteNotSet": {},
+  "sponsorEditButtonLabel": "スポンサー情報を編集する",
+  "@sponsorEditButtonLabel": {}
+}

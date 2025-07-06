@@ -2,6 +2,13 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "dashboard-catalog-debug",
+      "cwd": "apps/dashboard_catalog",
+      "request": "launch",
+      "program": "lib/main.dart",
+      "type": "dart"
+    },
+    {
       "name": "dashboard-development-debug",
       "cwd": "apps/dashboard",
       "request": "launch",

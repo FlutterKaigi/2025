@@ -93,17 +93,29 @@ abstract class L10n {
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[Locale('ja')];
 
-  /// No description provided for @notificationTileTitle.
+  /// No description provided for @appName.
+  ///
+  /// In ja, this message translates to:
+  /// **'FlutterKaigi 2025 Dashboard'**
+  String get appName;
+
+  /// No description provided for @newsTileTitle.
   ///
   /// In ja, this message translates to:
   /// **'最新のお知らせ'**
-  String get notificationTileTitle;
+  String get newsTileTitle;
 
-  /// No description provided for @notificationTileSubtitle.
+  /// No description provided for @newsTileSubtitle.
   ///
   /// In ja, this message translates to:
   /// **'最新のお知らせをご確認ください'**
-  String get notificationTileSubtitle;
+  String get newsTileSubtitle;
+
+  /// No description provided for @newsScreenTitle.
+  ///
+  /// In ja, this message translates to:
+  /// **'お知らせ'**
+  String get newsScreenTitle;
 
   /// No description provided for @eventDescription.
   ///
@@ -134,6 +146,36 @@ abstract class L10n {
   /// In ja, this message translates to:
   /// **'東京都千代田区大手町二丁目3番1号'**
   String get eventAddress;
+
+  /// No description provided for @sponsorDescription.
+  ///
+  /// In ja, this message translates to:
+  /// **'会社概要'**
+  String get sponsorDescription;
+
+  /// No description provided for @sponsorEnthusiasm.
+  ///
+  /// In ja, this message translates to:
+  /// **'意気込み'**
+  String get sponsorEnthusiasm;
+
+  /// No description provided for @sponsorWebsite.
+  ///
+  /// In ja, this message translates to:
+  /// **'ウェブサイト'**
+  String get sponsorWebsite;
+
+  /// No description provided for @sponsorWebsiteNotSet.
+  ///
+  /// In ja, this message translates to:
+  /// **'設定されていません'**
+  String get sponsorWebsiteNotSet;
+
+  /// No description provided for @sponsorEditButtonLabel.
+  ///
+  /// In ja, this message translates to:
+  /// **'スポンサー情報を編集する'**
+  String get sponsorEditButtonLabel;
 }
 
 class _L10nDelegate extends LocalizationsDelegate<L10n> {

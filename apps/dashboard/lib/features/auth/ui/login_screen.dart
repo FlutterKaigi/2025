@@ -1,3 +1,5 @@
+import 'package:dashboard/core/gen/assets/assets.gen.dart';
+import 'package:dashboard/core/gen/l10n/l10n.dart';
 import 'package:dashboard/features/auth/data/notifier/auth_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -16,51 +18,34 @@ class LoginScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
+    final l10n = L10n.of(context);
 
     return Scaffold(
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(48),
-              child: Card(
-                color: colorScheme.primaryContainer,
-                elevation: 4,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(32),
-                  child: DefaultTextStyle(
-                    style: TextStyle(color: colorScheme.onPrimaryContainer),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      spacing: 8,
-                      children: [
-                        // ロゴやタイトル
-                        Icon(
-                          Icons.flutter_dash,
-                          size: 120,
-                          color: colorScheme.onPrimaryContainer,
-                        ),
-                        Text(
-                          'FlutterKaigi 2025 Dashboard',
-                          style: theme.textTheme.headlineMedium?.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: colorScheme.onPrimaryContainer,
-                          ),
-                        ),
-                        // Googleログインボタン
-                        _GoogleSignInButton(
-                          onPressed: () async => ref
-                              .read(authNotifierProvider.notifier)
-                              .signInWithGoogle(),
-                        ),
-                      ],
+            child: Card.outlined(
+              child: Padding(
+                padding: const EdgeInsets.all(36),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  spacing: 24,
+                  children: [
+                    Assets.res.assets.logo.image(
+                      height: 160,
+                      fit: BoxFit.fitHeight,
                     ),
-                  ),
+                    Text(
+                      l10n.appName,
+                      style: theme.textTheme.titleMedium,
+                    ),
+                    _GoogleSignInButton(
+                      onPressed: () async => ref
+                          .read(authNotifierProvider.notifier)
+                          .signInWithGoogle(),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -78,10 +63,15 @@ class _GoogleSignInButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FilledButton.icon(
-      icon: const Icon(Icons.account_circle),
-      label: const Text('Googleでログイン'),
-      onPressed: onPressed,
+    return Ink.image(
+      width: 210,
+      height: 48,
+      image: Assets.res.assets.googleSignInButton.provider(),
+      fit: BoxFit.contain,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(40),
+        onTap: onPressed,
+      ),
     );
   }
 }
