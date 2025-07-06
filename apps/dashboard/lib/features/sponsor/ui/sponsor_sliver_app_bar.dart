@@ -120,75 +120,10 @@ class _SponsorFlexibleSpace extends HookWidget {
 
         final children = <Widget>[];
 
-        // 背景画像の高さ
-        final flexibleSpaceHeight = constraints.maxHeight > settings.maxExtent
-            ? constraints.maxHeight
-            : settings.maxExtent;
-
-        // パララックス効果
-        final parallax = -Tween<double>(
-          begin: 0,
-          end: deltaExtent / 4.0,
-        ).transform(t);
-
-        // 透過度（フェード）
-        final fadeStart = deltaExtent == 0
-            ? 0.0
-            : (1.0 - kToolbarHeight / deltaExtent).clamp(0.0, 1.0);
-        const fadeEnd = 1.0;
-        final opacity = deltaExtent == 0
-            ? 1.0
-            : 1.0 - Interval(fadeStart, fadeEnd).transform(t);
-
-        // 背景画像
+        // 背景部分
         children.add(
-          Positioned(
-            top: parallax,
-            left: 0,
-            right: 0,
-            height: flexibleSpaceHeight,
-            child: Opacity(
-              opacity: opacity,
-              child: Image.network(
-                sponsor.logoUrl.toString(),
-                fit: BoxFit.contain,
-                errorBuilder: (context, error, stackTrace) => Center(
-                  child: Icon(
-                    Icons.image_not_supported,
-                    size: 64,
-                    color: Colors.grey.shade700,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        );
-
-        // 背景ブラー
-        if (constraints.maxHeight > settings.maxExtent) {
-          final blurAmount =
-              (constraints.maxHeight - settings.maxExtent) / 10.0;
-          children.add(
-            Positioned.fill(
-              child: BackdropFilter(
-                filter: ImageFilter.blur(
-                  sigmaX: blurAmount,
-                  sigmaY: blurAmount,
-                ),
-                child: const ColoredBox(color: Colors.transparent),
-              ),
-            ),
-          );
-        }
-
-        // 黒半透明オーバーレイ
-        children.add(
-          const Positioned.fill(
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                color: Colors.black45,
-              ),
-            ),
+          _SponsorFlexibleSpaceBackground(
+            sponsor: sponsor,
           ),
         );
 
@@ -268,6 +203,96 @@ class _SponsorFlexibleSpace extends HookWidget {
             fit: StackFit.expand,
             children: children,
           ),
+        );
+      },
+    );
+  }
+}
+
+class _SponsorFlexibleSpaceBackground extends StatelessWidget {
+  const _SponsorFlexibleSpaceBackground({
+    required this.sponsor,
+  });
+
+  final Sponsor sponsor;
+
+  @override
+  Widget build(BuildContext context) {
+    final settings = context
+        .dependOnInheritedWidgetOfExactType<FlexibleSpaceBarSettings>()!;
+    final deltaExtent = settings.maxExtent - settings.minExtent;
+    final t = deltaExtent == 0.0
+        ? 1.0
+        : (1.0 - (settings.currentExtent - settings.minExtent) / deltaExtent)
+              .clamp(0.0, 1.0);
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        // 背景画像の高さ
+        final backgroundImageHeight = constraints.maxHeight > settings.maxExtent
+            ? constraints.maxHeight
+            : settings.maxExtent;
+
+        // パララックス効果
+        final parallax = -Tween<double>(
+          begin: 0,
+          end: deltaExtent / 4.0,
+        ).transform(t);
+
+        // 透過度（フェード）
+        final fadeStart = deltaExtent == 0
+            ? 0.0
+            : (1.0 - kToolbarHeight / deltaExtent).clamp(0.0, 1.0);
+        const fadeEnd = 1.0;
+        final opacity = deltaExtent == 0
+            ? 1.0
+            : 1.0 - Interval(fadeStart, fadeEnd).transform(t);
+
+        final blurAmount = (constraints.maxHeight - settings.maxExtent) / 10.0;
+
+        return Stack(
+          children: [
+            // 背景画像
+            Positioned(
+              top: parallax,
+              left: 0,
+              right: 0,
+              height: backgroundImageHeight,
+              child: Opacity(
+                opacity: opacity,
+                child: Image.network(
+                  sponsor.logoUrl.toString(),
+                  fit: BoxFit.contain,
+                  errorBuilder: (context, error, stackTrace) => Center(
+                    child: Icon(
+                      Icons.image_not_supported,
+                      size: 64,
+                      color: Colors.grey.shade700,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
+            // 背景ブラー
+            if (constraints.maxHeight > settings.maxExtent)
+              Positioned.fill(
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(
+                    sigmaX: blurAmount,
+                    sigmaY: blurAmount,
+                  ),
+                  child: const ColoredBox(color: Colors.transparent),
+                ),
+              ),
+
+            // 黒半透明オーバーレイ
+            const Positioned.fill(
+              child: ColoredBox(
+                color: Colors.black45,
+              ),
+            ),
+          ],
         );
       },
     );
