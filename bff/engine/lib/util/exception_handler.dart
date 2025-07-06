@@ -48,21 +48,4 @@ Future<Response> exceptionHandler(Future<Response> Function() fn) async {
       headers: {'Content-Type': 'application/json'},
     );
   }
-  // MEMO(@YumNumm): DartをWebAssemblyにトランスパイルし、Exceptionを投げると
-  // 稀に`JavaScriptError`が発生します
-  // そのため、ここでハンドリングしています。詳しい条件等は調査中です。
-  // Note: This is now less relevant for Dart VM, but keeping for compatibility
-  // ignore: avoid_catching_errors
-  on Error catch (e) {
-    return Response(
-      HttpStatus.internalServerError,
-      body: jsonEncode(
-        ErrorResponse.errorCode(
-          code: ErrorCode.internalServerError,
-          detail: 'ハンドルされていないエラーが発生しました: ${e.runtimeType}',
-        ).toJson(),
-      ),
-      headers: {'Content-Type': 'application/json'},
-    );
-  }
 }
