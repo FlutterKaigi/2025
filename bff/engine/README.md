@@ -1,99 +1,48 @@
 # BFF Engine - Dart Frog
 
-FlutterKaigi 2025 BFF API server built with Dart Frog.
+Dart Frogで構築されたFlutterKaigi 2025 BFF APIサーバーです。
 
-This project has been migrated from WebAssembly/Cloudflare Workers to Dart VM using dart_frog framework.
+このプロジェクトは、WebAssembly/Cloudflare WorkersからDart VMへ移行し、dart_frogフレームワークを使用しています。
 
-## Features
+## 機能
 
-- REST API endpoints
-- Supabase integration
-- User authentication
-- Health check endpoint
-- Docker support with mise
+- REST API エンドポイント
+- Supabase統合
+- ユーザー認証
+- ヘルスチェックエンドポイント
+- miseによるDockerサポート
 
-## API Endpoints
+## 開発
 
-- `GET /` - API information
-- `GET /health` - Health check
-- `GET /v1/users/me` - Get current user information
+### 前提条件
 
-## Development
+- mise（ツール管理用）
 
-### Prerequisites
+### セットアップ
 
-- Dart SDK 3.9.0-100.2.beta or later
-- mise (for tool management)
+1. 依存関係をインストール
 
-### Setup
-
-1. Install dependencies:
 ```bash
+mise install
 dart pub get
 ```
 
-2. Set up environment variables:
-```bash
-cp .env.example .env
-# Edit .env with your Supabase configuration
-```
+1. 開発サーバーを起動：
 
-3. Run the development server:
-```bash
-dart_frog dev
-```
-
-The server will be available at http://localhost:8080
-
-### Using mise
-
-You can use mise for task management:
+- miseにより、`.env`の中に設定されている値が環境変数に設定され、この値がdartでも利用されます
 
 ```bash
-# Install tools
-mise install
-
-# Build the application
-mise run build
-
-# Run development server
-mise run dev
-
-# Run tests
-mise run test
+dart run lib/main.dart
 ```
+
+サーバーは <http://localhost:8080> で利用可能です
 
 ## Docker
 
-### Build and run with Docker
+### Docker Composeの使用
+
+- `.env.stg`(Supabase Cloud Staging)の次に`.env.dev`(ローカル環境)が参照されます
 
 ```bash
-docker build -t bff-engine .
-docker run -p 8080:8080 bff-engine
+docker compose up -d --remove-orphans --build
 ```
-
-### Use Docker Compose
-
-```bash
-# Development
-docker compose up
-
-# Production with nginx
-docker compose --profile production up
-```
-
-## Environment Variables
-
-- `SUPABASE_URL` - Your Supabase project URL
-- `SUPABASE_SERVICE_ROLE_KEY` - Your Supabase service role key
-- `PORT` - Server port (default: 8080)
-- `HOST` - Server host (default: 0.0.0.0)
-
-## Architecture
-
-The application uses:
-- **dart_frog** - Web framework
-- **Supabase** - Backend as a Service
-- **Riverpod** - Dependency injection
-- **Docker** - Containerization
-- **mise** - Tool management

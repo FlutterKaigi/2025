@@ -6,6 +6,8 @@
 build/
 .dart_tool/
 
+node_modules/
+
 # IDE
 .vscode/
 .idea/
@@ -25,4 +27,6 @@ README.md
 Dockerfile
 .dockerignore
 compose.yaml
-nginx.conf
+
+.env*
+*.log
