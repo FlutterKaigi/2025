@@ -12,10 +12,13 @@ class L10nJa extends L10n {
   String get appName => 'FlutterKaigi 2025 Dashboard';
 
   @override
-  String get notificationTileTitle => '最新のお知らせ';
+  String get newsTileTitle => '最新のお知らせ';
 
   @override
-  String get notificationTileSubtitle => '最新のお知らせをご確認ください';
+  String get newsTileSubtitle => '最新のお知らせをご確認ください';
+
+  @override
+  String get newsScreenTitle => 'お知らせ';
 
   @override
   String get eventDescription =>
