@@ -110,12 +110,6 @@ class _SponsorFlexibleSpace extends HookWidget {
       builder: (context, constraints) {
         final settings = context
             .dependOnInheritedWidgetOfExactType<FlexibleSpaceBarSettings>()!;
-        const stretchModes = <StretchMode>[
-          StretchMode.zoomBackground,
-          StretchMode.blurBackground,
-          StretchMode.fadeTitle,
-        ];
-
         final deltaExtent = settings.maxExtent - settings.minExtent;
         final t = deltaExtent == 0.0
             ? 1.0
@@ -128,8 +122,7 @@ class _SponsorFlexibleSpace extends HookWidget {
 
         // 背景画像の高さ
         var flexibleSpaceHeight = settings.maxExtent;
-        if (stretchModes.contains(StretchMode.zoomBackground) &&
-            constraints.maxHeight > flexibleSpaceHeight) {
+        if (constraints.maxHeight > flexibleSpaceHeight) {
           flexibleSpaceHeight = constraints.maxHeight;
         }
 
@@ -173,8 +166,7 @@ class _SponsorFlexibleSpace extends HookWidget {
         );
 
         // 背景ブラー
-        if (stretchModes.contains(StretchMode.blurBackground) &&
-            constraints.maxHeight > settings.maxExtent) {
+        if (constraints.maxHeight > settings.maxExtent) {
           final blurAmount =
               (constraints.maxHeight - settings.maxExtent) / 10.0;
           children.add(
