@@ -252,10 +252,18 @@ class _SponsorFlexibleSpace extends HookWidget {
               child: SizedBox(
                 // スケール値を考慮して幅を計算
                 width: (constraints.maxWidth - nameLeft - 16) / scaleValue,
+                // 高さを固定して中央配置を安定させる
+                // 実際の高さが取得できていない場合は null で自動調整
+                height: sponsorNameTextHeight.value > 0
+                    ? sponsorNameTextHeight.value
+                    : null,
                 child: Opacity(
                   // 高さが取得できていない場合は位置がずれているため透明にする
                   opacity: sponsorNameTextHeight.value == 0 ? 0 : 1,
-                  child: sponsorNameText,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: sponsorNameText,
+                  ),
                 ),
               ),
             ),
