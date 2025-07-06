@@ -110,13 +110,7 @@ class _SponsorFlexibleSpace extends HookWidget {
       builder: (context, constraints) {
         final settings = context
             .dependOnInheritedWidgetOfExactType<FlexibleSpaceBarSettings>()!;
-        final deltaExtent = settings.maxExtent - settings.minExtent;
-        final t = deltaExtent == 0.0
-            ? 1.0
-            : (1.0 -
-                      (settings.currentExtent - settings.minExtent) /
-                          deltaExtent)
-                  .clamp(0.0, 1.0);
+        final t = settings.t;
 
         final children = <Widget>[];
 
@@ -220,11 +214,8 @@ class _SponsorFlexibleSpaceBackground extends StatelessWidget {
   Widget build(BuildContext context) {
     final settings = context
         .dependOnInheritedWidgetOfExactType<FlexibleSpaceBarSettings>()!;
-    final deltaExtent = settings.maxExtent - settings.minExtent;
-    final t = deltaExtent == 0.0
-        ? 1.0
-        : (1.0 - (settings.currentExtent - settings.minExtent) / deltaExtent)
-              .clamp(0.0, 1.0);
+    final deltaExtent = settings.deltaExtent;
+    final t = settings.t;
 
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -308,4 +299,14 @@ extension _BasicPlanName on Sponsor {
     OtherSponsor() => 'Other',
     IndividualSponsor() => 'Individual',
   };
+}
+
+extension _FlexibleSpaceBarSettingsX on FlexibleSpaceBarSettings {
+  /// 最大値と最小値の差
+  double get deltaExtent => maxExtent - minExtent;
+
+  /// 現在のスクロール量を0.0から1.0の範囲に正規化した値
+  double get t => deltaExtent == 0.0
+      ? 1.0
+      : (1.0 - (currentExtent - minExtent) / deltaExtent).clamp(0.0, 1.0);
 }
