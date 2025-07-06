@@ -1,28 +1,32 @@
-# IntelliJ related
-*.iml
-*.ipr
-*.iws
+# Git
+.git/
+.gitignore
 
-# Flutter/Dart/Pub related
-.dart_tool/
-.flutter-plugins
-.flutter-plugins-dependencies
-custom_lint.log
+# Build artifacts
+**/build
+**/.dart_tool/
 
+**/node_modules
 
-# Node.js
-node_modules/
+# IDE
+.vscode/
+.idea/
 
-# macOS
+# OS
 .DS_Store
+Thumbs.db
 
-# Cloudflare
-.wrangler/
+# Logs
+*.log
 
-# Flutter DevTools
-devtools_options.yaml
+# Documentation
+README.md
+*.md
 
-build/
-
+# Docker
 Dockerfile
+.dockerignore
 compose.yaml
+
+**/.env*
+**/*.log
