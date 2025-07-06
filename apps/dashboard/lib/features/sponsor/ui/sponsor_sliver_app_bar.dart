@@ -127,10 +127,10 @@ class _SponsorFlexibleSpace extends HookWidget {
         final children = <Widget>[];
 
         // 背景画像の高さ
-        var height = settings.maxExtent;
+        var flexibleSpaceHeight = settings.maxExtent;
         if (stretchModes.contains(StretchMode.zoomBackground) &&
-            constraints.maxHeight > height) {
-          height = constraints.maxHeight;
+            constraints.maxHeight > flexibleSpaceHeight) {
+          flexibleSpaceHeight = constraints.maxHeight;
         }
 
         // パララックス効果
@@ -154,7 +154,7 @@ class _SponsorFlexibleSpace extends HookWidget {
             top: parallax,
             left: 0,
             right: 0,
-            height: height,
+            height: flexibleSpaceHeight,
             child: Opacity(
               opacity: opacity,
               child: Image.network(
