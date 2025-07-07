@@ -396,12 +396,18 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: 'チームラボ株式会社',
-    url: '',
-    sns: (x: null),
-    pr: (ja: '', en: null),
-    logo: '',
+    url: 'https://www.team-lab.com/',
+    sns: (x: 'teamlab_recruit'),
+    pr: (
+      ja:
+          '最新のテクノロジーを活用したソリューション、大規模なシステム開発、都市計画や、ICT空間設計などを行う。'
+          'チームラボのFlutter活用事例はGoogle I/Oでも紹介されました。'
+          ' https://youtu.be/OyS812ZoTzw',
+      en: null,
+    ),
+    logo: '/img/sponsor/team-lab.png',
     type: SponsorType.silver,
-    disable: true,
+    disable: false,
   ),
   (
     name: '株式会社MIXI',
