@@ -81,10 +81,6 @@ class _SponsorEditForm extends HookConsumerWidget {
       return null;
     }, [sponsor]);
 
-    void onSave() {
-      context.pop();
-    }
-
     return Scaffold(
       backgroundColor: colorScheme.surface,
       appBar: AppBar(
@@ -123,29 +119,22 @@ class _SponsorEditForm extends HookConsumerWidget {
               controller: secondFieldController,
               label: l10n.sponsorWebsite,
             ),
-            const SizedBox(height: 32),
-
-            // 保存ボタン
-            FilledButton(
-              onPressed: onSave,
-              style: FilledButton.styleFrom(
-                backgroundColor: colorScheme.primaryContainer,
-                foregroundColor: colorScheme.onPrimaryContainer,
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.check, size: 20),
-                  const SizedBox(width: 8),
-                  Text(l10n.sponsorEditSaveButtonLabel),
-                ],
-              ),
-            ),
+            const SizedBox(height: 80), // ボタン分のスペースを確保
           ],
+        ),
+      ),
+      bottomNavigationBar: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: FilledButton.icon(
+            style: FilledButton.styleFrom(
+              backgroundColor: colorScheme.onPrimaryContainer,
+              foregroundColor: colorScheme.onPrimary,
+            ),
+            icon: const Icon(Icons.check),
+            label: Text(l10n.sponsorEditSaveButtonLabel),
+            onPressed: () {},
+          ),
         ),
       ),
     );
