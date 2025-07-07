@@ -176,6 +176,24 @@ abstract class L10n {
   /// In ja, this message translates to:
   /// **'スポンサー情報を編集する'**
   String get sponsorEditButtonLabel;
+
+  /// No description provided for @sponsorEditScreenTitle.
+  ///
+  /// In ja, this message translates to:
+  /// **'スポンサー編集'**
+  String get sponsorEditScreenTitle;
+
+  /// No description provided for @sponsorEditSaveButtonLabel.
+  ///
+  /// In ja, this message translates to:
+  /// **'保存する'**
+  String get sponsorEditSaveButtonLabel;
+
+  /// No description provided for @sponsorName.
+  ///
+  /// In ja, this message translates to:
+  /// **'スポンサー名'**
+  String get sponsorName;
 }
 
 class _L10nDelegate extends LocalizationsDelegate<L10n> {
