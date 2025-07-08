@@ -65,18 +65,18 @@ class _SponsorEditForm extends HookConsumerWidget {
     final colorScheme = theme.colorScheme;
 
     final nameController = useTextEditingController();
-    final firstFieldController = useTextEditingController();
-    final secondFieldController = useTextEditingController();
+    final descriptionController = useTextEditingController();
+    final websiteController = useTextEditingController();
 
     useEffect(() {
       nameController.text = sponsor.name;
       switch (sponsor) {
         case final CompanySponsor company:
-          firstFieldController.text = company.description;
-          secondFieldController.text = company.websiteUrl.toString();
+          descriptionController.text = company.description;
+          websiteController.text = company.websiteUrl.toString();
         case final IndividualSponsor individual:
-          firstFieldController.text = individual.enthusiasm;
-          secondFieldController.text = individual.websiteUrl?.toString() ?? '';
+          descriptionController.text = individual.enthusiasm;
+          websiteController.text = individual.websiteUrl?.toString() ?? '';
       }
       return null;
     }, [sponsor]);
@@ -103,9 +103,9 @@ class _SponsorEditForm extends HookConsumerWidget {
             ),
             const SizedBox(height: 16),
 
-            // 会社概要
+            // 会社概要/意気込み
             _SponsorEditField(
-              controller: firstFieldController,
+              controller: descriptionController,
               label: switch (sponsor) {
                 CompanySponsor() => l10n.sponsorDescription,
                 IndividualSponsor() => l10n.sponsorEnthusiasm,
@@ -116,7 +116,7 @@ class _SponsorEditForm extends HookConsumerWidget {
 
             // ウェブサイト
             _SponsorEditField(
-              controller: secondFieldController,
+              controller: websiteController,
               label: l10n.sponsorWebsite,
             ),
             const SizedBox(height: 80), // ボタン分のスペースを確保
