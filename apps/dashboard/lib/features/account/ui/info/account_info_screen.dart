@@ -1,6 +1,6 @@
 import 'package:dashboard/core/gen/l10n/l10n.dart';
 import 'package:dashboard/features/account/ui/component/account_circle_image.dart';
-import 'package:dashboard/features/account/ui/component/account_scaffolod.dart';
+import 'package:dashboard/features/account/ui/component/account_scaffold.dart';
 import 'package:dashboard/features/account/ui/info/component/account_invitation_dialog.dart';
 import 'package:dashboard/features/account/ui/info/component/account_other_list.dart';
 import 'package:flutter/material.dart';
