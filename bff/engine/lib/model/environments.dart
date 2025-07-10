@@ -12,8 +12,7 @@ abstract class Environments with _$Environments {
     required String cfVersionMetadataId,
     required String cfVersionMetadataTag,
     required String cfVersionMetadataTimestamp,
-    required String hyperdriveUrl,
-    required String hyperdriveNoCacheUrl,
+    required String postgresUrl,
   }) = _Environments;
 
   factory Environments.fromJson(Map<String, dynamic> json) =>

@@ -55,7 +55,7 @@ class SupabaseUtil {
     final supabaseUser = supabaseUserResult.unwrap;
 
     final noCacheDb = await container.read(
-      dbClientProvider(HyperdriveType.noCache).future,
+      dbClientProvider.future,
     );
 
     final userAndUserRoles = await noCacheDb.user.getUserAndUserRoles(

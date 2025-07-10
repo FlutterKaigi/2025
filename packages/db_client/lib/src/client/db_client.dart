@@ -22,6 +22,10 @@ class DbClient {
   Future<void> dispose() async {
     await _connection.close();
   }
+
+  ConnectionInfo get connectionInfo => _connection.info;
+
+  bool get isOpen => _connection.isOpen;
 }
 
 Endpoint parseConnectionString(String connectionString) {

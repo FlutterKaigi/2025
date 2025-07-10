@@ -31,11 +31,7 @@ _Environments _$EnvironmentsFromJson(Map<String, dynamic> json) =>
             'CF_VERSION_METADATA_TIMESTAMP',
             (v) => v as String,
           ),
-          hyperdriveUrl: $checkedConvert('HYPERDRIVE_URL', (v) => v as String),
-          hyperdriveNoCacheUrl: $checkedConvert(
-            'HYPERDRIVE_NO_CACHE_URL',
-            (v) => v as String,
-          ),
+          postgresUrl: $checkedConvert('POSTGRES_URL', (v) => v as String),
         );
         return val;
       },
@@ -45,8 +41,7 @@ _Environments _$EnvironmentsFromJson(Map<String, dynamic> json) =>
         'cfVersionMetadataId': 'CF_VERSION_METADATA_ID',
         'cfVersionMetadataTag': 'CF_VERSION_METADATA_TAG',
         'cfVersionMetadataTimestamp': 'CF_VERSION_METADATA_TIMESTAMP',
-        'hyperdriveUrl': 'HYPERDRIVE_URL',
-        'hyperdriveNoCacheUrl': 'HYPERDRIVE_NO_CACHE_URL',
+        'postgresUrl': 'POSTGRES_URL',
       },
     );
 
@@ -57,6 +52,5 @@ Map<String, dynamic> _$EnvironmentsToJson(_Environments instance) =>
       'CF_VERSION_METADATA_ID': instance.cfVersionMetadataId,
       'CF_VERSION_METADATA_TAG': instance.cfVersionMetadataTag,
       'CF_VERSION_METADATA_TIMESTAMP': instance.cfVersionMetadataTimestamp,
-      'HYPERDRIVE_URL': instance.hyperdriveUrl,
-      'HYPERDRIVE_NO_CACHE_URL': instance.hyperdriveNoCacheUrl,
+      'POSTGRES_URL': instance.postgresUrl,
     };

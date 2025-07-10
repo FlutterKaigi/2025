@@ -5,26 +5,13 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'db_client_provider.g.dart';
 
 @Riverpod(keepAlive: true)
-Future<DbClient> dbClient(Ref ref, HyperdriveType type) async {
+Future<DbClient> dbClient(Ref ref) async {
   final env = ref.watch(environemntsProvider);
-  final connectionString = switch (type) {
-    HyperdriveType.cache => env.hyperdriveUrl,
-    HyperdriveType.noCache => env.hyperdriveNoCacheUrl,
-  };
-  final db = await DbClient.connect(connectionString);
+  final db = await DbClient.connect(env.postgresUrl);
 
   ref.onDispose(() async {
     await db.dispose();
   });
 
   return db;
-}
-
-/// Postgres接続先の種類
-enum HyperdriveType {
-  /// Cloudflare Hyperdriveにより、クエリ結果をキャッシュする
-  cache,
-
-  /// キャッシュなし
-  noCache,
 }
