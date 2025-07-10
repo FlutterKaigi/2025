@@ -31,32 +31,47 @@ class UserApiService {
         },
       );
 
-  @Route.post('/users/list')
+  @Route.get('/users/list')
   Future<Response> _getUserList(Request request) async => jsonResponse(
         () async {
           final supabaseUtil = container.read(supabaseUtilProvider);
           final userResult = await supabaseUtil.extractUser(request);
-          final (_, _, roles) = userResult.unwrap;
+          final (_, _, userRoles) = userResult.unwrap;
 
           // 管理者権限チェック
-          if (!roles.contains(Role.admin)) {
+          if (!userRoles.contains(Role.admin)) {
             throw ErrorResponse.errorCode(
               code: ErrorCode.forbidden,
               detail: 'この操作には管理者権限が必要です',
             );
           }
 
-          final body = await request.readAsString();
-          final requestData = UsersListRequest.fromJson(
-            jsonDecode(body) as Map<String, dynamic>,
-          );
+          // クエリパラメータから検索条件を取得
+          final limit = int.tryParse(request.url.queryParameters['limit'] ?? '10') ?? 10;
+          final offset = int.tryParse(request.url.queryParameters['offset'] ?? '0') ?? 0;
+          final email = request.url.queryParameters['email'];
+          final rolesParam = request.url.queryParameters['roles'];
+          
+          List<Role>? filterRoles;
+          if (rolesParam != null && rolesParam.isNotEmpty) {
+            filterRoles = rolesParam.split(',')
+                .map((e) => e.trim())
+                .where((roleName) => Role.values.any((role) => role.name == roleName))
+                .map((roleName) => Role.values.firstWhere((role) => role.name == roleName))
+                .toList();
+            
+            // 有効なロールが見つからない場合は null にする
+            if (filterRoles.isEmpty) {
+              filterRoles = null;
+            }
+          }
 
           final database = await container.read(dbClientProvider.future);
           final users = await database.user.getUserList(
-            email: requestData.email,
-            roles: requestData.roles,
-            limit: requestData.limit,
-            offset: requestData.offset,
+            email: email,
+            roles: filterRoles,
+            limit: limit,
+            offset: offset,
           );
 
           return UsersListResponse(users: users).toJson();

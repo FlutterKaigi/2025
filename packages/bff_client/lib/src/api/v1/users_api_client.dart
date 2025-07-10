@@ -16,9 +16,12 @@ abstract class UsersApiClient {
 
   /// ユーザ一覧を取得します
   /// Authorization Headerが必須（管理者権限が必要）
-  @POST('/users/list')
+  @GET('/users/list')
   Future<HttpResponse<UsersListResponse>> getUserList({
-    @Body() required UsersListRequest request,
+    @Query('limit') int? limit,
+    @Query('offset') int? offset,
+    @Query('email') String? email,
+    @Query('roles') String? roles,
   });
 
   /// 特定のユーザを取得します
