@@ -1,4 +1,4 @@
-import { Container, getRandom } from '@cloudflare/containers';
+import { Container, getRandom } from "@cloudflare/containers";
 
 export class BffEngine extends Container<
   Env & {
@@ -7,7 +7,7 @@ export class BffEngine extends Container<
   }
 > {
   defaultPort = 8080;
-  sleepAfter = '10s';
+  sleepAfter = "10s";
   envVars = {
     SUPABASE_URL: this.env.SUPABASE_URL,
     SUPABASE_SERVICE_ROLE_KEY: this.env.SUPABASE_SERVICE_ROLE_KEY,
