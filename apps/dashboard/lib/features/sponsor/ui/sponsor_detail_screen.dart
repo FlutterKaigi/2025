@@ -4,7 +4,7 @@ import 'package:dashboard/core/gen/l10n/l10n.dart';
 import 'package:dashboard/core/router/router.dart';
 import 'package:dashboard/features/sponsor/data/sponsor.dart';
 import 'package:dashboard/features/sponsor/data/sponsor_provider.dart';
-import 'package:dashboard/features/sponsor/ui/sponsor_flexible_space_bar.dart';
+import 'package:dashboard/features/sponsor/ui/sponsor_sliver_app_bar.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -59,23 +59,11 @@ class _SponsorDetail extends ConsumerWidget {
 
     final l10n = L10n.of(context);
 
-    final header = SliverAppBar(
-      stretch: true,
-      expandedHeight: 240,
-      automaticallyImplyLeading: false,
-      leading: IconButton.filledTonal(
-        style: IconButton.styleFrom(
-          backgroundColor: colorScheme.secondaryContainer,
-          foregroundColor: colorScheme.onSurface,
-        ),
-        onPressed: () {
-          context.pop();
-        },
-        icon: const Icon(Icons.arrow_back),
-      ),
-      flexibleSpace: SponsorFlexibleSpaceBar(
-        sponsor: sponsor,
-      ),
+    final header = SponsorSliverAppBar(
+      sponsor: sponsor,
+      onBackPressed: () {
+        context.pop();
+      },
     );
 
     final titleStyle = textTheme.titleSmall?.copyWith(

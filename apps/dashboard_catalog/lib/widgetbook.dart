@@ -54,6 +54,15 @@ class WidgetbookApp extends StatelessWidget {
             min: 1,
             divisions: 4,
           ),
+          // MEMO: https://github.com/widgetbook/widgetbook/issues/1222
+          BuilderAddon(
+            name: 'Navigator Addon',
+            builder: (context, child) => Navigator(
+              onGenerateRoute: (_) => PageRouteBuilder(
+                pageBuilder: (context, _, __) => child,
+              ),
+            ),
+          ),
         ],
       ),
     );

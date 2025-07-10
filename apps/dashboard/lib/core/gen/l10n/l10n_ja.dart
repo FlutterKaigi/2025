@@ -50,4 +50,58 @@ class L10nJa extends L10n {
 
   @override
   String get sponsorEditButtonLabel => 'スポンサー情報を編集する';
+
+  @override
+  String get sponsorEditScreenTitle => 'スポンサー編集';
+
+  @override
+  String get sponsorEditSaveButtonLabel => '保存する';
+
+  @override
+  String get sponsorName => 'スポンサー名';
+
+  @override
+  String get accountProfileEdit => 'プロフィールを編集する';
+
+  @override
+  String get accountInvitationCodeInput => '招待コードを入力する';
+
+  @override
+  String get accountInvitationCodeApplied => '招待コードが適用されました';
+
+  @override
+  String get accountInvitationCodeApplyFailed => '招待コードの適用に失敗しました';
+
+  @override
+  String get accountOthers => 'Others';
+
+  @override
+  String get accountCodeOfConduct => '行動規範';
+
+  @override
+  String get accountPrivacyPolicy => 'プライバシーポリシー';
+
+  @override
+  String get accountContact => 'お問い合わせ';
+
+  @override
+  String get accountOssLicenses => 'OSS Licenses';
+
+  @override
+  String get accountInvitationDialogTitle => '招待コードを入力';
+
+  @override
+  String get accountInvitationCode => '招待コード';
+
+  @override
+  String get accountInvitationCodeHint => 'FLUTTER2025';
+
+  @override
+  String get accountInvitationCodeValidation => '招待コードを入力してください';
+
+  @override
+  String get accountCancel => 'キャンセル';
+
+  @override
+  String get accountApply => '適用';
 }
