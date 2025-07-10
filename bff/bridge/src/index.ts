@@ -14,6 +14,8 @@ export class BffEngine extends Container<
     CF_VERSION_METADATA_ID: this.env.CF_VERSION_METADATA.id,
     CF_VERSION_METADATA_TAG: this.env.CF_VERSION_METADATA.tag,
     CF_VERSION_METADATA_TIMESTAMP: this.env.CF_VERSION_METADATA.timestamp,
+    HYPERDRIVE: this.env.HYPERDRIVE.connectionString,
+    HYPERDRIVE_NO_CACHE: this.env.HYPERDRIVE_NO_CACHE.connectionString,
   };
 }
 
