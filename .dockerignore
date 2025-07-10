@@ -1,0 +1,32 @@
+# Git
+.git/
+.gitignore
+
+# Build artifacts
+**/build
+**/.dart_tool/
+
+**/node_modules
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Documentation
+README.md
+*.md
+
+# Docker
+Dockerfile
+.dockerignore
+compose.yaml
+
+**/.env*
+**/*.log

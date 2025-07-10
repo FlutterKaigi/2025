@@ -7,6 +7,9 @@ node = "22.14.0"
 terraform = "1.11.4"
 tflint = "0.56.0"
 
+[env.'_']
+file.path = "bff/engine/.env"
+
 [tasks.bootstrap]
 description = "Initialize the workspace."
 run = './tools/bootstrap.sh'

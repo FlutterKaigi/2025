@@ -1,52 +1,28 @@
-import { instantiate, invoke } from "../engine-artifact/main.mjs";
-import mod from "../engine-artifact/main.wasm";
-import { HyperdrivePg } from "./hyperdrive_pg";
+import { Container, getRandom } from '@cloudflare/containers';
 
-declare global {
-  function __dart_cf_workers(): {
-    request: Request;
-    response: (response: Response) => void;
-    env: Env;
-    ctx: ExecutionContext;
-    hyperdrive: {
-      cache: HyperdrivePg;
-      noCache: HyperdrivePg;
-    };
+export class BffEngine extends Container<
+  Env & {
+    SUPABASE_URL: string;
+    SUPABASE_SERVICE_ROLE_KEY: string;
+  }
+> {
+  defaultPort = 8080;
+  sleepAfter = '10s';
+  envVars = {
+    SUPABASE_URL: this.env.SUPABASE_URL,
+    SUPABASE_SERVICE_ROLE_KEY: this.env.SUPABASE_SERVICE_ROLE_KEY,
+    CF_VERSION_METADATA_ID: this.env.CF_VERSION_METADATA.id,
+    CF_VERSION_METADATA_TAG: this.env.CF_VERSION_METADATA.tag,
+    CF_VERSION_METADATA_TIMESTAMP: this.env.CF_VERSION_METADATA.timestamp,
   };
 }
 
-// dart wasmを保持
-// リクエスト間で使い回す
-// See: https://developers.cloudflare.com/workers/runtime-apis/webassembly/javascript/#use-from-javascript
-let dartInstance: unknown | null = null;
+const INSTANCE_COUNT = 1;
 
 export default {
-  async fetch(request, env, ctx): Promise<Response> {
-    try {
-      if (!dartInstance) {
-        dartInstance = await instantiate(mod);
-      }
-      // __dart_cf_workers.response関数経由で Promiseが完了するのを待つ
-      return new Promise<Response>((resolve) => {
-        globalThis.__dart_cf_workers = () => ({
-          response: (response: Response) => resolve(response),
-          request: request,
-          fetch: (request: Request, requestInit?: RequestInit) =>
-            fetch(request, requestInit),
-          env: env,
-          ctx: ctx,
-          hyperdrive: {
-            cache: new HyperdrivePg(env.HYPERDRIVE.connectionString),
-            noCache: new HyperdrivePg(env.HYPERDRIVE_NO_CACHE.connectionString),
-          },
-        });
-        invoke(dartInstance);
-      });
-    } catch (e) {
-      console.error(e);
-      return new Response("Internal Server Error", {
-        status: 500,
-      });
-    }
+  fetch: async (request: Request, env: Env) => {
+    const containerInstance = await getRandom(env.bff_engine, INSTANCE_COUNT);
+    const response = await containerInstance.fetch(request);
+    return response;
   },
-} satisfies ExportedHandler<Env>;
+};

@@ -1,0 +1,14 @@
+services:
+  bff-engine:
+    build:
+      context: ../../
+      dockerfile: bff/engine/Dockerfile
+      platforms:
+        - linux/amd64
+    platform: linux/amd64
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env.stg
+      - .env.dev
+    restart: unless-stopped
