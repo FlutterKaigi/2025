@@ -28,21 +28,19 @@ Future<Response> exceptionHandler(Future<Response> Function() fn) async {
     );
   } on CheckedFromJsonException catch (e) {
     return jsonResponse(
-      () async =>
-          ErrorResponse.errorCode(
-            code: ErrorCode.internalServerError,
-            detail: 'JSONのデコード中にエラーが発生しました: ${e.key}, ${e.message}',
-          ).toJson(),
+      () async => ErrorResponse.errorCode(
+        code: ErrorCode.internalServerError,
+        detail: 'JSONのデコード中にエラーが発生しました: ${e.key}, ${e.message}',
+      ).toJson(),
       HttpStatus.internalServerError,
     );
-  } on PgResultError catch (e) {
-    print('error: ${e.error}');
+  } on PgException catch (e) {
     return jsonResponse(() async {
       // See: https://www.postgresql.jp/document/16/html/errcodes-appendix.html
-      final postgresErrorCode = e.error['code'] ?? '';
+      print(e.message);
       return ErrorResponse.errorCode(
         code: ErrorCode.internalServerError,
-        detail: 'データベースとの通信中にエラーが発生しました: $postgresErrorCode',
+        detail: 'データベース側のエラーが発生しました: ${e.severity}',
       ).toJson();
     }, HttpStatus.internalServerError);
   } on ErrorResponse catch (e) {

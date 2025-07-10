@@ -1,4 +1,3 @@
-import 'package:db_client/src/exception/db_exception.dart';
 import 'package:db_types/db_types.dart';
 import 'package:postgres/postgres.dart';
 
@@ -18,16 +17,20 @@ FROM
   LEFT JOIN public.user_roles AS ur ON u.id = ur.user_id
 WHERE
   u.id = @user_id
-GROUP BY u.id;
+GROUP BY u.id
+LIMIT 1;
 '''),
       parameters: {
         'user_id': userId,
       },
     );
-    if (result.isEmpty) {
-      throw const DbException(DbExceptionType.notFound);
+    final user = result.firstOrNull?.toColumnMap();
+    if (user == null) {
+      throw PgException(
+        'User not found',
+      );
     }
-    return UserAndUserRoles.fromJson(result.first.toColumnMap());
+    return UserAndUserRoles.fromJson(user);
   }
 
   Future<List<UserAndUserRoles>> getUserList({
@@ -85,7 +88,9 @@ SELECT replace_user_roles(@user_id, @new_roles)
       },
     );
     if (result.affectedRows != 1) {
-      throw const DbException(DbExceptionType.notFound);
+      throw PgException(
+        'User not found',
+      );
     }
   }
 }

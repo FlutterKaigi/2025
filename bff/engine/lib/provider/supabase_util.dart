@@ -1,8 +1,9 @@
 import 'dart:io';
 
-import 'package:db_client/db_client.dart';
 import 'package:db_types/db_types.dart';
 import 'package:engine/main.dart';
+import 'package:engine/provider/db_client_provider.dart';
+import 'package:engine/provider/supabase_client.dart';
 import 'package:engine/util/result.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shelf/shelf.dart';
@@ -57,20 +58,10 @@ class SupabaseUtil {
       dbClientProvider(HyperdriveType.noCache).future,
     );
 
-    try {
-      final userAndUserRoles = await noCacheDb.user.getUserAndUserRoles(
-        supabaseUser.id,
-      );
-      return (supabaseUser, userAndUserRoles.user, userAndUserRoles.roles);
-    } on DbException catch (e) {
-      if (e.type == DbExceptionType.notFound) {
-        throw const AuthorizationException(
-          AuthorizationExceptionType.userNotFound,
-          'User exists but not found in the database',
-        );
-      }
-      rethrow;
-    }
+    final userAndUserRoles = await noCacheDb.user.getUserAndUserRoles(
+      supabaseUser.id,
+    );
+    return (supabaseUser, userAndUserRoles.user, userAndUserRoles.roles);
   });
 }
 
