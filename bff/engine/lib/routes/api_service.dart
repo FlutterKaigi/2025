@@ -19,15 +19,12 @@ class ApiService {
 
       return {
         'status': 'ok',
+        'database': database.isOpen ? 'ok' : 'ng',
         'container': {
           'id': Platform.environment['CF_VERSION_METADATA_ID'],
           'started_at': Platform.environment['CF_VERSION_METADATA_TIMESTAMP'],
-          'version': Platform.version,
           'operating_system': Platform.operatingSystem,
-        },
-        'database': {
-          'connection': database.connectionInfo.toString(),
-          'is_open': database.isOpen,
+          'dart_version': Platform.version,
         },
       };
     },
