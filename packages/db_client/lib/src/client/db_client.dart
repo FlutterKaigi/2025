@@ -1,10 +1,10 @@
 import 'package:db_client/src/client/user/user_db_client.dart';
-import 'package:db_client/src/interop/hyperdrive.dart';
+import 'package:postgres/postgres.dart';
 
 class DbClient {
-  DbClient({required HyperdrivePg db}) : _db = db;
-  
-  final HyperdrivePg _db;
+  DbClient({required Connection connection}) : _connection = connection;
 
-  UserDbClient get user => UserDbClient(db: _db);
+  final Connection _connection;
+
+  UserDbClient get user => UserDbClient(connection: _connection);
 }

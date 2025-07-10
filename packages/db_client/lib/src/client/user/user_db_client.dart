@@ -1,15 +1,15 @@
 import 'package:db_client/src/exception/db_exception.dart';
-import 'package:db_client/src/interop/hyperdrive.dart';
 import 'package:db_types/db_types.dart';
+import 'package:postgres/postgres.dart';
 
 class UserDbClient {
-  UserDbClient({required HyperdrivePg db}) : _db = db;
+  UserDbClient({required Connection connection}) : _connection = connection;
 
-  final HyperdrivePg _db;
+  final Connection _connection;
 
   Future<UserAndUserRoles> getUserAndUserRoles(String userId) async {
-    final result = await _db.query(
-      query: r'''
+    final result = await _connection.execute(
+      Sql.named('''
 SELECT
   to_json(u.*) AS user,
   json_agg(ur.role) AS roles
@@ -17,16 +17,17 @@ FROM
   public.users AS u
   LEFT JOIN public.user_roles AS ur ON u.id = ur.user_id
 WHERE
-  u.id = $1
+  u.id = @user_id
 GROUP BY u.id;
-''',
-      values: [userId],
+'''),
+      parameters: {
+        'user_id': userId,
+      },
     );
-    final data = result.unwrap();
-    if (data.isEmpty) {
+    if (result.isEmpty) {
       throw const DbException(DbExceptionType.notFound);
     }
-    return UserAndUserRoles.fromJson(data.first);
+    return UserAndUserRoles.fromJson(result.first.toColumnMap());
   }
 
   Future<List<UserAndUserRoles>> getUserList({
@@ -48,24 +49,25 @@ FROM
   LEFT JOIN public.user_roles AS ur ON u.id = ur.user_id
   LEFT JOIN auth.users AS au ON u.id = au.id
 ''');
-    final parameter = <Object>[];
+    final parameter = <String, dynamic>{};
     if (email != null) {
-      queryBuffer.write(r'WHERE u.email LIKE $1');
-      parameter.add(email);
+      queryBuffer.write('WHERE u.email LIKE @email');
+      parameter['email'] = email;
     }
     if (roles != null) {
-      final parameterId = parameter.length + 1;
-      queryBuffer.write('WHERE ur.role = \$$parameterId');
-      parameter.add(roles.map((e) => e.name).toList());
+      queryBuffer.write('WHERE ur.role = @roles');
+      parameter['roles'] = roles.map((e) => e.name).toList();
     }
 
     queryBuffer.write('GROUP BY u.id');
 
-    final result = await _db.query(
-      query: queryBuffer.toString(),
-      values: parameter,
+    final result = await _connection.execute(
+      Sql.named(queryBuffer.toString()),
+      parameters: parameter,
     );
-    return result.unwrap().map(UserAndUserRoles.fromJson).toList();
+    return result
+        .map((e) => UserAndUserRoles.fromJson(e.toColumnMap()))
+        .toList();
   }
 
   /// ユーザーのロールを更新する
@@ -73,10 +75,17 @@ FROM
     String userId,
     List<Role> newRoles,
   ) async {
-    final result = await _db.query(
-      query: r'SELECT replace_user_roles($1, $2)',
-      values: [userId, newRoles.map((e) => e.name).toList()],
+    final result = await _connection.execute(
+      Sql.named('''
+SELECT replace_user_roles(@user_id, @new_roles)
+'''),
+      parameters: {
+        'user_id': userId,
+        'new_roles': newRoles.map((e) => e.name).toList(),
+      },
     );
-    result.unwrap();
+    if (result.affectedRows != 1) {
+      throw const DbException(DbExceptionType.notFound);
+    }
   }
 }

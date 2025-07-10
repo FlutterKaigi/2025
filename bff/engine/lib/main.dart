@@ -1,8 +1,11 @@
 import 'dart:io';
 
 import 'package:engine/routes/api_service.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;
+
+final ProviderContainer container = ProviderContainer();
 
 Future<void> main() async {
   print('Starting server...');
