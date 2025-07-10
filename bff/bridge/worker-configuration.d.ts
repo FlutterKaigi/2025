@@ -6926,11 +6926,7 @@ declare namespace TailStream {
     }
     interface Return {
         readonly type: "return";
-<<<<<<< HEAD
         readonly info?: FetchResponseInfo;
-=======
-        readonly info?: FetchResponseInfo | Attributes;
->>>>>>> 8df4bb71dd9d61645f76ac6b60a5b83c69374f0f
     }
     interface Link {
         readonly type: "link";
