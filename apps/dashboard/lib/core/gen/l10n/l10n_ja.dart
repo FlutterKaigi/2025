@@ -50,4 +50,13 @@ class L10nJa extends L10n {
 
   @override
   String get sponsorEditButtonLabel => 'スポンサー情報を編集する';
+
+  @override
+  String get sponsorEditScreenTitle => 'スポンサー編集';
+
+  @override
+  String get sponsorEditSaveButtonLabel => '保存する';
+
+  @override
+  String get sponsorName => 'スポンサー名';
 }
