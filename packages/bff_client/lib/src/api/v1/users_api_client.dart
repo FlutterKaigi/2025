@@ -36,11 +36,26 @@ abstract class UsersApiClient {
     @Body() required UserRolePutRequest request,
   });
 
-  /// ユーザを削除します
+  /// ユーザを論理削除します
   /// Authorization Headerが必須（管理者権限が必要）
   @DELETE('/users/{userId}')
-  Future<HttpResponse<void>> deleteUser({
+  Future<HttpResponse<Map<String, dynamic>>> deleteUser({
     @Path() required String userId,
+  });
+
+  /// 削除済みユーザを復元します
+  /// Authorization Headerが必須（管理者権限が必要）
+  @POST('/users/{userId}/restore')
+  Future<HttpResponse<Map<String, dynamic>>> restoreUser({
+    @Path() required String userId,
+  });
+
+  /// 削除済みユーザーの一覧を取得します
+  /// Authorization Headerが必須（管理者権限が必要）
+  @GET('/users/deleted')
+  Future<HttpResponse<UsersListResponse>> getDeletedUsers({
+    @Query('limit') int? limit,
+    @Query('offset') int? offset,
   });
 
   /// ユーザの統計情報を取得します

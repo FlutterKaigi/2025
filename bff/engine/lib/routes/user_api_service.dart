@@ -90,7 +90,7 @@ class UserApiService {
         },
       );
 
-  /// ユーザを削除します
+  /// ユーザを論理削除します
   @Route.delete('/users/<userId>')
   Future<Response> _deleteUser(Request request, String userId) async => jsonResponse(
         () async {
@@ -119,7 +119,63 @@ class UserApiService {
 
           return <String, dynamic>{
             'success': true,
+            'message': 'ユーザーが論理削除されました',
           };
+        },
+      );
+
+  /// ユーザーを復元します
+  @Route.post('/users/<userId>/restore')
+  Future<Response> _restoreUser(Request request, String userId) async => jsonResponse(
+        () async {
+          final supabaseUtil = container.read(supabaseUtilProvider);
+          final userResult = await supabaseUtil.extractUser(request);
+          final (_, _, roles) = userResult.unwrap;
+
+          // 管理者権限チェック
+          if (!roles.contains(Role.admin)) {
+            throw ErrorResponse.errorCode(
+              code: ErrorCode.forbidden,
+              detail: 'この操作には管理者権限が必要です',
+            );
+          }
+
+          final database = await container.read(dbClientProvider.future);
+          await database.user.restoreUser(userId);
+
+          return <String, dynamic>{
+            'success': true,
+            'message': 'ユーザーが復元されました',
+          };
+        },
+      );
+
+  /// 削除済みユーザーの一覧を取得します
+  @Route.get('/users/deleted')
+  Future<Response> _getDeletedUsers(Request request) async => jsonResponse(
+        () async {
+          final supabaseUtil = container.read(supabaseUtilProvider);
+          final userResult = await supabaseUtil.extractUser(request);
+          final (_, _, roles) = userResult.unwrap;
+
+          // 管理者権限チェック
+          if (!roles.contains(Role.admin)) {
+            throw ErrorResponse.errorCode(
+              code: ErrorCode.forbidden,
+              detail: 'この操作には管理者権限が必要です',
+            );
+          }
+
+          final limit = int.tryParse(request.url.queryParameters['limit'] ?? '10') ?? 10;
+          final offset = int.tryParse(request.url.queryParameters['offset'] ?? '0') ?? 0;
+
+          final database = await container.read(dbClientProvider.future);
+          final users = await database.user.getDeletedUserList(
+            limit: limit,
+            offset: offset,
+          );
+
+          return UsersListResponse(users: users).toJson();
         },
       );
 
