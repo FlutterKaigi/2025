@@ -15,21 +15,21 @@ abstract class UsersApiClient {
   Future<HttpResponse<UserAndUserRoles>> getUserMe();
 
   /// ユーザ一覧を取得します
-  /// Authorization Headerが必須
+  /// Authorization Headerが必須（管理者権限が必要）
   @POST('/users/list')
   Future<HttpResponse<UsersListResponse>> getUserList({
     @Body() required UsersListRequest request,
   });
 
   /// 特定のユーザを取得します
-  /// Authorization Headerが必須
+  /// Authorization Headerが必須（管理者権限が必要）
   @GET('/users/{userId}')
   Future<HttpResponse<UserAndUserRoles>> getUser({
     @Path() required String userId,
   });
 
   /// ユーザのロールを更新します
-  /// Authorization Headerが必須
+  /// Authorization Headerが必須（管理者権限が必要）
   @PUT('/users/{userId}/roles')
   Future<HttpResponse<void>> putUserRoles({
     @Path() required String userId,

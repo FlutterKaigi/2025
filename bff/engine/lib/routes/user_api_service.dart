@@ -1,4 +1,4 @@
-THIS SHOULD BE A LINTER ERRORimport 'dart:convert';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:bff_client/bff_client.dart';
@@ -36,7 +36,15 @@ class UserApiService {
         () async {
           final supabaseUtil = container.read(supabaseUtilProvider);
           final userResult = await supabaseUtil.extractUser(request);
-          userResult.unwrap; // 認証チェック
+          final (_, _, roles) = userResult.unwrap;
+
+          // 管理者権限チェック
+          if (!roles.contains(Role.admin)) {
+            throw ErrorResponse.errorCode(
+              code: ErrorCode.forbidden,
+              detail: 'この操作には管理者権限が必要です',
+            );
+          }
 
           final body = await request.readAsString();
           final requestData = UsersListRequest.fromJson(
@@ -60,7 +68,15 @@ class UserApiService {
         () async {
           final supabaseUtil = container.read(supabaseUtilProvider);
           final userResult = await supabaseUtil.extractUser(request);
-          userResult.unwrap; // 認証チェック
+          final (_, _, roles) = userResult.unwrap;
+
+          // 管理者権限チェック
+          if (!roles.contains(Role.admin)) {
+            throw ErrorResponse.errorCode(
+              code: ErrorCode.forbidden,
+              detail: 'この操作には管理者権限が必要です',
+            );
+          }
 
           final database = await container.read(dbClientProvider.future);
           final user = await database.user.getUserAndUserRoles(userId);
@@ -74,7 +90,15 @@ class UserApiService {
         () async {
           final supabaseUtil = container.read(supabaseUtilProvider);
           final userResult = await supabaseUtil.extractUser(request);
-          userResult.unwrap; // 認証チェック
+          final (_, _, roles) = userResult.unwrap;
+
+          // 管理者権限チェック
+          if (!roles.contains(Role.admin)) {
+            throw ErrorResponse.errorCode(
+              code: ErrorCode.forbidden,
+              detail: 'この操作には管理者権限が必要です',
+            );
+          }
 
           final body = await request.readAsString();
           final requestData = UserRolePutRequest.fromJson(
