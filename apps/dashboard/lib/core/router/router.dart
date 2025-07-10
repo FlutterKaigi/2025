@@ -1,7 +1,7 @@
 import 'package:dashboard/core/debug/debug_screen.dart';
 import 'package:dashboard/core/debug/talker.dart';
 import 'package:dashboard/core/ui/main/main_screen.dart';
-import 'package:dashboard/features/account/ui/account_info_screen.dart';
+import 'package:dashboard/features/account/ui/info/account_info_screen.dart';
 import 'package:dashboard/features/account/ui/profile_edit_screen.dart';
 import 'package:dashboard/features/account/ui/withdrawal_screen.dart';
 import 'package:dashboard/features/auth/data/notifier/auth_notifier.dart';
