@@ -75,7 +75,7 @@ FROM
     }
 
     queryBuffer.write('''
-GROUP BY u.id, au.raw_app_meta_data
+GROUP BY u.id, au.raw_user_meta_data
 ORDER BY u.created_at DESC
 LIMIT @limit OFFSET @offset
 ''');
