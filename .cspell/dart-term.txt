@@ -8,6 +8,7 @@ combinatiors
 tearoffs
 combinators
 widgetbook
+mocktail
 # Dart web
 HTMLUListElement
 HTMLDListElement
