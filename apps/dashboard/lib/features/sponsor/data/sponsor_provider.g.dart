@@ -13,7 +13,11 @@ const sponsorsProvider = SponsorsProvider._();
 
 final class SponsorsProvider
     extends
-        $FunctionalProvider<AsyncValue<List<Sponsor>>, FutureOr<List<Sponsor>>>
+        $FunctionalProvider<
+          AsyncValue<List<Sponsor>>,
+          List<Sponsor>,
+          FutureOr<List<Sponsor>>
+        >
     with $FutureModifier<List<Sponsor>>, $FutureProvider<List<Sponsor>> {
   const SponsorsProvider._()
     : super(
@@ -41,7 +45,7 @@ final class SponsorsProvider
   }
 }
 
-String _$sponsorsHash() => r'b95a62d06a87f57b06ba7c73e74f5c01e3fbdcbd';
+String _$sponsorsHash() => r'3a90db43e34050ed737aa148da2be91252fbc31e';
 
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

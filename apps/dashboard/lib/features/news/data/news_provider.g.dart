@@ -12,7 +12,12 @@ part of 'news_provider.dart';
 const newsProvider = NewsProvider._();
 
 final class NewsProvider
-    extends $FunctionalProvider<AsyncValue<List<News>>, FutureOr<List<News>>>
+    extends
+        $FunctionalProvider<
+          AsyncValue<List<News>>,
+          List<News>,
+          FutureOr<List<News>>
+        >
     with $FutureModifier<List<News>>, $FutureProvider<List<News>> {
   const NewsProvider._()
     : super(

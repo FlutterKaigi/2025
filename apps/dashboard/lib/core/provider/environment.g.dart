@@ -46,7 +46,7 @@ Map<String, dynamic> _$EnvironmentToJson(_Environment instance) =>
 const environmentProvider = EnvironmentProvider._();
 
 final class EnvironmentProvider
-    extends $FunctionalProvider<Environment, Environment>
+    extends $FunctionalProvider<Environment, Environment, Environment>
     with $Provider<Environment> {
   const EnvironmentProvider._()
     : super(
@@ -76,7 +76,7 @@ final class EnvironmentProvider
   Override overrideWithValue(Environment value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $ValueProvider<Environment>(value),
+      providerOverride: $SyncValueProvider<Environment>(value),
     );
   }
 }

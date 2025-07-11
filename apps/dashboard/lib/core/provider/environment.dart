@@ -11,7 +11,7 @@ Environment environment(Ref ref) => Environment.fromEnvironment();
 
 @freezed
 abstract class Environment with _$Environment {
-  const factory Environment._internal({
+  const factory Environment({
     required String appIdSuffix,
     required String appName,
     required String flavor,
@@ -19,7 +19,7 @@ abstract class Environment with _$Environment {
     required String supabaseKey,
   }) = _Environment;
 
-  factory Environment.fromEnvironment() => const Environment._internal(
+  factory Environment.fromEnvironment() => const Environment(
     appIdSuffix: String.fromEnvironment('APP_ID_SUFFIX'),
     appName: String.fromEnvironment('APP_NAME'),
     flavor: String.fromEnvironment('FLAVOR'),

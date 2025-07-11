@@ -3,9 +3,11 @@ import 'package:dashboard/features/account/ui/component/account_circle_image.dar
 import 'package:dashboard/features/account/ui/component/account_scaffold.dart';
 import 'package:dashboard/features/account/ui/info/component/account_invitation_dialog.dart';
 import 'package:dashboard/features/account/ui/info/component/account_other_list.dart';
+import 'package:dashboard/features/auth/data/notifier/auth_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-final class AccountInfoScreen extends StatelessWidget {
+final class AccountInfoScreen extends ConsumerWidget {
   const AccountInfoScreen({
     required VoidCallback onProfileEdit,
     super.key,
@@ -14,9 +16,11 @@ final class AccountInfoScreen extends StatelessWidget {
   final VoidCallback _onProfileEdit;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(authNotifierProvider);
+
     return AccountScaffold(
-      body: Column(
+      body:  Column(
         children: [
           Card(
             shape: RoundedRectangleBorder(

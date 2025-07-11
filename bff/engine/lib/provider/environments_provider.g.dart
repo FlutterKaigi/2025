@@ -12,7 +12,7 @@ part of 'environments_provider.dart';
 const environmentsProvider = EnvironmentsProvider._();
 
 final class EnvironmentsProvider
-    extends $FunctionalProvider<Environments, Environments>
+    extends $FunctionalProvider<Environments, Environments, Environments>
     with $Provider<Environments> {
   const EnvironmentsProvider._()
     : super(
@@ -42,7 +42,7 @@ final class EnvironmentsProvider
   Override overrideWithValue(Environments value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $ValueProvider<Environments>(value),
+      providerOverride: $SyncValueProvider<Environments>(value),
     );
   }
 }
