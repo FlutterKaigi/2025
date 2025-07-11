@@ -96,11 +96,11 @@ extension ErrorResponsePatterns on ErrorResponse {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _ErrorResponse value)?  _internal,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _ErrorResponse value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _ErrorResponse() when _internal != null:
-return _internal(_that);case _:
+case _ErrorResponse() when $default != null:
+return $default(_that);case _:
   return orElse();
 
 }
@@ -118,11 +118,11 @@ return _internal(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _ErrorResponse value)  _internal,}){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _ErrorResponse value)  $default,){
 final _that = this;
 switch (_that) {
 case _ErrorResponse():
-return _internal(_that);case _:
+return $default(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -139,11 +139,11 @@ return _internal(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _ErrorResponse value)?  _internal,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _ErrorResponse value)?  $default,){
 final _that = this;
 switch (_that) {
-case _ErrorResponse() when _internal != null:
-return _internal(_that);case _:
+case _ErrorResponse() when $default != null:
+return $default(_that);case _:
   return null;
 
 }
@@ -160,10 +160,10 @@ return _internal(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function(@JsonKey(unknownEnumValue: ErrorCode.unknownEnumField)  ErrorCode code,  String message,  String? detail)?  _internal,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(unknownEnumValue: ErrorCode.unknownEnumField)  ErrorCode code,  String message,  String? detail)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _ErrorResponse() when _internal != null:
-return _internal(_that.code,_that.message,_that.detail);case _:
+case _ErrorResponse() when $default != null:
+return $default(_that.code,_that.message,_that.detail);case _:
   return orElse();
 
 }
@@ -181,10 +181,10 @@ return _internal(_that.code,_that.message,_that.detail);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function(@JsonKey(unknownEnumValue: ErrorCode.unknownEnumField)  ErrorCode code,  String message,  String? detail)  _internal,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(unknownEnumValue: ErrorCode.unknownEnumField)  ErrorCode code,  String message,  String? detail)  $default,) {final _that = this;
 switch (_that) {
 case _ErrorResponse():
-return _internal(_that.code,_that.message,_that.detail);case _:
+return $default(_that.code,_that.message,_that.detail);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -201,10 +201,10 @@ return _internal(_that.code,_that.message,_that.detail);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function(@JsonKey(unknownEnumValue: ErrorCode.unknownEnumField)  ErrorCode code,  String message,  String? detail)?  _internal,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(unknownEnumValue: ErrorCode.unknownEnumField)  ErrorCode code,  String message,  String? detail)?  $default,) {final _that = this;
 switch (_that) {
-case _ErrorResponse() when _internal != null:
-return _internal(_that.code,_that.message,_that.detail);case _:
+case _ErrorResponse() when $default != null:
+return $default(_that.code,_that.message,_that.detail);case _:
   return null;
 
 }
@@ -250,7 +250,7 @@ int get hashCode => Object.hash(runtimeType,code,message,detail);
 
 @override
 String toString() {
-  return 'ErrorResponse._internal(code: $code, message: $message, detail: $detail)';
+  return 'ErrorResponse(code: $code, message: $message, detail: $detail)';
 }
 
 

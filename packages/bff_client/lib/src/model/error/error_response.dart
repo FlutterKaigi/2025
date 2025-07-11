@@ -7,7 +7,7 @@ part 'error_response.g.dart';
 
 @freezed
 abstract class ErrorResponse with _$ErrorResponse implements Exception {
-  const factory ErrorResponse._internal({
+  const factory ErrorResponse({
     /// エラーコード
     @JsonKey(unknownEnumValue: ErrorCode.unknownEnumField)
     required ErrorCode code,
@@ -24,7 +24,7 @@ abstract class ErrorResponse with _$ErrorResponse implements Exception {
   const ErrorResponse._();
 
   factory ErrorResponse.errorCode({required ErrorCode code, String? detail}) =>
-      ErrorResponse._internal(
+      ErrorResponse(
         code: code,
         message: code.message,
         detail: detail,

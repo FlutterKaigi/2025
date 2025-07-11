@@ -16,7 +16,5 @@ Router _$UserApiServiceRouter(UserApiService service) {
   router.add('PUT', r'/<userId>/roles', service._putUserRoles);
   router.add('DELETE', r'/<userId>', service._deleteUser);
   router.add('POST', r'/<userId>/restore', service._restoreUser);
-  router.add('GET', r'/deleted', service._getDeletedUsers);
-  router.add('GET', r'/stats', service._getUserStats);
   return router;
 }

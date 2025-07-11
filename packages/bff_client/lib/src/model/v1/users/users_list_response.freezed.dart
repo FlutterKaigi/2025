@@ -15,7 +15,8 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$UsersListResponse {
 
- List<UserAndUserRoles> get users;
+ List<UserAndUserRoles> get users;/// 次の要素が存在する時に出現する
+ String? get nextCursor;
 /// Create a copy of UsersListResponse
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +29,16 @@ $UsersListResponseCopyWith<UsersListResponse> get copyWith => _$UsersListRespons
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UsersListResponse&&const DeepCollectionEquality().equals(other.users, users));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UsersListResponse&&const DeepCollectionEquality().equals(other.users, users)&&(identical(other.nextCursor, nextCursor) || other.nextCursor == nextCursor));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(users));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(users),nextCursor);
 
 @override
 String toString() {
-  return 'UsersListResponse(users: $users)';
+  return 'UsersListResponse(users: $users, nextCursor: $nextCursor)';
 }
 
 
@@ -48,7 +49,7 @@ abstract mixin class $UsersListResponseCopyWith<$Res>  {
   factory $UsersListResponseCopyWith(UsersListResponse value, $Res Function(UsersListResponse) _then) = _$UsersListResponseCopyWithImpl;
 @useResult
 $Res call({
- List<UserAndUserRoles> users
+ List<UserAndUserRoles> users, String? nextCursor
 });
 
 
@@ -65,10 +66,11 @@ class _$UsersListResponseCopyWithImpl<$Res>
 
 /// Create a copy of UsersListResponse
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? users = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? users = null,Object? nextCursor = freezed,}) {
   return _then(_self.copyWith(
 users: null == users ? _self.users : users // ignore: cast_nullable_to_non_nullable
-as List<UserAndUserRoles>,
+as List<UserAndUserRoles>,nextCursor: freezed == nextCursor ? _self.nextCursor : nextCursor // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 
@@ -153,10 +155,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<UserAndUserRoles> users)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<UserAndUserRoles> users,  String? nextCursor)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _UsersListResponse() when $default != null:
-return $default(_that.users);case _:
+return $default(_that.users,_that.nextCursor);case _:
   return orElse();
 
 }
@@ -174,10 +176,10 @@ return $default(_that.users);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<UserAndUserRoles> users)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<UserAndUserRoles> users,  String? nextCursor)  $default,) {final _that = this;
 switch (_that) {
 case _UsersListResponse():
-return $default(_that.users);case _:
+return $default(_that.users,_that.nextCursor);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -194,10 +196,10 @@ return $default(_that.users);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<UserAndUserRoles> users)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<UserAndUserRoles> users,  String? nextCursor)?  $default,) {final _that = this;
 switch (_that) {
 case _UsersListResponse() when $default != null:
-return $default(_that.users);case _:
+return $default(_that.users,_that.nextCursor);case _:
   return null;
 
 }
@@ -209,7 +211,7 @@ return $default(_that.users);case _:
 @JsonSerializable()
 
 class _UsersListResponse implements UsersListResponse {
-  const _UsersListResponse({required final  List<UserAndUserRoles> users}): _users = users;
+  const _UsersListResponse({required final  List<UserAndUserRoles> users, this.nextCursor}): _users = users;
   factory _UsersListResponse.fromJson(Map<String, dynamic> json) => _$UsersListResponseFromJson(json);
 
  final  List<UserAndUserRoles> _users;
@@ -219,6 +221,8 @@ class _UsersListResponse implements UsersListResponse {
   return EqualUnmodifiableListView(_users);
 }
 
+/// 次の要素が存在する時に出現する
+@override final  String? nextCursor;
 
 /// Create a copy of UsersListResponse
 /// with the given fields replaced by the non-null parameter values.
@@ -233,16 +237,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UsersListResponse&&const DeepCollectionEquality().equals(other._users, _users));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UsersListResponse&&const DeepCollectionEquality().equals(other._users, _users)&&(identical(other.nextCursor, nextCursor) || other.nextCursor == nextCursor));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_users));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_users),nextCursor);
 
 @override
 String toString() {
-  return 'UsersListResponse(users: $users)';
+  return 'UsersListResponse(users: $users, nextCursor: $nextCursor)';
 }
 
 
@@ -253,7 +257,7 @@ abstract mixin class _$UsersListResponseCopyWith<$Res> implements $UsersListResp
   factory _$UsersListResponseCopyWith(_UsersListResponse value, $Res Function(_UsersListResponse) _then) = __$UsersListResponseCopyWithImpl;
 @override @useResult
 $Res call({
- List<UserAndUserRoles> users
+ List<UserAndUserRoles> users, String? nextCursor
 });
 
 
@@ -270,10 +274,11 @@ class __$UsersListResponseCopyWithImpl<$Res>
 
 /// Create a copy of UsersListResponse
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? users = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? users = null,Object? nextCursor = freezed,}) {
   return _then(_UsersListResponse(
 users: null == users ? _self._users : users // ignore: cast_nullable_to_non_nullable
-as List<UserAndUserRoles>,
+as List<UserAndUserRoles>,nextCursor: freezed == nextCursor ? _self.nextCursor : nextCursor // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 

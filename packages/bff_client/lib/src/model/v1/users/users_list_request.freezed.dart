@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$UsersListRequest {
 
-@Assert('limit > 0', 'limit must be greater than 0')@Assert('limit <= 100', 'limit must be less than or equal to 100') int get limit;@Assert('offset >= 0', 'offset must be greater than or equal to 0') int get offset; String? get email; List<Role>? get roles;
+@Assert('limit > 0', 'limit must be greater than 0')@Assert('limit <= 100', 'limit must be less than or equal to 100')@IntStringJsonConverter() int get limit; String? get cursor; String? get email; List<Role>? get roles;
 /// Create a copy of UsersListRequest
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $UsersListRequestCopyWith<UsersListRequest> get copyWith => _$UsersListRequestCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UsersListRequest&&(identical(other.limit, limit) || other.limit == limit)&&(identical(other.offset, offset) || other.offset == offset)&&(identical(other.email, email) || other.email == email)&&const DeepCollectionEquality().equals(other.roles, roles));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UsersListRequest&&(identical(other.limit, limit) || other.limit == limit)&&(identical(other.cursor, cursor) || other.cursor == cursor)&&(identical(other.email, email) || other.email == email)&&const DeepCollectionEquality().equals(other.roles, roles));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,limit,offset,email,const DeepCollectionEquality().hash(roles));
+int get hashCode => Object.hash(runtimeType,limit,cursor,email,const DeepCollectionEquality().hash(roles));
 
 @override
 String toString() {
-  return 'UsersListRequest(limit: $limit, offset: $offset, email: $email, roles: $roles)';
+  return 'UsersListRequest(limit: $limit, cursor: $cursor, email: $email, roles: $roles)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $UsersListRequestCopyWith<$Res>  {
   factory $UsersListRequestCopyWith(UsersListRequest value, $Res Function(UsersListRequest) _then) = _$UsersListRequestCopyWithImpl;
 @useResult
 $Res call({
-@Assert('limit > 0', 'limit must be greater than 0')@Assert('limit <= 100', 'limit must be less than or equal to 100') int limit,@Assert('offset >= 0', 'offset must be greater than or equal to 0') int offset, String? email, List<Role>? roles
+@Assert('limit > 0', 'limit must be greater than 0')@Assert('limit <= 100', 'limit must be less than or equal to 100')@IntStringJsonConverter() int limit, String? cursor, String? email, List<Role>? roles
 });
 
 
@@ -65,11 +65,11 @@ class _$UsersListRequestCopyWithImpl<$Res>
 
 /// Create a copy of UsersListRequest
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? limit = null,Object? offset = null,Object? email = freezed,Object? roles = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? limit = null,Object? cursor = freezed,Object? email = freezed,Object? roles = freezed,}) {
   return _then(_self.copyWith(
 limit: null == limit ? _self.limit : limit // ignore: cast_nullable_to_non_nullable
-as int,offset: null == offset ? _self.offset : offset // ignore: cast_nullable_to_non_nullable
-as int,email: freezed == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
+as int,cursor: freezed == cursor ? _self.cursor : cursor // ignore: cast_nullable_to_non_nullable
+as String?,email: freezed == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String?,roles: freezed == roles ? _self.roles : roles // ignore: cast_nullable_to_non_nullable
 as List<Role>?,
   ));
@@ -156,10 +156,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@Assert('limit > 0', 'limit must be greater than 0')@Assert('limit <= 100', 'limit must be less than or equal to 100')  int limit, @Assert('offset >= 0', 'offset must be greater than or equal to 0')  int offset,  String? email,  List<Role>? roles)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@Assert('limit > 0', 'limit must be greater than 0')@Assert('limit <= 100', 'limit must be less than or equal to 100')@IntStringJsonConverter()  int limit,  String? cursor,  String? email,  List<Role>? roles)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _UsersListRequest() when $default != null:
-return $default(_that.limit,_that.offset,_that.email,_that.roles);case _:
+return $default(_that.limit,_that.cursor,_that.email,_that.roles);case _:
   return orElse();
 
 }
@@ -177,10 +177,10 @@ return $default(_that.limit,_that.offset,_that.email,_that.roles);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@Assert('limit > 0', 'limit must be greater than 0')@Assert('limit <= 100', 'limit must be less than or equal to 100')  int limit, @Assert('offset >= 0', 'offset must be greater than or equal to 0')  int offset,  String? email,  List<Role>? roles)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@Assert('limit > 0', 'limit must be greater than 0')@Assert('limit <= 100', 'limit must be less than or equal to 100')@IntStringJsonConverter()  int limit,  String? cursor,  String? email,  List<Role>? roles)  $default,) {final _that = this;
 switch (_that) {
 case _UsersListRequest():
-return $default(_that.limit,_that.offset,_that.email,_that.roles);case _:
+return $default(_that.limit,_that.cursor,_that.email,_that.roles);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -197,10 +197,10 @@ return $default(_that.limit,_that.offset,_that.email,_that.roles);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@Assert('limit > 0', 'limit must be greater than 0')@Assert('limit <= 100', 'limit must be less than or equal to 100')  int limit, @Assert('offset >= 0', 'offset must be greater than or equal to 0')  int offset,  String? email,  List<Role>? roles)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@Assert('limit > 0', 'limit must be greater than 0')@Assert('limit <= 100', 'limit must be less than or equal to 100')@IntStringJsonConverter()  int limit,  String? cursor,  String? email,  List<Role>? roles)?  $default,) {final _that = this;
 switch (_that) {
 case _UsersListRequest() when $default != null:
-return $default(_that.limit,_that.offset,_that.email,_that.roles);case _:
+return $default(_that.limit,_that.cursor,_that.email,_that.roles);case _:
   return null;
 
 }
@@ -212,11 +212,11 @@ return $default(_that.limit,_that.offset,_that.email,_that.roles);case _:
 @JsonSerializable()
 
 class _UsersListRequest implements UsersListRequest {
-  const _UsersListRequest({@Assert('limit > 0', 'limit must be greater than 0')@Assert('limit <= 100', 'limit must be less than or equal to 100') required this.limit, @Assert('offset >= 0', 'offset must be greater than or equal to 0') required this.offset, this.email, final  List<Role>? roles}): _roles = roles;
+  const _UsersListRequest({@Assert('limit > 0', 'limit must be greater than 0')@Assert('limit <= 100', 'limit must be less than or equal to 100')@IntStringJsonConverter() required this.limit, this.cursor, this.email, final  List<Role>? roles}): _roles = roles;
   factory _UsersListRequest.fromJson(Map<String, dynamic> json) => _$UsersListRequestFromJson(json);
 
-@override@Assert('limit > 0', 'limit must be greater than 0')@Assert('limit <= 100', 'limit must be less than or equal to 100') final  int limit;
-@override@Assert('offset >= 0', 'offset must be greater than or equal to 0') final  int offset;
+@override@Assert('limit > 0', 'limit must be greater than 0')@Assert('limit <= 100', 'limit must be less than or equal to 100')@IntStringJsonConverter() final  int limit;
+@override final  String? cursor;
 @override final  String? email;
  final  List<Role>? _roles;
 @override List<Role>? get roles {
@@ -241,16 +241,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UsersListRequest&&(identical(other.limit, limit) || other.limit == limit)&&(identical(other.offset, offset) || other.offset == offset)&&(identical(other.email, email) || other.email == email)&&const DeepCollectionEquality().equals(other._roles, _roles));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UsersListRequest&&(identical(other.limit, limit) || other.limit == limit)&&(identical(other.cursor, cursor) || other.cursor == cursor)&&(identical(other.email, email) || other.email == email)&&const DeepCollectionEquality().equals(other._roles, _roles));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,limit,offset,email,const DeepCollectionEquality().hash(_roles));
+int get hashCode => Object.hash(runtimeType,limit,cursor,email,const DeepCollectionEquality().hash(_roles));
 
 @override
 String toString() {
-  return 'UsersListRequest(limit: $limit, offset: $offset, email: $email, roles: $roles)';
+  return 'UsersListRequest(limit: $limit, cursor: $cursor, email: $email, roles: $roles)';
 }
 
 
@@ -261,7 +261,7 @@ abstract mixin class _$UsersListRequestCopyWith<$Res> implements $UsersListReque
   factory _$UsersListRequestCopyWith(_UsersListRequest value, $Res Function(_UsersListRequest) _then) = __$UsersListRequestCopyWithImpl;
 @override @useResult
 $Res call({
-@Assert('limit > 0', 'limit must be greater than 0')@Assert('limit <= 100', 'limit must be less than or equal to 100') int limit,@Assert('offset >= 0', 'offset must be greater than or equal to 0') int offset, String? email, List<Role>? roles
+@Assert('limit > 0', 'limit must be greater than 0')@Assert('limit <= 100', 'limit must be less than or equal to 100')@IntStringJsonConverter() int limit, String? cursor, String? email, List<Role>? roles
 });
 
 
@@ -278,11 +278,11 @@ class __$UsersListRequestCopyWithImpl<$Res>
 
 /// Create a copy of UsersListRequest
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? limit = null,Object? offset = null,Object? email = freezed,Object? roles = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? limit = null,Object? cursor = freezed,Object? email = freezed,Object? roles = freezed,}) {
   return _then(_UsersListRequest(
 limit: null == limit ? _self.limit : limit // ignore: cast_nullable_to_non_nullable
-as int,offset: null == offset ? _self.offset : offset // ignore: cast_nullable_to_non_nullable
-as int,email: freezed == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
+as int,cursor: freezed == cursor ? _self.cursor : cursor // ignore: cast_nullable_to_non_nullable
+as String?,email: freezed == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String?,roles: freezed == roles ? _self._roles : roles // ignore: cast_nullable_to_non_nullable
 as List<Role>?,
   ));

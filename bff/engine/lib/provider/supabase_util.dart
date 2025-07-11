@@ -54,11 +54,11 @@ class SupabaseUtil {
     final supabaseUserResult = await extractSupabaseUser(request);
     final supabaseUser = supabaseUserResult.unwrap;
 
-    final noCacheDb = await container.read(
+    final database = await container.read(
       dbClientProvider.future,
     );
 
-    final userAndUserRoles = await noCacheDb.user.getUserAndUserRoles(
+    final userAndUserRoles = await database.user.getUserAndUserRoles(
       supabaseUser.id,
     );
     return (supabaseUser, userAndUserRoles.user, userAndUserRoles.roles);
