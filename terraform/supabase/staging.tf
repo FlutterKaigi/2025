@@ -31,8 +31,14 @@ resource "supabase_settings" "staging" {
   project_ref = supabase_project.staging.id
 
   api = jsonencode({
-    db_schema            = "public,storage,graphql_public"
-    db_extra_search_path = "public,extensions"
-    max_rows             = 1000
+    db_schema                             = "public,storage,graphql_public"
+    db_extra_search_path                  = "public,extensions"
+    max_rows                              = 1000
+    external_anonymous_user_enabled       = false
+    external_google_enabled               = true
+    external_google_additional_client_ids = null
+    external_google_client_id             = var.SUPABASE_GOOGLE_AUTH_CLIENT_ID
+    external_google_secret                = var.SUPABASE_GOOGLE_AUTH_CLIENT_SECRET
+    external_google_skip_nonce_check      = true
   })
 }

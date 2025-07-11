@@ -7,7 +7,7 @@ part 'error_response.g.dart';
 
 @freezed
 abstract class ErrorResponse with _$ErrorResponse implements Exception {
-  const factory ErrorResponse._internal({
+  const factory ErrorResponse({
     /// エラーコード
     @JsonKey(unknownEnumValue: ErrorCode.unknownEnumField)
     required ErrorCode code,
@@ -24,7 +24,7 @@ abstract class ErrorResponse with _$ErrorResponse implements Exception {
   const ErrorResponse._();
 
   factory ErrorResponse.errorCode({required ErrorCode code, String? detail}) =>
-      ErrorResponse._internal(
+      ErrorResponse(
         code: code,
         message: code.message,
         detail: detail,
@@ -41,6 +41,7 @@ enum ErrorCode {
   notImplemented('このエンドポイントは未実装です', HttpStatus.notImplemented),
   internalServerError('サーバ内部で予期しないエラーが発生しました', HttpStatus.internalServerError),
   routeNotFound('ルーティングが見つかりませんでした', HttpStatus.notFound),
+  badRequest('不正なリクエストです', HttpStatus.badRequest),
 
   // WARNING(YumNumm): 未知のエラーコードが返ってきた時に利用されます
   // サーバ側からこのエラーコードが返ってくることはありません

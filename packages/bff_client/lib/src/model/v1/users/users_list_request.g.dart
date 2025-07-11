@@ -11,8 +11,11 @@ part of 'users_list_request.dart';
 _UsersListRequest _$UsersListRequestFromJson(Map<String, dynamic> json) =>
     $checkedCreate('_UsersListRequest', json, ($checkedConvert) {
       final val = _UsersListRequest(
-        limit: $checkedConvert('limit', (v) => (v as num).toInt()),
-        offset: $checkedConvert('offset', (v) => (v as num).toInt()),
+        limit: $checkedConvert(
+          'limit',
+          (v) => const IntStringJsonConverter().fromJson(v as String),
+        ),
+        cursor: $checkedConvert('cursor', (v) => v as String?),
         email: $checkedConvert('email', (v) => v as String?),
         roles: $checkedConvert(
           'roles',
@@ -26,8 +29,8 @@ _UsersListRequest _$UsersListRequestFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$UsersListRequestToJson(_UsersListRequest instance) =>
     <String, dynamic>{
-      'limit': instance.limit,
-      'offset': instance.offset,
+      'limit': const IntStringJsonConverter().toJson(instance.limit),
+      'cursor': instance.cursor,
       'email': instance.email,
       'roles': instance.roles?.map((e) => _$RoleEnumMap[e]!).toList(),
     };

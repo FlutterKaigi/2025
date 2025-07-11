@@ -38,5 +38,6 @@ const _$ErrorCodeEnumMap = {
   ErrorCode.notImplemented: 'NOT_IMPLEMENTED',
   ErrorCode.internalServerError: 'INTERNAL_SERVER_ERROR',
   ErrorCode.routeNotFound: 'ROUTE_NOT_FOUND',
+  ErrorCode.badRequest: 'BAD_REQUEST',
   ErrorCode.unknownEnumField: 'UNKNOWN_ENUM_FIELD',
 };

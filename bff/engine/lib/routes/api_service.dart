@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:bff_client/bff_client.dart';
 import 'package:engine/main.dart';
 import 'package:engine/provider/db_client_provider.dart';
+import 'package:engine/routes/user_api_service.dart';
 import 'package:engine/util/json_response.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
@@ -29,6 +30,9 @@ class ApiService {
       };
     },
   );
+
+  @Route.mount('/v1/users')
+  Router get _userApiService => UserApiService().router;
 
   @Route.all('/<ignored|.*>')
   Future<Response> _notFound(Request request) async {

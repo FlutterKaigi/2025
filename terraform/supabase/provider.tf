@@ -1,5 +1,5 @@
 terraform {
-  required_version = "1.11.4"
+  required_version = "1.12.2"
   required_providers {
     # https://registry.terraform.io/providers/supabase/supabase/latest
     supabase = {

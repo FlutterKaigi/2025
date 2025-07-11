@@ -49,12 +49,21 @@ class _UsersApiClient implements UsersApiClient {
 
   @override
   Future<HttpResponse<UsersListResponse>> getUserList({
-    required UsersListRequest request,
+    required int limit,
+    String? cursor,
+    String? email,
+    String? roles,
   }) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'limit': limit,
+      r'cursor': cursor,
+      r'email': email,
+      r'roles': roles,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    final _data = request;
+    const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<HttpResponse<UsersListResponse>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
@@ -121,6 +130,48 @@ class _UsersApiClient implements UsersApiClient {
           .compose(
             _dio.options,
             '/users/${userId}/roles',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<void>(_options);
+    final httpResponse = HttpResponse(null, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<void>> deleteUser({required String userId}) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<HttpResponse<void>>(
+      Options(method: 'DELETE', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/users/${userId}',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<void>(_options);
+    final httpResponse = HttpResponse(null, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<void>> restoreUser({required String userId}) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<HttpResponse<void>>(
+      Options(method: 'POST', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/users/${userId}/restore',
             queryParameters: queryParameters,
             data: _data,
           )
