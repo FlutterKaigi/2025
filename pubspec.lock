@@ -137,6 +137,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.2"
+  buffer:
+    dependency: transitive
+    description:
+      name: buffer
+      sha256: "389da2ec2c16283c8787e0adaede82b1842102f8c8aae2f49003a766c5c6b3d1"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.3"
   build:
     dependency: transitive
     description:
@@ -749,14 +757,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.2"
-  js_interop_utils:
-    dependency: transitive
-    description:
-      name: js_interop_utils
-      sha256: "32c8bc0ac79fe9de66afa919663bbd51995200161793deaff5676db292ec5808"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.8"
   json_annotation:
     dependency: transitive
     description:
@@ -1013,6 +1013,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.0.3"
+  postgres:
+    dependency: transitive
+    description:
+      name: postgres
+      sha256: "9aaa6f4872956adef653535a4e2133b167465c1a68c22b9bd0744ef1244e9393"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.5.6"
   postgrest:
     dependency: transitive
     description:
@@ -1157,6 +1165,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.28.0"
+  sasl_scram:
+    dependency: transitive
+    description:
+      name: sasl_scram
+      sha256: a47207a436eb650f8fdcf54a2e2587b850dc3caef9973ce01f332b07a6fc9cb9
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.1"
+  saslprep:
+    dependency: transitive
+    description:
+      name: saslprep
+      sha256: "3d421d10be9513bf4459c17c5e70e7b8bc718c9fc5ad4ba5eb4f5fd27396f740"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.3"
   scratch_space:
     dependency: transitive
     description:
@@ -1506,6 +1530,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.1"
+  unorm_dart:
+    dependency: transitive
+    description:
+      name: unorm_dart
+      sha256: "8e3870a1caa60bde8352f9597dd3535d8068613269444f8e35ea8925ec84c1f5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.1+1"
   url_launcher:
     dependency: transitive
     description:

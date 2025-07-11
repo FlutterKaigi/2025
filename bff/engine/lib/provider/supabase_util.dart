@@ -1,13 +1,20 @@
 import 'dart:io';
 
-import 'package:db_client/db_client.dart';
 import 'package:db_types/db_types.dart';
 import 'package:engine/main.dart';
-import 'package:engine/provider/db_client.dart';
+import 'package:engine/provider/db_client_provider.dart';
 import 'package:engine/provider/supabase_client.dart';
 import 'package:engine/util/result.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shelf/shelf.dart';
 import 'package:supabase/supabase.dart';
+
+part 'supabase_util.g.dart';
+
+@Riverpod(keepAlive: true)
+SupabaseUtil supabaseUtil(Ref ref) => SupabaseUtil(
+  supabaseClient: ref.watch(supabaseClientProvider),
+);
 
 class SupabaseUtil {
   SupabaseUtil({required SupabaseClient supabaseClient})
@@ -48,23 +55,13 @@ class SupabaseUtil {
     final supabaseUser = supabaseUserResult.unwrap;
 
     final noCacheDb = await container.read(
-      dbClientProvider(HyperdriveType.noCache).future,
+      dbClientProvider.future,
     );
 
-    try {
-      final userAndUserRoles = await noCacheDb.user.getUserAndUserRoles(
-        supabaseUser.id,
-      );
-      return (supabaseUser, userAndUserRoles.user, userAndUserRoles.roles);
-    } on DbException catch (e) {
-      if (e.type == DbExceptionType.notFound) {
-        throw const AuthorizationException(
-          AuthorizationExceptionType.userNotFound,
-          'User exists but not found in the database',
-        );
-      }
-      rethrow;
-    }
+    final userAndUserRoles = await noCacheDb.user.getUserAndUserRoles(
+      supabaseUser.id,
+    );
+    return (supabaseUser, userAndUserRoles.user, userAndUserRoles.roles);
   });
 }
 

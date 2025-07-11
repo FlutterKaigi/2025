@@ -1,15 +1,21 @@
 import 'dart:io';
 
 import 'package:engine/routes/api_service.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;
+
+// ignore: unreachable_from_main
+final ProviderContainer container = ProviderContainer();
 
 Future<void> main() async {
   print('Starting server...');
 
   final apiService = ApiService();
 
-  final handler = const Pipeline().addHandler(apiService.handler);
+  final handler = const Pipeline()
+      .addMiddleware(logRequests())
+      .addHandler(apiService.handler);
 
   final server = await shelf_io.serve(
     handler,

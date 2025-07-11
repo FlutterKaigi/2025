@@ -2,52 +2,52 @@
 
 // ignore_for_file: type=lint, duplicate_ignore
 
-part of 'hyperdrive_env.dart';
+part of 'supabase_client.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-@ProviderFor(hyperdriveEnv)
-const hyperdriveEnvProvider = HyperdriveEnvProvider._();
+@ProviderFor(supabaseClient)
+const supabaseClientProvider = SupabaseClientProvider._();
 
-final class HyperdriveEnvProvider
-    extends $FunctionalProvider<HyperdriveEnv, HyperdriveEnv>
-    with $Provider<HyperdriveEnv> {
-  const HyperdriveEnvProvider._()
+final class SupabaseClientProvider
+    extends $FunctionalProvider<SupabaseClient, SupabaseClient>
+    with $Provider<SupabaseClient> {
+  const SupabaseClientProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'hyperdriveEnvProvider',
+        name: r'supabaseClientProvider',
         isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$hyperdriveEnvHash();
+  String debugGetCreateSourceHash() => _$supabaseClientHash();
 
   @$internal
   @override
-  $ProviderElement<HyperdriveEnv> $createElement($ProviderPointer pointer) =>
+  $ProviderElement<SupabaseClient> $createElement($ProviderPointer pointer) =>
       $ProviderElement(pointer);
 
   @override
-  HyperdriveEnv create(Ref ref) {
-    return hyperdriveEnv(ref);
+  SupabaseClient create(Ref ref) {
+    return supabaseClient(ref);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(HyperdriveEnv value) {
+  Override overrideWithValue(SupabaseClient value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $ValueProvider<HyperdriveEnv>(value),
+      providerOverride: $ValueProvider<SupabaseClient>(value),
     );
   }
 }
 
-String _$hyperdriveEnvHash() => r'28989089200e6f198769317c9f88ec3334104dd4';
+String _$supabaseClientHash() => r'28ac1a44ffc51d96453e79a09ae03eb2233ea5e7';
 
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
