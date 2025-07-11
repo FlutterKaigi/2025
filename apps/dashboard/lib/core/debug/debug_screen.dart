@@ -1,12 +1,12 @@
-import 'dart:async';
-
-import 'package:dashboard/core/debug/talker.dart';
+import 'package:bff_client/bff_client.dart';
+import 'package:dashboard/core/provider/bff_client.dart';
 import 'package:dashboard/core/router/router.dart';
+import 'package:db_types/db_types.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:path/path.dart' as p;
-import 'package:talker_flutter/talker_flutter.dart';
 
 class DebugScreen extends StatelessWidget {
   const DebugScreen({super.key});
@@ -23,6 +23,7 @@ class DebugScreen extends StatelessWidget {
           spacing: 16,
           children: [
             _TransitionArea(),
+            _BffArea(),
             _TalkerArea(),
           ],
         ),
@@ -166,28 +167,210 @@ class _TalkerArea extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: FilledButton(
-        onPressed: () async {
-          // 動作確認用のログを出力
-          talker.logCustom(
-            TalkerLog(
-              'custom',
-              title: 'custom',
-            ),
-          );
-          talker.critical('critical');
-          talker.debug('debug');
-          talker.error('error');
-          talker.info('info');
-          talker.verbose('verbose');
-          talker.warning('warning');
-
-          unawaited(
-            const TalkerRoute().push<void>(context),
-          );
-        },
+        onPressed: () async => const TalkerRoute().push<void>(context),
         child: const Text('Talker 画面へ'),
       ),
     );
+  }
+}
+
+class _BffArea extends ConsumerStatefulWidget {
+  const _BffArea();
+
+  @override
+  ConsumerState<_BffArea> createState() => _BffAreaState();
+}
+
+class _BffAreaState extends ConsumerState<_BffArea> {
+  UserAndUserRoles? _currentUser;
+  List<UserAndUserRoles>? _userList;
+  String? _errorMessage;
+  bool _isLoading = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final bffClient = ref.watch(bffClientProvider);
+
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'BFF Client Debug',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 16),
+
+            // エラーメッセージ表示
+            if (_errorMessage != null) ...[
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Colors.red.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Text(
+                  _errorMessage!,
+                  style: const TextStyle(color: Colors.red),
+                ),
+              ),
+              const SizedBox(height: 16),
+            ],
+
+            // ボタン群
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                FilledButton(
+                  onPressed: _isLoading
+                      ? null
+                      : () => _getCurrentUser(bffClient),
+                  child: const Text('現在のユーザー情報取得'),
+                ),
+                FilledButton(
+                  onPressed: _isLoading ? null : () => _getUserList(bffClient),
+                  child: const Text('ユーザー一覧取得'),
+                ),
+                FilledButton(
+                  onPressed: _isLoading ? null : _clearResults,
+                  child: const Text('クリア'),
+                ),
+              ],
+            ),
+
+            // ローディング表示
+            if (_isLoading) ...[
+              const SizedBox(height: 16),
+              const Center(
+                child: CircularProgressIndicator(),
+              ),
+            ],
+
+            // 現在のユーザー情報表示
+            if (_currentUser != null) ...[
+              const SizedBox(height: 16),
+              const Text(
+                '現在のユーザー情報:',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 8),
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Colors.grey.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('名前: ${_currentUser!.authMetaData.name}'),
+                    Text('メール: ${_currentUser!.authMetaData.email}'),
+                    Text('ユーザーID: ${_currentUser!.user.id}'),
+                    Text(
+                      'ロール: ${_currentUser!.roles.map((r) => r.name).join(', ')}',
+                    ),
+                  ],
+                ),
+              ),
+            ],
+
+            // ユーザー一覧表示
+            if (_userList != null) ...[
+              const SizedBox(height: 16),
+              const Text(
+                'ユーザー一覧:',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 8),
+              Container(
+                constraints: const BoxConstraints(maxHeight: 200),
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: _userList!.length,
+                  itemBuilder: (context, index) {
+                    final user = _userList![index];
+                    return Card(
+                      child: ListTile(
+                        leading: CircleAvatar(
+                          backgroundImage: NetworkImage(
+                            user.authMetaData.avatarUrl,
+                          ),
+                        ),
+                        title: Text(user.authMetaData.name),
+                        subtitle: Text(user.authMetaData.email),
+                        trailing: Text(
+                          user.roles.map((r) => r.name).join(', '),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> _getCurrentUser(BffApiClient bffClient) async {
+    setState(() {
+      _isLoading = true;
+      _errorMessage = null;
+    });
+
+    try {
+      final response = await bffClient.v1.users.getUserMe();
+      setState(() {
+        _currentUser = response.data;
+      });
+    } catch (e) {
+      setState(() {
+        _errorMessage = '現在のユーザー情報取得に失敗しました: $e';
+      });
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
+  Future<void> _getUserList(BffApiClient bffClient) async {
+    setState(() {
+      _isLoading = true;
+      _errorMessage = null;
+    });
+
+    try {
+      final response = await bffClient.v1.users.getUserList(
+        limit: 10,
+      );
+      setState(() {
+        _userList = response.data.users;
+      });
+    } catch (e) {
+      setState(() {
+        _errorMessage = 'ユーザー一覧取得に失敗しました: $e';
+      });
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
+  void _clearResults() {
+    setState(() {
+      _currentUser = null;
+      _userList = null;
+      _errorMessage = null;
+    });
   }
 }
 

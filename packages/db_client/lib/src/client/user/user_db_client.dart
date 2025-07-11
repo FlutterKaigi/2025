@@ -11,17 +11,15 @@ class UserDbClient {
       Sql.named('''
 SELECT
   to_json(u.*) AS user,
-  json_agg(ur.role) FILTER (WHERE ur.role IS NOT NULL) AS roles,
-  au.email AS email,
-  au.raw_app_meta_data->>'avatar_url' AS avatar_url,
-  au.raw_app_meta_data->>'name' AS name
+  COALESCE(json_agg(ur.role) FILTER (WHERE ur.role IS NOT NULL), '[]'::json) AS roles,
+  au.raw_user_meta_data AS auth_meta_data
 FROM
   public.users AS u
   LEFT JOIN public.user_roles AS ur ON u.id = ur.user_id
   LEFT JOIN auth.users AS au ON u.id = au.id
 WHERE
   u.id = @user_id AND u.deleted_at IS NULL
-GROUP BY u.id, au.email, au.raw_app_meta_data
+GROUP BY u.id, au.raw_user_meta_data
 LIMIT 1;
 '''),
       parameters: {
@@ -48,10 +46,8 @@ LIMIT 1;
     queryBuffer.write('''
 SELECT
   to_json(u.*) AS user,
-  json_agg(ur.role) FILTER (WHERE ur.role IS NOT NULL) AS roles,
-  au.email AS email,
-  au.raw_app_meta_data->>'avatar_url' AS avatar_url,
-  au.raw_app_meta_data->>'name' AS name
+  COALESCE(json_agg(ur.role) FILTER (WHERE ur.role IS NOT NULL), '[]'::json) AS roles,
+  au.raw_user_meta_data AS auth_meta_data
 FROM
   public.users AS u
   LEFT JOIN public.user_roles AS ur ON u.id = ur.user_id
@@ -79,7 +75,7 @@ FROM
     }
 
     queryBuffer.write('''
-GROUP BY u.id, au.email, au.raw_app_meta_data
+GROUP BY u.id, au.raw_app_meta_data
 ORDER BY u.created_at DESC
 LIMIT @limit OFFSET @offset
 ''');

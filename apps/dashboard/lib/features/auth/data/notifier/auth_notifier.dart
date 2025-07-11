@@ -10,7 +10,7 @@ class AuthNotifier extends _$AuthNotifier {
   @override
   Stream<User?> build() async* {
     final authService = ref.watch(authServiceProvider);
-    yield authService.currentUser();
+    yield authService.currentUser;
     ref.listen(_authStateChangeStreamProvider, (_, _) => ref.invalidateSelf());
   }
 
@@ -25,6 +25,20 @@ class AuthNotifier extends _$AuthNotifier {
   }
 
   Future<void> signOut() async => ref.read(authServiceProvider).signOut();
+
+  Future<String?> getAccessToken() async {
+    final authService = ref.read(authServiceProvider);
+    final session = authService.currentSession;
+    if (session == null) {
+      return null;
+    }
+    final isExpired = session.isExpired;
+    if (isExpired) {
+      final response = await authService.refreshSession();
+      return response.session?.accessToken;
+    }
+    return session.accessToken;
+  }
 }
 
 @Riverpod(keepAlive: true)

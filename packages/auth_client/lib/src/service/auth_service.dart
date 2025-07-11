@@ -11,6 +11,7 @@ class AuthService {
     url: supabaseUrl,
     anonKey: supabaseKey,
     debug: isDebug,
+    
   );
 
   /// `initialize`を呼び出した後に使用できる。
@@ -28,14 +29,19 @@ class AuthService {
       redirectTo: redirectTo,
       authScreenLaunchMode: authScreenLaunchMode,
     );
-    return currentUser();
+    return currentUser;
   }
 
   /// ログアウトする
   Future<void> signOut() async => _client.auth.signOut();
 
   /// 現在のユーザーを取得する
-  User? currentUser() => _client.auth.currentUser;
+  User? get currentUser => _client.auth.currentUser;
+
+  Session? get currentSession => _client.auth.currentSession;
+
+  Future<AuthResponse> refreshSession() => _client.auth.refreshSession();
+
 
   /// 認証状態の変化を監視する
   Stream<AuthStateEvent> authStateChangeStream() =>
