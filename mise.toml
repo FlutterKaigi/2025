@@ -1,11 +1,11 @@
 [tools]
-"aqua:suzuki-shunsuke/tfcmt" = "4.14.5"
-bun = "1.2.10"
-dprint = "0.49.1"
+"aqua:suzuki-shunsuke/tfcmt" = "4.14.7"
+bun = "1.2.18"
+dprint = "0.50.1"
 flutter = "3.33.0-0.1.pre-beta"
-node = "22.14.0"
-terraform = "1.11.4"
-tflint = "0.56.0"
+node = "24.4.0"
+terraform = "1.12.2"
+tflint = "0.58.0"
 
 [env.'_']
 file.path = "bff/engine/.env"
