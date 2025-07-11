@@ -40,7 +40,7 @@ final class AccountInfoScreen extends ConsumerWidget {
                 padding: const EdgeInsets.all(16),
                 child: Column(
                   children: [
-                    // TOOD(YumNumm): Repository層でパースする
+                    // TODO(YumNumm): Repository層でパースする
                     if (user?.userMetadata?['avatar_url'] != null)
                       AccountCircleImage(
                         imageUrl: user!.userMetadata!['avatar_url'].toString(),
