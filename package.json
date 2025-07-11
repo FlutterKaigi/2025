@@ -19,6 +19,7 @@
     "apps/website"
   ],
   "trustedDependencies": [
-    "@biomejs/biome"
+    "@biomejs/biome",
+    "supabase"
   ]
 }
