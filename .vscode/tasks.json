@@ -1,0 +1,141 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "supabase-start",
+      "type": "shell",
+      "command": "mise",
+      "args": [
+        "x",
+        "--",
+        "bun",
+        "run",
+        "supabase",
+        "start",
+        "--workdir",
+        "${workspaceFolder}/supabase"
+      ]
+    },
+    {
+      "label": "supabase-stop",
+      "type": "shell",
+      "command": "mise",
+      "args": [
+        "x",
+        "--",
+        "bun",
+        "run",
+        "supabase",
+        "stop",
+        "--workdir",
+        "${workspaceFolder}/supabase"
+      ]
+    },
+    {
+      "label": "supabase-status",
+      "type": "shell",
+      "command": "mise",
+      "args": [
+        "x",
+        "--",
+        "bun",
+        "run",
+        "supabase",
+        "status",
+        "--workdir",
+        "${workspaceFolder}/supabase"
+      ]
+    },
+    {
+      "label": "supabase-migration-new",
+      "type": "shell",
+      "command": "mise",
+      "args": [
+        "x",
+        "--",
+        "bun",
+        "run",
+        "supabase",
+        "migration",
+        "new",
+        "${input:migrationName}",
+        "--workdir",
+        "${workspaceFolder}/supabase"
+      ]
+    },
+    {
+      "label": "supabase-migration-up",
+      "type": "shell",
+      "command": "mise",
+      "args": [
+        "x",
+        "--",
+        "bun",
+        "run",
+        "supabase",
+        "migration",
+        "up",
+        "--local",
+        "--workdir",
+        "${workspaceFolder}/supabase"
+      ]
+    },
+    {
+      "label": "supabase-db-reset",
+      "type": "shell",
+      "command": "mise",
+      "args": [
+        "x",
+        "--",
+        "bun",
+        "run",
+        "supabase",
+        "db",
+        "reset",
+        "--workdir",
+        "${workspaceFolder}/supabase"
+      ]
+    },
+    {
+      "label": "supabase-db-test",
+      "type": "shell",
+      "command": "mise",
+      "args": [
+        "x",
+        "--",
+        "bun",
+        "run",
+        "supabase",
+        "db",
+        "test",
+        "--workdir",
+        "${workspaceFolder}/supabase"
+      ]
+    },
+    {
+      "label": "supabase-functions-serve",
+      "type": "shell",
+      "command": "mise",
+      "args": [
+        "x",
+        "--",
+        "bun",
+        "run",
+        "supabase",
+        "functions",
+        "serve",
+        "--workdir",
+        "${workspaceFolder}/supabase"
+      ]
+    }
+  ],
+  "inputs": [
+    {
+      "id": "migrationName",
+      "type": "promptString",
+      "description": "Migration name"
+    }
+  ]
+}
