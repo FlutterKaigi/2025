@@ -6,8 +6,13 @@
     {
       "label": "supabase-start",
       "type": "shell",
-      "command": "supabase",
+      "command": "mise",
       "args": [
+        "x",
+        "--",
+        "bun",
+        "x",
+        "supabase",
         "start",
         "--workdir",
         "${workspaceFolder}/supabase"
@@ -16,8 +21,13 @@
     {
       "label": "supabase-stop",
       "type": "shell",
-      "command": "supabase",
+      "command": "mise",
       "args": [
+        "x",
+        "--",
+        "bun",
+        "x",
+        "supabase",
         "stop",
         "--workdir",
         "${workspaceFolder}/supabase"
@@ -26,8 +36,13 @@
     {
       "label": "supabase-status",
       "type": "shell",
-      "command": "supabase",
+      "command": "mise",
       "args": [
+        "x",
+        "--",
+        "bun",
+        "x",
+        "supabase",
         "status",
         "--workdir",
         "${workspaceFolder}/supabase"
@@ -36,8 +51,13 @@
     {
       "label": "supabase-migration-new",
       "type": "shell",
-      "command": "supabase",
+      "command": "mise",
       "args": [
+        "x",
+        "--",
+        "bun",
+        "x",
+        "supabase",
         "migration",
         "new",
         "${input:migrationName}",
@@ -48,8 +68,13 @@
     {
       "label": "supabase-migration-up",
       "type": "shell",
-      "command": "supabase",
+      "command": "mise",
       "args": [
+        "x",
+        "--",
+        "bun",
+        "x",
+        "supabase",
         "migration",
         "up",
         "--local",
@@ -60,8 +85,13 @@
     {
       "label": "supabase-db-reset",
       "type": "shell",
-      "command": "supabase",
+      "command": "mise",
       "args": [
+        "x",
+        "--",
+        "bun",
+        "x",
+        "supabase",
         "db",
         "reset",
         "--workdir",
@@ -71,8 +101,13 @@
     {
       "label": "supabase-db-test",
       "type": "shell",
-      "command": "supabase",
+      "command": "mise",
       "args": [
+        "x",
+        "--",
+        "bun",
+        "x",
+        "supabase",
         "db",
         "test",
         "--workdir",
@@ -82,8 +117,13 @@
     {
       "label": "supabase-functions-serve",
       "type": "shell",
-      "command": "supabase",
+      "command": "mise",
       "args": [
+        "x",
+        "--",
+        "bun",
+        "x",
+        "supabase",
         "functions",
         "serve",
         "--workdir",
