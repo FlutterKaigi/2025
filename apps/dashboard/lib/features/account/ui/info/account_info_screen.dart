@@ -40,15 +40,14 @@ final class AccountInfoScreen extends ConsumerWidget {
                 padding: const EdgeInsets.all(16),
                 child: Column(
                   children: [
-                    const AccountCircleImage(
-                      // TODO: ユースケースから取得した情報を表示する
-                      imageUrl:
-                          'https://storage.googleapis.com/cms-storage-bucket/0dbfcc7a59cd1cf16282.png',
-                    ),
+                    // TOOD(YumNumm): Repository層でパースする
+                    if (user?.userMetadata?['avatar_url'] != null)
+                      AccountCircleImage(
+                        imageUrl: user!.userMetadata!['avatar_url'].toString(),
+                      ),
                     const SizedBox(height: 16),
                     Text(
-                      // TODO: ユースケースから取得した情報を表示する
-                      'sample@google.com',
+                      user?.email ?? '',
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     const SizedBox(height: 16),
