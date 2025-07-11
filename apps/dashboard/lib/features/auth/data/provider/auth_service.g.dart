@@ -12,7 +12,7 @@ part of 'auth_service.dart';
 const authServiceProvider = AuthServiceProvider._();
 
 final class AuthServiceProvider
-    extends $FunctionalProvider<AuthService, AuthService>
+    extends $FunctionalProvider<AuthService, AuthService, AuthService>
     with $Provider<AuthService> {
   const AuthServiceProvider._()
     : super(
@@ -42,7 +42,7 @@ final class AuthServiceProvider
   Override overrideWithValue(AuthService value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $ValueProvider<AuthService>(value),
+      providerOverride: $SyncValueProvider<AuthService>(value),
     );
   }
 }

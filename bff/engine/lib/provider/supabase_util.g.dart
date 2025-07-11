@@ -12,7 +12,7 @@ part of 'supabase_util.dart';
 const supabaseUtilProvider = SupabaseUtilProvider._();
 
 final class SupabaseUtilProvider
-    extends $FunctionalProvider<SupabaseUtil, SupabaseUtil>
+    extends $FunctionalProvider<SupabaseUtil, SupabaseUtil, SupabaseUtil>
     with $Provider<SupabaseUtil> {
   const SupabaseUtilProvider._()
     : super(
@@ -42,7 +42,7 @@ final class SupabaseUtilProvider
   Override overrideWithValue(SupabaseUtil value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $ValueProvider<SupabaseUtil>(value),
+      providerOverride: $SyncValueProvider<SupabaseUtil>(value),
     );
   }
 }

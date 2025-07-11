@@ -12,7 +12,7 @@ part of 'supabase_client.dart';
 const supabaseClientProvider = SupabaseClientProvider._();
 
 final class SupabaseClientProvider
-    extends $FunctionalProvider<SupabaseClient, SupabaseClient>
+    extends $FunctionalProvider<SupabaseClient, SupabaseClient, SupabaseClient>
     with $Provider<SupabaseClient> {
   const SupabaseClientProvider._()
     : super(
@@ -42,7 +42,7 @@ final class SupabaseClientProvider
   Override overrideWithValue(SupabaseClient value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $ValueProvider<SupabaseClient>(value),
+      providerOverride: $SyncValueProvider<SupabaseClient>(value),
     );
   }
 }

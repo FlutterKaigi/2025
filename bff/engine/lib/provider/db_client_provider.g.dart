@@ -12,7 +12,8 @@ part of 'db_client_provider.dart';
 const dbClientProvider = DbClientProvider._();
 
 final class DbClientProvider
-    extends $FunctionalProvider<AsyncValue<DbClient>, FutureOr<DbClient>>
+    extends
+        $FunctionalProvider<AsyncValue<DbClient>, DbClient, FutureOr<DbClient>>
     with $FutureModifier<DbClient>, $FutureProvider<DbClient> {
   const DbClientProvider._()
     : super(

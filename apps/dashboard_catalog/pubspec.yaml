@@ -15,7 +15,7 @@ dependencies:
   dashboard: 0.1.0+1
   flutter:
     sdk: flutter
-  hooks_riverpod: 3.0.0-dev.15
+  hooks_riverpod: 3.0.0-dev.16
   widgetbook: 3.14.3
   widgetbook_annotation: 3.5.0
 

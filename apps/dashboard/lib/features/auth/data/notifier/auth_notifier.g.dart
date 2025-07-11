@@ -30,12 +30,6 @@ final class AuthNotifierProvider
   @$internal
   @override
   AuthNotifier create() => AuthNotifier();
-
-  @$internal
-  @override
-  $StreamNotifierProviderElement<AuthNotifier, User?> $createElement(
-    $ProviderPointer pointer,
-  ) => $StreamNotifierProviderElement(pointer);
 }
 
 String _$authNotifierHash() => r'5a8adc993da8b7a416be900e093b1533f5f0f33b';
@@ -46,11 +40,11 @@ abstract class _$AuthNotifier extends $StreamNotifier<User?> {
   @override
   void runBuild() {
     final created = build();
-    final ref = this.ref as $Ref<AsyncValue<User?>>;
+    final ref = this.ref as $Ref<AsyncValue<User?>, User?>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<AsyncValue<User?>>,
+              AnyNotifier<AsyncValue<User?>, User?>,
               AsyncValue<User?>,
               Object?,
               Object?
@@ -64,7 +58,11 @@ const _authStateChangeStreamProvider = _AuthStateChangeStreamProvider._();
 
 final class _AuthStateChangeStreamProvider
     extends
-        $FunctionalProvider<AsyncValue<AuthStateEvent>, Stream<AuthStateEvent>>
+        $FunctionalProvider<
+          AsyncValue<AuthStateEvent>,
+          AuthStateEvent,
+          Stream<AuthStateEvent>
+        >
     with $FutureModifier<AuthStateEvent>, $StreamProvider<AuthStateEvent> {
   const _AuthStateChangeStreamProvider._()
     : super(

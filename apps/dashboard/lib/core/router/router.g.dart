@@ -292,7 +292,8 @@ extension $TalkerRouteExtension on TalkerRoute {
 @ProviderFor(router)
 const routerProvider = RouterProvider._();
 
-final class RouterProvider extends $FunctionalProvider<GoRouter, GoRouter>
+final class RouterProvider
+    extends $FunctionalProvider<GoRouter, GoRouter, GoRouter>
     with $Provider<GoRouter> {
   const RouterProvider._()
     : super(
@@ -322,7 +323,7 @@ final class RouterProvider extends $FunctionalProvider<GoRouter, GoRouter>
   Override overrideWithValue(GoRouter value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $ValueProvider<GoRouter>(value),
+      providerOverride: $SyncValueProvider<GoRouter>(value),
     );
   }
 }
