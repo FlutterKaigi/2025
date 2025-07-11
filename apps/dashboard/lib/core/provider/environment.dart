@@ -17,6 +17,7 @@ abstract class Environment with _$Environment {
     required String flavor,
     required String supabaseUrl,
     required String supabaseKey,
+    required String bffBaseUrl,
   }) = _Environment;
 
   factory Environment.fromEnvironment() => const Environment(
@@ -25,6 +26,7 @@ abstract class Environment with _$Environment {
     flavor: String.fromEnvironment('FLAVOR'),
     supabaseUrl: String.fromEnvironment('SUPABASE_URL'),
     supabaseKey: String.fromEnvironment('SUPABASE_KEY'),
+    bffBaseUrl: String.fromEnvironment('BFF_BASE_URL'),
   );
 
   factory Environment.fromJson(Map<String, dynamic> json) =>

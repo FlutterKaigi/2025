@@ -8,7 +8,7 @@ export class BffEngine extends Container<
   }
 > {
   defaultPort = 8080;
-  sleepAfter = "10s";
+  sleepAfter = "30s";
   envVars = {
     SUPABASE_URL: this.env.SUPABASE_URL,
     SUPABASE_SERVICE_ROLE_KEY: this.env.SUPABASE_SERVICE_ROLE_KEY,

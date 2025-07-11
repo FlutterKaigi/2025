@@ -58,6 +58,15 @@ Future<Response> exceptionHandler(Future<Response> Function() fn) async {
       ),
       headers: {'Content-Type': 'application/json'},
     );
+  } on AuthApiException catch (e) {
+    print(e);
+    return jsonResponse(
+      () async => ErrorResponse.errorCode(
+        code: ErrorCode.unauthorized,
+        detail: 'Authentication Error: $e',
+      ).toJson(),
+      HttpStatus.internalServerError,
+    );
   } on Exception catch (e) {
     print(e);
     return jsonResponse(

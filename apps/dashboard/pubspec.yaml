@@ -12,7 +12,12 @@ resolution: workspace
 dependencies:
   auth_client:
     path: ../../packages/auth_client
+  bff_client:
+    path: ../../packages/bff_client
   cupertino_icons: ^1.0.8
+  db_types:
+    path: ../../packages/db_types
+  dio: ^5.8.0+1
   faker: ^2.2.0
   flutter:
     sdk: flutter
@@ -26,6 +31,7 @@ dependencies:
   json_annotation: ^4.9.0
   path: ^1.9.1
   riverpod_annotation: ^3.0.0-dev.16
+  talker_dio_logger: ^4.9.2
   talker_flutter: ^4.8.0
   url_launcher: ^6.3.1
 

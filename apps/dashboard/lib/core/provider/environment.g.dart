@@ -18,6 +18,7 @@ _Environment _$EnvironmentFromJson(Map<String, dynamic> json) => $checkedCreate(
       flavor: $checkedConvert('flavor', (v) => v as String),
       supabaseUrl: $checkedConvert('supabase_url', (v) => v as String),
       supabaseKey: $checkedConvert('supabase_key', (v) => v as String),
+      bffBaseUrl: $checkedConvert('bff_base_url', (v) => v as String),
     );
     return val;
   },
@@ -26,6 +27,7 @@ _Environment _$EnvironmentFromJson(Map<String, dynamic> json) => $checkedCreate(
     'appName': 'app_name',
     'supabaseUrl': 'supabase_url',
     'supabaseKey': 'supabase_key',
+    'bffBaseUrl': 'bff_base_url',
   },
 );
 
@@ -36,6 +38,7 @@ Map<String, dynamic> _$EnvironmentToJson(_Environment instance) =>
       'flavor': instance.flavor,
       'supabase_url': instance.supabaseUrl,
       'supabase_key': instance.supabaseKey,
+      'bff_base_url': instance.bffBaseUrl,
     };
 
 // **************************************************************************

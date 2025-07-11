@@ -1,12 +1,8 @@
-import 'dart:async';
-
-import 'package:dashboard/core/debug/talker.dart';
 import 'package:dashboard/core/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:path/path.dart' as p;
-import 'package:talker_flutter/talker_flutter.dart';
 
 class DebugScreen extends StatelessWidget {
   const DebugScreen({super.key});
@@ -166,25 +162,7 @@ class _TalkerArea extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: FilledButton(
-        onPressed: () async {
-          // 動作確認用のログを出力
-          talker.logCustom(
-            TalkerLog(
-              'custom',
-              title: 'custom',
-            ),
-          );
-          talker.critical('critical');
-          talker.debug('debug');
-          talker.error('error');
-          talker.info('info');
-          talker.verbose('verbose');
-          talker.warning('warning');
-
-          unawaited(
-            const TalkerRoute().push<void>(context),
-          );
-        },
+        onPressed: () async => const TalkerRoute().push<void>(context),
         child: const Text('Talker 画面へ'),
       ),
     );

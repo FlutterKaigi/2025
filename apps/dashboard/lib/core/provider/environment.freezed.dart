@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Environment {
 
- String get appIdSuffix; String get appName; String get flavor; String get supabaseUrl; String get supabaseKey;
+ String get appIdSuffix; String get appName; String get flavor; String get supabaseUrl; String get supabaseKey; String get bffBaseUrl;
 /// Create a copy of Environment
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $EnvironmentCopyWith<Environment> get copyWith => _$EnvironmentCopyWithImpl<Envi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Environment&&(identical(other.appIdSuffix, appIdSuffix) || other.appIdSuffix == appIdSuffix)&&(identical(other.appName, appName) || other.appName == appName)&&(identical(other.flavor, flavor) || other.flavor == flavor)&&(identical(other.supabaseUrl, supabaseUrl) || other.supabaseUrl == supabaseUrl)&&(identical(other.supabaseKey, supabaseKey) || other.supabaseKey == supabaseKey));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Environment&&(identical(other.appIdSuffix, appIdSuffix) || other.appIdSuffix == appIdSuffix)&&(identical(other.appName, appName) || other.appName == appName)&&(identical(other.flavor, flavor) || other.flavor == flavor)&&(identical(other.supabaseUrl, supabaseUrl) || other.supabaseUrl == supabaseUrl)&&(identical(other.supabaseKey, supabaseKey) || other.supabaseKey == supabaseKey)&&(identical(other.bffBaseUrl, bffBaseUrl) || other.bffBaseUrl == bffBaseUrl));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,appIdSuffix,appName,flavor,supabaseUrl,supabaseKey);
+int get hashCode => Object.hash(runtimeType,appIdSuffix,appName,flavor,supabaseUrl,supabaseKey,bffBaseUrl);
 
 @override
 String toString() {
-  return 'Environment(appIdSuffix: $appIdSuffix, appName: $appName, flavor: $flavor, supabaseUrl: $supabaseUrl, supabaseKey: $supabaseKey)';
+  return 'Environment(appIdSuffix: $appIdSuffix, appName: $appName, flavor: $flavor, supabaseUrl: $supabaseUrl, supabaseKey: $supabaseKey, bffBaseUrl: $bffBaseUrl)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $EnvironmentCopyWith<$Res>  {
   factory $EnvironmentCopyWith(Environment value, $Res Function(Environment) _then) = _$EnvironmentCopyWithImpl;
 @useResult
 $Res call({
- String appIdSuffix, String appName, String flavor, String supabaseUrl, String supabaseKey
+ String appIdSuffix, String appName, String flavor, String supabaseUrl, String supabaseKey, String bffBaseUrl
 });
 
 
@@ -65,13 +65,14 @@ class _$EnvironmentCopyWithImpl<$Res>
 
 /// Create a copy of Environment
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? appIdSuffix = null,Object? appName = null,Object? flavor = null,Object? supabaseUrl = null,Object? supabaseKey = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? appIdSuffix = null,Object? appName = null,Object? flavor = null,Object? supabaseUrl = null,Object? supabaseKey = null,Object? bffBaseUrl = null,}) {
   return _then(_self.copyWith(
 appIdSuffix: null == appIdSuffix ? _self.appIdSuffix : appIdSuffix // ignore: cast_nullable_to_non_nullable
 as String,appName: null == appName ? _self.appName : appName // ignore: cast_nullable_to_non_nullable
 as String,flavor: null == flavor ? _self.flavor : flavor // ignore: cast_nullable_to_non_nullable
 as String,supabaseUrl: null == supabaseUrl ? _self.supabaseUrl : supabaseUrl // ignore: cast_nullable_to_non_nullable
 as String,supabaseKey: null == supabaseKey ? _self.supabaseKey : supabaseKey // ignore: cast_nullable_to_non_nullable
+as String,bffBaseUrl: null == bffBaseUrl ? _self.bffBaseUrl : bffBaseUrl // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }
@@ -157,10 +158,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String appIdSuffix,  String appName,  String flavor,  String supabaseUrl,  String supabaseKey)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String appIdSuffix,  String appName,  String flavor,  String supabaseUrl,  String supabaseKey,  String bffBaseUrl)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Environment() when $default != null:
-return $default(_that.appIdSuffix,_that.appName,_that.flavor,_that.supabaseUrl,_that.supabaseKey);case _:
+return $default(_that.appIdSuffix,_that.appName,_that.flavor,_that.supabaseUrl,_that.supabaseKey,_that.bffBaseUrl);case _:
   return orElse();
 
 }
@@ -178,10 +179,10 @@ return $default(_that.appIdSuffix,_that.appName,_that.flavor,_that.supabaseUrl,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String appIdSuffix,  String appName,  String flavor,  String supabaseUrl,  String supabaseKey)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String appIdSuffix,  String appName,  String flavor,  String supabaseUrl,  String supabaseKey,  String bffBaseUrl)  $default,) {final _that = this;
 switch (_that) {
 case _Environment():
-return $default(_that.appIdSuffix,_that.appName,_that.flavor,_that.supabaseUrl,_that.supabaseKey);case _:
+return $default(_that.appIdSuffix,_that.appName,_that.flavor,_that.supabaseUrl,_that.supabaseKey,_that.bffBaseUrl);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -198,10 +199,10 @@ return $default(_that.appIdSuffix,_that.appName,_that.flavor,_that.supabaseUrl,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String appIdSuffix,  String appName,  String flavor,  String supabaseUrl,  String supabaseKey)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String appIdSuffix,  String appName,  String flavor,  String supabaseUrl,  String supabaseKey,  String bffBaseUrl)?  $default,) {final _that = this;
 switch (_that) {
 case _Environment() when $default != null:
-return $default(_that.appIdSuffix,_that.appName,_that.flavor,_that.supabaseUrl,_that.supabaseKey);case _:
+return $default(_that.appIdSuffix,_that.appName,_that.flavor,_that.supabaseUrl,_that.supabaseKey,_that.bffBaseUrl);case _:
   return null;
 
 }
@@ -213,7 +214,7 @@ return $default(_that.appIdSuffix,_that.appName,_that.flavor,_that.supabaseUrl,_
 @JsonSerializable()
 
 class _Environment implements Environment {
-  const _Environment({required this.appIdSuffix, required this.appName, required this.flavor, required this.supabaseUrl, required this.supabaseKey});
+  const _Environment({required this.appIdSuffix, required this.appName, required this.flavor, required this.supabaseUrl, required this.supabaseKey, required this.bffBaseUrl});
   factory _Environment.fromJson(Map<String, dynamic> json) => _$EnvironmentFromJson(json);
 
 @override final  String appIdSuffix;
@@ -221,6 +222,7 @@ class _Environment implements Environment {
 @override final  String flavor;
 @override final  String supabaseUrl;
 @override final  String supabaseKey;
+@override final  String bffBaseUrl;
 
 /// Create a copy of Environment
 /// with the given fields replaced by the non-null parameter values.
@@ -235,16 +237,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Environment&&(identical(other.appIdSuffix, appIdSuffix) || other.appIdSuffix == appIdSuffix)&&(identical(other.appName, appName) || other.appName == appName)&&(identical(other.flavor, flavor) || other.flavor == flavor)&&(identical(other.supabaseUrl, supabaseUrl) || other.supabaseUrl == supabaseUrl)&&(identical(other.supabaseKey, supabaseKey) || other.supabaseKey == supabaseKey));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Environment&&(identical(other.appIdSuffix, appIdSuffix) || other.appIdSuffix == appIdSuffix)&&(identical(other.appName, appName) || other.appName == appName)&&(identical(other.flavor, flavor) || other.flavor == flavor)&&(identical(other.supabaseUrl, supabaseUrl) || other.supabaseUrl == supabaseUrl)&&(identical(other.supabaseKey, supabaseKey) || other.supabaseKey == supabaseKey)&&(identical(other.bffBaseUrl, bffBaseUrl) || other.bffBaseUrl == bffBaseUrl));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,appIdSuffix,appName,flavor,supabaseUrl,supabaseKey);
+int get hashCode => Object.hash(runtimeType,appIdSuffix,appName,flavor,supabaseUrl,supabaseKey,bffBaseUrl);
 
 @override
 String toString() {
-  return 'Environment(appIdSuffix: $appIdSuffix, appName: $appName, flavor: $flavor, supabaseUrl: $supabaseUrl, supabaseKey: $supabaseKey)';
+  return 'Environment(appIdSuffix: $appIdSuffix, appName: $appName, flavor: $flavor, supabaseUrl: $supabaseUrl, supabaseKey: $supabaseKey, bffBaseUrl: $bffBaseUrl)';
 }
 
 
@@ -255,7 +257,7 @@ abstract mixin class _$EnvironmentCopyWith<$Res> implements $EnvironmentCopyWith
   factory _$EnvironmentCopyWith(_Environment value, $Res Function(_Environment) _then) = __$EnvironmentCopyWithImpl;
 @override @useResult
 $Res call({
- String appIdSuffix, String appName, String flavor, String supabaseUrl, String supabaseKey
+ String appIdSuffix, String appName, String flavor, String supabaseUrl, String supabaseKey, String bffBaseUrl
 });
 
 
@@ -272,13 +274,14 @@ class __$EnvironmentCopyWithImpl<$Res>
 
 /// Create a copy of Environment
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? appIdSuffix = null,Object? appName = null,Object? flavor = null,Object? supabaseUrl = null,Object? supabaseKey = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? appIdSuffix = null,Object? appName = null,Object? flavor = null,Object? supabaseUrl = null,Object? supabaseKey = null,Object? bffBaseUrl = null,}) {
   return _then(_Environment(
 appIdSuffix: null == appIdSuffix ? _self.appIdSuffix : appIdSuffix // ignore: cast_nullable_to_non_nullable
 as String,appName: null == appName ? _self.appName : appName // ignore: cast_nullable_to_non_nullable
 as String,flavor: null == flavor ? _self.flavor : flavor // ignore: cast_nullable_to_non_nullable
 as String,supabaseUrl: null == supabaseUrl ? _self.supabaseUrl : supabaseUrl // ignore: cast_nullable_to_non_nullable
 as String,supabaseKey: null == supabaseKey ? _self.supabaseKey : supabaseKey // ignore: cast_nullable_to_non_nullable
+as String,bffBaseUrl: null == bffBaseUrl ? _self.bffBaseUrl : bffBaseUrl // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }
