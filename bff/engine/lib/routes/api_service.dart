@@ -31,8 +31,8 @@ class ApiService {
     },
   );
 
-  @Route.mount('/api/v1/')
-  Handler get _userApiService => UserApiService().handler;
+  @Route.mount('/v1/users')
+  Router get _userApiService => UserApiService().router;
 
   @Route.all('/<ignored|.*>')
   Future<Response> _notFound(Request request) async {

@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:bff_client/bff_client.dart';
+import 'package:db_types/db_types.dart';
 import 'package:engine/main.dart';
 import 'package:engine/provider/db_client_provider.dart';
 import 'package:engine/provider/supabase_util.dart';
@@ -12,74 +12,83 @@ import 'package:shelf_router/shelf_router.dart';
 part 'user_api_service.g.dart';
 
 class UserApiService {
-  @Route.get('/users/me')
+  @Route.get('/me')
   Future<Response> _getUserMe(Request request) async => jsonResponse(
-        () async {
-          final supabaseUtil = container.read(supabaseUtilProvider);
-          final userResult = await supabaseUtil.extractUser(request);
-          final (supabaseUser, user, roles) = userResult.unwrap;
+    () async {
+      final supabaseUtil = container.read(supabaseUtilProvider);
+      final userResult = await supabaseUtil.extractUser(request);
+      final (supabaseUser, user, roles) = userResult.unwrap;
 
-          return UserAndUserRoles(
-            user: user,
-            roles: roles,
-            authMetaData: AuthMetaData(
-              email: supabaseUser.email ?? '',
-              avatarUrl: supabaseUser.userMetadata?['avatar_url'] ?? '',
-              name: supabaseUser.userMetadata?['name'] ?? '',
-            ),
-          ).toJson();
-        },
-      );
+      return UserAndUserRoles(
+        user: user,
+        roles: roles,
+        authMetaData: AuthMetaData(
+          email: supabaseUser.email ?? '',
+          avatarUrl: supabaseUser.userMetadata?['avatar_url'] as String? ?? '',
+          name: supabaseUser.userMetadata?['name'] as String? ?? '',
+        ),
+      ).toJson();
+    },
+  );
 
-  @Route.get('/users/list')
+  @Route.get('/list')
   Future<Response> _getUserList(Request request) async => jsonResponse(
-        () async {
-          final supabaseUtil = container.read(supabaseUtilProvider);
-          final userResult = await supabaseUtil.extractUser(request);
-          final (_, _, userRoles) = userResult.unwrap;
+    () async {
+      final supabaseUtil = container.read(supabaseUtilProvider);
+      final userResult = await supabaseUtil.extractUser(request);
+      final (_, _, userRoles) = userResult.unwrap;
 
-          // 管理者権限チェック
-          if (!userRoles.contains(Role.admin)) {
-            throw ErrorResponse.errorCode(
-              code: ErrorCode.forbidden,
-              detail: 'この操作には管理者権限が必要です',
-            );
-          }
+      // 管理者権限チェック
+      if (!userRoles.contains(Role.admin)) {
+        throw ErrorResponse.errorCode(
+          code: ErrorCode.forbidden,
+          detail: 'この操作には管理者権限が必要です',
+        );
+      }
 
-          // クエリパラメータから検索条件を取得
-          final limit = int.tryParse(request.url.queryParameters['limit'] ?? '10') ?? 10;
-          final offset = int.tryParse(request.url.queryParameters['offset'] ?? '0') ?? 0;
-          final email = request.url.queryParameters['email'];
-          final rolesParam = request.url.queryParameters['roles'];
-          
-          List<Role>? filterRoles;
-          if (rolesParam != null && rolesParam.isNotEmpty) {
-            filterRoles = rolesParam.split(',')
-                .map((e) => e.trim())
-                .where((roleName) => Role.values.any((role) => role.name == roleName))
-                .map((roleName) => Role.values.firstWhere((role) => role.name == roleName))
-                .toList();
-            
-            // 有効なロールが見つからない場合は null にする
-            if (filterRoles.isEmpty) {
-              filterRoles = null;
-            }
-          }
+      // クエリパラメータから検索条件を取得
+      final limit =
+          int.tryParse(request.url.queryParameters['limit'] ?? '10') ?? 10;
+      final offset =
+          int.tryParse(request.url.queryParameters['offset'] ?? '0') ?? 0;
+      final email = request.url.queryParameters['email'];
+      final rolesParam = request.url.queryParameters['roles'];
 
-          final database = await container.read(dbClientProvider.future);
-          final users = await database.user.getUserList(
-            email: email,
-            roles: filterRoles,
-            limit: limit,
-            offset: offset,
-          );
+      List<Role>? filterRoles;
+      if (rolesParam != null && rolesParam.isNotEmpty) {
+        filterRoles = rolesParam
+            .split(',')
+            .map((e) => e.trim())
+            .where(
+              (roleName) => Role.values.any((role) => role.name == roleName),
+            )
+            .map(
+              (roleName) =>
+                  Role.values.firstWhere((role) => role.name == roleName),
+            )
+            .toList();
 
-          return UsersListResponse(users: users).toJson();
-        },
+        // 有効なロールが見つからない場合は null にする
+        if (filterRoles.isEmpty) {
+          filterRoles = null;
+        }
+      }
+
+      final database = await container.read(dbClientProvider.future);
+      final users = await database.user.getUserList(
+        email: email,
+        roles: filterRoles,
+        limit: limit,
+        offset: offset,
       );
 
-  @Route.get('/users/<userId>')
-  Future<Response> _getUser(Request request, String userId) async => jsonResponse(
+      return UsersListResponse(users: users).toJson();
+    },
+  );
+
+  @Route.get('/<userId>')
+  Future<Response> _getUser(Request request, String userId) async =>
+      jsonResponse(
         () async {
           final supabaseUtil = container.read(supabaseUtilProvider);
           final userResult = await supabaseUtil.extractUser(request);
@@ -100,8 +109,9 @@ class UserApiService {
         },
       );
 
-  @Route.put('/users/<userId>/roles')
-  Future<Response> _putUserRoles(Request request, String userId) async => jsonResponse(
+  @Route.put('/<userId>/roles')
+  Future<Response> _putUserRoles(Request request, String userId) async =>
+      jsonResponse(
         () async {
           final supabaseUtil = container.read(supabaseUtilProvider);
           final userResult = await supabaseUtil.extractUser(request);
@@ -130,8 +140,9 @@ class UserApiService {
       );
 
   /// ユーザを論理削除します
-  @Route.delete('/users/<userId>')
-  Future<Response> _deleteUser(Request request, String userId) async => jsonResponse(
+  @Route.delete('/<userId>')
+  Future<Response> _deleteUser(Request request, String userId) async =>
+      jsonResponse(
         () async {
           final supabaseUtil = container.read(supabaseUtilProvider);
           final userResult = await supabaseUtil.extractUser(request);
@@ -164,8 +175,9 @@ class UserApiService {
       );
 
   /// ユーザーを復元します
-  @Route.post('/users/<userId>/restore')
-  Future<Response> _restoreUser(Request request, String userId) async => jsonResponse(
+  @Route.post('/<userId>/restore')
+  Future<Response> _restoreUser(Request request, String userId) async =>
+      jsonResponse(
         () async {
           final supabaseUtil = container.read(supabaseUtilProvider);
           final userResult = await supabaseUtil.extractUser(request);
@@ -190,56 +202,58 @@ class UserApiService {
       );
 
   /// 削除済みユーザーの一覧を取得します
-  @Route.get('/users/deleted')
+  @Route.get('/deleted')
   Future<Response> _getDeletedUsers(Request request) async => jsonResponse(
-        () async {
-          final supabaseUtil = container.read(supabaseUtilProvider);
-          final userResult = await supabaseUtil.extractUser(request);
-          final (_, _, roles) = userResult.unwrap;
+    () async {
+      final supabaseUtil = container.read(supabaseUtilProvider);
+      final userResult = await supabaseUtil.extractUser(request);
+      final (_, _, roles) = userResult.unwrap;
 
-          // 管理者権限チェック
-          if (!roles.contains(Role.admin)) {
-            throw ErrorResponse.errorCode(
-              code: ErrorCode.forbidden,
-              detail: 'この操作には管理者権限が必要です',
-            );
-          }
+      // 管理者権限チェック
+      if (!roles.contains(Role.admin)) {
+        throw ErrorResponse.errorCode(
+          code: ErrorCode.forbidden,
+          detail: 'この操作には管理者権限が必要です',
+        );
+      }
 
-          final limit = int.tryParse(request.url.queryParameters['limit'] ?? '10') ?? 10;
-          final offset = int.tryParse(request.url.queryParameters['offset'] ?? '0') ?? 0;
+      final limit =
+          int.tryParse(request.url.queryParameters['limit'] ?? '10') ?? 10;
+      final offset =
+          int.tryParse(request.url.queryParameters['offset'] ?? '0') ?? 0;
 
-          final database = await container.read(dbClientProvider.future);
-          final users = await database.user.getDeletedUserList(
-            limit: limit,
-            offset: offset,
-          );
-
-          return UsersListResponse(users: users).toJson();
-        },
+      final database = await container.read(dbClientProvider.future);
+      final users = await database.user.getDeletedUserList(
+        limit: limit,
+        offset: offset,
       );
+
+      return UsersListResponse(users: users).toJson();
+    },
+  );
 
   /// ユーザーの統計情報を取得します
-  @Route.get('/users/stats')
+  @Route.get('/stats')
   Future<Response> _getUserStats(Request request) async => jsonResponse(
-        () async {
-          final supabaseUtil = container.read(supabaseUtilProvider);
-          final userResult = await supabaseUtil.extractUser(request);
-          final (_, _, roles) = userResult.unwrap;
+    () async {
+      final supabaseUtil = container.read(supabaseUtilProvider);
+      final userResult = await supabaseUtil.extractUser(request);
+      final (_, _, roles) = userResult.unwrap;
 
-          // 管理者権限チェック
-          if (!roles.contains(Role.admin)) {
-            throw ErrorResponse.errorCode(
-              code: ErrorCode.forbidden,
-              detail: 'この操作には管理者権限が必要です',
-            );
-          }
+      // 管理者権限チェック
+      if (!roles.contains(Role.admin)) {
+        throw ErrorResponse.errorCode(
+          code: ErrorCode.forbidden,
+          detail: 'この操作には管理者権限が必要です',
+        );
+      }
 
-          final database = await container.read(dbClientProvider.future);
-          final stats = await database.user.getUserStats();
+      final database = await container.read(dbClientProvider.future);
+      final stats = await database.user.getUserStats();
 
-          return stats;
-        },
-      );
+      return stats;
+    },
+  );
 
-  Handler get handler => _$UserApiServiceRouter(this).call;
+  Router get router => _$UserApiServiceRouter(this);
 }
