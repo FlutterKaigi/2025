@@ -1,7 +1,9 @@
 import 'package:dashboard/core/router/router.dart';
+import 'package:dashboard/features/auth/data/notifier/auth_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:path/path.dart' as p;
 
 class DebugScreen extends StatelessWidget {
@@ -20,6 +22,7 @@ class DebugScreen extends StatelessWidget {
           children: [
             _TransitionArea(),
             _TalkerArea(),
+            _LogoutArea(),
           ],
         ),
       ),
@@ -165,6 +168,19 @@ class _TalkerArea extends StatelessWidget {
         onPressed: () async => const TalkerRoute().push<void>(context),
         child: const Text('Talker 画面へ'),
       ),
+    );
+  }
+}
+
+class _LogoutArea extends ConsumerWidget {
+  const _LogoutArea();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final authNotifier = ref.watch(authNotifierProvider.notifier);
+    return FilledButton(
+      onPressed: () async => authNotifier.signOut(),
+      child: const Text('ログアウト'),
     );
   }
 }
