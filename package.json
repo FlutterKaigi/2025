@@ -12,13 +12,14 @@
     "@cspell/dict-software-terms": "^5.1.4",
     "@cspell/dict-sql": "^2.2.1",
     "cspell": "^8.19.4",
-    "supabase": "2.30.4"
+    "supabase": "^2.30.4"
   },
   "workspaces": [
     "bff/bridge",
     "apps/website"
   ],
   "trustedDependencies": [
-    "@biomejs/biome"
+    "@biomejs/biome",
+    "supabase"
   ]
 }
