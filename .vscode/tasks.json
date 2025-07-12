@@ -129,6 +129,61 @@
         "--workdir",
         "${workspaceFolder}/supabase"
       ]
+    },
+    {
+      "label": "bff-up",
+      "type": "shell",
+      "command": "docker",
+      "args": [
+        "compose",
+        "up",
+        "--detach",
+        "--build",
+        "--remove-orphans"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/bff/engine"
+      }
+    },
+    {
+      "label": "bff-down",
+      "type": "shell",
+      "command": "docker",
+      "args": [
+        "compose",
+        "down",
+        "--remove-orphans"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/bff/engine"
+      }
+    },
+    {
+      "label": "bff-clean",
+      "type": "shell",
+      "command": "docker",
+      "args": [
+        "compose",
+        "down",
+        "--rmi",
+        "--volumes",
+        "--remove-orphans"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/bff/engine"
+      }
+    },
+    {
+      "label": "bff-status",
+      "type": "shell",
+      "command": "docker",
+      "args": [
+        "compose",
+        "ps"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/bff/engine"
+      }
     }
   ],
   "inputs": [
