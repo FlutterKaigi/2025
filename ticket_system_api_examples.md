@@ -24,6 +24,7 @@ GET /api/tickets/status
 ```
 
 **レスポンス例:**
+
 ```json
 {
   "tickets": [
@@ -54,6 +55,7 @@ GET /api/tickets/status
 ```
 
 **ステータス値:**
+
 - `available`: 販売中
 - `not_started`: 販売開始前
 - `ended`: 販売終了
@@ -69,6 +71,7 @@ POST /api/tickets/purchase
 ```
 
 **リクエスト例:**
+
 ```json
 {
   "ticket_type_id": 1,
@@ -88,6 +91,7 @@ POST /api/tickets/purchase
 ```
 
 **レスポンス例:**
+
 ```json
 {
   "purchase_id": 123,
@@ -107,6 +111,7 @@ POST /api/webhooks/stripe
 ```
 
 **処理内容:**
+
 1. Webhookイベントの検証
 2. 決済完了時のチケット購入ステータス更新
 3. 重複処理の防止
@@ -121,6 +126,7 @@ Authorization: Bearer <admin_token>
 ```
 
 **リクエスト例:**
+
 ```json
 {
   "user_id": "uuid-of-user",
