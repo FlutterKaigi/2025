@@ -47,11 +47,8 @@ max_client_conn = 100
 # secret_key = "env(SECRET_VALUE)"
 
 [db.seed]
-# If enabled, seeds the database after migrations during a db reset.
 enabled = true
-# Specifies an ordered list of seed files to load during db reset.
-# Supports glob patterns relative to supabase directory: "./seeds/*.sql"
-sql_paths = ["./seed.sql"]
+sql_paths = ['./seeds/*.sql']
 
 [realtime]
 enabled = true
@@ -85,6 +82,10 @@ port = 54324
 enabled = true
 # The maximum file size allowed (e.g. "5MB", "500KB").
 file_size_limit = "50MiB"
+
+[storage.buckets.companies]
+public = true
+objects_path = "seeds/storages/companies"
 
 # Image transformation API is available to Supabase Pro plan.
 # [storage.image_transformation]
