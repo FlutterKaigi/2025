@@ -136,7 +136,7 @@ At DeNA (pronounced "D-N-A") we use AI technology and our unique data analysis m
     ),
     (
         18,
-        '',
+        'tmp-assign',
         'アサインは「人」と「技術」の力で、若手ハイエンド向けのキャリア支援サービスを提供しています。
 
 転職サイト『ASSIGN』は、単なる転職支援に留まらず、長期のキャリア形成をサポートするために、キャリア実現に欠かせないパーソナライズされた情報へのアクセスを容易にしています。技術の力を最大限活用し、ユーザーへの提供価値を向上させています。
@@ -176,7 +176,7 @@ At DeNA (pronounced "D-N-A") we use AI technology and our unique data analysis m
     ),
     (
         22,
-        '',
+        'tmp-team-lab',
         '最新のテクノロジーを活用したソリューション、大規模なシステム開発、都市計画や、ICT空間設計などを行う。チームラボのFlutter活用事例はGoogle I/Oでも紹介されました。https://youtu.be/OyS812ZoTzw',
         'https://www.team-lab.com/',
         '2025-06-01 00:00:00',
@@ -184,7 +184,7 @@ At DeNA (pronounced "D-N-A") we use AI technology and our unique data analysis m
     ),
     (
         23,
-        '',
+        'tmp-sony',
         'ソニー株式会社は「テクノロジーの力で未来のエンタテインメントをクリエイターと共創する」ことをミッションとし、世界中の人に感動を届けることをめざしています。
 新たな映像や音を表現するテクノロジーとサービスに挑戦し続け、世界中の人々を感動させるエンタテイメントの未来を、クリエイターと共に創造しています。',
         'https://www.sony.co.jp/',
