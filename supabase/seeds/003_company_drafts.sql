@@ -155,3 +155,25 @@ FROM
             )
     ) AS drafts (company_id, slug, description, website_url)
     CROSS JOIN timestamp;
+
+-- company_drafts の全てのレコードを承認ユーザーで承認する
+WITH
+    draft_ids AS (
+        SELECT
+            id
+        FROM
+            public.company_drafts
+    ),
+    timestamp AS (
+        SELECT
+            '2025-06-01 00:00:00'::timestamp AS ts
+    )
+INSERT INTO
+    public.company_draft_approvals (company_draft_id, approved_by, created_at)
+SELECT
+    id,
+    '123e4567-e89b-12d3-a456-426614174000',
+    ts
+FROM
+    draft_ids
+    CROSS JOIN timestamp;
