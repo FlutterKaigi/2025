@@ -1,4 +1,5 @@
 import 'package:dashboard/core/gen/l10n/l10n.dart';
+import 'package:dashboard/core/provider/environment.dart';
 import 'package:dashboard/features/account/ui/component/account_circle_image.dart';
 import 'package:dashboard/features/account/ui/component/account_scaffold.dart';
 import 'package:dashboard/features/account/ui/info/component/account_invitation_dialog.dart';
@@ -6,8 +7,10 @@ import 'package:dashboard/features/account/ui/info/component/account_other_list.
 import 'package:dashboard/features/auth/data/notifier/auth_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-final class AccountInfoScreen extends ConsumerWidget {
+final class AccountInfoScreen extends ConsumerWidget
+    with _AccountInfoScreenMixin {
   const AccountInfoScreen({
     required VoidCallback onProfileEdit,
     super.key,
@@ -18,6 +21,7 @@ final class AccountInfoScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(authNotifierProvider);
+    final isJapanese = Localizations.localeOf(context).languageCode == 'ja';
 
     return AccountScaffold(
       body: state.when(
@@ -150,19 +154,37 @@ final class AccountInfoScreen extends ConsumerWidget {
                 items: [
                   (
                     title: L10n.of(context).accountCodeOfConduct,
-                    onTap: () {},
+                    onTap: () => openUrl(
+                      urlString: isJapanese
+                          ? 'https://docs.flutterkaigi.jp/Code-of-Conduct.ja'
+                          : 'https://docs.flutterkaigi.jp/Code-of-Conduct',
+                    ),
                   ),
                   (
                     title: L10n.of(context).accountPrivacyPolicy,
-                    onTap: () {},
+                    onTap: () => openUrl(
+                      urlString: isJapanese
+                          ? 'https://docs.flutterkaigi.jp/Privacy-Policy.ja'
+                          : 'https://docs.flutterkaigi.jp/Privacy-Policy',
+                    ),
                   ),
                   (
                     title: L10n.of(context).accountContact,
-                    onTap: () {},
+                    onTap: () => openUrl(
+                      urlString:
+                          'https://docs.google.com/forms/d/e/1FAIpQLSemYPFEWpP8594MWI4k3Nz45RJzMS7pz1ufwtnX4t3V7z2TOw/viewform',
+                    ),
                   ),
                   (
                     title: L10n.of(context).accountOssLicenses,
-                    onTap: () {},
+                    onTap: () => showLicensePage(
+                      context: context,
+                      applicationName: ref.read(
+                        environmentProvider.select(
+                          (env) => env.appName,
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -171,5 +193,16 @@ final class AccountInfoScreen extends ConsumerWidget {
         ),
       ),
     );
+  }
+}
+
+mixin _AccountInfoScreenMixin {
+  Future<void> openUrl({required String urlString}) async {
+    final uri = Uri.tryParse(urlString);
+    if (uri != null && await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    } else {
+      throw Exception('Could not launch $urlString');
+    }
   }
 }
