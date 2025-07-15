@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$TicketOptions {
 
- String get id; String get ticketTypeId; String get name; DateTime get createdAt; DateTime get updatedAt; String? get description;
+ String get id; String get ticketTypeId; String get name; String? get description; DateTime get createdAt; DateTime get updatedAt;
 /// Create a copy of TicketOptions
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $TicketOptionsCopyWith<TicketOptions> get copyWith => _$TicketOptionsCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TicketOptions&&(identical(other.id, id) || other.id == id)&&(identical(other.ticketTypeId, ticketTypeId) || other.ticketTypeId == ticketTypeId)&&(identical(other.name, name) || other.name == name)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.description, description) || other.description == description));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TicketOptions&&(identical(other.id, id) || other.id == id)&&(identical(other.ticketTypeId, ticketTypeId) || other.ticketTypeId == ticketTypeId)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,ticketTypeId,name,createdAt,updatedAt,description);
+int get hashCode => Object.hash(runtimeType,id,ticketTypeId,name,description,createdAt,updatedAt);
 
 @override
 String toString() {
-  return 'TicketOptions(id: $id, ticketTypeId: $ticketTypeId, name: $name, createdAt: $createdAt, updatedAt: $updatedAt, description: $description)';
+  return 'TicketOptions(id: $id, ticketTypeId: $ticketTypeId, name: $name, description: $description, createdAt: $createdAt, updatedAt: $updatedAt)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $TicketOptionsCopyWith<$Res>  {
   factory $TicketOptionsCopyWith(TicketOptions value, $Res Function(TicketOptions) _then) = _$TicketOptionsCopyWithImpl;
 @useResult
 $Res call({
- String id, String ticketTypeId, String name, DateTime createdAt, DateTime updatedAt, String? description
+ String id, String ticketTypeId, String name, String? description, DateTime createdAt, DateTime updatedAt
 });
 
 
@@ -65,15 +65,15 @@ class _$TicketOptionsCopyWithImpl<$Res>
 
 /// Create a copy of TicketOptions
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? ticketTypeId = null,Object? name = null,Object? createdAt = null,Object? updatedAt = null,Object? description = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? ticketTypeId = null,Object? name = null,Object? description = freezed,Object? createdAt = null,Object? updatedAt = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,ticketTypeId: null == ticketTypeId ? _self.ticketTypeId : ticketTypeId // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as String,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as String?,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
-as DateTime,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
-as String?,
+as DateTime,
   ));
 }
 
@@ -158,10 +158,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String ticketTypeId,  String name,  DateTime createdAt,  DateTime updatedAt,  String? description)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String ticketTypeId,  String name,  String? description,  DateTime createdAt,  DateTime updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _TicketOptions() when $default != null:
-return $default(_that.id,_that.ticketTypeId,_that.name,_that.createdAt,_that.updatedAt,_that.description);case _:
+return $default(_that.id,_that.ticketTypeId,_that.name,_that.description,_that.createdAt,_that.updatedAt);case _:
   return orElse();
 
 }
@@ -179,10 +179,10 @@ return $default(_that.id,_that.ticketTypeId,_that.name,_that.createdAt,_that.upd
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String ticketTypeId,  String name,  DateTime createdAt,  DateTime updatedAt,  String? description)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String ticketTypeId,  String name,  String? description,  DateTime createdAt,  DateTime updatedAt)  $default,) {final _that = this;
 switch (_that) {
 case _TicketOptions():
-return $default(_that.id,_that.ticketTypeId,_that.name,_that.createdAt,_that.updatedAt,_that.description);case _:
+return $default(_that.id,_that.ticketTypeId,_that.name,_that.description,_that.createdAt,_that.updatedAt);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -199,10 +199,10 @@ return $default(_that.id,_that.ticketTypeId,_that.name,_that.createdAt,_that.upd
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String ticketTypeId,  String name,  DateTime createdAt,  DateTime updatedAt,  String? description)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String ticketTypeId,  String name,  String? description,  DateTime createdAt,  DateTime updatedAt)?  $default,) {final _that = this;
 switch (_that) {
 case _TicketOptions() when $default != null:
-return $default(_that.id,_that.ticketTypeId,_that.name,_that.createdAt,_that.updatedAt,_that.description);case _:
+return $default(_that.id,_that.ticketTypeId,_that.name,_that.description,_that.createdAt,_that.updatedAt);case _:
   return null;
 
 }
@@ -214,15 +214,15 @@ return $default(_that.id,_that.ticketTypeId,_that.name,_that.createdAt,_that.upd
 @JsonSerializable()
 
 class _TicketOptions implements TicketOptions {
-  const _TicketOptions({required this.id, required this.ticketTypeId, required this.name, required this.createdAt, required this.updatedAt, this.description});
+  const _TicketOptions({required this.id, required this.ticketTypeId, required this.name, this.description, required this.createdAt, required this.updatedAt});
   factory _TicketOptions.fromJson(Map<String, dynamic> json) => _$TicketOptionsFromJson(json);
 
 @override final  String id;
 @override final  String ticketTypeId;
 @override final  String name;
+@override final  String? description;
 @override final  DateTime createdAt;
 @override final  DateTime updatedAt;
-@override final  String? description;
 
 /// Create a copy of TicketOptions
 /// with the given fields replaced by the non-null parameter values.
@@ -237,16 +237,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TicketOptions&&(identical(other.id, id) || other.id == id)&&(identical(other.ticketTypeId, ticketTypeId) || other.ticketTypeId == ticketTypeId)&&(identical(other.name, name) || other.name == name)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.description, description) || other.description == description));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TicketOptions&&(identical(other.id, id) || other.id == id)&&(identical(other.ticketTypeId, ticketTypeId) || other.ticketTypeId == ticketTypeId)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,ticketTypeId,name,createdAt,updatedAt,description);
+int get hashCode => Object.hash(runtimeType,id,ticketTypeId,name,description,createdAt,updatedAt);
 
 @override
 String toString() {
-  return 'TicketOptions(id: $id, ticketTypeId: $ticketTypeId, name: $name, createdAt: $createdAt, updatedAt: $updatedAt, description: $description)';
+  return 'TicketOptions(id: $id, ticketTypeId: $ticketTypeId, name: $name, description: $description, createdAt: $createdAt, updatedAt: $updatedAt)';
 }
 
 
@@ -257,7 +257,7 @@ abstract mixin class _$TicketOptionsCopyWith<$Res> implements $TicketOptionsCopy
   factory _$TicketOptionsCopyWith(_TicketOptions value, $Res Function(_TicketOptions) _then) = __$TicketOptionsCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String ticketTypeId, String name, DateTime createdAt, DateTime updatedAt, String? description
+ String id, String ticketTypeId, String name, String? description, DateTime createdAt, DateTime updatedAt
 });
 
 
@@ -274,15 +274,15 @@ class __$TicketOptionsCopyWithImpl<$Res>
 
 /// Create a copy of TicketOptions
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? ticketTypeId = null,Object? name = null,Object? createdAt = null,Object? updatedAt = null,Object? description = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? ticketTypeId = null,Object? name = null,Object? description = freezed,Object? createdAt = null,Object? updatedAt = null,}) {
   return _then(_TicketOptions(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,ticketTypeId: null == ticketTypeId ? _self.ticketTypeId : ticketTypeId // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as String,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as String?,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
-as DateTime,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
-as String?,
+as DateTime,
   ));
 }
 

@@ -17,6 +17,7 @@ _TicketOptions _$TicketOptionsFromJson(Map<String, dynamic> json) =>
           id: $checkedConvert('id', (v) => v as String),
           ticketTypeId: $checkedConvert('ticket_type_id', (v) => v as String),
           name: $checkedConvert('name', (v) => v as String),
+          description: $checkedConvert('description', (v) => v as String?),
           createdAt: $checkedConvert(
             'created_at',
             (v) => DateTime.parse(v as String),
@@ -25,7 +26,6 @@ _TicketOptions _$TicketOptionsFromJson(Map<String, dynamic> json) =>
             'updated_at',
             (v) => DateTime.parse(v as String),
           ),
-          description: $checkedConvert('description', (v) => v as String?),
         );
         return val;
       },
@@ -41,7 +41,7 @@ Map<String, dynamic> _$TicketOptionsToJson(_TicketOptions instance) =>
       'id': instance.id,
       'ticket_type_id': instance.ticketTypeId,
       'name': instance.name,
+      'description': instance.description,
       'created_at': instance.createdAt.toIso8601String(),
       'updated_at': instance.updatedAt.toIso8601String(),
-      'description': instance.description,
     };

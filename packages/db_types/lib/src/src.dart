@@ -1,3 +1,5 @@
+export 'models/checkout_option.dart';
+export 'models/ticket_type_with_options.dart';
 export 'models/user_and_user_roles.dart';
 export 'tables/companies.dart';
 export 'tables/company_drafts.dart';
@@ -6,6 +8,7 @@ export 'tables/individual_drafts.dart';
 export 'tables/individuals.dart';
 export 'tables/sponsors.dart';
 export 'tables/stripe_webhook_logs.dart';
+export 'tables/ticket_checkout_sessions.dart';
 export 'tables/ticket_options.dart';
 export 'tables/ticket_purchases.dart';
 export 'tables/ticket_types.dart';

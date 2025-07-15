@@ -40,7 +40,7 @@ Future<Response> exceptionHandler(Future<Response> Function() fn) async {
       print(e.message);
       return ErrorResponse.errorCode(
         code: ErrorCode.internalServerError,
-        detail: 'データベース側のエラーが発生しました: ${e.severity}',
+        detail: 'データベース側のエラーが発生しました: ${e.severity} ${e.message}',
       ).toJson();
     }, HttpStatus.internalServerError);
   } on ErrorResponse catch (e) {
