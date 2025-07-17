@@ -1,3 +1,7 @@
+import 'package:db_client/src/client/ticket/ticket_checkout_db_client.dart';
+import 'package:db_client/src/client/ticket/ticket_option_db_client.dart';
+import 'package:db_client/src/client/ticket/ticket_purchase_db_client.dart';
+import 'package:db_client/src/client/ticket/ticket_type_db_client.dart';
 import 'package:db_client/src/client/user/user_db_client.dart';
 import 'package:postgres/postgres.dart';
 
@@ -18,6 +22,14 @@ class DbClient {
   final Connection _connection;
 
   UserDbClient get user => UserDbClient(connection: _connection);
+  TicketTypeDbClient get ticketType =>
+      TicketTypeDbClient(connection: _connection);
+  TicketOptionDbClient get ticketOption =>
+      TicketOptionDbClient(connection: _connection);
+  TicketPurchaseDbClient get ticketPurchase =>
+      TicketPurchaseDbClient(connection: _connection);
+  TicketCheckoutDbClient get ticketCheckout =>
+      TicketCheckoutDbClient(connection: _connection);
 
   Future<void> dispose() async {
     await _connection.close();

@@ -35,6 +35,8 @@ Map<String, dynamic> _$ErrorResponseToJson(_ErrorResponse instance) =>
 const _$ErrorCodeEnumMap = {
   ErrorCode.unauthorized: 'UNAUTHORIZED',
   ErrorCode.forbidden: 'FORBIDDEN',
+  ErrorCode.notFound: 'NOT_FOUND',
+  ErrorCode.conflict: 'CONFLICT',
   ErrorCode.notImplemented: 'NOT_IMPLEMENTED',
   ErrorCode.internalServerError: 'INTERNAL_SERVER_ERROR',
   ErrorCode.routeNotFound: 'ROUTE_NOT_FOUND',

@@ -38,6 +38,8 @@ abstract class ErrorResponse with _$ErrorResponse implements Exception {
 enum ErrorCode {
   unauthorized('認証に失敗しました', HttpStatus.unauthorized),
   forbidden('リソースにアクセスする権限がありません', HttpStatus.forbidden),
+  notFound('リソースが見つかりません', HttpStatus.notFound),
+  conflict('リソースが競合しています', HttpStatus.conflict),
   notImplemented('このエンドポイントは未実装です', HttpStatus.notImplemented),
   internalServerError('サーバ内部で予期しないエラーが発生しました', HttpStatus.internalServerError),
   routeNotFound('ルーティングが見つかりませんでした', HttpStatus.notFound),
