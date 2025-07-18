@@ -17,6 +17,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:talker_flutter/talker_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 part 'account.dart';
 part 'event.dart';
