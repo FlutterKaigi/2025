@@ -38,6 +38,10 @@ Widget accountInfoScreenUseCase(BuildContext context) {
     ],
     child: AccountInfoScreen(
       onProfileEdit: () {},
+      onTapCodeOfConductTile: () {},
+      onTapPrivacyPolicyTile: () {},
+      onTapContactTile: () {},
+      onTapOssLicensesTile: () {},
     ),
   );
 }
