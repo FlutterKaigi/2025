@@ -13,8 +13,7 @@
 | ID | カテゴリ | 日本語名 | 英語名 | 実装種別 | 遷移種別 | 権限 |
 |-|-|-|-|-|-|-|
 | L-SPLH | 起動 | スプラッシュ画面 | SplashScreen | Flutter | Replace | 全員 |
-| A-QJTR | 認証 | ログイン画面 | LoginScreen | Flutter | Replace | 要認証時 |
-| A-PLXM | - | Google認証画面 | GoogleAuthBottomSheet | InAppBrowser | BottomSheet | 要認証時 |
+| A-PLXM | 認証 | Google/Apple認証画面 | SocialAuthBottomSheet | InAppBrowser | BottomSheet | 要認証時 |
 | A-URVN | - | 招待コード入力画面 | InvitationCodeScreen | Flutter | Push | 要認証時 |
 | A-KYSD | - | アカウント作成エラーダイアログ | AccountCreationErrorDialog | Flutter | Dialog | 要認証時 |
 | D-HTFA | メイン | メイン画面 | MainScreen | Flutter | Replace | 全員（匿名可） |
@@ -26,7 +25,7 @@
 | S-LIST | スポンサー | スポンサー一覧画面 | SponsorListScreen | Flutter | - | 全員（匿名可） |
 | S-DETA | - | スポンサー詳細画面 | SponsorDetailScreen | Flutter | Push | 全員（匿名可） |
 | S-YTRO | - | スポンサー編集画面 | SponsorEditScreen | Flutter | Modal | 企業担当者 |
-| K-INFO | アカウント | アカウント情報画面 | AccountInfoScreen | Flutter | - | 認証ユーザー |
+| K-INFO | アカウント | アカウント情報画面 | AccountInfoScreen | Flutter | - | 全員（匿名可） |
 | K-OVJL | - | プロフィール編集画面 | ProfileEditScreen | Flutter | Modal | 認証ユーザー |
 | K-XRPU | - | 退会申請画面 | WithdrawalScreen | Flutter | Modal | 認証ユーザー |
 <!-- dprint-ignore-end -->
@@ -54,8 +53,7 @@
 flowchart TD
     %% 画面一覧
     SplashScreen[スプラッシュ画面]
-    LoginScreen[ログイン画面]
-    GoogleAuthBottomSheet[Google認証画面]
+    SocialAuthBottomSheet[Google/Apple認証画面]
     InvitationCodeScreen[招待コード入力画面]
     AccountCreationErrorDialog[アカウント作成<br>エラーダイアログ]
     subgraph MainScreen[メイン画面]
@@ -73,7 +71,7 @@ flowchart TD
         SponsorListScreen[スポンサー一覧画面]
       end
       subgraph AccountTabScreen[アカウントタブ画面]
-        AccountInfoScreen[アカウント情報画面<br>※匿名時はログイン促進]
+        AccountInfoScreen[アカウント情報画面<br>※匿名時はログインボタン表示]
       end
     end
     NewsScreen[お知らせ画面]
@@ -88,13 +86,12 @@ flowchart TD
     
     %% アカウント情報画面からの認証フロー
     AccountInfoScreen --> AuthCheck{認証状態確認}
-    AuthCheck --> |未認証| LoginScreen
+    AuthCheck --> |未認証| SocialAuthBottomSheet((Google/Apple認証))
     AuthCheck --> |認証済み| ProfileEditScreen
     AuthCheck --> |認証済み| WithdrawalScreen
     
     %% 認証フロー
-    LoginScreen --> GoogleAuthBottomSheet((Google認証))
-    GoogleAuthBottomSheet --> AccountCheck{アカウント存在確認}
+    SocialAuthBottomSheet --> AccountCheck{アカウント存在確認}
     AccountCheck --> |存在する| AccountInfoScreen
     AccountCheck --> |存在しない| InvitationCodeScreen
     
@@ -117,8 +114,7 @@ flowchart TD
 flowchart TD
     %% 画面一覧
     SplashScreen[スプラッシュ画面]
-    LoginScreen[ログイン画面]
-    GoogleAuthBottomSheet[Google認証画面]
+    SocialAuthBottomSheet[Google/Apple認証画面]
     InvitationCodeScreen[招待コード入力画面]
     AccountCreationErrorDialog[アカウント作成<br>エラーダイアログ]
     subgraph MainScreen[メイン画面]
@@ -136,7 +132,7 @@ flowchart TD
         SponsorListScreen[スポンサー一覧画面]
       end
       subgraph AccountTabScreen[アカウントタブ画面]
-        AccountInfoScreen[アカウント情報画面<br>※匿名時はログイン促進]
+        AccountInfoScreen[アカウント情報画面<br>※匿名時はログインボタン表示]
       end
     end
     NewsScreen[お知らせ画面]
@@ -152,13 +148,12 @@ flowchart TD
     
     %% アカウント情報画面からの認証フロー
     AccountInfoScreen --> AuthCheck{認証状態確認}
-    AuthCheck --> |未認証| LoginScreen
+    AuthCheck --> |未認証| SocialAuthBottomSheet((Google/Apple認証))
     AuthCheck --> |認証済み| ProfileEditScreen
     AuthCheck --> |認証済み| WithdrawalScreen
     
     %% 認証フロー（企業担当者の場合）
-    LoginScreen --> GoogleAuthBottomSheet((Google認証))
-    GoogleAuthBottomSheet --> AccountCheck{アカウント存在確認}
+    SocialAuthBottomSheet --> AccountCheck{アカウント存在確認}
     AccountCheck --> |存在する| AccountInfoScreen
     AccountCheck --> |存在しない| InvitationCodeScreen
     
