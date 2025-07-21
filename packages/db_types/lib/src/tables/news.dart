@@ -9,8 +9,8 @@ abstract class News with _$News {
     required int id,
     required String title,
     required String url,
-    DateTime? publishedAt,
-    DateTime? unpublishedAt,
+    DateTime? startsAt,
+    DateTime? endsAt,
     required DateTime createdAt,
     required DateTime updatedAt,
   }) = _News;

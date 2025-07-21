@@ -99,8 +99,8 @@ class NewsApiService {
       final news = await database.news.createNews(
         title: requestData.title,
         url: requestData.url,
-        publishedAt: requestData.publishedAt,
-        unpublishedAt: requestData.unpublishedAt,
+        startsAt: requestData.startsAt,
+        endsAt: requestData.endsAt,
       );
 
       return news.toJson();
@@ -141,8 +141,8 @@ class NewsApiService {
         id: newsId,
         title: requestData.title,
         url: requestData.url,
-        publishedAt: requestData.publishedAt,
-        unpublishedAt: requestData.unpublishedAt,
+        startsAt: requestData.startsAt,
+        endsAt: requestData.endsAt,
       );
 
       if (news == null) {

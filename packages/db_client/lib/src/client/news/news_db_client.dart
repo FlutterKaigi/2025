@@ -13,10 +13,10 @@ class NewsDbClient {
 SELECT *
 FROM public.news
 WHERE 
-  (published_at IS NULL OR published_at <= NOW()) AND 
-  (unpublished_at IS NULL OR unpublished_at > NOW())
+  (starts_at IS NULL OR starts_at <= NOW()) AND 
+  (ends_at IS NULL OR ends_at > NOW())
 ORDER BY 
-  COALESCE(published_at, created_at) DESC
+  COALESCE(starts_at, created_at) DESC
 '''),
     );
     return result.map((e) => News.fromJson(e.toColumnMap())).toList();
@@ -60,20 +60,20 @@ LIMIT 1
   Future<News> createNews({
     required String title,
     required String url,
-    DateTime? publishedAt,
-    DateTime? unpublishedAt,
+    DateTime? startsAt,
+    DateTime? endsAt,
   }) async {
     final result = await _connection.execute(
       Sql.named('''
-INSERT INTO public.news (title, url, published_at, unpublished_at)
-VALUES (@title, @url, @published_at, @unpublished_at)
+INSERT INTO public.news (title, url, starts_at, ends_at)
+VALUES (@title, @url, @starts_at, @ends_at)
 RETURNING *
 '''),
       parameters: {
         'title': title,
         'url': url,
-        'published_at': publishedAt,
-        'unpublished_at': unpublishedAt,
+        'starts_at': startsAt,
+        'ends_at': endsAt,
       },
     );
     
@@ -85,8 +85,8 @@ RETURNING *
     required int id,
     required String title,
     required String url,
-    DateTime? publishedAt,
-    DateTime? unpublishedAt,
+    DateTime? startsAt,
+    DateTime? endsAt,
   }) async {
     final result = await _connection.execute(
       Sql.named('''
@@ -94,8 +94,8 @@ UPDATE public.news
 SET 
   title = @title,
   url = @url,
-  published_at = @published_at,
-  unpublished_at = @unpublished_at
+  starts_at = @starts_at,
+  ends_at = @ends_at
 WHERE id = @id
 RETURNING *
 '''),
@@ -103,8 +103,8 @@ RETURNING *
         'id': id,
         'title': title,
         'url': url,
-        'published_at': publishedAt,
-        'unpublished_at': unpublishedAt,
+        'starts_at': startsAt,
+        'ends_at': endsAt,
       },
     );
     

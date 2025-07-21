@@ -8,8 +8,8 @@ abstract class NewsCreateRequest with _$NewsCreateRequest {
   const factory NewsCreateRequest({
     required String title,
     required String url,
-    DateTime? publishedAt,
-    DateTime? unpublishedAt,
+    DateTime? startsAt,
+    DateTime? endsAt,
   }) = _NewsCreateRequest;
 
   factory NewsCreateRequest.fromJson(Map<String, dynamic> json) =>
