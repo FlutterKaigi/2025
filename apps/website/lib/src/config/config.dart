@@ -387,12 +387,19 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: 'ソニー株式会社',
-    url: '',
+    url: 'https://www.sony.co.jp/',
     sns: (x: null),
-    pr: (ja: '', en: null),
-    logo: '',
+    pr: (
+      ja:
+          'ソニー株式会社は「テクノロジーの力で未来のエンタテインメントをクリエイターと共創する」ことをミッションとし、'
+          '世界中の人に感動を届けることをめざしています。\n'
+          '新たな映像や音を表現するテクノロジーとサービスに挑戦し続け、世界中の人々を感動させるエンタテイメントの未来を、'
+          'クリエイターと共に創造しています。',
+      en: null,
+    ),
+    logo: '/img/sponsor/sony.png',
     type: SponsorType.silver,
-    disable: true,
+    disable: false,
   ),
   (
     name: 'チームラボ株式会社',
