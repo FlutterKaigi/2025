@@ -6,6 +6,7 @@ export 'tables/company_drafts.dart';
 export 'tables/company_invitation.dart';
 export 'tables/individual_drafts.dart';
 export 'tables/individuals.dart';
+export 'tables/news.dart';
 export 'tables/sponsors.dart';
 export 'tables/stripe_webhook_logs.dart';
 export 'tables/ticket_checkout_sessions.dart';

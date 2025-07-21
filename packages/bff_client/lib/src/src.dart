@@ -1,7 +1,11 @@
 export 'api/bff_api_client.dart';
+export 'api/v1/news_api_client.dart';
 export 'api/v1/tickets_api_client.dart';
 export 'api/v1/users_api_client.dart';
 export 'model/error/error_response.dart';
+export 'model/v1/news/news_create_request.dart';
+export 'model/v1/news/news_list_response.dart';
+export 'model/v1/news/news_update_request.dart';
 export 'model/v1/tickets/ticket_checkout_request.dart';
 export 'model/v1/tickets/ticket_checkout_response.dart';
 export 'model/v1/tickets/ticket_checkout_session_response.dart';

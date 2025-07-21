@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:bff_client/bff_client.dart';
 import 'package:engine/main.dart';
 import 'package:engine/provider/db_client_provider.dart';
+import 'package:engine/routes/news_api_service.dart';
 import 'package:engine/routes/ticket_api_service.dart';
 import 'package:engine/routes/user_api_service.dart';
 import 'package:engine/util/json_response.dart';
@@ -34,6 +35,9 @@ class ApiService {
 
   @Route.mount('/v1/users')
   Router get _userApiService => UserApiService().router;
+
+  @Route.mount('/v1')
+  Router get _newsApiService => NewsApiService().router;
 
   @Route.mount('/v1/tickets')
   Router get _ticketApiService => TicketApiService().router;
