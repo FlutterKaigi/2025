@@ -1,5 +1,7 @@
 import Stripe from "stripe";
 import { Hono } from "hono";
+import { drizzle } from "drizzle-orm/node-postgres";
+import * as schema from "../drizzle/schema";
 
 const app = new Hono<{
   Bindings: Cloudflare.Env;
@@ -30,6 +32,11 @@ app.post("/webhook", async (c) => {
       default:
         break;
     }
+
+    const db = drizzle(c.env.HYPERDRIVE.connectionString, {
+      schema,
+    });
+
     return c.text("", 200);
   } catch (err) {
     const errorMessage = `⚠️  Webhook signature verification failed. ${

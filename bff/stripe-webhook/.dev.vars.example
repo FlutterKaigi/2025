@@ -1,0 +1,4 @@
+STRIPE_API_KEY=sk_test_xxx
+STRIPE_WEBHOOK_SECRET=whsec_xxx
+
+POSTGRES_URL=postgresql://postgres:postgres@localhost:5432/postgres
