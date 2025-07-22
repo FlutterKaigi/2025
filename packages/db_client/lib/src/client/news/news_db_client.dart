@@ -15,8 +15,7 @@ FROM public.news
 WHERE
   (starts_at IS NULL OR starts_at <= NOW()) AND
   (ends_at IS NULL OR ends_at > NOW())
-ORDER BY
-  COALESCE(starts_at, created_at) DESC
+ORDER BY id DESC
 '''),
     );
     return result.map((e) => News.fromJson(e.toColumnMap())).toList();
@@ -28,7 +27,7 @@ ORDER BY
       Sql.named('''
 SELECT *
 FROM public.news
-ORDER BY created_at DESC
+ORDER BY id DESC
 '''),
     );
     return result.map((e) => News.fromJson(e.toColumnMap())).toList();
