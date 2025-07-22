@@ -87,7 +87,7 @@ final class BffDioProvider extends $FunctionalProvider<Dio, Dio, Dio>
   }
 }
 
-String _$bffDioHash() => r'a21d647a01a2247fb8812801dd8a317d1bbdeea7';
+String _$bffDioHash() => r'1904e82567f95a1069ab0f97f14074d542ec86bd';
 
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
