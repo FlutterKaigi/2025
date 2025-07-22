@@ -15,7 +15,7 @@ _News _$NewsFromJson(Map<String, dynamic> json) => $checkedCreate(
     final val = _News(
       id: $checkedConvert('id', (v) => (v as num).toInt()),
       title: $checkedConvert('title', (v) => v as String),
-      url: $checkedConvert('url', (v) => v as String),
+      url: $checkedConvert('url', (v) => v as String?),
       startsAt: $checkedConvert(
         'starts_at',
         (v) => v == null ? null : DateTime.parse(v as String),
