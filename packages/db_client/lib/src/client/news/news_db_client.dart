@@ -12,10 +12,10 @@ class NewsDbClient {
       Sql.named('''
 SELECT *
 FROM public.news
-WHERE 
-  (starts_at IS NULL OR starts_at <= NOW()) AND 
+WHERE
+  (starts_at IS NULL OR starts_at <= NOW()) AND
   (ends_at IS NULL OR ends_at > NOW())
-ORDER BY 
+ORDER BY
   COALESCE(starts_at, created_at) DESC
 '''),
     );
@@ -47,12 +47,12 @@ LIMIT 1
         'id': id,
       },
     );
-    
+
     final news = result.firstOrNull?.toColumnMap();
     if (news == null) {
       return null;
     }
-    
+
     return News.fromJson(news);
   }
 
@@ -76,7 +76,7 @@ RETURNING *
         'ends_at': endsAt,
       },
     );
-    
+
     return News.fromJson(result.first.toColumnMap());
   }
 
@@ -91,7 +91,7 @@ RETURNING *
     final result = await _connection.execute(
       Sql.named('''
 UPDATE public.news
-SET 
+SET
   title = @title,
   url = @url,
   starts_at = @starts_at,
@@ -107,12 +107,12 @@ RETURNING *
         'ends_at': endsAt,
       },
     );
-    
+
     final news = result.firstOrNull?.toColumnMap();
     if (news == null) {
       return null;
     }
-    
+
     return News.fromJson(news);
   }
 
@@ -127,7 +127,7 @@ WHERE id = @id
         'id': id,
       },
     );
-    
+
     return result.affectedRows > 0;
   }
 }
