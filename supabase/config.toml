@@ -47,11 +47,8 @@ max_client_conn = 100
 # secret_key = "env(SECRET_VALUE)"
 
 [db.seed]
-# If enabled, seeds the database after migrations during a db reset.
 enabled = true
-# Specifies an ordered list of seed files to load during db reset.
-# Supports glob patterns relative to supabase directory: "./seeds/*.sql"
-sql_paths = ["./seed.sql"]
+sql_paths = ['./seeds/*.sql']
 
 [realtime]
 enabled = true
@@ -86,6 +83,10 @@ enabled = true
 # The maximum file size allowed (e.g. "5MB", "500KB").
 file_size_limit = "50MiB"
 
+[storage.buckets.companies]
+public = true
+objects_path = "seeds/storages/companies"
+
 # Image transformation API is available to Supabase Pro plan.
 # [storage.image_transformation]
 # enabled = true
@@ -103,7 +104,7 @@ enabled = true
 # in emails.
 site_url = "http://localhost:3000"
 # A list of *exact* URLs that auth providers are permitted to redirect to post authentication.
-additional_redirect_urls = ["https://localhost:3000", "jp.flutterkaigi.2025.dashboard.dev://login-callback"]
+additional_redirect_urls = ["https://localhost:3000", "env(APP_REDIRECT_URL)"]
 # How long tokens are valid for, in seconds. Defaults to 3600 (1 hour), maximum 604,800 (1 week).
 jwt_expiry = 3600
 # If disabled, the refresh token will never expire.

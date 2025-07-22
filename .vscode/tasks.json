@@ -13,9 +13,7 @@
         "bun",
         "run",
         "supabase",
-        "start",
-        "--workdir",
-        "${workspaceFolder}/supabase"
+        "start"
       ]
     },
     {
@@ -28,9 +26,7 @@
         "bun",
         "run",
         "supabase",
-        "stop",
-        "--workdir",
-        "${workspaceFolder}/supabase"
+        "stop"
       ]
     },
     {
@@ -43,9 +39,7 @@
         "bun",
         "run",
         "supabase",
-        "status",
-        "--workdir",
-        "${workspaceFolder}/supabase"
+        "status"
       ]
     },
     {
@@ -60,9 +54,7 @@
         "supabase",
         "migration",
         "new",
-        "${input:migrationName}",
-        "--workdir",
-        "${workspaceFolder}/supabase"
+        "${input:migrationName}"
       ]
     },
     {
@@ -77,9 +69,7 @@
         "supabase",
         "migration",
         "up",
-        "--local",
-        "--workdir",
-        "${workspaceFolder}/supabase"
+        "--local"
       ]
     },
     {
@@ -93,9 +83,7 @@
         "run",
         "supabase",
         "db",
-        "reset",
-        "--workdir",
-        "${workspaceFolder}/supabase"
+        "reset"
       ]
     },
     {
@@ -109,9 +97,7 @@
         "run",
         "supabase",
         "db",
-        "test",
-        "--workdir",
-        "${workspaceFolder}/supabase"
+        "test"
       ]
     },
     {
@@ -125,9 +111,7 @@
         "run",
         "supabase",
         "functions",
-        "serve",
-        "--workdir",
-        "${workspaceFolder}/supabase"
+        "serve"
       ]
     },
     {

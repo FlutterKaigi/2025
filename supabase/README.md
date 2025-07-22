@@ -24,6 +24,22 @@ mise install
 bun install
 ```
 
+1. .env を設定する
+
+以下のように `.env.example` をコピーして `.env` を作成します。
+
+```shell
+cp .env.example .env
+```
+
+その後、開発チームリーダーから必要な値を共有してもらい、開発環境であれば以下のように設定する。
+
+```env
+APP_REDIRECT_URL=jp.flutterkaigi.2025.dashboard.dev://login-callback
+SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_ID=xxx
+SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_SECRET=xxx
+```
+
 1. ローカル開発環境を起動する
 
 ```bash
