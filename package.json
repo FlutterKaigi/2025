@@ -2,9 +2,16 @@
   "name": "2025",
   "type": "module",
   "private": true,
+  "packageManager": "bun@1.2.19",
   "scripts": {
     "clean": "git clean -xdf node_modules",
-    "supabase:generate": "supabase db diff -s public,auth"
+    "supabase:generate": "supabase db diff -s public,auth",
+    "check": "bun run check-types && bun run format",
+    "check-types": "turbo run check-types",
+    "format": "turbo run format",
+    "dev": "turbo run dev",
+    "deploy:staging": "turbo run deploy:staging",
+    "deploy:production": "turbo run deploy:production"
   },
   "devDependencies": {
     "@cspell/dict-dart": "^2.3.1",
@@ -12,11 +19,13 @@
     "@cspell/dict-software-terms": "^5.1.4",
     "@cspell/dict-sql": "^2.2.1",
     "cspell": "^8.19.4",
-    "supabase": "^2.30.4"
+    "supabase": "^2.30.4",
+    "turbo": "^2.5.5"
   },
   "workspaces": [
+    "apps/website",
     "bff/bridge",
-    "apps/website"
+    "bff/stripe-webhook"
   ],
   "trustedDependencies": [
     "@biomejs/biome",

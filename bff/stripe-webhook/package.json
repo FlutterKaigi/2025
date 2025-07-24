@@ -2,8 +2,11 @@
   "name": "stripe-webhook",
   "type": "module",
   "scripts": {
-    "dev": "wrangler dev",
-    "deploy": "wrangler deploy --minify",
+    "format": "biome check --write",
+    "check-types": "tsc --noEmit",
+    "dev": "wrangler dev -e staging",
+    "deploy:staging": "wrangler deploy -e staging --minify",
+    "deploy:production": "wrangler deploy -e production --minify",
     "cf-typegen": "wrangler types --env-interface CloudflareBindings"
   },
   "dependencies": {
@@ -14,6 +17,7 @@
     "stripe": "^18.3.0"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.1.2",
     "@types/pg": "^8.15.4",
     "drizzle-kit": "^0.31.4",
     "tsx": "^4.20.3",

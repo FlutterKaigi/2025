@@ -3,13 +3,15 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "deploy": "wrangler deploy",
+    "format": "biome check --write",
+    "check-types": "tsc --noEmit",
+    "deploy:staging": "wrangler deploy -e staging",
+    "deploy:production": "wrangler deploy -e production",
     "dev": "wrangler dev -e staging",
-    "cf-typegen": "wrangler types",
-    "check": "biome check --write ."
+    "cf-typegen": "wrangler types"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
+    "@biomejs/biome": "2.1.2",
     "@types/pg": "^8.15.2",
     "typescript": "^5.8.3",
     "wrangler": "^4.15.2"
