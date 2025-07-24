@@ -30,10 +30,16 @@ output "supabase_staging_project_id" {
 resource "supabase_settings" "staging" {
   project_ref = supabase_project.staging.id
 
+  # https://api.supabase.com/api/v1#tag/rest/patch/v1/projects/{ref}/postgrest
   api = jsonencode({
-    db_schema                             = "public,storage,graphql_public"
-    db_extra_search_path                  = "public,extensions"
-    max_rows                              = 1000
+    db_schema            = ""
+    db_extra_search_path = ""
+    max_rows             = 0
+  })
+
+  # https://api.supabase.com/api/v1#tag/auth/patch/v1/projects/{ref}/config/auth
+  auth = jsonencode({
+    external_email_enabled                = false
     external_anonymous_user_enabled       = false
     external_google_enabled               = true
     external_google_additional_client_ids = null
