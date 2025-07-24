@@ -17,6 +17,12 @@
       "addWords": true,
     },
     {
+      "name": "database-term",
+      "description": "Database related terms",
+      "path": "./.cspell/database-term.txt",
+      "addWords": true,
+    },
+    {
       "name": "cloudflare-term",
       "description": "Cloudflare related terms",
       "path": "./.cspell/cloudflare-term.txt",
@@ -75,6 +81,7 @@
     "bun-term",
     "cloudflare-term",
     "dart-term",
+    "database-term",
     "dprint-term",
     "flutter-term",
     "github-action-term",
@@ -93,6 +100,8 @@
     "worker-configuration.d.ts",
     // 隠しファイル
     ".*.{yaml,yml}",
+    // スキーマファイル
+    "schema.ts",
   ],
   "import": [
     "@cspell/dict-software-terms/cspell-ext.json",
