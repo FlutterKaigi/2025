@@ -6,6 +6,7 @@ declare namespace Cloudflare {
 		ENVIRONMENT: "staging" | "production";
 		STRIPE_API_KEY: string;
 		STRIPE_WEBHOOK_SECRET: string;
+		BFF_ENGINE_API_KEY: string;
 		HYPERDRIVE: Hyperdrive;
 	}
 }
