@@ -14,6 +14,7 @@
     "deploy:production": "turbo run deploy:production"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.1.2",
     "@cspell/dict-dart": "^2.3.1",
     "@cspell/dict-flutter": "^1.1.1",
     "@cspell/dict-software-terms": "^5.1.4",
@@ -25,7 +26,8 @@
   "workspaces": [
     "apps/website",
     "bff/bridge",
-    "bff/stripe-webhook"
+    "bff/stripe-webhook",
+    "bff/database"
   ],
   "trustedDependencies": [
     "@biomejs/biome",
