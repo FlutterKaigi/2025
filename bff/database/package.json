@@ -1,8 +1,15 @@
 {
-  "name": "database",
+  "name": "@2025/database",
   "module": "index.ts",
   "type": "module",
+  "scripts": {
+    "format": "biome check --write",
+    "check-types": "tsc --noEmit",
+    "drizzle:pull": "drizzle-kit pull",
+    "build": "bun build ./src/index.ts --outdir ./dist"
+  },
   "devDependencies": {
+    "@biomejs/biome": "2.1.2",
     "@types/bun": "latest",
     "@types/pg": "^8.15.4",
     "drizzle-kit": "^0.31.4"

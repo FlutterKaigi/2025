@@ -4,6 +4,11 @@ import { defineConfig } from "drizzle-kit";
 export default defineConfig({
   dialect: "postgresql",
   out: "./drizzle",
+  schemaFilter: [
+    "public",
+    "internal",
+    "auth"
+  ],
   dbCredentials: {
     url:
       process.env.POSTGRES_URL ??

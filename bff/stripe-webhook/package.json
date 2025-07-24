@@ -1,5 +1,5 @@
 {
-  "name": "stripe-webhook",
+  "name": "@2025/stripe-webhook",
   "type": "module",
   "scripts": {
     "format": "biome check --write",
@@ -12,7 +12,8 @@
   "dependencies": {
     "dotenv": "^17.2.0",
     "hono": "^4.8.5",
-    "stripe": "^18.3.0"
+    "stripe": "^18.3.0",
+    "@2025/database": "workspace:*"
   },
   "devDependencies": {
     "@biomejs/biome": "2.1.2",

@@ -1,5 +1,5 @@
 {
-  "name": "bridge",
+  "name": "@2025/bridge",
   "version": "0.0.0",
   "private": true,
   "scripts": {
