@@ -28,7 +28,8 @@
     "apps/website",
     "bff/bridge",
     "bff/stripe-webhook",
-    "bff/database"
+    "bff/database",
+    "bff/payment-workflow"
   ],
   "trustedDependencies": [
     "@biomejs/biome",
