@@ -18,13 +18,13 @@ class Staff extends StatelessComponent {
         div(
           styles: Styles(
             display: Display.flex,
-            flexDirection: FlexDirection.row,
-            flexWrap: FlexWrap.wrap,
-            gap: Gap.all(2.rem),
             width: 100.percent,
             maxWidth: 1200.px,
             padding: Spacing.all(2.rem),
+            flexDirection: FlexDirection.row,
+            flexWrap: FlexWrap.wrap,
             justifyContent: JustifyContent.center,
+            gap: Gap.all(2.rem),
           ),
           [
             for (final staff in event.staff) StaffCard(info: staff),
