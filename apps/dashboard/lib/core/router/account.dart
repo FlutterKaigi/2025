@@ -25,10 +25,31 @@ class AccountInfoRoute extends GoRouteData {
   const AccountInfoRoute();
 
   @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      AccountInfoScreen(
-        onProfileEdit: () => const ProfileEditRoute().go(context),
-      );
+  Widget build(BuildContext context, GoRouterState state) {
+    return AccountInfoScreen(
+      onProfileEdit: () => const ProfileEditRoute().go(context),
+      onTapCodeOfConductTile: () => _openUrl(
+        urlString: L10n.of(context).accountCodeOfConductUrl,
+      ),
+      onTapPrivacyPolicyTile: () => _openUrl(
+        urlString: L10n.of(context).accountPrivacyPolicyUrl,
+      ),
+      onTapContactTile: () => _openUrl(
+        urlString: L10n.of(context).accountContactUrl,
+      ),
+      onTapOssLicensesTile: () => showLicensePage(context: context),
+    );
+  }
+
+  // MEMO: util とかで MIXIN とかにしてもいいかもしれない
+  Future<void> _openUrl({required String urlString}) async {
+    final uri = Uri.tryParse(urlString);
+    if (uri != null && await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    } else {
+      throw Exception('Could not launch $urlString');
+    }
+  }
 }
 
 class ProfileEditRoute extends GoRouteData {

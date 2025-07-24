@@ -231,17 +231,35 @@ abstract class L10n {
   /// **'行動規範'**
   String get accountCodeOfConduct;
 
+  /// No description provided for @accountCodeOfConductUrl.
+  ///
+  /// In ja, this message translates to:
+  /// **'https://docs.flutterkaigi.jp/Code-of-Conduct.ja'**
+  String get accountCodeOfConductUrl;
+
   /// No description provided for @accountPrivacyPolicy.
   ///
   /// In ja, this message translates to:
   /// **'プライバシーポリシー'**
   String get accountPrivacyPolicy;
 
+  /// No description provided for @accountPrivacyPolicyUrl.
+  ///
+  /// In ja, this message translates to:
+  /// **'https://docs.flutterkaigi.jp/Privacy-Policy.ja'**
+  String get accountPrivacyPolicyUrl;
+
   /// No description provided for @accountContact.
   ///
   /// In ja, this message translates to:
   /// **'お問い合わせ'**
   String get accountContact;
+
+  /// No description provided for @accountContactUrl.
+  ///
+  /// In ja, this message translates to:
+  /// **'https://docs.google.com/forms/d/e/1FAIpQLSemYPFEWpP8594MWI4k3Nz45RJzMS7pz1ufwtnX4t3V7z2TOw/viewform'**
+  String get accountContactUrl;
 
   /// No description provided for @accountOssLicenses.
   ///

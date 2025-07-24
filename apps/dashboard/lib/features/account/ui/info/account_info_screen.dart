@@ -10,10 +10,22 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 final class AccountInfoScreen extends ConsumerWidget {
   const AccountInfoScreen({
     required VoidCallback onProfileEdit,
+    required VoidCallback onTapCodeOfConductTile,
+    required VoidCallback onTapPrivacyPolicyTile,
+    required VoidCallback onTapContactTile,
+    required VoidCallback onTapOssLicensesTile,
     super.key,
-  }) : _onProfileEdit = onProfileEdit;
+  }) : _onProfileEdit = onProfileEdit,
+       _onTapCodeOfConductTile = onTapCodeOfConductTile,
+       _onTapPrivacyPolicyTile = onTapPrivacyPolicyTile,
+       _onTapContactTile = onTapContactTile,
+       _onTapOssLicensesTile = onTapOssLicensesTile;
 
   final VoidCallback _onProfileEdit;
+  final VoidCallback _onTapCodeOfConductTile;
+  final VoidCallback _onTapPrivacyPolicyTile;
+  final VoidCallback _onTapContactTile;
+  final VoidCallback _onTapOssLicensesTile;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -150,19 +162,19 @@ final class AccountInfoScreen extends ConsumerWidget {
                 items: [
                   (
                     title: L10n.of(context).accountCodeOfConduct,
-                    onTap: () {},
+                    onTap: _onTapCodeOfConductTile,
                   ),
                   (
                     title: L10n.of(context).accountPrivacyPolicy,
-                    onTap: () {},
+                    onTap: _onTapPrivacyPolicyTile,
                   ),
                   (
                     title: L10n.of(context).accountContact,
-                    onTap: () {},
+                    onTap: _onTapContactTile,
                   ),
                   (
                     title: L10n.of(context).accountOssLicenses,
-                    onTap: () {},
+                    onTap: _onTapOssLicensesTile,
                   ),
                 ],
               ),

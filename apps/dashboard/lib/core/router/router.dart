@@ -1,5 +1,6 @@
 import 'package:dashboard/core/debug/debug_screen.dart';
 import 'package:dashboard/core/debug/talker.dart';
+import 'package:dashboard/core/gen/l10n/l10n.dart';
 import 'package:dashboard/core/ui/main/main_screen.dart';
 import 'package:dashboard/features/account/ui/info/account_info_screen.dart';
 import 'package:dashboard/features/account/ui/profile_edit_screen.dart';
@@ -17,6 +18,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:talker_flutter/talker_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 part 'account.dart';
 part 'event.dart';
