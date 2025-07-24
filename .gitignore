@@ -22,3 +22,6 @@ node_modules/
 # Flutter DevTools
 devtools_options.yaml
 /flutter/
+
+# Turborepo
+.turbo

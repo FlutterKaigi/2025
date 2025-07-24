@@ -1,29 +1,29 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "stripe-webhook",
-  "main": "src/index.ts",
-  "compatibility_date": "2025-07-15",
-  "observability": {
-    "enabled": true,
-    "head_sampling_rate": 1,
-  },
-  "env": {
-    "staging": {
-      "vars": {
-        "ENVIRONMENT": "staging",
-      },
-      "hyperdrive": [
-        {
-          "id": "a5ad3285bc2146929cf7b6e5fab52aa8",
-          "binding": "HYPERDRIVE",
-          "localConnectionString": "postgresql://postgres:postgres@localhost:5432/postgres",
-        },
-      ],
-    },
-    "production": {
-      "vars": {
-        "ENVIRONMENT": "production",
-      },
-    },
-  },
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "stripe-webhook",
+	"main": "src/index.ts",
+	"compatibility_date": "2025-07-15",
+	"observability": {
+		"enabled": true,
+		"head_sampling_rate": 1
+	},
+	"env": {
+		"staging": {
+			"vars": {
+				"ENVIRONMENT": "staging"
+			},
+			"hyperdrive": [
+				{
+					"id": "a5ad3285bc2146929cf7b6e5fab52aa8",
+					"binding": "HYPERDRIVE",
+					"localConnectionString": "postgresql://postgres:postgres@localhost:5432/postgres"
+				}
+			]
+		},
+		"production": {
+			"vars": {
+				"ENVIRONMENT": "production"
+			}
+		}
+	}
 }
