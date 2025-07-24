@@ -79,10 +79,22 @@ class L10nJa extends L10n {
   String get accountCodeOfConduct => '行動規範';
 
   @override
+  String get accountCodeOfConductUrl =>
+      'https://docs.flutterkaigi.jp/Code-of-Conduct.ja';
+
+  @override
   String get accountPrivacyPolicy => 'プライバシーポリシー';
 
   @override
+  String get accountPrivacyPolicyUrl =>
+      'https://docs.flutterkaigi.jp/Privacy-Policy.ja';
+
+  @override
   String get accountContact => 'お問い合わせ';
+
+  @override
+  String get accountContactUrl =>
+      'https://docs.google.com/forms/d/e/1FAIpQLSemYPFEWpP8594MWI4k3Nz45RJzMS7pz1ufwtnX4t3V7z2TOw/viewform';
 
   @override
   String get accountOssLicenses => 'OSS Licenses';

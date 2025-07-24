@@ -26,23 +26,16 @@ class AccountInfoRoute extends GoRouteData {
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    final isJapanese = Localizations.localeOf(context).languageCode == 'ja';
-
     return AccountInfoScreen(
       onProfileEdit: () => const ProfileEditRoute().go(context),
       onTapCodeOfConductTile: () => _openUrl(
-        urlString: isJapanese
-            ? 'https://docs.flutterkaigi.jp/Code-of-Conduct.ja'
-            : 'https://docs.flutterkaigi.jp/Code-of-Conduct',
+        urlString: L10n.of(context).accountCodeOfConductUrl,
       ),
       onTapPrivacyPolicyTile: () => _openUrl(
-        urlString: isJapanese
-            ? 'https://docs.flutterkaigi.jp/Privacy-Policy.ja'
-            : 'https://docs.flutterkaigi.jp/Privacy-Policy',
+        urlString: L10n.of(context).accountPrivacyPolicyUrl,
       ),
       onTapContactTile: () => _openUrl(
-        urlString:
-            'https://docs.google.com/forms/d/e/1FAIpQLSemYPFEWpP8594MWI4k3Nz45RJzMS7pz1ufwtnX4t3V7z2TOw/viewform',
+        urlString: L10n.of(context).accountContactUrl,
       ),
       onTapOssLicensesTile: () => showLicensePage(context: context),
     );
