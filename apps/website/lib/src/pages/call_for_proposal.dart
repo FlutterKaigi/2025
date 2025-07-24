@@ -18,12 +18,12 @@ class CallForProposal extends StatelessComponent {
       [
         p(
           styles: Styles(
+            maxWidth: 800.px,
             color: Colors.black,
+            textAlign: TextAlign.left,
             fontSize: 1.rem,
             fontWeight: FontWeight.w400,
             lineHeight: 180.percent,
-            textAlign: TextAlign.left,
-            maxWidth: 800.px,
           ),
           [
             for (final part
@@ -38,19 +38,19 @@ class CallForProposal extends StatelessComponent {
         div(
           styles: Styles(
             display: Display.flex,
+            margin: Spacing.only(bottom: 2.rem),
             flexDirection: FlexDirection.column,
             alignItems: AlignItems.center,
             gap: Gap.all(1.rem),
-            margin: Spacing.only(bottom: 2.rem),
           ),
           [
             p(
               styles: Styles(
+                margin: Spacing.only(bottom: 0.5.rem),
                 color: Colors.black,
+                textAlign: TextAlign.center,
                 fontSize: 1.125.rem,
                 fontWeight: FontWeight.w700,
-                textAlign: TextAlign.center,
-                margin: Spacing.only(bottom: 0.5.rem),
               ),
               [
                 contents.applyFromHere.text(context).toComponent,
@@ -59,12 +59,12 @@ class CallForProposal extends StatelessComponent {
             ul(
               styles: Styles(
                 display: Display.flex,
-                justifyContent: JustifyContent.center,
-                gap: Gap(row: 2.rem, column: 1.rem),
-                flexWrap: FlexWrap.wrap,
-                listStyle: ListStyle.none,
                 padding: Spacing.zero,
                 margin: Spacing.zero,
+                flexWrap: FlexWrap.wrap,
+                justifyContent: JustifyContent.center,
+                gap: Gap(row: 2.rem, column: 1.rem),
+                listStyle: ListStyle.none,
               ),
               [
                 for (final cfp in event.applyForCfp)
