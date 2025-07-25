@@ -16,10 +16,15 @@ CREATE TABLE public.sponsor_companies (
 
 ALTER TABLE public.sponsor_companies enable ROW level security;
 
+-- ネーミングライツの種別
+CREATE TYPE public.sponsor_company_naming_right_type AS enum('hall', 'room');
+
 -- ネーミングライツスポンサー
 CREATE TABLE public.sponsor_naming_rights (
   id smallint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   company_id smallint REFERENCES public.companies (id) ON DELETE CASCADE,
+  type public.sponsor_company_naming_right_type NOT NULL,
+  name text NOT NULL CHECK (name <> ''),
   created_at timestamp DEFAULT now() NOT NULL
 );
 
