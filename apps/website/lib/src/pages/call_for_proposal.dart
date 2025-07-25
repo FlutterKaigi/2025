@@ -44,49 +44,24 @@ class CallForProposal extends StatelessComponent {
             gap: Gap.all(1.rem),
           ),
           [
-            p(
-              styles: Styles(
-                margin: Spacing.only(bottom: 0.5.rem),
-                color: Colors.black,
-                textAlign: TextAlign.center,
-                fontSize: 1.125.rem,
-                fontWeight: FontWeight.w700,
+            Link(
+              to: event.cfp.url,
+              child: button(
+                styles: Styles(
+                  display: Display.flex,
+                  position: const Position.relative(),
+                  cursor: Cursor.pointer,
+                  justifyContent: JustifyContent.center,
+                  gap: Gap.all(1.rem),
+                  color: Colors.white,
+                  fontSize: 1.rem,
+                ),
+                classes: 'primary-button',
+                [
+                  event.cfp.title.text(context).toComponent,
+                  img(src: '/img/icon/open-in-new.svg'),
+                ],
               ),
-              [
-                contents.applyFromHere.text(context).toComponent,
-              ],
-            ),
-            ul(
-              styles: Styles(
-                display: Display.flex,
-                padding: Spacing.zero,
-                margin: Spacing.zero,
-                flexWrap: FlexWrap.wrap,
-                justifyContent: JustifyContent.center,
-                gap: Gap(row: 2.rem, column: 1.rem),
-                listStyle: ListStyle.none,
-              ),
-              [
-                for (final cfp in event.applyForCfp)
-                  li([
-                    Link(
-                      to: cfp.url,
-                      child: button(
-                        styles: Styles(
-                          position: const Position.relative(),
-                          width: 240.px,
-                          padding: Spacing.all(1.rem),
-                          cursor: Cursor.pointer,
-                          color: Colors.white,
-                          textAlign: TextAlign.center,
-                          fontSize: 1.rem,
-                        ),
-                        classes: 'primary-button',
-                        [cfp.title.text(context).toComponent],
-                      ),
-                    ),
-                  ]),
-              ],
             ),
           ],
         ),
