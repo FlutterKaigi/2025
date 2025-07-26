@@ -7,7 +7,7 @@ abstract class News with _$News {
   const factory News({
     required int id,
     required String title,
-    required Uri url,
     required DateTime startedAt,
+    Uri? url,
   }) = _News;
 }

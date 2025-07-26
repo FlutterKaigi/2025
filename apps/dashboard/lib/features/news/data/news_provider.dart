@@ -17,9 +17,7 @@ Future<List<News>> news(Ref ref) async {
         (news) => News(
           id: news.id,
           title: news.title,
-          url: news.url != null
-              ? Uri.parse(news.url!)
-              : Uri.parse('https://flutterkaigi.jp'),
+          url: news.url != null ? Uri.parse(news.url!) : null,
           startedAt: news.createdAt,
         ),
       )

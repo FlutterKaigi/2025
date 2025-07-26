@@ -68,15 +68,17 @@ class _NewsListItem extends StatelessWidget {
     return ListTile(
       title: Text(news.title),
       subtitle: Text(_dateFormatter.format(news.startedAt)),
-      trailing: const Icon(Icons.open_in_new),
-      onTap: () {
-        unawaited(
-          launchUrl(
-            news.url,
-            mode: LaunchMode.externalApplication,
-          ),
-        );
-      },
+      trailing: news.url != null ? const Icon(Icons.open_in_new) : null,
+      onTap: news.url != null
+          ? () {
+              unawaited(
+                launchUrl(
+                  news.url!,
+                  mode: LaunchMode.externalApplication,
+                ),
+              );
+            }
+          : null,
     );
   }
 }
