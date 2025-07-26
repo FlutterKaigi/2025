@@ -9,10 +9,9 @@ Future<DbClient> dbClient(Ref ref) async {
   final env = ref.watch(environmentsProvider);
 
   // ローカル環境ではSSLを無効にする
-  final isLocal = env.cfVersionMetadataId == 'local';
   final db = await DbClient.connect(
     env.postgresUrl,
-    disableSsl: isLocal,
+    disableSsl: env.isLocal,
   );
 
   ref.onDispose(() async {
