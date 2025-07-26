@@ -1,3 +1,5 @@
+import 'package:bff_client/bff_client.dart';
+import 'package:dashboard/core/provider/bff_client.dart';
 import 'package:dashboard/features/news/data/news.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -5,34 +7,21 @@ part 'news_provider.g.dart';
 
 @riverpod
 Future<List<News>> news(Ref ref) async {
-  await Future<void>.delayed(const Duration(seconds: 1));
-  final newsList = [
-    News(
-      id: 0,
-      text: 'FlutterKaigi mini #4 @Kyoto を開催',
-      url: Uri.parse(
-        'https://medium.com/flutterkaigi/flutterkaigi-mini-4-kyoto-%E3%82%92%E9%96%8B%E5%82%AC%E3%81%97%E3%81%BE%E3%81%99-85facf0ec6b2',
-      ),
-      startedAt: DateTime.utc(2025, 4, 16, 9),
-      endedAt: DateTime.utc(2025, 6, 30, 9),
-    ),
-    News(
-      id: 1,
-      text: 'FlutterKaigi 2025 スポンサー募集を開始',
-      url: Uri.parse(
-        'https://medium.com/flutterkaigi/flutterkaigi-2025-%E3%82%B9%E3%83%9D%E3%83%B3%E3%82%B5%E3%83%BC%E5%8B%9F%E9%9B%86%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6-034330881a94',
-      ),
-      startedAt: DateTime.utc(2025, 4, 23, 9),
-    ),
-  ];
+  final dio = ref.watch(bffDioProvider);
+  final newsApiClient = NewsApiClient(dio);
+  final response = await newsApiClient.getPublishedNewsList();
 
-  // 開始日が新しい順にソート
-  newsList.sort((a, b) => a.startedAt.compareTo(b.startedAt));
-
-  // 終了日がない、または終了日が未来のものを返す
-  return newsList
-      .where(
-        (news) => news.endedAt == null || news.endedAt!.isAfter(DateTime.now()),
+  // db_types の News を独自の News モデルに変換
+  return response.data.news
+      .map(
+        (news) => News(
+          id: news.id,
+          text: news.title,
+          url: news.url != null
+              ? Uri.parse(news.url!)
+              : Uri.parse('https://flutterkaigi.jp'),
+          startedAt: news.createdAt,
+        ),
       )
       .toList();
 }
