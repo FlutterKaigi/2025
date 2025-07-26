@@ -6,10 +6,11 @@
     "useIgnoreFile": true
   },
   "files": {
-    "ignoreUnknown": false,
+    "ignoreUnknown": true,
     "includes": [
-      "src/**/*.ts",
-      "!**/*/worker-configuration.d.ts"
+      "**/*.ts",
+      "!**/*/worker-configuration.d.ts",
+      "!node_modules/**/*"
     ]
   },
   "formatter": {
