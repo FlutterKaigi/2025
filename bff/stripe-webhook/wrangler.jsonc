@@ -1,14 +1,15 @@
 {
-	"$schema": "node_modules/wrangler/config-schema.json",
+  "$schema": "https://unpkg.com/wrangler@latest/config-schema.json",
 	"name": "stripe-webhook",
+  "account_id": "cdd8f59359fe226645e7b541cdc53b57",
 	"main": "src/index.ts",
 	"compatibility_date": "2025-07-15",
 	"observability": {
 		"enabled": true,
-		"head_sampling_rate": 1
 	},
+  "compatibility_flags": ["nodejs_compat"],
 	"env": {
-		"staging": {
+  "staging": {
 			"vars": {
 				"ENVIRONMENT": "staging"
 			},
@@ -18,12 +19,24 @@
 					"binding": "HYPERDRIVE",
 					"localConnectionString": "postgresql://postgres:postgres@localhost:5432/postgres"
 				}
-			]
+			],
+      "services": [
+        {
+          "binding": "PAYMENT_WORKFLOW_API",
+          "service": "payment-workflow-staging"
+        }
+      ]
 		},
 		"production": {
 			"vars": {
 				"ENVIRONMENT": "production"
-			}
+			},
+      "services": [
+        {
+          "binding": "PAYMENT_WORKFLOW_API",
+          "service": "payment-workflow-production"
+        }
+      ]
 		}
 	}
 }
