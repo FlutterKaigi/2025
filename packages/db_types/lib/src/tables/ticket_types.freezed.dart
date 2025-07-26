@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$TicketTypes {
 
- String get id; String get name; int get price; int? get maxQuantity; String? get description; bool get isActive; DateTime? get saleStartsAt; DateTime? get saleEndsAt; String? get url; DateTime get createdAt; DateTime get updatedAt;
+ String get id; String get name; int get price; int? get maxQuantity; String? get description; bool get isActive;@DateTimeConverter() DateTime? get saleStartsAt;@DateTimeConverter() DateTime? get saleEndsAt; String? get url;@RequiredDateTimeConverter() DateTime get createdAt;@RequiredDateTimeConverter() DateTime get updatedAt;
 /// Create a copy of TicketTypes
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $TicketTypesCopyWith<$Res>  {
   factory $TicketTypesCopyWith(TicketTypes value, $Res Function(TicketTypes) _then) = _$TicketTypesCopyWithImpl;
 @useResult
 $Res call({
- String id, String name, int price, int? maxQuantity, String? description, bool isActive, DateTime? saleStartsAt, DateTime? saleEndsAt, String? url, DateTime createdAt, DateTime updatedAt
+ String id, String name, int price, int? maxQuantity, String? description, bool isActive,@DateTimeConverter() DateTime? saleStartsAt,@DateTimeConverter() DateTime? saleEndsAt, String? url,@RequiredDateTimeConverter() DateTime createdAt,@RequiredDateTimeConverter() DateTime updatedAt
 });
 
 
@@ -163,7 +163,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  int price,  int? maxQuantity,  String? description,  bool isActive,  DateTime? saleStartsAt,  DateTime? saleEndsAt,  String? url,  DateTime createdAt,  DateTime updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  int price,  int? maxQuantity,  String? description,  bool isActive, @DateTimeConverter()  DateTime? saleStartsAt, @DateTimeConverter()  DateTime? saleEndsAt,  String? url, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _TicketTypes() when $default != null:
 return $default(_that.id,_that.name,_that.price,_that.maxQuantity,_that.description,_that.isActive,_that.saleStartsAt,_that.saleEndsAt,_that.url,_that.createdAt,_that.updatedAt);case _:
@@ -184,7 +184,7 @@ return $default(_that.id,_that.name,_that.price,_that.maxQuantity,_that.descript
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  int price,  int? maxQuantity,  String? description,  bool isActive,  DateTime? saleStartsAt,  DateTime? saleEndsAt,  String? url,  DateTime createdAt,  DateTime updatedAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  int price,  int? maxQuantity,  String? description,  bool isActive, @DateTimeConverter()  DateTime? saleStartsAt, @DateTimeConverter()  DateTime? saleEndsAt,  String? url, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)  $default,) {final _that = this;
 switch (_that) {
 case _TicketTypes():
 return $default(_that.id,_that.name,_that.price,_that.maxQuantity,_that.description,_that.isActive,_that.saleStartsAt,_that.saleEndsAt,_that.url,_that.createdAt,_that.updatedAt);case _:
@@ -204,7 +204,7 @@ return $default(_that.id,_that.name,_that.price,_that.maxQuantity,_that.descript
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  int price,  int? maxQuantity,  String? description,  bool isActive,  DateTime? saleStartsAt,  DateTime? saleEndsAt,  String? url,  DateTime createdAt,  DateTime updatedAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  int price,  int? maxQuantity,  String? description,  bool isActive, @DateTimeConverter()  DateTime? saleStartsAt, @DateTimeConverter()  DateTime? saleEndsAt,  String? url, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)?  $default,) {final _that = this;
 switch (_that) {
 case _TicketTypes() when $default != null:
 return $default(_that.id,_that.name,_that.price,_that.maxQuantity,_that.description,_that.isActive,_that.saleStartsAt,_that.saleEndsAt,_that.url,_that.createdAt,_that.updatedAt);case _:
@@ -219,7 +219,7 @@ return $default(_that.id,_that.name,_that.price,_that.maxQuantity,_that.descript
 @JsonSerializable()
 
 class _TicketTypes implements TicketTypes {
-  const _TicketTypes({required this.id, required this.name, required this.price, this.maxQuantity, this.description, required this.isActive, this.saleStartsAt, this.saleEndsAt, this.url, required this.createdAt, required this.updatedAt});
+  const _TicketTypes({required this.id, required this.name, required this.price, this.maxQuantity, this.description, required this.isActive, @DateTimeConverter() this.saleStartsAt, @DateTimeConverter() this.saleEndsAt, this.url, @RequiredDateTimeConverter() required this.createdAt, @RequiredDateTimeConverter() required this.updatedAt});
   factory _TicketTypes.fromJson(Map<String, dynamic> json) => _$TicketTypesFromJson(json);
 
 @override final  String id;
@@ -228,11 +228,11 @@ class _TicketTypes implements TicketTypes {
 @override final  int? maxQuantity;
 @override final  String? description;
 @override final  bool isActive;
-@override final  DateTime? saleStartsAt;
-@override final  DateTime? saleEndsAt;
+@override@DateTimeConverter() final  DateTime? saleStartsAt;
+@override@DateTimeConverter() final  DateTime? saleEndsAt;
 @override final  String? url;
-@override final  DateTime createdAt;
-@override final  DateTime updatedAt;
+@override@RequiredDateTimeConverter() final  DateTime createdAt;
+@override@RequiredDateTimeConverter() final  DateTime updatedAt;
 
 /// Create a copy of TicketTypes
 /// with the given fields replaced by the non-null parameter values.
@@ -267,7 +267,7 @@ abstract mixin class _$TicketTypesCopyWith<$Res> implements $TicketTypesCopyWith
   factory _$TicketTypesCopyWith(_TicketTypes value, $Res Function(_TicketTypes) _then) = __$TicketTypesCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String name, int price, int? maxQuantity, String? description, bool isActive, DateTime? saleStartsAt, DateTime? saleEndsAt, String? url, DateTime createdAt, DateTime updatedAt
+ String id, String name, int price, int? maxQuantity, String? description, bool isActive,@DateTimeConverter() DateTime? saleStartsAt,@DateTimeConverter() DateTime? saleEndsAt, String? url,@RequiredDateTimeConverter() DateTime createdAt,@RequiredDateTimeConverter() DateTime updatedAt
 });
 
 

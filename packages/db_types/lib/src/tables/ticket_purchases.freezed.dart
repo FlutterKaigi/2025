@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$TicketPurchases {
 
- String get id; String get userId; String get ticketTypeId; TicketPurchaseStatus get status; String? get stripePaymentIntentId; DateTime get createdAt; DateTime get updatedAt;
+ String get id; String get userId; String get ticketTypeId; TicketPurchaseStatus get status; String? get stripePaymentIntentId;@RequiredDateTimeConverter() DateTime get createdAt;@RequiredDateTimeConverter() DateTime get updatedAt;
 /// Create a copy of TicketPurchases
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $TicketPurchasesCopyWith<$Res>  {
   factory $TicketPurchasesCopyWith(TicketPurchases value, $Res Function(TicketPurchases) _then) = _$TicketPurchasesCopyWithImpl;
 @useResult
 $Res call({
- String id, String userId, String ticketTypeId, TicketPurchaseStatus status, String? stripePaymentIntentId, DateTime createdAt, DateTime updatedAt
+ String id, String userId, String ticketTypeId, TicketPurchaseStatus status, String? stripePaymentIntentId,@RequiredDateTimeConverter() DateTime createdAt,@RequiredDateTimeConverter() DateTime updatedAt
 });
 
 
@@ -159,7 +159,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String userId,  String ticketTypeId,  TicketPurchaseStatus status,  String? stripePaymentIntentId,  DateTime createdAt,  DateTime updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String userId,  String ticketTypeId,  TicketPurchaseStatus status,  String? stripePaymentIntentId, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _TicketPurchases() when $default != null:
 return $default(_that.id,_that.userId,_that.ticketTypeId,_that.status,_that.stripePaymentIntentId,_that.createdAt,_that.updatedAt);case _:
@@ -180,7 +180,7 @@ return $default(_that.id,_that.userId,_that.ticketTypeId,_that.status,_that.stri
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String userId,  String ticketTypeId,  TicketPurchaseStatus status,  String? stripePaymentIntentId,  DateTime createdAt,  DateTime updatedAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String userId,  String ticketTypeId,  TicketPurchaseStatus status,  String? stripePaymentIntentId, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)  $default,) {final _that = this;
 switch (_that) {
 case _TicketPurchases():
 return $default(_that.id,_that.userId,_that.ticketTypeId,_that.status,_that.stripePaymentIntentId,_that.createdAt,_that.updatedAt);case _:
@@ -200,7 +200,7 @@ return $default(_that.id,_that.userId,_that.ticketTypeId,_that.status,_that.stri
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String userId,  String ticketTypeId,  TicketPurchaseStatus status,  String? stripePaymentIntentId,  DateTime createdAt,  DateTime updatedAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String userId,  String ticketTypeId,  TicketPurchaseStatus status,  String? stripePaymentIntentId, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)?  $default,) {final _that = this;
 switch (_that) {
 case _TicketPurchases() when $default != null:
 return $default(_that.id,_that.userId,_that.ticketTypeId,_that.status,_that.stripePaymentIntentId,_that.createdAt,_that.updatedAt);case _:
@@ -215,7 +215,7 @@ return $default(_that.id,_that.userId,_that.ticketTypeId,_that.status,_that.stri
 @JsonSerializable()
 
 class _TicketPurchases implements TicketPurchases {
-  const _TicketPurchases({required this.id, required this.userId, required this.ticketTypeId, required this.status, this.stripePaymentIntentId, required this.createdAt, required this.updatedAt});
+  const _TicketPurchases({required this.id, required this.userId, required this.ticketTypeId, required this.status, this.stripePaymentIntentId, @RequiredDateTimeConverter() required this.createdAt, @RequiredDateTimeConverter() required this.updatedAt});
   factory _TicketPurchases.fromJson(Map<String, dynamic> json) => _$TicketPurchasesFromJson(json);
 
 @override final  String id;
@@ -223,8 +223,8 @@ class _TicketPurchases implements TicketPurchases {
 @override final  String ticketTypeId;
 @override final  TicketPurchaseStatus status;
 @override final  String? stripePaymentIntentId;
-@override final  DateTime createdAt;
-@override final  DateTime updatedAt;
+@override@RequiredDateTimeConverter() final  DateTime createdAt;
+@override@RequiredDateTimeConverter() final  DateTime updatedAt;
 
 /// Create a copy of TicketPurchases
 /// with the given fields replaced by the non-null parameter values.
@@ -259,7 +259,7 @@ abstract mixin class _$TicketPurchasesCopyWith<$Res> implements $TicketPurchases
   factory _$TicketPurchasesCopyWith(_TicketPurchases value, $Res Function(_TicketPurchases) _then) = __$TicketPurchasesCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String userId, String ticketTypeId, TicketPurchaseStatus status, String? stripePaymentIntentId, DateTime createdAt, DateTime updatedAt
+ String id, String userId, String ticketTypeId, TicketPurchaseStatus status, String? stripePaymentIntentId,@RequiredDateTimeConverter() DateTime createdAt,@RequiredDateTimeConverter() DateTime updatedAt
 });
 
 
@@ -296,7 +296,7 @@ as DateTime,
 /// @nodoc
 mixin _$TicketPurchaseOptions {
 
- String get id; String get ticketPurchaseId; String get ticketOptionId; String? get optionValue; DateTime get createdAt; DateTime get updatedAt;
+ String get id; String get ticketPurchaseId; String get ticketOptionId; String? get optionValue;@RequiredDateTimeConverter() DateTime get createdAt;@RequiredDateTimeConverter() DateTime get updatedAt;
 /// Create a copy of TicketPurchaseOptions
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -329,7 +329,7 @@ abstract mixin class $TicketPurchaseOptionsCopyWith<$Res>  {
   factory $TicketPurchaseOptionsCopyWith(TicketPurchaseOptions value, $Res Function(TicketPurchaseOptions) _then) = _$TicketPurchaseOptionsCopyWithImpl;
 @useResult
 $Res call({
- String id, String ticketPurchaseId, String ticketOptionId, String? optionValue, DateTime createdAt, DateTime updatedAt
+ String id, String ticketPurchaseId, String ticketOptionId, String? optionValue,@RequiredDateTimeConverter() DateTime createdAt,@RequiredDateTimeConverter() DateTime updatedAt
 });
 
 
@@ -439,7 +439,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String ticketPurchaseId,  String ticketOptionId,  String? optionValue,  DateTime createdAt,  DateTime updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String ticketPurchaseId,  String ticketOptionId,  String? optionValue, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _TicketPurchaseOptions() when $default != null:
 return $default(_that.id,_that.ticketPurchaseId,_that.ticketOptionId,_that.optionValue,_that.createdAt,_that.updatedAt);case _:
@@ -460,7 +460,7 @@ return $default(_that.id,_that.ticketPurchaseId,_that.ticketOptionId,_that.optio
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String ticketPurchaseId,  String ticketOptionId,  String? optionValue,  DateTime createdAt,  DateTime updatedAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String ticketPurchaseId,  String ticketOptionId,  String? optionValue, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)  $default,) {final _that = this;
 switch (_that) {
 case _TicketPurchaseOptions():
 return $default(_that.id,_that.ticketPurchaseId,_that.ticketOptionId,_that.optionValue,_that.createdAt,_that.updatedAt);case _:
@@ -480,7 +480,7 @@ return $default(_that.id,_that.ticketPurchaseId,_that.ticketOptionId,_that.optio
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String ticketPurchaseId,  String ticketOptionId,  String? optionValue,  DateTime createdAt,  DateTime updatedAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String ticketPurchaseId,  String ticketOptionId,  String? optionValue, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)?  $default,) {final _that = this;
 switch (_that) {
 case _TicketPurchaseOptions() when $default != null:
 return $default(_that.id,_that.ticketPurchaseId,_that.ticketOptionId,_that.optionValue,_that.createdAt,_that.updatedAt);case _:
@@ -495,15 +495,15 @@ return $default(_that.id,_that.ticketPurchaseId,_that.ticketOptionId,_that.optio
 @JsonSerializable()
 
 class _TicketPurchaseOptions implements TicketPurchaseOptions {
-  const _TicketPurchaseOptions({required this.id, required this.ticketPurchaseId, required this.ticketOptionId, this.optionValue, required this.createdAt, required this.updatedAt});
+  const _TicketPurchaseOptions({required this.id, required this.ticketPurchaseId, required this.ticketOptionId, this.optionValue, @RequiredDateTimeConverter() required this.createdAt, @RequiredDateTimeConverter() required this.updatedAt});
   factory _TicketPurchaseOptions.fromJson(Map<String, dynamic> json) => _$TicketPurchaseOptionsFromJson(json);
 
 @override final  String id;
 @override final  String ticketPurchaseId;
 @override final  String ticketOptionId;
 @override final  String? optionValue;
-@override final  DateTime createdAt;
-@override final  DateTime updatedAt;
+@override@RequiredDateTimeConverter() final  DateTime createdAt;
+@override@RequiredDateTimeConverter() final  DateTime updatedAt;
 
 /// Create a copy of TicketPurchaseOptions
 /// with the given fields replaced by the non-null parameter values.
@@ -538,7 +538,7 @@ abstract mixin class _$TicketPurchaseOptionsCopyWith<$Res> implements $TicketPur
   factory _$TicketPurchaseOptionsCopyWith(_TicketPurchaseOptions value, $Res Function(_TicketPurchaseOptions) _then) = __$TicketPurchaseOptionsCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String ticketPurchaseId, String ticketOptionId, String? optionValue, DateTime createdAt, DateTime updatedAt
+ String id, String ticketPurchaseId, String ticketOptionId, String? optionValue,@RequiredDateTimeConverter() DateTime createdAt,@RequiredDateTimeConverter() DateTime updatedAt
 });
 
 

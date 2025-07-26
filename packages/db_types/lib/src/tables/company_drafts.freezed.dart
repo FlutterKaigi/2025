@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$CompanyDrafts {
 
- int get id; int get companyId; String get name; String get slug; String? get logoName; DateTime get createdAt; DateTime get updatedAt;
+ int get id; int get companyId; String get name; String get slug; String? get logoName;@RequiredDateTimeConverter() DateTime get createdAt;@RequiredDateTimeConverter() DateTime get updatedAt;
 /// Create a copy of CompanyDrafts
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $CompanyDraftsCopyWith<$Res>  {
   factory $CompanyDraftsCopyWith(CompanyDrafts value, $Res Function(CompanyDrafts) _then) = _$CompanyDraftsCopyWithImpl;
 @useResult
 $Res call({
- int id, int companyId, String name, String slug, String? logoName, DateTime createdAt, DateTime updatedAt
+ int id, int companyId, String name, String slug, String? logoName,@RequiredDateTimeConverter() DateTime createdAt,@RequiredDateTimeConverter() DateTime updatedAt
 });
 
 
@@ -159,7 +159,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  int companyId,  String name,  String slug,  String? logoName,  DateTime createdAt,  DateTime updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  int companyId,  String name,  String slug,  String? logoName, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CompanyDrafts() when $default != null:
 return $default(_that.id,_that.companyId,_that.name,_that.slug,_that.logoName,_that.createdAt,_that.updatedAt);case _:
@@ -180,7 +180,7 @@ return $default(_that.id,_that.companyId,_that.name,_that.slug,_that.logoName,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  int companyId,  String name,  String slug,  String? logoName,  DateTime createdAt,  DateTime updatedAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  int companyId,  String name,  String slug,  String? logoName, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)  $default,) {final _that = this;
 switch (_that) {
 case _CompanyDrafts():
 return $default(_that.id,_that.companyId,_that.name,_that.slug,_that.logoName,_that.createdAt,_that.updatedAt);case _:
@@ -200,7 +200,7 @@ return $default(_that.id,_that.companyId,_that.name,_that.slug,_that.logoName,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  int companyId,  String name,  String slug,  String? logoName,  DateTime createdAt,  DateTime updatedAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  int companyId,  String name,  String slug,  String? logoName, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)?  $default,) {final _that = this;
 switch (_that) {
 case _CompanyDrafts() when $default != null:
 return $default(_that.id,_that.companyId,_that.name,_that.slug,_that.logoName,_that.createdAt,_that.updatedAt);case _:
@@ -215,7 +215,7 @@ return $default(_that.id,_that.companyId,_that.name,_that.slug,_that.logoName,_t
 @JsonSerializable()
 
 class _CompanyDrafts implements CompanyDrafts {
-  const _CompanyDrafts({required this.id, required this.companyId, required this.name, required this.slug, required this.logoName, required this.createdAt, required this.updatedAt});
+  const _CompanyDrafts({required this.id, required this.companyId, required this.name, required this.slug, required this.logoName, @RequiredDateTimeConverter() required this.createdAt, @RequiredDateTimeConverter() required this.updatedAt});
   factory _CompanyDrafts.fromJson(Map<String, dynamic> json) => _$CompanyDraftsFromJson(json);
 
 @override final  int id;
@@ -223,8 +223,8 @@ class _CompanyDrafts implements CompanyDrafts {
 @override final  String name;
 @override final  String slug;
 @override final  String? logoName;
-@override final  DateTime createdAt;
-@override final  DateTime updatedAt;
+@override@RequiredDateTimeConverter() final  DateTime createdAt;
+@override@RequiredDateTimeConverter() final  DateTime updatedAt;
 
 /// Create a copy of CompanyDrafts
 /// with the given fields replaced by the non-null parameter values.
@@ -259,7 +259,7 @@ abstract mixin class _$CompanyDraftsCopyWith<$Res> implements $CompanyDraftsCopy
   factory _$CompanyDraftsCopyWith(_CompanyDrafts value, $Res Function(_CompanyDrafts) _then) = __$CompanyDraftsCopyWithImpl;
 @override @useResult
 $Res call({
- int id, int companyId, String name, String slug, String? logoName, DateTime createdAt, DateTime updatedAt
+ int id, int companyId, String name, String slug, String? logoName,@RequiredDateTimeConverter() DateTime createdAt,@RequiredDateTimeConverter() DateTime updatedAt
 });
 
 
@@ -297,7 +297,7 @@ as DateTime,
 mixin _$CompanyDraftApprovals {
 
  int get id; int get companyDraftId;// 承認したユーザがアカウントを削除した場合、nullになる
- String? get approvedById; DateTime get createdAt;
+ String? get approvedById;@RequiredDateTimeConverter() DateTime get createdAt;
 /// Create a copy of CompanyDraftApprovals
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -330,7 +330,7 @@ abstract mixin class $CompanyDraftApprovalsCopyWith<$Res>  {
   factory $CompanyDraftApprovalsCopyWith(CompanyDraftApprovals value, $Res Function(CompanyDraftApprovals) _then) = _$CompanyDraftApprovalsCopyWithImpl;
 @useResult
 $Res call({
- int id, int companyDraftId, String? approvedById, DateTime createdAt
+ int id, int companyDraftId, String? approvedById,@RequiredDateTimeConverter() DateTime createdAt
 });
 
 
@@ -438,7 +438,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  int companyDraftId,  String? approvedById,  DateTime createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  int companyDraftId,  String? approvedById, @RequiredDateTimeConverter()  DateTime createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CompanyDraftApprovals() when $default != null:
 return $default(_that.id,_that.companyDraftId,_that.approvedById,_that.createdAt);case _:
@@ -459,7 +459,7 @@ return $default(_that.id,_that.companyDraftId,_that.approvedById,_that.createdAt
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  int companyDraftId,  String? approvedById,  DateTime createdAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  int companyDraftId,  String? approvedById, @RequiredDateTimeConverter()  DateTime createdAt)  $default,) {final _that = this;
 switch (_that) {
 case _CompanyDraftApprovals():
 return $default(_that.id,_that.companyDraftId,_that.approvedById,_that.createdAt);case _:
@@ -479,7 +479,7 @@ return $default(_that.id,_that.companyDraftId,_that.approvedById,_that.createdAt
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  int companyDraftId,  String? approvedById,  DateTime createdAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  int companyDraftId,  String? approvedById, @RequiredDateTimeConverter()  DateTime createdAt)?  $default,) {final _that = this;
 switch (_that) {
 case _CompanyDraftApprovals() when $default != null:
 return $default(_that.id,_that.companyDraftId,_that.approvedById,_that.createdAt);case _:
@@ -494,14 +494,14 @@ return $default(_that.id,_that.companyDraftId,_that.approvedById,_that.createdAt
 @JsonSerializable()
 
 class _CompanyDraftApprovals implements CompanyDraftApprovals {
-  const _CompanyDraftApprovals({required this.id, required this.companyDraftId, required this.approvedById, required this.createdAt});
+  const _CompanyDraftApprovals({required this.id, required this.companyDraftId, required this.approvedById, @RequiredDateTimeConverter() required this.createdAt});
   factory _CompanyDraftApprovals.fromJson(Map<String, dynamic> json) => _$CompanyDraftApprovalsFromJson(json);
 
 @override final  int id;
 @override final  int companyDraftId;
 // 承認したユーザがアカウントを削除した場合、nullになる
 @override final  String? approvedById;
-@override final  DateTime createdAt;
+@override@RequiredDateTimeConverter() final  DateTime createdAt;
 
 /// Create a copy of CompanyDraftApprovals
 /// with the given fields replaced by the non-null parameter values.
@@ -536,7 +536,7 @@ abstract mixin class _$CompanyDraftApprovalsCopyWith<$Res> implements $CompanyDr
   factory _$CompanyDraftApprovalsCopyWith(_CompanyDraftApprovals value, $Res Function(_CompanyDraftApprovals) _then) = __$CompanyDraftApprovalsCopyWithImpl;
 @override @useResult
 $Res call({
- int id, int companyDraftId, String? approvedById, DateTime createdAt
+ int id, int companyDraftId, String? approvedById,@RequiredDateTimeConverter() DateTime createdAt
 });
 
 

@@ -18,19 +18,19 @@ _News _$NewsFromJson(Map<String, dynamic> json) => $checkedCreate(
       url: $checkedConvert('url', (v) => v as String?),
       startsAt: $checkedConvert(
         'starts_at',
-        (v) => v == null ? null : DateTime.parse(v as String),
+        (v) => const DateTimeConverter().fromJson(v),
       ),
       endsAt: $checkedConvert(
         'ends_at',
-        (v) => v == null ? null : DateTime.parse(v as String),
+        (v) => const DateTimeConverter().fromJson(v),
       ),
       createdAt: $checkedConvert(
         'created_at',
-        (v) => DateTime.parse(v as String),
+        (v) => const RequiredDateTimeConverter().fromJson(v),
       ),
       updatedAt: $checkedConvert(
         'updated_at',
-        (v) => DateTime.parse(v as String),
+        (v) => const RequiredDateTimeConverter().fromJson(v),
       ),
     );
     return val;
@@ -47,8 +47,8 @@ Map<String, dynamic> _$NewsToJson(_News instance) => <String, dynamic>{
   'id': instance.id,
   'title': instance.title,
   'url': instance.url,
-  'starts_at': instance.startsAt?.toIso8601String(),
-  'ends_at': instance.endsAt?.toIso8601String(),
-  'created_at': instance.createdAt.toIso8601String(),
-  'updated_at': instance.updatedAt.toIso8601String(),
+  'starts_at': const DateTimeConverter().toJson(instance.startsAt),
+  'ends_at': const DateTimeConverter().toJson(instance.endsAt),
+  'created_at': const RequiredDateTimeConverter().toJson(instance.createdAt),
+  'updated_at': const RequiredDateTimeConverter().toJson(instance.updatedAt),
 };

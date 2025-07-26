@@ -17,11 +17,11 @@ _Individuals _$IndividualsFromJson(Map<String, dynamic> json) => $checkedCreate(
       userId: $checkedConvert('user_id', (v) => v as String),
       createdAt: $checkedConvert(
         'created_at',
-        (v) => DateTime.parse(v as String),
+        (v) => const RequiredDateTimeConverter().fromJson(v),
       ),
       updatedAt: $checkedConvert(
         'updated_at',
-        (v) => DateTime.parse(v as String),
+        (v) => const RequiredDateTimeConverter().fromJson(v),
       ),
     );
     return val;
@@ -33,10 +33,11 @@ _Individuals _$IndividualsFromJson(Map<String, dynamic> json) => $checkedCreate(
   },
 );
 
-Map<String, dynamic> _$IndividualsToJson(_Individuals instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'user_id': instance.userId,
-      'created_at': instance.createdAt.toIso8601String(),
-      'updated_at': instance.updatedAt.toIso8601String(),
-    };
+Map<String, dynamic> _$IndividualsToJson(
+  _Individuals instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'user_id': instance.userId,
+  'created_at': const RequiredDateTimeConverter().toJson(instance.createdAt),
+  'updated_at': const RequiredDateTimeConverter().toJson(instance.updatedAt),
+};

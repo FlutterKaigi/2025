@@ -21,7 +21,7 @@ _SponsorIndividuals _$SponsorIndividualsFromJson(Map<String, dynamic> json) =>
           ),
           createdAt: $checkedConvert(
             'created_at',
-            (v) => DateTime.parse(v as String),
+            (v) => const RequiredDateTimeConverter().fromJson(v),
           ),
         );
         return val;
@@ -32,12 +32,13 @@ _SponsorIndividuals _$SponsorIndividualsFromJson(Map<String, dynamic> json) =>
       },
     );
 
-Map<String, dynamic> _$SponsorIndividualsToJson(_SponsorIndividuals instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'individual_id': instance.individualId,
-      'created_at': instance.createdAt.toIso8601String(),
-    };
+Map<String, dynamic> _$SponsorIndividualsToJson(
+  _SponsorIndividuals instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'individual_id': instance.individualId,
+  'created_at': const RequiredDateTimeConverter().toJson(instance.createdAt),
+};
 
 _SponsorNamingRights _$SponsorNamingRightsFromJson(Map<String, dynamic> json) =>
     $checkedCreate(
@@ -49,7 +50,7 @@ _SponsorNamingRights _$SponsorNamingRightsFromJson(Map<String, dynamic> json) =>
           companyId: $checkedConvert('company_id', (v) => (v as num).toInt()),
           createdAt: $checkedConvert(
             'created_at',
-            (v) => DateTime.parse(v as String),
+            (v) => const RequiredDateTimeConverter().fromJson(v),
           ),
         );
         return val;
@@ -62,7 +63,7 @@ Map<String, dynamic> _$SponsorNamingRightsToJson(
 ) => <String, dynamic>{
   'id': instance.id,
   'company_id': instance.companyId,
-  'created_at': instance.createdAt.toIso8601String(),
+  'created_at': const RequiredDateTimeConverter().toJson(instance.createdAt),
 };
 
 _SponsorNameplate _$SponsorNameplateFromJson(Map<String, dynamic> json) =>
@@ -75,7 +76,7 @@ _SponsorNameplate _$SponsorNameplateFromJson(Map<String, dynamic> json) =>
           companyId: $checkedConvert('company_id', (v) => (v as num).toInt()),
           createdAt: $checkedConvert(
             'created_at',
-            (v) => DateTime.parse(v as String),
+            (v) => const RequiredDateTimeConverter().fromJson(v),
           ),
         );
         return val;
@@ -83,12 +84,13 @@ _SponsorNameplate _$SponsorNameplateFromJson(Map<String, dynamic> json) =>
       fieldKeyMap: const {'companyId': 'company_id', 'createdAt': 'created_at'},
     );
 
-Map<String, dynamic> _$SponsorNameplateToJson(_SponsorNameplate instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'company_id': instance.companyId,
-      'created_at': instance.createdAt.toIso8601String(),
-    };
+Map<String, dynamic> _$SponsorNameplateToJson(
+  _SponsorNameplate instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'company_id': instance.companyId,
+  'created_at': const RequiredDateTimeConverter().toJson(instance.createdAt),
+};
 
 _SponsorLunch _$SponsorLunchFromJson(Map<String, dynamic> json) =>
     $checkedCreate(
@@ -100,7 +102,7 @@ _SponsorLunch _$SponsorLunchFromJson(Map<String, dynamic> json) =>
           companyId: $checkedConvert('company_id', (v) => (v as num).toInt()),
           createdAt: $checkedConvert(
             'created_at',
-            (v) => DateTime.parse(v as String),
+            (v) => const RequiredDateTimeConverter().fromJson(v),
           ),
         );
         return val;
@@ -108,12 +110,13 @@ _SponsorLunch _$SponsorLunchFromJson(Map<String, dynamic> json) =>
       fieldKeyMap: const {'companyId': 'company_id', 'createdAt': 'created_at'},
     );
 
-Map<String, dynamic> _$SponsorLunchToJson(_SponsorLunch instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'company_id': instance.companyId,
-      'created_at': instance.createdAt.toIso8601String(),
-    };
+Map<String, dynamic> _$SponsorLunchToJson(
+  _SponsorLunch instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'company_id': instance.companyId,
+  'created_at': const RequiredDateTimeConverter().toJson(instance.createdAt),
+};
 
 _SponsorScholarship _$SponsorScholarshipFromJson(Map<String, dynamic> json) =>
     $checkedCreate(
@@ -125,7 +128,7 @@ _SponsorScholarship _$SponsorScholarshipFromJson(Map<String, dynamic> json) =>
           companyId: $checkedConvert('company_id', (v) => (v as num).toInt()),
           createdAt: $checkedConvert(
             'created_at',
-            (v) => DateTime.parse(v as String),
+            (v) => const RequiredDateTimeConverter().fromJson(v),
           ),
         );
         return val;
@@ -133,9 +136,10 @@ _SponsorScholarship _$SponsorScholarshipFromJson(Map<String, dynamic> json) =>
       fieldKeyMap: const {'companyId': 'company_id', 'createdAt': 'created_at'},
     );
 
-Map<String, dynamic> _$SponsorScholarshipToJson(_SponsorScholarship instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'company_id': instance.companyId,
-      'created_at': instance.createdAt.toIso8601String(),
-    };
+Map<String, dynamic> _$SponsorScholarshipToJson(
+  _SponsorScholarship instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'company_id': instance.companyId,
+  'created_at': const RequiredDateTimeConverter().toJson(instance.createdAt),
+};
