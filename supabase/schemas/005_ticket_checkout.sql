@@ -8,6 +8,7 @@ CREATE TABLE public.ticket_checkout_sessions (
   status public.ticket_checkout_status NOT NULL DEFAULT 'pending',
   stripe_checkout_session_id text NOT NULL UNIQUE,
   stripe_checkout_url TEXT NOT NULL,
+  ticket_checkout_workflow_id TEXT,
   expires_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT (now() + interval '10 minutes'),
   created_at timestamp DEFAULT now() NOT NULL,
   updated_at timestamp DEFAULT now() NOT NULL

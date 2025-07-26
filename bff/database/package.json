@@ -4,11 +4,11 @@
   "main": "dist/src/index.ts",
   "type": "module",
   "scripts": {
-    "format": "biome check --write",
+    "format": "biome check --write .",
     "check-types": "tsc --noEmit",
     "drizzle:pull": "drizzle-kit pull",
     "drizzle:generate": "drizzle-kit generate",
-    "build": "tsc"
+    "build": "git clean -xdf dist && tsc"
   },
   "devDependencies": {
     "@biomejs/biome": "2.1.2",

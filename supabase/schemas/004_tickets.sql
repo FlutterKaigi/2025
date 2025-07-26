@@ -35,7 +35,7 @@ CREATE TABLE public.ticket_purchases (
   user_id uuid NOT NULL REFERENCES public.users (id) ON DELETE CASCADE,
   ticket_type_id text NOT NULL REFERENCES public.ticket_types (id) ON DELETE CASCADE,
   status public.ticket_purchase_status NOT NULL DEFAULT 'completed',
-  stripe_payment_intent_id text, -- Stripe決済ID
+  stripe_payment_intent_id text UNIQUE, -- Stripe決済ID
   created_at timestamp DEFAULT now() NOT NULL,
   updated_at timestamp DEFAULT now() NOT NULL,
   UNIQUE (user_id, ticket_type_id)

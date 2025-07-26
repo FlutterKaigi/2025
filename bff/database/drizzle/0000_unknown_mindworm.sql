@@ -9,7 +9,7 @@ CREATE TYPE "auth"."factor_status" AS ENUM('unverified', 'verified');--> stateme
 CREATE TYPE "auth"."factor_type" AS ENUM('totp', 'webauthn', 'phone');--> statement-breakpoint
 CREATE TYPE "auth"."one_time_token_type" AS ENUM('confirmation_token', 'reauthentication_token', 'recovery_token', 'email_change_token_new', 'email_change_token_current', 'phone_change_token');--> statement-breakpoint
 CREATE TYPE "public"."role" AS ENUM('admin', 'staff', 'sponsor', 'speaker', 'viewer', 'attendee');--> statement-breakpoint
-CREATE TYPE "public"."ticket_checkout_status" AS ENUM('pending', 'completed');--> statement-breakpoint
+CREATE TYPE "public"."ticket_checkout_status" AS ENUM('pending', 'completed', 'expired');--> statement-breakpoint
 CREATE TYPE "public"."ticket_purchase_status" AS ENUM('completed', 'refunded');--> statement-breakpoint
 CREATE TABLE "auth"."sso_providers" (
 	"id" uuid PRIMARY KEY NOT NULL,
@@ -302,7 +302,8 @@ CREATE TABLE "ticket_purchases" (
 	"stripe_payment_intent_id" text,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
-	CONSTRAINT "ticket_purchases_user_id_ticket_type_id_key" UNIQUE("user_id","ticket_type_id")
+	CONSTRAINT "ticket_purchases_user_id_ticket_type_id_key" UNIQUE("user_id","ticket_type_id"),
+	CONSTRAINT "ticket_purchases_stripe_payment_intent_id_key" UNIQUE("stripe_payment_intent_id")
 );
 --> statement-breakpoint
 ALTER TABLE "ticket_purchases" ENABLE ROW LEVEL SECURITY;--> statement-breakpoint
@@ -352,6 +353,21 @@ CREATE TABLE "news" (
 );
 --> statement-breakpoint
 ALTER TABLE "news" ENABLE ROW LEVEL SECURITY;--> statement-breakpoint
+CREATE TABLE "ticket_checkout_sessions" (
+	"id" uuid PRIMARY KEY DEFAULT uuid_generate_v7() NOT NULL,
+	"user_id" uuid NOT NULL,
+	"ticket_type_id" text NOT NULL,
+	"status" "ticket_checkout_status" DEFAULT 'pending' NOT NULL,
+	"stripe_checkout_session_id" text NOT NULL,
+	"expires_at" timestamp with time zone DEFAULT (now() + '00:10:00'::interval) NOT NULL,
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	"updated_at" timestamp DEFAULT now() NOT NULL,
+	"stripe_checkout_url" text NOT NULL,
+	"ticket_checkout_workflow_id" text,
+	CONSTRAINT "ticket_checkout_sessions_stripe_checkout_session_id_key" UNIQUE("stripe_checkout_session_id")
+);
+--> statement-breakpoint
+ALTER TABLE "ticket_checkout_sessions" ENABLE ROW LEVEL SECURITY;--> statement-breakpoint
 CREATE TABLE "company_drafts" (
 	"id" smallint PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "company_drafts_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 32767 START WITH 1 CACHE 1),
 	"company_id" smallint,
@@ -371,28 +387,12 @@ CREATE TABLE "ticket_checkout_options" (
 	"id" uuid PRIMARY KEY DEFAULT uuid_generate_v7() NOT NULL,
 	"checkout_session_id" uuid NOT NULL,
 	"ticket_option_id" text NOT NULL,
-	"option_value" text,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
 	CONSTRAINT "ticket_checkout_options_checkout_session_id_ticket_option_i_key" UNIQUE("checkout_session_id","ticket_option_id")
 );
 --> statement-breakpoint
 ALTER TABLE "ticket_checkout_options" ENABLE ROW LEVEL SECURITY;--> statement-breakpoint
-CREATE TABLE "ticket_checkout_sessions" (
-	"id" uuid PRIMARY KEY DEFAULT uuid_generate_v7() NOT NULL,
-	"user_id" uuid NOT NULL,
-	"ticket_type_id" text NOT NULL,
-	"status" "ticket_checkout_status" DEFAULT 'pending' NOT NULL,
-	"stripe_payment_intent_id" text,
-	"stripe_checkout_session_id" text,
-	"total_amount" integer NOT NULL,
-	"expires_at" timestamp with time zone DEFAULT (now() + '00:30:00'::interval) NOT NULL,
-	"created_at" timestamp DEFAULT now() NOT NULL,
-	"updated_at" timestamp DEFAULT now() NOT NULL,
-	CONSTRAINT "ticket_checkout_sessions_user_id_ticket_type_id_status_key" UNIQUE("user_id","ticket_type_id","status")
-);
---> statement-breakpoint
-ALTER TABLE "ticket_checkout_sessions" ENABLE ROW LEVEL SECURITY;--> statement-breakpoint
 CREATE TABLE "individual_draft_approvals" (
 	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "individual_draft_approvals_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
 	"individual_draft_id" integer,
@@ -489,11 +489,11 @@ ALTER TABLE "ticket_purchases" ADD CONSTRAINT "ticket_purchases_user_id_fkey" FO
 ALTER TABLE "company_draft_approvals" ADD CONSTRAINT "company_draft_approvals_approved_by_fkey" FOREIGN KEY ("approved_by") REFERENCES "public"."users"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "company_draft_approvals" ADD CONSTRAINT "company_draft_approvals_company_draft_id_fkey" FOREIGN KEY ("company_draft_id") REFERENCES "public"."company_drafts"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "company_invitation" ADD CONSTRAINT "company_invitation_company_id_fkey" FOREIGN KEY ("company_id") REFERENCES "public"."companies"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "ticket_checkout_sessions" ADD CONSTRAINT "ticket_checkout_sessions_ticket_type_id_fkey" FOREIGN KEY ("ticket_type_id") REFERENCES "public"."ticket_types"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "ticket_checkout_sessions" ADD CONSTRAINT "ticket_checkout_sessions_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "company_drafts" ADD CONSTRAINT "company_drafts_company_id_fkey" FOREIGN KEY ("company_id") REFERENCES "public"."companies"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "ticket_checkout_options" ADD CONSTRAINT "ticket_checkout_options_checkout_session_id_fkey" FOREIGN KEY ("checkout_session_id") REFERENCES "public"."ticket_checkout_sessions"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "ticket_checkout_options" ADD CONSTRAINT "ticket_checkout_options_ticket_option_id_fkey" FOREIGN KEY ("ticket_option_id") REFERENCES "public"."ticket_options"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "ticket_checkout_sessions" ADD CONSTRAINT "ticket_checkout_sessions_ticket_type_id_fkey" FOREIGN KEY ("ticket_type_id") REFERENCES "public"."ticket_types"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "ticket_checkout_sessions" ADD CONSTRAINT "ticket_checkout_sessions_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "individual_draft_approvals" ADD CONSTRAINT "individual_draft_approvals_approved_by_fkey" FOREIGN KEY ("approved_by") REFERENCES "public"."users"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "individual_draft_approvals" ADD CONSTRAINT "individual_draft_approvals_individual_draft_id_fkey" FOREIGN KEY ("individual_draft_id") REFERENCES "public"."individual_drafts"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "individual_drafts" ADD CONSTRAINT "individual_drafts_individual_id_fkey" FOREIGN KEY ("individual_id") REFERENCES "public"."individuals"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
@@ -550,9 +550,8 @@ CREATE INDEX "idx_ticket_purchases_status" ON "ticket_purchases" USING btree ("s
 CREATE INDEX "idx_ticket_purchases_stripe_payment_intent_id" ON "ticket_purchases" USING btree ("stripe_payment_intent_id" text_ops);--> statement-breakpoint
 CREATE INDEX "idx_ticket_purchases_ticket_type_id" ON "ticket_purchases" USING btree ("ticket_type_id" text_ops);--> statement-breakpoint
 CREATE INDEX "idx_ticket_purchases_user_id" ON "ticket_purchases" USING btree ("user_id" uuid_ops);--> statement-breakpoint
-CREATE INDEX "idx_ticket_checkout_options_checkout_session_id" ON "ticket_checkout_options" USING btree ("checkout_session_id" uuid_ops);--> statement-breakpoint
 CREATE INDEX "idx_ticket_checkout_sessions_expires_at" ON "ticket_checkout_sessions" USING btree ("expires_at" timestamptz_ops);--> statement-breakpoint
 CREATE INDEX "idx_ticket_checkout_sessions_status" ON "ticket_checkout_sessions" USING btree ("status" enum_ops);--> statement-breakpoint
-CREATE INDEX "idx_ticket_checkout_sessions_stripe_payment_intent_id" ON "ticket_checkout_sessions" USING btree ("stripe_payment_intent_id" text_ops);--> statement-breakpoint
-CREATE INDEX "idx_ticket_checkout_sessions_user_id" ON "ticket_checkout_sessions" USING btree ("user_id" uuid_ops);
+CREATE INDEX "idx_ticket_checkout_sessions_user_id" ON "ticket_checkout_sessions" USING btree ("user_id" uuid_ops);--> statement-breakpoint
+CREATE INDEX "idx_ticket_checkout_options_checkout_session_id" ON "ticket_checkout_options" USING btree ("checkout_session_id" uuid_ops);
 */

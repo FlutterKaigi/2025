@@ -2674,6 +2674,13 @@
           ],
           "nullsNotDistinct": false,
           "name": "ticket_purchases_user_id_ticket_type_id_key"
+        },
+        "ticket_purchases_stripe_payment_intent_id_key": {
+          "columns": [
+            "stripe_payment_intent_id"
+          ],
+          "nullsNotDistinct": false,
+          "name": "ticket_purchases_stripe_payment_intent_id_key"
         }
       },
       "checkConstraints": {},
@@ -2989,6 +2996,171 @@
       "policies": {},
       "isRLSEnabled": true
     },
+    "public.ticket_checkout_sessions": {
+      "name": "ticket_checkout_sessions",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "uuid_generate_v7()"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ticket_type_id": {
+          "name": "ticket_type_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "ticket_checkout_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'pending'"
+        },
+        "stripe_checkout_session_id": {
+          "name": "stripe_checkout_session_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "expires_at": {
+          "name": "expires_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "(now() + '00:10:00'::interval)"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "stripe_checkout_url": {
+          "name": "stripe_checkout_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ticket_checkout_workflow_id": {
+          "name": "ticket_checkout_workflow_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "idx_ticket_checkout_sessions_expires_at": {
+          "name": "idx_ticket_checkout_sessions_expires_at",
+          "columns": [
+            {
+              "expression": "expires_at",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "timestamptz_ops",
+              "isExpression": false
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "idx_ticket_checkout_sessions_status": {
+          "name": "idx_ticket_checkout_sessions_status",
+          "columns": [
+            {
+              "expression": "status",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "enum_ops",
+              "isExpression": false
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "idx_ticket_checkout_sessions_user_id": {
+          "name": "idx_ticket_checkout_sessions_user_id",
+          "columns": [
+            {
+              "expression": "user_id",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "uuid_ops",
+              "isExpression": false
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "ticket_checkout_sessions_ticket_type_id_fkey": {
+          "name": "ticket_checkout_sessions_ticket_type_id_fkey",
+          "tableFrom": "ticket_checkout_sessions",
+          "tableTo": "ticket_types",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "ticket_type_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "ticket_checkout_sessions_user_id_fkey": {
+          "name": "ticket_checkout_sessions_user_id_fkey",
+          "tableFrom": "ticket_checkout_sessions",
+          "tableTo": "users",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "ticket_checkout_sessions_stripe_checkout_session_id_key": {
+          "columns": [
+            "stripe_checkout_session_id"
+          ],
+          "nullsNotDistinct": false,
+          "name": "ticket_checkout_sessions_stripe_checkout_session_id_key"
+        }
+      },
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": true
+    },
     "public.company_drafts": {
       "name": "company_drafts",
       "schema": "",
@@ -3116,12 +3288,6 @@
           "primaryKey": false,
           "notNull": true
         },
-        "option_value": {
-          "name": "option_value",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
         "created_at": {
           "name": "created_at",
           "type": "timestamp",
@@ -3194,189 +3360,6 @@
           ],
           "nullsNotDistinct": false,
           "name": "ticket_checkout_options_checkout_session_id_ticket_option_i_key"
-        }
-      },
-      "checkConstraints": {},
-      "policies": {},
-      "isRLSEnabled": true
-    },
-    "public.ticket_checkout_sessions": {
-      "name": "ticket_checkout_sessions",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "uuid",
-          "primaryKey": true,
-          "notNull": true,
-          "default": "uuid_generate_v7()"
-        },
-        "user_id": {
-          "name": "user_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "ticket_type_id": {
-          "name": "ticket_type_id",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "status": {
-          "name": "status",
-          "type": "ticket_checkout_status",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "'pending'"
-        },
-        "stripe_payment_intent_id": {
-          "name": "stripe_payment_intent_id",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "stripe_checkout_session_id": {
-          "name": "stripe_checkout_session_id",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "total_amount": {
-          "name": "total_amount",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "expires_at": {
-          "name": "expires_at",
-          "type": "timestamp with time zone",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "(now() + '00:30:00'::interval)"
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "updated_at": {
-          "name": "updated_at",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        }
-      },
-      "indexes": {
-        "idx_ticket_checkout_sessions_expires_at": {
-          "name": "idx_ticket_checkout_sessions_expires_at",
-          "columns": [
-            {
-              "expression": "expires_at",
-              "asc": true,
-              "nulls": "last",
-              "opclass": "timestamptz_ops",
-              "isExpression": false
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "idx_ticket_checkout_sessions_status": {
-          "name": "idx_ticket_checkout_sessions_status",
-          "columns": [
-            {
-              "expression": "status",
-              "asc": true,
-              "nulls": "last",
-              "opclass": "enum_ops",
-              "isExpression": false
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "idx_ticket_checkout_sessions_stripe_payment_intent_id": {
-          "name": "idx_ticket_checkout_sessions_stripe_payment_intent_id",
-          "columns": [
-            {
-              "expression": "stripe_payment_intent_id",
-              "asc": true,
-              "nulls": "last",
-              "opclass": "text_ops",
-              "isExpression": false
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "idx_ticket_checkout_sessions_user_id": {
-          "name": "idx_ticket_checkout_sessions_user_id",
-          "columns": [
-            {
-              "expression": "user_id",
-              "asc": true,
-              "nulls": "last",
-              "opclass": "uuid_ops",
-              "isExpression": false
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "ticket_checkout_sessions_ticket_type_id_fkey": {
-          "name": "ticket_checkout_sessions_ticket_type_id_fkey",
-          "tableFrom": "ticket_checkout_sessions",
-          "tableTo": "ticket_types",
-          "schemaTo": "public",
-          "columnsFrom": [
-            "ticket_type_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        },
-        "ticket_checkout_sessions_user_id_fkey": {
-          "name": "ticket_checkout_sessions_user_id_fkey",
-          "tableFrom": "ticket_checkout_sessions",
-          "tableTo": "users",
-          "schemaTo": "public",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {
-        "ticket_checkout_sessions_user_id_ticket_type_id_status_key": {
-          "columns": [
-            "user_id",
-            "ticket_type_id",
-            "status"
-          ],
-          "nullsNotDistinct": false,
-          "name": "ticket_checkout_sessions_user_id_ticket_type_id_status_key"
         }
       },
       "checkConstraints": {},
@@ -4054,7 +4037,8 @@
       "name": "ticket_checkout_status",
       "values": [
         "pending",
-        "completed"
+        "completed",
+        "expired"
       ],
       "schema": "public"
     },
