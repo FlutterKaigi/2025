@@ -17,6 +17,7 @@
     "wrangler": "^4.15.2"
   },
   "dependencies": {
+    "@cloudflare/containers": "^0.0.25",
     "pg": "^8.16.0"
   }
 }
