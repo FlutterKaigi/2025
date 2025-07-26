@@ -37,19 +37,25 @@ class _NewsList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final news = ref.watch(newsProvider);
+    final l10n = L10n.of(context);
     return switch (news) {
-      AsyncData(:final value) => ListView.separated(
-        itemCount: value.length,
-        itemBuilder: (context, index) {
-          final news = value[index];
-          return _NewsListItem(news: news);
-        },
-        separatorBuilder: (context, index) {
-          return const Divider(
-            height: 1,
-          );
-        },
-      ),
+      AsyncData(:final value) =>
+        value.isEmpty
+            ? Center(
+                child: Text(l10n.newsEmptyMessage),
+              )
+            : ListView.separated(
+                itemCount: value.length,
+                itemBuilder: (context, index) {
+                  final news = value[index];
+                  return _NewsListItem(news: news);
+                },
+                separatorBuilder: (context, index) {
+                  return const Divider(
+                    height: 1,
+                  );
+                },
+              ),
       AsyncLoading() => const Center(child: CircularProgressIndicator()),
       AsyncError(:final error) => Center(child: Text(error.toString())),
     };
