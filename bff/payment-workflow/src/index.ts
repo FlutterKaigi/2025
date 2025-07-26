@@ -3,7 +3,7 @@ import { PaymentCompletionWorkflow } from "./workflows/PaymentCompletionWorkflow
 import { TicketCheckoutWorkflow } from "./workflows/TicketCheckoutWorkflow/TicketCheckoutWorkflow";
 
 export default {
-	fetch: api.fetch,
+  fetch: api.fetch,
 };
 
 export type PaymentWorkflowApiType = typeof api;
