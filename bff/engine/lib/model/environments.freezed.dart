@@ -213,8 +213,8 @@ return $default(_that.supabaseUrl,_that.supabaseServiceRoleKey,_that.cfVersionMe
 /// @nodoc
 
 @JsonSerializable(fieldRename: FieldRename.screamingSnake)
-class _Environments implements Environments {
-  const _Environments({required this.supabaseUrl, required this.supabaseServiceRoleKey, required this.cfVersionMetadataId, required this.cfVersionMetadataTag, required this.cfVersionMetadataTimestamp, required this.postgresUrl});
+class _Environments extends Environments {
+  const _Environments({required this.supabaseUrl, required this.supabaseServiceRoleKey, required this.cfVersionMetadataId, required this.cfVersionMetadataTag, required this.cfVersionMetadataTimestamp, required this.postgresUrl}): super._();
   factory _Environments.fromJson(Map<String, dynamic> json) => _$EnvironmentsFromJson(json);
 
 @override final  String supabaseUrl;
