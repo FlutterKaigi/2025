@@ -9,12 +9,16 @@ import 'package:postgres/postgres.dart';
 class DbClient {
   DbClient({required Connection connection}) : _connection = connection;
 
-  static Future<DbClient> connect(String connectionString) async {
+  static Future<DbClient> connect(
+    String connectionString, {
+    bool disableSsl = false,
+  }) async {
     final connection = await Connection.open(
       parseConnectionString(connectionString),
-      settings: const ConnectionSettings(
+      settings: ConnectionSettings(
         timeZone: 'Asia/Tokyo',
         applicationName: 'dart_bff_engine',
+        sslMode: disableSsl ? SslMode.disable : SslMode.require,
       ),
     );
     return DbClient(connection: connection);

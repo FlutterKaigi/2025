@@ -7,7 +7,13 @@ part 'db_client_provider.g.dart';
 @Riverpod(keepAlive: true)
 Future<DbClient> dbClient(Ref ref) async {
   final env = ref.watch(environmentsProvider);
-  final db = await DbClient.connect(env.postgresUrl);
+
+  // ローカル環境ではSSLを無効にする
+  final isLocal = env.cfVersionMetadataId == 'local';
+  final db = await DbClient.connect(
+    env.postgresUrl,
+    disableSsl: isLocal,
+  );
 
   ref.onDispose(() async {
     await db.dispose();
