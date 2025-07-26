@@ -287,6 +287,8 @@ jobs:
         id: deploy-bff-production
         working-directory: bff/bridge
         if: ${{ matrix.environment == 'production' }}
+        env:
+          SUPABASE_PROJECT_ID: ${{ needs.get-supabase-connection-info.outputs.SUPABASE_PROJECT_ID_PRODUCTION }}
         run: |
           {
             echo "LOG<<EOL"
