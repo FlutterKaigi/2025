@@ -9,6 +9,5 @@ abstract class News with _$News {
     required String title,
     required Uri url,
     required DateTime startedAt,
-    @Default(null) DateTime? endedAt,
   }) = _News;
 }
