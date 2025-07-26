@@ -8,16 +8,18 @@
     "dev": "wrangler dev -e staging",
     "deploy:staging": "wrangler deploy -e staging --minify",
     "deploy:production": "wrangler deploy -e production --minify",
-    "cf-typegen": "wrangler types --env-interface CloudflareBindings"
+    "cf-typegen": "wrangler types --env-interface CloudflareBindings -e staging"
   },
   "dependencies": {
+    "@2025/database": "workspace:*",
+    "@hono/valibot-validator": "^0.5.3",
+    "hono": "^4.8.5",
     "stripe": "^18.3.0",
-    "@2025/database": "workspace:*"
+    "valibot": "^1.1.0"
   },
   "devDependencies": {
     "@biomejs/biome": "2.1.2",
-    "@cloudflare/workers-types": "^4.20250417.0",
-    "typescript": "^5.0.4",
+    "typescript": "^5.8.3",
     "wrangler": "^4.26.0"
   }
 }

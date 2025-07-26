@@ -6,6 +6,7 @@
     "format": "biome check --write",
     "check-types": "tsc --noEmit",
     "drizzle:pull": "drizzle-kit pull",
+    "drizzle:generate": "drizzle-kit generate",
     "build": "bun build ./src/index.ts --outdir ./dist"
   },
   "devDependencies": {
