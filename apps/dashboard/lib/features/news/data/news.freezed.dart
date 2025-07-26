@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$News {
 
- int get id; String get text; Uri get url; DateTime get startedAt; DateTime? get endedAt;
+ int get id; String get title; Uri get url; DateTime get startedAt; DateTime? get endedAt;
 /// Create a copy of News
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $NewsCopyWith<News> get copyWith => _$NewsCopyWithImpl<News>(this as News, _$ide
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is News&&(identical(other.id, id) || other.id == id)&&(identical(other.text, text) || other.text == text)&&(identical(other.url, url) || other.url == url)&&(identical(other.startedAt, startedAt) || other.startedAt == startedAt)&&(identical(other.endedAt, endedAt) || other.endedAt == endedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is News&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.url, url) || other.url == url)&&(identical(other.startedAt, startedAt) || other.startedAt == startedAt)&&(identical(other.endedAt, endedAt) || other.endedAt == endedAt));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,text,url,startedAt,endedAt);
+int get hashCode => Object.hash(runtimeType,id,title,url,startedAt,endedAt);
 
 @override
 String toString() {
-  return 'News(id: $id, text: $text, url: $url, startedAt: $startedAt, endedAt: $endedAt)';
+  return 'News(id: $id, title: $title, url: $url, startedAt: $startedAt, endedAt: $endedAt)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $NewsCopyWith<$Res>  {
   factory $NewsCopyWith(News value, $Res Function(News) _then) = _$NewsCopyWithImpl;
 @useResult
 $Res call({
- int id, String text, Uri url, DateTime startedAt, DateTime? endedAt
+ int id, String title, Uri url, DateTime startedAt, DateTime? endedAt
 });
 
 
@@ -62,10 +62,10 @@ class _$NewsCopyWithImpl<$Res>
 
 /// Create a copy of News
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? text = null,Object? url = null,Object? startedAt = null,Object? endedAt = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? url = null,Object? startedAt = null,Object? endedAt = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as int,text: null == text ? _self.text : text // ignore: cast_nullable_to_non_nullable
+as int,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,url: null == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
 as Uri,startedAt: null == startedAt ? _self.startedAt : startedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,endedAt: freezed == endedAt ? _self.endedAt : endedAt // ignore: cast_nullable_to_non_nullable
@@ -154,10 +154,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String text,  Uri url,  DateTime startedAt,  DateTime? endedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String title,  Uri url,  DateTime startedAt,  DateTime? endedAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _News() when $default != null:
-return $default(_that.id,_that.text,_that.url,_that.startedAt,_that.endedAt);case _:
+return $default(_that.id,_that.title,_that.url,_that.startedAt,_that.endedAt);case _:
   return orElse();
 
 }
@@ -175,10 +175,10 @@ return $default(_that.id,_that.text,_that.url,_that.startedAt,_that.endedAt);cas
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String text,  Uri url,  DateTime startedAt,  DateTime? endedAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String title,  Uri url,  DateTime startedAt,  DateTime? endedAt)  $default,) {final _that = this;
 switch (_that) {
 case _News():
-return $default(_that.id,_that.text,_that.url,_that.startedAt,_that.endedAt);case _:
+return $default(_that.id,_that.title,_that.url,_that.startedAt,_that.endedAt);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -195,10 +195,10 @@ return $default(_that.id,_that.text,_that.url,_that.startedAt,_that.endedAt);cas
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String text,  Uri url,  DateTime startedAt,  DateTime? endedAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String title,  Uri url,  DateTime startedAt,  DateTime? endedAt)?  $default,) {final _that = this;
 switch (_that) {
 case _News() when $default != null:
-return $default(_that.id,_that.text,_that.url,_that.startedAt,_that.endedAt);case _:
+return $default(_that.id,_that.title,_that.url,_that.startedAt,_that.endedAt);case _:
   return null;
 
 }
@@ -210,11 +210,11 @@ return $default(_that.id,_that.text,_that.url,_that.startedAt,_that.endedAt);cas
 
 
 class _News implements News {
-  const _News({required this.id, required this.text, required this.url, required this.startedAt, this.endedAt = null});
+  const _News({required this.id, required this.title, required this.url, required this.startedAt, this.endedAt = null});
   
 
 @override final  int id;
-@override final  String text;
+@override final  String title;
 @override final  Uri url;
 @override final  DateTime startedAt;
 @override@JsonKey() final  DateTime? endedAt;
@@ -229,16 +229,16 @@ _$NewsCopyWith<_News> get copyWith => __$NewsCopyWithImpl<_News>(this, _$identit
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _News&&(identical(other.id, id) || other.id == id)&&(identical(other.text, text) || other.text == text)&&(identical(other.url, url) || other.url == url)&&(identical(other.startedAt, startedAt) || other.startedAt == startedAt)&&(identical(other.endedAt, endedAt) || other.endedAt == endedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _News&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.url, url) || other.url == url)&&(identical(other.startedAt, startedAt) || other.startedAt == startedAt)&&(identical(other.endedAt, endedAt) || other.endedAt == endedAt));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,text,url,startedAt,endedAt);
+int get hashCode => Object.hash(runtimeType,id,title,url,startedAt,endedAt);
 
 @override
 String toString() {
-  return 'News(id: $id, text: $text, url: $url, startedAt: $startedAt, endedAt: $endedAt)';
+  return 'News(id: $id, title: $title, url: $url, startedAt: $startedAt, endedAt: $endedAt)';
 }
 
 
@@ -249,7 +249,7 @@ abstract mixin class _$NewsCopyWith<$Res> implements $NewsCopyWith<$Res> {
   factory _$NewsCopyWith(_News value, $Res Function(_News) _then) = __$NewsCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String text, Uri url, DateTime startedAt, DateTime? endedAt
+ int id, String title, Uri url, DateTime startedAt, DateTime? endedAt
 });
 
 
@@ -266,10 +266,10 @@ class __$NewsCopyWithImpl<$Res>
 
 /// Create a copy of News
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? text = null,Object? url = null,Object? startedAt = null,Object? endedAt = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? url = null,Object? startedAt = null,Object? endedAt = freezed,}) {
   return _then(_News(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as int,text: null == text ? _self.text : text // ignore: cast_nullable_to_non_nullable
+as int,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,url: null == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
 as Uri,startedAt: null == startedAt ? _self.startedAt : startedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,endedAt: freezed == endedAt ? _self.endedAt : endedAt // ignore: cast_nullable_to_non_nullable

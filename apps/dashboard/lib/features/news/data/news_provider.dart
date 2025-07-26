@@ -16,7 +16,7 @@ Future<List<News>> news(Ref ref) async {
       .map(
         (news) => News(
           id: news.id,
-          text: news.title,
+          title: news.title,
           url: news.url != null
               ? Uri.parse(news.url!)
               : Uri.parse('https://flutterkaigi.jp'),

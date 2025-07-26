@@ -66,7 +66,7 @@ class _NewsListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(news.text),
+      title: Text(news.title),
       subtitle: Text(_dateFormatter.format(news.startedAt)),
       trailing: const Icon(Icons.open_in_new),
       onTap: () {

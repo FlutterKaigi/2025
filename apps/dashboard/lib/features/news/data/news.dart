@@ -6,7 +6,7 @@ part 'news.freezed.dart';
 abstract class News with _$News {
   const factory News({
     required int id,
-    required String text,
+    required String title,
     required Uri url,
     required DateTime startedAt,
     @Default(null) DateTime? endedAt,

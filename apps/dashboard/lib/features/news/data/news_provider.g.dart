@@ -44,7 +44,7 @@ final class NewsProvider
   }
 }
 
-String _$newsHash() => r'720ee973eb29c5b0524c6cb5d8f6fef7d4c83e79';
+String _$newsHash() => r'971518577540afe0e21ed6b4d459719466518963';
 
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
