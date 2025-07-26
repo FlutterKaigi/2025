@@ -193,6 +193,18 @@ export const companiesRelations = relations(companies, ({many}) => ({
 	companyMembers: many(companyMembers),
 }));
 
+export const ticketCheckoutSessionsRelations = relations(ticketCheckoutSessions, ({one, many}) => ({
+	ticketType: one(ticketTypes, {
+		fields: [ticketCheckoutSessions.ticketTypeId],
+		references: [ticketTypes.id]
+	}),
+	user: one(users, {
+		fields: [ticketCheckoutSessions.userId],
+		references: [users.id]
+	}),
+	ticketCheckoutOptions: many(ticketCheckoutOptions),
+}));
+
 export const ticketCheckoutOptionsRelations = relations(ticketCheckoutOptions, ({one}) => ({
 	ticketCheckoutSession: one(ticketCheckoutSessions, {
 		fields: [ticketCheckoutOptions.checkoutSessionId],
@@ -201,18 +213,6 @@ export const ticketCheckoutOptionsRelations = relations(ticketCheckoutOptions, (
 	ticketOption: one(ticketOptions, {
 		fields: [ticketCheckoutOptions.ticketOptionId],
 		references: [ticketOptions.id]
-	}),
-}));
-
-export const ticketCheckoutSessionsRelations = relations(ticketCheckoutSessions, ({one, many}) => ({
-	ticketCheckoutOptions: many(ticketCheckoutOptions),
-	ticketType: one(ticketTypes, {
-		fields: [ticketCheckoutSessions.ticketTypeId],
-		references: [ticketTypes.id]
-	}),
-	user: one(users, {
-		fields: [ticketCheckoutSessions.userId],
-		references: [users.id]
 	}),
 }));
 

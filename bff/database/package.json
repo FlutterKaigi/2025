@@ -1,13 +1,14 @@
 {
   "name": "@2025/database",
-  "module": "index.ts",
+  "module": "src/index.ts",
+  "main": "dist/src/index.ts",
   "type": "module",
   "scripts": {
     "format": "biome check --write",
     "check-types": "tsc --noEmit",
     "drizzle:pull": "drizzle-kit pull",
     "drizzle:generate": "drizzle-kit generate",
-    "build": "bun build ./src/index.ts --outdir ./dist"
+    "build": "tsc"
   },
   "devDependencies": {
     "@biomejs/biome": "2.1.2",

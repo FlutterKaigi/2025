@@ -1,13 +1,6 @@
 import { pgTable, pgSchema, uniqueIndex, check, uuid, text, timestamp, index, foreignKey, unique, varchar, jsonb, boolean, smallint, json, bigserial, inet, integer, primaryKey, pgEnum } from "drizzle-orm/pg-core"
 import { sql } from "drizzle-orm"
 
-export const hoge = pgTable("hoge", {
-  id: uuid().primaryKey().notNull(),
-  name: text().notNull(),
-  createdAt: timestamp("created_at", { withTimezone: true, mode: 'string' }),
-  updatedAt: timestamp("updated_at", { withTimezone: true, mode: 'string' }),
-})
-
 export const auth = pgSchema("auth");
 export const aalLevelInAuth = auth.enum("aal_level", ['aal1', 'aal2', 'aal3'])
 export const codeChallengeMethodInAuth = auth.enum("code_challenge_method", ['s256', 'plain'])
@@ -15,7 +8,7 @@ export const factorStatusInAuth = auth.enum("factor_status", ['unverified', 'ver
 export const factorTypeInAuth = auth.enum("factor_type", ['totp', 'webauthn', 'phone'])
 export const oneTimeTokenTypeInAuth = auth.enum("one_time_token_type", ['confirmation_token', 'reauthentication_token', 'recovery_token', 'email_change_token_new', 'email_change_token_current', 'phone_change_token'])
 export const role = pgEnum("role", ['admin', 'staff', 'sponsor', 'speaker', 'viewer', 'attendee'])
-export const ticketCheckoutStatus = pgEnum("ticket_checkout_status", ['pending', 'completed'])
+export const ticketCheckoutStatus = pgEnum("ticket_checkout_status", ['pending', 'completed', 'expired'])
 export const ticketPurchaseStatus = pgEnum("ticket_purchase_status", ['completed', 'refunded'])
 
 
@@ -507,6 +500,33 @@ export const news = pgTable("news", {
 	updatedAt: timestamp("updated_at", { mode: 'string' }).defaultNow().notNull(),
 });
 
+export const ticketCheckoutSessions = pgTable("ticket_checkout_sessions", {
+	id: uuid().default(sql`uuid_generate_v7()`).primaryKey().notNull(),
+	userId: uuid("user_id").notNull(),
+	ticketTypeId: text("ticket_type_id").notNull(),
+	status: ticketCheckoutStatus().default('pending').notNull(),
+	stripeCheckoutSessionId: text("stripe_checkout_session_id").notNull(),
+	expiresAt: timestamp("expires_at", { withTimezone: true, mode: 'string' }).default(sql`(now() + '00:10:00'::interval)`).notNull(),
+	createdAt: timestamp("created_at", { mode: 'string' }).defaultNow().notNull(),
+	updatedAt: timestamp("updated_at", { mode: 'string' }).defaultNow().notNull(),
+	stripeCheckoutUrl: text("stripe_checkout_url").notNull(),
+}, (table) => [
+	index("idx_ticket_checkout_sessions_expires_at").using("btree", table.expiresAt.asc().nullsLast().op("timestamptz_ops")),
+	index("idx_ticket_checkout_sessions_status").using("btree", table.status.asc().nullsLast().op("enum_ops")),
+	index("idx_ticket_checkout_sessions_user_id").using("btree", table.userId.asc().nullsLast().op("uuid_ops")),
+	foreignKey({
+			columns: [table.ticketTypeId],
+			foreignColumns: [ticketTypes.id],
+			name: "ticket_checkout_sessions_ticket_type_id_fkey"
+		}).onDelete("cascade"),
+	foreignKey({
+			columns: [table.userId],
+			foreignColumns: [users.id],
+			name: "ticket_checkout_sessions_user_id_fkey"
+		}).onDelete("cascade"),
+	unique("ticket_checkout_sessions_stripe_checkout_session_id_key").on(table.stripeCheckoutSessionId),
+]);
+
 export const companyDrafts = pgTable("company_drafts", {
 	id: smallint().primaryKey().generatedAlwaysAsIdentity({ name: "company_drafts_id_seq", startWith: 1, increment: 1, minValue: 1, maxValue: 32767, cache: 1 }),
 	companyId: smallint("company_id"),
@@ -531,7 +551,6 @@ export const ticketCheckoutOptions = pgTable("ticket_checkout_options", {
 	id: uuid().default(sql`uuid_generate_v7()`).primaryKey().notNull(),
 	checkoutSessionId: uuid("checkout_session_id").notNull(),
 	ticketOptionId: text("ticket_option_id").notNull(),
-	optionValue: text("option_value"),
 	createdAt: timestamp("created_at", { mode: 'string' }).defaultNow().notNull(),
 	updatedAt: timestamp("updated_at", { mode: 'string' }).defaultNow().notNull(),
 }, (table) => [
@@ -547,35 +566,6 @@ export const ticketCheckoutOptions = pgTable("ticket_checkout_options", {
 			name: "ticket_checkout_options_ticket_option_id_fkey"
 		}).onDelete("cascade"),
 	unique("ticket_checkout_options_checkout_session_id_ticket_option_i_key").on(table.checkoutSessionId, table.ticketOptionId),
-]);
-
-export const ticketCheckoutSessions = pgTable("ticket_checkout_sessions", {
-	id: uuid().default(sql`uuid_generate_v7()`).primaryKey().notNull(),
-	userId: uuid("user_id").notNull(),
-	ticketTypeId: text("ticket_type_id").notNull(),
-	status: ticketCheckoutStatus().default('pending').notNull(),
-	stripePaymentIntentId: text("stripe_payment_intent_id"),
-	stripeCheckoutSessionId: text("stripe_checkout_session_id"),
-	totalAmount: integer("total_amount").notNull(),
-	expiresAt: timestamp("expires_at", { withTimezone: true, mode: 'string' }).default(sql`(now() + '00:30:00'::interval)`).notNull(),
-	createdAt: timestamp("created_at", { mode: 'string' }).defaultNow().notNull(),
-	updatedAt: timestamp("updated_at", { mode: 'string' }).defaultNow().notNull(),
-}, (table) => [
-	index("idx_ticket_checkout_sessions_expires_at").using("btree", table.expiresAt.asc().nullsLast().op("timestamptz_ops")),
-	index("idx_ticket_checkout_sessions_status").using("btree", table.status.asc().nullsLast().op("enum_ops")),
-	index("idx_ticket_checkout_sessions_stripe_payment_intent_id").using("btree", table.stripePaymentIntentId.asc().nullsLast().op("text_ops")),
-	index("idx_ticket_checkout_sessions_user_id").using("btree", table.userId.asc().nullsLast().op("uuid_ops")),
-	foreignKey({
-			columns: [table.ticketTypeId],
-			foreignColumns: [ticketTypes.id],
-			name: "ticket_checkout_sessions_ticket_type_id_fkey"
-		}).onDelete("cascade"),
-	foreignKey({
-			columns: [table.userId],
-			foreignColumns: [users.id],
-			name: "ticket_checkout_sessions_user_id_fkey"
-		}).onDelete("cascade"),
-	unique("ticket_checkout_sessions_user_id_ticket_type_id_status_key").on(table.userId, table.ticketTypeId, table.status),
 ]);
 
 export const individualDraftApprovals = pgTable("individual_draft_approvals", {
