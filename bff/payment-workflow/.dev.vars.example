@@ -1,0 +1,2 @@
+POSTGRES_URL=postgresql://postgres:postgres@localhost:5432/postgres
+STRIPE_API_KEY=sk_test_xxx
