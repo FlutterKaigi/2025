@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SponsorIndividuals {
 
- int get id; int get individualId; DateTime get createdAt;
+ int get id; int get individualId;@RequiredDateTimeConverter() DateTime get createdAt;
 /// Create a copy of SponsorIndividuals
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $SponsorIndividualsCopyWith<$Res>  {
   factory $SponsorIndividualsCopyWith(SponsorIndividuals value, $Res Function(SponsorIndividuals) _then) = _$SponsorIndividualsCopyWithImpl;
 @useResult
 $Res call({
- int id, int individualId, DateTime createdAt
+ int id, int individualId,@RequiredDateTimeConverter() DateTime createdAt
 });
 
 
@@ -155,7 +155,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  int individualId,  DateTime createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  int individualId, @RequiredDateTimeConverter()  DateTime createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SponsorIndividuals() when $default != null:
 return $default(_that.id,_that.individualId,_that.createdAt);case _:
@@ -176,7 +176,7 @@ return $default(_that.id,_that.individualId,_that.createdAt);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  int individualId,  DateTime createdAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  int individualId, @RequiredDateTimeConverter()  DateTime createdAt)  $default,) {final _that = this;
 switch (_that) {
 case _SponsorIndividuals():
 return $default(_that.id,_that.individualId,_that.createdAt);case _:
@@ -196,7 +196,7 @@ return $default(_that.id,_that.individualId,_that.createdAt);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  int individualId,  DateTime createdAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  int individualId, @RequiredDateTimeConverter()  DateTime createdAt)?  $default,) {final _that = this;
 switch (_that) {
 case _SponsorIndividuals() when $default != null:
 return $default(_that.id,_that.individualId,_that.createdAt);case _:
@@ -211,12 +211,12 @@ return $default(_that.id,_that.individualId,_that.createdAt);case _:
 @JsonSerializable()
 
 class _SponsorIndividuals implements SponsorIndividuals {
-  const _SponsorIndividuals({required this.id, required this.individualId, required this.createdAt});
+  const _SponsorIndividuals({required this.id, required this.individualId, @RequiredDateTimeConverter() required this.createdAt});
   factory _SponsorIndividuals.fromJson(Map<String, dynamic> json) => _$SponsorIndividualsFromJson(json);
 
 @override final  int id;
 @override final  int individualId;
-@override final  DateTime createdAt;
+@override@RequiredDateTimeConverter() final  DateTime createdAt;
 
 /// Create a copy of SponsorIndividuals
 /// with the given fields replaced by the non-null parameter values.
@@ -251,7 +251,7 @@ abstract mixin class _$SponsorIndividualsCopyWith<$Res> implements $SponsorIndiv
   factory _$SponsorIndividualsCopyWith(_SponsorIndividuals value, $Res Function(_SponsorIndividuals) _then) = __$SponsorIndividualsCopyWithImpl;
 @override @useResult
 $Res call({
- int id, int individualId, DateTime createdAt
+ int id, int individualId,@RequiredDateTimeConverter() DateTime createdAt
 });
 
 
@@ -284,7 +284,7 @@ as DateTime,
 /// @nodoc
 mixin _$SponsorNamingRights {
 
- int get id; int get companyId; DateTime get createdAt;
+ int get id; int get companyId;@RequiredDateTimeConverter() DateTime get createdAt;
 /// Create a copy of SponsorNamingRights
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -317,7 +317,7 @@ abstract mixin class $SponsorNamingRightsCopyWith<$Res>  {
   factory $SponsorNamingRightsCopyWith(SponsorNamingRights value, $Res Function(SponsorNamingRights) _then) = _$SponsorNamingRightsCopyWithImpl;
 @useResult
 $Res call({
- int id, int companyId, DateTime createdAt
+ int id, int companyId,@RequiredDateTimeConverter() DateTime createdAt
 });
 
 
@@ -424,7 +424,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  int companyId,  DateTime createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  int companyId, @RequiredDateTimeConverter()  DateTime createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SponsorNamingRights() when $default != null:
 return $default(_that.id,_that.companyId,_that.createdAt);case _:
@@ -445,7 +445,7 @@ return $default(_that.id,_that.companyId,_that.createdAt);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  int companyId,  DateTime createdAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  int companyId, @RequiredDateTimeConverter()  DateTime createdAt)  $default,) {final _that = this;
 switch (_that) {
 case _SponsorNamingRights():
 return $default(_that.id,_that.companyId,_that.createdAt);case _:
@@ -465,7 +465,7 @@ return $default(_that.id,_that.companyId,_that.createdAt);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  int companyId,  DateTime createdAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  int companyId, @RequiredDateTimeConverter()  DateTime createdAt)?  $default,) {final _that = this;
 switch (_that) {
 case _SponsorNamingRights() when $default != null:
 return $default(_that.id,_that.companyId,_that.createdAt);case _:
@@ -480,12 +480,12 @@ return $default(_that.id,_that.companyId,_that.createdAt);case _:
 @JsonSerializable()
 
 class _SponsorNamingRights implements SponsorNamingRights {
-  const _SponsorNamingRights({required this.id, required this.companyId, required this.createdAt});
+  const _SponsorNamingRights({required this.id, required this.companyId, @RequiredDateTimeConverter() required this.createdAt});
   factory _SponsorNamingRights.fromJson(Map<String, dynamic> json) => _$SponsorNamingRightsFromJson(json);
 
 @override final  int id;
 @override final  int companyId;
-@override final  DateTime createdAt;
+@override@RequiredDateTimeConverter() final  DateTime createdAt;
 
 /// Create a copy of SponsorNamingRights
 /// with the given fields replaced by the non-null parameter values.
@@ -520,7 +520,7 @@ abstract mixin class _$SponsorNamingRightsCopyWith<$Res> implements $SponsorNami
   factory _$SponsorNamingRightsCopyWith(_SponsorNamingRights value, $Res Function(_SponsorNamingRights) _then) = __$SponsorNamingRightsCopyWithImpl;
 @override @useResult
 $Res call({
- int id, int companyId, DateTime createdAt
+ int id, int companyId,@RequiredDateTimeConverter() DateTime createdAt
 });
 
 
@@ -553,7 +553,7 @@ as DateTime,
 /// @nodoc
 mixin _$SponsorNameplate {
 
- int get id; int get companyId; DateTime get createdAt;
+ int get id; int get companyId;@RequiredDateTimeConverter() DateTime get createdAt;
 /// Create a copy of SponsorNameplate
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -586,7 +586,7 @@ abstract mixin class $SponsorNameplateCopyWith<$Res>  {
   factory $SponsorNameplateCopyWith(SponsorNameplate value, $Res Function(SponsorNameplate) _then) = _$SponsorNameplateCopyWithImpl;
 @useResult
 $Res call({
- int id, int companyId, DateTime createdAt
+ int id, int companyId,@RequiredDateTimeConverter() DateTime createdAt
 });
 
 
@@ -693,7 +693,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  int companyId,  DateTime createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  int companyId, @RequiredDateTimeConverter()  DateTime createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SponsorNameplate() when $default != null:
 return $default(_that.id,_that.companyId,_that.createdAt);case _:
@@ -714,7 +714,7 @@ return $default(_that.id,_that.companyId,_that.createdAt);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  int companyId,  DateTime createdAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  int companyId, @RequiredDateTimeConverter()  DateTime createdAt)  $default,) {final _that = this;
 switch (_that) {
 case _SponsorNameplate():
 return $default(_that.id,_that.companyId,_that.createdAt);case _:
@@ -734,7 +734,7 @@ return $default(_that.id,_that.companyId,_that.createdAt);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  int companyId,  DateTime createdAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  int companyId, @RequiredDateTimeConverter()  DateTime createdAt)?  $default,) {final _that = this;
 switch (_that) {
 case _SponsorNameplate() when $default != null:
 return $default(_that.id,_that.companyId,_that.createdAt);case _:
@@ -749,12 +749,12 @@ return $default(_that.id,_that.companyId,_that.createdAt);case _:
 @JsonSerializable()
 
 class _SponsorNameplate implements SponsorNameplate {
-  const _SponsorNameplate({required this.id, required this.companyId, required this.createdAt});
+  const _SponsorNameplate({required this.id, required this.companyId, @RequiredDateTimeConverter() required this.createdAt});
   factory _SponsorNameplate.fromJson(Map<String, dynamic> json) => _$SponsorNameplateFromJson(json);
 
 @override final  int id;
 @override final  int companyId;
-@override final  DateTime createdAt;
+@override@RequiredDateTimeConverter() final  DateTime createdAt;
 
 /// Create a copy of SponsorNameplate
 /// with the given fields replaced by the non-null parameter values.
@@ -789,7 +789,7 @@ abstract mixin class _$SponsorNameplateCopyWith<$Res> implements $SponsorNamepla
   factory _$SponsorNameplateCopyWith(_SponsorNameplate value, $Res Function(_SponsorNameplate) _then) = __$SponsorNameplateCopyWithImpl;
 @override @useResult
 $Res call({
- int id, int companyId, DateTime createdAt
+ int id, int companyId,@RequiredDateTimeConverter() DateTime createdAt
 });
 
 
@@ -822,7 +822,7 @@ as DateTime,
 /// @nodoc
 mixin _$SponsorLunch {
 
- int get id; int get companyId; DateTime get createdAt;
+ int get id; int get companyId;@RequiredDateTimeConverter() DateTime get createdAt;
 /// Create a copy of SponsorLunch
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -855,7 +855,7 @@ abstract mixin class $SponsorLunchCopyWith<$Res>  {
   factory $SponsorLunchCopyWith(SponsorLunch value, $Res Function(SponsorLunch) _then) = _$SponsorLunchCopyWithImpl;
 @useResult
 $Res call({
- int id, int companyId, DateTime createdAt
+ int id, int companyId,@RequiredDateTimeConverter() DateTime createdAt
 });
 
 
@@ -962,7 +962,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  int companyId,  DateTime createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  int companyId, @RequiredDateTimeConverter()  DateTime createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SponsorLunch() when $default != null:
 return $default(_that.id,_that.companyId,_that.createdAt);case _:
@@ -983,7 +983,7 @@ return $default(_that.id,_that.companyId,_that.createdAt);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  int companyId,  DateTime createdAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  int companyId, @RequiredDateTimeConverter()  DateTime createdAt)  $default,) {final _that = this;
 switch (_that) {
 case _SponsorLunch():
 return $default(_that.id,_that.companyId,_that.createdAt);case _:
@@ -1003,7 +1003,7 @@ return $default(_that.id,_that.companyId,_that.createdAt);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  int companyId,  DateTime createdAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  int companyId, @RequiredDateTimeConverter()  DateTime createdAt)?  $default,) {final _that = this;
 switch (_that) {
 case _SponsorLunch() when $default != null:
 return $default(_that.id,_that.companyId,_that.createdAt);case _:
@@ -1018,12 +1018,12 @@ return $default(_that.id,_that.companyId,_that.createdAt);case _:
 @JsonSerializable()
 
 class _SponsorLunch implements SponsorLunch {
-  const _SponsorLunch({required this.id, required this.companyId, required this.createdAt});
+  const _SponsorLunch({required this.id, required this.companyId, @RequiredDateTimeConverter() required this.createdAt});
   factory _SponsorLunch.fromJson(Map<String, dynamic> json) => _$SponsorLunchFromJson(json);
 
 @override final  int id;
 @override final  int companyId;
-@override final  DateTime createdAt;
+@override@RequiredDateTimeConverter() final  DateTime createdAt;
 
 /// Create a copy of SponsorLunch
 /// with the given fields replaced by the non-null parameter values.
@@ -1058,7 +1058,7 @@ abstract mixin class _$SponsorLunchCopyWith<$Res> implements $SponsorLunchCopyWi
   factory _$SponsorLunchCopyWith(_SponsorLunch value, $Res Function(_SponsorLunch) _then) = __$SponsorLunchCopyWithImpl;
 @override @useResult
 $Res call({
- int id, int companyId, DateTime createdAt
+ int id, int companyId,@RequiredDateTimeConverter() DateTime createdAt
 });
 
 
@@ -1091,7 +1091,7 @@ as DateTime,
 /// @nodoc
 mixin _$SponsorScholarship {
 
- int get id; int get companyId; DateTime get createdAt;
+ int get id; int get companyId;@RequiredDateTimeConverter() DateTime get createdAt;
 /// Create a copy of SponsorScholarship
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -1124,7 +1124,7 @@ abstract mixin class $SponsorScholarshipCopyWith<$Res>  {
   factory $SponsorScholarshipCopyWith(SponsorScholarship value, $Res Function(SponsorScholarship) _then) = _$SponsorScholarshipCopyWithImpl;
 @useResult
 $Res call({
- int id, int companyId, DateTime createdAt
+ int id, int companyId,@RequiredDateTimeConverter() DateTime createdAt
 });
 
 
@@ -1231,7 +1231,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  int companyId,  DateTime createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  int companyId, @RequiredDateTimeConverter()  DateTime createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SponsorScholarship() when $default != null:
 return $default(_that.id,_that.companyId,_that.createdAt);case _:
@@ -1252,7 +1252,7 @@ return $default(_that.id,_that.companyId,_that.createdAt);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  int companyId,  DateTime createdAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  int companyId, @RequiredDateTimeConverter()  DateTime createdAt)  $default,) {final _that = this;
 switch (_that) {
 case _SponsorScholarship():
 return $default(_that.id,_that.companyId,_that.createdAt);case _:
@@ -1272,7 +1272,7 @@ return $default(_that.id,_that.companyId,_that.createdAt);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  int companyId,  DateTime createdAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  int companyId, @RequiredDateTimeConverter()  DateTime createdAt)?  $default,) {final _that = this;
 switch (_that) {
 case _SponsorScholarship() when $default != null:
 return $default(_that.id,_that.companyId,_that.createdAt);case _:
@@ -1287,12 +1287,12 @@ return $default(_that.id,_that.companyId,_that.createdAt);case _:
 @JsonSerializable()
 
 class _SponsorScholarship implements SponsorScholarship {
-  const _SponsorScholarship({required this.id, required this.companyId, required this.createdAt});
+  const _SponsorScholarship({required this.id, required this.companyId, @RequiredDateTimeConverter() required this.createdAt});
   factory _SponsorScholarship.fromJson(Map<String, dynamic> json) => _$SponsorScholarshipFromJson(json);
 
 @override final  int id;
 @override final  int companyId;
-@override final  DateTime createdAt;
+@override@RequiredDateTimeConverter() final  DateTime createdAt;
 
 /// Create a copy of SponsorScholarship
 /// with the given fields replaced by the non-null parameter values.
@@ -1327,7 +1327,7 @@ abstract mixin class _$SponsorScholarshipCopyWith<$Res> implements $SponsorSchol
   factory _$SponsorScholarshipCopyWith(_SponsorScholarship value, $Res Function(_SponsorScholarship) _then) = __$SponsorScholarshipCopyWithImpl;
 @override @useResult
 $Res call({
- int id, int companyId, DateTime createdAt
+ int id, int companyId,@RequiredDateTimeConverter() DateTime createdAt
 });
 
 

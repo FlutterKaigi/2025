@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$CompanyInvitation {
 
- int get companyId; String get key; DateTime get createdAt; DateTime get updatedAt; DateTime? get disabledAt;
+ int get companyId; String get key;@RequiredDateTimeConverter() DateTime get createdAt;@RequiredDateTimeConverter() DateTime get updatedAt;@DateTimeConverter() DateTime? get disabledAt;
 /// Create a copy of CompanyInvitation
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $CompanyInvitationCopyWith<$Res>  {
   factory $CompanyInvitationCopyWith(CompanyInvitation value, $Res Function(CompanyInvitation) _then) = _$CompanyInvitationCopyWithImpl;
 @useResult
 $Res call({
- int companyId, String key, DateTime createdAt, DateTime updatedAt, DateTime? disabledAt
+ int companyId, String key,@RequiredDateTimeConverter() DateTime createdAt,@RequiredDateTimeConverter() DateTime updatedAt,@DateTimeConverter() DateTime? disabledAt
 });
 
 
@@ -157,7 +157,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int companyId,  String key,  DateTime createdAt,  DateTime updatedAt,  DateTime? disabledAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int companyId,  String key, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt, @DateTimeConverter()  DateTime? disabledAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CompanyInvitation() when $default != null:
 return $default(_that.companyId,_that.key,_that.createdAt,_that.updatedAt,_that.disabledAt);case _:
@@ -178,7 +178,7 @@ return $default(_that.companyId,_that.key,_that.createdAt,_that.updatedAt,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int companyId,  String key,  DateTime createdAt,  DateTime updatedAt,  DateTime? disabledAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int companyId,  String key, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt, @DateTimeConverter()  DateTime? disabledAt)  $default,) {final _that = this;
 switch (_that) {
 case _CompanyInvitation():
 return $default(_that.companyId,_that.key,_that.createdAt,_that.updatedAt,_that.disabledAt);case _:
@@ -198,7 +198,7 @@ return $default(_that.companyId,_that.key,_that.createdAt,_that.updatedAt,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int companyId,  String key,  DateTime createdAt,  DateTime updatedAt,  DateTime? disabledAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int companyId,  String key, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt, @DateTimeConverter()  DateTime? disabledAt)?  $default,) {final _that = this;
 switch (_that) {
 case _CompanyInvitation() when $default != null:
 return $default(_that.companyId,_that.key,_that.createdAt,_that.updatedAt,_that.disabledAt);case _:
@@ -213,14 +213,14 @@ return $default(_that.companyId,_that.key,_that.createdAt,_that.updatedAt,_that.
 @JsonSerializable()
 
 class _CompanyInvitation implements CompanyInvitation {
-  const _CompanyInvitation({required this.companyId, required this.key, required this.createdAt, required this.updatedAt, required this.disabledAt});
+  const _CompanyInvitation({required this.companyId, required this.key, @RequiredDateTimeConverter() required this.createdAt, @RequiredDateTimeConverter() required this.updatedAt, @DateTimeConverter() required this.disabledAt});
   factory _CompanyInvitation.fromJson(Map<String, dynamic> json) => _$CompanyInvitationFromJson(json);
 
 @override final  int companyId;
 @override final  String key;
-@override final  DateTime createdAt;
-@override final  DateTime updatedAt;
-@override final  DateTime? disabledAt;
+@override@RequiredDateTimeConverter() final  DateTime createdAt;
+@override@RequiredDateTimeConverter() final  DateTime updatedAt;
+@override@DateTimeConverter() final  DateTime? disabledAt;
 
 /// Create a copy of CompanyInvitation
 /// with the given fields replaced by the non-null parameter values.
@@ -255,7 +255,7 @@ abstract mixin class _$CompanyInvitationCopyWith<$Res> implements $CompanyInvita
   factory _$CompanyInvitationCopyWith(_CompanyInvitation value, $Res Function(_CompanyInvitation) _then) = __$CompanyInvitationCopyWithImpl;
 @override @useResult
 $Res call({
- int companyId, String key, DateTime createdAt, DateTime updatedAt, DateTime? disabledAt
+ int companyId, String key,@RequiredDateTimeConverter() DateTime createdAt,@RequiredDateTimeConverter() DateTime updatedAt,@DateTimeConverter() DateTime? disabledAt
 });
 
 

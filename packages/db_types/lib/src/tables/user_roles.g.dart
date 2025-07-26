@@ -17,7 +17,7 @@ _UserRoles _$UserRolesFromJson(Map<String, dynamic> json) => $checkedCreate(
       role: $checkedConvert('role', (v) => $enumDecode(_$RoleEnumMap, v)),
       createdAt: $checkedConvert(
         'created_at',
-        (v) => DateTime.parse(v as String),
+        (v) => const RequiredDateTimeConverter().fromJson(v),
       ),
     );
     return val;
@@ -25,12 +25,13 @@ _UserRoles _$UserRolesFromJson(Map<String, dynamic> json) => $checkedCreate(
   fieldKeyMap: const {'userId': 'user_id', 'createdAt': 'created_at'},
 );
 
-Map<String, dynamic> _$UserRolesToJson(_UserRoles instance) =>
-    <String, dynamic>{
-      'user_id': instance.userId,
-      'role': _$RoleEnumMap[instance.role]!,
-      'created_at': instance.createdAt.toIso8601String(),
-    };
+Map<String, dynamic> _$UserRolesToJson(
+  _UserRoles instance,
+) => <String, dynamic>{
+  'user_id': instance.userId,
+  'role': _$RoleEnumMap[instance.role]!,
+  'created_at': const RequiredDateTimeConverter().toJson(instance.createdAt),
+};
 
 const _$RoleEnumMap = {
   Role.admin: 'admin',

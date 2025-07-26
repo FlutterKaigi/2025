@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Users {
 
- String get id; DateTime get createdAt;
+ String get id;@RequiredDateTimeConverter() DateTime get createdAt;
 /// Create a copy of Users
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $UsersCopyWith<$Res>  {
   factory $UsersCopyWith(Users value, $Res Function(Users) _then) = _$UsersCopyWithImpl;
 @useResult
 $Res call({
- String id, DateTime createdAt
+ String id,@RequiredDateTimeConverter() DateTime createdAt
 });
 
 
@@ -154,7 +154,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  DateTime createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id, @RequiredDateTimeConverter()  DateTime createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Users() when $default != null:
 return $default(_that.id,_that.createdAt);case _:
@@ -175,7 +175,7 @@ return $default(_that.id,_that.createdAt);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  DateTime createdAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id, @RequiredDateTimeConverter()  DateTime createdAt)  $default,) {final _that = this;
 switch (_that) {
 case _Users():
 return $default(_that.id,_that.createdAt);case _:
@@ -195,7 +195,7 @@ return $default(_that.id,_that.createdAt);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  DateTime createdAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id, @RequiredDateTimeConverter()  DateTime createdAt)?  $default,) {final _that = this;
 switch (_that) {
 case _Users() when $default != null:
 return $default(_that.id,_that.createdAt);case _:
@@ -210,11 +210,11 @@ return $default(_that.id,_that.createdAt);case _:
 @JsonSerializable()
 
 class _Users implements Users {
-  const _Users({required this.id, required this.createdAt});
+  const _Users({required this.id, @RequiredDateTimeConverter() required this.createdAt});
   factory _Users.fromJson(Map<String, dynamic> json) => _$UsersFromJson(json);
 
 @override final  String id;
-@override final  DateTime createdAt;
+@override@RequiredDateTimeConverter() final  DateTime createdAt;
 
 /// Create a copy of Users
 /// with the given fields replaced by the non-null parameter values.
@@ -249,7 +249,7 @@ abstract mixin class _$UsersCopyWith<$Res> implements $UsersCopyWith<$Res> {
   factory _$UsersCopyWith(_Users value, $Res Function(_Users) _then) = __$UsersCopyWithImpl;
 @override @useResult
 $Res call({
- String id, DateTime createdAt
+ String id,@RequiredDateTimeConverter() DateTime createdAt
 });
 
 

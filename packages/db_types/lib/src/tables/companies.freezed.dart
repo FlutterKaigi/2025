@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Companies {
 
- int get id; DateTime get createdAt; DateTime get updatedAt;
+ int get id;@RequiredDateTimeConverter() DateTime get createdAt;@RequiredDateTimeConverter() DateTime get updatedAt;
 /// Create a copy of Companies
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $CompaniesCopyWith<$Res>  {
   factory $CompaniesCopyWith(Companies value, $Res Function(Companies) _then) = _$CompaniesCopyWithImpl;
 @useResult
 $Res call({
- int id, DateTime createdAt, DateTime updatedAt
+ int id,@RequiredDateTimeConverter() DateTime createdAt,@RequiredDateTimeConverter() DateTime updatedAt
 });
 
 
@@ -155,7 +155,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  DateTime createdAt,  DateTime updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Companies() when $default != null:
 return $default(_that.id,_that.createdAt,_that.updatedAt);case _:
@@ -176,7 +176,7 @@ return $default(_that.id,_that.createdAt,_that.updatedAt);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  DateTime createdAt,  DateTime updatedAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)  $default,) {final _that = this;
 switch (_that) {
 case _Companies():
 return $default(_that.id,_that.createdAt,_that.updatedAt);case _:
@@ -196,7 +196,7 @@ return $default(_that.id,_that.createdAt,_that.updatedAt);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  DateTime createdAt,  DateTime updatedAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)?  $default,) {final _that = this;
 switch (_that) {
 case _Companies() when $default != null:
 return $default(_that.id,_that.createdAt,_that.updatedAt);case _:
@@ -211,12 +211,12 @@ return $default(_that.id,_that.createdAt,_that.updatedAt);case _:
 @JsonSerializable()
 
 class _Companies implements Companies {
-  const _Companies({required this.id, required this.createdAt, required this.updatedAt});
+  const _Companies({required this.id, @RequiredDateTimeConverter() required this.createdAt, @RequiredDateTimeConverter() required this.updatedAt});
   factory _Companies.fromJson(Map<String, dynamic> json) => _$CompaniesFromJson(json);
 
 @override final  int id;
-@override final  DateTime createdAt;
-@override final  DateTime updatedAt;
+@override@RequiredDateTimeConverter() final  DateTime createdAt;
+@override@RequiredDateTimeConverter() final  DateTime updatedAt;
 
 /// Create a copy of Companies
 /// with the given fields replaced by the non-null parameter values.
@@ -251,7 +251,7 @@ abstract mixin class _$CompaniesCopyWith<$Res> implements $CompaniesCopyWith<$Re
   factory _$CompaniesCopyWith(_Companies value, $Res Function(_Companies) _then) = __$CompaniesCopyWithImpl;
 @override @useResult
 $Res call({
- int id, DateTime createdAt, DateTime updatedAt
+ int id,@RequiredDateTimeConverter() DateTime createdAt,@RequiredDateTimeConverter() DateTime updatedAt
 });
 
 

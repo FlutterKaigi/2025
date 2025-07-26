@@ -24,11 +24,11 @@ _IndividualDrafts _$IndividualDraftsFromJson(Map<String, dynamic> json) =>
           logoName: $checkedConvert('logo_name', (v) => v as String?),
           createdAt: $checkedConvert(
             'created_at',
-            (v) => DateTime.parse(v as String),
+            (v) => const RequiredDateTimeConverter().fromJson(v),
           ),
           updatedAt: $checkedConvert(
             'updated_at',
-            (v) => DateTime.parse(v as String),
+            (v) => const RequiredDateTimeConverter().fromJson(v),
           ),
         );
         return val;
@@ -41,16 +41,17 @@ _IndividualDrafts _$IndividualDraftsFromJson(Map<String, dynamic> json) =>
       },
     );
 
-Map<String, dynamic> _$IndividualDraftsToJson(_IndividualDrafts instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'individual_id': instance.individualId,
-      'name': instance.name,
-      'slug': instance.slug,
-      'logo_name': instance.logoName,
-      'created_at': instance.createdAt.toIso8601String(),
-      'updated_at': instance.updatedAt.toIso8601String(),
-    };
+Map<String, dynamic> _$IndividualDraftsToJson(
+  _IndividualDrafts instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'individual_id': instance.individualId,
+  'name': instance.name,
+  'slug': instance.slug,
+  'logo_name': instance.logoName,
+  'created_at': const RequiredDateTimeConverter().toJson(instance.createdAt),
+  'updated_at': const RequiredDateTimeConverter().toJson(instance.updatedAt),
+};
 
 _IndividualDraftApprovals _$IndividualDraftApprovalsFromJson(
   Map<String, dynamic> json,
@@ -67,7 +68,7 @@ _IndividualDraftApprovals _$IndividualDraftApprovalsFromJson(
       approvedById: $checkedConvert('approved_by_id', (v) => v as String?),
       createdAt: $checkedConvert(
         'created_at',
-        (v) => DateTime.parse(v as String),
+        (v) => const RequiredDateTimeConverter().fromJson(v),
       ),
     );
     return val;
@@ -85,5 +86,5 @@ Map<String, dynamic> _$IndividualDraftApprovalsToJson(
   'id': instance.id,
   'individual_draft_id': instance.individualDraftId,
   'approved_by_id': instance.approvedById,
-  'created_at': instance.createdAt.toIso8601String(),
+  'created_at': const RequiredDateTimeConverter().toJson(instance.createdAt),
 };

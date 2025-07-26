@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$StripeWebhookLogs {
 
- int get id; String get stripeEventId; String get eventType; String? get paymentIntentId; bool get processed; String? get errorMessage; Map<String, dynamic> get rawData; DateTime get createdAt;
+ int get id; String get stripeEventId; String get eventType; String? get paymentIntentId; bool get processed; String? get errorMessage; Map<String, dynamic> get rawData;@RequiredDateTimeConverter() DateTime get createdAt;
 /// Create a copy of StripeWebhookLogs
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $StripeWebhookLogsCopyWith<$Res>  {
   factory $StripeWebhookLogsCopyWith(StripeWebhookLogs value, $Res Function(StripeWebhookLogs) _then) = _$StripeWebhookLogsCopyWithImpl;
 @useResult
 $Res call({
- int id, String stripeEventId, String eventType, String? paymentIntentId, bool processed, String? errorMessage, Map<String, dynamic> rawData, DateTime createdAt
+ int id, String stripeEventId, String eventType, String? paymentIntentId, bool processed, String? errorMessage, Map<String, dynamic> rawData,@RequiredDateTimeConverter() DateTime createdAt
 });
 
 
@@ -160,7 +160,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String stripeEventId,  String eventType,  String? paymentIntentId,  bool processed,  String? errorMessage,  Map<String, dynamic> rawData,  DateTime createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String stripeEventId,  String eventType,  String? paymentIntentId,  bool processed,  String? errorMessage,  Map<String, dynamic> rawData, @RequiredDateTimeConverter()  DateTime createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _StripeWebhookLogs() when $default != null:
 return $default(_that.id,_that.stripeEventId,_that.eventType,_that.paymentIntentId,_that.processed,_that.errorMessage,_that.rawData,_that.createdAt);case _:
@@ -181,7 +181,7 @@ return $default(_that.id,_that.stripeEventId,_that.eventType,_that.paymentIntent
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String stripeEventId,  String eventType,  String? paymentIntentId,  bool processed,  String? errorMessage,  Map<String, dynamic> rawData,  DateTime createdAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String stripeEventId,  String eventType,  String? paymentIntentId,  bool processed,  String? errorMessage,  Map<String, dynamic> rawData, @RequiredDateTimeConverter()  DateTime createdAt)  $default,) {final _that = this;
 switch (_that) {
 case _StripeWebhookLogs():
 return $default(_that.id,_that.stripeEventId,_that.eventType,_that.paymentIntentId,_that.processed,_that.errorMessage,_that.rawData,_that.createdAt);case _:
@@ -201,7 +201,7 @@ return $default(_that.id,_that.stripeEventId,_that.eventType,_that.paymentIntent
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String stripeEventId,  String eventType,  String? paymentIntentId,  bool processed,  String? errorMessage,  Map<String, dynamic> rawData,  DateTime createdAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String stripeEventId,  String eventType,  String? paymentIntentId,  bool processed,  String? errorMessage,  Map<String, dynamic> rawData, @RequiredDateTimeConverter()  DateTime createdAt)?  $default,) {final _that = this;
 switch (_that) {
 case _StripeWebhookLogs() when $default != null:
 return $default(_that.id,_that.stripeEventId,_that.eventType,_that.paymentIntentId,_that.processed,_that.errorMessage,_that.rawData,_that.createdAt);case _:
@@ -216,7 +216,7 @@ return $default(_that.id,_that.stripeEventId,_that.eventType,_that.paymentIntent
 @JsonSerializable()
 
 class _StripeWebhookLogs implements StripeWebhookLogs {
-  const _StripeWebhookLogs({required this.id, required this.stripeEventId, required this.eventType, this.paymentIntentId, required this.processed, this.errorMessage, required final  Map<String, dynamic> rawData, required this.createdAt}): _rawData = rawData;
+  const _StripeWebhookLogs({required this.id, required this.stripeEventId, required this.eventType, this.paymentIntentId, required this.processed, this.errorMessage, required final  Map<String, dynamic> rawData, @RequiredDateTimeConverter() required this.createdAt}): _rawData = rawData;
   factory _StripeWebhookLogs.fromJson(Map<String, dynamic> json) => _$StripeWebhookLogsFromJson(json);
 
 @override final  int id;
@@ -232,7 +232,7 @@ class _StripeWebhookLogs implements StripeWebhookLogs {
   return EqualUnmodifiableMapView(_rawData);
 }
 
-@override final  DateTime createdAt;
+@override@RequiredDateTimeConverter() final  DateTime createdAt;
 
 /// Create a copy of StripeWebhookLogs
 /// with the given fields replaced by the non-null parameter values.
@@ -267,7 +267,7 @@ abstract mixin class _$StripeWebhookLogsCopyWith<$Res> implements $StripeWebhook
   factory _$StripeWebhookLogsCopyWith(_StripeWebhookLogs value, $Res Function(_StripeWebhookLogs) _then) = __$StripeWebhookLogsCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String stripeEventId, String eventType, String? paymentIntentId, bool processed, String? errorMessage, Map<String, dynamic> rawData, DateTime createdAt
+ int id, String stripeEventId, String eventType, String? paymentIntentId, bool processed, String? errorMessage, Map<String, dynamic> rawData,@RequiredDateTimeConverter() DateTime createdAt
 });
 
 

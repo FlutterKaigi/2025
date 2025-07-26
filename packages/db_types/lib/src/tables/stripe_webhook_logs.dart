@@ -1,3 +1,4 @@
+import 'package:db_types/src/converters/date_time_converter.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'stripe_webhook_logs.freezed.dart';
@@ -13,7 +14,7 @@ abstract class StripeWebhookLogs with _$StripeWebhookLogs {
     required bool processed,
     String? errorMessage,
     required Map<String, dynamic> rawData,
-    required DateTime createdAt,
+    @RequiredDateTimeConverter() required DateTime createdAt,
   }) = _StripeWebhookLogs;
 
   factory StripeWebhookLogs.fromJson(Map<String, dynamic> json) =>

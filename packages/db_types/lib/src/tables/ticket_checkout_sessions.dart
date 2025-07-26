@@ -1,3 +1,4 @@
+import 'package:db_types/src/converters/date_time_converter.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'ticket_checkout_sessions.freezed.dart';
@@ -20,9 +21,9 @@ abstract class TicketCheckoutSessions with _$TicketCheckoutSessions {
     String? stripePaymentIntentId,
     String? stripeCheckoutSessionId,
     required int totalAmount,
-    required DateTime expiresAt,
-    required DateTime createdAt,
-    required DateTime updatedAt,
+    @RequiredDateTimeConverter() required DateTime expiresAt,
+    @RequiredDateTimeConverter() required DateTime createdAt,
+    @RequiredDateTimeConverter() required DateTime updatedAt,
   }) = _TicketCheckoutSessions;
 
   factory TicketCheckoutSessions.fromJson(Map<String, dynamic> json) =>
@@ -36,8 +37,8 @@ abstract class TicketCheckoutOptions with _$TicketCheckoutOptions {
     required String checkoutSessionId,
     required String ticketOptionId,
     String? optionValue,
-    required DateTime createdAt,
-    required DateTime updatedAt,
+    @RequiredDateTimeConverter() required DateTime createdAt,
+    @RequiredDateTimeConverter() required DateTime updatedAt,
   }) = _TicketCheckoutOptions;
 
   factory TicketCheckoutOptions.fromJson(Map<String, dynamic> json) =>
