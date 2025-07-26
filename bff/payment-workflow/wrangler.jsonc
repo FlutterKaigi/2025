@@ -1,6 +1,7 @@
 {
   "$schema": "https://unpkg.com/wrangler@latest/config-schema.json",
   "name": "payment-workflow",
+  "account_id": "cdd8f59359fe226645e7b541cdc53b57",
   "main": "src/index.ts",
   "compatibility_date": "2024-10-22",
   "observability": {
