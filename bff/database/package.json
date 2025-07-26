@@ -1,8 +1,8 @@
 {
   "name": "@2025/database",
-  "module": "src/index.ts",
-  "main": "dist/src/index.ts",
+  "exports": "./src/index.ts",
   "type": "module",
+  "private": true,
   "scripts": {
     "format": "biome check --write .",
     "check-types": "tsc --noEmit",

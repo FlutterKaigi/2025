@@ -1,6 +1,7 @@
 {
-  "name": "workflows-starter",
-  "version": "0.0.1",
+  "name": "@2025/payment-workflow",
+  "exports": "./src/index.ts",
+  "type": "module",
   "private": true,
   "scripts": {
     "format": "biome check --write",
