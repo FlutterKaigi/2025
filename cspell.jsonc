@@ -5,6 +5,12 @@
   "enableGlobDot": true,
   "dictionaryDefinitions": [
     {
+      "name": "bff-term",
+      "description": "BFF related terms",
+      "path": "./.cspell/bff-term.txt",
+      "addWords": true,
+    },
+    {
       "name": "bun-term",
       "description": "Bun related terms",
       "path": "./.cspell/bun-term.txt",
@@ -78,6 +84,7 @@
     },
   ],
   "dictionaries": [
+    "bff-term",
     "bun-term",
     "cloudflare-term",
     "dart-term",
