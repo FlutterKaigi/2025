@@ -19,6 +19,7 @@ workspace:
   - packages/db_types
   - packages/auth_client
   - packages/db_client
+  - packages/_base
   # bff
   - bff/engine
 
