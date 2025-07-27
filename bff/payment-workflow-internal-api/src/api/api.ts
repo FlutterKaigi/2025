@@ -9,7 +9,11 @@ export const api = new Hono()
   .use("*", logger())
   .route("/ticket-checkout", TicketCheckoutApi)
   .route("/payment-completion", PaymentCompletionApi)
-  .get("/scalar", Scalar({ url: "/openapi", title: "Payment Workflow API" }));
+  .get("/scalar", Scalar({ url: "/openapi", title: "Payment Workflow API" }))
+  .onError((err, c) => {
+    console.error(err);
+    return c.json({ message: "Internal Server Error", error: err }, 500);
+  });
 
 api.get(
   "/openapi",

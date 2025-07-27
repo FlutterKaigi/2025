@@ -1,6 +1,6 @@
 {
   "$schema": "https://unpkg.com/wrangler@latest/config-schema.json",
-	"name": "stripe-webhook",
+	"name": "internal-api-proxy",
   "account_id": "cdd8f59359fe226645e7b541cdc53b57",
 	"main": "src/index.ts",
 	"compatibility_date": "2025-07-15",
@@ -17,6 +17,10 @@
         {
           "binding": "PAYMENT_WORKFLOW_INTERNAL_API",
           "service": "payment-workflow-internal-api-staging"
+        },
+        {
+          "binding": "STRIPE_INTERNAL_API",
+          "service": "stripe-internal-api-staging"
         }
       ]
 		},
@@ -28,6 +32,10 @@
         {
           "binding": "PAYMENT_WORKFLOW_INTERNAL_API",
           "service": "payment-workflow-internal-api-production"
+        },
+        {
+          "binding": "STRIPE_INTERNAL_API",
+          "service": "stripe-internal-api-production"
         }
       ]
 		}
