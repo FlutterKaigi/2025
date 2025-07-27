@@ -18,7 +18,7 @@ abstract class TicketCheckoutApiClient {
   /// チケットチェックアウトワークフローのステータスを取得します
   @GET('/ticket-checkout/{ticketCheckoutSessionId}')
   Future<HttpResponse<ContainerInstanceStatus>>
-      getTicketCheckoutWorkflowStatus({
+  getTicketCheckoutWorkflowStatus({
     @Path() required String ticketCheckoutSessionId,
   });
 }
