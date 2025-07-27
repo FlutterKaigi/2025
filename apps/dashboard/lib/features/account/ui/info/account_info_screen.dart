@@ -1,4 +1,5 @@
 import 'package:auth_client/auth_client.dart';
+import 'package:dashboard/core/gen/assets/assets.gen.dart';
 import 'package:dashboard/core/gen/l10n/l10n.dart';
 import 'package:dashboard/features/account/ui/component/account_circle_image.dart';
 import 'package:dashboard/features/account/ui/component/account_scaffold.dart';
@@ -51,10 +52,11 @@ final class AccountInfoScreen extends ConsumerWidget {
         ),
         data: (user) => Column(
           children: [
-            _UserInfoCard(
-              user: user,
-              onProfileEdit: _onProfileEdit,
-            ),
+            if (user != null)
+              _UserInfoCard(
+                user: user,
+                onProfileEdit: _onProfileEdit,
+              ),
             const SizedBox(height: 16),
             Align(
               alignment: Alignment.centerLeft,
@@ -93,37 +95,63 @@ final class AccountInfoScreen extends ConsumerWidget {
   }
 }
 
+class _GoogleSignInButton extends StatelessWidget {
+  const _GoogleSignInButton({required this.onPressed});
+
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return Ink.image(
+      width: 210,
+      height: 48,
+      image: Assets.res.assets.googleSignInButton.provider(),
+      fit: BoxFit.contain,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(40),
+        onTap: onPressed,
+      ),
+    );
+  }
+}
+
 /// ユーザー情報表示カード
-class _UserInfoCard extends StatelessWidget {
+class _UserInfoCard extends ConsumerWidget {
   const _UserInfoCard({
     required this.user,
     required this.onProfileEdit,
   });
 
-  final User? user;
+  final User user;
   final VoidCallback onProfileEdit;
 
   @override
-  Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-        side: BorderSide(
-          color: Theme.of(context).colorScheme.outline,
-        ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isAnonymous = user.isAnonymous;
+    final children = isAnonymous
+        ? [
+            Text(
+              L10n.of(context).guestUserLabel,
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+            const SizedBox(height: 16),
+            _GoogleSignInButton(
+              onPressed: () async {
+                await ref
+                    .read(authNotifierProvider.notifier)
+                    .linkAnonymousUserWithGoogle();
+              },
+            ),
+          ]
+        : [
             // TODO(YumNumm): Repository層でパースする
-            if (user?.userMetadata?['avatar_url'] != null)
+            if (user.userMetadata?['avatar_url'] != null)
               AccountCircleImage(
-                imageUrl: user!.userMetadata!['avatar_url'].toString(),
+                imageUrl: user.userMetadata!['avatar_url'].toString(),
               ),
             const SizedBox(height: 16),
             Text(
-              user?.email ?? '',
+              user.email ?? '',
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             const SizedBox(height: 16),
@@ -131,23 +159,19 @@ class _UserInfoCard extends StatelessWidget {
               crossAxisAlignment: WrapCrossAlignment.center,
               spacing: 8,
               runSpacing: 8,
-              children:
-                  // TODO: ユースケースから取得した情報を表示する
-                  [
-                        'Sponsor',
-                        'Google',
-                      ]
-                      .map(
-                        (text) => Chip(
-                          label: Text(
-                            text,
-                            softWrap: true,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 2,
-                          ),
-                        ),
-                      )
-                      .toList(),
+              // TODO: ユースケースから取得した情報を表示する
+              children: ['Sponsor', 'Google']
+                  .map(
+                    (text) => Chip(
+                      label: Text(
+                        text,
+                        softWrap: true,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                      ),
+                    ),
+                  )
+                  .toList(),
             ),
             const SizedBox(height: 16),
             SizedBox(
@@ -208,7 +232,19 @@ class _UserInfoCard extends StatelessWidget {
                 ),
               ),
             ),
-          ],
+          ];
+
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+        side: BorderSide(
+          color: Theme.of(context).colorScheme.outline,
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: children,
         ),
       ),
     );
