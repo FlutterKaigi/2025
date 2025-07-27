@@ -119,4 +119,7 @@ class L10nJa extends L10n {
 
   @override
   String get accountApply => '適用';
+
+  @override
+  String get guestSignInButton => 'ゲストで利用する';
 }

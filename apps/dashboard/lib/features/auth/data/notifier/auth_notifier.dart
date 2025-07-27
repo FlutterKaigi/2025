@@ -24,6 +24,10 @@ class AuthNotifier extends _$AuthNotifier {
         .signInWithGoogle(redirectTo: redirectTo);
   }
 
+  Future<User?> signInAnonymously() async {
+    return ref.read(authServiceProvider).signInAnonymously();
+  }
+
   Future<void> signOut() async => ref.read(authServiceProvider).signOut();
 
   Future<String?> getAccessToken() async {

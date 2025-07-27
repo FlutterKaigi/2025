@@ -71,5 +71,7 @@
   "accountCancel": "キャンセル",
   "@accountCancel": {},
   "accountApply": "適用",
-  "@accountApply": {}
+  "@accountApply": {},
+  "guestSignInButton": "ゲストで利用する",
+  "@guestSignInButton": {}
 }

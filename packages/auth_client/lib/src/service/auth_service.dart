@@ -32,6 +32,12 @@ class AuthService {
     return currentUser;
   }
 
+  /// 匿名でログインする
+  Future<User?> signInAnonymously() async {
+    await _client.auth.signInAnonymously();
+    return currentUser;
+  }
+
   /// ログアウトする
   Future<void> signOut() async => _client.auth.signOut();
 
