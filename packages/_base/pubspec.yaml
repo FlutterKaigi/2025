@@ -1,0 +1,13 @@
+name: _base
+publish_to: none
+
+resolution: workspace
+
+environment:
+  sdk: ^3.9.0-100.2.beta
+
+dev_dependencies:
+  altive_lints: ^1.19.1
+  custom_lint: ^0.7.5
+  flutterkaigi_lints:
+    path: ../flutterkaigi_lints
