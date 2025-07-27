@@ -9,6 +9,7 @@ abstract class Users with _$Users {
   const factory Users({
     required String id,
     @RequiredDateTimeConverter() required DateTime createdAt,
+    @DateTimeConverter() DateTime? deletedAt,
   }) = _Users;
 
   factory Users.fromJson(Map<String, dynamic> json) => _$UsersFromJson(json);

@@ -15,10 +15,10 @@ _CompanyDrafts _$CompanyDraftsFromJson(Map<String, dynamic> json) =>
       ($checkedConvert) {
         final val = _CompanyDrafts(
           id: $checkedConvert('id', (v) => (v as num).toInt()),
-          companyId: $checkedConvert('company_id', (v) => (v as num).toInt()),
-          name: $checkedConvert('name', (v) => v as String),
+          companyId: $checkedConvert('company_id', (v) => (v as num?)?.toInt()),
           slug: $checkedConvert('slug', (v) => v as String),
-          logoName: $checkedConvert('logo_name', (v) => v as String?),
+          description: $checkedConvert('description', (v) => v as String),
+          websiteUrl: $checkedConvert('website_url', (v) => v as String),
           createdAt: $checkedConvert(
             'created_at',
             (v) => const RequiredDateTimeConverter().fromJson(v),
@@ -32,7 +32,7 @@ _CompanyDrafts _$CompanyDraftsFromJson(Map<String, dynamic> json) =>
       },
       fieldKeyMap: const {
         'companyId': 'company_id',
-        'logoName': 'logo_name',
+        'websiteUrl': 'website_url',
         'createdAt': 'created_at',
         'updatedAt': 'updated_at',
       },
@@ -43,9 +43,9 @@ Map<String, dynamic> _$CompanyDraftsToJson(
 ) => <String, dynamic>{
   'id': instance.id,
   'company_id': instance.companyId,
-  'name': instance.name,
   'slug': instance.slug,
-  'logo_name': instance.logoName,
+  'description': instance.description,
+  'website_url': instance.websiteUrl,
   'created_at': const RequiredDateTimeConverter().toJson(instance.createdAt),
   'updated_at': const RequiredDateTimeConverter().toJson(instance.updatedAt),
 };
@@ -62,7 +62,7 @@ _CompanyDraftApprovals _$CompanyDraftApprovalsFromJson(
         'company_draft_id',
         (v) => (v as num).toInt(),
       ),
-      approvedById: $checkedConvert('approved_by_id', (v) => v as String?),
+      approvedBy: $checkedConvert('approved_by', (v) => v as String?),
       createdAt: $checkedConvert(
         'created_at',
         (v) => const RequiredDateTimeConverter().fromJson(v),
@@ -72,7 +72,7 @@ _CompanyDraftApprovals _$CompanyDraftApprovalsFromJson(
   },
   fieldKeyMap: const {
     'companyDraftId': 'company_draft_id',
-    'approvedById': 'approved_by_id',
+    'approvedBy': 'approved_by',
     'createdAt': 'created_at',
   },
 );
@@ -82,6 +82,6 @@ Map<String, dynamic> _$CompanyDraftApprovalsToJson(
 ) => <String, dynamic>{
   'id': instance.id,
   'company_draft_id': instance.companyDraftId,
-  'approved_by_id': instance.approvedById,
+  'approved_by': instance.approvedBy,
   'created_at': const RequiredDateTimeConverter().toJson(instance.createdAt),
 };

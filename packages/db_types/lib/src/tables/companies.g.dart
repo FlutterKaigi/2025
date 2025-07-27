@@ -14,6 +14,8 @@ _Companies _$CompaniesFromJson(Map<String, dynamic> json) => $checkedCreate(
   ($checkedConvert) {
     final val = _Companies(
       id: $checkedConvert('id', (v) => (v as num).toInt()),
+      name: $checkedConvert('name', (v) => v as String),
+      logoName: $checkedConvert('logo_name', (v) => v as String),
       createdAt: $checkedConvert(
         'created_at',
         (v) => const RequiredDateTimeConverter().fromJson(v),
@@ -25,13 +27,19 @@ _Companies _$CompaniesFromJson(Map<String, dynamic> json) => $checkedCreate(
     );
     return val;
   },
-  fieldKeyMap: const {'createdAt': 'created_at', 'updatedAt': 'updated_at'},
+  fieldKeyMap: const {
+    'logoName': 'logo_name',
+    'createdAt': 'created_at',
+    'updatedAt': 'updated_at',
+  },
 );
 
 Map<String, dynamic> _$CompaniesToJson(
   _Companies instance,
 ) => <String, dynamic>{
   'id': instance.id,
+  'name': instance.name,
+  'logo_name': instance.logoName,
   'created_at': const RequiredDateTimeConverter().toJson(instance.createdAt),
   'updated_at': const RequiredDateTimeConverter().toJson(instance.updatedAt),
 };

@@ -2,25 +2,23 @@
 
 // ignore_for_file: type=lint
 
-part of 'ticket_options.dart';
+part of 'company_members.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_TicketOptions _$TicketOptionsFromJson(Map<String, dynamic> json) =>
+_CompanyMembers _$CompanyMembersFromJson(Map<String, dynamic> json) =>
     $checkedCreate(
-      '_TicketOptions',
+      '_CompanyMembers',
       json,
       ($checkedConvert) {
-        final val = _TicketOptions(
-          id: $checkedConvert('id', (v) => v as String),
-          ticketTypeId: $checkedConvert('ticket_type_id', (v) => v as String),
-          name: $checkedConvert('name', (v) => v as String),
-          description: $checkedConvert('description', (v) => v as String?),
-          maxQuantity: $checkedConvert(
-            'max_quantity',
-            (v) => (v as num?)?.toInt(),
+        final val = _CompanyMembers(
+          companyId: $checkedConvert('company_id', (v) => (v as num).toInt()),
+          userId: $checkedConvert('user_id', (v) => v as String),
+          joinedAt: $checkedConvert(
+            'joined_at',
+            (v) => const RequiredDateTimeConverter().fromJson(v),
           ),
           createdAt: $checkedConvert(
             'created_at',
@@ -34,21 +32,20 @@ _TicketOptions _$TicketOptionsFromJson(Map<String, dynamic> json) =>
         return val;
       },
       fieldKeyMap: const {
-        'ticketTypeId': 'ticket_type_id',
-        'maxQuantity': 'max_quantity',
+        'companyId': 'company_id',
+        'userId': 'user_id',
+        'joinedAt': 'joined_at',
         'createdAt': 'created_at',
         'updatedAt': 'updated_at',
       },
     );
 
-Map<String, dynamic> _$TicketOptionsToJson(
-  _TicketOptions instance,
+Map<String, dynamic> _$CompanyMembersToJson(
+  _CompanyMembers instance,
 ) => <String, dynamic>{
-  'id': instance.id,
-  'ticket_type_id': instance.ticketTypeId,
-  'name': instance.name,
-  'description': instance.description,
-  'max_quantity': instance.maxQuantity,
+  'company_id': instance.companyId,
+  'user_id': instance.userId,
+  'joined_at': const RequiredDateTimeConverter().toJson(instance.joinedAt),
   'created_at': const RequiredDateTimeConverter().toJson(instance.createdAt),
   'updated_at': const RequiredDateTimeConverter().toJson(instance.updatedAt),
 };

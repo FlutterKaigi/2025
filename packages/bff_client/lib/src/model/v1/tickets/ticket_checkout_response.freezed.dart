@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$TicketCheckoutResponse {
 
- String get checkoutSessionId; String get stripeCheckoutUrl; int get totalAmount; DateTime get expiresAt;
+ String get checkoutSessionId; String get stripeCheckoutUrl; DateTime get expiresAt;
 /// Create a copy of TicketCheckoutResponse
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $TicketCheckoutResponseCopyWith<TicketCheckoutResponse> get copyWith => _$Ticket
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TicketCheckoutResponse&&(identical(other.checkoutSessionId, checkoutSessionId) || other.checkoutSessionId == checkoutSessionId)&&(identical(other.stripeCheckoutUrl, stripeCheckoutUrl) || other.stripeCheckoutUrl == stripeCheckoutUrl)&&(identical(other.totalAmount, totalAmount) || other.totalAmount == totalAmount)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TicketCheckoutResponse&&(identical(other.checkoutSessionId, checkoutSessionId) || other.checkoutSessionId == checkoutSessionId)&&(identical(other.stripeCheckoutUrl, stripeCheckoutUrl) || other.stripeCheckoutUrl == stripeCheckoutUrl)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,checkoutSessionId,stripeCheckoutUrl,totalAmount,expiresAt);
+int get hashCode => Object.hash(runtimeType,checkoutSessionId,stripeCheckoutUrl,expiresAt);
 
 @override
 String toString() {
-  return 'TicketCheckoutResponse(checkoutSessionId: $checkoutSessionId, stripeCheckoutUrl: $stripeCheckoutUrl, totalAmount: $totalAmount, expiresAt: $expiresAt)';
+  return 'TicketCheckoutResponse(checkoutSessionId: $checkoutSessionId, stripeCheckoutUrl: $stripeCheckoutUrl, expiresAt: $expiresAt)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $TicketCheckoutResponseCopyWith<$Res>  {
   factory $TicketCheckoutResponseCopyWith(TicketCheckoutResponse value, $Res Function(TicketCheckoutResponse) _then) = _$TicketCheckoutResponseCopyWithImpl;
 @useResult
 $Res call({
- String checkoutSessionId, String stripeCheckoutUrl, int totalAmount, DateTime expiresAt
+ String checkoutSessionId, String stripeCheckoutUrl, DateTime expiresAt
 });
 
 
@@ -65,12 +65,11 @@ class _$TicketCheckoutResponseCopyWithImpl<$Res>
 
 /// Create a copy of TicketCheckoutResponse
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? checkoutSessionId = null,Object? stripeCheckoutUrl = null,Object? totalAmount = null,Object? expiresAt = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? checkoutSessionId = null,Object? stripeCheckoutUrl = null,Object? expiresAt = null,}) {
   return _then(_self.copyWith(
 checkoutSessionId: null == checkoutSessionId ? _self.checkoutSessionId : checkoutSessionId // ignore: cast_nullable_to_non_nullable
 as String,stripeCheckoutUrl: null == stripeCheckoutUrl ? _self.stripeCheckoutUrl : stripeCheckoutUrl // ignore: cast_nullable_to_non_nullable
-as String,totalAmount: null == totalAmount ? _self.totalAmount : totalAmount // ignore: cast_nullable_to_non_nullable
-as int,expiresAt: null == expiresAt ? _self.expiresAt : expiresAt // ignore: cast_nullable_to_non_nullable
+as String,expiresAt: null == expiresAt ? _self.expiresAt : expiresAt // ignore: cast_nullable_to_non_nullable
 as DateTime,
   ));
 }
@@ -156,10 +155,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String checkoutSessionId,  String stripeCheckoutUrl,  int totalAmount,  DateTime expiresAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String checkoutSessionId,  String stripeCheckoutUrl,  DateTime expiresAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _TicketCheckoutResponse() when $default != null:
-return $default(_that.checkoutSessionId,_that.stripeCheckoutUrl,_that.totalAmount,_that.expiresAt);case _:
+return $default(_that.checkoutSessionId,_that.stripeCheckoutUrl,_that.expiresAt);case _:
   return orElse();
 
 }
@@ -177,10 +176,10 @@ return $default(_that.checkoutSessionId,_that.stripeCheckoutUrl,_that.totalAmoun
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String checkoutSessionId,  String stripeCheckoutUrl,  int totalAmount,  DateTime expiresAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String checkoutSessionId,  String stripeCheckoutUrl,  DateTime expiresAt)  $default,) {final _that = this;
 switch (_that) {
 case _TicketCheckoutResponse():
-return $default(_that.checkoutSessionId,_that.stripeCheckoutUrl,_that.totalAmount,_that.expiresAt);case _:
+return $default(_that.checkoutSessionId,_that.stripeCheckoutUrl,_that.expiresAt);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -197,10 +196,10 @@ return $default(_that.checkoutSessionId,_that.stripeCheckoutUrl,_that.totalAmoun
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String checkoutSessionId,  String stripeCheckoutUrl,  int totalAmount,  DateTime expiresAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String checkoutSessionId,  String stripeCheckoutUrl,  DateTime expiresAt)?  $default,) {final _that = this;
 switch (_that) {
 case _TicketCheckoutResponse() when $default != null:
-return $default(_that.checkoutSessionId,_that.stripeCheckoutUrl,_that.totalAmount,_that.expiresAt);case _:
+return $default(_that.checkoutSessionId,_that.stripeCheckoutUrl,_that.expiresAt);case _:
   return null;
 
 }
@@ -212,12 +211,11 @@ return $default(_that.checkoutSessionId,_that.stripeCheckoutUrl,_that.totalAmoun
 @JsonSerializable()
 
 class _TicketCheckoutResponse implements TicketCheckoutResponse {
-  const _TicketCheckoutResponse({required this.checkoutSessionId, required this.stripeCheckoutUrl, required this.totalAmount, required this.expiresAt});
+  const _TicketCheckoutResponse({required this.checkoutSessionId, required this.stripeCheckoutUrl, required this.expiresAt});
   factory _TicketCheckoutResponse.fromJson(Map<String, dynamic> json) => _$TicketCheckoutResponseFromJson(json);
 
 @override final  String checkoutSessionId;
 @override final  String stripeCheckoutUrl;
-@override final  int totalAmount;
 @override final  DateTime expiresAt;
 
 /// Create a copy of TicketCheckoutResponse
@@ -233,16 +231,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TicketCheckoutResponse&&(identical(other.checkoutSessionId, checkoutSessionId) || other.checkoutSessionId == checkoutSessionId)&&(identical(other.stripeCheckoutUrl, stripeCheckoutUrl) || other.stripeCheckoutUrl == stripeCheckoutUrl)&&(identical(other.totalAmount, totalAmount) || other.totalAmount == totalAmount)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TicketCheckoutResponse&&(identical(other.checkoutSessionId, checkoutSessionId) || other.checkoutSessionId == checkoutSessionId)&&(identical(other.stripeCheckoutUrl, stripeCheckoutUrl) || other.stripeCheckoutUrl == stripeCheckoutUrl)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,checkoutSessionId,stripeCheckoutUrl,totalAmount,expiresAt);
+int get hashCode => Object.hash(runtimeType,checkoutSessionId,stripeCheckoutUrl,expiresAt);
 
 @override
 String toString() {
-  return 'TicketCheckoutResponse(checkoutSessionId: $checkoutSessionId, stripeCheckoutUrl: $stripeCheckoutUrl, totalAmount: $totalAmount, expiresAt: $expiresAt)';
+  return 'TicketCheckoutResponse(checkoutSessionId: $checkoutSessionId, stripeCheckoutUrl: $stripeCheckoutUrl, expiresAt: $expiresAt)';
 }
 
 
@@ -253,7 +251,7 @@ abstract mixin class _$TicketCheckoutResponseCopyWith<$Res> implements $TicketCh
   factory _$TicketCheckoutResponseCopyWith(_TicketCheckoutResponse value, $Res Function(_TicketCheckoutResponse) _then) = __$TicketCheckoutResponseCopyWithImpl;
 @override @useResult
 $Res call({
- String checkoutSessionId, String stripeCheckoutUrl, int totalAmount, DateTime expiresAt
+ String checkoutSessionId, String stripeCheckoutUrl, DateTime expiresAt
 });
 
 
@@ -270,12 +268,11 @@ class __$TicketCheckoutResponseCopyWithImpl<$Res>
 
 /// Create a copy of TicketCheckoutResponse
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? checkoutSessionId = null,Object? stripeCheckoutUrl = null,Object? totalAmount = null,Object? expiresAt = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? checkoutSessionId = null,Object? stripeCheckoutUrl = null,Object? expiresAt = null,}) {
   return _then(_TicketCheckoutResponse(
 checkoutSessionId: null == checkoutSessionId ? _self.checkoutSessionId : checkoutSessionId // ignore: cast_nullable_to_non_nullable
 as String,stripeCheckoutUrl: null == stripeCheckoutUrl ? _self.stripeCheckoutUrl : stripeCheckoutUrl // ignore: cast_nullable_to_non_nullable
-as String,totalAmount: null == totalAmount ? _self.totalAmount : totalAmount // ignore: cast_nullable_to_non_nullable
-as int,expiresAt: null == expiresAt ? _self.expiresAt : expiresAt // ignore: cast_nullable_to_non_nullable
+as String,expiresAt: null == expiresAt ? _self.expiresAt : expiresAt // ignore: cast_nullable_to_non_nullable
 as DateTime,
   ));
 }

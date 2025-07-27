@@ -15,7 +15,7 @@ abstract class TicketTypes with _$TicketTypes {
     required bool isActive,
     @DateTimeConverter() DateTime? saleStartsAt,
     @DateTimeConverter() DateTime? saleEndsAt,
-    String? url,
+    required String stripePriceId,
     @RequiredDateTimeConverter() required DateTime createdAt,
     @RequiredDateTimeConverter() required DateTime updatedAt,
   }) = _TicketTypes;

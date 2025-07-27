@@ -8,7 +8,6 @@ abstract class TicketCheckoutResponse with _$TicketCheckoutResponse {
   const factory TicketCheckoutResponse({
     required String checkoutSessionId,
     required String stripeCheckoutUrl,
-    required int totalAmount,
     required DateTime expiresAt,
   }) = _TicketCheckoutResponse;
 

@@ -1,9 +1,11 @@
+export 'converters/date_time_converter.dart';
 export 'models/checkout_option.dart';
 export 'models/ticket_type_with_options.dart';
 export 'models/user_and_user_roles.dart';
 export 'tables/companies.dart';
 export 'tables/company_drafts.dart';
 export 'tables/company_invitation.dart';
+export 'tables/company_members.dart';
 export 'tables/individual_drafts.dart';
 export 'tables/individuals.dart';
 export 'tables/news.dart';

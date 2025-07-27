@@ -22,15 +22,18 @@ _TicketCheckoutSessions _$TicketCheckoutSessionsFromJson(
         'status',
         (v) => $enumDecode(_$TicketCheckoutStatusEnumMap, v),
       ),
-      stripePaymentIntentId: $checkedConvert(
-        'stripe_payment_intent_id',
-        (v) => v as String?,
-      ),
       stripeCheckoutSessionId: $checkedConvert(
         'stripe_checkout_session_id',
+        (v) => v as String,
+      ),
+      stripeCheckoutUrl: $checkedConvert(
+        'stripe_checkout_url',
+        (v) => v as String,
+      ),
+      ticketCheckoutWorkflowId: $checkedConvert(
+        'ticket_checkout_workflow_id',
         (v) => v as String?,
       ),
-      totalAmount: $checkedConvert('total_amount', (v) => (v as num).toInt()),
       expiresAt: $checkedConvert(
         'expires_at',
         (v) => const RequiredDateTimeConverter().fromJson(v),
@@ -49,9 +52,9 @@ _TicketCheckoutSessions _$TicketCheckoutSessionsFromJson(
   fieldKeyMap: const {
     'userId': 'user_id',
     'ticketTypeId': 'ticket_type_id',
-    'stripePaymentIntentId': 'stripe_payment_intent_id',
     'stripeCheckoutSessionId': 'stripe_checkout_session_id',
-    'totalAmount': 'total_amount',
+    'stripeCheckoutUrl': 'stripe_checkout_url',
+    'ticketCheckoutWorkflowId': 'ticket_checkout_workflow_id',
     'expiresAt': 'expires_at',
     'createdAt': 'created_at',
     'updatedAt': 'updated_at',
@@ -65,9 +68,9 @@ Map<String, dynamic> _$TicketCheckoutSessionsToJson(
   'user_id': instance.userId,
   'ticket_type_id': instance.ticketTypeId,
   'status': _$TicketCheckoutStatusEnumMap[instance.status]!,
-  'stripe_payment_intent_id': instance.stripePaymentIntentId,
   'stripe_checkout_session_id': instance.stripeCheckoutSessionId,
-  'total_amount': instance.totalAmount,
+  'stripe_checkout_url': instance.stripeCheckoutUrl,
+  'ticket_checkout_workflow_id': instance.ticketCheckoutWorkflowId,
   'expires_at': const RequiredDateTimeConverter().toJson(instance.expiresAt),
   'created_at': const RequiredDateTimeConverter().toJson(instance.createdAt),
   'updated_at': const RequiredDateTimeConverter().toJson(instance.updatedAt),
@@ -77,7 +80,6 @@ const _$TicketCheckoutStatusEnumMap = {
   TicketCheckoutStatus.pending: 'pending',
   TicketCheckoutStatus.completed: 'completed',
   TicketCheckoutStatus.expired: 'expired',
-  TicketCheckoutStatus.cancelled: 'cancelled',
 };
 
 _TicketCheckoutOptions _$TicketCheckoutOptionsFromJson(
@@ -93,7 +95,6 @@ _TicketCheckoutOptions _$TicketCheckoutOptionsFromJson(
         (v) => v as String,
       ),
       ticketOptionId: $checkedConvert('ticket_option_id', (v) => v as String),
-      optionValue: $checkedConvert('option_value', (v) => v as String?),
       createdAt: $checkedConvert(
         'created_at',
         (v) => const RequiredDateTimeConverter().fromJson(v),
@@ -108,7 +109,6 @@ _TicketCheckoutOptions _$TicketCheckoutOptionsFromJson(
   fieldKeyMap: const {
     'checkoutSessionId': 'checkout_session_id',
     'ticketOptionId': 'ticket_option_id',
-    'optionValue': 'option_value',
     'createdAt': 'created_at',
     'updatedAt': 'updated_at',
   },
@@ -120,7 +120,6 @@ Map<String, dynamic> _$TicketCheckoutOptionsToJson(
   'id': instance.id,
   'checkout_session_id': instance.checkoutSessionId,
   'ticket_option_id': instance.ticketOptionId,
-  'option_value': instance.optionValue,
   'created_at': const RequiredDateTimeConverter().toJson(instance.createdAt),
   'updated_at': const RequiredDateTimeConverter().toJson(instance.updatedAt),
 };
