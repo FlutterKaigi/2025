@@ -14,7 +14,7 @@ _Users _$UsersFromJson(Map<String, dynamic> json) =>
         id: $checkedConvert('id', (v) => v as String),
         createdAt: $checkedConvert(
           'created_at',
-          (v) => DateTime.parse(v as String),
+          (v) => const RequiredDateTimeConverter().fromJson(v),
         ),
       );
       return val;
@@ -22,5 +22,5 @@ _Users _$UsersFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$UsersToJson(_Users instance) => <String, dynamic>{
   'id': instance.id,
-  'created_at': instance.createdAt.toIso8601String(),
+  'created_at': const RequiredDateTimeConverter().toJson(instance.createdAt),
 };

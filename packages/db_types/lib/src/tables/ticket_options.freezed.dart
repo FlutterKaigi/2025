@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$TicketOptions {
 
- String get id; String get ticketTypeId; String get name; String? get description; DateTime get createdAt; DateTime get updatedAt;
+ String get id; String get ticketTypeId; String get name; String? get description;@RequiredDateTimeConverter() DateTime get createdAt;@RequiredDateTimeConverter() DateTime get updatedAt;
 /// Create a copy of TicketOptions
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $TicketOptionsCopyWith<$Res>  {
   factory $TicketOptionsCopyWith(TicketOptions value, $Res Function(TicketOptions) _then) = _$TicketOptionsCopyWithImpl;
 @useResult
 $Res call({
- String id, String ticketTypeId, String name, String? description, DateTime createdAt, DateTime updatedAt
+ String id, String ticketTypeId, String name, String? description,@RequiredDateTimeConverter() DateTime createdAt,@RequiredDateTimeConverter() DateTime updatedAt
 });
 
 
@@ -158,7 +158,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String ticketTypeId,  String name,  String? description,  DateTime createdAt,  DateTime updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String ticketTypeId,  String name,  String? description, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _TicketOptions() when $default != null:
 return $default(_that.id,_that.ticketTypeId,_that.name,_that.description,_that.createdAt,_that.updatedAt);case _:
@@ -179,7 +179,7 @@ return $default(_that.id,_that.ticketTypeId,_that.name,_that.description,_that.c
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String ticketTypeId,  String name,  String? description,  DateTime createdAt,  DateTime updatedAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String ticketTypeId,  String name,  String? description, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)  $default,) {final _that = this;
 switch (_that) {
 case _TicketOptions():
 return $default(_that.id,_that.ticketTypeId,_that.name,_that.description,_that.createdAt,_that.updatedAt);case _:
@@ -199,7 +199,7 @@ return $default(_that.id,_that.ticketTypeId,_that.name,_that.description,_that.c
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String ticketTypeId,  String name,  String? description,  DateTime createdAt,  DateTime updatedAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String ticketTypeId,  String name,  String? description, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)?  $default,) {final _that = this;
 switch (_that) {
 case _TicketOptions() when $default != null:
 return $default(_that.id,_that.ticketTypeId,_that.name,_that.description,_that.createdAt,_that.updatedAt);case _:
@@ -214,15 +214,15 @@ return $default(_that.id,_that.ticketTypeId,_that.name,_that.description,_that.c
 @JsonSerializable()
 
 class _TicketOptions implements TicketOptions {
-  const _TicketOptions({required this.id, required this.ticketTypeId, required this.name, this.description, required this.createdAt, required this.updatedAt});
+  const _TicketOptions({required this.id, required this.ticketTypeId, required this.name, this.description, @RequiredDateTimeConverter() required this.createdAt, @RequiredDateTimeConverter() required this.updatedAt});
   factory _TicketOptions.fromJson(Map<String, dynamic> json) => _$TicketOptionsFromJson(json);
 
 @override final  String id;
 @override final  String ticketTypeId;
 @override final  String name;
 @override final  String? description;
-@override final  DateTime createdAt;
-@override final  DateTime updatedAt;
+@override@RequiredDateTimeConverter() final  DateTime createdAt;
+@override@RequiredDateTimeConverter() final  DateTime updatedAt;
 
 /// Create a copy of TicketOptions
 /// with the given fields replaced by the non-null parameter values.
@@ -257,7 +257,7 @@ abstract mixin class _$TicketOptionsCopyWith<$Res> implements $TicketOptionsCopy
   factory _$TicketOptionsCopyWith(_TicketOptions value, $Res Function(_TicketOptions) _then) = __$TicketOptionsCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String ticketTypeId, String name, String? description, DateTime createdAt, DateTime updatedAt
+ String id, String ticketTypeId, String name, String? description,@RequiredDateTimeConverter() DateTime createdAt,@RequiredDateTimeConverter() DateTime updatedAt
 });
 
 

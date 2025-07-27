@@ -1,3 +1,4 @@
+import 'package:db_types/src/converters/date_time_converter.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'ticket_purchases.freezed.dart';
@@ -16,8 +17,8 @@ abstract class TicketPurchases with _$TicketPurchases {
     required String ticketTypeId,
     required TicketPurchaseStatus status,
     String? stripePaymentIntentId,
-    required DateTime createdAt,
-    required DateTime updatedAt,
+    @RequiredDateTimeConverter() required DateTime createdAt,
+    @RequiredDateTimeConverter() required DateTime updatedAt,
   }) = _TicketPurchases;
 
   factory TicketPurchases.fromJson(Map<String, dynamic> json) =>
@@ -31,8 +32,8 @@ abstract class TicketPurchaseOptions with _$TicketPurchaseOptions {
     required String ticketPurchaseId,
     required String ticketOptionId,
     String? optionValue,
-    required DateTime createdAt,
-    required DateTime updatedAt,
+    @RequiredDateTimeConverter() required DateTime createdAt,
+    @RequiredDateTimeConverter() required DateTime updatedAt,
   }) = _TicketPurchaseOptions;
 
   factory TicketPurchaseOptions.fromJson(Map<String, dynamic> json) =>

@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$UserRoles {
 
- String get userId; Role get role; DateTime get createdAt;
+ String get userId; Role get role;@RequiredDateTimeConverter() DateTime get createdAt;
 /// Create a copy of UserRoles
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $UserRolesCopyWith<$Res>  {
   factory $UserRolesCopyWith(UserRoles value, $Res Function(UserRoles) _then) = _$UserRolesCopyWithImpl;
 @useResult
 $Res call({
- String userId, Role role, DateTime createdAt
+ String userId, Role role,@RequiredDateTimeConverter() DateTime createdAt
 });
 
 
@@ -155,7 +155,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String userId,  Role role,  DateTime createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String userId,  Role role, @RequiredDateTimeConverter()  DateTime createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _UserRoles() when $default != null:
 return $default(_that.userId,_that.role,_that.createdAt);case _:
@@ -176,7 +176,7 @@ return $default(_that.userId,_that.role,_that.createdAt);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String userId,  Role role,  DateTime createdAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String userId,  Role role, @RequiredDateTimeConverter()  DateTime createdAt)  $default,) {final _that = this;
 switch (_that) {
 case _UserRoles():
 return $default(_that.userId,_that.role,_that.createdAt);case _:
@@ -196,7 +196,7 @@ return $default(_that.userId,_that.role,_that.createdAt);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String userId,  Role role,  DateTime createdAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String userId,  Role role, @RequiredDateTimeConverter()  DateTime createdAt)?  $default,) {final _that = this;
 switch (_that) {
 case _UserRoles() when $default != null:
 return $default(_that.userId,_that.role,_that.createdAt);case _:
@@ -211,12 +211,12 @@ return $default(_that.userId,_that.role,_that.createdAt);case _:
 @JsonSerializable()
 
 class _UserRoles implements UserRoles {
-  const _UserRoles({required this.userId, required this.role, required this.createdAt});
+  const _UserRoles({required this.userId, required this.role, @RequiredDateTimeConverter() required this.createdAt});
   factory _UserRoles.fromJson(Map<String, dynamic> json) => _$UserRolesFromJson(json);
 
 @override final  String userId;
 @override final  Role role;
-@override final  DateTime createdAt;
+@override@RequiredDateTimeConverter() final  DateTime createdAt;
 
 /// Create a copy of UserRoles
 /// with the given fields replaced by the non-null parameter values.
@@ -251,7 +251,7 @@ abstract mixin class _$UserRolesCopyWith<$Res> implements $UserRolesCopyWith<$Re
   factory _$UserRolesCopyWith(_UserRoles value, $Res Function(_UserRoles) _then) = __$UserRolesCopyWithImpl;
 @override @useResult
 $Res call({
- String userId, Role role, DateTime createdAt
+ String userId, Role role,@RequiredDateTimeConverter() DateTime createdAt
 });
 
 

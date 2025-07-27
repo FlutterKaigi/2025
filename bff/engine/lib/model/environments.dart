@@ -15,6 +15,11 @@ abstract class Environments with _$Environments {
     required String postgresUrl,
   }) = _Environments;
 
+  const Environments._();
+
   factory Environments.fromJson(Map<String, dynamic> json) =>
       _$EnvironmentsFromJson(json);
+
+  /// ローカル環境かどうか
+  bool get isLocal => cfVersionMetadataId == 'local';
 }

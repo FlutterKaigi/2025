@@ -29,7 +29,7 @@ _StripeWebhookLogs _$StripeWebhookLogsFromJson(Map<String, dynamic> json) =>
           ),
           createdAt: $checkedConvert(
             'created_at',
-            (v) => DateTime.parse(v as String),
+            (v) => const RequiredDateTimeConverter().fromJson(v),
           ),
         );
         return val;
@@ -44,14 +44,15 @@ _StripeWebhookLogs _$StripeWebhookLogsFromJson(Map<String, dynamic> json) =>
       },
     );
 
-Map<String, dynamic> _$StripeWebhookLogsToJson(_StripeWebhookLogs instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'stripe_event_id': instance.stripeEventId,
-      'event_type': instance.eventType,
-      'payment_intent_id': instance.paymentIntentId,
-      'processed': instance.processed,
-      'error_message': instance.errorMessage,
-      'raw_data': instance.rawData,
-      'created_at': instance.createdAt.toIso8601String(),
-    };
+Map<String, dynamic> _$StripeWebhookLogsToJson(
+  _StripeWebhookLogs instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'stripe_event_id': instance.stripeEventId,
+  'event_type': instance.eventType,
+  'payment_intent_id': instance.paymentIntentId,
+  'processed': instance.processed,
+  'error_message': instance.errorMessage,
+  'raw_data': instance.rawData,
+  'created_at': const RequiredDateTimeConverter().toJson(instance.createdAt),
+};

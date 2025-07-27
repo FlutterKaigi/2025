@@ -37,19 +37,25 @@ class _NewsList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final news = ref.watch(newsProvider);
+    final l10n = L10n.of(context);
     return switch (news) {
-      AsyncData(:final value) => ListView.separated(
-        itemCount: value.length,
-        itemBuilder: (context, index) {
-          final news = value[index];
-          return _NewsListItem(news: news);
-        },
-        separatorBuilder: (context, index) {
-          return const Divider(
-            height: 1,
-          );
-        },
-      ),
+      AsyncData(:final value) =>
+        value.isEmpty
+            ? Center(
+                child: Text(l10n.newsEmptyMessage),
+              )
+            : ListView.separated(
+                itemCount: value.length,
+                itemBuilder: (context, index) {
+                  final news = value[index];
+                  return _NewsListItem(news: news);
+                },
+                separatorBuilder: (context, index) {
+                  return const Divider(
+                    height: 1,
+                  );
+                },
+              ),
       AsyncLoading() => const Center(child: CircularProgressIndicator()),
       AsyncError(:final error) => Center(child: Text(error.toString())),
     };
@@ -66,17 +72,19 @@ class _NewsListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(news.text),
+      title: Text(news.title),
       subtitle: Text(_dateFormatter.format(news.startedAt)),
-      trailing: const Icon(Icons.open_in_new),
-      onTap: () {
-        unawaited(
-          launchUrl(
-            news.url,
-            mode: LaunchMode.externalApplication,
-          ),
-        );
-      },
+      trailing: news.url != null ? const Icon(Icons.open_in_new) : null,
+      onTap: news.url != null
+          ? () {
+              unawaited(
+                launchUrl(
+                  news.url!,
+                  mode: LaunchMode.externalApplication,
+                ),
+              );
+            }
+          : null,
     );
   }
 }

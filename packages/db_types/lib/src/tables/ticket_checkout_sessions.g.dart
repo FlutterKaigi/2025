@@ -33,15 +33,15 @@ _TicketCheckoutSessions _$TicketCheckoutSessionsFromJson(
       totalAmount: $checkedConvert('total_amount', (v) => (v as num).toInt()),
       expiresAt: $checkedConvert(
         'expires_at',
-        (v) => DateTime.parse(v as String),
+        (v) => const RequiredDateTimeConverter().fromJson(v),
       ),
       createdAt: $checkedConvert(
         'created_at',
-        (v) => DateTime.parse(v as String),
+        (v) => const RequiredDateTimeConverter().fromJson(v),
       ),
       updatedAt: $checkedConvert(
         'updated_at',
-        (v) => DateTime.parse(v as String),
+        (v) => const RequiredDateTimeConverter().fromJson(v),
       ),
     );
     return val;
@@ -68,9 +68,9 @@ Map<String, dynamic> _$TicketCheckoutSessionsToJson(
   'stripe_payment_intent_id': instance.stripePaymentIntentId,
   'stripe_checkout_session_id': instance.stripeCheckoutSessionId,
   'total_amount': instance.totalAmount,
-  'expires_at': instance.expiresAt.toIso8601String(),
-  'created_at': instance.createdAt.toIso8601String(),
-  'updated_at': instance.updatedAt.toIso8601String(),
+  'expires_at': const RequiredDateTimeConverter().toJson(instance.expiresAt),
+  'created_at': const RequiredDateTimeConverter().toJson(instance.createdAt),
+  'updated_at': const RequiredDateTimeConverter().toJson(instance.updatedAt),
 };
 
 const _$TicketCheckoutStatusEnumMap = {
@@ -96,11 +96,11 @@ _TicketCheckoutOptions _$TicketCheckoutOptionsFromJson(
       optionValue: $checkedConvert('option_value', (v) => v as String?),
       createdAt: $checkedConvert(
         'created_at',
-        (v) => DateTime.parse(v as String),
+        (v) => const RequiredDateTimeConverter().fromJson(v),
       ),
       updatedAt: $checkedConvert(
         'updated_at',
-        (v) => DateTime.parse(v as String),
+        (v) => const RequiredDateTimeConverter().fromJson(v),
       ),
     );
     return val;
@@ -121,6 +121,6 @@ Map<String, dynamic> _$TicketCheckoutOptionsToJson(
   'checkout_session_id': instance.checkoutSessionId,
   'ticket_option_id': instance.ticketOptionId,
   'option_value': instance.optionValue,
-  'created_at': instance.createdAt.toIso8601String(),
-  'updated_at': instance.updatedAt.toIso8601String(),
+  'created_at': const RequiredDateTimeConverter().toJson(instance.createdAt),
+  'updated_at': const RequiredDateTimeConverter().toJson(instance.updatedAt),
 };

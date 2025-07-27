@@ -114,32 +114,13 @@ final event = (
       ),
     ),
   ),
-  applyForCfp: [
-    (
-      title: (
-        ja: '一般セッション',
-        en: 'General Session',
-      ),
-      url:
-          'https://fortee.jp/flutterkaigi-2025/speaker/callfor/regular-session/callfor',
+  cfp: (
+    title: (
+      ja: 'プロポーザル一覧を見る',
+      en: 'See Proposals',
     ),
-    (
-      title: (
-        ja: 'LT',
-        en: 'Lightning Talk',
-      ),
-      url:
-          'https://fortee.jp/flutterkaigi-2025/speaker/callfor/lt-session/callfor',
-    ),
-    (
-      title: (
-        ja: 'ビギナーズLT',
-        en: 'Beginners LT',
-      ),
-      url:
-          'https://fortee.jp/flutterkaigi-2025/speaker/callfor/beginners-lt-session/callfor',
-    ),
-  ],
+    url: 'https://fortee.jp/flutterkaigi-2025/proposal/all',
+  ),
   schedule: [
     (
       title: (ja: 'スポンサー募集開始', en: 'Call for Sponsors Opens'),

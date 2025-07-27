@@ -23,33 +23,15 @@ const contents = (
 
   proposalContents: (
     ja:
-        'FlutterKaigi 2025でのセッションスピーカーを募集開始しました！\n'
-        'FlutterKaigiは、技術者が自分の知識と経験を共有するためのカンファレンスです。\n'
-        'テーマはFlutterやDartに関連していれば何でもOKです。'
-        '初心者向けのヒントから上級者向けのテクニック、チュートリアル、ライブラリの紹介、'
-        'ベストプラクティス、挑戦した事例など、聞いて面白く、他の開発者に有益な内容を'
-        '募集しています。\n'
-        'ただし、自社製品の宣伝を目的としたトークや、FlutterやDartと無関係なトピックは'
-        '避けてください。（Flutter開発支援ツールについては除きます。）',
+        'FlutterKaigi 2025でのセッションスピーカーの募集は締め切りました。\n'
+        '採択セッションの決定までしばらくお待ち下さい。',
     en:
-        'We are now accepting session speaker proposals for FlutterKaigi 2025!\n'
-        'FlutterKaigi is a conference where technologists share their knowledge and '
-        'experiences.\n'
-        'Any topic related to Flutter or Dart is welcome. '
-        'From beginner tips to advanced techniques, tutorials, library introductions, '
-        'best practices, and challenging case studies, we are looking for content that is '
-        'interesting to hear and beneficial to other developers.\n'
-        'Please avoid talks that are primarily for promoting your company products or '
-        'topics unrelated to Flutter or Dart. '
-        '(Flutter development support tools are an exception.)',
+        'The call for speakers for FlutterKaigi 2025 has ended.\n'
+        'Please wait for the announcement of the accepted sessions.',
   ),
   dayZeroPlanning: (
     ja: 'Day0 企画中！',
     en: 'Now planning Day0 :)',
-  ),
-  applyFromHere: (
-    ja: '応募はこちらから',
-    en: 'Apply from here',
   ),
   checkNews: (
     ja: '全てのお知らせを見る',

@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Individuals {
 
- int get id; String get userId; DateTime get createdAt; DateTime get updatedAt;
+ int get id; String get userId;@RequiredDateTimeConverter() DateTime get createdAt;@RequiredDateTimeConverter() DateTime get updatedAt;
 /// Create a copy of Individuals
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $IndividualsCopyWith<$Res>  {
   factory $IndividualsCopyWith(Individuals value, $Res Function(Individuals) _then) = _$IndividualsCopyWithImpl;
 @useResult
 $Res call({
- int id, String userId, DateTime createdAt, DateTime updatedAt
+ int id, String userId,@RequiredDateTimeConverter() DateTime createdAt,@RequiredDateTimeConverter() DateTime updatedAt
 });
 
 
@@ -156,7 +156,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String userId,  DateTime createdAt,  DateTime updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String userId, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Individuals() when $default != null:
 return $default(_that.id,_that.userId,_that.createdAt,_that.updatedAt);case _:
@@ -177,7 +177,7 @@ return $default(_that.id,_that.userId,_that.createdAt,_that.updatedAt);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String userId,  DateTime createdAt,  DateTime updatedAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String userId, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)  $default,) {final _that = this;
 switch (_that) {
 case _Individuals():
 return $default(_that.id,_that.userId,_that.createdAt,_that.updatedAt);case _:
@@ -197,7 +197,7 @@ return $default(_that.id,_that.userId,_that.createdAt,_that.updatedAt);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String userId,  DateTime createdAt,  DateTime updatedAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String userId, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)?  $default,) {final _that = this;
 switch (_that) {
 case _Individuals() when $default != null:
 return $default(_that.id,_that.userId,_that.createdAt,_that.updatedAt);case _:
@@ -212,13 +212,13 @@ return $default(_that.id,_that.userId,_that.createdAt,_that.updatedAt);case _:
 @JsonSerializable()
 
 class _Individuals implements Individuals {
-  const _Individuals({required this.id, required this.userId, required this.createdAt, required this.updatedAt});
+  const _Individuals({required this.id, required this.userId, @RequiredDateTimeConverter() required this.createdAt, @RequiredDateTimeConverter() required this.updatedAt});
   factory _Individuals.fromJson(Map<String, dynamic> json) => _$IndividualsFromJson(json);
 
 @override final  int id;
 @override final  String userId;
-@override final  DateTime createdAt;
-@override final  DateTime updatedAt;
+@override@RequiredDateTimeConverter() final  DateTime createdAt;
+@override@RequiredDateTimeConverter() final  DateTime updatedAt;
 
 /// Create a copy of Individuals
 /// with the given fields replaced by the non-null parameter values.
@@ -253,7 +253,7 @@ abstract mixin class _$IndividualsCopyWith<$Res> implements $IndividualsCopyWith
   factory _$IndividualsCopyWith(_Individuals value, $Res Function(_Individuals) _then) = __$IndividualsCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String userId, DateTime createdAt, DateTime updatedAt
+ int id, String userId,@RequiredDateTimeConverter() DateTime createdAt,@RequiredDateTimeConverter() DateTime updatedAt
 });
 
 

@@ -18,15 +18,15 @@ _CompanyInvitation _$CompanyInvitationFromJson(Map<String, dynamic> json) =>
           key: $checkedConvert('key', (v) => v as String),
           createdAt: $checkedConvert(
             'created_at',
-            (v) => DateTime.parse(v as String),
+            (v) => const RequiredDateTimeConverter().fromJson(v),
           ),
           updatedAt: $checkedConvert(
             'updated_at',
-            (v) => DateTime.parse(v as String),
+            (v) => const RequiredDateTimeConverter().fromJson(v),
           ),
           disabledAt: $checkedConvert(
             'disabled_at',
-            (v) => v == null ? null : DateTime.parse(v as String),
+            (v) => const DateTimeConverter().fromJson(v),
           ),
         );
         return val;
@@ -39,11 +39,12 @@ _CompanyInvitation _$CompanyInvitationFromJson(Map<String, dynamic> json) =>
       },
     );
 
-Map<String, dynamic> _$CompanyInvitationToJson(_CompanyInvitation instance) =>
-    <String, dynamic>{
-      'company_id': instance.companyId,
-      'key': instance.key,
-      'created_at': instance.createdAt.toIso8601String(),
-      'updated_at': instance.updatedAt.toIso8601String(),
-      'disabled_at': instance.disabledAt?.toIso8601String(),
-    };
+Map<String, dynamic> _$CompanyInvitationToJson(
+  _CompanyInvitation instance,
+) => <String, dynamic>{
+  'company_id': instance.companyId,
+  'key': instance.key,
+  'created_at': const RequiredDateTimeConverter().toJson(instance.createdAt),
+  'updated_at': const RequiredDateTimeConverter().toJson(instance.updatedAt),
+  'disabled_at': const DateTimeConverter().toJson(instance.disabledAt),
+};

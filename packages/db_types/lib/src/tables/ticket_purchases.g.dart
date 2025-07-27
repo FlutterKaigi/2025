@@ -27,11 +27,11 @@ _TicketPurchases _$TicketPurchasesFromJson(Map<String, dynamic> json) =>
           ),
           createdAt: $checkedConvert(
             'created_at',
-            (v) => DateTime.parse(v as String),
+            (v) => const RequiredDateTimeConverter().fromJson(v),
           ),
           updatedAt: $checkedConvert(
             'updated_at',
-            (v) => DateTime.parse(v as String),
+            (v) => const RequiredDateTimeConverter().fromJson(v),
           ),
         );
         return val;
@@ -45,16 +45,17 @@ _TicketPurchases _$TicketPurchasesFromJson(Map<String, dynamic> json) =>
       },
     );
 
-Map<String, dynamic> _$TicketPurchasesToJson(_TicketPurchases instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'user_id': instance.userId,
-      'ticket_type_id': instance.ticketTypeId,
-      'status': _$TicketPurchaseStatusEnumMap[instance.status]!,
-      'stripe_payment_intent_id': instance.stripePaymentIntentId,
-      'created_at': instance.createdAt.toIso8601String(),
-      'updated_at': instance.updatedAt.toIso8601String(),
-    };
+Map<String, dynamic> _$TicketPurchasesToJson(
+  _TicketPurchases instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'user_id': instance.userId,
+  'ticket_type_id': instance.ticketTypeId,
+  'status': _$TicketPurchaseStatusEnumMap[instance.status]!,
+  'stripe_payment_intent_id': instance.stripePaymentIntentId,
+  'created_at': const RequiredDateTimeConverter().toJson(instance.createdAt),
+  'updated_at': const RequiredDateTimeConverter().toJson(instance.updatedAt),
+};
 
 const _$TicketPurchaseStatusEnumMap = {
   TicketPurchaseStatus.completed: 'completed',
@@ -77,11 +78,11 @@ _TicketPurchaseOptions _$TicketPurchaseOptionsFromJson(
       optionValue: $checkedConvert('option_value', (v) => v as String?),
       createdAt: $checkedConvert(
         'created_at',
-        (v) => DateTime.parse(v as String),
+        (v) => const RequiredDateTimeConverter().fromJson(v),
       ),
       updatedAt: $checkedConvert(
         'updated_at',
-        (v) => DateTime.parse(v as String),
+        (v) => const RequiredDateTimeConverter().fromJson(v),
       ),
     );
     return val;
@@ -102,6 +103,6 @@ Map<String, dynamic> _$TicketPurchaseOptionsToJson(
   'ticket_purchase_id': instance.ticketPurchaseId,
   'ticket_option_id': instance.ticketOptionId,
   'option_value': instance.optionValue,
-  'created_at': instance.createdAt.toIso8601String(),
-  'updated_at': instance.updatedAt.toIso8601String(),
+  'created_at': const RequiredDateTimeConverter().toJson(instance.createdAt),
+  'updated_at': const RequiredDateTimeConverter().toJson(instance.updatedAt),
 };

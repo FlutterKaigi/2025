@@ -21,20 +21,20 @@ _TicketTypes _$TicketTypesFromJson(Map<String, dynamic> json) => $checkedCreate(
       isActive: $checkedConvert('is_active', (v) => v as bool),
       saleStartsAt: $checkedConvert(
         'sale_starts_at',
-        (v) => v == null ? null : DateTime.parse(v as String),
+        (v) => const DateTimeConverter().fromJson(v),
       ),
       saleEndsAt: $checkedConvert(
         'sale_ends_at',
-        (v) => v == null ? null : DateTime.parse(v as String),
+        (v) => const DateTimeConverter().fromJson(v),
       ),
       url: $checkedConvert('url', (v) => v as String?),
       createdAt: $checkedConvert(
         'created_at',
-        (v) => DateTime.parse(v as String),
+        (v) => const RequiredDateTimeConverter().fromJson(v),
       ),
       updatedAt: $checkedConvert(
         'updated_at',
-        (v) => DateTime.parse(v as String),
+        (v) => const RequiredDateTimeConverter().fromJson(v),
       ),
     );
     return val;
@@ -49,17 +49,18 @@ _TicketTypes _$TicketTypesFromJson(Map<String, dynamic> json) => $checkedCreate(
   },
 );
 
-Map<String, dynamic> _$TicketTypesToJson(_TicketTypes instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'price': instance.price,
-      'max_quantity': instance.maxQuantity,
-      'description': instance.description,
-      'is_active': instance.isActive,
-      'sale_starts_at': instance.saleStartsAt?.toIso8601String(),
-      'sale_ends_at': instance.saleEndsAt?.toIso8601String(),
-      'url': instance.url,
-      'created_at': instance.createdAt.toIso8601String(),
-      'updated_at': instance.updatedAt.toIso8601String(),
-    };
+Map<String, dynamic> _$TicketTypesToJson(
+  _TicketTypes instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'name': instance.name,
+  'price': instance.price,
+  'max_quantity': instance.maxQuantity,
+  'description': instance.description,
+  'is_active': instance.isActive,
+  'sale_starts_at': const DateTimeConverter().toJson(instance.saleStartsAt),
+  'sale_ends_at': const DateTimeConverter().toJson(instance.saleEndsAt),
+  'url': instance.url,
+  'created_at': const RequiredDateTimeConverter().toJson(instance.createdAt),
+  'updated_at': const RequiredDateTimeConverter().toJson(instance.updatedAt),
+};

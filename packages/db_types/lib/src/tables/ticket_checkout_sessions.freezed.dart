@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$TicketCheckoutSessions {
 
- String get id; String get userId; String get ticketTypeId; TicketCheckoutStatus get status; String? get stripePaymentIntentId; String? get stripeCheckoutSessionId; int get totalAmount; DateTime get expiresAt; DateTime get createdAt; DateTime get updatedAt;
+ String get id; String get userId; String get ticketTypeId; TicketCheckoutStatus get status; String? get stripePaymentIntentId; String? get stripeCheckoutSessionId; int get totalAmount;@RequiredDateTimeConverter() DateTime get expiresAt;@RequiredDateTimeConverter() DateTime get createdAt;@RequiredDateTimeConverter() DateTime get updatedAt;
 /// Create a copy of TicketCheckoutSessions
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $TicketCheckoutSessionsCopyWith<$Res>  {
   factory $TicketCheckoutSessionsCopyWith(TicketCheckoutSessions value, $Res Function(TicketCheckoutSessions) _then) = _$TicketCheckoutSessionsCopyWithImpl;
 @useResult
 $Res call({
- String id, String userId, String ticketTypeId, TicketCheckoutStatus status, String? stripePaymentIntentId, String? stripeCheckoutSessionId, int totalAmount, DateTime expiresAt, DateTime createdAt, DateTime updatedAt
+ String id, String userId, String ticketTypeId, TicketCheckoutStatus status, String? stripePaymentIntentId, String? stripeCheckoutSessionId, int totalAmount,@RequiredDateTimeConverter() DateTime expiresAt,@RequiredDateTimeConverter() DateTime createdAt,@RequiredDateTimeConverter() DateTime updatedAt
 });
 
 
@@ -162,7 +162,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String userId,  String ticketTypeId,  TicketCheckoutStatus status,  String? stripePaymentIntentId,  String? stripeCheckoutSessionId,  int totalAmount,  DateTime expiresAt,  DateTime createdAt,  DateTime updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String userId,  String ticketTypeId,  TicketCheckoutStatus status,  String? stripePaymentIntentId,  String? stripeCheckoutSessionId,  int totalAmount, @RequiredDateTimeConverter()  DateTime expiresAt, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _TicketCheckoutSessions() when $default != null:
 return $default(_that.id,_that.userId,_that.ticketTypeId,_that.status,_that.stripePaymentIntentId,_that.stripeCheckoutSessionId,_that.totalAmount,_that.expiresAt,_that.createdAt,_that.updatedAt);case _:
@@ -183,7 +183,7 @@ return $default(_that.id,_that.userId,_that.ticketTypeId,_that.status,_that.stri
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String userId,  String ticketTypeId,  TicketCheckoutStatus status,  String? stripePaymentIntentId,  String? stripeCheckoutSessionId,  int totalAmount,  DateTime expiresAt,  DateTime createdAt,  DateTime updatedAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String userId,  String ticketTypeId,  TicketCheckoutStatus status,  String? stripePaymentIntentId,  String? stripeCheckoutSessionId,  int totalAmount, @RequiredDateTimeConverter()  DateTime expiresAt, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)  $default,) {final _that = this;
 switch (_that) {
 case _TicketCheckoutSessions():
 return $default(_that.id,_that.userId,_that.ticketTypeId,_that.status,_that.stripePaymentIntentId,_that.stripeCheckoutSessionId,_that.totalAmount,_that.expiresAt,_that.createdAt,_that.updatedAt);case _:
@@ -203,7 +203,7 @@ return $default(_that.id,_that.userId,_that.ticketTypeId,_that.status,_that.stri
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String userId,  String ticketTypeId,  TicketCheckoutStatus status,  String? stripePaymentIntentId,  String? stripeCheckoutSessionId,  int totalAmount,  DateTime expiresAt,  DateTime createdAt,  DateTime updatedAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String userId,  String ticketTypeId,  TicketCheckoutStatus status,  String? stripePaymentIntentId,  String? stripeCheckoutSessionId,  int totalAmount, @RequiredDateTimeConverter()  DateTime expiresAt, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)?  $default,) {final _that = this;
 switch (_that) {
 case _TicketCheckoutSessions() when $default != null:
 return $default(_that.id,_that.userId,_that.ticketTypeId,_that.status,_that.stripePaymentIntentId,_that.stripeCheckoutSessionId,_that.totalAmount,_that.expiresAt,_that.createdAt,_that.updatedAt);case _:
@@ -218,7 +218,7 @@ return $default(_that.id,_that.userId,_that.ticketTypeId,_that.status,_that.stri
 @JsonSerializable()
 
 class _TicketCheckoutSessions implements TicketCheckoutSessions {
-  const _TicketCheckoutSessions({required this.id, required this.userId, required this.ticketTypeId, required this.status, this.stripePaymentIntentId, this.stripeCheckoutSessionId, required this.totalAmount, required this.expiresAt, required this.createdAt, required this.updatedAt});
+  const _TicketCheckoutSessions({required this.id, required this.userId, required this.ticketTypeId, required this.status, this.stripePaymentIntentId, this.stripeCheckoutSessionId, required this.totalAmount, @RequiredDateTimeConverter() required this.expiresAt, @RequiredDateTimeConverter() required this.createdAt, @RequiredDateTimeConverter() required this.updatedAt});
   factory _TicketCheckoutSessions.fromJson(Map<String, dynamic> json) => _$TicketCheckoutSessionsFromJson(json);
 
 @override final  String id;
@@ -228,9 +228,9 @@ class _TicketCheckoutSessions implements TicketCheckoutSessions {
 @override final  String? stripePaymentIntentId;
 @override final  String? stripeCheckoutSessionId;
 @override final  int totalAmount;
-@override final  DateTime expiresAt;
-@override final  DateTime createdAt;
-@override final  DateTime updatedAt;
+@override@RequiredDateTimeConverter() final  DateTime expiresAt;
+@override@RequiredDateTimeConverter() final  DateTime createdAt;
+@override@RequiredDateTimeConverter() final  DateTime updatedAt;
 
 /// Create a copy of TicketCheckoutSessions
 /// with the given fields replaced by the non-null parameter values.
@@ -265,7 +265,7 @@ abstract mixin class _$TicketCheckoutSessionsCopyWith<$Res> implements $TicketCh
   factory _$TicketCheckoutSessionsCopyWith(_TicketCheckoutSessions value, $Res Function(_TicketCheckoutSessions) _then) = __$TicketCheckoutSessionsCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String userId, String ticketTypeId, TicketCheckoutStatus status, String? stripePaymentIntentId, String? stripeCheckoutSessionId, int totalAmount, DateTime expiresAt, DateTime createdAt, DateTime updatedAt
+ String id, String userId, String ticketTypeId, TicketCheckoutStatus status, String? stripePaymentIntentId, String? stripeCheckoutSessionId, int totalAmount,@RequiredDateTimeConverter() DateTime expiresAt,@RequiredDateTimeConverter() DateTime createdAt,@RequiredDateTimeConverter() DateTime updatedAt
 });
 
 
@@ -305,7 +305,7 @@ as DateTime,
 /// @nodoc
 mixin _$TicketCheckoutOptions {
 
- String get id; String get checkoutSessionId; String get ticketOptionId; String? get optionValue; DateTime get createdAt; DateTime get updatedAt;
+ String get id; String get checkoutSessionId; String get ticketOptionId; String? get optionValue;@RequiredDateTimeConverter() DateTime get createdAt;@RequiredDateTimeConverter() DateTime get updatedAt;
 /// Create a copy of TicketCheckoutOptions
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -338,7 +338,7 @@ abstract mixin class $TicketCheckoutOptionsCopyWith<$Res>  {
   factory $TicketCheckoutOptionsCopyWith(TicketCheckoutOptions value, $Res Function(TicketCheckoutOptions) _then) = _$TicketCheckoutOptionsCopyWithImpl;
 @useResult
 $Res call({
- String id, String checkoutSessionId, String ticketOptionId, String? optionValue, DateTime createdAt, DateTime updatedAt
+ String id, String checkoutSessionId, String ticketOptionId, String? optionValue,@RequiredDateTimeConverter() DateTime createdAt,@RequiredDateTimeConverter() DateTime updatedAt
 });
 
 
@@ -448,7 +448,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String checkoutSessionId,  String ticketOptionId,  String? optionValue,  DateTime createdAt,  DateTime updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String checkoutSessionId,  String ticketOptionId,  String? optionValue, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _TicketCheckoutOptions() when $default != null:
 return $default(_that.id,_that.checkoutSessionId,_that.ticketOptionId,_that.optionValue,_that.createdAt,_that.updatedAt);case _:
@@ -469,7 +469,7 @@ return $default(_that.id,_that.checkoutSessionId,_that.ticketOptionId,_that.opti
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String checkoutSessionId,  String ticketOptionId,  String? optionValue,  DateTime createdAt,  DateTime updatedAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String checkoutSessionId,  String ticketOptionId,  String? optionValue, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)  $default,) {final _that = this;
 switch (_that) {
 case _TicketCheckoutOptions():
 return $default(_that.id,_that.checkoutSessionId,_that.ticketOptionId,_that.optionValue,_that.createdAt,_that.updatedAt);case _:
@@ -489,7 +489,7 @@ return $default(_that.id,_that.checkoutSessionId,_that.ticketOptionId,_that.opti
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String checkoutSessionId,  String ticketOptionId,  String? optionValue,  DateTime createdAt,  DateTime updatedAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String checkoutSessionId,  String ticketOptionId,  String? optionValue, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)?  $default,) {final _that = this;
 switch (_that) {
 case _TicketCheckoutOptions() when $default != null:
 return $default(_that.id,_that.checkoutSessionId,_that.ticketOptionId,_that.optionValue,_that.createdAt,_that.updatedAt);case _:
@@ -504,15 +504,15 @@ return $default(_that.id,_that.checkoutSessionId,_that.ticketOptionId,_that.opti
 @JsonSerializable()
 
 class _TicketCheckoutOptions implements TicketCheckoutOptions {
-  const _TicketCheckoutOptions({required this.id, required this.checkoutSessionId, required this.ticketOptionId, this.optionValue, required this.createdAt, required this.updatedAt});
+  const _TicketCheckoutOptions({required this.id, required this.checkoutSessionId, required this.ticketOptionId, this.optionValue, @RequiredDateTimeConverter() required this.createdAt, @RequiredDateTimeConverter() required this.updatedAt});
   factory _TicketCheckoutOptions.fromJson(Map<String, dynamic> json) => _$TicketCheckoutOptionsFromJson(json);
 
 @override final  String id;
 @override final  String checkoutSessionId;
 @override final  String ticketOptionId;
 @override final  String? optionValue;
-@override final  DateTime createdAt;
-@override final  DateTime updatedAt;
+@override@RequiredDateTimeConverter() final  DateTime createdAt;
+@override@RequiredDateTimeConverter() final  DateTime updatedAt;
 
 /// Create a copy of TicketCheckoutOptions
 /// with the given fields replaced by the non-null parameter values.
@@ -547,7 +547,7 @@ abstract mixin class _$TicketCheckoutOptionsCopyWith<$Res> implements $TicketChe
   factory _$TicketCheckoutOptionsCopyWith(_TicketCheckoutOptions value, $Res Function(_TicketCheckoutOptions) _then) = __$TicketCheckoutOptionsCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String checkoutSessionId, String ticketOptionId, String? optionValue, DateTime createdAt, DateTime updatedAt
+ String id, String checkoutSessionId, String ticketOptionId, String? optionValue,@RequiredDateTimeConverter() DateTime createdAt,@RequiredDateTimeConverter() DateTime updatedAt
 });
 
 

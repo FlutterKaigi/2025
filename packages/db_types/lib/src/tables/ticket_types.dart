@@ -1,3 +1,4 @@
+import 'package:db_types/src/converters/date_time_converter.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'ticket_types.freezed.dart';
@@ -12,11 +13,11 @@ abstract class TicketTypes with _$TicketTypes {
     int? maxQuantity,
     String? description,
     required bool isActive,
-    DateTime? saleStartsAt,
-    DateTime? saleEndsAt,
+    @DateTimeConverter() DateTime? saleStartsAt,
+    @DateTimeConverter() DateTime? saleEndsAt,
     String? url,
-    required DateTime createdAt,
-    required DateTime updatedAt,
+    @RequiredDateTimeConverter() required DateTime createdAt,
+    @RequiredDateTimeConverter() required DateTime updatedAt,
   }) = _TicketTypes;
 
   factory TicketTypes.fromJson(Map<String, dynamic> json) =>
