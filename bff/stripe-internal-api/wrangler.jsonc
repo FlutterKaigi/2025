@@ -1,0 +1,44 @@
+{
+  "$schema": "https://unpkg.com/wrangler@latest/config-schema.json",
+	"name": "stripe-internal-api",
+  "account_id": "cdd8f59359fe226645e7b541cdc53b57",
+	"main": "src/index.ts",
+	"compatibility_date": "2025-07-15",
+	"observability": {
+		"enabled": true,
+	},
+  "compatibility_flags": ["nodejs_compat"],
+	"env": {
+  "staging": {
+      "workers_dev": false,
+			"vars": {
+				"ENVIRONMENT": "staging"
+			},
+			"hyperdrive": [
+				{
+					"id": "a5ad3285bc2146929cf7b6e5fab52aa8",
+					"binding": "HYPERDRIVE",
+					"localConnectionString": "postgresql://postgres:postgres@localhost:5432/postgres"
+				}
+			],
+      "services": [
+        {
+          "binding": "PAYMENT_WORKFLOW_API",
+          "service": "payment-workflow-staging"
+        }
+      ]
+		},
+		"production": {
+      "workers_dev": false,
+			"vars": {
+				"ENVIRONMENT": "production"
+			},
+      "services": [
+        {
+          "binding": "PAYMENT_WORKFLOW_API",
+          "service": "payment-workflow-production"
+        }
+      ]
+		}
+	}
+}
