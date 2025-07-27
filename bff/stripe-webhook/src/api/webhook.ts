@@ -1,5 +1,5 @@
 import { env } from "cloudflare:workers";
-import type { PaymentWorkflowApiType } from "@2025/payment-workflow";
+import type { PaymentWorkflowApiType } from "@2025/payment-workflow-internal-api";
 import { Hono } from "hono";
 import { hc } from "hono/client";
 import { describeRoute } from "hono-openapi";

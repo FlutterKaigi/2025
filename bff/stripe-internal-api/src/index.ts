@@ -3,22 +3,22 @@ import { Hono } from "hono";
 import { logger } from "hono/logger";
 import { secureHeaders } from "hono/secure-headers";
 import { openAPISpecs } from "hono-openapi";
-import { webhookApi } from "./api/webhook";
+import { internalApi } from "./api/internal";
 
 const app = new Hono<{
   Bindings: Cloudflare.Env;
 }>()
   .use("*", secureHeaders())
   .use("*", logger())
-  .route("/webhook", webhookApi)
-  .get("/scalar", Scalar({ url: "/openapi", title: "Stripe Webhook API" }));
+  .route("/internal", internalApi)
+  .get("/scalar", Scalar({ url: "/openapi", title: "Stripe Internal API" }));
 
 app.get(
   "/openapi",
   openAPISpecs(app, {
     documentation: {
       info: {
-        title: "Stripe Webhook API",
+        title: "Stripe Internal API",
         version: "1.0.0",
         contact: {
           name: "Ryotaro Onoue",
