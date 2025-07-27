@@ -23,7 +23,6 @@ _TicketCheckoutResponse _$TicketCheckoutResponseFromJson(
         'stripe_checkout_url',
         (v) => v as String,
       ),
-      totalAmount: $checkedConvert('total_amount', (v) => (v as num).toInt()),
       expiresAt: $checkedConvert(
         'expires_at',
         (v) => DateTime.parse(v as String),
@@ -34,7 +33,6 @@ _TicketCheckoutResponse _$TicketCheckoutResponseFromJson(
   fieldKeyMap: const {
     'checkoutSessionId': 'checkout_session_id',
     'stripeCheckoutUrl': 'stripe_checkout_url',
-    'totalAmount': 'total_amount',
     'expiresAt': 'expires_at',
   },
 );
@@ -44,6 +42,5 @@ Map<String, dynamic> _$TicketCheckoutResponseToJson(
 ) => <String, dynamic>{
   'checkout_session_id': instance.checkoutSessionId,
   'stripe_checkout_url': instance.stripeCheckoutUrl,
-  'total_amount': instance.totalAmount,
   'expires_at': instance.expiresAt.toIso8601String(),
 };
