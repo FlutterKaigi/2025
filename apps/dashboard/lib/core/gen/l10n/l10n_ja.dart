@@ -125,4 +125,8 @@ class L10nJa extends L10n {
 
   @override
   String get guestUserLabel => 'ゲストでログイン中';
+
+  @override
+  String get authErrorIdentityAlreadyExists =>
+      'このGoogleアカウントは既に別のユーザーと紐づけられています。ログアウトしてから再度ログインしてください。';
 }

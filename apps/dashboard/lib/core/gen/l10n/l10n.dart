@@ -320,6 +320,12 @@ abstract class L10n {
   /// In ja, this message translates to:
   /// **'ゲストでログイン中'**
   String get guestUserLabel;
+
+  /// No description provided for @authErrorIdentityAlreadyExists.
+  ///
+  /// In ja, this message translates to:
+  /// **'このGoogleアカウントは既に別のユーザーと紐づけられています。ログアウトしてから再度ログインしてください。'**
+  String get authErrorIdentityAlreadyExists;
 }
 
 class _L10nDelegate extends LocalizationsDelegate<L10n> {

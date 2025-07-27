@@ -67,14 +67,38 @@ GoRouter router(Ref ref) {
         return const EventInfoRoute().location;
       }
       if (isAuthorized && state.uri.host == 'login-callback') {
-        unawaited(
-          ref.read(authServiceProvider).refreshSession(),
-        );
+        // エラーパラメータをチェック
+        final errorCode = state.uri.queryParameters['error_code'];
+        if (errorCode == 'identity_already_exists') {
+          // エラーメッセージを表示
+          unawaited(_handleIdentityAlreadyExistsError(context, ref));
+        } else {
+          unawaited(
+            ref.read(authServiceProvider).refreshSession(),
+          );
+        }
         return const AccountInfoRoute().location;
       }
       return null;
     },
   );
+}
+
+/// Googleアカウントが既に別のユーザーと紐づけられている場合エラートーストを表示する
+Future<void> _handleIdentityAlreadyExistsError(
+  BuildContext context,
+  Ref ref,
+) async {
+  // エラーメッセージを表示
+  if (context.mounted) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(L10n.of(context).authErrorIdentityAlreadyExists),
+        behavior: SnackBarBehavior.floating,
+        duration: const Duration(seconds: 5),
+      ),
+    );
+  }
 }
 
 @TypedGoRoute<LoginRoute>(path: '/login')

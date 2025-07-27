@@ -75,5 +75,7 @@
   "guestSignInButton": "ゲストで利用する",
   "@guestSignInButton": {},
   "guestUserLabel": "ゲストでログイン中",
-  "@guestUserLabel": {}
+  "@guestUserLabel": {},
+  "authErrorIdentityAlreadyExists": "このGoogleアカウントは既に別のユーザーと紐づけられています。ログアウトしてから再度ログインしてください。",
+  "@authErrorIdentityAlreadyExists": {}
 }
