@@ -145,9 +145,9 @@ class _UserInfoCard extends ConsumerWidget {
           ]
         : [
             // TODO(YumNumm): Repository層でパースする
-            if (user.userMetadata?['avatar_url'] != null)
+            if (user.avatarUrl != null)
               AccountCircleImage(
-                imageUrl: user.userMetadata!['avatar_url'].toString(),
+                imageUrl: user.avatarUrl!,
               ),
             const SizedBox(height: 16),
             Text(
@@ -248,5 +248,12 @@ class _UserInfoCard extends ConsumerWidget {
         ),
       ),
     );
+  }
+}
+
+extension on User {
+  String? get avatarUrl {
+    return userMetadata?['avatar_url']?.toString() ??
+        identities?.firstOrNull?.identityData?['avatar_url']?.toString();
   }
 }
