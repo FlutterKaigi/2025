@@ -45,6 +45,11 @@ class LoginScreen extends ConsumerWidget {
                           .read(authNotifierProvider.notifier)
                           .signInWithGoogle(),
                     ),
+                    _GuestSignInButton(
+                      onPressed: () async => ref
+                          .read(authNotifierProvider.notifier)
+                          .signInAnonymously(),
+                    ),
                   ],
                 ),
               ),
@@ -71,6 +76,35 @@ class _GoogleSignInButton extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(40),
         onTap: onPressed,
+      ),
+    );
+  }
+}
+
+class _GuestSignInButton extends StatelessWidget {
+  const _GuestSignInButton({required this.onPressed});
+
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final l10n = L10n.of(context);
+
+    return SizedBox(
+      width: 210,
+      height: 48,
+      child: OutlinedButton(
+        onPressed: onPressed,
+        style: OutlinedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(40),
+          ),
+        ),
+        child: Text(
+          l10n.guestSignInButton,
+          style: theme.textTheme.labelLarge,
+        ),
       ),
     );
   }

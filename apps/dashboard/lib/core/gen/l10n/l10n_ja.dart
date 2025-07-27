@@ -119,4 +119,14 @@ class L10nJa extends L10n {
 
   @override
   String get accountApply => '適用';
+
+  @override
+  String get guestSignInButton => 'ゲストで利用する';
+
+  @override
+  String get guestUserLabel => 'ゲストでログイン中';
+
+  @override
+  String get authErrorIdentityAlreadyExists =>
+      'このGoogleアカウントは既に別のユーザーと紐づけられています。ログアウトしてから再度ログインしてください。';
 }

@@ -24,6 +24,20 @@ class AuthNotifier extends _$AuthNotifier {
         .signInWithGoogle(redirectTo: redirectTo);
   }
 
+  Future<User?> signInAnonymously() async {
+    return ref.read(authServiceProvider).signInAnonymously();
+  }
+
+  Future<void> linkAnonymousUserWithGoogle() async {
+    final environment = ref.read(environmentProvider);
+    final redirectTo =
+        'jp.flutterkaigi.2025.dashboard${environment.appIdSuffix}'
+        '://login-callback';
+    await ref
+        .read(authServiceProvider)
+        .linkAnonymousUserWithGoogle(redirectTo: redirectTo);
+  }
+
   Future<void> signOut() async => ref.read(authServiceProvider).signOut();
 
   Future<String?> getAccessToken() async {
