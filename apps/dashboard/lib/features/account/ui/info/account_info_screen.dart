@@ -7,6 +7,15 @@ import 'package:dashboard/features/auth/data/notifier/auth_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+/// アカウント情報画面
+///
+/// 主な役割:
+/// - ユーザーのアカウント情報を表示する
+/// - 匿名ユーザーの場合は適切な表示を行う
+/// - プロフィール編集や招待コード入力などの機能を提供する
+///
+/// 参考:
+/// - [SCREENS.md](https://github.com/FlutterKaigi/2025/blob/main/docs/dashboard/SCREENS.md)
 final class AccountInfoScreen extends ConsumerWidget {
   const AccountInfoScreen({
     required VoidCallback onProfileEdit,
