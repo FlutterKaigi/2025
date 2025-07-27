@@ -13,6 +13,8 @@ abstract class Environments with _$Environments {
     required String cfVersionMetadataTag,
     required String cfVersionMetadataTimestamp,
     required String postgresUrl,
+    required String internalApiUrl,
+    required String xApiKey,
   }) = _Environments;
 
   const Environments._();

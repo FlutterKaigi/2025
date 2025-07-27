@@ -12,6 +12,7 @@ export class BffEngine extends Container<Cloudflare.Env> {
     CF_VERSION_METADATA_TIMESTAMP: env.CF_VERSION_METADATA.timestamp,
     POSTGRES_URL: env.POSTGRES_URL,
     X_API_KEY: env.X_API_KEY,
+    INTERNAL_API_URL: env.INTERNAL_API_URL,
   };
 }
 
