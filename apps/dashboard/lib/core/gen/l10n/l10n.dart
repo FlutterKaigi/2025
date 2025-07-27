@@ -314,6 +314,12 @@ abstract class L10n {
   /// In ja, this message translates to:
   /// **'ゲストで利用する'**
   String get guestSignInButton;
+
+  /// No description provided for @guestUserLabel.
+  ///
+  /// In ja, this message translates to:
+  /// **'ゲストでログイン中'**
+  String get guestUserLabel;
 }
 
 class _L10nDelegate extends LocalizationsDelegate<L10n> {

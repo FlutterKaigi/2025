@@ -73,5 +73,7 @@
   "accountApply": "適用",
   "@accountApply": {},
   "guestSignInButton": "ゲストで利用する",
-  "@guestSignInButton": {}
+  "@guestSignInButton": {},
+  "guestUserLabel": "ゲストでログイン中",
+  "@guestUserLabel": {}
 }
