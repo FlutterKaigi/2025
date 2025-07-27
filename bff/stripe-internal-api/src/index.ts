@@ -11,7 +11,11 @@ const app = new Hono<{
   .use("*", secureHeaders())
   .use("*", logger())
   .route("/internal", internalApi)
-  .get("/scalar", Scalar({ url: "/openapi", title: "Stripe Internal API" }));
+  .get("/scalar", Scalar({ url: "/openapi", title: "Stripe Internal API" }))
+  .onError((err, c) => {
+    console.error(err);
+    return c.json({ message: "Internal Server Error", error: err }, 500);
+  });
 
 app.get(
   "/openapi",
