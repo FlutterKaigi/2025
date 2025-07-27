@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dashboard/core/debug/debug_screen.dart';
 import 'package:dashboard/core/debug/talker.dart';
 import 'package:dashboard/core/gen/l10n/l10n.dart';
@@ -6,6 +8,7 @@ import 'package:dashboard/features/account/ui/info/account_info_screen.dart';
 import 'package:dashboard/features/account/ui/profile_edit_screen.dart';
 import 'package:dashboard/features/account/ui/withdrawal_screen.dart';
 import 'package:dashboard/features/auth/data/notifier/auth_notifier.dart';
+import 'package:dashboard/features/auth/data/provider/auth_service.dart';
 import 'package:dashboard/features/auth/ui/login_screen.dart';
 import 'package:dashboard/features/event/ui/event_info_screen.dart';
 import 'package:dashboard/features/news/ui/news_screen.dart';
@@ -62,6 +65,12 @@ GoRouter router(Ref ref) {
       }
       if (isAuthorized && state.fullPath == const LoginRoute().location) {
         return const EventInfoRoute().location;
+      }
+      if (isAuthorized && state.uri.host == 'login-callback') {
+        unawaited(
+          ref.read(authServiceProvider).refreshSession(),
+        );
+        return const AccountInfoRoute().location;
       }
       return null;
     },
