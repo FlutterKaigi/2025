@@ -11,7 +11,6 @@ class AuthService {
     url: supabaseUrl,
     anonKey: supabaseKey,
     debug: isDebug,
-    
   );
 
   /// `initialize`を呼び出した後に使用できる。
@@ -59,7 +58,6 @@ class AuthService {
   Session? get currentSession => _client.auth.currentSession;
 
   Future<AuthResponse> refreshSession() => _client.auth.refreshSession();
-
 
   /// 認証状態の変化を監視する
   Stream<AuthStateEvent> authStateChangeStream() =>
