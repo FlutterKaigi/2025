@@ -1,43 +1,43 @@
 {
   "$schema": "https://unpkg.com/wrangler@latest/config-schema.json",
-	"name": "internal-api-proxy",
+  "name": "internal-api-proxy",
   "account_id": "cdd8f59359fe226645e7b541cdc53b57",
-	"main": "src/index.ts",
-	"compatibility_date": "2025-07-15",
-	"observability": {
-		"enabled": true,
-	},
+  "main": "src/index.ts",
+  "compatibility_date": "2025-07-15",
+  "observability": {
+    "enabled": true,
+  },
   "compatibility_flags": ["nodejs_compat"],
-	"env": {
-  "staging": {
-			"vars": {
-				"ENVIRONMENT": "staging"
-			},
+  "env": {
+    "staging": {
+      "vars": {
+        "ENVIRONMENT": "staging",
+      },
       "services": [
         {
           "binding": "PAYMENT_WORKFLOW_INTERNAL_API",
-          "service": "payment-workflow-internal-api-staging"
+          "service": "payment-workflow-internal-api-staging",
         },
         {
           "binding": "STRIPE_INTERNAL_API",
-          "service": "stripe-internal-api-staging"
-        }
-      ]
-		},
-		"production": {
-			"vars": {
-				"ENVIRONMENT": "production"
-			},
+          "service": "stripe-internal-api-staging",
+        },
+      ],
+    },
+    "production": {
+      "vars": {
+        "ENVIRONMENT": "production",
+      },
       "services": [
         {
           "binding": "PAYMENT_WORKFLOW_INTERNAL_API",
-          "service": "payment-workflow-internal-api-production"
+          "service": "payment-workflow-internal-api-production",
         },
         {
           "binding": "STRIPE_INTERNAL_API",
-          "service": "stripe-internal-api-production"
-        }
-      ]
-		}
-	}
+          "service": "stripe-internal-api-production",
+        },
+      ],
+    },
+  },
 }
