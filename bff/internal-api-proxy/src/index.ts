@@ -16,13 +16,13 @@ const app = new Hono<{
   .use("*", logger())
   .use("*", cors())
   .use("*", async (c, next) => {
-    // const apiKey = c.req.header("x-api-key");
-    // if (apiKey === undefined) {
-    //   return c.json({ error: "Unauthorized" }, 401);
-    // }
-    // if (!timingSafeEqual(apiKey, c.env.X_API_KEY)) {
-    //   return c.json({ error: "Unauthorized" }, 401);
-    // }
+    const apiKey = c.req.header("x-api-key");
+    if (apiKey === undefined) {
+      return c.json({ error: "Unauthorized" }, 401);
+    }
+    if (!timingSafeEqual(apiKey, c.env.X_API_KEY)) {
+      return c.json({ error: "Unauthorized" }, 401);
+    }
     await next();
   })
   .all(
