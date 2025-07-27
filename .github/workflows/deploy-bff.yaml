@@ -287,6 +287,8 @@ jobs:
         id: deploy-bff-production
         working-directory: bff/bridge
         if: ${{ matrix.environment == 'production' }}
+        env:
+          SUPABASE_PROJECT_ID: ${{ needs.get-supabase-connection-info.outputs.SUPABASE_PROJECT_ID_PRODUCTION }}
         run: |
           {
             echo "LOG<<EOL"
@@ -311,15 +313,12 @@ jobs:
 
       - name: Set logs
         id: set-logs
-        env:
-          STAGING_LOG: ${{ steps.deploy-bff-staging.outputs.log }}
-          PRODUCTION_LOG: ${{ steps.deploy-bff-production.outputs.log }}
         run: |
           function get-log() {
-            if [ -z '${{ steps.deploy-bff-production.outputs.LOG }}' ]; then
-              echo '${{ steps.deploy-bff-staging.outputs.LOG }}'
-            else
+            if [ "${{ matrix.environment }}" = "production" ]; then
               echo '${{ steps.deploy-bff-production.outputs.LOG }}'
+            else
+              echo '${{ steps.deploy-bff-staging.outputs.LOG }}'
             fi
           }
 
