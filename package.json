@@ -9,6 +9,7 @@
     "check": "bun run check-types && bun run format",
     "check-types": "turbo run check-types",
     "format": "turbo run format",
+    "build": "turbo run build",
     "dev": "turbo run dev",
     "deploy:staging": "turbo run deploy:staging",
     "deploy:production": "turbo run deploy:production"
@@ -27,7 +28,8 @@
     "apps/website",
     "bff/bridge",
     "bff/stripe-webhook",
-    "bff/database"
+    "bff/database",
+    "bff/payment-workflow"
   ],
   "trustedDependencies": [
     "@biomejs/biome",

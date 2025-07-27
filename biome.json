@@ -1,15 +1,16 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.1.2/schema.json",
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "vcs": {
     "enabled": true,
     "clientKind": "git",
     "useIgnoreFile": true
   },
   "files": {
-    "ignoreUnknown": false,
+    "ignoreUnknown": true,
     "includes": [
-      "src/**/*.ts",
-      "!worker-configuration.d.ts"
+      "**/*.ts",
+      "!**/*/worker-configuration.d.ts",
+      "!node_modules/**/*"
     ]
   },
   "formatter": {

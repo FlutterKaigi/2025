@@ -21,7 +21,8 @@
     "**/worker-configuration.d.ts": true
   },
   "editor.codeActionsOnSave": {
-    "source.fixAll": "explicit"
+    "source.fixAll": "explicit",
+    "source.organizeImports.biome": "explicit"
   },
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.patterns": {
@@ -37,8 +38,9 @@
   "[json][jsonc][yaml][markdown]": {
     "editor.defaultFormatter": "dprint.dprint"
   },
+  "json.schemaDownload.enable": true,
   "[typescript][javascript]": {
-    "editor.defaultFormatter": "biomejs.biome"
+    "editor.defaultFormatter": "biomejs.biome",
   },
   "[sql]": {
     "editor.defaultFormatter": "ReneSaarsoo.sql-formatter-vsc"

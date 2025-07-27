@@ -1,6 +1,7 @@
 {
   "$schema": "https://unpkg.com/wrangler@latest/config-schema.json",
   "name": "flutterkaigi-2025-bff",
+  "account_id": "cdd8f59359fe226645e7b541cdc53b57",
   "main": "src/index.ts",
   "compatibility_date": "2025-04-30",
   "observability": {

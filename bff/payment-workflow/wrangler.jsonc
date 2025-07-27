@@ -1,0 +1,51 @@
+{
+  "$schema": "https://unpkg.com/wrangler@latest/config-schema.json",
+  "name": "payment-workflow",
+  "account_id": "cdd8f59359fe226645e7b541cdc53b57",
+  "main": "src/index.ts",
+  "compatibility_date": "2024-10-22",
+  "observability": {
+    "enabled": true,
+  },
+  "placement": { "mode": "smart" },
+  "compatibility_flags": ["nodejs_compat"],
+  "env": {
+    "staging": {
+      "workers_dev": false,
+      "vars": {
+        "ENV": "staging",
+      },
+      "workflows": [
+        {
+          "name": "ticket-checkout-workflow-staging",
+          "binding": "TICKET_CHECKOUT_WORKFLOW",
+          "class_name": "TicketCheckoutWorkflow",
+        },
+        {
+          "name": "payment-completion-workflow-staging",
+          "binding": "PAYMENT_COMPLETION_WORKFLOW",
+          "class_name": "PaymentCompletionWorkflow",
+        },
+      ],
+    },
+    "production": {
+      "workers_dev": false,
+      "vars": {
+        "ENV": "production",
+      },
+
+      "workflows": [
+        {
+          "name": "ticket-checkout-workflow-production",
+          "binding": "TICKET_CHECKOUT_WORKFLOW",
+          "class_name": "TicketCheckoutWorkflow",
+        },
+        {
+          "name": "payment-completion-workflow-production",
+          "binding": "PAYMENT_COMPLETION_WORKFLOW",
+          "class_name": "PaymentCompletionWorkflow",
+        },
+      ],
+    },
+  },
+}
