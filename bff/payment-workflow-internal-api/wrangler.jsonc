@@ -15,13 +15,13 @@
       "vars": {
         "ENV": "staging",
       },
-			"hyperdrive": [
-				{
-					"id": "a5ad3285bc2146929cf7b6e5fab52aa8",
-					"binding": "HYPERDRIVE",
-					"localConnectionString": "postgresql://postgres:postgres@localhost:5432/postgres"
-				}
-			],
+      "hyperdrive": [
+        {
+          "id": "a5ad3285bc2146929cf7b6e5fab52aa8",
+          "binding": "HYPERDRIVE",
+          "localConnectionString": "postgresql://postgres:postgres@localhost:5432/postgres",
+        },
+      ],
       "workflows": [
         {
           "name": "ticket-checkout-workflow-staging",
