@@ -11,6 +11,7 @@ abstract class TicketOptions with _$TicketOptions {
     required String ticketTypeId,
     required String name,
     String? description,
+    int? maxQuantity,
     @RequiredDateTimeConverter() required DateTime createdAt,
     @RequiredDateTimeConverter() required DateTime updatedAt,
   }) = _TicketOptions;

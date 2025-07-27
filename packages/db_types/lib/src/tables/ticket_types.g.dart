@@ -27,7 +27,7 @@ _TicketTypes _$TicketTypesFromJson(Map<String, dynamic> json) => $checkedCreate(
         'sale_ends_at',
         (v) => const DateTimeConverter().fromJson(v),
       ),
-      url: $checkedConvert('url', (v) => v as String?),
+      stripePriceId: $checkedConvert('stripe_price_id', (v) => v as String),
       createdAt: $checkedConvert(
         'created_at',
         (v) => const RequiredDateTimeConverter().fromJson(v),
@@ -44,6 +44,7 @@ _TicketTypes _$TicketTypesFromJson(Map<String, dynamic> json) => $checkedCreate(
     'isActive': 'is_active',
     'saleStartsAt': 'sale_starts_at',
     'saleEndsAt': 'sale_ends_at',
+    'stripePriceId': 'stripe_price_id',
     'createdAt': 'created_at',
     'updatedAt': 'updated_at',
   },
@@ -60,7 +61,7 @@ Map<String, dynamic> _$TicketTypesToJson(
   'is_active': instance.isActive,
   'sale_starts_at': const DateTimeConverter().toJson(instance.saleStartsAt),
   'sale_ends_at': const DateTimeConverter().toJson(instance.saleEndsAt),
-  'url': instance.url,
+  'stripe_price_id': instance.stripePriceId,
   'created_at': const RequiredDateTimeConverter().toJson(instance.createdAt),
   'updated_at': const RequiredDateTimeConverter().toJson(instance.updatedAt),
 };

@@ -8,6 +8,8 @@ part 'companies.g.dart';
 abstract class Companies with _$Companies {
   const factory Companies({
     required int id,
+    required String name,
+    required String logoName,
     @RequiredDateTimeConverter() required DateTime createdAt,
     @RequiredDateTimeConverter() required DateTime updatedAt,
   }) = _Companies;

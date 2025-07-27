@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$TicketOptions {
 
- String get id; String get ticketTypeId; String get name; String? get description;@RequiredDateTimeConverter() DateTime get createdAt;@RequiredDateTimeConverter() DateTime get updatedAt;
+ String get id; String get ticketTypeId; String get name; String? get description; int? get maxQuantity;@RequiredDateTimeConverter() DateTime get createdAt;@RequiredDateTimeConverter() DateTime get updatedAt;
 /// Create a copy of TicketOptions
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $TicketOptionsCopyWith<TicketOptions> get copyWith => _$TicketOptionsCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TicketOptions&&(identical(other.id, id) || other.id == id)&&(identical(other.ticketTypeId, ticketTypeId) || other.ticketTypeId == ticketTypeId)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TicketOptions&&(identical(other.id, id) || other.id == id)&&(identical(other.ticketTypeId, ticketTypeId) || other.ticketTypeId == ticketTypeId)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.maxQuantity, maxQuantity) || other.maxQuantity == maxQuantity)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,ticketTypeId,name,description,createdAt,updatedAt);
+int get hashCode => Object.hash(runtimeType,id,ticketTypeId,name,description,maxQuantity,createdAt,updatedAt);
 
 @override
 String toString() {
-  return 'TicketOptions(id: $id, ticketTypeId: $ticketTypeId, name: $name, description: $description, createdAt: $createdAt, updatedAt: $updatedAt)';
+  return 'TicketOptions(id: $id, ticketTypeId: $ticketTypeId, name: $name, description: $description, maxQuantity: $maxQuantity, createdAt: $createdAt, updatedAt: $updatedAt)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $TicketOptionsCopyWith<$Res>  {
   factory $TicketOptionsCopyWith(TicketOptions value, $Res Function(TicketOptions) _then) = _$TicketOptionsCopyWithImpl;
 @useResult
 $Res call({
- String id, String ticketTypeId, String name, String? description,@RequiredDateTimeConverter() DateTime createdAt,@RequiredDateTimeConverter() DateTime updatedAt
+ String id, String ticketTypeId, String name, String? description, int? maxQuantity,@RequiredDateTimeConverter() DateTime createdAt,@RequiredDateTimeConverter() DateTime updatedAt
 });
 
 
@@ -65,13 +65,14 @@ class _$TicketOptionsCopyWithImpl<$Res>
 
 /// Create a copy of TicketOptions
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? ticketTypeId = null,Object? name = null,Object? description = freezed,Object? createdAt = null,Object? updatedAt = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? ticketTypeId = null,Object? name = null,Object? description = freezed,Object? maxQuantity = freezed,Object? createdAt = null,Object? updatedAt = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,ticketTypeId: null == ticketTypeId ? _self.ticketTypeId : ticketTypeId // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
-as String?,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as String?,maxQuantity: freezed == maxQuantity ? _self.maxQuantity : maxQuantity // ignore: cast_nullable_to_non_nullable
+as int?,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,
   ));
@@ -158,10 +159,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String ticketTypeId,  String name,  String? description, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String ticketTypeId,  String name,  String? description,  int? maxQuantity, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _TicketOptions() when $default != null:
-return $default(_that.id,_that.ticketTypeId,_that.name,_that.description,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.id,_that.ticketTypeId,_that.name,_that.description,_that.maxQuantity,_that.createdAt,_that.updatedAt);case _:
   return orElse();
 
 }
@@ -179,10 +180,10 @@ return $default(_that.id,_that.ticketTypeId,_that.name,_that.description,_that.c
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String ticketTypeId,  String name,  String? description, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String ticketTypeId,  String name,  String? description,  int? maxQuantity, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)  $default,) {final _that = this;
 switch (_that) {
 case _TicketOptions():
-return $default(_that.id,_that.ticketTypeId,_that.name,_that.description,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.id,_that.ticketTypeId,_that.name,_that.description,_that.maxQuantity,_that.createdAt,_that.updatedAt);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -199,10 +200,10 @@ return $default(_that.id,_that.ticketTypeId,_that.name,_that.description,_that.c
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String ticketTypeId,  String name,  String? description, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String ticketTypeId,  String name,  String? description,  int? maxQuantity, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)?  $default,) {final _that = this;
 switch (_that) {
 case _TicketOptions() when $default != null:
-return $default(_that.id,_that.ticketTypeId,_that.name,_that.description,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.id,_that.ticketTypeId,_that.name,_that.description,_that.maxQuantity,_that.createdAt,_that.updatedAt);case _:
   return null;
 
 }
@@ -214,13 +215,14 @@ return $default(_that.id,_that.ticketTypeId,_that.name,_that.description,_that.c
 @JsonSerializable()
 
 class _TicketOptions implements TicketOptions {
-  const _TicketOptions({required this.id, required this.ticketTypeId, required this.name, this.description, @RequiredDateTimeConverter() required this.createdAt, @RequiredDateTimeConverter() required this.updatedAt});
+  const _TicketOptions({required this.id, required this.ticketTypeId, required this.name, this.description, this.maxQuantity, @RequiredDateTimeConverter() required this.createdAt, @RequiredDateTimeConverter() required this.updatedAt});
   factory _TicketOptions.fromJson(Map<String, dynamic> json) => _$TicketOptionsFromJson(json);
 
 @override final  String id;
 @override final  String ticketTypeId;
 @override final  String name;
 @override final  String? description;
+@override final  int? maxQuantity;
 @override@RequiredDateTimeConverter() final  DateTime createdAt;
 @override@RequiredDateTimeConverter() final  DateTime updatedAt;
 
@@ -237,16 +239,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TicketOptions&&(identical(other.id, id) || other.id == id)&&(identical(other.ticketTypeId, ticketTypeId) || other.ticketTypeId == ticketTypeId)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TicketOptions&&(identical(other.id, id) || other.id == id)&&(identical(other.ticketTypeId, ticketTypeId) || other.ticketTypeId == ticketTypeId)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.maxQuantity, maxQuantity) || other.maxQuantity == maxQuantity)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,ticketTypeId,name,description,createdAt,updatedAt);
+int get hashCode => Object.hash(runtimeType,id,ticketTypeId,name,description,maxQuantity,createdAt,updatedAt);
 
 @override
 String toString() {
-  return 'TicketOptions(id: $id, ticketTypeId: $ticketTypeId, name: $name, description: $description, createdAt: $createdAt, updatedAt: $updatedAt)';
+  return 'TicketOptions(id: $id, ticketTypeId: $ticketTypeId, name: $name, description: $description, maxQuantity: $maxQuantity, createdAt: $createdAt, updatedAt: $updatedAt)';
 }
 
 
@@ -257,7 +259,7 @@ abstract mixin class _$TicketOptionsCopyWith<$Res> implements $TicketOptionsCopy
   factory _$TicketOptionsCopyWith(_TicketOptions value, $Res Function(_TicketOptions) _then) = __$TicketOptionsCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String ticketTypeId, String name, String? description,@RequiredDateTimeConverter() DateTime createdAt,@RequiredDateTimeConverter() DateTime updatedAt
+ String id, String ticketTypeId, String name, String? description, int? maxQuantity,@RequiredDateTimeConverter() DateTime createdAt,@RequiredDateTimeConverter() DateTime updatedAt
 });
 
 
@@ -274,13 +276,14 @@ class __$TicketOptionsCopyWithImpl<$Res>
 
 /// Create a copy of TicketOptions
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? ticketTypeId = null,Object? name = null,Object? description = freezed,Object? createdAt = null,Object? updatedAt = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? ticketTypeId = null,Object? name = null,Object? description = freezed,Object? maxQuantity = freezed,Object? createdAt = null,Object? updatedAt = null,}) {
   return _then(_TicketOptions(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,ticketTypeId: null == ticketTypeId ? _self.ticketTypeId : ticketTypeId // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
-as String?,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as String?,maxQuantity: freezed == maxQuantity ? _self.maxQuantity : maxQuantity // ignore: cast_nullable_to_non_nullable
+as int?,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,
   ));

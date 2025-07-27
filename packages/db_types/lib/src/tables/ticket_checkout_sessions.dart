@@ -8,7 +8,6 @@ enum TicketCheckoutStatus {
   pending,
   completed,
   expired,
-  cancelled,
 }
 
 @freezed
@@ -18,9 +17,9 @@ abstract class TicketCheckoutSessions with _$TicketCheckoutSessions {
     required String userId,
     required String ticketTypeId,
     required TicketCheckoutStatus status,
-    String? stripePaymentIntentId,
-    String? stripeCheckoutSessionId,
-    required int totalAmount,
+    required String stripeCheckoutSessionId,
+    required String stripeCheckoutUrl,
+    String? ticketCheckoutWorkflowId,
     @RequiredDateTimeConverter() required DateTime expiresAt,
     @RequiredDateTimeConverter() required DateTime createdAt,
     @RequiredDateTimeConverter() required DateTime updatedAt,
@@ -36,7 +35,6 @@ abstract class TicketCheckoutOptions with _$TicketCheckoutOptions {
     required String id,
     required String checkoutSessionId,
     required String ticketOptionId,
-    String? optionValue,
     @RequiredDateTimeConverter() required DateTime createdAt,
     @RequiredDateTimeConverter() required DateTime updatedAt,
   }) = _TicketCheckoutOptions;

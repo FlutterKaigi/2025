@@ -8,10 +8,10 @@ part 'company_drafts.g.dart';
 abstract class CompanyDrafts with _$CompanyDrafts {
   const factory CompanyDrafts({
     required int id,
-    required int companyId,
-    required String name,
+    int? companyId,
     required String slug,
-    required String? logoName,
+    required String description,
+    required String websiteUrl,
     @RequiredDateTimeConverter() required DateTime createdAt,
     @RequiredDateTimeConverter() required DateTime updatedAt,
   }) = _CompanyDrafts;
@@ -26,7 +26,7 @@ abstract class CompanyDraftApprovals with _$CompanyDraftApprovals {
     required int id,
     required int companyDraftId,
     // 承認したユーザがアカウントを削除した場合、nullになる
-    required String? approvedById,
+    required String? approvedBy,
     @RequiredDateTimeConverter() required DateTime createdAt,
   }) = _CompanyDraftApprovals;
 
