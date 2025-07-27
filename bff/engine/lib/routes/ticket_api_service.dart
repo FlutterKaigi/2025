@@ -171,7 +171,6 @@ class TicketApiService {
       return TicketCheckoutResponse(
         checkoutSessionId: checkoutSession.id,
         stripeCheckoutUrl: stripeCheckoutUrl,
-        totalAmount: checkoutSession.totalAmount,
         expiresAt: checkoutSession.expiresAt,
       ).toJson();
     },
