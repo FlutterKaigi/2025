@@ -38,6 +38,18 @@ class AuthService {
     return currentUser;
   }
 
+  /// 匿名ユーザーをGoogleアカウントと紐づける
+  Future<void> linkAnonymousUserWithGoogle({
+    String? redirectTo,
+    LaunchMode authScreenLaunchMode = LaunchMode.externalApplication,
+  }) async {
+    await _client.auth.linkIdentity(
+      OAuthProvider.google,
+      redirectTo: redirectTo,
+      authScreenLaunchMode: authScreenLaunchMode,
+    );
+  }
+
   /// ログアウトする
   Future<void> signOut() async => _client.auth.signOut();
 
