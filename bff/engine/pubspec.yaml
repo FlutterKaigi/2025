@@ -14,8 +14,11 @@ dependencies:
     path: ../../packages/db_client
   db_types:
     path: ../../packages/db_types
+  dio: ^5.8.0+1
   freezed_annotation: ^3.0.0
   http: ^1.4.0
+  internal_api_client:
+    path: ../../packages/internal_api_client
   json_annotation: ^4.9.0
   riverpod: ^3.0.0-dev.16
   riverpod_annotation: ^3.0.0-dev.16
