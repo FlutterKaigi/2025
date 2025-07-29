@@ -359,12 +359,17 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社YOUTRUST',
-    url: '',
-    sns: (x: null),
-    pr: (ja: '', en: null),
-    logo: '',
+    url: 'https://youtrust.co.jp/',
+    sns: (x: 'YOUTRUSTinc'),
+    pr: (
+      ja:
+          '技術で世界を変えるFlutterエンジニアを応援！YOUTRUSTはキャリアSNSで技術者のつながりを創り、'
+          'Flutter開発者の挑戦と成長を心から応援しています。',
+      en: null,
+    ),
+    logo: '/img/sponsor/youtrust.png',
     type: SponsorType.silver,
-    disable: true,
+    disable: false,
   ),
   (
     name: 'ソニー株式会社',
@@ -394,6 +399,22 @@ const _sponsors = <SponsorInfo>[
       en: null,
     ),
     logo: '/img/sponsor/team-lab.png',
+    type: SponsorType.silver,
+    disable: false,
+  ),
+  (
+    name: '株式会社hacomono',
+    url: 'https://www.hacomono.co.jp/',
+    sns: (x: 'hacomono_Dev'),
+    pr: (
+      ja:
+          // ignore: missing_whitespace_between_adjacent_strings
+          'hacomonoはウェルネス産業向けのVertical SaaS企業です。'
+          '入会・予約・決済・会員管理のデジタル化を提供し、'
+          'ジュニアスクールから公共施設まで幅広く導入されています。2025年1月にシリーズD調達を実施しました！',
+      en: null,
+    ),
+    logo: '/img/sponsor/hacomono.png',
     type: SponsorType.silver,
     disable: false,
   ),
@@ -555,6 +576,20 @@ const _sponsors = <SponsorInfo>[
       en: null,
     ),
     logo: '/img/sponsor/ibj.png',
+    type: SponsorType.bronze,
+    disable: false,
+  ),
+  (
+    name: '株式会社TRUSTDOCK',
+    url: 'https://biz.trustdock.io/company',
+    sns: (x: null),
+    pr: (
+      ja:
+          'TRUSTDOCKは急成長するeKYC市場で、toB向け本人確認APIやtoC向けデジタルIDウォレットを開発し、'
+          '社会のデジタル化を推進しています。フルリモートの環境で、社会に必要とされるプロダクトを一緒に開発しませんか？',
+      en: null,
+    ),
+    logo: '/img/sponsor/trustdock.png',
     type: SponsorType.bronze,
     disable: false,
   ),
