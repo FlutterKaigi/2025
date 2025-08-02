@@ -4,6 +4,9 @@ import '../screens/login_screen.dart';
 import '../screens/main_screen.dart';
 import '../screens/event_info_screen.dart';
 import '../screens/news_screen.dart';
+import '../screens/session_list_screen.dart';
+import '../screens/session_detail_screen.dart';
+import '../screens/venue_floor_map_screen.dart';
 import '../screens/sponsor_list_screen.dart';
 import '../screens/sponsor_detail_screen.dart';
 import '../screens/sponsor_edit_screen.dart';
@@ -15,7 +18,7 @@ final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 
 final router = GoRouter(
   navigatorKey: _rootNavigatorKey,
-  initialLocation: '/login',
+  initialLocation: '/event',
   routes: [
     GoRoute(
       path: '/login',
@@ -37,6 +40,30 @@ final router = GoRouter(
                   builder: (context, state) => const NewsScreen(),
                 ),
               ],
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/sessions',
+              builder: (context, state) => const SessionListScreen(),
+              routes: [
+                GoRoute(
+                  path: ':slug',
+                  builder: (context, state) => SessionDetailScreen(
+                    slug: state.pathParameters['slug']!,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/venue',
+              builder: (context, state) => const VenueFloorMapScreen(),
             ),
           ],
         ),
