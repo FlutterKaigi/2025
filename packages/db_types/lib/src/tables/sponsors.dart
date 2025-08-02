@@ -21,6 +21,8 @@ abstract class SponsorNamingRights with _$SponsorNamingRights {
   const factory SponsorNamingRights({
     required int id,
     required int companyId,
+    required String type,
+    required String name,
     @RequiredDateTimeConverter() required DateTime createdAt,
   }) = _SponsorNamingRights;
 

@@ -1233,6 +1233,10 @@ export const sponsorNamingRights = pgTable(
 			cache: 1,
 		}),
 		companyId: smallint("company_id"),
+		type: pgEnum("sponsor_company_naming_right_type", ["hall", "room"])(
+			"type",
+		).notNull(),
+		name: text("name").notNull(),
 		createdAt: timestamp("created_at", { mode: "string" })
 			.defaultNow()
 			.notNull(),

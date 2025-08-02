@@ -48,6 +48,8 @@ _SponsorNamingRights _$SponsorNamingRightsFromJson(Map<String, dynamic> json) =>
         final val = _SponsorNamingRights(
           id: $checkedConvert('id', (v) => (v as num).toInt()),
           companyId: $checkedConvert('company_id', (v) => (v as num).toInt()),
+          type: $checkedConvert('type', (v) => v as String),
+          name: $checkedConvert('name', (v) => v as String),
           createdAt: $checkedConvert(
             'created_at',
             (v) => const RequiredDateTimeConverter().fromJson(v),
@@ -63,6 +65,8 @@ Map<String, dynamic> _$SponsorNamingRightsToJson(
 ) => <String, dynamic>{
   'id': instance.id,
   'company_id': instance.companyId,
+  'type': instance.type,
+  'name': instance.name,
   'created_at': const RequiredDateTimeConverter().toJson(instance.createdAt),
 };
 

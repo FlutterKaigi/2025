@@ -284,7 +284,7 @@ as DateTime,
 /// @nodoc
 mixin _$SponsorNamingRights {
 
- int get id; int get companyId;@RequiredDateTimeConverter() DateTime get createdAt;
+ int get id; int get companyId; String get type; String get name;@RequiredDateTimeConverter() DateTime get createdAt;
 /// Create a copy of SponsorNamingRights
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -297,16 +297,16 @@ $SponsorNamingRightsCopyWith<SponsorNamingRights> get copyWith => _$SponsorNamin
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SponsorNamingRights&&(identical(other.id, id) || other.id == id)&&(identical(other.companyId, companyId) || other.companyId == companyId)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SponsorNamingRights&&(identical(other.id, id) || other.id == id)&&(identical(other.companyId, companyId) || other.companyId == companyId)&&(identical(other.type, type) || other.type == type)&&(identical(other.name, name) || other.name == name)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,companyId,createdAt);
+int get hashCode => Object.hash(runtimeType,id,companyId,type,name,createdAt);
 
 @override
 String toString() {
-  return 'SponsorNamingRights(id: $id, companyId: $companyId, createdAt: $createdAt)';
+  return 'SponsorNamingRights(id: $id, companyId: $companyId, type: $type, name: $name, createdAt: $createdAt)';
 }
 
 
@@ -317,7 +317,7 @@ abstract mixin class $SponsorNamingRightsCopyWith<$Res>  {
   factory $SponsorNamingRightsCopyWith(SponsorNamingRights value, $Res Function(SponsorNamingRights) _then) = _$SponsorNamingRightsCopyWithImpl;
 @useResult
 $Res call({
- int id, int companyId,@RequiredDateTimeConverter() DateTime createdAt
+ int id, int companyId, String type, String name,@RequiredDateTimeConverter() DateTime createdAt
 });
 
 
@@ -334,11 +334,13 @@ class _$SponsorNamingRightsCopyWithImpl<$Res>
 
 /// Create a copy of SponsorNamingRights
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? companyId = null,Object? createdAt = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? companyId = null,Object? type = null,Object? name = null,Object? createdAt = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,companyId: null == companyId ? _self.companyId : companyId // ignore: cast_nullable_to_non_nullable
-as int,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as int,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
+as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,
   ));
 }
@@ -424,10 +426,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  int companyId, @RequiredDateTimeConverter()  DateTime createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  int companyId,  String type,  String name, @RequiredDateTimeConverter()  DateTime createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SponsorNamingRights() when $default != null:
-return $default(_that.id,_that.companyId,_that.createdAt);case _:
+return $default(_that.id,_that.companyId,_that.type,_that.name,_that.createdAt);case _:
   return orElse();
 
 }
@@ -445,10 +447,10 @@ return $default(_that.id,_that.companyId,_that.createdAt);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  int companyId, @RequiredDateTimeConverter()  DateTime createdAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  int companyId,  String type,  String name, @RequiredDateTimeConverter()  DateTime createdAt)  $default,) {final _that = this;
 switch (_that) {
 case _SponsorNamingRights():
-return $default(_that.id,_that.companyId,_that.createdAt);case _:
+return $default(_that.id,_that.companyId,_that.type,_that.name,_that.createdAt);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -465,10 +467,10 @@ return $default(_that.id,_that.companyId,_that.createdAt);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  int companyId, @RequiredDateTimeConverter()  DateTime createdAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  int companyId,  String type,  String name, @RequiredDateTimeConverter()  DateTime createdAt)?  $default,) {final _that = this;
 switch (_that) {
 case _SponsorNamingRights() when $default != null:
-return $default(_that.id,_that.companyId,_that.createdAt);case _:
+return $default(_that.id,_that.companyId,_that.type,_that.name,_that.createdAt);case _:
   return null;
 
 }
@@ -480,11 +482,13 @@ return $default(_that.id,_that.companyId,_that.createdAt);case _:
 @JsonSerializable()
 
 class _SponsorNamingRights implements SponsorNamingRights {
-  const _SponsorNamingRights({required this.id, required this.companyId, @RequiredDateTimeConverter() required this.createdAt});
+  const _SponsorNamingRights({required this.id, required this.companyId, required this.type, required this.name, @RequiredDateTimeConverter() required this.createdAt});
   factory _SponsorNamingRights.fromJson(Map<String, dynamic> json) => _$SponsorNamingRightsFromJson(json);
 
 @override final  int id;
 @override final  int companyId;
+@override final  String type;
+@override final  String name;
 @override@RequiredDateTimeConverter() final  DateTime createdAt;
 
 /// Create a copy of SponsorNamingRights
@@ -500,16 +504,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SponsorNamingRights&&(identical(other.id, id) || other.id == id)&&(identical(other.companyId, companyId) || other.companyId == companyId)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SponsorNamingRights&&(identical(other.id, id) || other.id == id)&&(identical(other.companyId, companyId) || other.companyId == companyId)&&(identical(other.type, type) || other.type == type)&&(identical(other.name, name) || other.name == name)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,companyId,createdAt);
+int get hashCode => Object.hash(runtimeType,id,companyId,type,name,createdAt);
 
 @override
 String toString() {
-  return 'SponsorNamingRights(id: $id, companyId: $companyId, createdAt: $createdAt)';
+  return 'SponsorNamingRights(id: $id, companyId: $companyId, type: $type, name: $name, createdAt: $createdAt)';
 }
 
 
@@ -520,7 +524,7 @@ abstract mixin class _$SponsorNamingRightsCopyWith<$Res> implements $SponsorNami
   factory _$SponsorNamingRightsCopyWith(_SponsorNamingRights value, $Res Function(_SponsorNamingRights) _then) = __$SponsorNamingRightsCopyWithImpl;
 @override @useResult
 $Res call({
- int id, int companyId,@RequiredDateTimeConverter() DateTime createdAt
+ int id, int companyId, String type, String name,@RequiredDateTimeConverter() DateTime createdAt
 });
 
 
@@ -537,11 +541,13 @@ class __$SponsorNamingRightsCopyWithImpl<$Res>
 
 /// Create a copy of SponsorNamingRights
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? companyId = null,Object? createdAt = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? companyId = null,Object? type = null,Object? name = null,Object? createdAt = null,}) {
   return _then(_SponsorNamingRights(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,companyId: null == companyId ? _self.companyId : companyId // ignore: cast_nullable_to_non_nullable
-as int,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as int,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
+as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,
   ));
 }
