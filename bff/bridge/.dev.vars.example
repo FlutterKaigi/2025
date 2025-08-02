@@ -1,0 +1,5 @@
+POSTGRES_URL=postgresql://postgres:postgres@localhost:5432/postgres
+SUPABASE_SERVICE_ROLE_KEY=xxx
+SUPABASE_URL=https://xxx.supabase.co
+X_API_KEY=xxx
+INTERNAL_API_URL=http://localhost:8787

@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Environments {
 
- String get supabaseUrl; String get supabaseServiceRoleKey; String get cfVersionMetadataId; String get cfVersionMetadataTag; String get cfVersionMetadataTimestamp; String get postgresUrl;
+ String get supabaseUrl; String get supabaseServiceRoleKey; String get cfVersionMetadataId; String get cfVersionMetadataTag; String get cfVersionMetadataTimestamp; String get postgresUrl; String get internalApiUrl; String get xApiKey;
 /// Create a copy of Environments
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $EnvironmentsCopyWith<Environments> get copyWith => _$EnvironmentsCopyWithImpl<E
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Environments&&(identical(other.supabaseUrl, supabaseUrl) || other.supabaseUrl == supabaseUrl)&&(identical(other.supabaseServiceRoleKey, supabaseServiceRoleKey) || other.supabaseServiceRoleKey == supabaseServiceRoleKey)&&(identical(other.cfVersionMetadataId, cfVersionMetadataId) || other.cfVersionMetadataId == cfVersionMetadataId)&&(identical(other.cfVersionMetadataTag, cfVersionMetadataTag) || other.cfVersionMetadataTag == cfVersionMetadataTag)&&(identical(other.cfVersionMetadataTimestamp, cfVersionMetadataTimestamp) || other.cfVersionMetadataTimestamp == cfVersionMetadataTimestamp)&&(identical(other.postgresUrl, postgresUrl) || other.postgresUrl == postgresUrl));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Environments&&(identical(other.supabaseUrl, supabaseUrl) || other.supabaseUrl == supabaseUrl)&&(identical(other.supabaseServiceRoleKey, supabaseServiceRoleKey) || other.supabaseServiceRoleKey == supabaseServiceRoleKey)&&(identical(other.cfVersionMetadataId, cfVersionMetadataId) || other.cfVersionMetadataId == cfVersionMetadataId)&&(identical(other.cfVersionMetadataTag, cfVersionMetadataTag) || other.cfVersionMetadataTag == cfVersionMetadataTag)&&(identical(other.cfVersionMetadataTimestamp, cfVersionMetadataTimestamp) || other.cfVersionMetadataTimestamp == cfVersionMetadataTimestamp)&&(identical(other.postgresUrl, postgresUrl) || other.postgresUrl == postgresUrl)&&(identical(other.internalApiUrl, internalApiUrl) || other.internalApiUrl == internalApiUrl)&&(identical(other.xApiKey, xApiKey) || other.xApiKey == xApiKey));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,supabaseUrl,supabaseServiceRoleKey,cfVersionMetadataId,cfVersionMetadataTag,cfVersionMetadataTimestamp,postgresUrl);
+int get hashCode => Object.hash(runtimeType,supabaseUrl,supabaseServiceRoleKey,cfVersionMetadataId,cfVersionMetadataTag,cfVersionMetadataTimestamp,postgresUrl,internalApiUrl,xApiKey);
 
 @override
 String toString() {
-  return 'Environments(supabaseUrl: $supabaseUrl, supabaseServiceRoleKey: $supabaseServiceRoleKey, cfVersionMetadataId: $cfVersionMetadataId, cfVersionMetadataTag: $cfVersionMetadataTag, cfVersionMetadataTimestamp: $cfVersionMetadataTimestamp, postgresUrl: $postgresUrl)';
+  return 'Environments(supabaseUrl: $supabaseUrl, supabaseServiceRoleKey: $supabaseServiceRoleKey, cfVersionMetadataId: $cfVersionMetadataId, cfVersionMetadataTag: $cfVersionMetadataTag, cfVersionMetadataTimestamp: $cfVersionMetadataTimestamp, postgresUrl: $postgresUrl, internalApiUrl: $internalApiUrl, xApiKey: $xApiKey)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $EnvironmentsCopyWith<$Res>  {
   factory $EnvironmentsCopyWith(Environments value, $Res Function(Environments) _then) = _$EnvironmentsCopyWithImpl;
 @useResult
 $Res call({
- String supabaseUrl, String supabaseServiceRoleKey, String cfVersionMetadataId, String cfVersionMetadataTag, String cfVersionMetadataTimestamp, String postgresUrl
+ String supabaseUrl, String supabaseServiceRoleKey, String cfVersionMetadataId, String cfVersionMetadataTag, String cfVersionMetadataTimestamp, String postgresUrl, String internalApiUrl, String xApiKey
 });
 
 
@@ -65,7 +65,7 @@ class _$EnvironmentsCopyWithImpl<$Res>
 
 /// Create a copy of Environments
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? supabaseUrl = null,Object? supabaseServiceRoleKey = null,Object? cfVersionMetadataId = null,Object? cfVersionMetadataTag = null,Object? cfVersionMetadataTimestamp = null,Object? postgresUrl = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? supabaseUrl = null,Object? supabaseServiceRoleKey = null,Object? cfVersionMetadataId = null,Object? cfVersionMetadataTag = null,Object? cfVersionMetadataTimestamp = null,Object? postgresUrl = null,Object? internalApiUrl = null,Object? xApiKey = null,}) {
   return _then(_self.copyWith(
 supabaseUrl: null == supabaseUrl ? _self.supabaseUrl : supabaseUrl // ignore: cast_nullable_to_non_nullable
 as String,supabaseServiceRoleKey: null == supabaseServiceRoleKey ? _self.supabaseServiceRoleKey : supabaseServiceRoleKey // ignore: cast_nullable_to_non_nullable
@@ -73,6 +73,8 @@ as String,cfVersionMetadataId: null == cfVersionMetadataId ? _self.cfVersionMeta
 as String,cfVersionMetadataTag: null == cfVersionMetadataTag ? _self.cfVersionMetadataTag : cfVersionMetadataTag // ignore: cast_nullable_to_non_nullable
 as String,cfVersionMetadataTimestamp: null == cfVersionMetadataTimestamp ? _self.cfVersionMetadataTimestamp : cfVersionMetadataTimestamp // ignore: cast_nullable_to_non_nullable
 as String,postgresUrl: null == postgresUrl ? _self.postgresUrl : postgresUrl // ignore: cast_nullable_to_non_nullable
+as String,internalApiUrl: null == internalApiUrl ? _self.internalApiUrl : internalApiUrl // ignore: cast_nullable_to_non_nullable
+as String,xApiKey: null == xApiKey ? _self.xApiKey : xApiKey // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }
@@ -158,10 +160,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String supabaseUrl,  String supabaseServiceRoleKey,  String cfVersionMetadataId,  String cfVersionMetadataTag,  String cfVersionMetadataTimestamp,  String postgresUrl)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String supabaseUrl,  String supabaseServiceRoleKey,  String cfVersionMetadataId,  String cfVersionMetadataTag,  String cfVersionMetadataTimestamp,  String postgresUrl,  String internalApiUrl,  String xApiKey)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Environments() when $default != null:
-return $default(_that.supabaseUrl,_that.supabaseServiceRoleKey,_that.cfVersionMetadataId,_that.cfVersionMetadataTag,_that.cfVersionMetadataTimestamp,_that.postgresUrl);case _:
+return $default(_that.supabaseUrl,_that.supabaseServiceRoleKey,_that.cfVersionMetadataId,_that.cfVersionMetadataTag,_that.cfVersionMetadataTimestamp,_that.postgresUrl,_that.internalApiUrl,_that.xApiKey);case _:
   return orElse();
 
 }
@@ -179,10 +181,10 @@ return $default(_that.supabaseUrl,_that.supabaseServiceRoleKey,_that.cfVersionMe
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String supabaseUrl,  String supabaseServiceRoleKey,  String cfVersionMetadataId,  String cfVersionMetadataTag,  String cfVersionMetadataTimestamp,  String postgresUrl)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String supabaseUrl,  String supabaseServiceRoleKey,  String cfVersionMetadataId,  String cfVersionMetadataTag,  String cfVersionMetadataTimestamp,  String postgresUrl,  String internalApiUrl,  String xApiKey)  $default,) {final _that = this;
 switch (_that) {
 case _Environments():
-return $default(_that.supabaseUrl,_that.supabaseServiceRoleKey,_that.cfVersionMetadataId,_that.cfVersionMetadataTag,_that.cfVersionMetadataTimestamp,_that.postgresUrl);case _:
+return $default(_that.supabaseUrl,_that.supabaseServiceRoleKey,_that.cfVersionMetadataId,_that.cfVersionMetadataTag,_that.cfVersionMetadataTimestamp,_that.postgresUrl,_that.internalApiUrl,_that.xApiKey);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -199,10 +201,10 @@ return $default(_that.supabaseUrl,_that.supabaseServiceRoleKey,_that.cfVersionMe
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String supabaseUrl,  String supabaseServiceRoleKey,  String cfVersionMetadataId,  String cfVersionMetadataTag,  String cfVersionMetadataTimestamp,  String postgresUrl)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String supabaseUrl,  String supabaseServiceRoleKey,  String cfVersionMetadataId,  String cfVersionMetadataTag,  String cfVersionMetadataTimestamp,  String postgresUrl,  String internalApiUrl,  String xApiKey)?  $default,) {final _that = this;
 switch (_that) {
 case _Environments() when $default != null:
-return $default(_that.supabaseUrl,_that.supabaseServiceRoleKey,_that.cfVersionMetadataId,_that.cfVersionMetadataTag,_that.cfVersionMetadataTimestamp,_that.postgresUrl);case _:
+return $default(_that.supabaseUrl,_that.supabaseServiceRoleKey,_that.cfVersionMetadataId,_that.cfVersionMetadataTag,_that.cfVersionMetadataTimestamp,_that.postgresUrl,_that.internalApiUrl,_that.xApiKey);case _:
   return null;
 
 }
@@ -214,7 +216,7 @@ return $default(_that.supabaseUrl,_that.supabaseServiceRoleKey,_that.cfVersionMe
 
 @JsonSerializable(fieldRename: FieldRename.screamingSnake)
 class _Environments extends Environments {
-  const _Environments({required this.supabaseUrl, required this.supabaseServiceRoleKey, required this.cfVersionMetadataId, required this.cfVersionMetadataTag, required this.cfVersionMetadataTimestamp, required this.postgresUrl}): super._();
+  const _Environments({required this.supabaseUrl, required this.supabaseServiceRoleKey, required this.cfVersionMetadataId, required this.cfVersionMetadataTag, required this.cfVersionMetadataTimestamp, required this.postgresUrl, required this.internalApiUrl, required this.xApiKey}): super._();
   factory _Environments.fromJson(Map<String, dynamic> json) => _$EnvironmentsFromJson(json);
 
 @override final  String supabaseUrl;
@@ -223,6 +225,8 @@ class _Environments extends Environments {
 @override final  String cfVersionMetadataTag;
 @override final  String cfVersionMetadataTimestamp;
 @override final  String postgresUrl;
+@override final  String internalApiUrl;
+@override final  String xApiKey;
 
 /// Create a copy of Environments
 /// with the given fields replaced by the non-null parameter values.
@@ -237,16 +241,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Environments&&(identical(other.supabaseUrl, supabaseUrl) || other.supabaseUrl == supabaseUrl)&&(identical(other.supabaseServiceRoleKey, supabaseServiceRoleKey) || other.supabaseServiceRoleKey == supabaseServiceRoleKey)&&(identical(other.cfVersionMetadataId, cfVersionMetadataId) || other.cfVersionMetadataId == cfVersionMetadataId)&&(identical(other.cfVersionMetadataTag, cfVersionMetadataTag) || other.cfVersionMetadataTag == cfVersionMetadataTag)&&(identical(other.cfVersionMetadataTimestamp, cfVersionMetadataTimestamp) || other.cfVersionMetadataTimestamp == cfVersionMetadataTimestamp)&&(identical(other.postgresUrl, postgresUrl) || other.postgresUrl == postgresUrl));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Environments&&(identical(other.supabaseUrl, supabaseUrl) || other.supabaseUrl == supabaseUrl)&&(identical(other.supabaseServiceRoleKey, supabaseServiceRoleKey) || other.supabaseServiceRoleKey == supabaseServiceRoleKey)&&(identical(other.cfVersionMetadataId, cfVersionMetadataId) || other.cfVersionMetadataId == cfVersionMetadataId)&&(identical(other.cfVersionMetadataTag, cfVersionMetadataTag) || other.cfVersionMetadataTag == cfVersionMetadataTag)&&(identical(other.cfVersionMetadataTimestamp, cfVersionMetadataTimestamp) || other.cfVersionMetadataTimestamp == cfVersionMetadataTimestamp)&&(identical(other.postgresUrl, postgresUrl) || other.postgresUrl == postgresUrl)&&(identical(other.internalApiUrl, internalApiUrl) || other.internalApiUrl == internalApiUrl)&&(identical(other.xApiKey, xApiKey) || other.xApiKey == xApiKey));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,supabaseUrl,supabaseServiceRoleKey,cfVersionMetadataId,cfVersionMetadataTag,cfVersionMetadataTimestamp,postgresUrl);
+int get hashCode => Object.hash(runtimeType,supabaseUrl,supabaseServiceRoleKey,cfVersionMetadataId,cfVersionMetadataTag,cfVersionMetadataTimestamp,postgresUrl,internalApiUrl,xApiKey);
 
 @override
 String toString() {
-  return 'Environments(supabaseUrl: $supabaseUrl, supabaseServiceRoleKey: $supabaseServiceRoleKey, cfVersionMetadataId: $cfVersionMetadataId, cfVersionMetadataTag: $cfVersionMetadataTag, cfVersionMetadataTimestamp: $cfVersionMetadataTimestamp, postgresUrl: $postgresUrl)';
+  return 'Environments(supabaseUrl: $supabaseUrl, supabaseServiceRoleKey: $supabaseServiceRoleKey, cfVersionMetadataId: $cfVersionMetadataId, cfVersionMetadataTag: $cfVersionMetadataTag, cfVersionMetadataTimestamp: $cfVersionMetadataTimestamp, postgresUrl: $postgresUrl, internalApiUrl: $internalApiUrl, xApiKey: $xApiKey)';
 }
 
 
@@ -257,7 +261,7 @@ abstract mixin class _$EnvironmentsCopyWith<$Res> implements $EnvironmentsCopyWi
   factory _$EnvironmentsCopyWith(_Environments value, $Res Function(_Environments) _then) = __$EnvironmentsCopyWithImpl;
 @override @useResult
 $Res call({
- String supabaseUrl, String supabaseServiceRoleKey, String cfVersionMetadataId, String cfVersionMetadataTag, String cfVersionMetadataTimestamp, String postgresUrl
+ String supabaseUrl, String supabaseServiceRoleKey, String cfVersionMetadataId, String cfVersionMetadataTag, String cfVersionMetadataTimestamp, String postgresUrl, String internalApiUrl, String xApiKey
 });
 
 
@@ -274,7 +278,7 @@ class __$EnvironmentsCopyWithImpl<$Res>
 
 /// Create a copy of Environments
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? supabaseUrl = null,Object? supabaseServiceRoleKey = null,Object? cfVersionMetadataId = null,Object? cfVersionMetadataTag = null,Object? cfVersionMetadataTimestamp = null,Object? postgresUrl = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? supabaseUrl = null,Object? supabaseServiceRoleKey = null,Object? cfVersionMetadataId = null,Object? cfVersionMetadataTag = null,Object? cfVersionMetadataTimestamp = null,Object? postgresUrl = null,Object? internalApiUrl = null,Object? xApiKey = null,}) {
   return _then(_Environments(
 supabaseUrl: null == supabaseUrl ? _self.supabaseUrl : supabaseUrl // ignore: cast_nullable_to_non_nullable
 as String,supabaseServiceRoleKey: null == supabaseServiceRoleKey ? _self.supabaseServiceRoleKey : supabaseServiceRoleKey // ignore: cast_nullable_to_non_nullable
@@ -282,6 +286,8 @@ as String,cfVersionMetadataId: null == cfVersionMetadataId ? _self.cfVersionMeta
 as String,cfVersionMetadataTag: null == cfVersionMetadataTag ? _self.cfVersionMetadataTag : cfVersionMetadataTag // ignore: cast_nullable_to_non_nullable
 as String,cfVersionMetadataTimestamp: null == cfVersionMetadataTimestamp ? _self.cfVersionMetadataTimestamp : cfVersionMetadataTimestamp // ignore: cast_nullable_to_non_nullable
 as String,postgresUrl: null == postgresUrl ? _self.postgresUrl : postgresUrl // ignore: cast_nullable_to_non_nullable
+as String,internalApiUrl: null == internalApiUrl ? _self.internalApiUrl : internalApiUrl // ignore: cast_nullable_to_non_nullable
+as String,xApiKey: null == xApiKey ? _self.xApiKey : xApiKey // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }
