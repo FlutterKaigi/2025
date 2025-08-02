@@ -12,8 +12,7 @@ CREATE TABLE public.sponsor_companies (
   id smallint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   company_id smallint REFERENCES public.companies (id) ON DELETE CASCADE,
   sponsor_type public.company_sponsor_type NOT NULL,
-  created_at timestamp DEFAULT now() NOT NULL,
-  updated_at timestamp DEFAULT now() NOT NULL
+  created_at timestamp DEFAULT now() NOT NULL
 );
 
 -- ベーシックスポンサー専用テーブル
