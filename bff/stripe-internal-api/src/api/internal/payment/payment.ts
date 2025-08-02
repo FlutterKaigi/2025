@@ -10,7 +10,7 @@ import { PutCheckoutSessionRequest } from "./model/PutCheckoutSessionRequest";
 import { PutCheckoutSessionResponse } from "./model/PutCheckoutSessionResponse";
 
 export const paymentApi = new Hono().put(
-  "/checkout-session/:ticketCheckoutId",
+  "/checkout-session",
   describeRoute({
     summary: "Create Checkout Session",
     description: "Create Checkout Session",
@@ -39,15 +39,8 @@ export const paymentApi = new Hono().put(
       "x-api-key": v.string(),
     })
   ),
-  vValidator(
-    "param",
-    v.object({
-      ticketCheckoutId: v.string(),
-    })
-  ),
   vValidator("json", PutCheckoutSessionRequest),
   async (c) => {
-    const { ticketCheckoutId } = c.req.valid("param");
     c.req.valid("header");
     const request = c.req.valid("json");
 
@@ -111,7 +104,6 @@ export const paymentApi = new Hono().put(
     const stripe = new Stripe(env.STRIPE_API_KEY);
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
-      client_reference_id: ticketCheckoutId,
       line_items: [
         {
           price: ticketType.stripePriceId,
@@ -131,16 +123,17 @@ export const paymentApi = new Hono().put(
       return c.json({ error: "session is not valid" }, 500);
     }
 
-    await db
-      .update(databaseSchema.ticketCheckoutSessions)
-      .set({
-        stripeCheckoutSessionId: session.id,
-        stripeCheckoutUrl: session.url ?? undefined,
-      })
-      .where(eq(databaseSchema.ticketCheckoutSessions.id, ticketCheckoutId));
+    const ticketCheckoutSession = await db.insert(databaseSchema.ticketCheckoutSessions).values({
+      ticketTypeId: request.ticket_type_id,
+      expiresAt: new Date(Date.now() + 10 * 60 * 1000).toISOString(),
+      userId: authUser.id,
+      status: "pending",
+      stripeCheckoutSessionId: session.id,
+      stripeCheckoutUrl: session.url ?? undefined,
+    }).returning();
 
     return c.json({
-      id: session.id,
+      id: ticketCheckoutSession[0].id,
       url: session.url,
       expiresAt: new Date(session.expires_at * 1000).toISOString(),
       status: session.status,

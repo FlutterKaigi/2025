@@ -32,6 +32,11 @@ _Environments _$EnvironmentsFromJson(Map<String, dynamic> json) =>
             (v) => v as String,
           ),
           postgresUrl: $checkedConvert('POSTGRES_URL', (v) => v as String),
+          internalApiUrl: $checkedConvert(
+            'INTERNAL_API_URL',
+            (v) => v as String,
+          ),
+          xApiKey: $checkedConvert('X_API_KEY', (v) => v as String),
         );
         return val;
       },
@@ -42,6 +47,8 @@ _Environments _$EnvironmentsFromJson(Map<String, dynamic> json) =>
         'cfVersionMetadataTag': 'CF_VERSION_METADATA_TAG',
         'cfVersionMetadataTimestamp': 'CF_VERSION_METADATA_TIMESTAMP',
         'postgresUrl': 'POSTGRES_URL',
+        'internalApiUrl': 'INTERNAL_API_URL',
+        'xApiKey': 'X_API_KEY',
       },
     );
 
@@ -53,4 +60,6 @@ Map<String, dynamic> _$EnvironmentsToJson(_Environments instance) =>
       'CF_VERSION_METADATA_TAG': instance.cfVersionMetadataTag,
       'CF_VERSION_METADATA_TIMESTAMP': instance.cfVersionMetadataTimestamp,
       'POSTGRES_URL': instance.postgresUrl,
+      'INTERNAL_API_URL': instance.internalApiUrl,
+      'X_API_KEY': instance.xApiKey,
     };

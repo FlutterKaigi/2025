@@ -8,7 +8,7 @@
     "deploy:staging": "wrangler deploy -e staging",
     "deploy:production": "wrangler deploy -e production",
     "dev": "wrangler dev -e staging",
-    "cf-typegen": "wrangler types"
+    "cf-typegen": "wrangler types --env-interface CloudflareBindings -e staging"
   },
   "devDependencies": {
     "@biomejs/biome": "2.1.2",

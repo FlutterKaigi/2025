@@ -38,9 +38,6 @@
       "version_metadata": {
         "binding": "CF_VERSION_METADATA",
       },
-      "env_vars": {
-        "SUPABASE_URL": "https://ikrzxakkbmajammujqao.supabase.co",
-      },
     },
     "production": {
       "routes": [

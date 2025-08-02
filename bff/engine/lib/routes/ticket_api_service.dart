@@ -4,8 +4,10 @@ import 'package:bff_client/bff_client.dart';
 import 'package:db_types/db_types.dart';
 import 'package:engine/main.dart';
 import 'package:engine/provider/db_client_provider.dart';
+import 'package:engine/provider/internal_api_client_provider.dart';
 import 'package:engine/provider/supabase_util.dart';
 import 'package:engine/util/json_response.dart';
+import 'package:internal_api_client/internal_api_client.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 
@@ -147,31 +149,49 @@ class TicketApiService {
         }
       }
 
-      // 6. チェックアウトセッションを作成
-      final checkoutSession = await database.ticketCheckout
+      // Payment Intentを作成
+      final internalApiClient = container.read(internalApiClientProvider);
+      final ticketCheckoutSessionResponse = await internalApiClient
+          .stripeInternalApi
+          .internalPaymentApi
           .createCheckoutSession(
-            userId: user.id,
-            ticketTypeId: requestData.ticketTypeId,
-            totalAmount: ticketType.price,
-            options: requestData.options
-                .map(
-                  (o) => CheckoutOption(
-                    optionId: o.optionId,
-                    value: o.value,
-                  ),
-                )
-                .toList(),
+            request: PutCheckoutSessonRequest(
+              // TODO(YumNumm): コールバックを設定する
+              successUrl: 'https://example.com/success',
+              cancelUrl: 'https://example.com/cancel',
+              userId: user.id,
+              ticketTypeId: requestData.ticketTypeId,
+              ticketOptionIds: requestData.options
+                  .map((e) => e.optionId)
+                  .toList(),
+            ),
           );
+      final ticketCheckoutSessionData = ticketCheckoutSessionResponse.data;
 
-      // 7. Stripe PaymentIntentを作成
-      // TODO: Stripe APIの実装
-      final stripeCheckoutUrl =
-          'https://checkout.stripe.com/pay/cs_test_${checkoutSession.id}';
+      // Workflowを開始する
+      final workflowStatusResponse = await internalApiClient
+          .paymentWorkflowInternalApi
+          .ticketCheckout
+          .startTicketCheckoutWorkflow(
+            ticketCheckoutSessionId: ticketCheckoutSessionData.id,
+          );
+      final workflowStatus = workflowStatusResponse.data;
+      print(workflowStatus);
 
-      return TicketCheckoutResponse(
-        checkoutSessionId: checkoutSession.id,
-        stripeCheckoutUrl: stripeCheckoutUrl,
-        expiresAt: checkoutSession.expiresAt,
+      // チケットチェックアウトセッションを取得
+      final ticketCheckoutSession = await database.ticketCheckout
+          .getCheckoutSession(
+            ticketCheckoutSessionData.id,
+          );
+      if (ticketCheckoutSession == null) {
+        throw ErrorResponse.errorCode(
+          code: ErrorCode.notFound,
+          detail: 'チケットチェックアウトセッションが見つかりません',
+        );
+      }
+
+      return TicketCheckoutSessionResponse(
+        session: ticketCheckoutSession,
       ).toJson();
     },
   );

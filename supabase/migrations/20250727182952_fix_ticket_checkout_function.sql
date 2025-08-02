@@ -1,67 +1,46 @@
--- チケットタイプの在庫数を取得するビュー
-CREATE OR REPLACE VIEW v_ticket_counts AS
-SELECT
-  tt.id AS ticket_type_id,
-  coalesce(tp_counts.sold_count, 0) AS sold_count,
-  coalesce(tcs_counts.reserved_count, 0) AS reserved_count
-FROM
-  public.ticket_types tt
-  LEFT JOIN (
-    SELECT
-      tp.ticket_type_id,
-      count(*)::integer AS sold_count
-    FROM
-      public.ticket_purchases tp
-    GROUP BY
-      tp.ticket_type_id
-  ) tp_counts ON tt.id = tp_counts.ticket_type_id
-  LEFT JOIN (
-    SELECT
-      tcs.ticket_type_id,
-      count(*)::integer AS reserved_count
-    FROM
-      public.ticket_checkout_sessions tcs
-    WHERE
-      tcs.status = 'pending'
-      AND tcs.expires_at > now()
-    GROUP BY
-      tcs.ticket_type_id
-  ) tcs_counts ON tt.id = tcs_counts.ticket_type_id;
+drop function if exists "public"."get_ticket_count"(ticket_type_id text, OUT sold_count integer, OUT reserved_count integer);
 
--- チケットオプションの在庫数を取得するビュー
-CREATE OR REPLACE VIEW v_ticket_option_counts AS
-SELECT
-  topt.id AS ticket_option_id,
-  topt.ticket_type_id,
-  coalesce(tpo_counts.sold_count, 0) AS sold_count,
-  coalesce(tco_counts.reserved_count, 0) AS reserved_count
-FROM
-  public.ticket_options topt
-  LEFT JOIN (
-    SELECT
-      tpo.ticket_option_id,
-      count(*)::integer AS sold_count
-    FROM
-      public.ticket_purchase_options tpo
-      JOIN public.ticket_purchases tp ON tpo.ticket_purchase_id = tp.id
-    GROUP BY
-      tpo.ticket_option_id
-  ) tpo_counts ON topt.id = tpo_counts.ticket_option_id
-  LEFT JOIN (
-    SELECT
-      tco.ticket_option_id,
-      count(*)::integer AS reserved_count
-    FROM
-      public.ticket_checkout_options tco
-      JOIN public.ticket_checkout_sessions tcs ON tco.checkout_session_id = tcs.id
-    WHERE
-      tcs.status = 'pending'
-      AND tcs.expires_at > now()
-    GROUP BY
-      tco.ticket_option_id
-  ) tco_counts ON topt.id = tco_counts.ticket_option_id;
+drop function if exists "public"."get_ticket_option_count"(ticket_option_id text, OUT sold_count integer, OUT reserved_count integer);
 
-CREATE FUNCTION create_ticket_checkout (user_id uuid, ticket_type_id text, ticket_option_ids TEXT[], stripe_checkout_session_id text, stripe_checkout_url text) returns uuid language plpgsql AS $$
+set check_function_bodies = off;
+
+create or replace view "public"."v_ticket_counts" as  SELECT tt.id AS ticket_type_id,
+    COALESCE(tp_counts.sold_count, 0) AS sold_count,
+    COALESCE(tcs_counts.reserved_count, 0) AS reserved_count
+   FROM ((ticket_types tt
+     LEFT JOIN ( SELECT tp.ticket_type_id,
+            (count(*))::integer AS sold_count
+           FROM ticket_purchases tp
+          GROUP BY tp.ticket_type_id) tp_counts ON ((tt.id = tp_counts.ticket_type_id)))
+     LEFT JOIN ( SELECT tcs.ticket_type_id,
+            (count(*))::integer AS reserved_count
+           FROM ticket_checkout_sessions tcs
+          WHERE ((tcs.status = 'pending'::ticket_checkout_status) AND (tcs.expires_at > now()))
+          GROUP BY tcs.ticket_type_id) tcs_counts ON ((tt.id = tcs_counts.ticket_type_id)));
+
+
+create or replace view "public"."v_ticket_option_counts" as  SELECT topt.id AS ticket_option_id,
+    topt.ticket_type_id,
+    COALESCE(tpo_counts.sold_count, 0) AS sold_count,
+    COALESCE(tco_counts.reserved_count, 0) AS reserved_count
+   FROM ((ticket_options topt
+     LEFT JOIN ( SELECT tpo.ticket_option_id,
+            (count(*))::integer AS sold_count
+           FROM (ticket_purchase_options tpo
+             JOIN ticket_purchases tp ON ((tpo.ticket_purchase_id = tp.id)))
+          GROUP BY tpo.ticket_option_id) tpo_counts ON ((topt.id = tpo_counts.ticket_option_id)))
+     LEFT JOIN ( SELECT tco.ticket_option_id,
+            (count(*))::integer AS reserved_count
+           FROM (ticket_checkout_options tco
+             JOIN ticket_checkout_sessions tcs ON ((tco.checkout_session_id = tcs.id)))
+          WHERE ((tcs.status = 'pending'::ticket_checkout_status) AND (tcs.expires_at > now()))
+          GROUP BY tco.ticket_option_id) tco_counts ON ((topt.id = tco_counts.ticket_option_id)));
+
+
+CREATE OR REPLACE FUNCTION public.create_ticket_checkout(user_id uuid, ticket_type_id text, ticket_option_ids text[], stripe_checkout_session_id text, stripe_checkout_url text)
+ RETURNS uuid
+ LANGUAGE plpgsql
+AS $function$
 DECLARE
   v_checkout_session_id uuid;
   v_ticket_type_record record;
@@ -175,4 +154,7 @@ BEGIN
 
   RETURN v_checkout_session_id;
 END;
-$$
+$function$
+;
+
+

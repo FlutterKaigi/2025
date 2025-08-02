@@ -17,3 +17,10 @@ targets:
       retrofit_generator:
         options:
           convert_snake_case: true
+global_options:
+  freezed:
+    runs_before:
+    - json_serializable
+  json_serializable:
+    runs_before:
+    - retrofit_generator:retrofit
