@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import '../core/gen/assets/assets.gen.dart';
+import '../core/auth/auth_state.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -31,13 +33,15 @@ class LoginScreen extends StatelessWidget {
                     ),
                     _GoogleSignInButton(
                       onPressed: () async {
-                        // Navigate to event screen after login
+                        // Google認証を実行（仮）
+                        context.read<AuthState>().setAuthenticatedUser('user@example.com');
                         context.go('/event');
                       },
                     ),
                     _GuestSignInButton(
                       onPressed: () async {
-                        // Navigate to event screen after login
+                        // 匿名ログインを実行
+                        context.read<AuthState>().setAnonymousUser();
                         context.go('/event');
                       },
                     ),
