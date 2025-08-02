@@ -11,5 +11,5 @@ abstract class UserRolePutRequest with _$UserRolePutRequest {
   }) = _UserRolePutRequest;
 
   factory UserRolePutRequest.fromJson(Map<String, dynamic> json) =>
-    _$UserRolePutRequestFromJson(json);
+      _$UserRolePutRequestFromJson(json);
 }

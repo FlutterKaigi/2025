@@ -50,7 +50,6 @@ void main() {
         script(
           src: 'https://www.googletagmanager.com/gtag/js?id=G-L9WHLCCTGM',
           async: true,
-          [],
         ),
         // ignore: prefer_html_methods
         const DomComponent(

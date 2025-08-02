@@ -49,7 +49,9 @@ class _SponsorState extends State<Sponsor> {
           color: Colors.transparent,
           backgroundColor: Colors.white,
           backgroundImage: ImageStyle.url(component.logo),
-          backgroundSize: BackgroundSize.cover,
+          backgroundPosition: BackgroundPosition.center,
+          backgroundRepeat: BackgroundRepeat.noRepeat,
+          backgroundSize: BackgroundSize.contain,
         ),
         onClick: () {
           setState(() {

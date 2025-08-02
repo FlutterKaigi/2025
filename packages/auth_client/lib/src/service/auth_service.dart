@@ -11,7 +11,6 @@ class AuthService {
     url: supabaseUrl,
     anonKey: supabaseKey,
     debug: isDebug,
-    
   );
 
   /// `initialize`を呼び出した後に使用できる。
@@ -32,6 +31,24 @@ class AuthService {
     return currentUser;
   }
 
+  /// 匿名でログインする
+  Future<User?> signInAnonymously() async {
+    await _client.auth.signInAnonymously();
+    return currentUser;
+  }
+
+  /// 匿名ユーザーをGoogleアカウントと紐づける
+  Future<void> linkAnonymousUserWithGoogle({
+    String? redirectTo,
+    LaunchMode authScreenLaunchMode = LaunchMode.externalApplication,
+  }) async {
+    await _client.auth.linkIdentity(
+      OAuthProvider.google,
+      redirectTo: redirectTo,
+      authScreenLaunchMode: authScreenLaunchMode,
+    );
+  }
+
   /// ログアウトする
   Future<void> signOut() async => _client.auth.signOut();
 
@@ -41,7 +58,6 @@ class AuthService {
   Session? get currentSession => _client.auth.currentSession;
 
   Future<AuthResponse> refreshSession() => _client.auth.refreshSession();
-
 
   /// 認証状態の変化を監視する
   Stream<AuthStateEvent> authStateChangeStream() =>

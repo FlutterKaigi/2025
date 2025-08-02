@@ -71,5 +71,11 @@
   "accountCancel": "キャンセル",
   "@accountCancel": {},
   "accountApply": "適用",
-  "@accountApply": {}
+  "@accountApply": {},
+  "guestSignInButton": "ゲストで利用する",
+  "@guestSignInButton": {},
+  "guestUserLabel": "ゲストでログイン中",
+  "@guestUserLabel": {},
+  "authErrorIdentityAlreadyExists": "このGoogleアカウントは既に別のユーザーと紐づけられています。ログアウトしてから再度ログインしてください。",
+  "@authErrorIdentityAlreadyExists": {}
 }

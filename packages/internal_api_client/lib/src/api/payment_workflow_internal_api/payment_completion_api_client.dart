@@ -21,7 +21,7 @@ abstract class PaymentCompletionApiClient {
   /// 支払い完了ワークフローのステータスを取得します
   @GET('/payment-completion/{ticketCheckoutId}')
   Future<HttpResponse<ContainerInstanceStatus>>
-      getPaymentCompletionWorkflowStatus({
+  getPaymentCompletionWorkflowStatus({
     @Path() required String ticketCheckoutId,
   });
 }

@@ -40,7 +40,7 @@
   },
   "json.schemaDownload.enable": true,
   "[typescript][javascript]": {
-    "editor.defaultFormatter": "biomejs.biome",
+    "editor.defaultFormatter": "biomejs.biome"
   },
   "[sql]": {
     "editor.defaultFormatter": "ReneSaarsoo.sql-formatter-vsc"
