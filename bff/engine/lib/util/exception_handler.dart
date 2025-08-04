@@ -12,7 +12,12 @@ import 'package:supabase/supabase.dart';
 /// [fn]を実行し、例外が発生した場合に、適切なHTTPレスポンスを返す関数
 Future<Response> exceptionHandler(Future<Response> Function() fn) async {
   try {
-    return await fn();
+    try {
+      return await fn();
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
   } on AuthorizationException catch (e) {
     return Response(
       HttpStatus.unauthorized,
@@ -72,7 +77,7 @@ Future<Response> exceptionHandler(Future<Response> Function() fn) async {
     return jsonResponse(
       () async => ErrorResponse.errorCode(
         code: ErrorCode.internalServerError,
-        detail: 'ハンドルされていない例外が発生しました: ${e.runtimeType}',
+        detail: 'ハンドルされていない例外が発生しました: ${e.runtimeType} $e',
       ).toJson(),
       HttpStatus.internalServerError,
     );

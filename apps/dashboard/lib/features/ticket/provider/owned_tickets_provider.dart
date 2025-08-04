@@ -67,7 +67,9 @@ class OwnedTicketsNotifier extends _$OwnedTicketsNotifier {
   TicketPurchases? getLatestTicket() {
     return state.when(
       data: (tickets) {
-        if (tickets.isEmpty) return null;
+        if (tickets.isEmpty) {
+          return null;
+        }
 
         // 作成日時でソートして最新のものを取得
         final sortedTickets = List<TicketPurchases>.from(tickets)

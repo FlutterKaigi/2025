@@ -41,9 +41,9 @@ class OwnedTicketCard extends StatelessWidget {
                     size: 20,
                   ),
                 ),
-                
+
                 const SizedBox(width: 12),
-                
+
                 // チケット情報
                 Expanded(
                   child: Column(
@@ -51,9 +51,10 @@ class OwnedTicketCard extends StatelessWidget {
                     children: [
                       Text(
                         'チケット',
-                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: Theme.of(context).textTheme.titleMedium
+                            ?.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
                       ),
                       Text(
                         'ID: ${ticket.id.substring(0, 8)}...',
@@ -65,7 +66,7 @@ class OwnedTicketCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                
+
                 // ステータスバッジ
                 Container(
                   padding: const EdgeInsets.symmetric(
@@ -87,14 +88,14 @@ class OwnedTicketCard extends StatelessWidget {
                 ),
               ],
             ),
-            
+
             const SizedBox(height: 16),
-            
+
             // チケット詳細情報
             _buildTicketDetails(context),
-            
+
             const SizedBox(height: 12),
-            
+
             // 購入情報
             _buildPurchaseInfo(context),
           ],
@@ -117,17 +118,17 @@ class OwnedTicketCard extends StatelessWidget {
             context,
             Icons.category,
             'チケット種別',
-            ticket.ticketTypeId.substring(0, 12) + '...',
+            '${ticket.ticketTypeId.substring(0, 12)}...',
           ),
-          
+
           const SizedBox(height: 8),
-          
+
           if (ticket.stripePaymentIntentId != null)
             _buildDetailRow(
               context,
               Icons.payment,
               '決済ID',
-              ticket.stripePaymentIntentId!.substring(0, 12) + '...',
+              '${ticket.stripePaymentIntentId!.substring(0, 12)}...',
             ),
         ],
       ),
@@ -149,9 +150,9 @@ class OwnedTicketCard extends StatelessWidget {
             color: Colors.grey.shade600,
           ),
         ),
-        
+
         const Spacer(),
-        
+
         if (ticket.updatedAt != ticket.createdAt) ...[
           Icon(
             Icons.update,

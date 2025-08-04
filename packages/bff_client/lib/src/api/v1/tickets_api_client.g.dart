@@ -29,7 +29,7 @@ class _TicketsApiClient implements TicketsApiClient {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/v1/tickets/types',
+            '/tickets/types',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -58,7 +58,7 @@ class _TicketsApiClient implements TicketsApiClient {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/v1/tickets/types/${ticketTypeId}',
+            '/tickets/types/${ticketTypeId}',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -87,7 +87,7 @@ class _TicketsApiClient implements TicketsApiClient {
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/v1/tickets/checkout',
+            '/tickets/checkout',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -116,7 +116,7 @@ class _TicketsApiClient implements TicketsApiClient {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/v1/tickets/checkout/${sessionId}',
+            '/tickets/checkout/${sessionId}',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -143,7 +143,7 @@ class _TicketsApiClient implements TicketsApiClient {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/v1/tickets/me',
+            '/tickets/me',
             queryParameters: queryParameters,
             data: _data,
           )

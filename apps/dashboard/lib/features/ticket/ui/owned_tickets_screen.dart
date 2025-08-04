@@ -18,7 +18,7 @@ class OwnedTicketsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final authUser = ref.watch(authNotifierProvider);
-    
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('保有チケット'),
@@ -31,7 +31,7 @@ class OwnedTicketsScreen extends ConsumerWidget {
           ),
         ],
       ),
-      body: authUser.value != null 
+      body: authUser.value != null
           ? _buildTicketsList(context, ref)
           : _buildLoginRequired(context),
     );
@@ -39,7 +39,9 @@ class OwnedTicketsScreen extends ConsumerWidget {
 
   Widget _buildTicketsList(BuildContext context, WidgetRef ref) {
     final ownedTicketsAsync = ref.watch(ownedTicketsNotifierProvider);
-    final ownedTicketsNotifier = ref.read(ownedTicketsNotifierProvider.notifier);
+    final ownedTicketsNotifier = ref.read(
+      ownedTicketsNotifierProvider.notifier,
+    );
 
     return ownedTicketsAsync.when(
       data: (tickets) {
@@ -53,14 +55,14 @@ class OwnedTicketsScreen extends ConsumerWidget {
           ..sort((a, b) => b.compareTo(a)); // 新しい日付から表示
 
         return RefreshIndicator(
-          onRefresh: () => ownedTicketsNotifier.refresh(),
+          onRefresh: ownedTicketsNotifier.refresh,
           child: CustomScrollView(
             slivers: [
               // チケット統計情報
               SliverToBoxAdapter(
                 child: _buildTicketStats(context, ref, tickets),
               ),
-              
+
               // グループ化されたチケット一覧
               ...sortedDates.map((date) {
                 final ticketsForDate = groupedTickets[date]!;
@@ -68,9 +70,13 @@ class OwnedTicketsScreen extends ConsumerWidget {
                   slivers: [
                     // 日付ヘッダー
                     SliverToBoxAdapter(
-                      child: _buildDateHeader(context, date, ticketsForDate.length),
+                      child: _buildDateHeader(
+                        context,
+                        date,
+                        ticketsForDate.length,
+                      ),
                     ),
-                    
+
                     // その日のチケット一覧
                     SliverList(
                       delegate: SliverChildBuilderDelegate(
@@ -90,7 +96,7 @@ class OwnedTicketsScreen extends ConsumerWidget {
                   ],
                 );
               }),
-              
+
               // 底部の余白
               const SliverToBoxAdapter(
                 child: SizedBox(height: 16),
@@ -105,11 +111,13 @@ class OwnedTicketsScreen extends ConsumerWidget {
   }
 
   Widget _buildTicketStats(
-    BuildContext context, 
-    WidgetRef ref, 
+    BuildContext context,
+    WidgetRef ref,
     List<TicketPurchases> tickets,
   ) {
-    final ownedTicketsNotifier = ref.read(ownedTicketsNotifierProvider.notifier);
+    final ownedTicketsNotifier = ref.read(
+      ownedTicketsNotifierProvider.notifier,
+    );
     final latestTicket = ownedTicketsNotifier.getLatestTicket();
 
     return Container(
@@ -149,17 +157,18 @@ class OwnedTicketsScreen extends ConsumerWidget {
                     ),
                     Text(
                       '${tickets.length}枚',
-                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: Theme.of(context).textTheme.headlineMedium
+                          ?.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
                     ),
                   ],
                 ),
               ),
             ],
           ),
-          
+
           if (latestTicket != null) ...[
             const SizedBox(height: 12),
             Container(

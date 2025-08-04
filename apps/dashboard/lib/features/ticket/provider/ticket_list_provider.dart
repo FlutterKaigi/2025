@@ -47,7 +47,9 @@ class TicketListNotifier extends _$TicketListNotifier {
     final ticketType = item.ticketType;
 
     // 基本的なアクティブ判定
-    if (!ticketType.isActive) return false;
+    if (!ticketType.isActive) {
+      return false;
+    }
 
     // 販売開始日のチェック
     if (ticketType.saleStartsAt != null &&

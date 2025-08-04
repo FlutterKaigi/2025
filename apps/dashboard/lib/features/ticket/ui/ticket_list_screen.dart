@@ -35,7 +35,7 @@ class TicketListScreen extends ConsumerWidget {
                 const OwnedTicketsRoute().go(context);
               },
             ),
-          
+
           IconButton(
             icon: const Icon(Icons.refresh),
             onPressed: () async {
@@ -56,7 +56,8 @@ class TicketListScreen extends ConsumerWidget {
           return _buildTicketList(context, ref, ticketListAsync);
         },
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => _buildErrorView(context, ref, error.toString()),
+        error: (error, stack) =>
+            _buildErrorView(context, ref, error.toString()),
       ),
     );
   }
@@ -86,8 +87,9 @@ class TicketListScreen extends ConsumerWidget {
                   ticketType: ticketType,
                   onTap: () {
                     // チケット詳細画面への遷移
-                    TicketDetailRoute(ticketTypeId: ticketType.ticketType.id)
-                        .go(context);
+                    TicketDetailRoute(
+                      ticketTypeId: ticketType.ticketType.id,
+                    ).go(context);
                   },
                 ),
               );
@@ -136,7 +138,7 @@ class TicketListScreen extends ConsumerWidget {
 
   Widget _buildEmptyTicketsState(BuildContext context, WidgetRef ref) {
     final authUser = ref.watch(authNotifierProvider);
-    
+
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -160,7 +162,7 @@ class TicketListScreen extends ConsumerWidget {
               color: Colors.grey.shade500,
             ),
           ),
-          
+
           // 認証済みユーザーには保有チケット確認ボタンを表示
           if (authUser.value != null) ...[
             const SizedBox(height: 24),
