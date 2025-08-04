@@ -29,4 +29,8 @@ abstract class TicketsApiClient {
   Future<TicketCheckoutSessionResponse> getCheckoutSession(
     @Path('sessionId') String sessionId,
   );
+
+  /// 自分の購入済みチケット一覧を取得
+  @GET('/v1/tickets/me')
+  Future<UserTicketsResponse> getUserTickets();
 }

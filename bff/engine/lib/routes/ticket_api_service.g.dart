@@ -18,5 +18,6 @@ Router _$TicketApiServiceRouter(TicketApiService service) {
   );
   router.add('POST', r'/checkout', service._createCheckout);
   router.add('GET', r'/checkout/<sessionId>', service._getCheckoutSession);
+  router.add('GET', r'/me', service._getUserTickets);
   return router;
 }
