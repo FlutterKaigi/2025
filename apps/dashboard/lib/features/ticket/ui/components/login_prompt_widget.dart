@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// ログイン促進Widget
-/// 
+///
 /// 機能:
 /// - 未認証ユーザーにログインを促すUI
 /// - Googleログインボタンの提供
@@ -39,9 +39,9 @@ class LoginPromptWidget extends ConsumerWidget {
                 ),
               ],
             ),
-            
+
             const SizedBox(height: 12),
-            
+
             // 説明文
             Text(
               'FlutterKaigi 2025のチケットを購入するには、Googleアカウントでのログインが必要です。',
@@ -49,9 +49,9 @@ class LoginPromptWidget extends ConsumerWidget {
                 color: Colors.orange.shade700,
               ),
             ),
-            
+
             const SizedBox(height: 16),
-            
+
             // ログインボタン
             SizedBox(
               width: double.infinity,
@@ -70,9 +70,9 @@ class LoginPromptWidget extends ConsumerWidget {
                 ),
               ),
             ),
-            
+
             const SizedBox(height: 8),
-            
+
             // 注意事項
             Text(
               '※ ログイン後もチケット情報は保持されます',
@@ -90,7 +90,7 @@ class LoginPromptWidget extends ConsumerWidget {
     try {
       final authService = ref.read(authServiceProvider);
       await authService.signInWithGoogle();
-      
+
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('ログインが完了しました')),

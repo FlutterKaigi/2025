@@ -2,7 +2,7 @@ import 'package:db_types/db_types.dart';
 import 'package:flutter/material.dart';
 
 /// チケットオプション選択Widget
-/// 
+///
 /// 機能:
 /// - チケットオプションの選択UI
 /// - オプション名と説明の表示
@@ -40,7 +40,7 @@ class _TicketOptionSelectorState extends State<TicketOptionSelector> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            
+
             // 説明文（ある場合）
             if (widget.option.description != null) ...[
               const SizedBox(height: 4),
@@ -51,12 +51,12 @@ class _TicketOptionSelectorState extends State<TicketOptionSelector> {
                 ),
               ),
             ],
-            
+
             const SizedBox(height: 12),
-            
+
             // 選択UI（オプションの種類に応じて動的に変更）
             _buildOptionSelector(),
-            
+
             // 在庫制限情報（ある場合）
             if (widget.option.maxQuantity != null) ...[
               const SizedBox(height: 8),
@@ -85,7 +85,7 @@ class _TicketOptionSelectorState extends State<TicketOptionSelector> {
   Widget _buildOptionSelector() {
     // オプション名に基づいて適切なUIを選択
     final optionName = widget.option.name.toLowerCase();
-    
+
     if (optionName.contains('懇親会') || optionName.contains('パーティー')) {
       return _buildYesNoSelector();
     } else if (optionName.contains('サイズ') || optionName.contains('size')) {
@@ -121,7 +121,7 @@ class _TicketOptionSelectorState extends State<TicketOptionSelector> {
 
   Widget _buildSizeSelector() {
     const sizes = ['S', 'M', 'L', 'XL'];
-    
+
     return Wrap(
       spacing: 8,
       children: sizes.map((size) {
@@ -144,7 +144,7 @@ class _TicketOptionSelectorState extends State<TicketOptionSelector> {
       {'value': 'vegan', 'label': 'ビーガン'},
       {'value': 'halal', 'label': 'ハラル'},
     ];
-    
+
     return Column(
       children: meals.map((meal) {
         return RadioListTile<String>(

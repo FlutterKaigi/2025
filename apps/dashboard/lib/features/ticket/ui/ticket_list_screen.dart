@@ -1,4 +1,5 @@
 import 'package:bff_client/bff_client.dart';
+import 'package:dashboard/core/router/router.dart';
 import 'package:dashboard/features/ticket/provider/active_checkout_provider.dart';
 import 'package:dashboard/features/ticket/provider/ticket_list_provider.dart';
 import 'package:dashboard/features/ticket/ui/active_checkout_screen.dart';
@@ -43,7 +44,7 @@ class TicketListScreen extends ConsumerWidget {
           return _buildTicketList(context, ref, ticketListAsync);
         },
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => _buildErrorView(context, error.toString()),
+        error: (error, stack) => _buildErrorView(context, ref, error.toString()),
       ),
     );
   }
@@ -75,7 +76,8 @@ class TicketListScreen extends ConsumerWidget {
                   ticketType: ticketType,
                   onTap: () {
                     // チケット詳細画面への遷移
-                    // TODO: go_routerでの遷移実装
+                    TicketDetailRoute(ticketTypeId: ticketType.ticketType.id)
+                        .go(context);
                   },
                 ),
               );
@@ -84,11 +86,11 @@ class TicketListScreen extends ConsumerWidget {
         );
       },
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (error, stack) => _buildErrorView(context, error.toString()),
+      error: (error, stack) => _buildErrorView(context, ref, error.toString()),
     );
   }
 
-  Widget _buildErrorView(BuildContext context, String error) {
+  Widget _buildErrorView(BuildContext context, WidgetRef ref, String error) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -111,8 +113,9 @@ class TicketListScreen extends ConsumerWidget {
           ),
           const SizedBox(height: 16),
           ElevatedButton(
-            onPressed: () {
-              // TODO: 再試行処理
+            onPressed: () async {
+              await ref.read(ticketListNotifierProvider.notifier).refresh();
+              await ref.read(activeCheckoutNotifierProvider.notifier).refresh();
             },
             child: const Text('再試行'),
           ),

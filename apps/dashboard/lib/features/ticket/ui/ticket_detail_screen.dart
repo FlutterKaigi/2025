@@ -1,6 +1,7 @@
 import 'package:bff_client/bff_client.dart';
 import 'package:dashboard/features/auth/data/notifier/auth_notifier.dart';
 import 'package:dashboard/features/ticket/provider/ticket_detail_provider.dart';
+import 'package:dashboard/features/ticket/ui/components/checkout_summary.dart';
 import 'package:dashboard/features/ticket/ui/components/login_prompt_widget.dart';
 import 'package:dashboard/features/ticket/ui/components/ticket_option_selector.dart';
 import 'package:db_types/db_types.dart';
@@ -8,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// チケット詳細画面
-/// 
+///
 /// 機能:
 /// - 特定のチケット種別の詳細情報を表示
 /// - オプション選択
@@ -44,23 +45,23 @@ class TicketDetailScreen extends ConsumerWidget {
                   children: [
                     // チケット種別情報
                     _buildTicketTypeInfo(context, ticketDetail),
-                    
+
                     const SizedBox(height: 24),
-                    
+
                     // オプション選択
                     if (ticketDetail.options.isNotEmpty) ...[
                       _buildOptionsSection(context, ref, ticketDetail),
                       const SizedBox(height: 24),
                     ],
-                    
+
                     // 価格表示
                     _buildPriceInfo(context, totalPrice),
-                    
+
                     const SizedBox(height: 32),
                   ],
                 ),
               ),
-              
+
               // 購入セクション
               Container(
                 padding: const EdgeInsets.all(16),
@@ -78,14 +79,17 @@ class TicketDetailScreen extends ConsumerWidget {
           ),
         ),
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => _buildErrorView(context, error.toString()),
+        error: (error, stack) => _buildErrorView(context, ref, error.toString()),
       ),
     );
   }
 
-  Widget _buildTicketTypeInfo(BuildContext context, TicketTypeWithOptionsResponse ticketDetail) {
+  Widget _buildTicketTypeInfo(
+    BuildContext context,
+    TicketTypeWithOptionsResponse ticketDetail,
+  ) {
     final ticketType = ticketDetail.ticketType;
-    
+
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -99,9 +103,9 @@ class TicketDetailScreen extends ConsumerWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            
+
             const SizedBox(height: 8),
-            
+
             // 価格
             Text(
               '¥${_formatPrice(ticketType.price)}',
@@ -110,7 +114,7 @@ class TicketDetailScreen extends ConsumerWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            
+
             // 説明文
             if (ticketType.description != null) ...[
               const SizedBox(height: 16),
@@ -119,9 +123,9 @@ class TicketDetailScreen extends ConsumerWidget {
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
             ],
-            
+
             const SizedBox(height: 16),
-            
+
             // 販売情報
             _buildSalesInfo(context, ticketType),
           ],
@@ -141,29 +145,41 @@ class TicketDetailScreen extends ConsumerWidget {
           ),
         ),
         const SizedBox(height: 8),
-        
+
         // 在庫制限
         if (ticketType.maxQuantity != null)
           _buildInfoRow(context, '販売上限', '${ticketType.maxQuantity}枚'),
-        
+
         // 販売期間
         if (ticketType.saleStartsAt != null)
-          _buildInfoRow(context, '販売開始', _formatDateTime(ticketType.saleStartsAt!)),
-        
+          _buildInfoRow(
+            context,
+            '販売開始',
+            _formatDateTime(ticketType.saleStartsAt!),
+          ),
+
         if (ticketType.saleEndsAt != null)
-          _buildInfoRow(context, '販売終了', _formatDateTime(ticketType.saleEndsAt!)),
-        
+          _buildInfoRow(
+            context,
+            '販売終了',
+            _formatDateTime(ticketType.saleEndsAt!),
+          ),
+
         // アクティブ状態
         _buildInfoRow(
-          context, 
-          '販売状況', 
+          context,
+          '販売状況',
           ticketType.isActive ? '販売中' : '販売停止中',
         ),
       ],
     );
   }
 
-  Widget _buildOptionsSection(BuildContext context, WidgetRef ref, TicketTypeWithOptionsResponse ticketDetail) {
+  Widget _buildOptionsSection(
+    BuildContext context,
+    WidgetRef ref,
+    TicketTypeWithOptionsResponse ticketDetail,
+  ) {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -177,24 +193,26 @@ class TicketDetailScreen extends ConsumerWidget {
               ),
             ),
             const SizedBox(height: 16),
-            
-            ...ticketDetail.options.map<Widget>((TicketOptions option) => 
-              Padding(
+
+            ...ticketDetail.options.map<Widget>(
+              (option) => Padding(
                 padding: const EdgeInsets.only(bottom: 16),
                 child: TicketOptionSelector(
                   option: option,
                   onChanged: (value) {
                     if (value != null) {
-                      ref.read(selectedOptionsNotifierProvider.notifier)
+                      ref
+                          .read(selectedOptionsNotifierProvider.notifier)
                           .updateOption(option.id, value);
                     } else {
-                      ref.read(selectedOptionsNotifierProvider.notifier)
+                      ref
+                          .read(selectedOptionsNotifierProvider.notifier)
                           .removeOption(option.id);
                     }
                   },
                 ),
               ),
-            ).toList(),
+            ),
           ],
         ),
       ),
@@ -274,7 +292,7 @@ class TicketDetailScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildErrorView(BuildContext context, String error) {
+  Widget _buildErrorView(BuildContext context, WidgetRef ref, String error) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -295,39 +313,54 @@ class TicketDetailScreen extends ConsumerWidget {
             style: Theme.of(context).textTheme.bodyMedium,
             textAlign: TextAlign.center,
           ),
+          const SizedBox(height: 16),
+          ElevatedButton(
+            onPressed: () {
+              // プロバイダーを無効化して再読み込み
+              ref.invalidate(ticketDetailProvider(ticketTypeId));
+              ref.invalidate(selectedOptionsNotifierProvider);
+            },
+            child: const Text('再試行'),
+          ),
         ],
       ),
     );
   }
 
   Future<void> _handlePurchase(BuildContext context, WidgetRef ref) async {
-    try {
-      // TODO: チェックアウト処理の実装
-      // final checkoutRequest = ref.read(ticketCheckoutRequestProvider(ticketTypeId));
-      // final ticketRepository = ref.read(ticketRepositoryProvider);
-      // final checkoutResponse = await ticketRepository.createCheckout(checkoutRequest!);
-      
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('購入機能は実装中です')),
-      );
-    } catch (error) {
-      if (context.mounted) {
+    final ticketDetailAsync = ref.read(ticketDetailProvider(ticketTypeId));
+    
+    ticketDetailAsync.when(
+      data: (ticketDetail) async {
+        // 購入確認Sheetを表示
+        await showCheckoutSummarySheet(
+          context,
+          ticketTypeId: ticketTypeId,
+          ticketDetail: ticketDetail,
+        );
+      },
+      loading: () {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('チケット情報を読み込み中です')),
+        );
+      },
+      error: (error, _) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('エラーが発生しました: $error')),
         );
-      }
-    }
+      },
+    );
   }
 
   String _formatPrice(int price) {
     return price.toString().replaceAllMapped(
       RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-      (Match m) => '${m[1]},',
+      (m) => '${m[1]},',
     );
   }
 
   String _formatDateTime(DateTime dateTime) {
     return '${dateTime.year}/${dateTime.month}/${dateTime.day} '
-           '${dateTime.hour}:${dateTime.minute.toString().padLeft(2, '0')}';
+        '${dateTime.hour}:${dateTime.minute.toString().padLeft(2, '0')}';
   }
 }
