@@ -1,12 +1,11 @@
 import 'package:bff_client/bff_client.dart';
 import 'package:dashboard/core/provider/bff_client.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'ticket_repository.g.dart';
 
 /// チケット関連のデータ操作を担当するRepository
-/// 
+///
 /// bff_clientのTicketsApiClientを使用してバックエンドAPIと通信する
 @riverpod
 TicketRepository ticketRepository(Ref ref) {
@@ -24,50 +23,50 @@ class TicketRepository {
   final TicketsApiClient _ticketsApiClient;
 
   /// チケット種別一覧を取得（オプション情報も含む）
-  /// 
+  ///
   /// 匿名ユーザーでも利用可能
   Future<TicketTypesWithOptionsResponse> getTicketTypes() async {
-    return await _ticketsApiClient.getTicketTypes();
+    return _ticketsApiClient.getTicketTypes();
   }
 
   /// 特定のチケット種別の詳細情報を取得
-  /// 
+  ///
   /// 匿名ユーザーでも利用可能
-  /// 
+  ///
   /// [ticketTypeId] 取得したいチケット種別のID
   Future<TicketTypeWithOptionsResponse> getTicketTypeWithOptions(
     String ticketTypeId,
   ) async {
-    return await _ticketsApiClient.getTicketTypeWithOptions(ticketTypeId);
+    return _ticketsApiClient.getTicketTypeWithOptions(ticketTypeId);
   }
 
   /// ユーザーのチケット情報を取得（購入済み + 進行中チェックアウト）
-  /// 
+  ///
   /// 認証が必要
   Future<UserTicketsResponse> getUserTickets() async {
-    return await _ticketsApiClient.getUserTickets();
+    return _ticketsApiClient.getUserTickets();
   }
 
   /// チケットチェックアウト（枠確保）を実行
-  /// 
+  ///
   /// 認証が必要
   /// Stripe決済用のURLを取得する
-  /// 
+  ///
   /// [request] チェックアウト要求（チケット種別ID + オプション）
   Future<TicketCheckoutResponse> createCheckout(
     TicketCheckoutRequest request,
   ) async {
-    return await _ticketsApiClient.createCheckout(request);
+    return _ticketsApiClient.createCheckout(request);
   }
 
   /// チェックアウトセッションの詳細情報を取得
-  /// 
+  ///
   /// 認証が必要
-  /// 
+  ///
   /// [sessionId] チェックアウトセッションID
   Future<TicketCheckoutSessionResponse> getCheckoutSession(
     String sessionId,
   ) async {
-    return await _ticketsApiClient.getCheckoutSession(sessionId);
+    return _ticketsApiClient.getCheckoutSession(sessionId);
   }
 }
