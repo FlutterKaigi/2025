@@ -1,5 +1,6 @@
 import 'package:bff_client/bff_client.dart';
 import 'package:dashboard/core/router/router.dart';
+import 'package:dashboard/features/auth/data/notifier/auth_notifier.dart';
 import 'package:dashboard/features/ticket/provider/active_checkout_provider.dart';
 import 'package:dashboard/features/ticket/provider/ticket_list_provider.dart';
 import 'package:dashboard/features/ticket/ui/active_checkout_screen.dart';
@@ -19,11 +20,22 @@ class TicketListScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final activeCheckoutAsync = ref.watch(activeCheckoutNotifierProvider);
     final ticketListAsync = ref.watch(ticketListNotifierProvider);
+    final authUser = ref.watch(authNotifierProvider);
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('チケット'),
         actions: [
+          // 保有チケット表示ボタン（認証済みユーザーのみ）
+          if (authUser.value != null)
+            IconButton(
+              icon: const Icon(Icons.confirmation_number),
+              tooltip: '保有チケット',
+              onPressed: () {
+                const OwnedTicketsRoute().go(context);
+              },
+            ),
+          
           IconButton(
             icon: const Icon(Icons.refresh),
             onPressed: () async {
@@ -57,9 +69,7 @@ class TicketListScreen extends ConsumerWidget {
     return ticketListAsync.when(
       data: (ticketTypes) {
         if (ticketTypes.isEmpty) {
-          return const Center(
-            child: Text('現在販売中のチケットはありません'),
-          );
+          return _buildEmptyTicketsState(context, ref);
         }
 
         return RefreshIndicator(
@@ -119,6 +129,49 @@ class TicketListScreen extends ConsumerWidget {
             },
             child: const Text('再試行'),
           ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildEmptyTicketsState(BuildContext context, WidgetRef ref) {
+    final authUser = ref.watch(authNotifierProvider);
+    
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.confirmation_number_outlined,
+            size: 64,
+            color: Colors.grey.shade400,
+          ),
+          const SizedBox(height: 16),
+          Text(
+            '現在販売中のチケットはありません',
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(
+              color: Colors.grey.shade600,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            '販売開始をお待ちください',
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: Colors.grey.shade500,
+            ),
+          ),
+          
+          // 認証済みユーザーには保有チケット確認ボタンを表示
+          if (authUser.value != null) ...[
+            const SizedBox(height: 24),
+            ElevatedButton.icon(
+              onPressed: () {
+                const OwnedTicketsRoute().go(context);
+              },
+              icon: const Icon(Icons.confirmation_number),
+              label: const Text('保有チケットを確認'),
+            ),
+          ],
         ],
       ),
     );

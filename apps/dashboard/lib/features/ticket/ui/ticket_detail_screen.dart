@@ -79,7 +79,8 @@ class TicketDetailScreen extends ConsumerWidget {
           ),
         ),
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => _buildErrorView(context, ref, error.toString()),
+        error: (error, stack) =>
+            _buildErrorView(context, ref, error.toString()),
       ),
     );
   }
@@ -329,7 +330,7 @@ class TicketDetailScreen extends ConsumerWidget {
 
   Future<void> _handlePurchase(BuildContext context, WidgetRef ref) async {
     final ticketDetailAsync = ref.read(ticketDetailProvider(ticketTypeId));
-    
+
     ticketDetailAsync.when(
       data: (ticketDetail) async {
         // 購入確認Sheetを表示

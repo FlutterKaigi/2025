@@ -37,8 +37,9 @@ class _CheckoutSummarySheetState extends ConsumerState<CheckoutSummarySheet> {
     final selectedOptions = ref.watch(selectedOptionsNotifierProvider);
     final totalPrice = ref.watch(ticketTotalPriceProvider(widget.ticketTypeId));
     final authUser = ref.watch(authNotifierProvider);
-    final checkoutRequest =
-        ref.watch(ticketCheckoutRequestProvider(widget.ticketTypeId));
+    final checkoutRequest = ref.watch(
+      ticketCheckoutRequestProvider(widget.ticketTypeId),
+    );
 
     return Container(
       padding: const EdgeInsets.all(16),
@@ -58,8 +59,8 @@ class _CheckoutSummarySheetState extends ConsumerState<CheckoutSummarySheet> {
                 child: Text(
                   'チケット購入確認',
                   style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
               IconButton(
@@ -111,16 +112,16 @@ class _CheckoutSummarySheetState extends ConsumerState<CheckoutSummarySheet> {
             Text(
               ticketType.name,
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(height: 4),
             if (ticketType.description != null)
               Text(
                 ticketType.description!,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Colors.grey.shade600,
-                    ),
+                  color: Colors.grey.shade600,
+                ),
               ),
           ],
         ),
@@ -141,14 +142,15 @@ class _CheckoutSummarySheetState extends ConsumerState<CheckoutSummarySheet> {
             Text(
               '選択したオプション',
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(height: 12),
             ...selectedOptions.entries.map((entry) {
               // オプション名を取得
-              final option = widget.ticketDetail.options
-                  .firstWhere((opt) => opt.id == entry.key);
+              final option = widget.ticketDetail.options.firstWhere(
+                (opt) => opt.id == entry.key,
+              );
               return Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4),
                 child: Row(
@@ -162,9 +164,9 @@ class _CheckoutSummarySheetState extends ConsumerState<CheckoutSummarySheet> {
                     Text(
                       _formatOptionValue(entry.value),
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            fontWeight: FontWeight.w500,
-                            color: Theme.of(context).primaryColor,
-                          ),
+                        fontWeight: FontWeight.w500,
+                        color: Theme.of(context).primaryColor,
+                      ),
                     ),
                   ],
                 ),
@@ -187,15 +189,15 @@ class _CheckoutSummarySheetState extends ConsumerState<CheckoutSummarySheet> {
             Text(
               '合計金額',
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+                fontWeight: FontWeight.bold,
+              ),
             ),
             Text(
               '¥${_formatPrice(totalPrice)}',
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                    color: Theme.of(context).primaryColor,
-                    fontWeight: FontWeight.bold,
-                  ),
+                color: Theme.of(context).primaryColor,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ],
         ),
@@ -236,8 +238,8 @@ class _CheckoutSummarySheetState extends ConsumerState<CheckoutSummarySheet> {
         Text(
           '※ 決済画面（Stripe）に移動します',
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Colors.grey.shade600,
-              ),
+            color: Colors.grey.shade600,
+          ),
           textAlign: TextAlign.center,
         ),
       ],
@@ -254,8 +256,9 @@ class _CheckoutSummarySheetState extends ConsumerState<CheckoutSummarySheet> {
 
     try {
       final ticketRepository = ref.read(ticketRepositoryProvider);
-      final checkoutResponse =
-          await ticketRepository.createCheckout(checkoutRequest);
+      final checkoutResponse = await ticketRepository.createCheckout(
+        checkoutRequest,
+      );
 
       if (context.mounted) {
         // 成功時はSheetを閉じる
