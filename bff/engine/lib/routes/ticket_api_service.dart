@@ -233,5 +233,26 @@ class TicketApiService {
     },
   );
 
+  /// 自分の購入済みチケット一覧を取得
+  @Route.get('/me')
+  Future<Response> _getUserTickets(Request request) async => jsonResponse(
+    () async {
+      final supabaseUtil = container.read(supabaseUtilProvider);
+      final userResult = await supabaseUtil.extractUser(request);
+      final (_, user, _) = userResult.unwrap;
+
+      final database = await container.read(dbClientProvider.future);
+      final response = await (
+        database.ticketPurchase.getUserAllTickets(user.id),
+        database.ticketCheckout.getUserSessionHistory(user.id),
+      ).wait;
+
+      return UserTicketsResponse(
+        tickets: response.$1,
+        ticketCheckouts: response.$2,
+      ).toJson();
+    },
+  );
+
   Router get router => _$TicketApiServiceRouter(this);
 }

@@ -30,4 +30,26 @@ class TicketPurchaseDbClient {
         .map((row) => TicketPurchases.fromJson(row.toColumnMap()))
         .toList();
   }
+
+  /// ユーザーのすべてのチケット購入情報を取得
+  /// ステータスに関係なくすべて返す（作成日時の降順）
+  Future<List<TicketPurchases>> getUserAllTickets(
+    String userId,
+  ) async {
+    final result = await _connection.execute(
+      Sql.named('''
+        SELECT *
+        FROM ticket_purchases
+        WHERE user_id = @userId
+        ORDER BY created_at DESC
+      '''),
+      parameters: {
+        'userId': userId,
+      },
+    );
+
+    return result
+        .map((row) => TicketPurchases.fromJson(row.toColumnMap()))
+        .toList();
+  }
 }

@@ -12,6 +12,7 @@ export 'model/v1/tickets/ticket_checkout_session_response.dart';
 export 'model/v1/tickets/ticket_type_with_options_response.dart';
 export 'model/v1/tickets/ticket_types_response.dart';
 export 'model/v1/tickets/ticket_types_with_options_response.dart';
+export 'model/v1/tickets/user_tickets_response.dart';
 export 'model/v1/users/user_role_put_request.dart';
 export 'model/v1/users/users_list_request.dart';
 export 'model/v1/users/users_list_response.dart';
