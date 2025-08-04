@@ -21,7 +21,7 @@ class _InternalPaymentApiClient implements InternalPaymentApiClient {
 
   @override
   Future<HttpResponse<PutCheckoutSessionResponse>> createCheckoutSession({
-    required PutCheckoutSessonRequest request,
+    required PutCheckoutSessionRequest request,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

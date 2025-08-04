@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'put_checkout_sesson_request.dart';
+part of 'put_checkout_session_request.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -13,22 +13,22 @@ part of 'put_checkout_sesson_request.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$PutCheckoutSessonRequest {
+mixin _$PutCheckoutSessionRequest {
 
  String get successUrl; String get cancelUrl; String get userId; String get ticketTypeId; List<String> get ticketOptionIds;
-/// Create a copy of PutCheckoutSessonRequest
+/// Create a copy of PutCheckoutSessionRequest
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$PutCheckoutSessonRequestCopyWith<PutCheckoutSessonRequest> get copyWith => _$PutCheckoutSessonRequestCopyWithImpl<PutCheckoutSessonRequest>(this as PutCheckoutSessonRequest, _$identity);
+$PutCheckoutSessionRequestCopyWith<PutCheckoutSessionRequest> get copyWith => _$PutCheckoutSessionRequestCopyWithImpl<PutCheckoutSessionRequest>(this as PutCheckoutSessionRequest, _$identity);
 
-  /// Serializes this PutCheckoutSessonRequest to a JSON map.
+  /// Serializes this PutCheckoutSessionRequest to a JSON map.
   Map<String, dynamic> toJson();
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PutCheckoutSessonRequest&&(identical(other.successUrl, successUrl) || other.successUrl == successUrl)&&(identical(other.cancelUrl, cancelUrl) || other.cancelUrl == cancelUrl)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.ticketTypeId, ticketTypeId) || other.ticketTypeId == ticketTypeId)&&const DeepCollectionEquality().equals(other.ticketOptionIds, ticketOptionIds));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PutCheckoutSessionRequest&&(identical(other.successUrl, successUrl) || other.successUrl == successUrl)&&(identical(other.cancelUrl, cancelUrl) || other.cancelUrl == cancelUrl)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.ticketTypeId, ticketTypeId) || other.ticketTypeId == ticketTypeId)&&const DeepCollectionEquality().equals(other.ticketOptionIds, ticketOptionIds));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -37,15 +37,15 @@ int get hashCode => Object.hash(runtimeType,successUrl,cancelUrl,userId,ticketTy
 
 @override
 String toString() {
-  return 'PutCheckoutSessonRequest(successUrl: $successUrl, cancelUrl: $cancelUrl, userId: $userId, ticketTypeId: $ticketTypeId, ticketOptionIds: $ticketOptionIds)';
+  return 'PutCheckoutSessionRequest(successUrl: $successUrl, cancelUrl: $cancelUrl, userId: $userId, ticketTypeId: $ticketTypeId, ticketOptionIds: $ticketOptionIds)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $PutCheckoutSessonRequestCopyWith<$Res>  {
-  factory $PutCheckoutSessonRequestCopyWith(PutCheckoutSessonRequest value, $Res Function(PutCheckoutSessonRequest) _then) = _$PutCheckoutSessonRequestCopyWithImpl;
+abstract mixin class $PutCheckoutSessionRequestCopyWith<$Res>  {
+  factory $PutCheckoutSessionRequestCopyWith(PutCheckoutSessionRequest value, $Res Function(PutCheckoutSessionRequest) _then) = _$PutCheckoutSessionRequestCopyWithImpl;
 @useResult
 $Res call({
  String successUrl, String cancelUrl, String userId, String ticketTypeId, List<String> ticketOptionIds
@@ -56,14 +56,14 @@ $Res call({
 
 }
 /// @nodoc
-class _$PutCheckoutSessonRequestCopyWithImpl<$Res>
-    implements $PutCheckoutSessonRequestCopyWith<$Res> {
-  _$PutCheckoutSessonRequestCopyWithImpl(this._self, this._then);
+class _$PutCheckoutSessionRequestCopyWithImpl<$Res>
+    implements $PutCheckoutSessionRequestCopyWith<$Res> {
+  _$PutCheckoutSessionRequestCopyWithImpl(this._self, this._then);
 
-  final PutCheckoutSessonRequest _self;
-  final $Res Function(PutCheckoutSessonRequest) _then;
+  final PutCheckoutSessionRequest _self;
+  final $Res Function(PutCheckoutSessionRequest) _then;
 
-/// Create a copy of PutCheckoutSessonRequest
+/// Create a copy of PutCheckoutSessionRequest
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? successUrl = null,Object? cancelUrl = null,Object? userId = null,Object? ticketTypeId = null,Object? ticketOptionIds = null,}) {
   return _then(_self.copyWith(
@@ -79,8 +79,8 @@ as List<String>,
 }
 
 
-/// Adds pattern-matching-related methods to [PutCheckoutSessonRequest].
-extension PutCheckoutSessonRequestPatterns on PutCheckoutSessonRequest {
+/// Adds pattern-matching-related methods to [PutCheckoutSessionRequest].
+extension PutCheckoutSessionRequestPatterns on PutCheckoutSessionRequest {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -93,10 +93,10 @@ extension PutCheckoutSessonRequestPatterns on PutCheckoutSessonRequest {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _PutCheckoutSessonRequest value)?  $default,{required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _PutCheckoutSessionRequest value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _PutCheckoutSessonRequest() when $default != null:
+case _PutCheckoutSessionRequest() when $default != null:
 return $default(_that);case _:
   return orElse();
 
@@ -115,10 +115,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _PutCheckoutSessonRequest value)  $default,){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _PutCheckoutSessionRequest value)  $default,){
 final _that = this;
 switch (_that) {
-case _PutCheckoutSessonRequest():
+case _PutCheckoutSessionRequest():
 return $default(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -136,10 +136,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _PutCheckoutSessonRequest value)?  $default,){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _PutCheckoutSessionRequest value)?  $default,){
 final _that = this;
 switch (_that) {
-case _PutCheckoutSessonRequest() when $default != null:
+case _PutCheckoutSessionRequest() when $default != null:
 return $default(_that);case _:
   return null;
 
@@ -159,7 +159,7 @@ return $default(_that);case _:
 
 @optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String successUrl,  String cancelUrl,  String userId,  String ticketTypeId,  List<String> ticketOptionIds)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _PutCheckoutSessonRequest() when $default != null:
+case _PutCheckoutSessionRequest() when $default != null:
 return $default(_that.successUrl,_that.cancelUrl,_that.userId,_that.ticketTypeId,_that.ticketOptionIds);case _:
   return orElse();
 
@@ -180,7 +180,7 @@ return $default(_that.successUrl,_that.cancelUrl,_that.userId,_that.ticketTypeId
 
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String successUrl,  String cancelUrl,  String userId,  String ticketTypeId,  List<String> ticketOptionIds)  $default,) {final _that = this;
 switch (_that) {
-case _PutCheckoutSessonRequest():
+case _PutCheckoutSessionRequest():
 return $default(_that.successUrl,_that.cancelUrl,_that.userId,_that.ticketTypeId,_that.ticketOptionIds);case _:
   throw StateError('Unexpected subclass');
 
@@ -200,7 +200,7 @@ return $default(_that.successUrl,_that.cancelUrl,_that.userId,_that.ticketTypeId
 
 @optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String successUrl,  String cancelUrl,  String userId,  String ticketTypeId,  List<String> ticketOptionIds)?  $default,) {final _that = this;
 switch (_that) {
-case _PutCheckoutSessonRequest() when $default != null:
+case _PutCheckoutSessionRequest() when $default != null:
 return $default(_that.successUrl,_that.cancelUrl,_that.userId,_that.ticketTypeId,_that.ticketOptionIds);case _:
   return null;
 
@@ -212,9 +212,9 @@ return $default(_that.successUrl,_that.cancelUrl,_that.userId,_that.ticketTypeId
 /// @nodoc
 @JsonSerializable()
 
-class _PutCheckoutSessonRequest implements PutCheckoutSessonRequest {
-  const _PutCheckoutSessonRequest({required this.successUrl, required this.cancelUrl, required this.userId, required this.ticketTypeId, required final  List<String> ticketOptionIds}): _ticketOptionIds = ticketOptionIds;
-  factory _PutCheckoutSessonRequest.fromJson(Map<String, dynamic> json) => _$PutCheckoutSessonRequestFromJson(json);
+class _PutCheckoutSessionRequest implements PutCheckoutSessionRequest {
+  const _PutCheckoutSessionRequest({required this.successUrl, required this.cancelUrl, required this.userId, required this.ticketTypeId, required final  List<String> ticketOptionIds}): _ticketOptionIds = ticketOptionIds;
+  factory _PutCheckoutSessionRequest.fromJson(Map<String, dynamic> json) => _$PutCheckoutSessionRequestFromJson(json);
 
 @override final  String successUrl;
 @override final  String cancelUrl;
@@ -228,20 +228,20 @@ class _PutCheckoutSessonRequest implements PutCheckoutSessonRequest {
 }
 
 
-/// Create a copy of PutCheckoutSessonRequest
+/// Create a copy of PutCheckoutSessionRequest
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$PutCheckoutSessonRequestCopyWith<_PutCheckoutSessonRequest> get copyWith => __$PutCheckoutSessonRequestCopyWithImpl<_PutCheckoutSessonRequest>(this, _$identity);
+_$PutCheckoutSessionRequestCopyWith<_PutCheckoutSessionRequest> get copyWith => __$PutCheckoutSessionRequestCopyWithImpl<_PutCheckoutSessionRequest>(this, _$identity);
 
 @override
 Map<String, dynamic> toJson() {
-  return _$PutCheckoutSessonRequestToJson(this, );
+  return _$PutCheckoutSessionRequestToJson(this, );
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PutCheckoutSessonRequest&&(identical(other.successUrl, successUrl) || other.successUrl == successUrl)&&(identical(other.cancelUrl, cancelUrl) || other.cancelUrl == cancelUrl)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.ticketTypeId, ticketTypeId) || other.ticketTypeId == ticketTypeId)&&const DeepCollectionEquality().equals(other._ticketOptionIds, _ticketOptionIds));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PutCheckoutSessionRequest&&(identical(other.successUrl, successUrl) || other.successUrl == successUrl)&&(identical(other.cancelUrl, cancelUrl) || other.cancelUrl == cancelUrl)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.ticketTypeId, ticketTypeId) || other.ticketTypeId == ticketTypeId)&&const DeepCollectionEquality().equals(other._ticketOptionIds, _ticketOptionIds));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -250,15 +250,15 @@ int get hashCode => Object.hash(runtimeType,successUrl,cancelUrl,userId,ticketTy
 
 @override
 String toString() {
-  return 'PutCheckoutSessonRequest(successUrl: $successUrl, cancelUrl: $cancelUrl, userId: $userId, ticketTypeId: $ticketTypeId, ticketOptionIds: $ticketOptionIds)';
+  return 'PutCheckoutSessionRequest(successUrl: $successUrl, cancelUrl: $cancelUrl, userId: $userId, ticketTypeId: $ticketTypeId, ticketOptionIds: $ticketOptionIds)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$PutCheckoutSessonRequestCopyWith<$Res> implements $PutCheckoutSessonRequestCopyWith<$Res> {
-  factory _$PutCheckoutSessonRequestCopyWith(_PutCheckoutSessonRequest value, $Res Function(_PutCheckoutSessonRequest) _then) = __$PutCheckoutSessonRequestCopyWithImpl;
+abstract mixin class _$PutCheckoutSessionRequestCopyWith<$Res> implements $PutCheckoutSessionRequestCopyWith<$Res> {
+  factory _$PutCheckoutSessionRequestCopyWith(_PutCheckoutSessionRequest value, $Res Function(_PutCheckoutSessionRequest) _then) = __$PutCheckoutSessionRequestCopyWithImpl;
 @override @useResult
 $Res call({
  String successUrl, String cancelUrl, String userId, String ticketTypeId, List<String> ticketOptionIds
@@ -269,17 +269,17 @@ $Res call({
 
 }
 /// @nodoc
-class __$PutCheckoutSessonRequestCopyWithImpl<$Res>
-    implements _$PutCheckoutSessonRequestCopyWith<$Res> {
-  __$PutCheckoutSessonRequestCopyWithImpl(this._self, this._then);
+class __$PutCheckoutSessionRequestCopyWithImpl<$Res>
+    implements _$PutCheckoutSessionRequestCopyWith<$Res> {
+  __$PutCheckoutSessionRequestCopyWithImpl(this._self, this._then);
 
-  final _PutCheckoutSessonRequest _self;
-  final $Res Function(_PutCheckoutSessonRequest) _then;
+  final _PutCheckoutSessionRequest _self;
+  final $Res Function(_PutCheckoutSessionRequest) _then;
 
-/// Create a copy of PutCheckoutSessonRequest
+/// Create a copy of PutCheckoutSessionRequest
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? successUrl = null,Object? cancelUrl = null,Object? userId = null,Object? ticketTypeId = null,Object? ticketOptionIds = null,}) {
-  return _then(_PutCheckoutSessonRequest(
+  return _then(_PutCheckoutSessionRequest(
 successUrl: null == successUrl ? _self.successUrl : successUrl // ignore: cast_nullable_to_non_nullable
 as String,cancelUrl: null == cancelUrl ? _self.cancelUrl : cancelUrl // ignore: cast_nullable_to_non_nullable
 as String,userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
