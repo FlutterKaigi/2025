@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// チケット一覧画面
-/// 
+///
 /// 機能:
 /// - 購入可能なチケット種別を表示
 /// - 進行中のチェックアウトがある場合は非表示
@@ -38,7 +38,7 @@ class TicketListScreen extends ConsumerWidget {
           if (checkouts.isNotEmpty) {
             return const ActiveCheckoutScreen();
           }
-          
+
           // 通常のチケット一覧を表示
           return _buildTicketList(context, ref, ticketListAsync);
         },
@@ -49,8 +49,8 @@ class TicketListScreen extends ConsumerWidget {
   }
 
   Widget _buildTicketList(
-    BuildContext context, 
-    WidgetRef ref, 
+    BuildContext context,
+    WidgetRef ref,
     AsyncValue<List<TicketTypeWithOptionsItem>> ticketListAsync,
   ) {
     return ticketListAsync.when(
@@ -62,7 +62,8 @@ class TicketListScreen extends ConsumerWidget {
         }
 
         return RefreshIndicator(
-          onRefresh: () => ref.read(ticketListNotifierProvider.notifier).refresh(),
+          onRefresh: () =>
+              ref.read(ticketListNotifierProvider.notifier).refresh(),
           child: ListView.builder(
             padding: const EdgeInsets.all(16),
             itemCount: ticketTypes.length,

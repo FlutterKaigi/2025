@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /// 進行中チェックアウト画面
-/// 
+///
 /// 機能:
 /// - 進行中のチェックアウト情報表示
 /// - 有効期限のカウントダウン
@@ -16,9 +16,11 @@ class ActiveCheckoutScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final activeCheckoutNotifier = ref.read(activeCheckoutNotifierProvider.notifier);
+    final activeCheckoutNotifier = ref.read(
+      activeCheckoutNotifierProvider.notifier,
+    );
     final activeCheckout = activeCheckoutNotifier.getFirstActiveCheckout();
-    
+
     if (activeCheckout == null) {
       return const Center(
         child: Text('進行中のチェックアウトがありません'),
@@ -33,7 +35,7 @@ class ActiveCheckoutScreen extends ConsumerWidget {
           // 警告アイコンとタイトル
           Row(
             children: [
-              Icon(
+              const Icon(
                 Icons.pending_actions,
                 color: Colors.orange,
                 size: 28,
@@ -50,9 +52,9 @@ class ActiveCheckoutScreen extends ConsumerWidget {
               ),
             ],
           ),
-          
+
           const SizedBox(height: 24),
-          
+
           // チェックアウト情報カード
           Card(
             elevation: 4,
@@ -67,43 +69,44 @@ class ActiveCheckoutScreen extends ConsumerWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  
+
                   const SizedBox(height: 16),
-                  
+
                   // セッションID
                   _buildInfoRow(
                     context,
                     'セッションID',
                     activeCheckout.id,
                   ),
-                  
+
                   const SizedBox(height: 8),
-                  
+
                   // チケット種別ID（将来的には名前を表示したい）
                   _buildInfoRow(
                     context,
                     'チケット種別',
                     activeCheckout.ticketTypeId,
                   ),
-                  
+
                   const SizedBox(height: 16),
-                  
+
                   // 有効期限とカウントダウン
                   _buildExpirationInfo(context, ref, activeCheckout),
                 ],
               ),
             ),
           ),
-          
+
           const SizedBox(height: 24),
-          
+
           // アクションボタン
           Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               // 決済続行ボタン
               ElevatedButton.icon(
-                onPressed: () => _continueToStripe(activeCheckout.stripeCheckoutUrl),
+                onPressed: () =>
+                    _continueToStripe(activeCheckout.stripeCheckoutUrl),
                 icon: const Icon(Icons.payment),
                 label: const Text('決済を続行'),
                 style: ElevatedButton.styleFrom(
@@ -112,12 +115,13 @@ class ActiveCheckoutScreen extends ConsumerWidget {
                   padding: const EdgeInsets.symmetric(vertical: 12),
                 ),
               ),
-              
+
               const SizedBox(height: 12),
-              
+
               // 取り消しボタン（将来実装）
               OutlinedButton.icon(
-                onPressed: () => _showCancelDialog(context, ref, activeCheckout.id),
+                onPressed: () =>
+                    _showCancelDialog(context, ref, activeCheckout.id),
                 icon: const Icon(Icons.cancel),
                 label: const Text('チェックアウトを取り消し'),
                 style: OutlinedButton.styleFrom(
@@ -127,9 +131,9 @@ class ActiveCheckoutScreen extends ConsumerWidget {
               ),
             ],
           ),
-          
+
           const SizedBox(height: 24),
-          
+
           // 注意事項
           Container(
             padding: const EdgeInsets.all(16),
@@ -143,7 +147,7 @@ class ActiveCheckoutScreen extends ConsumerWidget {
               children: [
                 Row(
                   children: [
-                    Icon(Icons.info_outline, color: Colors.blue),
+                    const Icon(Icons.info_outline, color: Colors.blue),
                     const SizedBox(width: 8),
                     Text(
                       '重要な注意事項',
@@ -195,8 +199,8 @@ class ActiveCheckoutScreen extends ConsumerWidget {
   }
 
   Widget _buildExpirationInfo(
-    BuildContext context, 
-    WidgetRef ref, 
+    BuildContext context,
+    WidgetRef ref,
     TicketCheckoutSessions activeCheckout,
   ) {
     return Consumer(
@@ -204,7 +208,7 @@ class ActiveCheckoutScreen extends ConsumerWidget {
         final countdownAsync = ref.watch(
           checkoutCountdownNotifierProvider(activeCheckout.expiresAt),
         );
-        
+
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -220,7 +224,7 @@ class ActiveCheckoutScreen extends ConsumerWidget {
               style: Theme.of(context).textTheme.bodyMedium,
             ),
             const SizedBox(height: 8),
-            
+
             // カウントダウン表示
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -231,7 +235,7 @@ class ActiveCheckoutScreen extends ConsumerWidget {
               ),
               child: Row(
                 children: [
-                  Icon(Icons.timer, color: Colors.red),
+                  const Icon(Icons.timer, color: Colors.red),
                   const SizedBox(width: 8),
                   Text(
                     '残り時間: ${_formatDuration(countdownAsync)}',
@@ -259,7 +263,11 @@ class ActiveCheckoutScreen extends ConsumerWidget {
     }
   }
 
-  void _showCancelDialog(BuildContext context, WidgetRef ref, String sessionId) {
+  void _showCancelDialog(
+    BuildContext context,
+    WidgetRef ref,
+    String sessionId,
+  ) {
     showDialog<void>(
       context: context,
       builder: (context) => AlertDialog(
@@ -274,7 +282,8 @@ class ActiveCheckoutScreen extends ConsumerWidget {
             onPressed: () async {
               Navigator.of(context).pop();
               try {
-                await ref.read(activeCheckoutNotifierProvider.notifier)
+                await ref
+                    .read(activeCheckoutNotifierProvider.notifier)
                     .cancelCheckout(sessionId);
                 if (context.mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -289,8 +298,8 @@ class ActiveCheckoutScreen extends ConsumerWidget {
                 }
               }
             },
-            child: const Text('取り消し'),
             style: TextButton.styleFrom(foregroundColor: Colors.red),
+            child: const Text('取り消し'),
           ),
         ],
       ),
@@ -299,24 +308,24 @@ class ActiveCheckoutScreen extends ConsumerWidget {
 
   String _formatDateTime(DateTime dateTime) {
     return '${dateTime.year}/${dateTime.month}/${dateTime.day} '
-           '${dateTime.hour}:${dateTime.minute.toString().padLeft(2, '0')}';
+        '${dateTime.hour}:${dateTime.minute.toString().padLeft(2, '0')}';
   }
 
   String _formatDuration(Duration duration) {
     if (duration.isNegative) {
       return '期限切れ';
     }
-    
+
     final hours = duration.inHours;
     final minutes = duration.inMinutes.remainder(60);
     final seconds = duration.inSeconds.remainder(60);
-    
+
     if (hours > 0) {
-      return '${hours}時間${minutes}分${seconds}秒';
+      return '$hours時間$minutes分$seconds秒';
     } else if (minutes > 0) {
-      return '${minutes}分${seconds}秒';
+      return '$minutes分$seconds秒';
     } else {
-      return '${seconds}秒';
+      return '$seconds秒';
     }
   }
 }

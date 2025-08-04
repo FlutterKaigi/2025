@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// チケット種別を表示するカードコンポーネント
-/// 
+///
 /// 機能:
 /// - チケット名、価格、販売状況を表示
 /// - 販売期間とアクティブ状態の視覚的表示
@@ -24,7 +24,7 @@ class TicketCard extends ConsumerWidget {
     final ticketListNotifier = ref.read(ticketListNotifierProvider.notifier);
     final isActive = ticketListNotifier.isTicketTypeActive(ticketType);
     final statusMessage = ticketListNotifier.getSalesStatusMessage(ticketType);
-    
+
     return Card(
       elevation: 2,
       child: InkWell(
@@ -42,29 +42,35 @@ class TicketCard extends ConsumerWidget {
                   Expanded(
                     child: Text(
                       ticketType.ticketType.name,
-                      style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                        color: isActive ? null : Colors.grey,
-                      ),
+                      style: Theme.of(context).textTheme.headlineSmall
+                          ?.copyWith(
+                            color: isActive ? null : Colors.grey,
+                          ),
                     ),
                   ),
                   const SizedBox(width: 8),
                   Text(
                     '¥${_formatPrice(ticketType.ticketType.price)}',
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      color: isActive ? Theme.of(context).primaryColor : Colors.grey,
+                      color: isActive
+                          ? Theme.of(context).primaryColor
+                          : Colors.grey,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ],
               ),
-              
+
               const SizedBox(height: 8),
-              
+
               // 販売状況バッジ
               Row(
                 children: [
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
                     decoration: BoxDecoration(
                       color: _getStatusColor(isActive),
                       borderRadius: BorderRadius.circular(12),
@@ -78,7 +84,7 @@ class TicketCard extends ConsumerWidget {
                       ),
                     ),
                   ),
-                  
+
                   // 在庫制限表示
                   if (ticketType.ticketType.maxQuantity != null) ...[
                     const SizedBox(width: 8),
@@ -92,7 +98,7 @@ class TicketCard extends ConsumerWidget {
                   ],
                 ],
               ),
-              
+
               // 説明文（ある場合）
               if (ticketType.ticketType.description != null) ...[
                 const SizedBox(height: 12),
@@ -103,7 +109,7 @@ class TicketCard extends ConsumerWidget {
                   ),
                 ),
               ],
-              
+
               // オプション情報（ある場合）
               if (ticketType.options.isNotEmpty) ...[
                 const SizedBox(height: 12),
@@ -115,9 +121,9 @@ class TicketCard extends ConsumerWidget {
                   ),
                 ),
               ],
-              
+
               // 販売期間情報
-              if (ticketType.ticketType.saleStartsAt != null || 
+              if (ticketType.ticketType.saleStartsAt != null ||
                   ticketType.ticketType.saleEndsAt != null) ...[
                 const SizedBox(height: 8),
                 _buildSalesperiodInfo(context),
@@ -132,16 +138,17 @@ class TicketCard extends ConsumerWidget {
   Widget _buildSalesperiodInfo(BuildContext context) {
     final startDate = ticketType.ticketType.saleStartsAt;
     final endDate = ticketType.ticketType.saleEndsAt;
-    
-    String periodText = '';
+
+    var periodText = '';
     if (startDate != null && endDate != null) {
-      periodText = '販売期間: ${_formatDateTime(startDate)} - ${_formatDateTime(endDate)}';
+      periodText =
+          '販売期間: ${_formatDateTime(startDate)} - ${_formatDateTime(endDate)}';
     } else if (startDate != null) {
       periodText = '販売開始: ${_formatDateTime(startDate)}';
     } else if (endDate != null) {
       periodText = '販売終了: ${_formatDateTime(endDate)}';
     }
-    
+
     return Text(
       periodText,
       style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -157,7 +164,7 @@ class TicketCard extends ConsumerWidget {
   String _formatPrice(int price) {
     return price.toString().replaceAllMapped(
       RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-      (Match m) => '${m[1]},',
+      (m) => '${m[1]},',
     );
   }
 
