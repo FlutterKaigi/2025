@@ -7,7 +7,7 @@ import 'package:go_router/go_router.dart';
 /// メイン画面
 ///
 /// 主な役割:
-/// - アプリの主要なタブ画面（イベント・スポンサー・アカウント）を統括する
+/// - アプリの主要なタブ画面（イベント・スポンサー・チケット・アカウント）を統括する
 /// - 各タブへのナビゲーションを提供する
 ///
 /// 参考:
@@ -27,6 +27,7 @@ class MainScreen extends StatelessWidget {
       destinations: const [
         ResponsiveScaffoldDestination(icon: Icons.event, title: 'イベント'),
         ResponsiveScaffoldDestination(icon: Icons.business, title: 'スポンサー'),
+        ResponsiveScaffoldDestination(icon: Icons.confirmation_number, title: 'チケット'),
         ResponsiveScaffoldDestination(icon: Icons.person, title: 'アカウント'),
       ],
       onNavigationIndexChange: (index) async {
