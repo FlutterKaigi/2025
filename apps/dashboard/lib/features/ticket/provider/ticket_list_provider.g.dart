@@ -105,7 +105,7 @@ final class TicketListNotifierProvider
 }
 
 String _$ticketListNotifierHash() =>
-    r'aca5246201aa72b7b2305d2b81f87abafa4660f1';
+    r'aae7568ba3de68deb01f621704c2c8eff569a682';
 
 abstract class _$TicketListNotifier
     extends $AsyncNotifier<List<TicketTypeWithOptionsItem>> {

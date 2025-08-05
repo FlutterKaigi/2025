@@ -3,7 +3,6 @@ import { Hono } from "hono";
 import { describeRoute } from "hono-openapi";
 import { resolver, validator as vValidator } from "hono-openapi/valibot";
 import * as v from "valibot";
-import { ContainerInstanceStatus } from "../util/ContainerInstanceStatus";
 import type { TicketCheckoutWorkflowParam } from "../workflows/TicketCheckoutWorkflow/TicketCheckoutWorkflowParam";
 
 export const TicketCheckoutApi = new Hono()
@@ -17,7 +16,7 @@ export const TicketCheckoutApi = new Hono()
           description: "Successful",
           content: {
             "application/json": {
-              schema: resolver(ContainerInstanceStatus),
+              schema: resolver(v.object({ id: v.string() })),
             },
           },
         },
@@ -26,7 +25,7 @@ export const TicketCheckoutApi = new Hono()
     vValidator(
       "param",
       v.object({
-        ticketCheckoutSessionId: v.pipe(v.string(), v.uuid()),
+        ticketCheckoutSessionId: v.string(),
       })
     ),
     async (c) => {
@@ -37,12 +36,7 @@ export const TicketCheckoutApi = new Hono()
           ticketCheckoutSessionId,
         } satisfies TicketCheckoutWorkflowParam,
       });
-      const status = await instance.status();
-      const validatedStatus = v.parse(
-        ContainerInstanceStatus,
-        status satisfies ContainerInstanceStatus
-      );
-      return c.json(validatedStatus);
+      return c.json({ id: instance.id });
     }
   )
   .get(
@@ -55,7 +49,7 @@ export const TicketCheckoutApi = new Hono()
           description: "Successful",
           content: {
             "application/json": {
-              schema: resolver(ContainerInstanceStatus),
+              schema: resolver(v.object({ id: v.string() })),
             },
           },
         },
@@ -64,7 +58,7 @@ export const TicketCheckoutApi = new Hono()
     vValidator(
       "param",
       v.object({
-        ticketCheckoutSessionId: v.pipe(v.string(), v.uuid()),
+        ticketCheckoutSessionId: v.string(),
       })
     ),
     async (c) => {
@@ -72,11 +66,6 @@ export const TicketCheckoutApi = new Hono()
       const instance = await env.TICKET_CHECKOUT_WORKFLOW.get(
         ticketCheckoutSessionId
       );
-      const status = await instance.status();
-      const validatedStatus = v.parse(
-        ContainerInstanceStatus,
-        status satisfies ContainerInstanceStatus
-      );
-      return c.json(validatedStatus);
+      return c.json({ id: instance.id });
     }
   );

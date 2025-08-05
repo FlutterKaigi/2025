@@ -99,7 +99,7 @@ final class ActiveCheckoutNotifierProvider
 }
 
 String _$activeCheckoutNotifierHash() =>
-    r'fa60301cd209d2a64317abeb5d1a89d3cf2bfe0a';
+    r'd86c7ebbbb1a7af35752201f9bd89e97db0a40f1';
 
 abstract class _$ActiveCheckoutNotifier
     extends $AsyncNotifier<List<TicketCheckoutSessions>> {

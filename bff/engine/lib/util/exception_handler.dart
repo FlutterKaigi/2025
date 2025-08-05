@@ -1,16 +1,18 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:bff_client/bff_client.dart';
 import 'package:db_client/db_client.dart';
+import 'package:dio/dio.dart';
 import 'package:engine/provider/supabase_util.dart';
 import 'package:engine/util/json_response.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:shelf/shelf.dart';
+import 'package:shelf/shelf.dart' as shelf;
 import 'package:supabase/supabase.dart';
 
 /// [fn]を実行し、例外が発生した場合に、適切なHTTPレスポンスを返す関数
-Future<Response> exceptionHandler(Future<Response> Function() fn) async {
+Future<shelf.Response> exceptionHandler(
+  Future<shelf.Response> Function() fn,
+) async {
   try {
     try {
       return await fn();
@@ -19,23 +21,19 @@ Future<Response> exceptionHandler(Future<Response> Function() fn) async {
       rethrow;
     }
   } on AuthorizationException catch (e) {
-    return Response(
+    return jsonResponse(
+      () async => ErrorResponse.errorCode(
+        code: ErrorCode.unauthorized,
+        detail: '認証エラー: $e',
+      ).toJson(),
       HttpStatus.unauthorized,
-      body: jsonEncode(
-        ErrorResponse.errorCode(
-          code: ErrorCode.unauthorized,
-          detail:
-              '認証エラーが発生しました: '
-              '[${e.type.name}]: ${e.message ?? ""}',
-        ).toJson(),
-      ),
-      headers: {'Content-Type': 'application/json'},
     );
   } on CheckedFromJsonException catch (e) {
+    print(e);
     return jsonResponse(
       () async => ErrorResponse.errorCode(
         code: ErrorCode.internalServerError,
-        detail: 'JSONのデコード中にエラーが発生しました: ${e.key}, ${e.message}',
+        detail: 'JSONのデコード中にエラーが発生しました: ${e.className}.${e.key}, ${e.message}',
       ).toJson(),
       HttpStatus.internalServerError,
     );
@@ -48,20 +46,28 @@ Future<Response> exceptionHandler(Future<Response> Function() fn) async {
         detail: 'データベース側のエラーが発生しました: ${e.severity} ${e.message}',
       ).toJson();
     }, HttpStatus.internalServerError);
+  } on DioException catch (e) {
+    print(e.error);
+    print(e.requestOptions.uri);
+    print(e.response?.data);
+
+    return jsonResponse(() async {
+      return ErrorResponse.errorCode(
+        code: ErrorCode.internalServerError,
+        detail:
+            '内部APIとの通信でエラーが発生しました: ${e.requestOptions.uri} '
+            '${e.response?.data ?? ""}',
+      ).toJson();
+    }, HttpStatus.internalServerError);
   } on ErrorResponse catch (e) {
     return jsonResponse(() async => e.toJson(), e.code.statusCode);
   } on PostgrestException catch (e) {
-    return Response(
+    return jsonResponse(
+      () async => ErrorResponse.errorCode(
+        code: ErrorCode.internalServerError,
+        detail: '${e.runtimeType}',
+      ).toJson(),
       HttpStatus.internalServerError,
-      body: jsonEncode(
-        ErrorResponse.errorCode(
-          code: ErrorCode.internalServerError,
-          detail:
-              'データベースとの通信中にエラーが発生しました: '
-              '[${e.code}]: ${e.message}',
-        ).toJson(),
-      ),
-      headers: {'Content-Type': 'application/json'},
     );
   } on AuthApiException catch (e) {
     print(e);

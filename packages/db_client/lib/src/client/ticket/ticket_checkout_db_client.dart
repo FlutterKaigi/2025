@@ -15,7 +15,7 @@ class TicketCheckoutDbClient {
   ) async {
     final result = await _connection.execute(
       Sql.named('''
-        SELECT *
+        SELECT *, status::text as status
         FROM ticket_checkout_sessions
         WHERE user_id = @userId
           AND ticket_type_id = @ticketTypeId
@@ -41,13 +41,13 @@ class TicketCheckoutDbClient {
   }) async {
     final sql = ticketTypeId != null
         ? '''
-        SELECT *
+        SELECT *, status::text as status
         FROM ticket_checkout_sessions
         WHERE user_id = @userId AND ticket_type_id = @ticketTypeId
         ORDER BY created_at DESC
       '''
         : '''
-        SELECT *
+        SELECT *, status::text as status
         FROM ticket_checkout_sessions
         WHERE user_id = @userId
         ORDER BY created_at DESC
@@ -146,7 +146,7 @@ class TicketCheckoutDbClient {
   Future<TicketCheckoutSessions?> getCheckoutSession(String sessionId) async {
     final result = await _connection.execute(
       Sql.named('''
-        SELECT *
+        SELECT *, status::text as status
         FROM ticket_checkout_sessions
         WHERE id = @sessionId
       '''),

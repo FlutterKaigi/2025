@@ -20,7 +20,7 @@ abstract class TicketsApiClient {
 
   /// チケットチェックアウト（Stripe決済開始）
   @POST('/tickets/checkout')
-  Future<TicketCheckoutResponse> createCheckout(
+  Future<TicketCheckoutSessionResponse> createCheckout(
     @Body() TicketCheckoutRequest request,
   );
 

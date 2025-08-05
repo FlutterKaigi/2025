@@ -31,7 +31,7 @@ class _InternalPaymentApiClient implements InternalPaymentApiClient {
       Options(method: 'PUT', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/stripe/checkout-session',
+            '/proxy/stripe-internal-api/internal/payment/checkout-session',
             queryParameters: queryParameters,
             data: _data,
           )

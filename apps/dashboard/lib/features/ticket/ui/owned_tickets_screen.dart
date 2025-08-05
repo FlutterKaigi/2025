@@ -25,9 +25,7 @@ class OwnedTicketsScreen extends ConsumerWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
-            onPressed: () async {
-              await ref.read(ownedTicketsNotifierProvider.notifier).refresh();
-            },
+            onPressed: () async => ref.invalidate(ownedTicketsProvider),
           ),
         ],
       ),
@@ -38,165 +36,17 @@ class OwnedTicketsScreen extends ConsumerWidget {
   }
 
   Widget _buildTicketsList(BuildContext context, WidgetRef ref) {
-    final ownedTicketsAsync = ref.watch(ownedTicketsNotifierProvider);
-    final ownedTicketsNotifier = ref.read(
-      ownedTicketsNotifierProvider.notifier,
-    );
+    final ownedTicketsAsync = ref.watch(ownedTicketsProvider);
 
     return ownedTicketsAsync.when(
       data: (tickets) {
         if (tickets.isEmpty) {
           return _buildEmptyState(context);
         }
-
-        // 購入日ごとにグループ化
-        final groupedTickets = ownedTicketsNotifier.groupByPurchaseDate();
-        final sortedDates = groupedTickets.keys.toList()
-          ..sort((a, b) => b.compareTo(a)); // 新しい日付から表示
-
-        return RefreshIndicator(
-          onRefresh: ownedTicketsNotifier.refresh,
-          child: CustomScrollView(
-            slivers: [
-              // チケット統計情報
-              SliverToBoxAdapter(
-                child: _buildTicketStats(context, ref, tickets),
-              ),
-
-              // グループ化されたチケット一覧
-              ...sortedDates.map((date) {
-                final ticketsForDate = groupedTickets[date]!;
-                return SliverMainAxisGroup(
-                  slivers: [
-                    // 日付ヘッダー
-                    SliverToBoxAdapter(
-                      child: _buildDateHeader(
-                        context,
-                        date,
-                        ticketsForDate.length,
-                      ),
-                    ),
-
-                    // その日のチケット一覧
-                    SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (context, index) {
-                          final ticket = ticketsForDate[index];
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 16,
-                              vertical: 4,
-                            ),
-                            child: OwnedTicketCard(ticket: ticket),
-                          );
-                        },
-                        childCount: ticketsForDate.length,
-                      ),
-                    ),
-                  ],
-                );
-              }),
-
-              // 底部の余白
-              const SliverToBoxAdapter(
-                child: SizedBox(height: 16),
-              ),
-            ],
-          ),
-        );
+        throw UnimplementedError();
       },
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (error, stack) => _buildErrorView(context, ref, error.toString()),
-    );
-  }
-
-  Widget _buildTicketStats(
-    BuildContext context,
-    WidgetRef ref,
-    List<TicketPurchases> tickets,
-  ) {
-    final ownedTicketsNotifier = ref.read(
-      ownedTicketsNotifierProvider.notifier,
-    );
-    final latestTicket = ownedTicketsNotifier.getLatestTicket();
-
-    return Container(
-      margin: const EdgeInsets.all(16),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            Theme.of(context).primaryColor,
-            Theme.of(context).primaryColor.withOpacity(0.8),
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              const Icon(
-                Icons.confirmation_number,
-                color: Colors.white,
-                size: 32,
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '保有チケット',
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      '${tickets.length}枚',
-                      style: Theme.of(context).textTheme.headlineMedium
-                          ?.copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-
-          if (latestTicket != null) ...[
-            const SizedBox(height: 12),
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.2),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Row(
-                children: [
-                  const Icon(
-                    Icons.schedule,
-                    color: Colors.white,
-                    size: 16,
-                  ),
-                  const SizedBox(width: 4),
-                  Text(
-                    '最新購入: ${_formatDateTime(latestTicket.createdAt)}',
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ],
-      ),
     );
   }
 
@@ -312,9 +162,7 @@ class OwnedTicketsScreen extends ConsumerWidget {
           ),
           const SizedBox(height: 16),
           ElevatedButton(
-            onPressed: () async {
-              await ref.read(ownedTicketsNotifierProvider.notifier).refresh();
-            },
+            onPressed: () async => ref.invalidate(ownedTicketsProvider),
             child: const Text('再試行'),
           ),
         ],

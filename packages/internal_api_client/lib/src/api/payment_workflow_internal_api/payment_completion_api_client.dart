@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:internal_api_client/src/model/container_instance_status.dart';
+import 'package:internal_api_client/src/model/id_response.dart';
 import 'package:internal_api_client/src/model/payment_intent.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -11,17 +11,12 @@ abstract class PaymentCompletionApiClient {
       _PaymentCompletionApiClient;
 
   /// 支払い完了ワークフローを開始します
-  @PUT('/payment-completion/{userId}/{ticketCheckoutId}')
-  Future<HttpResponse<ContainerInstanceStatus>> startPaymentCompletionWorkflow({
+  @PUT(
+    '/proxy/payment-workflow-internal-api/payment-completion/{userId}/{ticketCheckoutId}',
+  )
+  Future<HttpResponse<IdResponse>> startPaymentCompletionWorkflow({
     @Path() required String userId,
     @Path() required String ticketCheckoutId,
     @Body() required PaymentIntent paymentIntent,
-  });
-
-  /// 支払い完了ワークフローのステータスを取得します
-  @GET('/payment-completion/{ticketCheckoutId}')
-  Future<HttpResponse<ContainerInstanceStatus>>
-  getPaymentCompletionWorkflowStatus({
-    @Path() required String ticketCheckoutId,
   });
 }

@@ -3,6 +3,7 @@ import 'package:dashboard/features/auth/data/notifier/auth_notifier.dart';
 import 'package:dashboard/features/ticket/data/ticket_repository.dart';
 import 'package:dashboard/features/ticket/provider/ticket_detail_provider.dart';
 import 'package:dashboard/features/ticket/ui/components/login_prompt_widget.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -265,7 +266,7 @@ class _CheckoutSummarySheetState extends ConsumerState<CheckoutSummarySheet> {
         Navigator.of(context).pop();
 
         // Stripe決済画面に遷移
-        await _openStripeCheckout(checkoutResponse.stripeCheckoutUrl);
+        await _openStripeCheckout(checkoutResponse.session.stripeCheckoutUrl);
 
         // スナックバーで成功メッセージを表示
         ScaffoldMessenger.of(context).showSnackBar(
@@ -275,11 +276,13 @@ class _CheckoutSummarySheetState extends ConsumerState<CheckoutSummarySheet> {
           ),
         );
       }
-    } catch (error) {
+    } on DioException catch (error) {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('チェックアウトに失敗しました: $error'),
+            content: Text(
+              'チェックアウトに失敗しました: ${error.response?.data ?? ""}',
+            ),
             backgroundColor: Colors.red,
           ),
         );

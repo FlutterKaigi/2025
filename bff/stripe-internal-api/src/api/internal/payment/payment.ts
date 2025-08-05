@@ -101,6 +101,7 @@ export const paymentApi = new Hono().put(
     }
 
     // ticketCheckoutを作成
+    const id = crypto.randomUUID();
     const stripe = new Stripe(env.STRIPE_API_KEY);
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
@@ -110,7 +111,7 @@ export const paymentApi = new Hono().put(
           quantity: 1,
         },
       ],
-      success_url: request.success_url,
+      success_url: `${request.success_url}?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: request.cancel_url,
       customer_email: authUser.email,
       expires_at: Math.floor(Date.now() / 1000) + 60 * 30, //  30 minutes
@@ -118,27 +119,38 @@ export const paymentApi = new Hono().put(
       payment_intent_data: {
         receipt_email: authUser.email,
       },
+      metadata: {
+        ticket_checkout_id: id,
+      },
     });
     if (!session.id || !session.url || !session.expires_at || !session.status) {
       return c.json({ error: "session is not valid" }, 500);
     }
 
-    const ticketCheckoutSession = await db.insert(databaseSchema.ticketCheckoutSessions).values({
-      ticketTypeId: request.ticket_type_id,
-      expiresAt: new Date(Date.now() + 10 * 60 * 1000).toISOString(),
-      userId: authUser.id,
-      status: "pending",
-      stripeCheckoutSessionId: session.id,
-      stripeCheckoutUrl: session.url ?? undefined,
-    }).returning();
+    const ticketCheckoutSession = await db
+      .insert(databaseSchema.ticketCheckoutSessions)
+      .values({
+        id,
+        ticketTypeId: request.ticket_type_id,
+        expiresAt: new Date(Date.now() + 10 * 60 * 1000).toISOString(),
+        userId: authUser.id,
+        status: "pending",
+        stripeCheckoutSessionId: session.id,
+        stripeCheckoutUrl: session.url ?? undefined,
+      })
+      .returning();
 
-    return c.json({
+    const response = {
       id: ticketCheckoutSession[0].id,
       url: session.url,
-      expiresAt: new Date(session.expires_at * 1000).toISOString(),
+      expires_at: new Date(session.expires_at * 1000).toISOString(),
       status: session.status,
-      customerEmail: authUser.email,
+      customer_email: authUser.email,
       session: session,
-    } satisfies PutCheckoutSessionResponse);
+    } satisfies PutCheckoutSessionResponse;
+
+    console.log(response);
+
+    return c.json(response);
   }
 );

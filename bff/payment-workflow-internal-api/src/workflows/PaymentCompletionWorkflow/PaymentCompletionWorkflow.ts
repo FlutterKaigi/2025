@@ -69,12 +69,14 @@ export class PaymentCompletionWorkflow extends WorkflowEntrypoint<
         // チケット作成
         const tickets = await tx
           .insert(databaseSchema.ticketPurchases)
-          .values({
-            userId: ticketCheckout.user.id,
-            ticketTypeId: ticketCheckout.ticketType.id,
-            status: "completed",
-            stripePaymentIntentId: paymentIntent.id,
-          })
+          .values([
+            {
+              userId: ticketCheckout.user.id,
+              ticketTypeId: ticketCheckout.ticketType.id,
+              status: "completed",
+              stripePaymentIntentId: paymentIntent.id,
+            },
+          ])
           .returning();
         if (tickets.length !== 1) {
           throw new Error(`Ticket not created: ${tickets}`);
@@ -92,10 +94,22 @@ export class PaymentCompletionWorkflow extends WorkflowEntrypoint<
             >;
           }
         );
-        const ticketOptions = await tx
-          .insert(databaseSchema.ticketPurchaseOptions)
-          .values(ticketOptionInserts)
-          .returning();
+        const ticketOptions: {
+          id: string;
+          createdAt: string;
+          updatedAt: string;
+          ticketPurchaseId: string;
+          ticketOptionId: string;
+          optionValue: string | null;
+        }[] = [];
+        if (ticketOptionInserts.length > 0) {
+          ticketOptions.push(
+            ...(await tx
+              .insert(databaseSchema.ticketPurchaseOptions)
+              .values(ticketOptionInserts)
+              .returning())
+          );
+        }
 
         return {
           ticket,

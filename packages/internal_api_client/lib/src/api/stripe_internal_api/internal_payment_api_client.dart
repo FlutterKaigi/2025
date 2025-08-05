@@ -10,7 +10,7 @@ abstract class InternalPaymentApiClient {
   factory InternalPaymentApiClient(Dio dio, {String baseUrl}) =
       _InternalPaymentApiClient;
 
-  @PUT('/stripe/checkout-session')
+  @PUT('/proxy/stripe-internal-api/internal/payment/checkout-session')
   Future<HttpResponse<PutCheckoutSessionResponse>> createCheckoutSession({
     @Body() required PutCheckoutSessonRequest request,
   });

@@ -53,7 +53,7 @@ class TicketRepository {
   /// Stripe決済用のURLを取得する
   ///
   /// [request] チェックアウト要求（チケット種別ID + オプション）
-  Future<TicketCheckoutResponse> createCheckout(
+  Future<TicketCheckoutSessionResponse> createCheckout(
     TicketCheckoutRequest request,
   ) async {
     return _ticketsApiClient.createCheckout(request);

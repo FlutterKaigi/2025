@@ -2,13 +2,13 @@ import { env } from "cloudflare:workers";
 import { Hono } from "hono";
 import { describeRoute } from "hono-openapi";
 import { resolver, validator as vValidator } from "hono-openapi/valibot";
+import type Stripe from "stripe";
 import * as v from "valibot";
-import { ContainerInstanceStatus } from "../util/ContainerInstanceStatus";
 import type { PaymentCompletionWorkflowParam } from "../workflows/PaymentCompletionWorkflow/PaymentCompletionWorkflowParam";
 
 export const PaymentCompletionApi = new Hono()
   .put(
-    "/:userId/:ticketCheckoutId",
+    "/:ticketCheckoutId",
 
     describeRoute({
       description: "チケットチェックアウトワークフローを開始する",
@@ -18,7 +18,7 @@ export const PaymentCompletionApi = new Hono()
           description: "Successful",
           content: {
             "application/json": {
-              schema: resolver(ContainerInstanceStatus),
+              schema: resolver(v.object({ id: v.string() })),
             },
           },
         },
@@ -27,7 +27,7 @@ export const PaymentCompletionApi = new Hono()
     vValidator(
       "param",
       v.object({
-        ticketCheckoutId: v.pipe(v.string(), v.uuid()),
+        ticketCheckoutId: v.string(),
       })
     ),
     vValidator("json", v.unknown()),
@@ -39,15 +39,10 @@ export const PaymentCompletionApi = new Hono()
         id: ticketCheckoutId,
         params: {
           ticketCheckoutId,
-          paymentIntent,
+          paymentIntent: paymentIntent as Stripe.PaymentIntent,
         } satisfies PaymentCompletionWorkflowParam,
       });
-      const status = await instance.status();
-      const validatedStatus = v.parse(
-        ContainerInstanceStatus,
-        status satisfies ContainerInstanceStatus
-      );
-      return c.json(validatedStatus);
+      return c.json({ id: instance.id });
     }
   )
   .get(
@@ -60,7 +55,7 @@ export const PaymentCompletionApi = new Hono()
           description: "Successful",
           content: {
             "application/json": {
-              schema: resolver(ContainerInstanceStatus),
+              schema: resolver(v.object({ id: v.string() })),
             },
           },
         },
@@ -77,11 +72,6 @@ export const PaymentCompletionApi = new Hono()
       const instance = await env.PAYMENT_COMPLETION_WORKFLOW.get(
         ticketCheckoutId
       );
-      const status = await instance.status();
-      const validatedStatus = v.parse(
-        ContainerInstanceStatus,
-        status satisfies ContainerInstanceStatus
-      );
-      return c.json(validatedStatus);
+      return c.json({ id: instance.id });
     }
   );
