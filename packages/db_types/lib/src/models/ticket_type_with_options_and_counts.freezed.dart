@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$TicketTypeWithOptionsAndCounts {
 
-@JsonKey(name: 'ticket_type') TicketTypes get ticketType;@JsonKey(name: 'sold_count') int get soldCount;@JsonKey(name: 'reserved_count') int get reservedCount; List<TicketOptionWithCount> get options;
+ TicketTypes get ticketType; int get soldCount; int get reservedCount; List<TicketOptionWithCount> get options;
 /// Create a copy of TicketTypeWithOptionsAndCounts
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $TicketTypeWithOptionsAndCountsCopyWith<$Res>  {
   factory $TicketTypeWithOptionsAndCountsCopyWith(TicketTypeWithOptionsAndCounts value, $Res Function(TicketTypeWithOptionsAndCounts) _then) = _$TicketTypeWithOptionsAndCountsCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(name: 'ticket_type') TicketTypes ticketType,@JsonKey(name: 'sold_count') int soldCount,@JsonKey(name: 'reserved_count') int reservedCount, List<TicketOptionWithCount> options
+ TicketTypes ticketType, int soldCount, int reservedCount, List<TicketOptionWithCount> options
 });
 
 
@@ -165,7 +165,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'ticket_type')  TicketTypes ticketType, @JsonKey(name: 'sold_count')  int soldCount, @JsonKey(name: 'reserved_count')  int reservedCount,  List<TicketOptionWithCount> options)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( TicketTypes ticketType,  int soldCount,  int reservedCount,  List<TicketOptionWithCount> options)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _TicketTypeWithOptionsAndCounts() when $default != null:
 return $default(_that.ticketType,_that.soldCount,_that.reservedCount,_that.options);case _:
@@ -186,7 +186,7 @@ return $default(_that.ticketType,_that.soldCount,_that.reservedCount,_that.optio
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'ticket_type')  TicketTypes ticketType, @JsonKey(name: 'sold_count')  int soldCount, @JsonKey(name: 'reserved_count')  int reservedCount,  List<TicketOptionWithCount> options)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( TicketTypes ticketType,  int soldCount,  int reservedCount,  List<TicketOptionWithCount> options)  $default,) {final _that = this;
 switch (_that) {
 case _TicketTypeWithOptionsAndCounts():
 return $default(_that.ticketType,_that.soldCount,_that.reservedCount,_that.options);case _:
@@ -206,7 +206,7 @@ return $default(_that.ticketType,_that.soldCount,_that.reservedCount,_that.optio
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'ticket_type')  TicketTypes ticketType, @JsonKey(name: 'sold_count')  int soldCount, @JsonKey(name: 'reserved_count')  int reservedCount,  List<TicketOptionWithCount> options)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( TicketTypes ticketType,  int soldCount,  int reservedCount,  List<TicketOptionWithCount> options)?  $default,) {final _that = this;
 switch (_that) {
 case _TicketTypeWithOptionsAndCounts() when $default != null:
 return $default(_that.ticketType,_that.soldCount,_that.reservedCount,_that.options);case _:
@@ -221,12 +221,12 @@ return $default(_that.ticketType,_that.soldCount,_that.reservedCount,_that.optio
 @JsonSerializable()
 
 class _TicketTypeWithOptionsAndCounts implements TicketTypeWithOptionsAndCounts {
-  const _TicketTypeWithOptionsAndCounts({@JsonKey(name: 'ticket_type') required this.ticketType, @JsonKey(name: 'sold_count') required this.soldCount, @JsonKey(name: 'reserved_count') required this.reservedCount, required final  List<TicketOptionWithCount> options}): _options = options;
+  const _TicketTypeWithOptionsAndCounts({required this.ticketType, required this.soldCount, required this.reservedCount, required final  List<TicketOptionWithCount> options}): _options = options;
   factory _TicketTypeWithOptionsAndCounts.fromJson(Map<String, dynamic> json) => _$TicketTypeWithOptionsAndCountsFromJson(json);
 
-@override@JsonKey(name: 'ticket_type') final  TicketTypes ticketType;
-@override@JsonKey(name: 'sold_count') final  int soldCount;
-@override@JsonKey(name: 'reserved_count') final  int reservedCount;
+@override final  TicketTypes ticketType;
+@override final  int soldCount;
+@override final  int reservedCount;
  final  List<TicketOptionWithCount> _options;
 @override List<TicketOptionWithCount> get options {
   if (_options is EqualUnmodifiableListView) return _options;
@@ -268,7 +268,7 @@ abstract mixin class _$TicketTypeWithOptionsAndCountsCopyWith<$Res> implements $
   factory _$TicketTypeWithOptionsAndCountsCopyWith(_TicketTypeWithOptionsAndCounts value, $Res Function(_TicketTypeWithOptionsAndCounts) _then) = __$TicketTypeWithOptionsAndCountsCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(name: 'ticket_type') TicketTypes ticketType,@JsonKey(name: 'sold_count') int soldCount,@JsonKey(name: 'reserved_count') int reservedCount, List<TicketOptionWithCount> options
+ TicketTypes ticketType, int soldCount, int reservedCount, List<TicketOptionWithCount> options
 });
 
 
@@ -311,7 +311,7 @@ $TicketTypesCopyWith<$Res> get ticketType {
 /// @nodoc
 mixin _$TicketOptionWithCount {
 
-@JsonKey(name: 'ticket_option') TicketOptions get ticketOption;@JsonKey(name: 'sold_count') int get soldCount;@JsonKey(name: 'reserved_count') int get reservedCount;
+ TicketOptions get ticketOption; int get soldCount; int get reservedCount;
 /// Create a copy of TicketOptionWithCount
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -344,7 +344,7 @@ abstract mixin class $TicketOptionWithCountCopyWith<$Res>  {
   factory $TicketOptionWithCountCopyWith(TicketOptionWithCount value, $Res Function(TicketOptionWithCount) _then) = _$TicketOptionWithCountCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(name: 'ticket_option') TicketOptions ticketOption,@JsonKey(name: 'sold_count') int soldCount,@JsonKey(name: 'reserved_count') int reservedCount
+ TicketOptions ticketOption, int soldCount, int reservedCount
 });
 
 
@@ -460,7 +460,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'ticket_option')  TicketOptions ticketOption, @JsonKey(name: 'sold_count')  int soldCount, @JsonKey(name: 'reserved_count')  int reservedCount)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( TicketOptions ticketOption,  int soldCount,  int reservedCount)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _TicketOptionWithCount() when $default != null:
 return $default(_that.ticketOption,_that.soldCount,_that.reservedCount);case _:
@@ -481,7 +481,7 @@ return $default(_that.ticketOption,_that.soldCount,_that.reservedCount);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'ticket_option')  TicketOptions ticketOption, @JsonKey(name: 'sold_count')  int soldCount, @JsonKey(name: 'reserved_count')  int reservedCount)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( TicketOptions ticketOption,  int soldCount,  int reservedCount)  $default,) {final _that = this;
 switch (_that) {
 case _TicketOptionWithCount():
 return $default(_that.ticketOption,_that.soldCount,_that.reservedCount);case _:
@@ -501,7 +501,7 @@ return $default(_that.ticketOption,_that.soldCount,_that.reservedCount);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'ticket_option')  TicketOptions ticketOption, @JsonKey(name: 'sold_count')  int soldCount, @JsonKey(name: 'reserved_count')  int reservedCount)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( TicketOptions ticketOption,  int soldCount,  int reservedCount)?  $default,) {final _that = this;
 switch (_that) {
 case _TicketOptionWithCount() when $default != null:
 return $default(_that.ticketOption,_that.soldCount,_that.reservedCount);case _:
@@ -516,12 +516,12 @@ return $default(_that.ticketOption,_that.soldCount,_that.reservedCount);case _:
 @JsonSerializable()
 
 class _TicketOptionWithCount implements TicketOptionWithCount {
-  const _TicketOptionWithCount({@JsonKey(name: 'ticket_option') required this.ticketOption, @JsonKey(name: 'sold_count') required this.soldCount, @JsonKey(name: 'reserved_count') required this.reservedCount});
+  const _TicketOptionWithCount({required this.ticketOption, required this.soldCount, required this.reservedCount});
   factory _TicketOptionWithCount.fromJson(Map<String, dynamic> json) => _$TicketOptionWithCountFromJson(json);
 
-@override@JsonKey(name: 'ticket_option') final  TicketOptions ticketOption;
-@override@JsonKey(name: 'sold_count') final  int soldCount;
-@override@JsonKey(name: 'reserved_count') final  int reservedCount;
+@override final  TicketOptions ticketOption;
+@override final  int soldCount;
+@override final  int reservedCount;
 
 /// Create a copy of TicketOptionWithCount
 /// with the given fields replaced by the non-null parameter values.
@@ -556,7 +556,7 @@ abstract mixin class _$TicketOptionWithCountCopyWith<$Res> implements $TicketOpt
   factory _$TicketOptionWithCountCopyWith(_TicketOptionWithCount value, $Res Function(_TicketOptionWithCount) _then) = __$TicketOptionWithCountCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(name: 'ticket_option') TicketOptions ticketOption,@JsonKey(name: 'sold_count') int soldCount,@JsonKey(name: 'reserved_count') int reservedCount
+ TicketOptions ticketOption, int soldCount, int reservedCount
 });
 
 
