@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:engine/provider/environments_provider.dart';
 import 'package:internal_api_client/internal_api_client.dart';
@@ -16,6 +18,7 @@ Dio internalApiDio(Ref ref) {
   return Dio(
     BaseOptions(
       baseUrl: env.internalApiUrl,
+      contentType: ContentType.json.mimeType,
       headers: {
         'x-api-key': env.xApiKey,
       },

@@ -80,6 +80,29 @@ RouteBase get $mainRoute => StatefulShellRouteData.$route(
       ],
     ),
     StatefulShellBranchData.$branch(
+      observers: TicketBranch.$observers,
+
+      routes: [
+        GoRouteData.$route(
+          path: '/tickets',
+
+          factory: $TicketListRouteExtension._fromState,
+          routes: [
+            GoRouteData.$route(
+              path: ':ticketTypeId',
+
+              factory: $TicketDetailRouteExtension._fromState,
+            ),
+            GoRouteData.$route(
+              path: 'owned',
+
+              factory: $OwnedTicketsRouteExtension._fromState,
+            ),
+          ],
+        ),
+      ],
+    ),
+    StatefulShellBranchData.$branch(
       observers: AccountBranch.$observers,
 
       routes: [
@@ -183,6 +206,55 @@ extension $SponsorEditRouteExtension on SponsorEditRoute {
 
   String get location =>
       GoRouteData.$location('/sponsors/${Uri.encodeComponent(slug)}/edit');
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $TicketListRouteExtension on TicketListRoute {
+  static TicketListRoute _fromState(GoRouterState state) =>
+      const TicketListRoute();
+
+  String get location => GoRouteData.$location('/tickets');
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $TicketDetailRouteExtension on TicketDetailRoute {
+  static TicketDetailRoute _fromState(GoRouterState state) =>
+      TicketDetailRoute(ticketTypeId: state.pathParameters['ticketTypeId']!);
+
+  String get location =>
+      GoRouteData.$location('/tickets/${Uri.encodeComponent(ticketTypeId)}');
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $OwnedTicketsRouteExtension on OwnedTicketsRoute {
+  static OwnedTicketsRoute _fromState(GoRouterState state) =>
+      const OwnedTicketsRoute();
+
+  String get location => GoRouteData.$location('/tickets/owned');
 
   void go(BuildContext context) => context.go(location);
 
@@ -328,7 +400,7 @@ final class RouterProvider
   }
 }
 
-String _$routerHash() => r'7dd4e67afd10119268fcd42e3358437eae00ff4a';
+String _$routerHash() => r'321e1fe5325869f339fb5dfd64b42a85f6e7ff76';
 
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

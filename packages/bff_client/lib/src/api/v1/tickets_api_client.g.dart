@@ -29,7 +29,7 @@ class _TicketsApiClient implements TicketsApiClient {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/v1/tickets/types',
+            '/tickets/types',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -58,7 +58,7 @@ class _TicketsApiClient implements TicketsApiClient {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/v1/tickets/types/${ticketTypeId}',
+            '/tickets/types/${ticketTypeId}',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -76,27 +76,27 @@ class _TicketsApiClient implements TicketsApiClient {
   }
 
   @override
-  Future<TicketCheckoutResponse> createCheckout(
+  Future<TicketCheckoutSessionResponse> createCheckout(
     TicketCheckoutRequest request,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = request;
-    final _options = _setStreamType<TicketCheckoutResponse>(
+    final _options = _setStreamType<TicketCheckoutSessionResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/v1/tickets/checkout',
+            '/tickets/checkout',
             queryParameters: queryParameters,
             data: _data,
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late TicketCheckoutResponse _value;
+    late TicketCheckoutSessionResponse _value;
     try {
-      _value = TicketCheckoutResponse.fromJson(_result.data!);
+      _value = TicketCheckoutSessionResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -116,7 +116,7 @@ class _TicketsApiClient implements TicketsApiClient {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/v1/tickets/checkout/${sessionId}',
+            '/tickets/checkout/${sessionId}',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -143,7 +143,7 @@ class _TicketsApiClient implements TicketsApiClient {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/v1/tickets/me',
+            '/tickets/me',
             queryParameters: queryParameters,
             data: _data,
           )

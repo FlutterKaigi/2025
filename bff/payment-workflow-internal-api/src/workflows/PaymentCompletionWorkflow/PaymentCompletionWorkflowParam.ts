@@ -1,3 +1,4 @@
+import Stripe from "stripe";
 import * as v from "valibot";
 
 export const PaymentCompletionWorkflowParam = v.object({
@@ -7,4 +8,6 @@ export const PaymentCompletionWorkflowParam = v.object({
 
 export type PaymentCompletionWorkflowParam = v.InferOutput<
 	typeof PaymentCompletionWorkflowParam
->;
+> & {
+	paymentIntent: Stripe.PaymentIntent;
+};

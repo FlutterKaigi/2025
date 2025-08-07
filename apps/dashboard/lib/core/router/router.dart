@@ -15,6 +15,9 @@ import 'package:dashboard/features/news/ui/news_screen.dart';
 import 'package:dashboard/features/sponsor/ui/sponsor_detail_screen.dart';
 import 'package:dashboard/features/sponsor/ui/sponsor_edit_screen.dart';
 import 'package:dashboard/features/sponsor/ui/sponsor_list_screen.dart';
+import 'package:dashboard/features/ticket/ui/owned_tickets_screen.dart';
+import 'package:dashboard/features/ticket/ui/ticket_detail_screen.dart';
+import 'package:dashboard/features/ticket/ui/ticket_list_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -27,6 +30,7 @@ part 'account.dart';
 part 'event.dart';
 part 'router.g.dart';
 part 'sponsor.dart';
+part 'ticket.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
@@ -115,6 +119,7 @@ class LoginRoute extends GoRouteData {
   branches: [
     TypedStatefulShellBranch<EventBranch>(routes: _eventRoutes),
     TypedStatefulShellBranch<SponsorBranch>(routes: _sponsorRoutes),
+    TypedStatefulShellBranch<TicketBranch>(routes: _ticketRoutes),
     TypedStatefulShellBranch<AccountBranch>(routes: _accountRoutes),
   ],
 )

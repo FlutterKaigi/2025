@@ -6,5 +6,4 @@ export 'api/stripe_internal_api/model/put_checkout_session_request.dart';
 export 'api/stripe_internal_api/model/put_checkout_session_response.dart';
 export 'api/stripe_internal_api/stripe_internal_api.dart';
 export 'internal_api_client.dart';
-export 'model/container_instance_status.dart';
 export 'model/payment_intent.dart';

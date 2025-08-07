@@ -12,6 +12,10 @@ import * as v from "valibot";
 const app = new Hono<{
   Bindings: Cloudflare.Env;
 }>()
+  .onError((err, c) => {
+    console.error(err);
+    return c.json({ error: "Error on Proxy", err }, 500);
+  })
   .use("*", secureHeaders())
   .use("*", logger())
   .use("*", cors())

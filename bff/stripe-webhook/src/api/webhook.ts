@@ -4,6 +4,7 @@ import { Hono } from "hono";
 import { hc } from "hono/client";
 import { describeRoute } from "hono-openapi";
 import Stripe from "stripe";
+import * as v from "valibot";
 
 export const webhookApi = new Hono().post(
   "/",
@@ -30,22 +31,37 @@ export const webhookApi = new Hono().post(
           console.log(event.data.object);
           break;
         }
-        case "payment_intent.succeeded": {
-          const paymentWorkflowApiClient = hc<PaymentWorkflowApiType>("/", {
-            fetch: env.PAYMENT_WORKFLOW_API.fetch.bind(
-              env.PAYMENT_WORKFLOW_API
+        case "checkout.session.completed": {
+          const url = new URL(c.req.url);
+          const baseUrl = `${url.protocol}//${url.hostname}`;
+          const paymentWorkflowApiClient = hc<PaymentWorkflowApiType>(baseUrl, {
+            fetch: env.PAYMENT_WORKFLOW_INTERNAL_API.fetch.bind(
+              env.PAYMENT_WORKFLOW_INTERNAL_API
             ),
           });
-          const response = await paymentWorkflowApiClient["ticket-checkout"][
-            ":ticketCheckoutSessionId"
+          const response = await paymentWorkflowApiClient["payment-completion"][
+            ":ticketCheckoutId"
           ].$put({
             param: {
-              ticketCheckoutSessionId: event.data.object.id,
+              ticketCheckoutId: v.parse(
+                v.string(),
+                event.data.object.metadata?.ticket_checkout_id
+              ),
             },
+            json: event.data.object,
           });
           const json = await response.json();
-          console.log(JSON.stringify(json));
-          break;
+          if (response.ok) {
+            return c.json({ workflow_api: json }, { status: 200 });
+          } else {
+            return c.json(
+              {
+                error: "Failed to complete payment workflow",
+                response: json,
+              },
+              500
+            );
+          }
         }
         case "payment_intent.canceled": {
           console.log(event.data.object);
@@ -61,7 +77,8 @@ export const webhookApi = new Hono().post(
 
       return c.newResponse(null, { status: 200 });
     } catch (err) {
-      const errorMessage = `⚠️  Webhook signature verification failed. ${
+      console.error(err);
+      const errorMessage = `${
         err instanceof Error ? err.message : "Internal server error"
       }`;
       console.error(errorMessage);
