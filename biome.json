@@ -10,7 +10,8 @@
     "includes": [
       "**/*.ts",
       "!**/worker-configuration.d.ts",
-      "!node_modules/**/*"
+      "!node_modules/**/*",
+      "!*.json"
     ]
   },
   "formatter": {
