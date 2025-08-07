@@ -45,6 +45,24 @@ export const oneTimeTokenTypeInAuth = auth.enum("one_time_token_type", [
 	"email_change_token_current",
 	"phone_change_token",
 ]);
+export const basicPlanType = pgEnum("basic_plan_type", [
+	"platinum",
+	"gold",
+	"silver",
+	"bronze",
+]);
+export const companySponsorType = pgEnum("company_sponsor_type", [
+	"basic",
+	"community",
+	"none",
+]);
+export const optionPlanType = pgEnum("option_plan_type", [
+	"naming_rights_hall",
+	"naming_rights_room",
+	"nameplate",
+	"lunch",
+	"scholarship",
+]);
 export const role = pgEnum("role", [
 	"admin",
 	"staff",
@@ -63,102 +81,12 @@ export const ticketPurchaseStatus = pgEnum("ticket_purchase_status", [
 	"refunded",
 ]);
 
-export const ssoProvidersInAuth = auth.table(
-	"sso_providers",
-	{
-		id: uuid().primaryKey().notNull(),
-		resourceId: text("resource_id"),
-		createdAt: timestamp("created_at", { withTimezone: true, mode: "string" }),
-		updatedAt: timestamp("updated_at", { withTimezone: true, mode: "string" }),
-	},
-	(_table) => [
-		uniqueIndex("sso_providers_resource_id_idx").using(
-			"btree",
-			sql`lower(resource_id)`,
-		),
-		check(
-			"resource_id not empty",
-			sql`(resource_id = NULL::text) OR (char_length(resource_id) > 0)`,
-		),
-	],
-);
-
-export const ssoDomainsInAuth = auth.table(
-	"sso_domains",
-	{
-		id: uuid().primaryKey().notNull(),
-		ssoProviderId: uuid("sso_provider_id").notNull(),
-		domain: text().notNull(),
-		createdAt: timestamp("created_at", { withTimezone: true, mode: "string" }),
-		updatedAt: timestamp("updated_at", { withTimezone: true, mode: "string" }),
-	},
-	(table) => [
-		uniqueIndex("sso_domains_domain_idx").using("btree", sql`lower(domain)`),
-		index("sso_domains_sso_provider_id_idx").using(
-			"btree",
-			table.ssoProviderId.asc().nullsLast().op("uuid_ops"),
-		),
-		foreignKey({
-			columns: [table.ssoProviderId],
-			foreignColumns: [ssoProvidersInAuth.id],
-			name: "sso_domains_sso_provider_id_fkey",
-		}).onDelete("cascade"),
-		check("domain not empty", sql`char_length(domain) > 0`),
-	],
-);
-
-export const mfaAmrClaimsInAuth = auth.table(
-	"mfa_amr_claims",
-	{
-		sessionId: uuid("session_id").notNull(),
-		createdAt: timestamp("created_at", {
-			withTimezone: true,
-			mode: "string",
-		}).notNull(),
-		updatedAt: timestamp("updated_at", {
-			withTimezone: true,
-			mode: "string",
-		}).notNull(),
-		authenticationMethod: text("authentication_method").notNull(),
-		id: uuid().primaryKey().notNull(),
-	},
-	(table) => [
-		foreignKey({
-			columns: [table.sessionId],
-			foreignColumns: [sessionsInAuth.id],
-			name: "mfa_amr_claims_session_id_fkey",
-		}).onDelete("cascade"),
-		unique("mfa_amr_claims_session_id_authentication_method_pkey").on(
-			table.sessionId,
-			table.authenticationMethod,
-		),
-	],
-);
-
-export const users = pgTable(
-	"users",
-	{
-		id: uuid().primaryKey().notNull(),
-		createdAt: timestamp("created_at", { mode: "string" })
-			.defaultNow()
-			.notNull(),
-		deletedAt: timestamp("deleted_at", { mode: "string" }),
-	},
-	(table) => [
-		foreignKey({
-			columns: [table.id],
-			foreignColumns: [table.id],
-			name: "users_id_fkey",
-		}).onDelete("cascade"),
-	],
-);
-
 export const schemaMigrationsInAuth = auth.table("schema_migrations", {
-	version: varchar({ length: 255 }).primaryKey().notNull(),
+	version: varchar({ length: 255 }).notNull(),
 });
 
 export const instancesInAuth = auth.table("instances", {
-	id: uuid().primaryKey().notNull(),
+	id: uuid().notNull(),
 	uuid: uuid(),
 	rawBaseConfig: text("raw_base_config"),
 	createdAt: timestamp("created_at", { withTimezone: true, mode: "string" }),
@@ -169,7 +97,7 @@ export const usersInAuth = auth.table(
 	"users",
 	{
 		instanceId: uuid("instance_id"),
-		id: uuid().primaryKey().notNull(),
+		id: uuid().notNull(),
 		aud: varchar({ length: 255 }),
 		role: varchar({ length: 255 }),
 		email: varchar({ length: 255 }),
@@ -283,7 +211,6 @@ export const usersInAuth = auth.table(
 			"btree",
 			table.isAnonymous.asc().nullsLast().op("bool_ops"),
 		),
-		unique("users_phone_key").on(table.phone),
 		check(
 			"users_email_change_confirm_status_check",
 			sql`(email_change_confirm_status >= 0) AND (email_change_confirm_status <= 2)`,
@@ -295,7 +222,7 @@ export const auditLogEntriesInAuth = auth.table(
 	"audit_log_entries",
 	{
 		instanceId: uuid("instance_id"),
-		id: uuid().primaryKey().notNull(),
+		id: uuid().notNull(),
 		payload: json(),
 		createdAt: timestamp("created_at", { withTimezone: true, mode: "string" }),
 		ipAddress: varchar("ip_address", { length: 64 }).default("").notNull(),
@@ -311,7 +238,7 @@ export const auditLogEntriesInAuth = auth.table(
 export const samlRelayStatesInAuth = auth.table(
 	"saml_relay_states",
 	{
-		id: uuid().primaryKey().notNull(),
+		id: uuid().notNull(),
 		ssoProviderId: uuid("sso_provider_id").notNull(),
 		requestId: text("request_id").notNull(),
 		forEmail: text("for_email"),
@@ -334,14 +261,14 @@ export const samlRelayStatesInAuth = auth.table(
 			table.ssoProviderId.asc().nullsLast().op("uuid_ops"),
 		),
 		foreignKey({
-			columns: [table.flowStateId],
-			foreignColumns: [flowStateInAuth.id],
-			name: "saml_relay_states_flow_state_id_fkey",
-		}).onDelete("cascade"),
-		foreignKey({
 			columns: [table.ssoProviderId],
 			foreignColumns: [ssoProvidersInAuth.id],
 			name: "saml_relay_states_sso_provider_id_fkey",
+		}).onDelete("cascade"),
+		foreignKey({
+			columns: [table.flowStateId],
+			foreignColumns: [flowStateInAuth.id],
+			name: "saml_relay_states_flow_state_id_fkey",
 		}).onDelete("cascade"),
 		check("request_id not empty", sql`char_length(request_id) > 0`),
 	],
@@ -351,7 +278,7 @@ export const refreshTokensInAuth = auth.table(
 	"refresh_tokens",
 	{
 		instanceId: uuid("instance_id"),
-		id: bigserial({ mode: "bigint" }).primaryKey().notNull(),
+		id: bigserial({ mode: "bigint" }).notNull(),
 		token: varchar({ length: 255 }),
 		userId: varchar("user_id", { length: 255 }),
 		revoked: boolean(),
@@ -388,14 +315,13 @@ export const refreshTokensInAuth = auth.table(
 			foreignColumns: [sessionsInAuth.id],
 			name: "refresh_tokens_session_id_fkey",
 		}).onDelete("cascade"),
-		unique("refresh_tokens_token_unique").on(table.token),
 	],
 );
 
 export const sessionsInAuth = auth.table(
 	"sessions",
 	{
-		id: uuid().primaryKey().notNull(),
+		id: uuid().notNull(),
 		userId: uuid("user_id").notNull(),
 		createdAt: timestamp("created_at", { withTimezone: true, mode: "string" }),
 		updatedAt: timestamp("updated_at", { withTimezone: true, mode: "string" }),
@@ -429,10 +355,78 @@ export const sessionsInAuth = auth.table(
 	],
 );
 
+export const ssoProvidersInAuth = auth.table(
+	"sso_providers",
+	{
+		id: uuid().notNull(),
+		resourceId: text("resource_id"),
+		createdAt: timestamp("created_at", { withTimezone: true, mode: "string" }),
+		updatedAt: timestamp("updated_at", { withTimezone: true, mode: "string" }),
+	},
+	(_table) => [
+		uniqueIndex("sso_providers_resource_id_idx").using(
+			"btree",
+			sql`lower(resource_id)`,
+		),
+		check(
+			"resource_id not empty",
+			sql`(resource_id = NULL::text) OR (char_length(resource_id) > 0)`,
+		),
+	],
+);
+
+export const ssoDomainsInAuth = auth.table(
+	"sso_domains",
+	{
+		id: uuid().notNull(),
+		ssoProviderId: uuid("sso_provider_id").notNull(),
+		domain: text().notNull(),
+		createdAt: timestamp("created_at", { withTimezone: true, mode: "string" }),
+		updatedAt: timestamp("updated_at", { withTimezone: true, mode: "string" }),
+	},
+	(table) => [
+		uniqueIndex("sso_domains_domain_idx").using("btree", sql`lower(domain)`),
+		index("sso_domains_sso_provider_id_idx").using(
+			"btree",
+			table.ssoProviderId.asc().nullsLast().op("uuid_ops"),
+		),
+		foreignKey({
+			columns: [table.ssoProviderId],
+			foreignColumns: [ssoProvidersInAuth.id],
+			name: "sso_domains_sso_provider_id_fkey",
+		}).onDelete("cascade"),
+		check("domain not empty", sql`char_length(domain) > 0`),
+	],
+);
+
+export const mfaAmrClaimsInAuth = auth.table(
+	"mfa_amr_claims",
+	{
+		sessionId: uuid("session_id").notNull(),
+		createdAt: timestamp("created_at", {
+			withTimezone: true,
+			mode: "string",
+		}).notNull(),
+		updatedAt: timestamp("updated_at", {
+			withTimezone: true,
+			mode: "string",
+		}).notNull(),
+		authenticationMethod: text("authentication_method").notNull(),
+		id: uuid().notNull(),
+	},
+	(table) => [
+		foreignKey({
+			columns: [table.sessionId],
+			foreignColumns: [sessionsInAuth.id],
+			name: "mfa_amr_claims_session_id_fkey",
+		}).onDelete("cascade"),
+	],
+);
+
 export const samlProvidersInAuth = auth.table(
 	"saml_providers",
 	{
-		id: uuid().primaryKey().notNull(),
+		id: uuid().notNull(),
 		ssoProviderId: uuid("sso_provider_id").notNull(),
 		entityId: text("entity_id").notNull(),
 		metadataXml: text("metadata_xml").notNull(),
@@ -452,20 +446,19 @@ export const samlProvidersInAuth = auth.table(
 			foreignColumns: [ssoProvidersInAuth.id],
 			name: "saml_providers_sso_provider_id_fkey",
 		}).onDelete("cascade"),
-		unique("saml_providers_entity_id_key").on(table.entityId),
-		check("entity_id not empty", sql`char_length(entity_id) > 0`),
+		check("metadata_xml not empty", sql`char_length(metadata_xml) > 0`),
 		check(
 			"metadata_url not empty",
 			sql`(metadata_url = NULL::text) OR (char_length(metadata_url) > 0)`,
 		),
-		check("metadata_xml not empty", sql`char_length(metadata_xml) > 0`),
+		check("entity_id not empty", sql`char_length(entity_id) > 0`),
 	],
 );
 
 export const flowStateInAuth = auth.table(
 	"flow_state",
 	{
-		id: uuid().primaryKey().notNull(),
+		id: uuid().notNull(),
 		userId: uuid("user_id"),
 		authCode: text("auth_code").notNull(),
 		codeChallengeMethod: codeChallengeMethodInAuth(
@@ -516,7 +509,7 @@ export const identitiesInAuth = auth.table(
 		email: text().generatedAlwaysAs(
 			sql`lower((identity_data ->> 'email'::text))`,
 		),
-		id: uuid().defaultRandom().primaryKey().notNull(),
+		id: uuid().defaultRandom().notNull(),
 	},
 	(table) => [
 		index("identities_email_idx").using(
@@ -532,17 +525,13 @@ export const identitiesInAuth = auth.table(
 			foreignColumns: [usersInAuth.id],
 			name: "identities_user_id_fkey",
 		}).onDelete("cascade"),
-		unique("identities_provider_id_provider_unique").on(
-			table.providerId,
-			table.provider,
-		),
 	],
 );
 
 export const oneTimeTokensInAuth = auth.table(
 	"one_time_tokens",
 	{
-		id: uuid().primaryKey().notNull(),
+		id: uuid().notNull(),
 		userId: uuid("user_id").notNull(),
 		tokenType: oneTimeTokenTypeInAuth("token_type").notNull(),
 		tokenHash: text("token_hash").notNull(),
@@ -580,7 +569,7 @@ export const oneTimeTokensInAuth = auth.table(
 export const mfaFactorsInAuth = auth.table(
 	"mfa_factors",
 	{
-		id: uuid().primaryKey().notNull(),
+		id: uuid().notNull(),
 		userId: uuid("user_id").notNull(),
 		friendlyName: text("friendly_name"),
 		factorType: factorTypeInAuth("factor_type").notNull(),
@@ -629,14 +618,13 @@ export const mfaFactorsInAuth = auth.table(
 			foreignColumns: [usersInAuth.id],
 			name: "mfa_factors_user_id_fkey",
 		}).onDelete("cascade"),
-		unique("mfa_factors_last_challenged_at_key").on(table.lastChallengedAt),
 	],
 );
 
 export const mfaChallengesInAuth = auth.table(
 	"mfa_challenges",
 	{
-		id: uuid().primaryKey().notNull(),
+		id: uuid().notNull(),
 		factorId: uuid("factor_id").notNull(),
 		createdAt: timestamp("created_at", {
 			withTimezone: true,
@@ -659,6 +647,198 @@ export const mfaChallengesInAuth = auth.table(
 			columns: [table.factorId],
 			foreignColumns: [mfaFactorsInAuth.id],
 			name: "mfa_challenges_auth_factor_id_fkey",
+		}).onDelete("cascade"),
+	],
+);
+
+export const individuals = pgTable(
+	"individuals",
+	{
+		id: integer().primaryKey().generatedAlwaysAsIdentity({
+			name: "individuals_id_seq",
+			startWith: 1,
+			increment: 1,
+			minValue: 1,
+			maxValue: 2147483647,
+			cache: 1,
+		}),
+		userId: uuid("user_id"),
+		createdAt: timestamp("created_at", { mode: "string" })
+			.defaultNow()
+			.notNull(),
+		updatedAt: timestamp("updated_at", { mode: "string" })
+			.defaultNow()
+			.notNull(),
+	},
+	(table) => [
+		foreignKey({
+			columns: [table.userId],
+			foreignColumns: [users.id],
+			name: "individuals_user_id_fkey",
+		}).onDelete("cascade"),
+		unique("individuals_user_id_key").on(table.userId),
+	],
+);
+
+export const companyDraftApprovals = pgTable(
+	"company_draft_approvals",
+	{
+		id: integer().primaryKey().generatedAlwaysAsIdentity({
+			name: "company_draft_approvals_id_seq",
+			startWith: 1,
+			increment: 1,
+			minValue: 1,
+			maxValue: 2147483647,
+			cache: 1,
+		}),
+		companyDraftId: smallint("company_draft_id"),
+		approvedBy: uuid("approved_by"),
+		createdAt: timestamp("created_at", { mode: "string" })
+			.defaultNow()
+			.notNull(),
+	},
+	(table) => [
+		foreignKey({
+			columns: [table.approvedBy],
+			foreignColumns: [users.id],
+			name: "company_draft_approvals_approved_by_fkey",
+		}).onDelete("set null"),
+		foreignKey({
+			columns: [table.companyDraftId],
+			foreignColumns: [companyDrafts.id],
+			name: "company_draft_approvals_company_draft_id_fkey",
+		}).onDelete("cascade"),
+	],
+);
+
+export const individualDraftApprovals = pgTable(
+	"individual_draft_approvals",
+	{
+		id: integer().primaryKey().generatedAlwaysAsIdentity({
+			name: "individual_draft_approvals_id_seq",
+			startWith: 1,
+			increment: 1,
+			minValue: 1,
+			maxValue: 2147483647,
+			cache: 1,
+		}),
+		individualDraftId: integer("individual_draft_id"),
+		approvedBy: uuid("approved_by"),
+		createdAt: timestamp("created_at", { mode: "string" })
+			.defaultNow()
+			.notNull(),
+	},
+	(table) => [
+		foreignKey({
+			columns: [table.approvedBy],
+			foreignColumns: [users.id],
+			name: "individual_draft_approvals_approved_by_fkey",
+		}).onDelete("set null"),
+		foreignKey({
+			columns: [table.individualDraftId],
+			foreignColumns: [individualDrafts.id],
+			name: "individual_draft_approvals_individual_draft_id_fkey",
+		}).onDelete("cascade"),
+	],
+);
+
+export const sponsorIndividuals = pgTable(
+	"sponsor_individuals",
+	{
+		id: smallint().primaryKey().generatedAlwaysAsIdentity({
+			name: "sponsor_individuals_id_seq",
+			startWith: 1,
+			increment: 1,
+			minValue: 1,
+			maxValue: 32767,
+			cache: 1,
+		}),
+		individualId: smallint("individual_id"),
+		createdAt: timestamp("created_at", { mode: "string" })
+			.defaultNow()
+			.notNull(),
+	},
+	(table) => [
+		foreignKey({
+			columns: [table.individualId],
+			foreignColumns: [individuals.id],
+			name: "sponsor_individuals_individual_id_fkey",
+		}).onDelete("cascade"),
+	],
+);
+
+export const companyInvitation = pgTable(
+	"company_invitation",
+	{
+		companyId: smallint("company_id"),
+		key: text().notNull(),
+		createdAt: timestamp("created_at", { mode: "string" })
+			.defaultNow()
+			.notNull(),
+		updatedAt: timestamp("updated_at", { mode: "string" })
+			.defaultNow()
+			.notNull(),
+		disabledAt: timestamp("disabled_at", { mode: "string" }),
+	},
+	(table) => [
+		foreignKey({
+			columns: [table.companyId],
+			foreignColumns: [companies.id],
+			name: "company_invitation_company_id_fkey",
+		}).onDelete("cascade"),
+		unique("company_invitation_key_key").on(table.key),
+		check("company_invitation_key_check", sql`key <> ''::text`),
+	],
+);
+
+export const individualDrafts = pgTable(
+	"individual_drafts",
+	{
+		id: integer().primaryKey().generatedAlwaysAsIdentity({
+			name: "individual_drafts_id_seq",
+			startWith: 1,
+			increment: 1,
+			minValue: 1,
+			maxValue: 2147483647,
+			cache: 1,
+		}),
+		individualId: integer("individual_id"),
+		name: text().notNull(),
+		logoName: text("logo_name"),
+		createdAt: timestamp("created_at", { mode: "string" })
+			.defaultNow()
+			.notNull(),
+		updatedAt: timestamp("updated_at", { mode: "string" })
+			.defaultNow()
+			.notNull(),
+		slug: text().notNull(),
+	},
+	(table) => [
+		foreignKey({
+			columns: [table.individualId],
+			foreignColumns: [individuals.id],
+			name: "individual_drafts_individual_id_fkey",
+		}).onDelete("cascade"),
+		unique("individual_drafts_slug_key").on(table.slug),
+		check("individual_drafts_name_check", sql`name <> ''::text`),
+		check("individual_drafts_slug_check", sql`slug <> ''::text`),
+	],
+);
+
+export const users = pgTable(
+	"users",
+	{
+		id: uuid().primaryKey().notNull(),
+		createdAt: timestamp("created_at", { mode: "string" })
+			.defaultNow()
+			.notNull(),
+		deletedAt: timestamp("deleted_at", { mode: "string" }),
+	},
+	(table) => [
+		foreignKey({
+			columns: [table.id],
+			foreignColumns: [table.id],
+			name: "users_id_fkey",
 		}).onDelete("cascade"),
 	],
 );
@@ -697,56 +877,6 @@ export const stripeWebhookLogs = pgTable(
 	],
 );
 
-export const companies = pgTable(
-	"companies",
-	{
-		id: smallint().primaryKey().generatedAlwaysAsIdentity({
-			name: "companies_id_seq",
-			startWith: 1,
-			increment: 1,
-			minValue: 1,
-			maxValue: 32767,
-			cache: 1,
-		}),
-		createdAt: timestamp("created_at", { mode: "string" })
-			.defaultNow()
-			.notNull(),
-		updatedAt: timestamp("updated_at", { mode: "string" })
-			.defaultNow()
-			.notNull(),
-		logoName: text("logo_name").notNull(),
-		name: text().notNull(),
-	},
-	(_table) => [
-		check("companies_logo_name_check", sql`logo_name <> ''::text`),
-		check("companies_name_check", sql`name <> ''::text`),
-	],
-);
-
-export const ticketOptions = pgTable(
-	"ticket_options",
-	{
-		id: text().primaryKey().notNull(),
-		ticketTypeId: text("ticket_type_id").notNull(),
-		name: text().notNull(),
-		description: text(),
-		createdAt: timestamp("created_at", { mode: "string" })
-			.defaultNow()
-			.notNull(),
-		updatedAt: timestamp("updated_at", { mode: "string" })
-			.defaultNow()
-			.notNull(),
-		maxQuantity: integer("max_quantity"),
-	},
-	(table) => [
-		foreignKey({
-			columns: [table.ticketTypeId],
-			foreignColumns: [ticketTypes.id],
-			name: "ticket_options_ticket_type_id_fkey",
-		}).onDelete("cascade"),
-	],
-);
-
 export const ticketPurchaseOptions = pgTable(
 	"ticket_purchase_options",
 	{
@@ -779,35 +909,6 @@ export const ticketPurchaseOptions = pgTable(
 		unique(
 			"ticket_purchase_options_ticket_purchase_id_ticket_option_id_key",
 		).on(table.ticketPurchaseId, table.ticketOptionId),
-	],
-);
-
-export const individuals = pgTable(
-	"individuals",
-	{
-		id: integer().primaryKey().generatedAlwaysAsIdentity({
-			name: "individuals_id_seq",
-			startWith: 1,
-			increment: 1,
-			minValue: 1,
-			maxValue: 2147483647,
-			cache: 1,
-		}),
-		userId: uuid("user_id"),
-		createdAt: timestamp("created_at", { mode: "string" })
-			.defaultNow()
-			.notNull(),
-		updatedAt: timestamp("updated_at", { mode: "string" })
-			.defaultNow()
-			.notNull(),
-	},
-	(table) => [
-		foreignKey({
-			columns: [table.userId],
-			foreignColumns: [users.id],
-			name: "individuals_user_id_fkey",
-		}).onDelete("cascade"),
-		unique("individuals_user_id_key").on(table.userId),
 	],
 );
 
@@ -863,86 +964,98 @@ export const ticketPurchases = pgTable(
 	],
 );
 
-export const ticketTypes = pgTable(
-	"ticket_types",
+export const ticketCheckoutOptions = pgTable(
+	"ticket_checkout_options",
 	{
-		id: text().primaryKey().notNull(),
-		name: text().notNull(),
-		price: integer().notNull(),
-		maxQuantity: integer("max_quantity"),
-		description: text(),
-		isActive: boolean("is_active").default(true),
-		saleStartsAt: timestamp("sale_starts_at", {
-			withTimezone: true,
-			mode: "string",
-		}),
-		saleEndsAt: timestamp("sale_ends_at", {
-			withTimezone: true,
-			mode: "string",
-		}),
+		id: uuid().default(sql`uuid_generate_v7()`).primaryKey().notNull(),
+		checkoutSessionId: uuid("checkout_session_id").notNull(),
+		ticketOptionId: text("ticket_option_id").notNull(),
 		createdAt: timestamp("created_at", { mode: "string" })
 			.defaultNow()
 			.notNull(),
 		updatedAt: timestamp("updated_at", { mode: "string" })
-			.defaultNow()
-			.notNull(),
-		stripePriceId: text("stripe_price_id").notNull(),
-	},
-	(table) => [unique("ticket_types_name_key").on(table.name)],
-);
-
-export const companyDraftApprovals = pgTable(
-	"company_draft_approvals",
-	{
-		id: integer().primaryKey().generatedAlwaysAsIdentity({
-			name: "company_draft_approvals_id_seq",
-			startWith: 1,
-			increment: 1,
-			minValue: 1,
-			maxValue: 2147483647,
-			cache: 1,
-		}),
-		companyDraftId: smallint("company_draft_id"),
-		approvedBy: uuid("approved_by"),
-		createdAt: timestamp("created_at", { mode: "string" })
 			.defaultNow()
 			.notNull(),
 	},
 	(table) => [
+		index("idx_ticket_checkout_options_checkout_session_id").using(
+			"btree",
+			table.checkoutSessionId.asc().nullsLast().op("uuid_ops"),
+		),
 		foreignKey({
-			columns: [table.approvedBy],
-			foreignColumns: [users.id],
-			name: "company_draft_approvals_approved_by_fkey",
-		}).onDelete("set null"),
-		foreignKey({
-			columns: [table.companyDraftId],
-			foreignColumns: [companyDrafts.id],
-			name: "company_draft_approvals_company_draft_id_fkey",
+			columns: [table.checkoutSessionId],
+			foreignColumns: [ticketCheckoutSessions.id],
+			name: "ticket_checkout_options_checkout_session_id_fkey",
 		}).onDelete("cascade"),
+		foreignKey({
+			columns: [table.ticketOptionId],
+			foreignColumns: [ticketOptions.id],
+			name: "ticket_checkout_options_ticket_option_id_fkey",
+		}).onDelete("cascade"),
+		unique(
+			"ticket_checkout_options_checkout_session_id_ticket_option_i_key",
+		).on(table.checkoutSessionId, table.ticketOptionId),
 	],
 );
 
-export const companyInvitation = pgTable(
-	"company_invitation",
+export const companyDrafts = pgTable(
+	"company_drafts",
 	{
+		id: smallint().primaryKey().generatedAlwaysAsIdentity({
+			name: "company_drafts_id_seq",
+			startWith: 1,
+			increment: 1,
+			minValue: 1,
+			maxValue: 32767,
+			cache: 1,
+		}),
 		companyId: smallint("company_id"),
-		key: text().notNull(),
 		createdAt: timestamp("created_at", { mode: "string" })
 			.defaultNow()
 			.notNull(),
 		updatedAt: timestamp("updated_at", { mode: "string" })
 			.defaultNow()
 			.notNull(),
-		disabledAt: timestamp("disabled_at", { mode: "string" }),
+		slug: text().notNull(),
+		description: text().notNull(),
+		websiteUrl: text("website_url").notNull(),
 	},
 	(table) => [
 		foreignKey({
 			columns: [table.companyId],
 			foreignColumns: [companies.id],
-			name: "company_invitation_company_id_fkey",
+			name: "company_drafts_company_id_fkey",
 		}).onDelete("cascade"),
-		unique("company_invitation_key_key").on(table.key),
-		check("company_invitation_key_check", sql`key <> ''::text`),
+		unique("company_drafts_slug_key").on(table.slug),
+		check("company_drafts_slug_check", sql`slug <> ''::text`),
+		check("company_drafts_description_check", sql`description <> ''::text`),
+		check("company_drafts_website_url_check", sql`website_url <> ''::text`),
+	],
+);
+
+export const companies = pgTable(
+	"companies",
+	{
+		id: smallint().primaryKey().generatedAlwaysAsIdentity({
+			name: "companies_id_seq",
+			startWith: 1,
+			increment: 1,
+			minValue: 1,
+			maxValue: 32767,
+			cache: 1,
+		}),
+		createdAt: timestamp("created_at", { mode: "string" })
+			.defaultNow()
+			.notNull(),
+		updatedAt: timestamp("updated_at", { mode: "string" })
+			.defaultNow()
+			.notNull(),
+		logoName: text("logo_name").notNull(),
+		name: text().notNull(),
+	},
+	(_table) => [
+		check("companies_name_check", sql`name <> ''::text`),
+		check("companies_logo_name_check", sql`logo_name <> ''::text`),
 	],
 );
 
@@ -1012,11 +1125,92 @@ export const ticketCheckoutSessions = pgTable(
 	],
 );
 
-export const companyDrafts = pgTable(
-	"company_drafts",
+export const ticketTypes = pgTable(
+	"ticket_types",
+	{
+		id: text().primaryKey().notNull(),
+		name: text().notNull(),
+		price: integer().notNull(),
+		maxQuantity: integer("max_quantity"),
+		description: text(),
+		isActive: boolean("is_active").default(true),
+		saleStartsAt: timestamp("sale_starts_at", {
+			withTimezone: true,
+			mode: "string",
+		}),
+		saleEndsAt: timestamp("sale_ends_at", {
+			withTimezone: true,
+			mode: "string",
+		}),
+		createdAt: timestamp("created_at", { mode: "string" })
+			.defaultNow()
+			.notNull(),
+		updatedAt: timestamp("updated_at", { mode: "string" })
+			.defaultNow()
+			.notNull(),
+		stripePriceId: text("stripe_price_id").notNull(),
+	},
+	(table) => [unique("ticket_types_name_key").on(table.name)],
+);
+
+export const ticketOptions = pgTable(
+	"ticket_options",
+	{
+		id: text().primaryKey().notNull(),
+		ticketTypeId: text("ticket_type_id").notNull(),
+		name: text().notNull(),
+		description: text(),
+		createdAt: timestamp("created_at", { mode: "string" })
+			.defaultNow()
+			.notNull(),
+		updatedAt: timestamp("updated_at", { mode: "string" })
+			.defaultNow()
+			.notNull(),
+		maxQuantity: integer("max_quantity"),
+	},
+	(table) => [
+		foreignKey({
+			columns: [table.ticketTypeId],
+			foreignColumns: [ticketTypes.id],
+			name: "ticket_options_ticket_type_id_fkey",
+		}).onDelete("cascade"),
+	],
+);
+
+export const basicSponsorCompanies = pgTable(
+	"basic_sponsor_companies",
 	{
 		id: smallint().primaryKey().generatedAlwaysAsIdentity({
-			name: "company_drafts_id_seq",
+			name: "basic_sponsor_companies_id_seq",
+			startWith: 1,
+			increment: 1,
+			minValue: 1,
+			maxValue: 32767,
+			cache: 1,
+		}),
+		sponsorCompanyId: smallint("sponsor_company_id"),
+		basicPlanType: basicPlanType("basic_plan_type").notNull(),
+		createdAt: timestamp("created_at", { mode: "string" })
+			.defaultNow()
+			.notNull(),
+	},
+	(table) => [
+		foreignKey({
+			columns: [table.sponsorCompanyId],
+			foreignColumns: [sponsorCompanies.id],
+			name: "basic_sponsor_companies_sponsor_company_id_fkey",
+		}).onDelete("cascade"),
+		unique("basic_sponsor_companies_sponsor_company_id_key").on(
+			table.sponsorCompanyId,
+		),
+	],
+);
+
+export const sponsorCompanies = pgTable(
+	"sponsor_companies",
+	{
+		id: smallint().primaryKey().generatedAlwaysAsIdentity({
+			name: "sponsor_companies_id_seq",
 			startWith: 1,
 			increment: 1,
 			minValue: 1,
@@ -1024,254 +1218,46 @@ export const companyDrafts = pgTable(
 			cache: 1,
 		}),
 		companyId: smallint("company_id"),
+		sponsorType: companySponsorType("sponsor_type").notNull(),
 		createdAt: timestamp("created_at", { mode: "string" })
 			.defaultNow()
 			.notNull(),
-		updatedAt: timestamp("updated_at", { mode: "string" })
-			.defaultNow()
-			.notNull(),
-		slug: text().notNull(),
-		description: text().notNull(),
-		websiteUrl: text("website_url").notNull(),
 	},
 	(table) => [
 		foreignKey({
 			columns: [table.companyId],
 			foreignColumns: [companies.id],
-			name: "company_drafts_company_id_fkey",
+			name: "sponsor_companies_company_id_fkey",
 		}).onDelete("cascade"),
-		unique("company_drafts_slug_key").on(table.slug),
-		check("company_drafts_description_check", sql`description <> ''::text`),
-		check("company_drafts_slug_check", sql`slug <> ''::text`),
-		check("company_drafts_website_url_check", sql`website_url <> ''::text`),
 	],
 );
 
-export const ticketCheckoutOptions = pgTable(
-	"ticket_checkout_options",
+export const sponsorCompanyOptions = pgTable(
+	"sponsor_company_options",
 	{
-		id: uuid().default(sql`uuid_generate_v7()`).primaryKey().notNull(),
-		checkoutSessionId: uuid("checkout_session_id").notNull(),
-		ticketOptionId: text("ticket_option_id").notNull(),
+		id: smallint().primaryKey().generatedAlwaysAsIdentity({
+			name: "sponsor_company_options_id_seq",
+			startWith: 1,
+			increment: 1,
+			minValue: 1,
+			maxValue: 32767,
+			cache: 1,
+		}),
+		sponsorCompanyId: smallint("sponsor_company_id"),
+		optionPlanType: optionPlanType("option_plan_type").notNull(),
 		createdAt: timestamp("created_at", { mode: "string" })
-			.defaultNow()
-			.notNull(),
-		updatedAt: timestamp("updated_at", { mode: "string" })
 			.defaultNow()
 			.notNull(),
 	},
 	(table) => [
-		index("idx_ticket_checkout_options_checkout_session_id").using(
-			"btree",
-			table.checkoutSessionId.asc().nullsLast().op("uuid_ops"),
-		),
 		foreignKey({
-			columns: [table.checkoutSessionId],
-			foreignColumns: [ticketCheckoutSessions.id],
-			name: "ticket_checkout_options_checkout_session_id_fkey",
-		}).onDelete("cascade"),
-		foreignKey({
-			columns: [table.ticketOptionId],
-			foreignColumns: [ticketOptions.id],
-			name: "ticket_checkout_options_ticket_option_id_fkey",
+			columns: [table.sponsorCompanyId],
+			foreignColumns: [sponsorCompanies.id],
+			name: "sponsor_company_options_sponsor_company_id_fkey",
 		}).onDelete("cascade"),
 		unique(
-			"ticket_checkout_options_checkout_session_id_ticket_option_i_key",
-		).on(table.checkoutSessionId, table.ticketOptionId),
-	],
-);
-
-export const individualDraftApprovals = pgTable(
-	"individual_draft_approvals",
-	{
-		id: integer().primaryKey().generatedAlwaysAsIdentity({
-			name: "individual_draft_approvals_id_seq",
-			startWith: 1,
-			increment: 1,
-			minValue: 1,
-			maxValue: 2147483647,
-			cache: 1,
-		}),
-		individualDraftId: integer("individual_draft_id"),
-		approvedBy: uuid("approved_by"),
-		createdAt: timestamp("created_at", { mode: "string" })
-			.defaultNow()
-			.notNull(),
-	},
-	(table) => [
-		foreignKey({
-			columns: [table.approvedBy],
-			foreignColumns: [users.id],
-			name: "individual_draft_approvals_approved_by_fkey",
-		}).onDelete("set null"),
-		foreignKey({
-			columns: [table.individualDraftId],
-			foreignColumns: [individualDrafts.id],
-			name: "individual_draft_approvals_individual_draft_id_fkey",
-		}).onDelete("cascade"),
-	],
-);
-
-export const individualDrafts = pgTable(
-	"individual_drafts",
-	{
-		id: integer().primaryKey().generatedAlwaysAsIdentity({
-			name: "individual_drafts_id_seq",
-			startWith: 1,
-			increment: 1,
-			minValue: 1,
-			maxValue: 2147483647,
-			cache: 1,
-		}),
-		individualId: integer("individual_id"),
-		name: text().notNull(),
-		logoName: text("logo_name"),
-		createdAt: timestamp("created_at", { mode: "string" })
-			.defaultNow()
-			.notNull(),
-		updatedAt: timestamp("updated_at", { mode: "string" })
-			.defaultNow()
-			.notNull(),
-		slug: text().notNull(),
-	},
-	(table) => [
-		foreignKey({
-			columns: [table.individualId],
-			foreignColumns: [individuals.id],
-			name: "individual_drafts_individual_id_fkey",
-		}).onDelete("cascade"),
-		unique("individual_drafts_slug_key").on(table.slug),
-		check("individual_drafts_name_check", sql`name <> ''::text`),
-		check("individual_drafts_slug_check", sql`slug <> ''::text`),
-	],
-);
-
-export const sponsorIndividuals = pgTable(
-	"sponsor_individuals",
-	{
-		id: smallint().primaryKey().generatedAlwaysAsIdentity({
-			name: "sponsor_individuals_id_seq",
-			startWith: 1,
-			increment: 1,
-			minValue: 1,
-			maxValue: 32767,
-			cache: 1,
-		}),
-		individualId: smallint("individual_id"),
-		createdAt: timestamp("created_at", { mode: "string" })
-			.defaultNow()
-			.notNull(),
-	},
-	(table) => [
-		foreignKey({
-			columns: [table.individualId],
-			foreignColumns: [individuals.id],
-			name: "sponsor_individuals_individual_id_fkey",
-		}).onDelete("cascade"),
-	],
-);
-
-export const sponsorLunch = pgTable(
-	"sponsor_lunch",
-	{
-		id: smallint().primaryKey().generatedAlwaysAsIdentity({
-			name: "sponsor_lunch_id_seq",
-			startWith: 1,
-			increment: 1,
-			minValue: 1,
-			maxValue: 32767,
-			cache: 1,
-		}),
-		companyId: smallint("company_id"),
-		createdAt: timestamp("created_at", { mode: "string" })
-			.defaultNow()
-			.notNull(),
-	},
-	(table) => [
-		foreignKey({
-			columns: [table.companyId],
-			foreignColumns: [companies.id],
-			name: "sponsor_lunch_company_id_fkey",
-		}).onDelete("cascade"),
-	],
-);
-
-export const sponsorNameplate = pgTable(
-	"sponsor_nameplate",
-	{
-		id: smallint().primaryKey().generatedAlwaysAsIdentity({
-			name: "sponsor_nameplate_id_seq",
-			startWith: 1,
-			increment: 1,
-			minValue: 1,
-			maxValue: 32767,
-			cache: 1,
-		}),
-		companyId: smallint("company_id"),
-		createdAt: timestamp("created_at", { mode: "string" })
-			.defaultNow()
-			.notNull(),
-	},
-	(table) => [
-		foreignKey({
-			columns: [table.companyId],
-			foreignColumns: [companies.id],
-			name: "sponsor_nameplate_company_id_fkey",
-		}).onDelete("cascade"),
-	],
-);
-
-export const sponsorNamingRights = pgTable(
-	"sponsor_naming_rights",
-	{
-		id: smallint().primaryKey().generatedAlwaysAsIdentity({
-			name: "sponsor_naming_rights_id_seq",
-			startWith: 1,
-			increment: 1,
-			minValue: 1,
-			maxValue: 32767,
-			cache: 1,
-		}),
-		companyId: smallint("company_id"),
-		type: pgEnum("sponsor_company_naming_right_type", ["hall", "room"])(
-			"type",
-		).notNull(),
-		name: text("name").notNull(),
-		createdAt: timestamp("created_at", { mode: "string" })
-			.defaultNow()
-			.notNull(),
-	},
-	(table) => [
-		foreignKey({
-			columns: [table.companyId],
-			foreignColumns: [companies.id],
-			name: "sponsor_naming_rights_company_id_fkey",
-		}).onDelete("cascade"),
-	],
-);
-
-export const sponsorScholarship = pgTable(
-	"sponsor_scholarship",
-	{
-		id: smallint().primaryKey().generatedAlwaysAsIdentity({
-			name: "sponsor_scholarship_id_seq",
-			startWith: 1,
-			increment: 1,
-			minValue: 1,
-			maxValue: 32767,
-			cache: 1,
-		}),
-		companyId: smallint("company_id"),
-		createdAt: timestamp("created_at", { mode: "string" })
-			.defaultNow()
-			.notNull(),
-	},
-	(table) => [
-		foreignKey({
-			columns: [table.companyId],
-			foreignColumns: [companies.id],
-			name: "sponsor_scholarship_company_id_fkey",
-		}).onDelete("cascade"),
+			"sponsor_company_options_sponsor_company_id_option_plan_type_key",
+		).on(table.sponsorCompanyId, table.optionPlanType),
 	],
 );
 
