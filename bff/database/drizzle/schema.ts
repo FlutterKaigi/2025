@@ -363,7 +363,7 @@ export const ssoProvidersInAuth = auth.table(
 		createdAt: timestamp("created_at", { withTimezone: true, mode: "string" }),
 		updatedAt: timestamp("updated_at", { withTimezone: true, mode: "string" }),
 	},
-	(table) => [
+	(_table) => [
 		uniqueIndex("sso_providers_resource_id_idx").using(
 			"btree",
 			sql`lower(resource_id)`,
@@ -1053,7 +1053,7 @@ export const companies = pgTable(
 		logoName: text("logo_name").notNull(),
 		name: text().notNull(),
 	},
-	(table) => [
+	(_table) => [
 		check("companies_name_check", sql`name <> ''::text`),
 		check("companies_logo_name_check", sql`logo_name <> ''::text`),
 	],
