@@ -35,6 +35,7 @@ FROM
             ('株式会社アイビス', '2c34b7ee-dedf-46fb-b242-4d9af76aa789.webp'),
             ('株式会社LayerX', 'f9a4166a-fe62-4c06-b299-716adf12feb4.webp'),
             ('NTTレゾナントテクノロジー株式会社', '26972169-bf9c-4995-bb1f-4d58bd9a5eb0.webp'),
-            ('株式会社IBJ', '503729ef-f6bf-479d-8f28-cd0e8c86770b.webp')
+            ('株式会社IBJ', '503729ef-f6bf-479d-8f28-cd0e8c86770b.webp'),
+            ('Kibela', '6baf4450-7dd1-4f37-9480-207748abd562.webp')
     ) AS companies (name, logo_name)
     CROSS JOIN timestamp;
