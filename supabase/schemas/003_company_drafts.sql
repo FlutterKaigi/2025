@@ -5,6 +5,7 @@ CREATE TABLE public.company_drafts (
   slug text NOT NULL UNIQUE CHECK (slug <> ''),
   description text NOT NULL CHECK (description <> ''),
   website_url text NOT NULL CHECK (website_url <> ''),
+  x_account text CHECK (x_account <> ''),
   created_at timestamp DEFAULT now() NOT NULL,
   updated_at timestamp DEFAULT now() NOT NULL
 );
