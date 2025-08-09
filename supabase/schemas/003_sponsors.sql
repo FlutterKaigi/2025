@@ -1,5 +1,5 @@
 -- 企業スポンサーの種類
-CREATE TYPE public.company_sponsor_type AS enum('basic', 'community', 'none');
+CREATE TYPE public.company_sponsor_type AS enum('basic', 'community', 'tool', 'none');
 
 -- ベーシックプランの種類
 CREATE TYPE public.basic_plan_type AS enum('platinum', 'gold', 'silver', 'bronze');

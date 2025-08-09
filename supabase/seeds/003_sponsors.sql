@@ -48,6 +48,32 @@ FROM
     company_ids ci
     CROSS JOIN timestamp;
 
+-- ツールスポンサーのプランを設定
+WITH
+    timestamp AS (
+        SELECT
+            '2025-06-01 00:00:00'::timestamp AS ts
+    ),
+    -- 企業IDを取得
+    company_ids AS (
+        SELECT
+            id,
+            name
+        FROM
+            public.companies
+        WHERE
+            name IN ('Kibela')
+    )
+INSERT INTO
+    public.sponsor_companies (company_id, sponsor_type, created_at)
+SELECT
+    ci.id,
+    'tool'::public.company_sponsor_type,
+    ts
+FROM
+    company_ids ci
+    CROSS JOIN timestamp;
+
 -- ベーシックスポンサーのプランを設定
 WITH
     timestamp AS (

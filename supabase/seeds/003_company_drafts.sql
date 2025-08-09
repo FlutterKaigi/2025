@@ -16,6 +16,7 @@ SELECT
 FROM
     (
         VALUES
+            -- ベーシックスポンサー
             (
                 1,
                 'cyberagent',
@@ -176,7 +177,9 @@ FROM
                 'ソニー株式会社は「テクノロジーの力で未来のエンタテインメントをクリエイターと共創する」ことをミッションとし、世界中の人に感動を届けることをめざしています。\n新たな映像や音を表現するテクノロジーとサービスに挑戦し続け、世界中の人々を感動させるエンタテイメントの未来を、クリエイターと共に創造しています。',
                 'https://www.sony.co.jp/',
                 NULL
-            )
+            ),
+            -- ツールスポンサー
+            (24, 'kibela', '仮のテキスト', 'https://kibe.la/', 'kibe_la')
     ) AS drafts (company_id, slug, description, website_url, x_account)
     CROSS JOIN timestamp;
 
