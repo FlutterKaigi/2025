@@ -10,6 +10,8 @@ enum CompanySponsorType {
   basic,
   @JsonValue('community')
   community,
+  @JsonValue('tool')
+  tool,
   @JsonValue('none')
   none,
 }
@@ -93,4 +95,46 @@ abstract class SponsorIndividuals with _$SponsorIndividuals {
 
   factory SponsorIndividuals.fromJson(Map<String, dynamic> json) =>
       _$SponsorIndividualsFromJson(json);
+}
+
+/// 企業スポンサーの詳細情報（企業情報とスポンサー情報を結合）
+@freezed
+abstract class CompanySponsorDetail with _$CompanySponsorDetail {
+  const factory CompanySponsorDetail({
+    required int id,
+    required String name,
+    required String logoName,
+    required CompanySponsorType sponsorType,
+    BasicPlanType? basicPlanType,
+    List<OptionPlanType>? optionPlanTypes,
+    @RequiredDateTimeConverter() required DateTime createdAt,
+  }) = _CompanySponsorDetail;
+
+  factory CompanySponsorDetail.fromJson(Map<String, dynamic> json) =>
+      _$CompanySponsorDetailFromJson(json);
+}
+
+/// 個人スポンサーの詳細情報（個人情報とスポンサー情報を結合）
+@freezed
+abstract class IndividualSponsorDetail with _$IndividualSponsorDetail {
+  const factory IndividualSponsorDetail({
+    required int id,
+    required String? userName,
+    @RequiredDateTimeConverter() required DateTime createdAt,
+  }) = _IndividualSponsorDetail;
+
+  factory IndividualSponsorDetail.fromJson(Map<String, dynamic> json) =>
+      _$IndividualSponsorDetailFromJson(json);
+}
+
+/// スポンサー情報のサマリー
+@freezed
+abstract class SponsorSummary with _$SponsorSummary {
+  const factory SponsorSummary({
+    required List<CompanySponsorDetail> companySponsors,
+    required List<IndividualSponsorDetail> individualSponsors,
+  }) = _SponsorSummary;
+
+  factory SponsorSummary.fromJson(Map<String, dynamic> json) =>
+      _$SponsorSummaryFromJson(json);
 }
