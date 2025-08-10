@@ -1,4 +1,3 @@
-import 'package:bff_client/bff_client.dart';
 import 'package:engine/main.dart';
 import 'package:engine/provider/db_client_provider.dart';
 import 'package:engine/util/json_response.dart';
@@ -18,7 +17,7 @@ class SponsorApiService {
       try {
         final sponsorSummary = await database.sponsor.getSponsorSummary();
         return sponsorSummary.toJson();
-      } catch (e) {
+      } on Exception catch (e) {
         return {
           'error': 'Failed to fetch sponsors',
           'message': e.toString(),
@@ -39,7 +38,7 @@ class SponsorApiService {
         return {
           'sponsors': companySponsors.map((s) => s.toJson()).toList(),
         };
-      } catch (e) {
+      } on Exception catch (e) {
         return {
           'error': 'Failed to fetch company sponsors',
           'message': e.toString(),
@@ -62,7 +61,7 @@ class SponsorApiService {
             return {
               'sponsors': individualSponsors.map((s) => s.toJson()).toList(),
             };
-          } catch (e) {
+          } on Exception catch (e) {
             return {
               'error': 'Failed to fetch individual sponsors',
               'message': e.toString(),
