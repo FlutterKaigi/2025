@@ -19,3 +19,13 @@ abstract class UserSnsLinks with _$UserSnsLinks {
   factory UserSnsLinks.fromJson(Map<String, dynamic> json) =>
       _$UserSnsLinksFromJson(json);
 }
+
+extension UserSnsLinksExtension on UserSnsLinks {
+  /// UserSnsLinksからSnsAccountに変換
+  SnsAccount toSnsAccount() {
+    return SnsAccount(
+      type: snsType,
+      link: snsType.toUri(value),
+    );
+  }
+}

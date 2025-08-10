@@ -1,5 +1,5 @@
 -- SNSの種類を定義するenum
-CREATE TYPE public.sns_type AS enum('x', 'github', 'facebook', 'instagram', 'linkedin', 'youtube', 'tiktok', 'website');
+CREATE TYPE public.sns_type AS enum('github', 'x', 'discord', 'medium', 'qiita', 'zenn', 'note', 'other');
 
 -- プロファイルテーブル
 CREATE TABLE public.profiles (

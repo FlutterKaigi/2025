@@ -372,16 +372,32 @@ class _SnsLinkFormState extends State<_SnsLinkForm> {
               ],
             ),
             const SizedBox(height: 12),
-            TextFormField(
-              controller: _controller,
-              decoration: const InputDecoration(
-                labelText: 'URL/ユーザーID',
-                border: OutlineInputBorder(),
-              ),
-              onChanged: (value) {
-                widget.onChanged(widget.snsLink.copyWith(value: value));
-              },
-            ),
+                         TextFormField(
+               controller: _controller,
+               decoration: InputDecoration(
+                 labelText: 'URL/ユーザーID',
+                 border: const OutlineInputBorder(),
+                 helperText: _getHelperText(widget.snsLink.snsType),
+               ),
+               validator: (value) {
+                 if (value == null || value.trim().isEmpty) {
+                   return 'URL/ユーザーIDを入力してください';
+                 }
+                 
+                 final snsType = widget.snsLink.snsType;
+                 if (snsType != null) {
+                   final validationError = _validateSnsValue(snsType, value.trim());
+                   if (validationError != null) {
+                     return validationError;
+                   }
+                 }
+                 
+                 return null;
+               },
+               onChanged: (value) {
+                 widget.onChanged(widget.snsLink.copyWith(value: value));
+               },
+             ),
           ],
         ),
       ),
@@ -390,22 +406,83 @@ class _SnsLinkFormState extends State<_SnsLinkForm> {
 
   String _getSnsTypeDisplayName(SnsType type) {
     switch (type) {
-      case SnsType.x:
-        return 'X (Twitter)';
       case SnsType.github:
         return 'GitHub';
-      case SnsType.facebook:
-        return 'Facebook';
-      case SnsType.instagram:
-        return 'Instagram';
-      case SnsType.linkedin:
-        return 'LinkedIn';
-      case SnsType.youtube:
-        return 'YouTube';
-      case SnsType.tiktok:
-        return 'TikTok';
-      case SnsType.website:
-        return 'ウェブサイト';
+      case SnsType.x:
+        return 'X (Twitter)';
+      case SnsType.discord:
+        return 'Discord';
+      case SnsType.medium:
+        return 'Medium';
+      case SnsType.qiita:
+        return 'Qiita';
+      case SnsType.zenn:
+        return 'Zenn';
+      case SnsType.note:
+        return 'note';
+      case SnsType.other:
+        return 'その他';
     }
+  }
+
+  String? _getHelperText(SnsType? type) {
+    if (type == null) return null;
+    
+    switch (type) {
+      case SnsType.github:
+        return '例: octocat または https://github.com/octocat';
+      case SnsType.x:
+        return '例: twitter または https://x.com/twitter';
+      case SnsType.discord:
+        return '例: 123456789012345678 (ユーザーID)';
+      case SnsType.medium:
+        return '例: username または https://medium.com/@username';
+      case SnsType.qiita:
+        return '例: username または https://qiita.com/username';
+      case SnsType.zenn:
+        return '例: username または https://zenn.dev/username';
+      case SnsType.note:
+        return '例: username または https://note.com/username';
+      case SnsType.other:
+        return '完全なURLを入力してください';
+    }
+  }
+
+  String? _validateSnsValue(SnsType type, String value) {
+    // URLが入力された場合はそのまま通す
+    if (value.startsWith('http://') || value.startsWith('https://')) {
+      try {
+        Uri.parse(value);
+        return null;
+      } catch (e) {
+        return '有効なURLを入力してください';
+      }
+    }
+
+    // ユーザーIDの形式チェック
+    switch (type) {
+      case SnsType.github:
+      case SnsType.x:
+      case SnsType.medium:
+      case SnsType.qiita:
+      case SnsType.zenn:
+      case SnsType.note:
+        // 英数字、アンダースコア、ハイフンのみ許可
+        if (!RegExp(r'^[a-zA-Z0-9_-]+$').hasMatch(value)) {
+          return '英数字、アンダースコア、ハイフンのみ使用可能です';
+        }
+        break;
+      case SnsType.discord:
+        // DiscordユーザーIDは数字のみ（通常18桁）
+        if (!RegExp(r'^\d{17,19}$').hasMatch(value)) {
+          return 'DiscordユーザーIDは17-19桁の数字である必要があります';
+        }
+        break;
+      case SnsType.other:
+        // その他の場合はURLである必要がある
+        return 'その他の場合は完全なURLを入力してください';
+    }
+
+    return null;
   }
 }
