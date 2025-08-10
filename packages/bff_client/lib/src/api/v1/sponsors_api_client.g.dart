@@ -29,7 +29,7 @@ class _SponsorsApiClient implements SponsorsApiClient {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/v1/sponsors',
+            '/sponsors',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -56,7 +56,7 @@ class _SponsorsApiClient implements SponsorsApiClient {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/v1/sponsors/companies',
+            '/sponsors/companies',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -93,7 +93,7 @@ class _SponsorsApiClient implements SponsorsApiClient {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/v1/sponsors/individuals',
+            '/sponsors/individuals',
             queryParameters: queryParameters,
             data: _data,
           )

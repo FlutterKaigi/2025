@@ -9,14 +9,14 @@ abstract class SponsorsApiClient {
   factory SponsorsApiClient(Dio dio, {String? baseUrl}) = _SponsorsApiClient;
 
   /// スポンサー情報のサマリーを取得
-  @GET('/v1/sponsors')
+  @GET('/sponsors')
   Future<SponsorSummary> getSponsors();
 
   /// 企業スポンサーの詳細情報を取得
-  @GET('/v1/sponsors/companies')
+  @GET('/sponsors/companies')
   Future<Map<String, List<CompanySponsorDetail>>> getCompanySponsors();
 
   /// 個人スポンサーの詳細情報を取得
-  @GET('/v1/sponsors/individuals')
+  @GET('/sponsors/individuals')
   Future<Map<String, List<IndividualSponsorDetail>>> getIndividualSponsors();
 }
