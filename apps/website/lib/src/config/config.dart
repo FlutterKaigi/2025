@@ -106,13 +106,6 @@ final event = (
   ),
   blog: (
     topUrl: 'https://medium.com/flutterkaigi',
-    sponsorship: (
-      title: (ja: 'スポンサー募集について', en: 'About Sponsor Recruitment'),
-      url: (
-        ja: 'https://medium.com/flutterkaigi/flutterkaigi-2025-スポンサー募集について-034330881a94',
-        en: 'https://medium.com/flutterkaigi/sponsoring-flutterkaigi-2025-da290533feb6',
-      ),
-    ),
   ),
   cfp: (
     title: (

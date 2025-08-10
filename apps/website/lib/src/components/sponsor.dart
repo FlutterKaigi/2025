@@ -267,6 +267,13 @@ class Sponsors extends StatelessComponent {
             (s) => s.type == SponsorType.bronze && !s.disable,
           ),
         ),
+        p(
+          styles: Styles(
+            margin: Spacing.only(top: 1.rem),
+            textAlign: TextAlign.center,
+          ),
+          [text('スポンサー募集は締め切りました。多数のご応募ありがとうございました。')],
+        ),
       ],
     );
   }
