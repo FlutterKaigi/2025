@@ -1,5 +1,6 @@
 export 'api/bff_api_client.dart';
 export 'api/v1/news_api_client.dart';
+export 'api/v1/profile_api_client.dart';
 export 'api/v1/tickets_api_client.dart';
 export 'api/v1/users_api_client.dart';
 export 'model/error/error_response.dart';
@@ -13,6 +14,10 @@ export 'model/v1/tickets/ticket_type_with_options_response.dart';
 export 'model/v1/tickets/ticket_types_response.dart';
 export 'model/v1/tickets/ticket_types_with_options_response.dart';
 export 'model/v1/tickets/user_tickets_response.dart';
+export 'model/v1/profile/avatar_upload_url_request.dart';
+export 'model/v1/profile/avatar_upload_url_response.dart';
+export 'model/v1/profile/profile_response.dart';
+export 'model/v1/profile/profile_update_request.dart';
 export 'model/v1/users/user_role_put_request.dart';
 export 'model/v1/users/users_list_request.dart';
 export 'model/v1/users/users_list_response.dart';
