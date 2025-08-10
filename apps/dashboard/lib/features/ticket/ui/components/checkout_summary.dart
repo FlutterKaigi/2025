@@ -268,13 +268,15 @@ class _CheckoutSummarySheetState extends ConsumerState<CheckoutSummarySheet> {
         // Stripe決済画面に遷移
         await _openStripeCheckout(checkoutResponse.session.stripeCheckoutUrl);
 
-        // スナックバーで成功メッセージを表示
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('決済画面に移動しました。決済を完了してください。'),
-            duration: Duration(seconds: 3),
-          ),
-        );
+        if (context.mounted) {
+          // スナックバーで成功メッセージを表示
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('決済画面に移動しました。決済を完了してください。'),
+              duration: Duration(seconds: 3),
+            ),
+          );
+        }
       }
     } on DioException catch (error) {
       if (context.mounted) {
@@ -344,7 +346,7 @@ Future<void> showCheckoutSummarySheet(
     backgroundColor: Colors.transparent,
     builder: (context) => Container(
       constraints: BoxConstraints(
-        maxHeight: MediaQuery.of(context).size.height * 0.8,
+        maxHeight: MediaQuery.sizeOf(context).height * 0.8,
       ),
       decoration: BoxDecoration(
         color: Theme.of(context).scaffoldBackgroundColor,

@@ -32,7 +32,7 @@ class OwnedTicketCard extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: _getStatusColor().withOpacity(0.1),
+                    color: _getStatusColor().withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Icon(

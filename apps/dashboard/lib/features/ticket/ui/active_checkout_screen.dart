@@ -267,44 +267,42 @@ class ActiveCheckoutScreen extends ConsumerWidget {
     BuildContext context,
     WidgetRef ref,
     String sessionId,
-  ) {
-    showDialog<void>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('チェックアウトの取り消し'),
-        content: const Text('本当にチェックアウトを取り消しますか？\nこの操作は元に戻せません。'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: const Text('キャンセル'),
-          ),
-          TextButton(
-            onPressed: () async {
-              Navigator.of(context).pop();
-              try {
-                await ref
-                    .read(activeCheckoutNotifierProvider.notifier)
-                    .cancelCheckout(sessionId);
-                if (context.mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('チェックアウトを取り消しました')),
-                  );
-                }
-              } catch (error) {
-                if (context.mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('取り消しに失敗しました: $error')),
-                  );
-                }
+  ) => showDialog<void>(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: const Text('チェックアウトの取り消し'),
+      content: const Text('本当にチェックアウトを取り消しますか？\nこの操作は元に戻せません。'),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: const Text('キャンセル'),
+        ),
+        TextButton(
+          onPressed: () async {
+            Navigator.of(context).pop();
+            try {
+              await ref
+                  .read(activeCheckoutNotifierProvider.notifier)
+                  .cancelCheckout(sessionId);
+              if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('チェックアウトを取り消しました')),
+                );
               }
-            },
-            style: TextButton.styleFrom(foregroundColor: Colors.red),
-            child: const Text('取り消し'),
-          ),
-        ],
-      ),
-    );
-  }
+            } on Exception catch (error) {
+              if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('取り消しに失敗しました: $error')),
+                );
+              }
+            }
+          },
+          style: TextButton.styleFrom(foregroundColor: Colors.red),
+          child: const Text('取り消し'),
+        ),
+      ],
+    ),
+  );
 
   String _formatDateTime(DateTime dateTime) {
     return '${dateTime.year}/${dateTime.month}/${dateTime.day} '

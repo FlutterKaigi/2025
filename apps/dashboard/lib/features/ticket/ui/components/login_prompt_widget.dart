@@ -96,7 +96,7 @@ class LoginPromptWidget extends ConsumerWidget {
           const SnackBar(content: Text('ログインが完了しました')),
         );
       }
-    } catch (error) {
+    } on Exception catch (error) {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('ログインに失敗しました: $error')),
