@@ -1,111 +1,100 @@
+import 'package:dashboard/core/provider/bff_client.dart';
 import 'package:dashboard/features/sponsor/data/sponsor.dart';
-import 'package:faker/faker.dart';
+import 'package:db_types/db_types.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'sponsor_provider.g.dart';
 
 @riverpod
 Future<List<Sponsor>> sponsors(Ref ref) async {
-  await Future<void>.delayed(const Duration(seconds: 1));
-  final faker = Faker();
+  final bffClient = ref.read(bffClientProvider);
 
-  final sponsors = <Sponsor>[];
+  try {
+    final sponsorSummary = await bffClient.v1.sponsors.getSponsors();
 
-  sponsors.addAll(
-    List.generate(
-      4,
-      (i) => PlatinumSponsor(
-        id: i.toString(),
-        name: faker.company.name(),
-        slug: faker.lorem.word() + i.toString(),
-        logoUrl: Uri.parse(
-          'https://placehold.co/400/png',
-        ),
-        description: faker.lorem.sentences(2).join(' '),
+    final sponsors = <Sponsor>[];
+
+    // 企業スポンサーを変換
+    for (final companySponsor in sponsorSummary.companySponsors) {
+      sponsors.add(_convertCompanySponsor(companySponsor));
+    }
+
+    // 個人スポンサーを変換
+    for (final individualSponsor in sponsorSummary.individualSponsors) {
+      sponsors.add(_convertIndividualSponsor(individualSponsor));
+    }
+
+    return sponsors;
+  } on Exception catch (e) {
+    // エラーの場合は空のリストを返す
+    return <Sponsor>[];
+  }
+}
+
+Sponsor _convertCompanySponsor(CompanySponsorDetail companySponsor) {
+  final basicPlanType = companySponsor.basicPlanType;
+
+  if (basicPlanType == null) {
+    return OtherSponsor(
+      id: companySponsor.id.toString(),
+      name: companySponsor.name,
+      slug: companySponsor.name.toLowerCase().replaceAll(' ', '-'),
+      logoUrl: Uri.parse('https://placehold.co/400/png'),
+      description: '${companySponsor.sponsorType.name} スポンサー',
+      websiteUrl: Uri.parse('https://2025.flutterkaigi.jp'),
+    );
+  }
+
+  switch (basicPlanType) {
+    case BasicPlanType.platinum:
+      return PlatinumSponsor(
+        id: companySponsor.id.toString(),
+        name: companySponsor.name,
+        slug: companySponsor.name.toLowerCase().replaceAll(' ', '-'),
+        logoUrl: Uri.parse('https://placehold.co/400/png'),
+        description: 'プラチナスポンサー',
         websiteUrl: Uri.parse('https://2025.flutterkaigi.jp'),
-      ),
-    ),
-  );
-
-  sponsors.addAll(
-    List.generate(
-      6,
-      (i) => GoldSponsor(
-        id: (i + 10).toString(),
-        name: faker.company.name(),
-        slug: faker.lorem.word() + (i + 10).toString(),
-        logoUrl: Uri.parse(
-          'https://placehold.co/400/png',
-        ),
-        description: faker.lorem.sentences(2).join(' '),
+      );
+    case BasicPlanType.gold:
+      return GoldSponsor(
+        id: companySponsor.id.toString(),
+        name: companySponsor.name,
+        slug: companySponsor.name.toLowerCase().replaceAll(' ', '-'),
+        logoUrl: Uri.parse('https://placehold.co/400/png'),
+        description: 'ゴールドスポンサー',
         websiteUrl: Uri.parse('https://2025.flutterkaigi.jp'),
-      ),
-    ),
-  );
-
-  sponsors.addAll(
-    List.generate(
-      11,
-      (i) => SilverSponsor(
-        id: (i + 20).toString(),
-        name: faker.company.name(),
-        slug: faker.lorem.word() + (i + 20).toString(),
-        logoUrl: Uri.parse(
-          'https://placehold.co/400/png',
-        ),
-        description: faker.lorem.sentences(2).join(' '),
+      );
+    case BasicPlanType.silver:
+      return SilverSponsor(
+        id: companySponsor.id.toString(),
+        name: companySponsor.name,
+        slug: companySponsor.name.toLowerCase().replaceAll(' ', '-'),
+        logoUrl: Uri.parse('https://placehold.co/400/png'),
+        description: 'シルバースポンサー',
         websiteUrl: Uri.parse('https://2025.flutterkaigi.jp'),
-      ),
-    ),
-  );
-
-  sponsors.addAll(
-    List.generate(
-      20,
-      (i) => BronzeSponsor(
-        id: (i + 40).toString(),
-        name: faker.company.name(),
-        slug: faker.lorem.word() + (i + 40).toString(),
-        logoUrl: Uri.parse(
-          'https://placehold.co/400/png',
-        ),
-        description: faker.lorem.sentences(2).join(' '),
+      );
+    case BasicPlanType.bronze:
+      return BronzeSponsor(
+        id: companySponsor.id.toString(),
+        name: companySponsor.name,
+        slug: companySponsor.name.toLowerCase().replaceAll(' ', '-'),
+        logoUrl: Uri.parse('https://placehold.co/400/png'),
+        description: 'ブロンズスポンサー',
         websiteUrl: Uri.parse('https://2025.flutterkaigi.jp'),
-      ),
-    ),
-  );
+      );
+  }
+}
 
-  sponsors.addAll(
-    List.generate(
-      5,
-      (i) => OtherSponsor(
-        id: (i + 60).toString(),
-        name: faker.company.name(),
-        slug: faker.lorem.word() + (i + 60).toString(),
-        logoUrl: Uri.parse(
-          'https://placehold.co/400/png',
-        ),
-        description: faker.lorem.sentences(2).join(' '),
-        websiteUrl: Uri.parse('https://2025.flutterkaigi.jp'),
-      ),
+Sponsor _convertIndividualSponsor(IndividualSponsorDetail individualSponsor) {
+  return IndividualSponsor(
+    id: individualSponsor.id.toString(),
+    name: individualSponsor.userName ?? '匿名',
+    slug: (individualSponsor.userName ?? 'anonymous').toLowerCase().replaceAll(
+      ' ',
+      '-',
     ),
+    logoUrl: Uri.parse('https://placehold.co/400/png'),
+    enthusiasm: 'FlutterKaigi 2025を応援しています！',
+    websiteUrl: Uri.parse('https://2025.flutterkaigi.jp'),
   );
-
-  sponsors.addAll(
-    List.generate(
-      30,
-      (i) => IndividualSponsor(
-        id: (i + 70).toString(),
-        name: faker.person.name(),
-        slug: faker.internet.userName() + (i + 70).toString(),
-        logoUrl: Uri.parse(
-          'https://placehold.co/400/png',
-        ),
-        enthusiasm: faker.lorem.words(3).join(' '),
-        websiteUrl: Uri.parse('https://2025.flutterkaigi.jp'),
-      ),
-    ),
-  );
-
-  return sponsors;
 }
