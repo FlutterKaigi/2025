@@ -17,4 +17,6 @@ export 'tables/ticket_options.dart';
 export 'tables/ticket_purchases.dart';
 export 'tables/ticket_types.dart';
 export 'tables/user_roles.dart';
+export 'tables/user_sns_links.dart';
 export 'tables/users.dart';
+export 'tables/profiles.dart';
