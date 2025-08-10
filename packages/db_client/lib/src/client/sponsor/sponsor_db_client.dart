@@ -1,4 +1,3 @@
-import 'package:db_client/db_client.dart';
 import 'package:db_types/db_types.dart';
 import 'package:postgres/postgres.dart';
 
@@ -41,7 +40,7 @@ class SponsorDbClient {
     for (final row in results) {
       final optionPlanTypes = <OptionPlanType>[];
       if (row[5] != null) {
-        final optionTypes = row[5] as List<dynamic>;
+        final optionTypes = row[5]! as List<dynamic>;
         for (final optionType in optionTypes) {
           switch (optionType as String) {
             case 'naming_rights_hall':
@@ -60,7 +59,7 @@ class SponsorDbClient {
 
       BasicPlanType? basicPlanType;
       if (row[4] != null) {
-        switch (row[4] as String) {
+        switch (row[4]! as String) {
           case 'platinum':
             basicPlanType = BasicPlanType.platinum;
           case 'gold':
@@ -73,7 +72,7 @@ class SponsorDbClient {
       }
 
       CompanySponsorType sponsorType;
-      switch (row[3] as String) {
+      switch (row[3]! as String) {
         case 'basic':
           sponsorType = CompanySponsorType.basic;
         case 'community':
@@ -88,13 +87,13 @@ class SponsorDbClient {
 
       sponsors.add(
         CompanySponsorDetail(
-          id: row[0] as int,
-          name: row[1] as String,
-          logoName: row[2] as String,
+          id: row[0]! as int,
+          name: row[1]! as String,
+          logoName: row[2]! as String,
           sponsorType: sponsorType,
           basicPlanType: basicPlanType,
           optionPlanTypes: optionPlanTypes.isNotEmpty ? optionPlanTypes : null,
-          createdAt: row[6] as DateTime,
+          createdAt: row[6]! as DateTime,
         ),
       );
     }
@@ -121,9 +120,9 @@ class SponsorDbClient {
     for (final row in results) {
       sponsors.add(
         IndividualSponsorDetail(
-          id: row[0] as int,
+          id: row[0]! as int,
           userName: row[1] as String?,
-          createdAt: row[2] as DateTime,
+          createdAt: row[2]! as DateTime,
         ),
       );
     }
