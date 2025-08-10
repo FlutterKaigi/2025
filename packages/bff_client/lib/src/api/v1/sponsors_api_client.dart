@@ -1,56 +1,22 @@
 import 'package:db_types/db_types.dart';
 import 'package:dio/dio.dart';
+import 'package:retrofit/retrofit.dart';
 
-class SponsorsApiClient {
-  const SponsorsApiClient(Dio client) : _client = client;
+part 'sponsors_api_client.g.dart';
 
-  final Dio _client;
+@RestApi()
+abstract class SponsorsApiClient {
+  factory SponsorsApiClient(Dio dio, {String? baseUrl}) = _SponsorsApiClient;
 
   /// スポンサー情報のサマリーを取得
-  Future<SponsorSummary> getSponsors() async {
-    final response = await _client.get('/v1/sponsors');
-
-    if (response.statusCode == 200) {
-      final json = response.data as Map<String, dynamic>;
-      return SponsorSummary.fromJson(json);
-    } else {
-      throw Exception('Failed to fetch sponsors: ${response.statusCode}');
-    }
-  }
+  @GET('/v1/sponsors')
+  Future<SponsorSummary> getSponsors();
 
   /// 企業スポンサーの詳細情報を取得
-  Future<List<CompanySponsorDetail>> getCompanySponsors() async {
-    final response = await _client.get('/v1/sponsors/companies');
-
-    if (response.statusCode == 200) {
-      final json = response.data as Map<String, dynamic>;
-      final sponsorsList = json['sponsors'] as List<dynamic>;
-      return sponsorsList
-          .map((s) => CompanySponsorDetail.fromJson(s as Map<String, dynamic>))
-          .toList();
-    } else {
-      throw Exception(
-        'Failed to fetch company sponsors: ${response.statusCode}',
-      );
-    }
-  }
+  @GET('/v1/sponsors/companies')
+  Future<Map<String, List<CompanySponsorDetail>>> getCompanySponsors();
 
   /// 個人スポンサーの詳細情報を取得
-  Future<List<IndividualSponsorDetail>> getIndividualSponsors() async {
-    final response = await _client.get('/v1/sponsors/individuals');
-
-    if (response.statusCode == 200) {
-      final json = response.data as Map<String, dynamic>;
-      final sponsorsList = json['sponsors'] as List<dynamic>;
-      return sponsorsList
-          .map(
-            (s) => IndividualSponsorDetail.fromJson(s as Map<String, dynamic>),
-          )
-          .toList();
-    } else {
-      throw Exception(
-        'Failed to fetch individual sponsors: ${response.statusCode}',
-      );
-    }
-  }
+  @GET('/v1/sponsors/individuals')
+  Future<Map<String, List<IndividualSponsorDetail>>> getIndividualSponsors();
 }
