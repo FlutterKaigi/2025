@@ -1,13 +1,8 @@
-import 'dart:convert';
-
-import 'package:bff_client/bff_client.dart';
 import 'package:db_types/db_types.dart';
 import 'package:dio/dio.dart';
 
 class SponsorsApiClient {
-  const SponsorsApiClient({
-    required Dio client,
-  }) : _client = client;
+  const SponsorsApiClient(Dio client) : _client = client;
 
   final Dio _client;
 
