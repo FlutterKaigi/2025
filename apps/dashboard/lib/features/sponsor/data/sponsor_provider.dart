@@ -7,7 +7,7 @@ part 'sponsor_provider.g.dart';
 
 @riverpod
 Future<List<Sponsor>> sponsors(Ref ref) async {
-  final bffClient = ref.read(bffClientProvider);
+  final bffClient = ref.watch(bffClientProvider);
 
   try {
     final sponsorSummary = await bffClient.v1.sponsors.getSponsors();
@@ -25,7 +25,7 @@ Future<List<Sponsor>> sponsors(Ref ref) async {
     }
 
     return sponsors;
-  } on Exception catch (e) {
+  } on Exception catch (_) {
     // エラーの場合は空のリストを返す
     return <Sponsor>[];
   }
