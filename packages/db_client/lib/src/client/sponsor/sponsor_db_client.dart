@@ -10,6 +10,9 @@ class SponsorDbClient {
 
   /// 企業スポンサーの詳細情報を取得
   Future<List<CompanySponsorDetail>> getCompanySponsors() async {
+    // SQLクエリの説明:
+    // - オプションプランの種類を配列として集約（enumを文字列に変換）
+    // - 承認済みの下書きのみを対象とし、ベーシックプランの優先順位でソート
     final result = await _connection.execute(
       Sql.named('''
         SELECT 
@@ -63,6 +66,8 @@ class SponsorDbClient {
 
   /// 個人スポンサーの詳細情報を取得
   Future<List<IndividualSponsorDetail>> getIndividualSponsors() async {
+    // SQLクエリの説明:
+    // - 承認済みの下書きのみを対象とし、作成日時の降順でソート
     final result = await _connection.execute(
       Sql.named('''
         SELECT 
