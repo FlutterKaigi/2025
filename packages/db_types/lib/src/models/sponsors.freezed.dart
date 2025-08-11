@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$CompanySponsorDetail {
 
- int get id; String get name; Uri get logoUrl; String get slug; String get description; Uri get websiteUrl; CompanySponsorType get sponsorType; BasicPlanType? get basicPlanType; List<OptionPlanType> get optionPlanTypes;
+ int get id; String get name; String get logoName; String get slug; String get description; String get websiteUrl; CompanySponsorType get sponsorType; BasicPlanType? get basicPlanType; List<OptionPlanType> get optionPlanTypes;
 /// Create a copy of CompanySponsorDetail
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $CompanySponsorDetailCopyWith<CompanySponsorDetail> get copyWith => _$CompanySpo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CompanySponsorDetail&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.description, description) || other.description == description)&&(identical(other.websiteUrl, websiteUrl) || other.websiteUrl == websiteUrl)&&(identical(other.sponsorType, sponsorType) || other.sponsorType == sponsorType)&&(identical(other.basicPlanType, basicPlanType) || other.basicPlanType == basicPlanType)&&const DeepCollectionEquality().equals(other.optionPlanTypes, optionPlanTypes));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CompanySponsorDetail&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.logoName, logoName) || other.logoName == logoName)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.description, description) || other.description == description)&&(identical(other.websiteUrl, websiteUrl) || other.websiteUrl == websiteUrl)&&(identical(other.sponsorType, sponsorType) || other.sponsorType == sponsorType)&&(identical(other.basicPlanType, basicPlanType) || other.basicPlanType == basicPlanType)&&const DeepCollectionEquality().equals(other.optionPlanTypes, optionPlanTypes));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,logoUrl,slug,description,websiteUrl,sponsorType,basicPlanType,const DeepCollectionEquality().hash(optionPlanTypes));
+int get hashCode => Object.hash(runtimeType,id,name,logoName,slug,description,websiteUrl,sponsorType,basicPlanType,const DeepCollectionEquality().hash(optionPlanTypes));
 
 @override
 String toString() {
-  return 'CompanySponsorDetail(id: $id, name: $name, logoUrl: $logoUrl, slug: $slug, description: $description, websiteUrl: $websiteUrl, sponsorType: $sponsorType, basicPlanType: $basicPlanType, optionPlanTypes: $optionPlanTypes)';
+  return 'CompanySponsorDetail(id: $id, name: $name, logoName: $logoName, slug: $slug, description: $description, websiteUrl: $websiteUrl, sponsorType: $sponsorType, basicPlanType: $basicPlanType, optionPlanTypes: $optionPlanTypes)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $CompanySponsorDetailCopyWith<$Res>  {
   factory $CompanySponsorDetailCopyWith(CompanySponsorDetail value, $Res Function(CompanySponsorDetail) _then) = _$CompanySponsorDetailCopyWithImpl;
 @useResult
 $Res call({
- int id, String name, Uri logoUrl, String slug, String description, Uri websiteUrl, CompanySponsorType sponsorType, BasicPlanType? basicPlanType, List<OptionPlanType> optionPlanTypes
+ int id, String name, String logoName, String slug, String description, String websiteUrl, CompanySponsorType sponsorType, BasicPlanType? basicPlanType, List<OptionPlanType> optionPlanTypes
 });
 
 
@@ -65,15 +65,15 @@ class _$CompanySponsorDetailCopyWithImpl<$Res>
 
 /// Create a copy of CompanySponsorDetail
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? logoUrl = null,Object? slug = null,Object? description = null,Object? websiteUrl = null,Object? sponsorType = null,Object? basicPlanType = freezed,Object? optionPlanTypes = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? logoName = null,Object? slug = null,Object? description = null,Object? websiteUrl = null,Object? sponsorType = null,Object? basicPlanType = freezed,Object? optionPlanTypes = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,logoUrl: null == logoUrl ? _self.logoUrl : logoUrl // ignore: cast_nullable_to_non_nullable
-as Uri,slug: null == slug ? _self.slug : slug // ignore: cast_nullable_to_non_nullable
+as String,logoName: null == logoName ? _self.logoName : logoName // ignore: cast_nullable_to_non_nullable
+as String,slug: null == slug ? _self.slug : slug // ignore: cast_nullable_to_non_nullable
 as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,websiteUrl: null == websiteUrl ? _self.websiteUrl : websiteUrl // ignore: cast_nullable_to_non_nullable
-as Uri,sponsorType: null == sponsorType ? _self.sponsorType : sponsorType // ignore: cast_nullable_to_non_nullable
+as String,sponsorType: null == sponsorType ? _self.sponsorType : sponsorType // ignore: cast_nullable_to_non_nullable
 as CompanySponsorType,basicPlanType: freezed == basicPlanType ? _self.basicPlanType : basicPlanType // ignore: cast_nullable_to_non_nullable
 as BasicPlanType?,optionPlanTypes: null == optionPlanTypes ? _self.optionPlanTypes : optionPlanTypes // ignore: cast_nullable_to_non_nullable
 as List<OptionPlanType>,
@@ -161,10 +161,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name,  Uri logoUrl,  String slug,  String description,  Uri websiteUrl,  CompanySponsorType sponsorType,  BasicPlanType? basicPlanType,  List<OptionPlanType> optionPlanTypes)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name,  String logoName,  String slug,  String description,  String websiteUrl,  CompanySponsorType sponsorType,  BasicPlanType? basicPlanType,  List<OptionPlanType> optionPlanTypes)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CompanySponsorDetail() when $default != null:
-return $default(_that.id,_that.name,_that.logoUrl,_that.slug,_that.description,_that.websiteUrl,_that.sponsorType,_that.basicPlanType,_that.optionPlanTypes);case _:
+return $default(_that.id,_that.name,_that.logoName,_that.slug,_that.description,_that.websiteUrl,_that.sponsorType,_that.basicPlanType,_that.optionPlanTypes);case _:
   return orElse();
 
 }
@@ -182,10 +182,10 @@ return $default(_that.id,_that.name,_that.logoUrl,_that.slug,_that.description,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name,  Uri logoUrl,  String slug,  String description,  Uri websiteUrl,  CompanySponsorType sponsorType,  BasicPlanType? basicPlanType,  List<OptionPlanType> optionPlanTypes)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name,  String logoName,  String slug,  String description,  String websiteUrl,  CompanySponsorType sponsorType,  BasicPlanType? basicPlanType,  List<OptionPlanType> optionPlanTypes)  $default,) {final _that = this;
 switch (_that) {
 case _CompanySponsorDetail():
-return $default(_that.id,_that.name,_that.logoUrl,_that.slug,_that.description,_that.websiteUrl,_that.sponsorType,_that.basicPlanType,_that.optionPlanTypes);case _:
+return $default(_that.id,_that.name,_that.logoName,_that.slug,_that.description,_that.websiteUrl,_that.sponsorType,_that.basicPlanType,_that.optionPlanTypes);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -202,10 +202,10 @@ return $default(_that.id,_that.name,_that.logoUrl,_that.slug,_that.description,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name,  Uri logoUrl,  String slug,  String description,  Uri websiteUrl,  CompanySponsorType sponsorType,  BasicPlanType? basicPlanType,  List<OptionPlanType> optionPlanTypes)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name,  String logoName,  String slug,  String description,  String websiteUrl,  CompanySponsorType sponsorType,  BasicPlanType? basicPlanType,  List<OptionPlanType> optionPlanTypes)?  $default,) {final _that = this;
 switch (_that) {
 case _CompanySponsorDetail() when $default != null:
-return $default(_that.id,_that.name,_that.logoUrl,_that.slug,_that.description,_that.websiteUrl,_that.sponsorType,_that.basicPlanType,_that.optionPlanTypes);case _:
+return $default(_that.id,_that.name,_that.logoName,_that.slug,_that.description,_that.websiteUrl,_that.sponsorType,_that.basicPlanType,_that.optionPlanTypes);case _:
   return null;
 
 }
@@ -217,15 +217,15 @@ return $default(_that.id,_that.name,_that.logoUrl,_that.slug,_that.description,_
 @JsonSerializable()
 
 class _CompanySponsorDetail implements CompanySponsorDetail {
-  const _CompanySponsorDetail({required this.id, required this.name, required this.logoUrl, required this.slug, required this.description, required this.websiteUrl, required this.sponsorType, this.basicPlanType, final  List<OptionPlanType> optionPlanTypes = const []}): _optionPlanTypes = optionPlanTypes;
+  const _CompanySponsorDetail({required this.id, required this.name, required this.logoName, required this.slug, required this.description, required this.websiteUrl, required this.sponsorType, this.basicPlanType, final  List<OptionPlanType> optionPlanTypes = const []}): _optionPlanTypes = optionPlanTypes;
   factory _CompanySponsorDetail.fromJson(Map<String, dynamic> json) => _$CompanySponsorDetailFromJson(json);
 
 @override final  int id;
 @override final  String name;
-@override final  Uri logoUrl;
+@override final  String logoName;
 @override final  String slug;
 @override final  String description;
-@override final  Uri websiteUrl;
+@override final  String websiteUrl;
 @override final  CompanySponsorType sponsorType;
 @override final  BasicPlanType? basicPlanType;
  final  List<OptionPlanType> _optionPlanTypes;
@@ -249,16 +249,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CompanySponsorDetail&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.description, description) || other.description == description)&&(identical(other.websiteUrl, websiteUrl) || other.websiteUrl == websiteUrl)&&(identical(other.sponsorType, sponsorType) || other.sponsorType == sponsorType)&&(identical(other.basicPlanType, basicPlanType) || other.basicPlanType == basicPlanType)&&const DeepCollectionEquality().equals(other._optionPlanTypes, _optionPlanTypes));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CompanySponsorDetail&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.logoName, logoName) || other.logoName == logoName)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.description, description) || other.description == description)&&(identical(other.websiteUrl, websiteUrl) || other.websiteUrl == websiteUrl)&&(identical(other.sponsorType, sponsorType) || other.sponsorType == sponsorType)&&(identical(other.basicPlanType, basicPlanType) || other.basicPlanType == basicPlanType)&&const DeepCollectionEquality().equals(other._optionPlanTypes, _optionPlanTypes));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,logoUrl,slug,description,websiteUrl,sponsorType,basicPlanType,const DeepCollectionEquality().hash(_optionPlanTypes));
+int get hashCode => Object.hash(runtimeType,id,name,logoName,slug,description,websiteUrl,sponsorType,basicPlanType,const DeepCollectionEquality().hash(_optionPlanTypes));
 
 @override
 String toString() {
-  return 'CompanySponsorDetail(id: $id, name: $name, logoUrl: $logoUrl, slug: $slug, description: $description, websiteUrl: $websiteUrl, sponsorType: $sponsorType, basicPlanType: $basicPlanType, optionPlanTypes: $optionPlanTypes)';
+  return 'CompanySponsorDetail(id: $id, name: $name, logoName: $logoName, slug: $slug, description: $description, websiteUrl: $websiteUrl, sponsorType: $sponsorType, basicPlanType: $basicPlanType, optionPlanTypes: $optionPlanTypes)';
 }
 
 
@@ -269,7 +269,7 @@ abstract mixin class _$CompanySponsorDetailCopyWith<$Res> implements $CompanySpo
   factory _$CompanySponsorDetailCopyWith(_CompanySponsorDetail value, $Res Function(_CompanySponsorDetail) _then) = __$CompanySponsorDetailCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String name, Uri logoUrl, String slug, String description, Uri websiteUrl, CompanySponsorType sponsorType, BasicPlanType? basicPlanType, List<OptionPlanType> optionPlanTypes
+ int id, String name, String logoName, String slug, String description, String websiteUrl, CompanySponsorType sponsorType, BasicPlanType? basicPlanType, List<OptionPlanType> optionPlanTypes
 });
 
 
@@ -286,15 +286,15 @@ class __$CompanySponsorDetailCopyWithImpl<$Res>
 
 /// Create a copy of CompanySponsorDetail
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? logoUrl = null,Object? slug = null,Object? description = null,Object? websiteUrl = null,Object? sponsorType = null,Object? basicPlanType = freezed,Object? optionPlanTypes = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? logoName = null,Object? slug = null,Object? description = null,Object? websiteUrl = null,Object? sponsorType = null,Object? basicPlanType = freezed,Object? optionPlanTypes = null,}) {
   return _then(_CompanySponsorDetail(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,logoUrl: null == logoUrl ? _self.logoUrl : logoUrl // ignore: cast_nullable_to_non_nullable
-as Uri,slug: null == slug ? _self.slug : slug // ignore: cast_nullable_to_non_nullable
+as String,logoName: null == logoName ? _self.logoName : logoName // ignore: cast_nullable_to_non_nullable
+as String,slug: null == slug ? _self.slug : slug // ignore: cast_nullable_to_non_nullable
 as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,websiteUrl: null == websiteUrl ? _self.websiteUrl : websiteUrl // ignore: cast_nullable_to_non_nullable
-as Uri,sponsorType: null == sponsorType ? _self.sponsorType : sponsorType // ignore: cast_nullable_to_non_nullable
+as String,sponsorType: null == sponsorType ? _self.sponsorType : sponsorType // ignore: cast_nullable_to_non_nullable
 as CompanySponsorType,basicPlanType: freezed == basicPlanType ? _self.basicPlanType : basicPlanType // ignore: cast_nullable_to_non_nullable
 as BasicPlanType?,optionPlanTypes: null == optionPlanTypes ? _self._optionPlanTypes : optionPlanTypes // ignore: cast_nullable_to_non_nullable
 as List<OptionPlanType>,
@@ -308,7 +308,7 @@ as List<OptionPlanType>,
 /// @nodoc
 mixin _$IndividualSponsorDetail {
 
- int get id; String get name; String get slug; Uri get logoUrl;
+ int get id; String get name; String get slug; String get logoName;
 /// Create a copy of IndividualSponsorDetail
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -321,16 +321,16 @@ $IndividualSponsorDetailCopyWith<IndividualSponsorDetail> get copyWith => _$Indi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is IndividualSponsorDetail&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is IndividualSponsorDetail&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.logoName, logoName) || other.logoName == logoName));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,slug,logoUrl);
+int get hashCode => Object.hash(runtimeType,id,name,slug,logoName);
 
 @override
 String toString() {
-  return 'IndividualSponsorDetail(id: $id, name: $name, slug: $slug, logoUrl: $logoUrl)';
+  return 'IndividualSponsorDetail(id: $id, name: $name, slug: $slug, logoName: $logoName)';
 }
 
 
@@ -341,7 +341,7 @@ abstract mixin class $IndividualSponsorDetailCopyWith<$Res>  {
   factory $IndividualSponsorDetailCopyWith(IndividualSponsorDetail value, $Res Function(IndividualSponsorDetail) _then) = _$IndividualSponsorDetailCopyWithImpl;
 @useResult
 $Res call({
- int id, String name, String slug, Uri logoUrl
+ int id, String name, String slug, String logoName
 });
 
 
@@ -358,13 +358,13 @@ class _$IndividualSponsorDetailCopyWithImpl<$Res>
 
 /// Create a copy of IndividualSponsorDetail
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? slug = null,Object? logoUrl = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? slug = null,Object? logoName = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,slug: null == slug ? _self.slug : slug // ignore: cast_nullable_to_non_nullable
-as String,logoUrl: null == logoUrl ? _self.logoUrl : logoUrl // ignore: cast_nullable_to_non_nullable
-as Uri,
+as String,logoName: null == logoName ? _self.logoName : logoName // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 
@@ -449,10 +449,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name,  String slug,  Uri logoUrl)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name,  String slug,  String logoName)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _IndividualSponsorDetail() when $default != null:
-return $default(_that.id,_that.name,_that.slug,_that.logoUrl);case _:
+return $default(_that.id,_that.name,_that.slug,_that.logoName);case _:
   return orElse();
 
 }
@@ -470,10 +470,10 @@ return $default(_that.id,_that.name,_that.slug,_that.logoUrl);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name,  String slug,  Uri logoUrl)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name,  String slug,  String logoName)  $default,) {final _that = this;
 switch (_that) {
 case _IndividualSponsorDetail():
-return $default(_that.id,_that.name,_that.slug,_that.logoUrl);case _:
+return $default(_that.id,_that.name,_that.slug,_that.logoName);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -490,10 +490,10 @@ return $default(_that.id,_that.name,_that.slug,_that.logoUrl);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name,  String slug,  Uri logoUrl)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name,  String slug,  String logoName)?  $default,) {final _that = this;
 switch (_that) {
 case _IndividualSponsorDetail() when $default != null:
-return $default(_that.id,_that.name,_that.slug,_that.logoUrl);case _:
+return $default(_that.id,_that.name,_that.slug,_that.logoName);case _:
   return null;
 
 }
@@ -505,13 +505,13 @@ return $default(_that.id,_that.name,_that.slug,_that.logoUrl);case _:
 @JsonSerializable()
 
 class _IndividualSponsorDetail implements IndividualSponsorDetail {
-  const _IndividualSponsorDetail({required this.id, required this.name, required this.slug, required this.logoUrl});
+  const _IndividualSponsorDetail({required this.id, required this.name, required this.slug, required this.logoName});
   factory _IndividualSponsorDetail.fromJson(Map<String, dynamic> json) => _$IndividualSponsorDetailFromJson(json);
 
 @override final  int id;
 @override final  String name;
 @override final  String slug;
-@override final  Uri logoUrl;
+@override final  String logoName;
 
 /// Create a copy of IndividualSponsorDetail
 /// with the given fields replaced by the non-null parameter values.
@@ -526,16 +526,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _IndividualSponsorDetail&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _IndividualSponsorDetail&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.logoName, logoName) || other.logoName == logoName));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,slug,logoUrl);
+int get hashCode => Object.hash(runtimeType,id,name,slug,logoName);
 
 @override
 String toString() {
-  return 'IndividualSponsorDetail(id: $id, name: $name, slug: $slug, logoUrl: $logoUrl)';
+  return 'IndividualSponsorDetail(id: $id, name: $name, slug: $slug, logoName: $logoName)';
 }
 
 
@@ -546,7 +546,7 @@ abstract mixin class _$IndividualSponsorDetailCopyWith<$Res> implements $Individ
   factory _$IndividualSponsorDetailCopyWith(_IndividualSponsorDetail value, $Res Function(_IndividualSponsorDetail) _then) = __$IndividualSponsorDetailCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String name, String slug, Uri logoUrl
+ int id, String name, String slug, String logoName
 });
 
 
@@ -563,13 +563,13 @@ class __$IndividualSponsorDetailCopyWithImpl<$Res>
 
 /// Create a copy of IndividualSponsorDetail
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? slug = null,Object? logoUrl = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? slug = null,Object? logoName = null,}) {
   return _then(_IndividualSponsorDetail(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,slug: null == slug ? _self.slug : slug // ignore: cast_nullable_to_non_nullable
-as String,logoUrl: null == logoUrl ? _self.logoUrl : logoUrl // ignore: cast_nullable_to_non_nullable
-as Uri,
+as String,logoName: null == logoName ? _self.logoName : logoName // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 

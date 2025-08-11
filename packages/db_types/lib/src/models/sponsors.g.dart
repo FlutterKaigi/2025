@@ -17,10 +17,10 @@ _CompanySponsorDetail _$CompanySponsorDetailFromJson(
     final val = _CompanySponsorDetail(
       id: $checkedConvert('id', (v) => (v as num).toInt()),
       name: $checkedConvert('name', (v) => v as String),
-      logoUrl: $checkedConvert('logo_url', (v) => Uri.parse(v as String)),
+      logoName: $checkedConvert('logo_name', (v) => v as String),
       slug: $checkedConvert('slug', (v) => v as String),
       description: $checkedConvert('description', (v) => v as String),
-      websiteUrl: $checkedConvert('website_url', (v) => Uri.parse(v as String)),
+      websiteUrl: $checkedConvert('website_url', (v) => v as String),
       sponsorType: $checkedConvert(
         'sponsor_type',
         (v) => $enumDecode(_$CompanySponsorTypeEnumMap, v),
@@ -41,7 +41,7 @@ _CompanySponsorDetail _$CompanySponsorDetailFromJson(
     return val;
   },
   fieldKeyMap: const {
-    'logoUrl': 'logo_url',
+    'logoName': 'logo_name',
     'websiteUrl': 'website_url',
     'sponsorType': 'sponsor_type',
     'basicPlanType': 'basic_plan_type',
@@ -54,10 +54,10 @@ Map<String, dynamic> _$CompanySponsorDetailToJson(
 ) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
-  'logo_url': instance.logoUrl.toString(),
+  'logo_name': instance.logoName,
   'slug': instance.slug,
   'description': instance.description,
-  'website_url': instance.websiteUrl.toString(),
+  'website_url': instance.websiteUrl,
   'sponsor_type': _$CompanySponsorTypeEnumMap[instance.sponsorType]!,
   'basic_plan_type': _$BasicPlanTypeEnumMap[instance.basicPlanType],
   'option_plan_types': instance.optionPlanTypes
@@ -94,10 +94,10 @@ _IndividualSponsorDetail _$IndividualSponsorDetailFromJson(
     id: $checkedConvert('id', (v) => (v as num).toInt()),
     name: $checkedConvert('name', (v) => v as String),
     slug: $checkedConvert('slug', (v) => v as String),
-    logoUrl: $checkedConvert('logo_url', (v) => Uri.parse(v as String)),
+    logoName: $checkedConvert('logo_name', (v) => v as String),
   );
   return val;
-}, fieldKeyMap: const {'logoUrl': 'logo_url'});
+}, fieldKeyMap: const {'logoName': 'logo_name'});
 
 Map<String, dynamic> _$IndividualSponsorDetailToJson(
   _IndividualSponsorDetail instance,
@@ -105,7 +105,7 @@ Map<String, dynamic> _$IndividualSponsorDetailToJson(
   'id': instance.id,
   'name': instance.name,
   'slug': instance.slug,
-  'logo_url': instance.logoUrl.toString(),
+  'logo_name': instance.logoName,
 };
 
 _SponsorSummary _$SponsorSummaryFromJson(Map<String, dynamic> json) =>

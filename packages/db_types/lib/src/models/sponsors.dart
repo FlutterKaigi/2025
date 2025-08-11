@@ -10,10 +10,10 @@ abstract class CompanySponsorDetail with _$CompanySponsorDetail {
   const factory CompanySponsorDetail({
     required int id,
     required String name,
-    required Uri logoUrl,
+    required String logoName,
     required String slug,
     required String description,
-    required Uri websiteUrl,
+    required String websiteUrl,
     required CompanySponsorType sponsorType,
     BasicPlanType? basicPlanType,
     @Default([]) List<OptionPlanType> optionPlanTypes,
@@ -30,7 +30,7 @@ abstract class IndividualSponsorDetail with _$IndividualSponsorDetail {
     required int id,
     required String name,
     required String slug,
-    required Uri logoUrl,
+    required String logoName,
   }) = _IndividualSponsorDetail;
 
   factory IndividualSponsorDetail.fromJson(Map<String, dynamic> json) =>
