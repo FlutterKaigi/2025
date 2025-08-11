@@ -1,3 +1,4 @@
+import 'package:db_client/src/extensions/postgres_extensions.dart';
 import 'package:db_types/db_types.dart';
 import 'package:postgres/postgres.dart';
 
@@ -15,12 +16,20 @@ class SponsorDbClient {
           c.id,
           c.name,
           c.logo_name,
+          cd.slug,
+          cd.description,
+          cd.website_url,
           sc.sponsor_type,
-          bsc.basic_plan_type,
-          sc.created_at
+          bsc.basic_plan_type
         FROM companies c
         INNER JOIN sponsor_companies sc ON c.id = sc.company_id
         LEFT JOIN basic_sponsor_companies bsc ON sc.id = bsc.sponsor_company_id
+        LEFT JOIN company_drafts cd ON c.id = cd.company_id
+        LEFT JOIN company_draft_approvals cda ON cd.id = cda.company_draft_id
+        WHERE cda.id IS NOT NULL
+          AND cd.slug IS NOT NULL
+          AND cd.description IS NOT NULL
+          AND cd.website_url IS NOT NULL
         ORDER BY 
           CASE bsc.basic_plan_type
             WHEN 'platinum' THEN 1
@@ -33,76 +42,9 @@ class SponsorDbClient {
       '''),
     );
 
-    final sponsors = <CompanySponsorDetail>[];
-    for (final row in result) {
-      final rowMap = row.toColumnMap();
-
-      // PostgreSQL enum型の値を適切に処理
-      final sponsorTypeValue = rowMap['sponsor_type'];
-      String sponsorTypeStr;
-      if (sponsorTypeValue is String) {
-        sponsorTypeStr = sponsorTypeValue;
-      } else if (sponsorTypeValue is UndecodedBytes) {
-        sponsorTypeStr = sponsorTypeValue.asString;
-      } else {
-        sponsorTypeStr = sponsorTypeValue.toString();
-      }
-
-      CompanySponsorType sponsorType;
-      switch (sponsorTypeStr) {
-        case 'basic':
-          sponsorType = CompanySponsorType.basic;
-        case 'community':
-          sponsorType = CompanySponsorType.community;
-        case 'tool':
-          sponsorType = CompanySponsorType.tool;
-        case 'none':
-          sponsorType = CompanySponsorType.none;
-        default:
-          sponsorType = CompanySponsorType.none;
-      }
-
-      BasicPlanType? basicPlanType;
-      final basicPlanTypeValue = rowMap['basic_plan_type'];
-      if (basicPlanTypeValue != null) {
-        String basicPlanTypeStr;
-        if (basicPlanTypeValue is String) {
-          basicPlanTypeStr = basicPlanTypeValue;
-        } else if (basicPlanTypeValue is UndecodedBytes) {
-          basicPlanTypeStr = basicPlanTypeValue.asString;
-        } else {
-          basicPlanTypeStr = basicPlanTypeValue.toString();
-        }
-
-        switch (basicPlanTypeStr) {
-          case 'platinum':
-            basicPlanType = BasicPlanType.platinum;
-          case 'gold':
-            basicPlanType = BasicPlanType.gold;
-          case 'silver':
-            basicPlanType = BasicPlanType.silver;
-          case 'bronze':
-            basicPlanType = BasicPlanType.bronze;
-          default:
-            basicPlanType = BasicPlanType.bronze;
-        }
-      }
-
-      sponsors.add(
-        CompanySponsorDetail(
-          id: rowMap['id'] as int,
-          name: rowMap['name'] as String,
-          logoUrl: Uri.parse(rowMap['logo_name'] as String),
-          slug: rowMap['slug'] as String,
-          description: rowMap['description'] as String,
-          websiteUrl: Uri.parse(rowMap['website_url'] as String),
-          sponsorType: sponsorType,
-          basicPlanType: basicPlanType,
-        ),
-      );
-    }
-
-    return sponsors;
+    return result
+        .map((e) => CompanySponsorDetail.fromJson(e.toColumnMapSafe()))
+        .toList();
   }
 
   /// 個人スポンサーの詳細情報を取得
@@ -111,30 +53,24 @@ class SponsorDbClient {
       Sql.named('''
         SELECT 
           i.id,
-          au.raw_user_meta_data->>'name' as user_name,
-          si.created_at
+          COALESCE(id.name, au.raw_user_meta_data->>'name') as name,
+          id.slug,
+          id.logo_name
         FROM individuals i
         INNER JOIN sponsor_individuals si ON i.id = si.individual_id
         INNER JOIN auth.users au ON i.user_id = au.id
-        ORDER BY si.created_at DESC
+        LEFT JOIN individual_drafts id ON i.id = id.individual_id
+        LEFT JOIN individual_draft_approvals ida ON id.id = ida.individual_draft_id
+        WHERE ida.id IS NOT NULL
+          AND id.slug IS NOT NULL
+          AND id.logo_name IS NOT NULL
+        ORDER BY id.created_at DESC
       '''),
     );
 
-    final sponsors = <IndividualSponsorDetail>[];
-    for (final row in result) {
-      final rowMap = row.toColumnMap();
-
-      sponsors.add(
-        IndividualSponsorDetail(
-          id: rowMap['id'] as int,
-          name: rowMap['user_name'] as String,
-          slug: rowMap['slug'] as String,
-          logoUrl: Uri.parse(rowMap['logo_name'] as String),
-        ),
-      );
-    }
-
-    return sponsors;
+    return result
+        .map((e) => IndividualSponsorDetail.fromJson(e.toColumnMapSafe()))
+        .toList();
   }
 
   /// スポンサー情報のサマリーを取得
