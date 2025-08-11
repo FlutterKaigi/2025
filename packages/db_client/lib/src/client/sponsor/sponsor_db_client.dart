@@ -92,10 +92,12 @@ class SponsorDbClient {
         CompanySponsorDetail(
           id: rowMap['id'] as int,
           name: rowMap['name'] as String,
-          logoName: rowMap['logo_name'] as String,
+          logoUrl: Uri.parse(rowMap['logo_name'] as String),
+          slug: rowMap['slug'] as String,
+          description: rowMap['description'] as String,
+          websiteUrl: Uri.parse(rowMap['website_url'] as String),
           sponsorType: sponsorType,
           basicPlanType: basicPlanType,
-          createdAt: rowMap['created_at'] as DateTime,
         ),
       );
     }
@@ -125,8 +127,9 @@ class SponsorDbClient {
       sponsors.add(
         IndividualSponsorDetail(
           id: rowMap['id'] as int,
-          userName: rowMap['user_name'] as String?,
-          createdAt: rowMap['created_at'] as DateTime,
+          name: rowMap['user_name'] as String,
+          slug: rowMap['slug'] as String,
+          logoUrl: Uri.parse(rowMap['logo_name'] as String),
         ),
       );
     }

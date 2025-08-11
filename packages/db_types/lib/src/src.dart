@@ -1,5 +1,6 @@
 export 'converters/date_time_converter.dart';
 export 'models/checkout_option.dart';
+export 'models/sponsors.dart';
 export 'models/ticket_type_with_options.dart';
 export 'models/ticket_type_with_options_and_counts.dart';
 export 'models/user_and_user_roles.dart';
