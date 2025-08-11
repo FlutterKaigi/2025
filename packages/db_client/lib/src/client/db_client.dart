@@ -1,4 +1,5 @@
 import 'package:db_client/src/client/news/news_db_client.dart';
+import 'package:db_client/src/client/sponsor/sponsor_db_client.dart';
 import 'package:db_client/src/client/ticket/ticket_checkout_db_client.dart';
 import 'package:db_client/src/client/ticket/ticket_option_db_client.dart';
 import 'package:db_client/src/client/ticket/ticket_purchase_db_client.dart';
@@ -28,6 +29,7 @@ class DbClient {
 
   UserDbClient get user => UserDbClient(connection: _connection);
   NewsDbClient get news => NewsDbClient(connection: _connection);
+  SponsorDbClient get sponsor => SponsorDbClient(connection: _connection);
   TicketTypeDbClient get ticketType =>
       TicketTypeDbClient(connection: _connection);
   TicketOptionDbClient get ticketOption =>

@@ -1,111 +1,167 @@
+import 'package:dashboard/core/provider/bff_client.dart';
 import 'package:dashboard/features/sponsor/data/sponsor.dart';
-import 'package:faker/faker.dart';
+import 'package:db_types/db_types.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'sponsor_provider.g.dart';
 
 @riverpod
 Future<List<Sponsor>> sponsors(Ref ref) async {
-  await Future<void>.delayed(const Duration(seconds: 1));
-  final faker = Faker();
+  final bffClient = ref.watch(bffClientProvider);
+  final sponsorSummary = await bffClient.v1.sponsors.getSponsors();
 
   final sponsors = <Sponsor>[];
 
-  sponsors.addAll(
-    List.generate(
-      4,
-      (i) => PlatinumSponsor(
-        id: i.toString(),
-        name: faker.company.name(),
-        slug: faker.lorem.word() + i.toString(),
-        logoUrl: Uri.parse(
-          'https://placehold.co/400/png',
-        ),
-        description: faker.lorem.sentences(2).join(' '),
-        websiteUrl: Uri.parse('https://2025.flutterkaigi.jp'),
-      ),
-    ),
-  );
+  // 企業スポンサーを変換
+  for (final companySponsor in sponsorSummary.companySponsors) {
+    sponsors.add(_convertCompanySponsor(companySponsor));
+  }
 
-  sponsors.addAll(
-    List.generate(
-      6,
-      (i) => GoldSponsor(
-        id: (i + 10).toString(),
-        name: faker.company.name(),
-        slug: faker.lorem.word() + (i + 10).toString(),
-        logoUrl: Uri.parse(
-          'https://placehold.co/400/png',
-        ),
-        description: faker.lorem.sentences(2).join(' '),
-        websiteUrl: Uri.parse('https://2025.flutterkaigi.jp'),
-      ),
-    ),
-  );
-
-  sponsors.addAll(
-    List.generate(
-      11,
-      (i) => SilverSponsor(
-        id: (i + 20).toString(),
-        name: faker.company.name(),
-        slug: faker.lorem.word() + (i + 20).toString(),
-        logoUrl: Uri.parse(
-          'https://placehold.co/400/png',
-        ),
-        description: faker.lorem.sentences(2).join(' '),
-        websiteUrl: Uri.parse('https://2025.flutterkaigi.jp'),
-      ),
-    ),
-  );
-
-  sponsors.addAll(
-    List.generate(
-      20,
-      (i) => BronzeSponsor(
-        id: (i + 40).toString(),
-        name: faker.company.name(),
-        slug: faker.lorem.word() + (i + 40).toString(),
-        logoUrl: Uri.parse(
-          'https://placehold.co/400/png',
-        ),
-        description: faker.lorem.sentences(2).join(' '),
-        websiteUrl: Uri.parse('https://2025.flutterkaigi.jp'),
-      ),
-    ),
-  );
-
-  sponsors.addAll(
-    List.generate(
-      5,
-      (i) => OtherSponsor(
-        id: (i + 60).toString(),
-        name: faker.company.name(),
-        slug: faker.lorem.word() + (i + 60).toString(),
-        logoUrl: Uri.parse(
-          'https://placehold.co/400/png',
-        ),
-        description: faker.lorem.sentences(2).join(' '),
-        websiteUrl: Uri.parse('https://2025.flutterkaigi.jp'),
-      ),
-    ),
-  );
-
-  sponsors.addAll(
-    List.generate(
-      30,
-      (i) => IndividualSponsor(
-        id: (i + 70).toString(),
-        name: faker.person.name(),
-        slug: faker.internet.userName() + (i + 70).toString(),
-        logoUrl: Uri.parse(
-          'https://placehold.co/400/png',
-        ),
-        enthusiasm: faker.lorem.words(3).join(' '),
-        websiteUrl: Uri.parse('https://2025.flutterkaigi.jp'),
-      ),
-    ),
-  );
+  // 個人スポンサーを変換
+  for (final individualSponsor in sponsorSummary.individualSponsors) {
+    sponsors.add(_convertIndividualSponsor(individualSponsor));
+  }
 
   return sponsors;
+}
+
+/// 企業スポンサーを変換
+Sponsor _convertCompanySponsor(CompanySponsorDetail companySponsor) {
+  final sponsorType = companySponsor.sponsorType;
+  return switch (sponsorType) {
+    CompanySponsorType.basic => _convertBasicSponsor(companySponsor),
+    CompanySponsorType.tool => _convertToolSponsor(companySponsor),
+    CompanySponsorType.community ||
+    CompanySponsorType.none => _convertOtherSponsor(companySponsor),
+  };
+}
+
+/// ベーシックプランのスポンサーを変換
+Sponsor _convertBasicSponsor(CompanySponsorDetail companySponsor) {
+  final basicPlanType = companySponsor.basicPlanType;
+  return switch (basicPlanType) {
+    BasicPlanType.platinum => _convertPlatinumSponsor(companySponsor),
+    BasicPlanType.gold => _convertGoldSponsor(companySponsor),
+    BasicPlanType.silver => _convertSilverSponsor(companySponsor),
+    BasicPlanType.bronze => _convertBronzeSponsor(companySponsor),
+    null => throw Exception('basic plan type is null'),
+  };
+}
+
+/// プラチナスポンサーを変換
+PlatinumSponsor _convertPlatinumSponsor(CompanySponsorDetail companySponsor) {
+  return PlatinumSponsor(
+    id: companySponsor.id.toString(),
+    name: companySponsor.name,
+    slug: companySponsor.slug,
+    logoUrl: Uri.parse('https://placehold.co/400/png'),
+    description: companySponsor.description,
+    websiteUrl: Uri.parse(companySponsor.websiteUrl),
+    scholarship: companySponsor.isScholarship,
+    namingRight: companySponsor.namingRight,
+    namePlate: companySponsor.isNamePlate,
+  );
+}
+
+/// ゴールドスポンサーを変換
+GoldSponsor _convertGoldSponsor(CompanySponsorDetail companySponsor) {
+  return GoldSponsor(
+    id: companySponsor.id.toString(),
+    name: companySponsor.name,
+    slug: companySponsor.slug,
+    logoUrl: Uri.parse('https://placehold.co/400/png'),
+    description: companySponsor.description,
+    websiteUrl: Uri.parse(companySponsor.websiteUrl),
+    scholarship: companySponsor.isScholarship,
+    namingRight: companySponsor.namingRight,
+    namePlate: companySponsor.isNamePlate,
+  );
+}
+
+/// シルバースポンサーを変換
+SilverSponsor _convertSilverSponsor(CompanySponsorDetail companySponsor) {
+  return SilverSponsor(
+    id: companySponsor.id.toString(),
+    name: companySponsor.name,
+    slug: companySponsor.slug,
+    logoUrl: Uri.parse('https://placehold.co/400/png'),
+    description: companySponsor.description,
+    websiteUrl: Uri.parse(companySponsor.websiteUrl),
+    scholarship: companySponsor.isScholarship,
+    namingRight: companySponsor.namingRight,
+    namePlate: companySponsor.isNamePlate,
+    lunchSponsor: companySponsor.isLunch,
+  );
+}
+
+/// ブロンズスポンサーを変換
+BronzeSponsor _convertBronzeSponsor(CompanySponsorDetail companySponsor) {
+  return BronzeSponsor(
+    id: companySponsor.id.toString(),
+    name: companySponsor.name,
+    slug: companySponsor.slug,
+    logoUrl: Uri.parse('https://placehold.co/400/png'),
+    description: companySponsor.description,
+    websiteUrl: Uri.parse(companySponsor.websiteUrl),
+    scholarship: companySponsor.isScholarship,
+    namePlate: companySponsor.isNamePlate,
+    lunchSponsor: companySponsor.isLunch,
+  );
+}
+
+/// ツールスポンサーを変換
+ToolSponsor _convertToolSponsor(CompanySponsorDetail companySponsor) {
+  return ToolSponsor(
+    id: companySponsor.id.toString(),
+    name: companySponsor.name,
+    slug: companySponsor.slug,
+    logoUrl: Uri.parse('https://placehold.co/400/png'),
+    description: companySponsor.description,
+    websiteUrl: Uri.parse(companySponsor.websiteUrl),
+  );
+}
+
+/// その他スポンサーを変換
+OtherSponsor _convertOtherSponsor(CompanySponsorDetail companySponsor) {
+  return OtherSponsor(
+    id: companySponsor.id.toString(),
+    name: companySponsor.name,
+    slug: companySponsor.slug,
+    logoUrl: Uri.parse('https://placehold.co/400/png'),
+    description: companySponsor.description,
+    websiteUrl: Uri.parse(companySponsor.websiteUrl),
+  );
+}
+
+/// 個人スポンサーを変換
+IndividualSponsor _convertIndividualSponsor(
+  IndividualSponsorDetail individualSponsor,
+) {
+  return IndividualSponsor(
+    id: individualSponsor.id.toString(),
+    name: individualSponsor.name,
+    slug: individualSponsor.slug,
+    logoUrl: Uri.parse('https://placehold.co/400/png'),
+    enthusiasm: 'FlutterKaigi 2025を応援しています！',
+    websiteUrl: Uri.parse('https://2025.flutterkaigi.jp'),
+  );
+}
+
+extension on CompanySponsorDetail {
+  NamingRight get namingRight {
+    if (optionPlanTypes.contains(OptionPlanType.namingRightsHall)) {
+      return HallNamingRight(name: name);
+    }
+    if (optionPlanTypes.contains(OptionPlanType.namingRightsRoom)) {
+      return RoomNamingRight(name: name);
+    }
+    return const NotAppliedNamingRight();
+  }
+
+  bool get isScholarship =>
+      optionPlanTypes.contains(OptionPlanType.scholarship);
+
+  bool get isNamePlate => optionPlanTypes.contains(OptionPlanType.nameplate);
+
+  bool get isLunch => optionPlanTypes.contains(OptionPlanType.lunch);
 }

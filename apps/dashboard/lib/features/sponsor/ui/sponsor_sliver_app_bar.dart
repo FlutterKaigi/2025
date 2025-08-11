@@ -307,6 +307,7 @@ extension _BasicPlanName on Sponsor {
     GoldSponsor() => 'Gold',
     SilverSponsor() => 'Silver',
     BronzeSponsor() => 'Bronze',
+    ToolSponsor() => 'Tool',
     OtherSponsor() => 'Other',
     IndividualSponsor() => 'Individual',
   };

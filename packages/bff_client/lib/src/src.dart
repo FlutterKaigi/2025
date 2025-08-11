@@ -1,5 +1,6 @@
 export 'api/bff_api_client.dart';
 export 'api/v1/news_api_client.dart';
+export 'api/v1/sponsors_api_client.dart';
 export 'api/v1/tickets_api_client.dart';
 export 'api/v1/users_api_client.dart';
 export 'model/error/error_response.dart';

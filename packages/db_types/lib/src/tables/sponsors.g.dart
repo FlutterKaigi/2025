@@ -46,6 +46,7 @@ Map<String, dynamic> _$SponsorCompaniesToJson(
 const _$CompanySponsorTypeEnumMap = {
   CompanySponsorType.basic: 'basic',
   CompanySponsorType.community: 'community',
+  CompanySponsorType.tool: 'tool',
   CompanySponsorType.none: 'none',
 };
 

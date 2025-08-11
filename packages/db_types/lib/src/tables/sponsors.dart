@@ -10,6 +10,8 @@ enum CompanySponsorType {
   basic,
   @JsonValue('community')
   community,
+  @JsonValue('tool')
+  tool,
   @JsonValue('none')
   none,
 }
