@@ -20,16 +20,30 @@ class SponsorDbClient {
           cd.description,
           cd.website_url,
           sc.sponsor_type,
-          bsc.basic_plan_type
+          bsc.basic_plan_type,
+          COALESCE(
+            array_agg(sco.option_plan_type::text) FILTER (WHERE sco.option_plan_type IS NOT NULL),
+            ARRAY[]::text[]
+          ) as option_plan_types
         FROM companies c
         INNER JOIN sponsor_companies sc ON c.id = sc.company_id
         LEFT JOIN basic_sponsor_companies bsc ON sc.id = bsc.sponsor_company_id
         LEFT JOIN company_drafts cd ON c.id = cd.company_id
         LEFT JOIN company_draft_approvals cda ON cd.id = cda.company_draft_id
+        LEFT JOIN sponsor_company_options sco ON sc.id = sco.sponsor_company_id
         WHERE cda.id IS NOT NULL
           AND cd.slug IS NOT NULL
           AND cd.description IS NOT NULL
           AND cd.website_url IS NOT NULL
+        GROUP BY 
+          c.id,
+          c.name,
+          c.logo_name,
+          cd.slug,
+          cd.description,
+          cd.website_url,
+          sc.sponsor_type,
+          bsc.basic_plan_type
         ORDER BY 
           CASE bsc.basic_plan_type
             WHEN 'platinum' THEN 1
