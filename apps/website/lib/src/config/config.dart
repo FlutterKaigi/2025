@@ -403,7 +403,7 @@ const _sponsors = <SponsorInfo>[
       ja:
           // ignore: missing_whitespace_between_adjacent_strings
           'hacomonoはウェルネス産業向けVertical SaaS企業です。'
-          '会員管理のデジタル化を提供し、ジュニアスクールや公共施設等に入されています。'
+          '会員管理のデジタル化を提供し、ジュニアスクールや公共施設等に導入されています。'
           '7月に発表のtoC向け新サービス「FitFits」の開発にFlutterを採用しています。',
       en: null,
     ),
