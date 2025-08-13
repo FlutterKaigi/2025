@@ -258,6 +258,40 @@ const _sponsors = <SponsorInfo>[
     disable: true,
   ),
   (
+    name: '',
+    url: '',
+    sns: (x: null),
+    pr: (ja: '', en: null),
+    logo: '',
+    type: SponsorType.gold,
+    disable: true,
+  ),
+  (
+    name: '',
+    url: '',
+    sns: (x: null),
+    pr: (ja: '', en: null),
+    logo: '',
+    type: SponsorType.gold,
+    disable: true,
+  ),
+  (
+    name: '株式会社MagicPod',
+    url: 'https://magicpod.com/',
+    sns: (x: '@MagicPodJP'),
+    pr: (
+      ja:
+          'MagicPodは、モバイルアプリ・ブラウザ（ウェブアプリ）テストの両方に対応したAIテスト自動化プラットフォームを提供しています。'
+          // ignore: missing_whitespace_between_adjacent_strings
+          '自然言語だけでテストの作成・編集・実行ができる「MagicPod Autopilot」機能や、'
+          'AIによる自動修正、クラウドでのサービス提供によるメンテナンス性の高さで、リリースサイクルの高速化を支援しています。',
+      en: null,
+    ),
+    logo: '/img/sponsor/magic-pod.png',
+    type: SponsorType.gold,
+    disable: false,
+  ),
+  (
     name: 'ZOZO, Inc.',
     url: 'https://corp.zozo.com/',
     sns: (x: 'zozotech'),
