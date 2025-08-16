@@ -55,7 +55,7 @@ PlatinumSponsor _convertPlatinumSponsor(CompanySponsorDetail companySponsor) {
     name: companySponsor.name,
     slug: companySponsor.slug,
     logoUrl: Uri.parse('https://placehold.co/400/png'),
-    description: companySponsor.description,
+    prText: companySponsor.prText,
     websiteUrl: Uri.parse(companySponsor.websiteUrl),
     scholarship: companySponsor.isScholarship,
     namingRight: companySponsor.namingRight,
@@ -70,7 +70,7 @@ GoldSponsor _convertGoldSponsor(CompanySponsorDetail companySponsor) {
     name: companySponsor.name,
     slug: companySponsor.slug,
     logoUrl: Uri.parse('https://placehold.co/400/png'),
-    description: companySponsor.description,
+    prText: companySponsor.prText,
     websiteUrl: Uri.parse(companySponsor.websiteUrl),
     scholarship: companySponsor.isScholarship,
     namingRight: companySponsor.namingRight,
@@ -85,7 +85,7 @@ SilverSponsor _convertSilverSponsor(CompanySponsorDetail companySponsor) {
     name: companySponsor.name,
     slug: companySponsor.slug,
     logoUrl: Uri.parse('https://placehold.co/400/png'),
-    description: companySponsor.description,
+    prText: companySponsor.prText,
     websiteUrl: Uri.parse(companySponsor.websiteUrl),
     scholarship: companySponsor.isScholarship,
     namingRight: companySponsor.namingRight,
@@ -101,7 +101,7 @@ BronzeSponsor _convertBronzeSponsor(CompanySponsorDetail companySponsor) {
     name: companySponsor.name,
     slug: companySponsor.slug,
     logoUrl: Uri.parse('https://placehold.co/400/png'),
-    description: companySponsor.description,
+    prText: companySponsor.prText,
     websiteUrl: Uri.parse(companySponsor.websiteUrl),
     scholarship: companySponsor.isScholarship,
     namePlate: companySponsor.isNamePlate,
@@ -116,7 +116,7 @@ ToolSponsor _convertToolSponsor(CompanySponsorDetail companySponsor) {
     name: companySponsor.name,
     slug: companySponsor.slug,
     logoUrl: Uri.parse('https://placehold.co/400/png'),
-    description: companySponsor.description,
+    prText: companySponsor.prText,
     websiteUrl: Uri.parse(companySponsor.websiteUrl),
   );
 }
@@ -128,7 +128,7 @@ OtherSponsor _convertOtherSponsor(CompanySponsorDetail companySponsor) {
     name: companySponsor.name,
     slug: companySponsor.slug,
     logoUrl: Uri.parse('https://placehold.co/400/png'),
-    description: companySponsor.description,
+    prText: companySponsor.prText,
     websiteUrl: Uri.parse(companySponsor.websiteUrl),
   );
 }
