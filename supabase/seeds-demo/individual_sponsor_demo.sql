@@ -4,85 +4,179 @@
 -- 2. individual_drafts: blendthinkの掲載情報（名前、スラッグ、ロゴ、熱意、Xアカウント）
 -- 3. individual_draft_approvals: 掲載情報の承認
 -- 4. sponsor_individuals: blendthinkを個人スポンサーとして登録
--- 1. individuals テーブルのシードデータ
+-- 共通のCTE定義
 WITH
     timestamp AS (
         SELECT
             '2025-06-01 00:00:00'::timestamp AS ts
+    ),
+    target_user_id AS (
+        SELECT
+            '123e4567-e89b-12d3-a456-426614174000'::uuid AS user_id
+    ),
+    individual_record AS (
+        SELECT
+            id
+        FROM
+            public.individuals
+        WHERE
+            user_id = (
+                SELECT
+                    user_id
+                FROM
+                    target_user_id
+            )
     )
+    -- 1. individuals テーブルのシードデータ（既存データがある場合はスキップ）
 INSERT INTO
     public.individuals (user_id, created_at, updated_at)
 SELECT
-    user_id::uuid,
-    ts,
-    ts
-FROM
     (
-        VALUES
-            ('123e4567-e89b-12d3-a456-426614174000')
-    ) AS individuals (user_id)
-    CROSS JOIN timestamp;
-
--- 2. individual_drafts テーブルのシードデータ
-WITH
-    timestamp AS (
         SELECT
-            '2025-06-01 00:00:00'::timestamp AS ts
+            user_id
+        FROM
+            target_user_id
+    ),
+    (
+        SELECT
+            ts
+        FROM
+            timestamp
+    ),
+    (
+        SELECT
+            ts
+        FROM
+            timestamp
+    )
+WHERE
+    NOT EXISTS (
+        SELECT
+            1
+        FROM
+            individual_record
+    );
+
+-- 2. individual_drafts テーブルのシードデータ（既存データがある場合はスキップ）
+WITH
+    existing_draft AS (
+        SELECT
+            id
+        FROM
+            public.individual_drafts
+        WHERE
+            individual_id = (
+                SELECT
+                    id
+                FROM
+                    public.individuals
+                WHERE
+                    user_id = '123e4567-e89b-12d3-a456-426614174000'::uuid
+            )
+            AND slug = 'blendthink'
     )
 INSERT INTO
     public.individual_drafts (individual_id, name, slug, logo_name, enthusiasm, x_account, created_at, updated_at)
 SELECT
-    individual_id,
-    name,
-    slug,
-    logo_name,
-    enthusiasm,
-    x_account,
-    ts,
-    ts
-FROM
     (
-        VALUES
-            (1, 'blendthink', 'blendthink', 'blendthink', '開発頑張る', 'blendthink')
-    ) AS drafts (individual_id, name, slug, logo_name, enthusiasm, x_account)
-    CROSS JOIN timestamp;
+        SELECT
+            id
+        FROM
+            public.individuals
+        WHERE
+            user_id = '123e4567-e89b-12d3-a456-426614174000'::uuid
+    ),
+    'blendthink',
+    'blendthink',
+    'blendthink',
+    '開発頑張る',
+    'blendthink',
+    '2025-06-01 00:00:00'::timestamp,
+    '2025-06-01 00:00:00'::timestamp
+WHERE
+    EXISTS (
+        SELECT
+            1
+        FROM
+            public.individuals
+        WHERE
+            user_id = '123e4567-e89b-12d3-a456-426614174000'::uuid
+    )
+    AND NOT EXISTS (
+        SELECT
+            1
+        FROM
+            existing_draft
+    );
 
--- 3. individual_drafts の全てのレコードを承認ユーザーで承認する
+-- 3. individual_drafts の全てのレコードを承認ユーザーで承認する（既存の承認がある場合はスキップ）
 WITH
     draft_ids AS (
         SELECT
             id
         FROM
             public.individual_drafts
-    ),
-    timestamp AS (
-        SELECT
-            '2025-06-01 00:00:00'::timestamp AS ts
+        WHERE
+            slug = 'blendthink'
+            AND NOT EXISTS (
+                SELECT
+                    1
+                FROM
+                    public.individual_draft_approvals
+                WHERE
+                    individual_draft_id = id
+            )
     )
 INSERT INTO
     public.individual_draft_approvals (individual_draft_id, approved_by, created_at)
 SELECT
     id,
     '123e4567-e89b-12d3-a456-426614174000'::uuid,
-    ts
+    '2025-06-01 00:00:00'::timestamp
 FROM
-    draft_ids
-    CROSS JOIN timestamp;
+    draft_ids;
 
--- 4. sponsor_individuals テーブルのシードデータ
+-- 4. sponsor_individuals テーブルのシードデータ（既存データがある場合はスキップ）
 WITH
-    timestamp AS (
+    existing_sponsor AS (
         SELECT
-            '2025-06-01 00:00:00'::timestamp AS ts
+            id
+        FROM
+            public.sponsor_individuals
+        WHERE
+            individual_id = (
+                SELECT
+                    id
+                FROM
+                    public.individuals
+                WHERE
+                    user_id = '123e4567-e89b-12d3-a456-426614174000'::uuid
+            )
     )
 INSERT INTO
     public.sponsor_individuals (individual_id, created_at)
 SELECT
-    individual_id,
-    ts
-FROM
     (
-        VALUES
-            (1)
-    ) AS sponsor_individuals (individual_id)
-    CROSS JOIN timestamp;
+        SELECT
+            id
+        FROM
+            public.individuals
+        WHERE
+            user_id = '123e4567-e89b-12d3-a456-426614174000'::uuid
+    ),
+    '2025-06-01 00:00:00'::timestamp
+WHERE
+    EXISTS (
+        SELECT
+            1
+        FROM
+            public.individuals
+        WHERE
+            user_id = '123e4567-e89b-12d3-a456-426614174000'::uuid
+    )
+    AND NOT EXISTS (
+        SELECT
+            1
+        FROM
+            existing_sponsor
+    );
