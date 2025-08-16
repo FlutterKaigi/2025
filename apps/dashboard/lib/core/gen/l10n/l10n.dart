@@ -156,7 +156,7 @@ abstract class L10n {
   /// No description provided for @sponsorDescription.
   ///
   /// In ja, this message translates to:
-  /// **'会社概要'**
+  /// **'PR 文章'**
   String get sponsorDescription;
 
   /// No description provided for @sponsorEnthusiasm.

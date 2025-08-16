@@ -77,7 +77,7 @@ class _SponsorDetail extends ConsumerWidget {
 
     final bodyContent = switch (sponsor) {
       final CompanySponsor company => [
-        // 会社概要
+        // PR 文章
         const SizedBox(height: 8),
         Text(
           l10n.sponsorDescription,
