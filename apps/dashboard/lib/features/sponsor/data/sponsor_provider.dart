@@ -142,8 +142,8 @@ IndividualSponsor _convertIndividualSponsor(
     name: individualSponsor.name,
     slug: individualSponsor.slug,
     logoUrl: Uri.parse('https://placehold.co/400/png'),
-    enthusiasm: 'FlutterKaigi 2025を応援しています！',
-    websiteUrl: Uri.parse('https://2025.flutterkaigi.jp'),
+    enthusiasm: individualSponsor.enthusiasm,
+    xAccount: individualSponsor.xAccount,
   );
 }
 

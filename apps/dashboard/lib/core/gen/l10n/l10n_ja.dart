@@ -52,6 +52,12 @@ class L10nJa extends L10n {
   String get sponsorWebsiteNotSet => '設定されていません';
 
   @override
+  String get sponsorXAccount => 'X アカウント';
+
+  @override
+  String get sponsorXAccountNotSet => '設定されていません';
+
+  @override
   String get sponsorEditButtonLabel => 'スポンサー情報を編集する';
 
   @override

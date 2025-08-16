@@ -117,28 +117,30 @@ class _SponsorDetail extends ConsumerWidget {
       ],
       final IndividualSponsor individual => [
         // 意気込み
-        const SizedBox(height: 8),
-        Text(
-          l10n.sponsorEnthusiasm,
-          style: titleStyle,
-        ),
-        const SizedBox(height: 8),
-        Text(
-          individual.enthusiasm,
-          style: bodyTextStyle,
-        ),
-        const SizedBox(height: 8),
-
-        // ウェブサイト
-        const SizedBox(height: 8),
-        Text(
-          l10n.sponsorWebsite,
-          style: titleStyle,
-        ),
-        const SizedBox(height: 8),
-        if (individual.websiteUrl == null)
+        if (individual.enthusiasm != null) ...[
+          const SizedBox(height: 8),
           Text(
-            l10n.sponsorWebsiteNotSet,
+            l10n.sponsorEnthusiasm,
+            style: titleStyle,
+          ),
+          const SizedBox(height: 8),
+          Text(
+            individual.enthusiasm!,
+            style: bodyTextStyle,
+          ),
+          const SizedBox(height: 8),
+        ],
+
+        // Xアカウント
+        const SizedBox(height: 8),
+        Text(
+          l10n.sponsorXAccount,
+          style: titleStyle,
+        ),
+        const SizedBox(height: 8),
+        if (individual.xAccount == null)
+          Text(
+            l10n.sponsorXAccountNotSet,
             style: bodyTextStyle?.copyWith(
               color: colorScheme.onSurfaceVariant,
             ),
@@ -146,15 +148,16 @@ class _SponsorDetail extends ConsumerWidget {
         else
           Text.rich(
             TextSpan(
-              text: individual.websiteUrl.toString(),
+              text: '@${individual.xAccount}',
               style: bodyTextStyle?.copyWith(
                 color: colorScheme.primary,
               ),
               recognizer: TapGestureRecognizer()
                 ..onTap = () async {
+                  final xUrl = 'https://x.com/${individual.xAccount}';
                   unawaited(
                     launchUrl(
-                      individual.websiteUrl!,
+                      Uri.parse(xUrl),
                       mode: LaunchMode.externalApplication,
                     ),
                   );

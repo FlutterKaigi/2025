@@ -67,6 +67,7 @@ class _SponsorEditForm extends HookConsumerWidget {
     final nameController = useTextEditingController();
     final descriptionController = useTextEditingController();
     final websiteController = useTextEditingController();
+    final xAccountController = useTextEditingController();
 
     useEffect(() {
       nameController.text = sponsor.name;
@@ -75,8 +76,8 @@ class _SponsorEditForm extends HookConsumerWidget {
           descriptionController.text = company.prText;
           websiteController.text = company.websiteUrl.toString();
         case final IndividualSponsor individual:
-          descriptionController.text = individual.enthusiasm;
-          websiteController.text = individual.websiteUrl?.toString() ?? '';
+          descriptionController.text = individual.enthusiasm ?? '';
+          xAccountController.text = individual.xAccount ?? '';
       }
       return null;
     }, [sponsor]);
@@ -114,11 +115,23 @@ class _SponsorEditForm extends HookConsumerWidget {
             ),
             const SizedBox(height: 16),
 
-            // ウェブサイト
-            _SponsorEditField(
-              controller: websiteController,
-              label: l10n.sponsorWebsite,
-            ),
+            // ウェブサイト（企業スポンサーの場合）
+            if (sponsor is CompanySponsor) ...[
+              _SponsorEditField(
+                controller: websiteController,
+                label: l10n.sponsorWebsite,
+              ),
+              const SizedBox(height: 16),
+            ],
+
+            // Xアカウント（個人スポンサーの場合）
+            if (sponsor is IndividualSponsor) ...[
+              _SponsorEditField(
+                controller: xAccountController,
+                label: l10n.sponsorXAccount,
+              ),
+              const SizedBox(height: 16),
+            ],
             const SizedBox(height: 80), // ボタン分のスペースを確保
           ],
         ),
