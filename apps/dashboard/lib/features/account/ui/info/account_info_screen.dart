@@ -40,6 +40,9 @@ final class AccountInfoScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(authNotifierProvider);
+    final l10n = L10n.of(context);
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
 
     return AccountScaffold(
       body: state.when(
@@ -61,39 +64,31 @@ final class AccountInfoScreen extends ConsumerWidget {
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                L10n.of(context).accountOthers,
-                style: Theme.of(context).textTheme.titleLarge,
+                l10n.accountOthers,
+                style: textTheme.titleLarge,
               ),
             ),
             const SizedBox(height: 8),
             ...([
               (
-                title: L10n.of(context).accountCodeOfConduct,
+                title: l10n.accountCodeOfConduct,
                 onTap: _onTapCodeOfConductTile,
               ),
               (
-                title: L10n.of(context).accountPrivacyPolicy,
+                title: l10n.accountPrivacyPolicy,
                 onTap: _onTapPrivacyPolicyTile,
               ),
               (
-                title: L10n.of(context).accountContact,
+                title: l10n.accountContact,
                 onTap: _onTapContactTile,
               ),
               (
-                title: L10n.of(context).accountOssLicenses,
+                title: l10n.accountOssLicenses,
                 onTap: _onTapOssLicensesTile,
               ),
             ].map(
-              (item) => ListTile(
-                title: Text(
-                  item.title,
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ),
-                trailing: Icon(
-                  Icons.arrow_right,
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
-                ),
-                visualDensity: VisualDensity.comfortable,
+              (item) => _OtherListItem(
+                title: item.title,
                 onTap: item.onTap,
               ),
             )),
@@ -264,5 +259,35 @@ extension on User {
   String? get avatarUrl {
     return userMetadata?['avatar_url']?.toString() ??
         identities?.firstOrNull?.identityData?['avatar_url']?.toString();
+  }
+}
+
+/// Othersアイテム用のカスタムウィジェット
+class _OtherListItem extends StatelessWidget {
+  const _OtherListItem({
+    required this.title,
+    required this.onTap,
+  });
+
+  final String title;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return ListTile(
+      title: Text(
+        title,
+        style: textTheme.bodyLarge,
+      ),
+      trailing: Icon(
+        Icons.arrow_right,
+        color: colorScheme.onSurfaceVariant,
+      ),
+      visualDensity: VisualDensity.comfortable,
+      onTap: onTap,
+    );
   }
 }
