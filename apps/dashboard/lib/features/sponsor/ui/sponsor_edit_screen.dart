@@ -72,7 +72,7 @@ class _SponsorEditForm extends HookConsumerWidget {
       nameController.text = sponsor.name;
       switch (sponsor) {
         case final CompanySponsor company:
-          descriptionController.text = company.description;
+          descriptionController.text = company.prText;
           websiteController.text = company.websiteUrl.toString();
         case final IndividualSponsor individual:
           descriptionController.text = individual.enthusiasm;
@@ -107,7 +107,7 @@ class _SponsorEditForm extends HookConsumerWidget {
             _SponsorEditField(
               controller: descriptionController,
               label: switch (sponsor) {
-                CompanySponsor() => l10n.sponsorDescription,
+                CompanySponsor() => l10n.sponsorPrText,
                 IndividualSponsor() => l10n.sponsorEnthusiasm,
               },
               maxLines: 3,
