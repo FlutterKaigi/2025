@@ -31,6 +31,8 @@ abstract class IndividualSponsorDetail with _$IndividualSponsorDetail {
     required String name,
     required String slug,
     required String logoName,
+    String? enthusiasm,
+    String? xAccount,
   }) = _IndividualSponsorDetail;
 
   factory IndividualSponsorDetail.fromJson(Map<String, dynamic> json) =>

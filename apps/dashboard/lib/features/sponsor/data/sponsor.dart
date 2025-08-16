@@ -481,12 +481,12 @@ final class IndividualSponsor extends Sponsor {
     required super.name,
     required super.slug,
     required super.logoUrl,
-    required this.enthusiasm,
-    required this.websiteUrl,
+    this.enthusiasm,
+    this.xAccount,
   });
 
-  final String enthusiasm;
-  final Uri? websiteUrl;
+  final String? enthusiasm;
+  final String? xAccount;
 
   @override
   bool operator ==(Object other) {
@@ -499,7 +499,7 @@ final class IndividualSponsor extends Sponsor {
         slug == other.slug &&
         logoUrl == other.logoUrl &&
         enthusiasm == other.enthusiasm &&
-        websiteUrl == other.websiteUrl;
+        xAccount == other.xAccount;
   }
 
   @override
@@ -509,6 +509,6 @@ final class IndividualSponsor extends Sponsor {
     slug,
     logoUrl,
     enthusiasm,
-    websiteUrl,
+    xAccount,
   );
 }

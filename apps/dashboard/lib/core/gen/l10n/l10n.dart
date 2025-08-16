@@ -177,6 +177,18 @@ abstract class L10n {
   /// **'設定されていません'**
   String get sponsorWebsiteNotSet;
 
+  /// No description provided for @sponsorXAccount.
+  ///
+  /// In ja, this message translates to:
+  /// **'X アカウント'**
+  String get sponsorXAccount;
+
+  /// No description provided for @sponsorXAccountNotSet.
+  ///
+  /// In ja, this message translates to:
+  /// **'設定されていません'**
+  String get sponsorXAccountNotSet;
+
   /// No description provided for @sponsorEditButtonLabel.
   ///
   /// In ja, this message translates to:
