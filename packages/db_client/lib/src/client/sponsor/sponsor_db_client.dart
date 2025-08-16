@@ -74,7 +74,9 @@ class SponsorDbClient {
           i.id,
           COALESCE(id.name, au.raw_user_meta_data->>'name') as name,
           id.slug,
-          id.logo_name
+          id.logo_name,
+          id.enthusiasm,
+          id.x_account
         FROM individuals i
         INNER JOIN sponsor_individuals si ON i.id = si.individual_id
         INNER JOIN auth.users au ON i.user_id = au.id

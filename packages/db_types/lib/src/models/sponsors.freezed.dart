@@ -308,7 +308,7 @@ as List<OptionPlanType>,
 /// @nodoc
 mixin _$IndividualSponsorDetail {
 
- int get id; String get name; String get slug; String get logoName;
+ int get id; String get name; String get slug; String get logoName; String? get enthusiasm; String? get xAccount;
 /// Create a copy of IndividualSponsorDetail
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -321,16 +321,16 @@ $IndividualSponsorDetailCopyWith<IndividualSponsorDetail> get copyWith => _$Indi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is IndividualSponsorDetail&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.logoName, logoName) || other.logoName == logoName));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is IndividualSponsorDetail&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.logoName, logoName) || other.logoName == logoName)&&(identical(other.enthusiasm, enthusiasm) || other.enthusiasm == enthusiasm)&&(identical(other.xAccount, xAccount) || other.xAccount == xAccount));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,slug,logoName);
+int get hashCode => Object.hash(runtimeType,id,name,slug,logoName,enthusiasm,xAccount);
 
 @override
 String toString() {
-  return 'IndividualSponsorDetail(id: $id, name: $name, slug: $slug, logoName: $logoName)';
+  return 'IndividualSponsorDetail(id: $id, name: $name, slug: $slug, logoName: $logoName, enthusiasm: $enthusiasm, xAccount: $xAccount)';
 }
 
 
@@ -341,7 +341,7 @@ abstract mixin class $IndividualSponsorDetailCopyWith<$Res>  {
   factory $IndividualSponsorDetailCopyWith(IndividualSponsorDetail value, $Res Function(IndividualSponsorDetail) _then) = _$IndividualSponsorDetailCopyWithImpl;
 @useResult
 $Res call({
- int id, String name, String slug, String logoName
+ int id, String name, String slug, String logoName, String? enthusiasm, String? xAccount
 });
 
 
@@ -358,13 +358,15 @@ class _$IndividualSponsorDetailCopyWithImpl<$Res>
 
 /// Create a copy of IndividualSponsorDetail
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? slug = null,Object? logoName = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? slug = null,Object? logoName = null,Object? enthusiasm = freezed,Object? xAccount = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,slug: null == slug ? _self.slug : slug // ignore: cast_nullable_to_non_nullable
 as String,logoName: null == logoName ? _self.logoName : logoName // ignore: cast_nullable_to_non_nullable
-as String,
+as String,enthusiasm: freezed == enthusiasm ? _self.enthusiasm : enthusiasm // ignore: cast_nullable_to_non_nullable
+as String?,xAccount: freezed == xAccount ? _self.xAccount : xAccount // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 
@@ -449,10 +451,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name,  String slug,  String logoName)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name,  String slug,  String logoName,  String? enthusiasm,  String? xAccount)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _IndividualSponsorDetail() when $default != null:
-return $default(_that.id,_that.name,_that.slug,_that.logoName);case _:
+return $default(_that.id,_that.name,_that.slug,_that.logoName,_that.enthusiasm,_that.xAccount);case _:
   return orElse();
 
 }
@@ -470,10 +472,10 @@ return $default(_that.id,_that.name,_that.slug,_that.logoName);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name,  String slug,  String logoName)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name,  String slug,  String logoName,  String? enthusiasm,  String? xAccount)  $default,) {final _that = this;
 switch (_that) {
 case _IndividualSponsorDetail():
-return $default(_that.id,_that.name,_that.slug,_that.logoName);case _:
+return $default(_that.id,_that.name,_that.slug,_that.logoName,_that.enthusiasm,_that.xAccount);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -490,10 +492,10 @@ return $default(_that.id,_that.name,_that.slug,_that.logoName);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name,  String slug,  String logoName)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name,  String slug,  String logoName,  String? enthusiasm,  String? xAccount)?  $default,) {final _that = this;
 switch (_that) {
 case _IndividualSponsorDetail() when $default != null:
-return $default(_that.id,_that.name,_that.slug,_that.logoName);case _:
+return $default(_that.id,_that.name,_that.slug,_that.logoName,_that.enthusiasm,_that.xAccount);case _:
   return null;
 
 }
@@ -505,13 +507,15 @@ return $default(_that.id,_that.name,_that.slug,_that.logoName);case _:
 @JsonSerializable()
 
 class _IndividualSponsorDetail implements IndividualSponsorDetail {
-  const _IndividualSponsorDetail({required this.id, required this.name, required this.slug, required this.logoName});
+  const _IndividualSponsorDetail({required this.id, required this.name, required this.slug, required this.logoName, this.enthusiasm, this.xAccount});
   factory _IndividualSponsorDetail.fromJson(Map<String, dynamic> json) => _$IndividualSponsorDetailFromJson(json);
 
 @override final  int id;
 @override final  String name;
 @override final  String slug;
 @override final  String logoName;
+@override final  String? enthusiasm;
+@override final  String? xAccount;
 
 /// Create a copy of IndividualSponsorDetail
 /// with the given fields replaced by the non-null parameter values.
@@ -526,16 +530,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _IndividualSponsorDetail&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.logoName, logoName) || other.logoName == logoName));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _IndividualSponsorDetail&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.logoName, logoName) || other.logoName == logoName)&&(identical(other.enthusiasm, enthusiasm) || other.enthusiasm == enthusiasm)&&(identical(other.xAccount, xAccount) || other.xAccount == xAccount));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,slug,logoName);
+int get hashCode => Object.hash(runtimeType,id,name,slug,logoName,enthusiasm,xAccount);
 
 @override
 String toString() {
-  return 'IndividualSponsorDetail(id: $id, name: $name, slug: $slug, logoName: $logoName)';
+  return 'IndividualSponsorDetail(id: $id, name: $name, slug: $slug, logoName: $logoName, enthusiasm: $enthusiasm, xAccount: $xAccount)';
 }
 
 
@@ -546,7 +550,7 @@ abstract mixin class _$IndividualSponsorDetailCopyWith<$Res> implements $Individ
   factory _$IndividualSponsorDetailCopyWith(_IndividualSponsorDetail value, $Res Function(_IndividualSponsorDetail) _then) = __$IndividualSponsorDetailCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String name, String slug, String logoName
+ int id, String name, String slug, String logoName, String? enthusiasm, String? xAccount
 });
 
 
@@ -563,13 +567,15 @@ class __$IndividualSponsorDetailCopyWithImpl<$Res>
 
 /// Create a copy of IndividualSponsorDetail
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? slug = null,Object? logoName = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? slug = null,Object? logoName = null,Object? enthusiasm = freezed,Object? xAccount = freezed,}) {
   return _then(_IndividualSponsorDetail(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,slug: null == slug ? _self.slug : slug // ignore: cast_nullable_to_non_nullable
 as String,logoName: null == logoName ? _self.logoName : logoName // ignore: cast_nullable_to_non_nullable
-as String,
+as String,enthusiasm: freezed == enthusiasm ? _self.enthusiasm : enthusiasm // ignore: cast_nullable_to_non_nullable
+as String?,xAccount: freezed == xAccount ? _self.xAccount : xAccount // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 
