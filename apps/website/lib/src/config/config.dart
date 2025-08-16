@@ -258,6 +258,40 @@ const _sponsors = <SponsorInfo>[
     disable: true,
   ),
   (
+    name: '',
+    url: '',
+    sns: (x: null),
+    pr: (ja: '', en: null),
+    logo: '',
+    type: SponsorType.gold,
+    disable: true,
+  ),
+  (
+    name: '',
+    url: '',
+    sns: (x: null),
+    pr: (ja: '', en: null),
+    logo: '',
+    type: SponsorType.gold,
+    disable: true,
+  ),
+  (
+    name: '株式会社MagicPod',
+    url: 'https://magicpod.com/',
+    sns: (x: '@MagicPodJP'),
+    pr: (
+      ja:
+          'MagicPodは、モバイルアプリ・ブラウザ（ウェブアプリ）テストの両方に対応したAIテスト自動化プラットフォームを提供しています。'
+          // ignore: missing_whitespace_between_adjacent_strings
+          '自然言語だけでテストの作成・編集・実行ができる「MagicPod Autopilot」機能や、'
+          'AIによる自動修正、クラウドでのサービス提供によるメンテナンス性の高さで、リリースサイクルの高速化を支援しています。',
+      en: null,
+    ),
+    logo: '/img/sponsor/magic-pod.png',
+    type: SponsorType.gold,
+    disable: false,
+  ),
+  (
     name: 'ZOZO, Inc.',
     url: 'https://corp.zozo.com/',
     sns: (x: 'zozotech'),
@@ -583,6 +617,21 @@ const _sponsors = <SponsorInfo>[
       en: null,
     ),
     logo: '/img/sponsor/trustdock.png',
+    type: SponsorType.bronze,
+    disable: false,
+  ),
+  (
+    name: '株式会社UPSIDER',
+    url: 'https://corp.up-sider.com/',
+    sns: (x: '@upsider_inc'),
+    pr: (
+      ja:
+          '株式会社UPSIDERは「挑戦者を支える世界的な金融プラットフォームを創る」をミッションに、'
+          '法人カード「UPSIDER」や請求書カード払いサービス「支払い.com」等の'
+          '金融サービスやUPSIDER AI 経理などの新規サービスを展開。',
+      en: null,
+    ),
+    logo: '/img/sponsor/upsider.png',
     type: SponsorType.bronze,
     disable: false,
   ),
