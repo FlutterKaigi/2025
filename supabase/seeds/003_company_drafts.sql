@@ -4,11 +4,11 @@ WITH
             '2025-06-01 00:00:00'::timestamp AS ts
     )
 INSERT INTO
-    public.company_drafts (company_id, slug, description, website_url, x_account, created_at, updated_at)
+    public.company_drafts (company_id, slug, pr_text, website_url, x_account, created_at, updated_at)
 SELECT
     company_id,
     slug,
-    description,
+    pr_text,
     website_url,
     x_account,
     ts,
@@ -186,7 +186,7 @@ FROM
                 'https://kibe.la/',
                 'kibe_la'
             )
-    ) AS drafts (company_id, slug, description, website_url, x_account)
+    ) AS drafts (company_id, slug, pr_text, website_url, x_account)
     CROSS JOIN timestamp;
 
 -- company_drafts の全てのレコードを承認ユーザーで承認する
