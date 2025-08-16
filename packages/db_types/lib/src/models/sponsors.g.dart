@@ -19,7 +19,7 @@ _CompanySponsorDetail _$CompanySponsorDetailFromJson(
       name: $checkedConvert('name', (v) => v as String),
       logoName: $checkedConvert('logo_name', (v) => v as String),
       slug: $checkedConvert('slug', (v) => v as String),
-      description: $checkedConvert('description', (v) => v as String),
+      prText: $checkedConvert('pr_text', (v) => v as String),
       websiteUrl: $checkedConvert('website_url', (v) => v as String),
       sponsorType: $checkedConvert(
         'sponsor_type',
@@ -42,6 +42,7 @@ _CompanySponsorDetail _$CompanySponsorDetailFromJson(
   },
   fieldKeyMap: const {
     'logoName': 'logo_name',
+    'prText': 'pr_text',
     'websiteUrl': 'website_url',
     'sponsorType': 'sponsor_type',
     'basicPlanType': 'basic_plan_type',
@@ -56,7 +57,7 @@ Map<String, dynamic> _$CompanySponsorDetailToJson(
   'name': instance.name,
   'logo_name': instance.logoName,
   'slug': instance.slug,
-  'description': instance.description,
+  'pr_text': instance.prText,
   'website_url': instance.websiteUrl,
   'sponsor_type': _$CompanySponsorTypeEnumMap[instance.sponsorType]!,
   'basic_plan_type': _$BasicPlanTypeEnumMap[instance.basicPlanType],

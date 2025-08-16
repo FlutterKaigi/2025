@@ -12,7 +12,7 @@ abstract class CompanySponsorDetail with _$CompanySponsorDetail {
     required String name,
     required String logoName,
     required String slug,
-    required String description,
+    required String prText,
     required String websiteUrl,
     required CompanySponsorType sponsorType,
     BasicPlanType? basicPlanType,

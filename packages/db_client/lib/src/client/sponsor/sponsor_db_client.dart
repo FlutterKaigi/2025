@@ -20,7 +20,7 @@ class SponsorDbClient {
           c.name,
           c.logo_name,
           cd.slug,
-          cd.description,
+          cd.pr_text,
           cd.website_url,
           sc.sponsor_type,
           bsc.basic_plan_type,
@@ -36,14 +36,14 @@ class SponsorDbClient {
         LEFT JOIN sponsor_company_options sco ON sc.id = sco.sponsor_company_id
         WHERE cda.id IS NOT NULL
           AND cd.slug IS NOT NULL
-          AND cd.description IS NOT NULL
+          AND cd.pr_text IS NOT NULL
           AND cd.website_url IS NOT NULL
         GROUP BY 
           c.id,
           c.name,
           c.logo_name,
           cd.slug,
-          cd.description,
+          cd.pr_text,
           cd.website_url,
           sc.sponsor_type,
           bsc.basic_plan_type
