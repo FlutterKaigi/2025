@@ -179,7 +179,13 @@ FROM
                 NULL
             ),
             -- ツールスポンサー
-            (24, 'kibela', '仮のテキスト', 'https://kibe.la/', 'kibe_la')
+            (
+                24,
+                'kibela',
+                'Kibelaはシンプルさに徹底的にこだわったドキュメント・ナレッジ管理特化型ツールです。AIによる補助機能、一歩踏み込めば組織拡大にも応える管理機能、無駄なコストが出ないアクティブ課金。一人ひとりがナレッジを活用し自走する組織へ導きます。',
+                'https://kibe.la/',
+                'kibe_la'
+            )
     ) AS drafts (company_id, slug, description, website_url, x_account)
     CROSS JOIN timestamp;
 
