@@ -42,7 +42,6 @@ final class AccountInfoScreen extends ConsumerWidget {
     final state = ref.watch(authNotifierProvider);
     final l10n = L10n.of(context);
     final textTheme = Theme.of(context).textTheme;
-    final colorScheme = Theme.of(context).colorScheme;
 
     return AccountScaffold(
       body: state.when(
