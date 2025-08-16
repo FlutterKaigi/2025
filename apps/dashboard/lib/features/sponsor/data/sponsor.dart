@@ -37,12 +37,12 @@ sealed class CompanySponsor extends Sponsor {
     required super.name,
     required super.slug,
     required super.logoUrl,
-    required this.description,
+    required this.prText,
     required this.websiteUrl,
     this.scholarship = false,
   });
 
-  final String description;
+  final String prText;
   final Uri websiteUrl;
   final bool scholarship;
 
@@ -56,7 +56,7 @@ sealed class CompanySponsor extends Sponsor {
         name == other.name &&
         slug == other.slug &&
         logoUrl == other.logoUrl &&
-        description == other.description &&
+        prText == other.prText &&
         websiteUrl == other.websiteUrl &&
         scholarship == other.scholarship;
   }
@@ -67,7 +67,7 @@ sealed class CompanySponsor extends Sponsor {
     name,
     slug,
     logoUrl,
-    description,
+    prText,
     websiteUrl,
     scholarship,
   );
@@ -168,7 +168,7 @@ sealed class BasicSponsor extends CompanySponsor {
     required super.name,
     required super.slug,
     required super.logoUrl,
-    required super.description,
+    required super.prText,
     required super.websiteUrl,
     super.scholarship,
   });
@@ -183,7 +183,7 @@ sealed class BasicSponsor extends CompanySponsor {
         name == other.name &&
         slug == other.slug &&
         logoUrl == other.logoUrl &&
-        description == other.description &&
+        prText == other.prText &&
         websiteUrl == other.websiteUrl &&
         scholarship == other.scholarship;
   }
@@ -194,7 +194,7 @@ sealed class BasicSponsor extends CompanySponsor {
     name,
     slug,
     logoUrl,
-    description,
+    prText,
     websiteUrl,
     scholarship,
   );
@@ -207,7 +207,7 @@ final class PlatinumSponsor extends BasicSponsor {
     required super.name,
     required super.slug,
     required super.logoUrl,
-    required super.description,
+    required super.prText,
     required super.websiteUrl,
     super.scholarship,
     this.namingRight = const NotAppliedNamingRight(),
@@ -227,7 +227,7 @@ final class PlatinumSponsor extends BasicSponsor {
         name == other.name &&
         slug == other.slug &&
         logoUrl == other.logoUrl &&
-        description == other.description &&
+        prText == other.prText &&
         websiteUrl == other.websiteUrl &&
         namingRight == other.namingRight &&
         namePlate == other.namePlate &&
@@ -240,7 +240,7 @@ final class PlatinumSponsor extends BasicSponsor {
     name,
     slug,
     logoUrl,
-    description,
+    prText,
     websiteUrl,
     namingRight,
     namePlate,
@@ -255,7 +255,7 @@ final class GoldSponsor extends BasicSponsor {
     required super.name,
     required super.slug,
     required super.logoUrl,
-    required super.description,
+    required super.prText,
     required super.websiteUrl,
     super.scholarship,
     this.namingRight = const NotAppliedNamingRight(),
@@ -275,7 +275,7 @@ final class GoldSponsor extends BasicSponsor {
         name == other.name &&
         slug == other.slug &&
         logoUrl == other.logoUrl &&
-        description == other.description &&
+        prText == other.prText &&
         websiteUrl == other.websiteUrl &&
         namingRight == other.namingRight &&
         namePlate == other.namePlate &&
@@ -288,7 +288,7 @@ final class GoldSponsor extends BasicSponsor {
     name,
     slug,
     logoUrl,
-    description,
+    prText,
     websiteUrl,
     namingRight,
     namePlate,
@@ -303,7 +303,7 @@ final class SilverSponsor extends BasicSponsor {
     required super.name,
     required super.slug,
     required super.logoUrl,
-    required super.description,
+    required super.prText,
     required super.websiteUrl,
     super.scholarship,
     this.namingRight = const NotAppliedNamingRight(),
@@ -325,7 +325,7 @@ final class SilverSponsor extends BasicSponsor {
         name == other.name &&
         slug == other.slug &&
         logoUrl == other.logoUrl &&
-        description == other.description &&
+        prText == other.prText &&
         websiteUrl == other.websiteUrl &&
         namingRight == other.namingRight &&
         namePlate == other.namePlate &&
@@ -339,7 +339,7 @@ final class SilverSponsor extends BasicSponsor {
     name,
     slug,
     logoUrl,
-    description,
+    prText,
     websiteUrl,
     namingRight,
     namePlate,
@@ -355,7 +355,7 @@ final class BronzeSponsor extends BasicSponsor {
     required super.name,
     required super.slug,
     required super.logoUrl,
-    required super.description,
+    required super.prText,
     required super.websiteUrl,
     super.scholarship,
     this.namePlate = false,
@@ -375,7 +375,7 @@ final class BronzeSponsor extends BasicSponsor {
         name == other.name &&
         slug == other.slug &&
         logoUrl == other.logoUrl &&
-        description == other.description &&
+        prText == other.prText &&
         websiteUrl == other.websiteUrl &&
         namePlate == other.namePlate &&
         lunchSponsor == other.lunchSponsor &&
@@ -388,7 +388,7 @@ final class BronzeSponsor extends BasicSponsor {
     name,
     slug,
     logoUrl,
-    description,
+    prText,
     websiteUrl,
     namePlate,
     lunchSponsor,
@@ -403,7 +403,7 @@ final class ToolSponsor extends CompanySponsor {
     required super.name,
     required super.slug,
     required super.logoUrl,
-    required super.description,
+    required super.prText,
     required super.websiteUrl,
     super.scholarship,
   });
@@ -418,7 +418,7 @@ final class ToolSponsor extends CompanySponsor {
         name == other.name &&
         slug == other.slug &&
         logoUrl == other.logoUrl &&
-        description == other.description &&
+        prText == other.prText &&
         websiteUrl == other.websiteUrl &&
         scholarship == other.scholarship;
   }
@@ -429,7 +429,7 @@ final class ToolSponsor extends CompanySponsor {
     name,
     slug,
     logoUrl,
-    description,
+    prText,
     websiteUrl,
     scholarship,
   );
@@ -442,7 +442,7 @@ final class OtherSponsor extends CompanySponsor {
     required super.name,
     required super.slug,
     required super.logoUrl,
-    required super.description,
+    required super.prText,
     required super.websiteUrl,
     super.scholarship,
   });
@@ -457,7 +457,7 @@ final class OtherSponsor extends CompanySponsor {
         name == other.name &&
         slug == other.slug &&
         logoUrl == other.logoUrl &&
-        description == other.description &&
+        prText == other.prText &&
         websiteUrl == other.websiteUrl &&
         scholarship == other.scholarship;
   }
@@ -468,7 +468,7 @@ final class OtherSponsor extends CompanySponsor {
     name,
     slug,
     logoUrl,
-    description,
+    prText,
     websiteUrl,
     scholarship,
   );

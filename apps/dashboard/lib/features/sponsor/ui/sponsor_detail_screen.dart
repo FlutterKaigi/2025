@@ -80,12 +80,12 @@ class _SponsorDetail extends ConsumerWidget {
         // PR 文章
         const SizedBox(height: 8),
         Text(
-          l10n.sponsorDescription,
+          l10n.sponsorPrText,
           style: titleStyle,
         ),
         const SizedBox(height: 8),
         Text(
-          company.description,
+          company.prText,
           style: bodyTextStyle,
         ),
         const SizedBox(height: 8),

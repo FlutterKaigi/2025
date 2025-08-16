@@ -153,11 +153,11 @@ abstract class L10n {
   /// **'東京都千代田区大手町二丁目3番1号'**
   String get eventAddress;
 
-  /// No description provided for @sponsorDescription.
+  /// No description provided for @sponsorPrText.
   ///
   /// In ja, this message translates to:
   /// **'PR 文章'**
-  String get sponsorDescription;
+  String get sponsorPrText;
 
   /// No description provided for @sponsorEnthusiasm.
   ///
