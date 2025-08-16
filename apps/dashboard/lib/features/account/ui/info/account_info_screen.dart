@@ -60,12 +60,9 @@ final class AccountInfoScreen extends ConsumerWidget {
                 onProfileEdit: _onProfileEdit,
               ),
             const SizedBox(height: 16),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                l10n.accountOthers,
-                style: textTheme.titleLarge,
-              ),
+            Text(
+              l10n.accountOthers,
+              style: textTheme.titleLarge,
             ),
             const SizedBox(height: 8),
             ...([
