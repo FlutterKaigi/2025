@@ -226,12 +226,19 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: 'RevenueCat, Inc.',
-    url: '',
-    sns: (x: null),
-    pr: (ja: '', en: null),
-    logo: '',
+    url: 'https://www.revenuecat.com/jp/',
+    sns: (x: 'RevenueCat'),
+    pr: (
+      ja:
+          'RevenueCatは、iOS、Android、Webに対応した、'
+          '世界有数のコンシューマーアプリ収益化プラットフォームを提供する米国企業です。'
+          'サブスクリプション、消耗型アイテム、買い切り、ポイントに対応した課金・分析・コンバージョン最適化の一元管理を可能にします。'
+          'ChatGPTやNotionを含む5万本以上のアプリに導入され、100億ドル以上の年間追跡売上を処理しています。詳しくはrevenuecat.com/jpをご覧ください。',
+      en: null,
+    ),
+    logo: '/img/sponsor/revenuecat.png',
     type: SponsorType.platinum,
-    disable: true,
+    disable: false,
   ),
   (
     name: '',
@@ -259,10 +266,17 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社iiba',
-    url: '',
-    sns: (x: null),
-    pr: (ja: '', en: null),
-    logo: '',
+    url: 'https://corporate.iiba.space/',
+    sns: (x: 'nanaizw'),
+    pr: (
+      ja:
+          '株式会社iibaは、全国10万件超の子育てスポット情報を集約するマップアプリを運営しています。'
+          '自治体・企業と連携し、地域経済を動かすプラットフォームへ成長中です。'
+          'FlutterでUXを磨き、バウチャー決済や位置情報解析などを高速実装。'
+          '社会課題を事業で解決しスケールさせる開発に挑みたい方、ぜひお話ししましょう！',
+      en: null,
+    ),
+    logo: '/img/sponsor/iiba.png',
     type: SponsorType.gold,
     disable: true,
   ),
@@ -276,22 +290,38 @@ const _sponsors = <SponsorInfo>[
     disable: true,
   ),
   (
-    name: '',
-    url: '',
-    sns: (x: null),
-    pr: (ja: '', en: null),
-    logo: '',
+    name: 'Codemagic',
+    url: 'https://codemagic.io',
+    sns: (x: 'codemagicio'),
+    pr: (
+      ja:
+          // ignore: missing_whitespace_between_adjacent_strings
+          'Codemagic はモバイルアプリ向けの高速 CI/CD です。'
+          // ignore: missing_whitespace_between_adjacent_strings
+          'iOS、Android、Flutter、React Native アプリをシームレスにビルド・テスト・リリースできます。'
+          'ワークフローを自動化し、時間を節約して、自信を持ってリリースしましょう。',
+      en: null,
+    ),
+    logo: '/img/sponsor/codemagic.png',
     type: SponsorType.gold,
-    disable: true,
+    disable: false,
   ),
   (
-    name: '',
-    url: '',
-    sns: (x: null),
-    pr: (ja: '', en: null),
-    logo: '',
+    name: '株式会社MagicPod',
+    url: 'https://magicpod.com/',
+    sns: (x: 'MagicPodJP'),
+    pr: (
+      ja:
+          'MagicPodは、モバイルアプリ・ブラウザ（ウェブアプリ）テストの両方に対応した'
+          'AIテスト自動化プラットフォームを提供しています。'
+          // ignore: missing_whitespace_between_adjacent_strings
+          '自然言語だけでテストの作成・編集・実行ができる「MagicPod Autopilot」機能や、'
+          'AIによる自動修正、クラウドでのサービス提供によるメンテナンス性の高さで、リリースサイクルの高速化を支援しています。',
+      en: null,
+    ),
+    logo: '/img/sponsor/magic-pod.png',
     type: SponsorType.gold,
-    disable: true,
+    disable: false,
   ),
   (
     name: 'ZOZO, Inc.',
@@ -428,6 +458,21 @@ const _sponsors = <SponsorInfo>[
       en: null,
     ),
     logo: '/img/sponsor/team-lab.png',
+    type: SponsorType.silver,
+    disable: false,
+  ),
+  (
+    name: 'SODA inc.',
+    url: 'https://soda-inc.jp/',
+    sns: (x: null),
+    pr: (
+      ja:
+          '「SNKRDUNK（スニーカーダンク）」は、'
+          'スニーカーやアパレルを中心とするファッション領域やトレーディングカード・フィギュアなどを中心に、'
+          '個人間での売買を簡単に行える国内最大級のファッション・コレクティブルマーケットプレイスです。',
+      en: null,
+    ),
+    logo: '/img/sponsor/soda.png',
     type: SponsorType.silver,
     disable: false,
   ),
@@ -609,6 +654,20 @@ const _sponsors = <SponsorInfo>[
     disable: false,
   ),
   (
+    name: '株式会社メンバーズ',
+    url: 'https://www.members.co.jp/',
+    sns: (x: 'Members_corp'),
+    pr: (
+      ja:
+          '「DX現場支援で顧客と共に社会変革をリードする」を掲げ、デジタル人材の伴走によるDX現場支援事業を展開。'
+          '高い専門スキルを持つデジタル人材が取引先企業のチームの一員として、内製によるDX推進を伴走支援しDX投資のROI最大化に貢献します。',
+      en: null,
+    ),
+    logo: '/img/sponsor/members.png',
+    type: SponsorType.bronze,
+    disable: false,
+  ),
+  (
     name: '株式会社TRUSTDOCK',
     url: 'https://biz.trustdock.io/company',
     sns: (x: null),
@@ -632,31 +691,49 @@ const _sponsors = <SponsorInfo>[
     disable: true,
   ),
   (
-    name: '',
-    url: '',
+    name: '株式会社Leafea',
+    url: 'https://leafea.co.jp/',
     sns: (x: null),
-    pr: (ja: '', en: null),
-    logo: '',
+    pr: (
+      ja:
+          'Leafea（リーフィ）は、物価高騰・低賃金時代における生活コスト削減を支援する福利厚生SaaSを展開するスタートアップ企業です。'
+          'Flutterを活用したモバイルアプリ開発とAIの活用に注力しております。',
+      en: null,
+    ),
+    logo: '/img/sponsor/leafea.png',
     type: SponsorType.bronze,
-    disable: true,
+    disable: false,
   ),
   (
-    name: '',
-    url: '',
-    sns: (x: null),
-    pr: (ja: '', en: null),
-    logo: '',
+    name: '東急株式会社',
+    url: 'https://10q89s.jp/',
+    sns: (x: 'urban_89s'),
+    pr: (
+      ja:
+          // ignore: missing_whitespace_between_adjacent_strings
+          '東急(株)URBAN HACKSは「街づくりのDX」を実現するための内製開発チームです。'
+          '東急グループの次の100年を変革する大プロジェクト。'
+          'あなたの技術や知識を活かし、一緒に世界一の街づくりを目指してみませんか？',
+      en: null,
+    ),
+    logo: '/img/sponsor/tokyu.png',
     type: SponsorType.bronze,
-    disable: true,
+    disable: false,
   ),
   (
-    name: '',
-    url: '',
-    sns: (x: null),
-    pr: (ja: '', en: null),
-    logo: '',
+    name: '株式会社UPSIDER',
+    url: 'https://corp.up-sider.com/',
+    sns: (x: 'upsider_inc'),
+    pr: (
+      ja:
+          '株式会社UPSIDERは「挑戦者を支える世界的な金融プラットフォームを創る」をミッションに、'
+          '法人カード「UPSIDER」や請求書カード払いサービス「支払い.com」等の金融サービスや'
+          'UPSIDER AI 経理などの新規サービスを展開。',
+      en: null,
+    ),
+    logo: '/img/sponsor/upsider.png',
     type: SponsorType.bronze,
-    disable: true,
+    disable: false,
   ),
 ];
 
