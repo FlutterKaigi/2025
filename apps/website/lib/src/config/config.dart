@@ -278,7 +278,7 @@ const _sponsors = <SponsorInfo>[
   (
     name: '株式会社MagicPod',
     url: 'https://magicpod.com/',
-    sns: (x: '@MagicPodJP'),
+    sns: (x: 'MagicPodJP'),
     pr: (
       ja:
           'MagicPodは、モバイルアプリ・ブラウザ（ウェブアプリ）テストの両方に対応したAIテスト自動化プラットフォームを提供しています。'
