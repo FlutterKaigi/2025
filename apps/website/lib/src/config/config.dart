@@ -623,7 +623,7 @@ const _sponsors = <SponsorInfo>[
   (
     name: '株式会社UPSIDER',
     url: 'https://corp.up-sider.com/',
-    sns: (x: '@upsider_inc'),
+    sns: (x: 'upsider_inc'),
     pr: (
       ja:
           '株式会社UPSIDERは「挑戦者を支える世界的な金融プラットフォームを創る」をミッションに、'
