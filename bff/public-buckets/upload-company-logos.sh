@@ -21,8 +21,34 @@
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
+# 利用可能なバケット
+AVAILABLE_BUCKETS=("2025-public-staging" "2025-public-production")
+
+# バケット選択関数
+select_bucket() {
+    echo "利用可能なバケットを選択してください："
+    echo ""
+    for i in "${!AVAILABLE_BUCKETS[@]}"; do
+        echo "  $((i+1)). ${AVAILABLE_BUCKETS[i]}"
+    done
+    echo ""
+    
+    while true; do
+        read -r -p "選択してください (1-${#AVAILABLE_BUCKETS[@]}): " choice
+        if [[ "$choice" =~ ^[0-9]+$ ]] && [ "$choice" -ge 1 ] && [ "$choice" -le "${#AVAILABLE_BUCKETS[@]}" ]; then
+            BUCKET_NAME="${AVAILABLE_BUCKETS[$((choice-1))]}"
+            break
+        else
+            echo "無効な選択です。1から${#AVAILABLE_BUCKETS[@]}の数字を入力してください。"
+        fi
+    done
+    
+    echo ""
+    print_info "選択されたバケット: $BUCKET_NAME"
+    echo ""
+}
+
 # 設定
-BUCKET_NAME="2025-public-staging"
 SOURCE_DIR="$PROJECT_ROOT/bff/public-buckets/companies"
 LOG_FILE="upload-company-logos-$(date +%Y%m%d-%H%M%S).log"
 LOG_DIR="$PROJECT_ROOT/bff/public-buckets/logs"
@@ -49,15 +75,18 @@ print_progress() {
     echo -e "\033[1;36m📊 $1\033[0m"
 }
 
+# バケット選択
+select_bucket
+
 # ログディレクトリの作成
 mkdir -p "$LOG_DIR"
 
 # ヘッダー表示
 echo "============================================================================="
-echo "🚀 FlutterKaigi 2025 ステージング環境 企業ロゴ一括アップロード"
+echo "🚀 FlutterKaigi 2025 企業ロゴ一括アップロード"
 echo "============================================================================="
 print_info "プロジェクトルート: $PROJECT_ROOT"
-print_info "バケット: $BUCKET_NAME"
+print_info "選択されたバケット: $BUCKET_NAME"
 print_info "ソースディレクトリ: $SOURCE_DIR"
 print_info "rcloneリモート: $RCLONE_REMOTE"
 print_info "ログファイル: $LOG_DIR/$LOG_FILE"
@@ -91,11 +120,11 @@ fi
 # ログファイルの初期化
 {
     echo "============================================================================="
-    echo "FlutterKaigi 2025 ステージング環境 企業ロゴ一括アップロードログ"
+    echo "FlutterKaigi 2025 企業ロゴ一括アップロードログ"
     echo "============================================================================="
     echo "開始時刻: $(date '+%Y-%m-%d %H:%M:%S')"
     echo "プロジェクトルート: $PROJECT_ROOT"
-    echo "バケット: $BUCKET_NAME"
+    echo "選択されたバケット: $BUCKET_NAME"
     echo "ソースディレクトリ: $SOURCE_DIR"
     echo "rcloneリモート: $RCLONE_REMOTE"
     echo "============================================================================="
@@ -177,7 +206,10 @@ else
     # エラー詳細を取得
     if [ -f "$LOG_DIR/$LOG_FILE" ]; then
         echo "エラー詳細:" >> "$LOG_DIR/$LOG_FILE"
-        tail -n 20 "$LOG_DIR/$LOG_FILE" | grep -E "(error|Error|ERROR|failed|Failed|FAILED)" >> "$LOG_DIR/$LOG_FILE" 2>/dev/null || true
+        # 一時ファイルを使用して同じファイルの読み書きを回避
+        tail -n 20 "$LOG_DIR/$LOG_FILE" | grep -E "(error|Error|ERROR|failed|Failed|FAILED)" >> "$LOG_DIR/temp_errors.log" 2>/dev/null || true
+        cat "$LOG_DIR/temp_errors.log" >> "$LOG_DIR/$LOG_FILE" 2>/dev/null || true
+        rm -f "$LOG_DIR/temp_errors.log" 2>/dev/null || true
     fi
     
     # 完了処理（エラー時）
