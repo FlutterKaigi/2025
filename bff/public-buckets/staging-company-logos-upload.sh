@@ -7,19 +7,26 @@
 # 概要: companiesディレクトリ内の企業ロゴ画像を
 #       Cloudflare R2 ステージングバケットに一括アップロード
 # 
-# 使用方法: ./staging-company-logos-upload.sh
+# 使用方法: 
+# - プロジェクトルートから: ./bff/public-buckets/staging-company-logos-upload.sh
+# - スクリプトディレクトリから: ./staging-company-logos-upload.sh
 # 
 # 前提条件:
-# - bunx wrangler がインストール済み
+# - rclone がインストール済み（miseで管理）
 # - Cloudflare R2 の認証が設定済み
 # - companies/ ディレクトリが存在
 # =============================================================================
 
+# スクリプトの場所を取得（プロジェクトルートからの相対パス対応）
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+
 # 設定
 BUCKET_NAME="2025-public-staging"
-SOURCE_DIR="companies"
+SOURCE_DIR="$PROJECT_ROOT/bff/public-buckets/companies"
 LOG_FILE="staging-company-logos-upload-$(date +%Y%m%d-%H%M%S).log"
-LOG_DIR="logs"
+LOG_DIR="$PROJECT_ROOT/bff/public-buckets/logs"
+RCLONE_REMOTE="r2"  # rclone設定のリモート名
 
 # 色付き出力用の関数
 print_info() {
@@ -49,25 +56,35 @@ mkdir -p "$LOG_DIR"
 echo "============================================================================="
 echo "🚀 FlutterKaigi 2025 ステージング環境 企業ロゴ一括アップロード"
 echo "============================================================================="
+print_info "プロジェクトルート: $PROJECT_ROOT"
 print_info "バケット: $BUCKET_NAME"
 print_info "ソースディレクトリ: $SOURCE_DIR"
+print_info "rcloneリモート: $RCLONE_REMOTE"
 print_info "ログファイル: $LOG_DIR/$LOG_FILE"
 print_info "開始時刻: $(date '+%Y-%m-%d %H:%M:%S')"
 echo "============================================================================="
 
 # 前提条件チェック
-if ! command -v bunx &> /dev/null; then
-    print_error "bunx がインストールされていません"
+if ! command -v rclone &> /dev/null; then
+    print_error "rclone がインストールされていません"
+    print_info "mise bs を実行してください"
     exit 1
 fi
 
-if ! bunx wrangler --version &> /dev/null; then
-    print_error "wrangler がインストールされていません"
+# rclone設定の確認
+if ! rclone listremotes | grep -q "^$RCLONE_REMOTE:"; then
+    print_error "rcloneリモート '$RCLONE_REMOTE' が設定されていません"
+    print_info "以下のコマンドで設定してください："
+    print_info "rclone config"
+    print_info "または既存のリモート名を確認してください："
+    print_info "rclone listremotes"
     exit 1
 fi
 
 if [ ! -d "$SOURCE_DIR" ]; then
     print_error "ソースディレクトリ '$SOURCE_DIR' が存在しません"
+    print_info "プロジェクトルート: $PROJECT_ROOT"
+    print_info "期待されるパス: $SOURCE_DIR"
     exit 1
 fi
 
@@ -77,8 +94,10 @@ fi
     echo "FlutterKaigi 2025 ステージング環境 企業ロゴ一括アップロードログ"
     echo "============================================================================="
     echo "開始時刻: $(date '+%Y-%m-%d %H:%M:%S')"
+    echo "プロジェクトルート: $PROJECT_ROOT"
     echo "バケット: $BUCKET_NAME"
     echo "ソースディレクトリ: $SOURCE_DIR"
+    echo "rcloneリモート: $RCLONE_REMOTE"
     echo "============================================================================="
 } > "$LOG_DIR/$LOG_FILE"
 
@@ -95,140 +114,99 @@ fi
 print_success "アップロード対象ファイル数: $TOTAL_FILES"
 echo "アップロード対象ファイル数: $TOTAL_FILES" >> "$LOG_DIR/$LOG_FILE"
 
-# 画像ファイルを配列に格納（macOS対応）
-FILES=()
-while IFS= read -r file; do
-    FILES+=("$file")
-done < <(find "$SOURCE_DIR" -name "*.webp" -o -name "*.png" -o -name "*.jpg" -o -name "*.jpeg")
-
-# カウンター初期化
-SUCCESS_COUNT=0
-ERROR_COUNT=0
-START_TIME=$(date +%s)
-
 # アップロード処理
 print_info "アップロード開始..."
 echo "アップロード開始..." >> "$LOG_DIR/$LOG_FILE"
 
-for ((i=0; i<${#FILES[@]}; i++)); do
-    file="${FILES[i]}"
-    key="$file"  # companies/プレフィックスを保持
-    
-    # 進捗計算
-    progress=$((i + 1))
-    percentage=$((progress * 100 / ${#FILES[@]}))
-    elapsed=$(( $(date +%s) - START_TIME ))
-    
-    if [ $elapsed -gt 0 ] && [ $progress -gt 1 ]; then
-        remaining_files=$(( ${#FILES[@]} - progress ))
-        avg_time_per_file=$(( elapsed / (progress - 1) ))
-        eta=$(( remaining_files * avg_time_per_file ))
-        eta_min=$(( eta / 60 ))
-        eta_sec=$(( eta % 60 ))
-        eta_str="${eta_min}分${eta_sec}秒"
-    else
-        eta_str="計算中..."
-    fi
-    
-    # 進捗表示
-    print_progress "アップロード中 ($progress/${#FILES[@]}) - ${percentage}% - 残り時間: $eta_str"
-    print_info "ファイル: $file"
-    
-    # ファイル拡張子からMIMEタイプを判定
-    case "${file##*.}" in
-        "webp") MIME_TYPE="image/webp" ;;
-        "png")  MIME_TYPE="image/png" ;;
-        "jpg")  MIME_TYPE="image/jpeg" ;;
-        "jpeg") MIME_TYPE="image/jpeg" ;;
-        *)      MIME_TYPE="image/webp" ;;
-    esac
-    
-    print_info "MIMEタイプ: $MIME_TYPE"
-    
-    # アップロード実行
-    {
-        echo "============================================================================="
-        echo "アップロード処理: $file"
-        echo "時刻: $(date '+%Y-%m-%d %H:%M:%S')"
-        echo "MIMEタイプ: $MIME_TYPE"
-        echo "============================================================================="
-    } >> "$LOG_DIR/$LOG_FILE"
-    
-    if bunx wrangler r2 object put "$BUCKET_NAME/$key" \
-        --file "$file" \
-        --remote \
-        --content-type "$MIME_TYPE" \
-        --cache-control "public, max-age=86400" \
-        --content-disposition "inline; filename=\"$(basename "$file")\"" >> "$LOG_DIR/$LOG_FILE" 2>&1; then
-        
-        print_success "アップロード成功: $key"
-        SUCCESS_COUNT=$((SUCCESS_COUNT + 1))
-        
-        # 成功ログ
-        echo "結果: 成功" >> "$LOG_DIR/$LOG_FILE"
-    else
-        print_error "アップロード失敗: $key"
-        ERROR_COUNT=$((ERROR_COUNT + 1))
-        
-        # 失敗ログ
-        echo "結果: 失敗" >> "$LOG_DIR/$LOG_FILE"
-        
-        # エラー詳細を取得
-        if [ -f "$LOG_DIR/$LOG_FILE" ]; then
-            echo "エラー詳細:" >> "$LOG_DIR/$LOG_FILE"
-            tail -n 10 "$LOG_DIR/$LOG_FILE" | grep -E "(error|Error|ERROR|failed|Failed|FAILED)" >> "$LOG_DIR/$LOG_FILE" 2>/dev/null || true
-        fi
-    fi
-    
-    echo "" >> "$LOG_DIR/$LOG_FILE"
-    
-    # 進捗区切り
-    if [ $i -lt $(( ${#FILES[@]} - 1 )) ]; then
-        echo "----------------------------------------"
-    fi
-done
+# 開始時刻を記録
+START_TIME=$(date +%s)
 
-# 完了処理
-END_TIME=$(date +%s)
-TOTAL_TIME=$((END_TIME - START_TIME))
-TOTAL_TIME_MIN=$((TOTAL_TIME / 60))
-TOTAL_TIME_SEC=$((TOTAL_TIME % 60))
+# rcloneでディレクトリ全体をアップロード
+print_progress "rclone copy でディレクトリ全体をアップロード中..."
+print_info "コマンド: rclone copy $SOURCE_DIR $RCLONE_REMOTE:$BUCKET_NAME/companies/"
 
-echo "============================================================================="
-print_success "企業ロゴ一括アップロード完了！"
-echo "============================================================================="
-print_info "✅ 成功: $SUCCESS_COUNT"
-print_info "❌ 失敗: $ERROR_COUNT"
-print_info "📊 合計: $TOTAL_FILES"
-print_info "⏱️ 所要時間: ${TOTAL_TIME_MIN}分${TOTAL_TIME_SEC}秒"
-print_info "📝 詳細ログ: $LOG_DIR/$LOG_FILE"
-
-# 結果サマリーをログファイルに記録
 {
     echo "============================================================================="
-    echo "アップロード完了サマリー"
-    echo "============================================================================="
-    echo "完了時刻: $(date '+%Y-%m-%d %H:%M:%S')"
-    echo "成功: $SUCCESS_COUNT"
-    echo "失敗: $ERROR_COUNT"
-    echo "合計: $TOTAL_FILES"
-    echo "所要時間: ${TOTAL_TIME_MIN}分${TOTAL_TIME_SEC}秒"
-    
-    if [ $ERROR_COUNT -gt 0 ]; then
-        echo ""
-        echo "⚠️  注意: $ERROR_COUNT 件のアップロードに失敗しました"
-        echo "詳細はログファイルを確認してください"
-    else
-        echo ""
-        echo "🎉 全ての企業ロゴが正常にアップロードされました！"
-    fi
-    
+    echo "アップロード処理開始"
+    echo "時刻: $(date '+%Y-%m-%d %H:%M:%S')"
+    echo "コマンド: rclone copy $SOURCE_DIR $RCLONE_REMOTE:$BUCKET_NAME/companies/"
     echo "============================================================================="
 } >> "$LOG_DIR/$LOG_FILE"
 
-# 終了コード
-if [ $ERROR_COUNT -eq 0 ]; then
+# rclone copyでディレクトリ全体をアップロード
+if rclone copy "$SOURCE_DIR" "$RCLONE_REMOTE:$BUCKET_NAME/companies/" \
+    --progress \
+    --stats 1s \
+    --log-level INFO \
+    --header "Cache-Control: public, max-age=86400" >> "$LOG_DIR/$LOG_FILE" 2>&1; then
+    
+    print_success "アップロード成功！"
+    echo "結果: 成功" >> "$LOG_DIR/$LOG_FILE"
+    
+    # 完了処理
+    END_TIME=$(date +%s)
+    TOTAL_TIME=$((END_TIME - START_TIME))
+    TOTAL_TIME_MIN=$((TOTAL_TIME / 60))
+    TOTAL_TIME_SEC=$((TOTAL_TIME % 60))
+    
+    echo "============================================================================="
+    print_success "企業ロゴ一括アップロード完了！"
+    echo "============================================================================="
+    print_info "📊 合計: $TOTAL_FILES"
+    print_info "⏱️ 所要時間: ${TOTAL_TIME_MIN}分${TOTAL_TIME_SEC}秒"
+    print_info "📝 詳細ログ: $LOG_DIR/$LOG_FILE"
+    
+    # 結果サマリーをログファイルに記録
+    {
+        echo "============================================================================="
+        echo "アップロード完了サマリー"
+        echo "============================================================================="
+        echo "完了時刻: $(date '+%Y-%m-%d %H:%M:%S')"
+        echo "合計: $TOTAL_FILES"
+        echo "所要時間: ${TOTAL_TIME_MIN}分${TOTAL_TIME_SEC}秒"
+        echo ""
+        echo "🎉 全ての企業ロゴが正常にアップロードされました！"
+        echo "============================================================================="
+    } >> "$LOG_DIR/$LOG_FILE"
+    
     exit 0
 else
+    print_error "アップロード失敗"
+    echo "結果: 失敗" >> "$LOG_DIR/$LOG_FILE"
+    
+    # エラー詳細を取得
+    if [ -f "$LOG_DIR/$LOG_FILE" ]; then
+        echo "エラー詳細:" >> "$LOG_DIR/$LOG_FILE"
+        tail -n 20 "$LOG_DIR/$LOG_FILE" | grep -E "(error|Error|ERROR|failed|Failed|FAILED)" >> "$LOG_DIR/$LOG_FILE" 2>/dev/null || true
+    fi
+    
+    # 完了処理（エラー時）
+    END_TIME=$(date +%s)
+    TOTAL_TIME=$((END_TIME - START_TIME))
+    TOTAL_TIME_MIN=$((TOTAL_TIME / 60))
+    TOTAL_TIME_SEC=$((TOTAL_TIME % 60))
+    
+    echo "============================================================================="
+    print_error "企業ロゴ一括アップロード失敗"
+    echo "============================================================================="
+    print_info "📊 合計: $TOTAL_FILES"
+    print_info "⏱️ 所要時間: ${TOTAL_TIME_MIN}分${TOTAL_TIME_SEC}秒"
+    print_info "📝 詳細ログ: $LOG_DIR/$LOG_FILE"
+    print_warning "ログファイルを確認してエラーの詳細を確認してください"
+    
+    # 結果サマリーをログファイルに記録
+    {
+        echo "============================================================================="
+        echo "アップロード失敗サマリー"
+        echo "============================================================================="
+        echo "完了時刻: $(date '+%Y-%m-%d %H:%M:%S')"
+        echo "合計: $TOTAL_FILES"
+        echo "所要時間: ${TOTAL_TIME_MIN}分${TOTAL_TIME_SEC}秒"
+        echo ""
+        echo "⚠️  アップロードに失敗しました"
+        echo "詳細はログファイルを確認してください"
+        echo "============================================================================="
+    } >> "$LOG_DIR/$LOG_FILE"
+    
     exit 1
 fi
