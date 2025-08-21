@@ -13,6 +13,7 @@ Router _$ApiServiceRouter(ApiService service) {
   router.add('GET', r'/health', service._health);
   router.mount(r'/v1/users', service._userApiService.call);
   router.mount(r'/v1/profile', service._profileApiService.call);
+  router.mount(r'/v1/files', service._filesApiService.call);
   router.mount(r'/v1', service._newsApiService.call);
   router.mount(r'/v1', service._sponsorApiService.call);
   router.mount(r'/v1/tickets', service._ticketApiService.call);

@@ -52,16 +52,15 @@ class ProfileNotifier extends _$ProfileNotifier {
   }
 
   /// アバターアップロード用URLを取得する
-  Future<AvatarUploadUrlResponse?> getAvatarUploadUrl({
+  Future<FilesUploadResponse?> getAvatarUploadUrl({
     required String fileName,
     required String contentType,
   }) async {
     try {
       final client = ref.read(bffClientProvider);
       final response = await client.v1.profile.getAvatarUploadUrl(
-        request: AvatarUploadUrlRequest(
-          fileName: fileName,
-          contentType: contentType,
+        request: const FilesUploadRequest(
+          variant: FileVariant.avatar,
         ),
       );
       return response.data;

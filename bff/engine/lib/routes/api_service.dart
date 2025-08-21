@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:bff_client/bff_client.dart';
 import 'package:engine/main.dart';
 import 'package:engine/provider/db_client_provider.dart';
+import 'package:engine/routes/files_api_service.dart';
 import 'package:engine/routes/news_api_service.dart';
 import 'package:engine/routes/profile_api_service.dart';
 import 'package:engine/routes/sponsor_api_service.dart';
@@ -40,6 +41,9 @@ class ApiService {
 
   @Route.mount('/v1/profile')
   Router get _profileApiService => ProfileApiService().router;
+
+  @Route.mount('/v1/files')
+  Router get _filesApiService => FilesApiService().router;
 
   @Route.mount('/v1')
   Router get _newsApiService => NewsApiService().router;

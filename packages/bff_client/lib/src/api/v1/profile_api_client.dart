@@ -29,7 +29,7 @@ abstract class ProfileApiClient {
   /// アバターアップロード用の署名付きURLを取得します
   /// Authorization Headerが必須
   @POST('/profile/me/avatar/upload-url')
-  Future<HttpResponse<AvatarUploadUrlResponse>> getAvatarUploadUrl({
-    @Body() required AvatarUploadUrlRequest request,
+  Future<HttpResponse<FileUploadResponse>> getAvatarUploadUrl({
+    @Body() required FilesUploadRequest request,
   });
 }
