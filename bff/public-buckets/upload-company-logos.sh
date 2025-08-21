@@ -1,15 +1,15 @@
 #!/bin/bash
 
 # =============================================================================
-# FlutterKaigi 2025 ステージング環境 企業ロゴ一括アップロードスクリプト
+# FlutterKaigi 2025 企業ロゴ一括アップロードスクリプト
 # =============================================================================
 # 
 # 概要: companiesディレクトリ内の企業ロゴ画像を
-#       Cloudflare R2 ステージングバケットに一括アップロード
+#       Cloudflare R2 バケットに一括アップロード
 # 
 # 使用方法: 
-# - プロジェクトルートから: ./bff/public-buckets/staging-company-logos-upload.sh
-# - スクリプトディレクトリから: ./staging-company-logos-upload.sh
+# - プロジェクトルートから: ./bff/public-buckets/upload-company-logos.sh
+# - スクリプトディレクトリから: ./upload-company-logos.sh
 # 
 # 前提条件:
 # - rclone がインストール済み（miseで管理）
@@ -24,7 +24,7 @@ PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 # 設定
 BUCKET_NAME="2025-public-staging"
 SOURCE_DIR="$PROJECT_ROOT/bff/public-buckets/companies"
-LOG_FILE="staging-company-logos-upload-$(date +%Y%m%d-%H%M%S).log"
+LOG_FILE="upload-company-logos-$(date +%Y%m%d-%H%M%S).log"
 LOG_DIR="$PROJECT_ROOT/bff/public-buckets/logs"
 RCLONE_REMOTE="r2"  # rclone設定のリモート名
 
