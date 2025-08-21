@@ -1,4 +1,4 @@
-import Stripe from "stripe";
+import type Stripe from "stripe";
 import * as v from "valibot";
 
 export const PaymentCompletionWorkflowParam = v.object({

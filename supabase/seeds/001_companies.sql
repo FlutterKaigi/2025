@@ -13,6 +13,7 @@ SELECT
 FROM
     (
         VALUES
+            -- ベーシックスポンサー
             ('株式会社サイバーエージェント', 'e9f3db7b-3742-4763-b8ff-9bc6a34050a2.webp'),
             ('Hamee株式会社', 'ea8c5639-f5fb-4674-9381-bca60d900b84.webp'),
             ('NTTレゾナントテクノロジー株式会社', '26972169-bf9c-4995-bb1f-4d58bd9a5eb0.webp'),
@@ -35,6 +36,8 @@ FROM
             ('株式会社出前館', 'd1c33512-f3dc-4f53-b099-3193fa495df0.webp'),
             ('エムスリー株式会社', '18518903-01a8-43e8-857a-56cb8d478ef8.webp'),
             ('チームラボ', '505e878e-3372-43e7-b3be-7c790258428f.webp'),
-            ('ソニー株式会社', '31303bcb-0fe0-42d2-a870-3d7fcf0d1ac3.webp')
+            ('ソニー株式会社', '31303bcb-0fe0-42d2-a870-3d7fcf0d1ac3.webp'),
+            -- ツールスポンサー
+            ('Kibela', '6baf4450-7dd1-4f37-9480-207748abd562.webp')
     ) AS companies (name, logo_name)
     CROSS JOIN timestamp;

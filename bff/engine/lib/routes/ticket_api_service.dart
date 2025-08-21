@@ -155,7 +155,7 @@ class TicketApiService {
           .stripeInternalApi
           .internalPaymentApi
           .createCheckoutSession(
-            request: PutCheckoutSessonRequest(
+            request: PutCheckoutSessionRequest(
               // TODO(YumNumm): コールバックを設定する
               successUrl: 'https://example.com/success',
               cancelUrl: 'https://example.com/cancel',

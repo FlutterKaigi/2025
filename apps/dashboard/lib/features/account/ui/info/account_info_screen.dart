@@ -4,7 +4,6 @@ import 'package:dashboard/core/gen/l10n/l10n.dart';
 import 'package:dashboard/features/account/ui/component/account_circle_image.dart';
 import 'package:dashboard/features/account/ui/component/account_scaffold.dart';
 import 'package:dashboard/features/account/ui/info/component/account_invitation_dialog.dart';
-import 'package:dashboard/features/account/ui/info/component/account_other_list.dart';
 import 'package:dashboard/features/auth/data/notifier/auth_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -41,6 +40,8 @@ final class AccountInfoScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(authNotifierProvider);
+    final l10n = L10n.of(context);
+    final textTheme = Theme.of(context).textTheme;
 
     return AccountScaffold(
       body: state.when(
@@ -50,7 +51,8 @@ final class AccountInfoScreen extends ConsumerWidget {
         loading: () => const Center(
           child: CircularProgressIndicator(),
         ),
-        data: (user) => Column(
+        data: (user) => ListView(
+          padding: const EdgeInsets.all(16),
           children: [
             if (user != null)
               _UserInfoCard(
@@ -58,36 +60,34 @@ final class AccountInfoScreen extends ConsumerWidget {
                 onProfileEdit: _onProfileEdit,
               ),
             const SizedBox(height: 16),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                L10n.of(context).accountOthers,
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
+            Text(
+              l10n.accountOthers,
+              style: textTheme.titleLarge,
             ),
             const SizedBox(height: 8),
-            Expanded(
-              child: AccountOtherList(
-                items: [
-                  (
-                    title: L10n.of(context).accountCodeOfConduct,
-                    onTap: _onTapCodeOfConductTile,
-                  ),
-                  (
-                    title: L10n.of(context).accountPrivacyPolicy,
-                    onTap: _onTapPrivacyPolicyTile,
-                  ),
-                  (
-                    title: L10n.of(context).accountContact,
-                    onTap: _onTapContactTile,
-                  ),
-                  (
-                    title: L10n.of(context).accountOssLicenses,
-                    onTap: _onTapOssLicensesTile,
-                  ),
-                ],
+            ...([
+              (
+                title: l10n.accountCodeOfConduct,
+                onTap: _onTapCodeOfConductTile,
               ),
-            ),
+              (
+                title: l10n.accountPrivacyPolicy,
+                onTap: _onTapPrivacyPolicyTile,
+              ),
+              (
+                title: l10n.accountContact,
+                onTap: _onTapContactTile,
+              ),
+              (
+                title: l10n.accountOssLicenses,
+                onTap: _onTapOssLicensesTile,
+              ),
+            ].map(
+              (item) => _OtherListItem(
+                title: item.title,
+                onTap: item.onTap,
+              ),
+            )),
           ],
         ),
       ),
@@ -255,5 +255,35 @@ extension on User {
   String? get avatarUrl {
     return userMetadata?['avatar_url']?.toString() ??
         identities?.firstOrNull?.identityData?['avatar_url']?.toString();
+  }
+}
+
+/// Othersアイテム用のカスタムウィジェット
+class _OtherListItem extends StatelessWidget {
+  const _OtherListItem({
+    required this.title,
+    required this.onTap,
+  });
+
+  final String title;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return ListTile(
+      title: Text(
+        title,
+        style: textTheme.bodyLarge,
+      ),
+      trailing: Icon(
+        Icons.arrow_right,
+        color: colorScheme.onSurfaceVariant,
+      ),
+      visualDensity: VisualDensity.comfortable,
+      onTap: onTap,
+    );
   }
 }

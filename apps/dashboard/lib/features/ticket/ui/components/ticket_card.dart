@@ -126,7 +126,7 @@ class TicketCard extends ConsumerWidget {
               if (ticketType.ticketType.saleStartsAt != null ||
                   ticketType.ticketType.saleEndsAt != null) ...[
                 const SizedBox(height: 8),
-                _buildSalesperiodInfo(context),
+                _buildSalesPeriodInfo(context),
               ],
             ],
           ),
@@ -135,7 +135,7 @@ class TicketCard extends ConsumerWidget {
     );
   }
 
-  Widget _buildSalesperiodInfo(BuildContext context) {
+  Widget _buildSalesPeriodInfo(BuildContext context) {
     final startDate = ticketType.ticketType.saleStartsAt;
     final endDate = ticketType.ticketType.saleEndsAt;
 

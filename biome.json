@@ -9,8 +9,9 @@
     "ignoreUnknown": true,
     "includes": [
       "**/*.ts",
-      "!**/*/worker-configuration.d.ts",
-      "!node_modules/**/*"
+      "!**/worker-configuration.d.ts",
+      "!node_modules/**/*",
+      "!*.json"
     ]
   },
   "formatter": {

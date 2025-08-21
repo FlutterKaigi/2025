@@ -165,21 +165,6 @@ class _MainArticle extends StatelessComponent {
                     ),
                   ],
                 ),
-                div(styles: const Styles(position: Position.relative()), [
-                  Link(
-                    to: event.blog.sponsorship.url.text(context),
-                    child: button(
-                      classes: 'primary-button primary-button-reverse',
-                      styles: Styles(
-                        cursor: Cursor.pointer,
-                        color: beyondRed,
-                        fontSize: 1.rem,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      [event.blog.sponsorship.title.text(context).toComponent],
-                    ),
-                  ),
-                ]),
               ],
             ),
           ],

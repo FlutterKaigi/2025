@@ -37,12 +37,14 @@ sealed class CompanySponsor extends Sponsor {
     required super.name,
     required super.slug,
     required super.logoUrl,
-    required this.description,
+    required this.prText,
     required this.websiteUrl,
+    this.scholarship = false,
   });
 
-  final String description;
+  final String prText;
   final Uri websiteUrl;
+  final bool scholarship;
 
   @override
   bool operator ==(Object other) {
@@ -54,13 +56,21 @@ sealed class CompanySponsor extends Sponsor {
         name == other.name &&
         slug == other.slug &&
         logoUrl == other.logoUrl &&
-        description == other.description &&
-        websiteUrl == other.websiteUrl;
+        prText == other.prText &&
+        websiteUrl == other.websiteUrl &&
+        scholarship == other.scholarship;
   }
 
   @override
-  int get hashCode =>
-      Object.hash(id, name, slug, logoUrl, description, websiteUrl);
+  int get hashCode => Object.hash(
+    id,
+    name,
+    slug,
+    logoUrl,
+    prText,
+    websiteUrl,
+    scholarship,
+  );
 }
 
 @immutable
@@ -152,22 +162,60 @@ final class RoomNamingRight extends AppliedNamingRight {
 }
 
 @immutable
-final class PlatinumSponsor extends CompanySponsor {
+sealed class BasicSponsor extends CompanySponsor {
+  const BasicSponsor({
+    required super.id,
+    required super.name,
+    required super.slug,
+    required super.logoUrl,
+    required super.prText,
+    required super.websiteUrl,
+    super.scholarship,
+  });
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    return other is BasicSponsor &&
+        id == other.id &&
+        name == other.name &&
+        slug == other.slug &&
+        logoUrl == other.logoUrl &&
+        prText == other.prText &&
+        websiteUrl == other.websiteUrl &&
+        scholarship == other.scholarship;
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    name,
+    slug,
+    logoUrl,
+    prText,
+    websiteUrl,
+    scholarship,
+  );
+}
+
+@immutable
+final class PlatinumSponsor extends BasicSponsor {
   const PlatinumSponsor({
     required super.id,
     required super.name,
     required super.slug,
     required super.logoUrl,
-    required super.description,
+    required super.prText,
     required super.websiteUrl,
+    super.scholarship,
     this.namingRight = const NotAppliedNamingRight(),
     this.namePlate = false,
-    this.scholarship = false,
   });
 
   final NamingRight namingRight;
   final bool namePlate;
-  final bool scholarship;
 
   @override
   bool operator ==(Object other) {
@@ -179,7 +227,7 @@ final class PlatinumSponsor extends CompanySponsor {
         name == other.name &&
         slug == other.slug &&
         logoUrl == other.logoUrl &&
-        description == other.description &&
+        prText == other.prText &&
         websiteUrl == other.websiteUrl &&
         namingRight == other.namingRight &&
         namePlate == other.namePlate &&
@@ -192,7 +240,7 @@ final class PlatinumSponsor extends CompanySponsor {
     name,
     slug,
     logoUrl,
-    description,
+    prText,
     websiteUrl,
     namingRight,
     namePlate,
@@ -201,22 +249,21 @@ final class PlatinumSponsor extends CompanySponsor {
 }
 
 @immutable
-final class GoldSponsor extends CompanySponsor {
+final class GoldSponsor extends BasicSponsor {
   const GoldSponsor({
     required super.id,
     required super.name,
     required super.slug,
     required super.logoUrl,
-    required super.description,
+    required super.prText,
     required super.websiteUrl,
-    this.namingRight,
+    super.scholarship,
+    this.namingRight = const NotAppliedNamingRight(),
     this.namePlate = false,
-    this.scholarship = false,
   });
 
   final NamingRight? namingRight;
   final bool namePlate;
-  final bool scholarship;
 
   @override
   bool operator ==(Object other) {
@@ -228,7 +275,7 @@ final class GoldSponsor extends CompanySponsor {
         name == other.name &&
         slug == other.slug &&
         logoUrl == other.logoUrl &&
-        description == other.description &&
+        prText == other.prText &&
         websiteUrl == other.websiteUrl &&
         namingRight == other.namingRight &&
         namePlate == other.namePlate &&
@@ -241,7 +288,7 @@ final class GoldSponsor extends CompanySponsor {
     name,
     slug,
     logoUrl,
-    description,
+    prText,
     websiteUrl,
     namingRight,
     namePlate,
@@ -250,24 +297,23 @@ final class GoldSponsor extends CompanySponsor {
 }
 
 @immutable
-final class SilverSponsor extends CompanySponsor {
+final class SilverSponsor extends BasicSponsor {
   const SilverSponsor({
     required super.id,
     required super.name,
     required super.slug,
     required super.logoUrl,
-    required super.description,
+    required super.prText,
     required super.websiteUrl,
-    this.namingRight,
+    super.scholarship,
+    this.namingRight = const NotAppliedNamingRight(),
     this.namePlate = false,
     this.lunchSponsor = false,
-    this.scholarship = false,
   });
 
   final NamingRight? namingRight;
   final bool namePlate;
   final bool lunchSponsor;
-  final bool scholarship;
 
   @override
   bool operator ==(Object other) {
@@ -279,7 +325,7 @@ final class SilverSponsor extends CompanySponsor {
         name == other.name &&
         slug == other.slug &&
         logoUrl == other.logoUrl &&
-        description == other.description &&
+        prText == other.prText &&
         websiteUrl == other.websiteUrl &&
         namingRight == other.namingRight &&
         namePlate == other.namePlate &&
@@ -293,7 +339,7 @@ final class SilverSponsor extends CompanySponsor {
     name,
     slug,
     logoUrl,
-    description,
+    prText,
     websiteUrl,
     namingRight,
     namePlate,
@@ -303,22 +349,21 @@ final class SilverSponsor extends CompanySponsor {
 }
 
 @immutable
-final class BronzeSponsor extends CompanySponsor {
+final class BronzeSponsor extends BasicSponsor {
   const BronzeSponsor({
     required super.id,
     required super.name,
     required super.slug,
     required super.logoUrl,
-    required super.description,
+    required super.prText,
     required super.websiteUrl,
+    super.scholarship,
     this.namePlate = false,
     this.lunchSponsor = false,
-    this.scholarship = false,
   });
 
   final bool namePlate;
   final bool lunchSponsor;
-  final bool scholarship;
 
   @override
   bool operator ==(Object other) {
@@ -330,7 +375,7 @@ final class BronzeSponsor extends CompanySponsor {
         name == other.name &&
         slug == other.slug &&
         logoUrl == other.logoUrl &&
-        description == other.description &&
+        prText == other.prText &&
         websiteUrl == other.websiteUrl &&
         namePlate == other.namePlate &&
         lunchSponsor == other.lunchSponsor &&
@@ -343,10 +388,49 @@ final class BronzeSponsor extends CompanySponsor {
     name,
     slug,
     logoUrl,
-    description,
+    prText,
     websiteUrl,
     namePlate,
     lunchSponsor,
+    scholarship,
+  );
+}
+
+@immutable
+final class ToolSponsor extends CompanySponsor {
+  const ToolSponsor({
+    required super.id,
+    required super.name,
+    required super.slug,
+    required super.logoUrl,
+    required super.prText,
+    required super.websiteUrl,
+    super.scholarship,
+  });
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    return other is ToolSponsor &&
+        id == other.id &&
+        name == other.name &&
+        slug == other.slug &&
+        logoUrl == other.logoUrl &&
+        prText == other.prText &&
+        websiteUrl == other.websiteUrl &&
+        scholarship == other.scholarship;
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    name,
+    slug,
+    logoUrl,
+    prText,
+    websiteUrl,
     scholarship,
   );
 }
@@ -358,12 +442,10 @@ final class OtherSponsor extends CompanySponsor {
     required super.name,
     required super.slug,
     required super.logoUrl,
-    required super.description,
+    required super.prText,
     required super.websiteUrl,
-    this.scholarship = false,
+    super.scholarship,
   });
-
-  final bool scholarship;
 
   @override
   bool operator ==(Object other) {
@@ -375,7 +457,7 @@ final class OtherSponsor extends CompanySponsor {
         name == other.name &&
         slug == other.slug &&
         logoUrl == other.logoUrl &&
-        description == other.description &&
+        prText == other.prText &&
         websiteUrl == other.websiteUrl &&
         scholarship == other.scholarship;
   }
@@ -386,7 +468,7 @@ final class OtherSponsor extends CompanySponsor {
     name,
     slug,
     logoUrl,
-    description,
+    prText,
     websiteUrl,
     scholarship,
   );
@@ -399,12 +481,12 @@ final class IndividualSponsor extends Sponsor {
     required super.name,
     required super.slug,
     required super.logoUrl,
-    required this.enthusiasm,
-    required this.websiteUrl,
+    this.enthusiasm,
+    this.xAccount,
   });
 
-  final String enthusiasm;
-  final Uri? websiteUrl;
+  final String? enthusiasm;
+  final String? xAccount;
 
   @override
   bool operator ==(Object other) {
@@ -417,7 +499,7 @@ final class IndividualSponsor extends Sponsor {
         slug == other.slug &&
         logoUrl == other.logoUrl &&
         enthusiasm == other.enthusiasm &&
-        websiteUrl == other.websiteUrl;
+        xAccount == other.xAccount;
   }
 
   @override
@@ -427,6 +509,6 @@ final class IndividualSponsor extends Sponsor {
     slug,
     logoUrl,
     enthusiasm,
-    websiteUrl,
+    xAccount,
   );
 }

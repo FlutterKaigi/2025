@@ -6,41 +6,41 @@ import { openAPISpecs } from "hono-openapi";
 import { internalApi } from "./api/internal";
 
 const app = new Hono<{
-  Bindings: Cloudflare.Env;
+	Bindings: Cloudflare.Env;
 }>()
-  .use("*", secureHeaders())
-  .use("*", logger())
-  .route("/internal", internalApi)
-  .get("/scalar", Scalar({ url: "/openapi", title: "Stripe Internal API" }))
-  .onError((err, c) => {
-    console.error(err);
-    return c.json({ message: "Internal Server Error", error: err }, 500);
-  });
+	.use("*", secureHeaders())
+	.use("*", logger())
+	.route("/internal", internalApi)
+	.get("/scalar", Scalar({ url: "/openapi", title: "Stripe Internal API" }))
+	.onError((err, c) => {
+		console.error(err);
+		return c.json({ message: "Internal Server Error", error: err }, 500);
+	});
 
 app.get(
-  "/openapi",
-  openAPISpecs(app, {
-    documentation: {
-      info: {
-        title: "Stripe Internal API",
-        version: "1.0.0",
-        contact: {
-          name: "Ryotaro Onoue",
-          url: "https://github.com/YumNumm",
-        },
-        license: {
-          name: "MIT",
-        },
-      },
+	"/openapi",
+	openAPISpecs(app, {
+		documentation: {
+			info: {
+				title: "Stripe Internal API",
+				version: "1.0.0",
+				contact: {
+					name: "Ryotaro Onoue",
+					url: "https://github.com/YumNumm",
+				},
+				license: {
+					name: "MIT",
+				},
+			},
 
-      servers: [
-        {
-          url: "https://localhost:8787",
-          description: "Local Development",
-        },
-      ],
-    },
-  })
+			servers: [
+				{
+					url: "https://localhost:8787",
+					description: "Local Development",
+				},
+			],
+		},
+	}),
 );
 
 export type StripeWebhookAppType = typeof app;

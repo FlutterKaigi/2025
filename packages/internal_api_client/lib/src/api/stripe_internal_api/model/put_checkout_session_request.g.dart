@@ -2,19 +2,19 @@
 
 // ignore_for_file: type=lint, duplicate_ignore
 
-part of 'put_checkout_sesson_request.dart';
+part of 'put_checkout_session_request.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_PutCheckoutSessonRequest _$PutCheckoutSessonRequestFromJson(
+_PutCheckoutSessionRequest _$PutCheckoutSessionRequestFromJson(
   Map<String, dynamic> json,
 ) => $checkedCreate(
-  '_PutCheckoutSessonRequest',
+  '_PutCheckoutSessionRequest',
   json,
   ($checkedConvert) {
-    final val = _PutCheckoutSessonRequest(
+    final val = _PutCheckoutSessionRequest(
       successUrl: $checkedConvert('success_url', (v) => v as String),
       cancelUrl: $checkedConvert('cancel_url', (v) => v as String),
       userId: $checkedConvert('user_id', (v) => v as String),
@@ -35,8 +35,8 @@ _PutCheckoutSessonRequest _$PutCheckoutSessonRequestFromJson(
   },
 );
 
-Map<String, dynamic> _$PutCheckoutSessonRequestToJson(
-  _PutCheckoutSessonRequest instance,
+Map<String, dynamic> _$PutCheckoutSessionRequestToJson(
+  _PutCheckoutSessionRequest instance,
 ) => <String, dynamic>{
   'success_url': instance.successUrl,
   'cancel_url': instance.cancelUrl,
