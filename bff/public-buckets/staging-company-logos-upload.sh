@@ -16,7 +16,7 @@
 # =============================================================================
 
 # 設定
-BUCKET_NAME="2025-staging"
+BUCKET_NAME="2025-public-staging"
 SOURCE_DIR="companies"
 LOG_FILE="staging-company-logos-upload-$(date +%Y%m%d-%H%M%S).log"
 LOG_DIR="logs"
