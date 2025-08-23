@@ -49,7 +49,7 @@ select_bucket() {
 }
 
 # 設定
-SOURCE_DIR="$PROJECT_ROOT/bff/public-buckets/companies"
+SOURCE_DIR="$PROJECT_ROOT/bff/public-buckets/company-logos/logos"
 LOG_FILE="upload-company-logos-$(date +%Y%m%d-%H%M%S).log"
 LOG_DIR="$PROJECT_ROOT/bff/public-buckets/logs"
 RCLONE_REMOTE="r2"  # rclone設定のリモート名

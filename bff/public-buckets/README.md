@@ -23,13 +23,14 @@ Cloudflare R2 バケットを直接利用した公開ファイル管理システ
 
 ```
 bff/public-buckets/
-├── companies/                  # 企業ロゴ
-├── logs/                       # ログファイル置き場
-│   └── .gitignore              # ログファイルの Git 除外設定
-├── upload-company-logos.sh     # 企業ロゴの一括アップロードスクリプト
-├── company-logos-gallery.html  # 企業ロゴギャラリー（本番・ステージング対応）
-├── RCLONE_SETUP.md             # Rclone 設定手順書
-└── README.md                   # このファイル
+├── company-logos/                 # 企業ロゴ関連ファイル
+│   ├── logos/                     # 企業ロゴ画像ファイル（24個の WebP ファイル）
+│   ├── company-logos-gallery.html # 企業ロゴギャラリー（本番・ステージング対応）
+│   └── upload-company-logos.sh    # 企業ロゴの一括アップロードスクリプト
+├── logs/                          # ログファイル置き場
+│   └── .gitignore                 # ログファイルの Git 除外設定
+├── RCLONE_SETUP.md                # Rclone 設定手順書
+└── README.md                      # このファイル
 ```
 
 ## 🚀 セットアップ
@@ -47,17 +48,17 @@ bff/public-buckets/
 
 ```bash
 # プロジェクトルートから実行
-./bff/public-buckets/upload-company-logos.sh
+./bff/public-buckets/company-logos/upload-company-logos.sh
 
 # または、スクリプトディレクトリから実行
-cd bff/public-buckets
+cd bff/public-buckets/company-logos
 ./upload-company-logos.sh
 ```
 
 **特徴:**
 
 - 🔧 **バケット選択機能**: ステージング・本番環境を選択可能
-- 🔍 **自動ファイル検出**: `companies` ディレクトリ配下の全ファイルを自動検出・アップロード
+- 🔍 **自動ファイル検出**: `company-logos/logos` ディレクトリ配下の全ファイルを自動検出・アップロード
 - 📈 **リアルタイム進捗**: アップロード状況をリアルタイムで表示
 - 🎨 **色付き出力**: 見やすい色付きのコンソール表示
 - 📝 **詳細ログ**: タイムスタンプ付きの詳細ログファイルを生成
@@ -70,14 +71,14 @@ cd bff/public-buckets
 
 ```bash
 # HTML ファイルをブラウザで開く
-open company-logos-gallery.html
+open company-logos/company-logos-gallery.html
 # または
 # ブラウザで直接ファイルを開く
 ```
 
 **特徴:**
 
-- 🖼️ **ファイル表示**: `companies` ディレクトリ配下の全ファイルを美しく表示
+- 🖼️ **ファイル表示**: `company-logos/logos` ディレクトリ配下の全ファイルを美しく表示
 - 📱 **レスポンシブ**: モバイル・デスクトップ両対応のデザイン
 - 📊 **統計表示**: 総ファイル数、読み込み済み、エラー数を表示
 - 🎯 **エラー処理**: エラーハンドリングと成功メッセージ
