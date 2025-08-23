@@ -19,7 +19,7 @@
 
 # スクリプトの場所を取得（プロジェクトルートからの相対パス対応）
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+PROJECT_ROOT="$(cd "$SCRIPT_DIR/../../.." && pwd)"
 
 # 利用可能なバケット
 AVAILABLE_BUCKETS=("2025-public-staging" "2025-public-production")
@@ -49,7 +49,7 @@ select_bucket() {
 }
 
 # 設定
-SOURCE_DIR="$PROJECT_ROOT/bff/public-buckets/companies"
+SOURCE_DIR="$PROJECT_ROOT/bff/public-buckets/company-logos/logos"
 LOG_FILE="upload-company-logos-$(date +%Y%m%d-%H%M%S).log"
 LOG_DIR="$PROJECT_ROOT/bff/public-buckets/logs"
 RCLONE_REMOTE="r2"  # rclone設定のリモート名

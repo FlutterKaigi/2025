@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlutterKaigi 2025 - 企業ロゴギャラリー</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        .tab-container {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tab-button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+            color: #666;
+            border: 2px solid transparent;
+        }
+
+        .tab-button.active {
+            background: #667eea;
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .tab-button:hover:not(.active) {
+            background: #e9ecef;
+            transform: translateY(-2px);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .environment-info {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .environment-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(0,0,0,0.1);
+            margin: 0 10px;
+        }
+
+        .environment-badge.staging {
+            background: #fff3cd;
+            color: #856404;
+            border-color: #ffeaa7;
+        }
+
+        .environment-badge.production {
+            background: #d4edda;
+            color: #155724;
+            border-color: #c3e6cb;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .image-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .image-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .image-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-container img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .image-card:hover .image-container img {
+            transform: scale(1.05);
+        }
+
+        .image-info {
+            padding: 20px;
+        }
+
+        .image-name {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 10px;
+            word-break: break-all;
+            font-family: 'Monaco', 'Menlo', monospace;
+        }
+
+        .image-url {
+            font-size: 0.75rem;
+            color: #999;
+            word-break: break-all;
+            font-family: 'Monaco', 'Menlo', monospace;
+        }
+
+        .stats {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+        }
+
+        .stats h3 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+        }
+
+        .stat-item {
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border: 1px solid #e9ecef;
+        }
+
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .loading {
+            text-align: center;
+            color: white;
+            font-size: 1.3rem;
+            margin: 40px 0;
+            padding: 30px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .error {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(255,107,107,0.3);
+        }
+
+        .error h4 {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .error-list {
+            text-align: left;
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .error-item {
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.85rem;
+        }
+
+        .error-item:last-child {
+            border-bottom: none;
+        }
+
+        .success-message {
+            background: linear-gradient(135deg, #51cf66 0%, #40c057 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(81,207,102,0.3);
+        }
+
+        @media (max-width: 768px) {
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .image-container {
+                height: 250px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .container {
+                padding: 0 15px;
+            }
+
+            .tab-buttons {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .image-container {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 FlutterKaigi 2025</h1>
+            <p>企業ロゴギャラリー</p>
+        </div>
+
+        <div class="tab-container">
+            <div class="tab-buttons">
+                <button class="tab-button active" onclick="switchTab('staging')">🟡 ステージング環境</button>
+                <button class="tab-button" onclick="switchTab('production')">🟢 本番環境</button>
+            </div>
+
+            <!-- ステージング環境タブ -->
+            <div id="staging-tab" class="tab-content active">
+                <div class="environment-info">
+                    <div class="environment-badge staging">🟡 ステージング環境</div>
+                </div>
+                
+                <div class="stats">
+                    <h3>📊 統計情報</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number" id="staging-total-count">-</div>
+                            <div class="stat-label">総企業数</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="staging-loaded-count">-</div>
+                            <div class="stat-label">読み込み済み</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="staging-error-count">-</div>
+                            <div class="stat-label">エラー数</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="loading" id="staging-loading">
+                    🔄 企業ロゴを読み込み中...<br>
+                    <small>ステージング環境のR2バケットから画像を取得しています</small>
+                </div>
+                
+                <div class="gallery" id="staging-gallery"></div>
+                
+                <div class="error" id="staging-error" style="display: none;">
+                    <h4>❌ 画像読み込みエラー</h4>
+                    <p>一部の企業ロゴの読み込みに失敗しました</p>
+                    <div class="error-list" id="staging-error-list"></div>
+                </div>
+
+                <div class="success-message" id="staging-success-message" style="display: none;">
+                    <h4>✅ 全ての企業ロゴが正常に読み込まれました</h4>
+                    <p>ステージング環境の企業ロゴギャラリーが完成しました</p>
+                </div>
+            </div>
+
+            <!-- 本番環境タブ -->
+            <div id="production-tab" class="tab-content">
+                <div class="environment-info">
+                    <div class="environment-badge production">🟢 本番環境</div>
+                </div>
+                
+                <div class="stats">
+                    <h3>📊 統計情報</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number" id="production-total-count">-</div>
+                            <div class="stat-label">総企業数</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="production-loaded-count">-</div>
+                            <div class="stat-label">読み込み済み</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="production-error-count">-</div>
+                            <div class="stat-label">エラー数</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="loading" id="production-loading">
+                    🔄 企業ロゴを読み込み中...<br>
+                    <small>本番環境のR2バケットから画像を取得しています</small>
+                </div>
+                
+                <div class="gallery" id="production-gallery"></div>
+                
+                <div class="error" id="production-error" style="display: none;">
+                    <h4>❌ 画像読み込みエラー</h4>
+                    <p>一部の企業ロゴの読み込みに失敗しました</p>
+                    <div class="error-list" id="production-error-list"></div>
+                </div>
+
+                <div class="success-message" id="production-success-message" style="display: none;">
+                    <h4>✅ 全ての企業ロゴが正常に読み込まれました</h4>
+                    <p>本番環境の企業ロゴギャラリーが完成しました</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 環境設定
+        const ENVIRONMENTS = {
+            staging: {
+                name: 'ステージング環境',
+                baseUrl: 'https://pub-27ad8ed93aa141a0b45f128f849914ed.r2.dev',
+                badge: '🟡 ステージング環境'
+            },
+            production: {
+                name: '本番環境',
+                baseUrl: 'https://2025-bucket.flutterkaigi.jp',
+                badge: '🟢 本番環境'
+            }
+        };
+
+        // 画像ファイル一覧（実際のファイル名に合わせて調整）
+        const imageFiles = [
+            '04feaac2-4660-4260-b66c-e5d8a071d219.webp',
+            '1c402e3a-eaa9-4a45-b87b-6547b156ee49.webp',
+            '47c20891-cb0b-48b0-8f32-aec3856a2a4e.webp',
+            '6baf4450-7dd1-4f37-9480-207748abd562.webp',
+            'afae8fe0-b0d8-43c9-85e3-aa82ef30d001.webp',
+            '31303bcb-0fe0-42d2-a870-3d7fcf0d1ac3.webp',
+            'f9a4166a-fe62-4c06-b299-716adf12feb4.webp',
+            '95fc9aaa-38d1-482b-ac8f-fe9bdb9db0a7.webp',
+            '18518903-01a8-43e8-857a-56cb8d478ef8.webp',
+            '424643b3-4119-45e2-bb58-bdad2cd4ee48.webp',
+            '26972169-bf9c-4995-bb1f-4d58bd9a5eb0.webp',
+            'e9f3db7b-3742-4763-b8ff-9bc6a34050a2.webp',
+            '6ebbd536-cc3d-43a3-9138-1294f7b2088e.webp',
+            '1081d25c-46d3-4620-bc9b-66ee70a356bb.webp',
+            '505e878e-3372-43e7-b3be-7c790258428f.webp',
+            'ea8c5639-f5fb-4674-9381-bca60d900b84.webp',
+            '1faeb563-9e1c-4f56-96ab-32d45bab81d0.webp',
+            'd1c33512-f3dc-4f53-b099-3193fa495df0.webp',
+            '44a6529b-c7fd-4e34-8c65-07cfab1143f8.webp',
+            '2c34b7ee-dedf-46fb-b242-4d9af76aa789.webp',
+            '503729ef-f6bf-479d-8f28-cd0e8c86770b.webp',
+            'ecc75bda-1dda-4693-81c3-fee61f8c9d8d.webp',
+            'e1a96c10-fa3f-4036-aad2-4da3aa063b86.webp',
+            '53366548-10d0-4272-8bb6-462321f51e4d.webp'
+        ];
+
+        let currentEnvironment = 'staging';
+        let environmentData = {
+            staging: { loadedCount: 0, errorCount: 0, errorFiles: [], initialized: false },
+            production: { loadedCount: 0, errorCount: 0, errorFiles: [], initialized: false }
+        };
+
+        // タブ切り替え
+        function switchTab(environment) {
+            // タブボタンの状態を更新
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // タブコンテンツの表示を切り替え
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(`${environment}-tab`).classList.add('active');
+
+            currentEnvironment = environment;
+
+            // 初回アクセス時はギャラリーを初期化
+            if (!environmentData[environment].initialized) {
+                initGallery(environment);
+                environmentData[environment].initialized = true;
+            }
+        }
+
+        // 統計情報を更新
+        function updateStats(environment) {
+            const data = environmentData[environment];
+            document.getElementById(`${environment}-total-count`).textContent = imageFiles.length;
+            document.getElementById(`${environment}-loaded-count`).textContent = data.loadedCount;
+            document.getElementById(`${environment}-error-count`).textContent = data.errorCount;
+        }
+
+        // 画像カードを作成
+        function createImageCard(imageFile, environment) {
+            const baseUrl = ENVIRONMENTS[environment].baseUrl;
+            const imageUrl = `${baseUrl}/companies/${imageFile}`;
+            
+            const card = document.createElement('div');
+            card.className = 'image-card';
+            
+            card.innerHTML = `
+                <div class="image-container">
+                    <img src="${imageUrl}" 
+                         alt="企業ロゴ: ${imageFile}" 
+                         loading="lazy"
+                         onload="onImageLoad('${imageFile}', '${environment}')"
+                         onerror="onImageError('${imageFile}', '${environment}')">
+                </div>
+                <div class="image-info">
+                    <div class="image-name">${imageFile}</div>
+                    <div class="image-url">${imageUrl}</div>
+                </div>
+            `;
+            
+            return card;
+        }
+
+        // 画像読み込み成功時の処理
+        function onImageLoad(imageFile, environment) {
+            environmentData[environment].loadedCount++;
+            updateStats(environment);
+            
+            // 全ての画像が処理されたらローディング表示を非表示
+            if (environmentData[environment].loadedCount + environmentData[environment].errorCount === imageFiles.length) {
+                finishLoading(environment);
+            }
+        }
+
+        // 画像読み込みエラー時の処理
+        function onImageError(imageFile, environment) {
+            environmentData[environment].errorCount++;
+            environmentData[environment].errorFiles.push(imageFile);
+            updateStats(environment);
+            
+            // 全ての画像が処理されたらローディング表示を非表示
+            if (environmentData[environment].loadedCount + environmentData[environment].errorCount === imageFiles.length) {
+                finishLoading(environment);
+            }
+        }
+
+        // 読み込み完了時の処理
+        function finishLoading(environment) {
+            document.getElementById(`${environment}-loading`).style.display = 'none';
+            
+            if (environmentData[environment].errorCount === 0) {
+                // 全て成功
+                document.getElementById(`${environment}-success-message`).style.display = 'block';
+            } else if (environmentData[environment].errorCount > 0) {
+                // エラーあり
+                document.getElementById(`${environment}-error`).style.display = 'block';
+                const errorList = document.getElementById(`${environment}-error-list`);
+                errorList.innerHTML = '';
+                environmentData[environment].errorFiles.forEach(file => {
+                    const errorItem = document.createElement('div');
+                    errorItem.className = 'error-item';
+                    errorItem.textContent = file;
+                    errorList.appendChild(errorItem);
+                });
+            }
+        }
+
+        // ギャラリーを初期化
+        function initGallery(environment) {
+            const gallery = document.getElementById(`${environment}-gallery`);
+            gallery.innerHTML = '';
+            
+            imageFiles.forEach(imageFile => {
+                const card = createImageCard(imageFile, environment);
+                gallery.appendChild(card);
+            });
+            
+            updateStats(environment);
+        }
+
+        // ページ読み込み完了時にステージング環境のギャラリーを初期化
+        document.addEventListener('DOMContentLoaded', () => {
+            initGallery('staging');
+            environmentData.staging.initialized = true;
+        });
+    </script>
+</body>
+</html>
