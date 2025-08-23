@@ -40,6 +40,31 @@
             opacity: 0.9;
             margin-bottom: 10px;
         }
+        
+        .directory-select-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            margin-top: 15px;
+        }
+        
+        .directory-select-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+        
+        .directory-select-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
 
         .tab-container {
             background: white;
@@ -98,7 +123,37 @@
             border-radius: 20px;
             font-size: 0.9rem;
             border: 1px solid rgba(0,0,0,0.1);
-            margin: 0 10px;
+        }
+        
+        /* ファイル読み込みエラーのスタイル */
+        .file-load-error {
+            background: #fee;
+            border: 2px solid #f44336;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 800px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(244, 67, 54, 0.2);
+        }
+        
+        .file-load-error .error-header {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #d32f2f;
+            margin-bottom: 10px;
+        }
+        
+        .file-load-error .error-message {
+            color: #c62828;
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+        
+        .file-load-error .error-suggestion {
+            color: #666;
+            font-size: 0.9rem;
+            font-style: italic;
         }
 
         .environment-badge.staging {
@@ -320,6 +375,9 @@
         <div class="header">
             <h1>🚀 FlutterKaigi 2025</h1>
             <p>企業ロゴギャラリー</p>
+            <button id="select-directory-btn" class="directory-select-btn" onclick="selectDirectory()">
+                📁 ロゴファイルを含むディレクトリを選択
+            </button>
         </div>
 
         <div class="tab-container">
@@ -431,33 +489,88 @@
             }
         };
 
-        // 画像ファイル一覧（実際のファイル名に合わせて調整）
-        const imageFiles = [
-            '04feaac2-4660-4260-b66c-e5d8a071d219.webp',
-            '1c402e3a-eaa9-4a45-b87b-6547b156ee49.webp',
-            '47c20891-cb0b-48b0-8f32-aec3856a2a4e.webp',
-            '6baf4450-7dd1-4f37-9480-207748abd562.webp',
-            'afae8fe0-b0d8-43c9-85e3-aa82ef30d001.webp',
-            '31303bcb-0fe0-42d2-a870-3d7fcf0d1ac3.webp',
-            'f9a4166a-fe62-4c06-b299-716adf12feb4.webp',
-            '95fc9aaa-38d1-482b-ac8f-fe9bdb9db0a7.webp',
-            '18518903-01a8-43e8-857a-56cb8d478ef8.webp',
-            '424643b3-4119-45e2-bb58-bdad2cd4ee48.webp',
-            '26972169-bf9c-4995-bb1f-4d58bd9a5eb0.webp',
-            'e9f3db7b-3742-4763-b8ff-9bc6a34050a2.webp',
-            '6ebbd536-cc3d-43a3-9138-1294f7b2088e.webp',
-            '1081d25c-46d3-4620-bc9b-66ee70a356bb.webp',
-            '505e878e-3372-43e7-b3be-7c790258428f.webp',
-            'ea8c5639-f5fb-4674-9381-bca60d900b84.webp',
-            '1faeb563-9e1c-4f56-96ab-32d45bab81d0.webp',
-            'd1c33512-f3dc-4f53-b099-3193fa495df0.webp',
-            '44a6529b-c7fd-4e34-8c65-07cfab1143f8.webp',
-            '2c34b7ee-dedf-46fb-b242-4d9af76aa789.webp',
-            '503729ef-f6bf-479d-8f28-cd0e8c86770b.webp',
-            'ecc75bda-1dda-4693-81c3-fee61f8c9d8d.webp',
-            'e1a96c10-fa3f-4036-aad2-4da3aa063b86.webp',
-            '53366548-10d0-4272-8bb6-462321f51e4d.webp'
-        ];
+        // 画像ファイル一覧（logosディレクトリ内の全WebPファイルを動的に取得）
+        let imageFiles = [];
+        
+        // ディレクトリ選択ボタンがクリックされたときの処理
+        async function selectDirectory() {
+            const btn = document.getElementById('select-directory-btn');
+            btn.disabled = true;
+            btn.textContent = '🔄 ディレクトリを選択中...';
+            
+            try {
+                await loadImageFiles();
+                btn.style.display = 'none'; // 成功したらボタンを非表示
+            } catch (error) {
+                console.error('Error selecting directory:', error);
+                btn.disabled = false;
+                btn.textContent = '📁 ロゴディレクトリを選択';
+                showFileLoadError(error.message);
+            }
+        }
+        
+        // logosディレクトリ内の全WebPファイルを取得
+        async function loadImageFiles() {
+            try {
+                // File System Access APIを使用してローカルディレクトリにアクセス
+                if ('showDirectoryPicker' in window) {
+                    const dirHandle = await window.showDirectoryPicker({
+                        mode: 'read'
+                    });
+                    
+                    // 選択されたディレクトリ内のWebPファイルを直接検索
+                    const webpFiles = [];
+                    
+                    // 再帰的にディレクトリ内のWebPファイルを検索
+                    async function searchWebpFiles(dirHandle, currentPath = '') {
+                        for await (const [name, handle] of dirHandle.entries()) {
+                            if (handle.kind === 'file' && name.endsWith('.webp')) {
+                                // 相対パスを含むファイル名を保存
+                                const filePath = currentPath ? `${currentPath}/${name}` : name;
+                                webpFiles.push(filePath);
+                            } else if (handle.kind === 'directory') {
+                                // サブディレクトリも再帰的に検索
+                                const subPath = currentPath ? `${currentPath}/${name}` : name;
+                                await searchWebpFiles(handle, subPath);
+                            }
+                        }
+                    }
+                    
+                    await searchWebpFiles(dirHandle);
+                    
+                    if (webpFiles.length > 0) {
+                        imageFiles = webpFiles;
+                        console.log(`Found ${webpFiles.length} WebP files:`, webpFiles);
+                        // 画像ギャラリーを初期化
+                        initGallery('staging');
+                    } else {
+                        throw new Error('WebPファイルが見つかりません');
+                    }
+                    
+                } else {
+                    // File System Access APIがサポートされていない場合
+                    throw new Error('お使いのブラウザはFile System Access APIをサポートしていません。Chrome 86以降、Edge 86以降が必要です。');
+                }
+                
+            } catch (error) {
+                console.error('Error loading image files:', error);
+                throw error; // エラーを上位に伝播
+            }
+        }
+        
+        // ファイル読み込みエラーを表示
+        function showFileLoadError(errorMessage) {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'file-load-error';
+            errorDiv.innerHTML = `
+                <div class="error-header">ファイル読み込みエラー</div>
+                <div class="error-message">ロゴファイル一覧の取得に失敗しました: ${errorMessage}</div>
+                <div class="error-suggestion">ページをリロードするか、しばらく時間をおいてから再度お試しください。</div>
+            `;
+            
+            // ページの上部にエラーメッセージを表示
+            document.body.insertBefore(errorDiv, document.body.firstChild);
+        }
 
         let currentEnvironment = 'staging';
         let environmentData = {
@@ -578,10 +691,10 @@
             updateStats(environment);
         }
 
-        // ページ読み込み完了時にステージング環境のギャラリーを初期化
+        // ページ読み込み完了時の処理
         document.addEventListener('DOMContentLoaded', () => {
-            initGallery('staging');
-            environmentData.staging.initialized = true;
+            // 初期状態では何もしない（ユーザーがディレクトリ選択ボタンをクリックするまで待機）
+            console.log('ページが読み込まれました。ディレクトリ選択ボタンをクリックしてロゴファイルを選択してください。');
         });
     </script>
 </body>
