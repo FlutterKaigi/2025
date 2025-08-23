@@ -19,7 +19,7 @@
 
 # スクリプトの場所を取得（プロジェクトルートからの相対パス対応）
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+PROJECT_ROOT="$(cd "$SCRIPT_DIR/../../.." && pwd)"
 
 # 利用可能なバケット
 AVAILABLE_BUCKETS=("2025-public-staging" "2025-public-production")
