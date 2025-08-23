@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FlutterKaigi 2025 - ステージング環境 企業ロゴギャラリー</title>
+    <title>FlutterKaigi 2025 - 企業ロゴギャラリー</title>
     <style>
         * {
             margin: 0;
@@ -41,13 +41,76 @@
             margin-bottom: 10px;
         }
 
-        .header .environment-badge {
+        .tab-container {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tab-button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+            color: #666;
+            border: 2px solid transparent;
+        }
+
+        .tab-button.active {
+            background: #667eea;
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .tab-button:hover:not(.active) {
+            background: #e9ecef;
+            transform: translateY(-2px);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .environment-info {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .environment-badge {
             display: inline-block;
-            background: rgba(255,255,255,0.2);
             padding: 8px 16px;
             border-radius: 20px;
             font-size: 0.9rem;
-            border: 1px solid rgba(255,255,255,0.3);
+            border: 1px solid rgba(0,0,0,0.1);
+            margin: 0 10px;
+        }
+
+        .environment-badge.staging {
+            background: #fff3cd;
+            color: #856404;
+            border-color: #ffeaa7;
+        }
+
+        .environment-badge.production {
+            background: #d4edda;
+            color: #155724;
+            border-color: #c3e6cb;
         }
 
         .gallery {
@@ -230,6 +293,10 @@
             .container {
                 padding: 0 15px;
             }
+
+            .tab-buttons {
+                flex-direction: column;
+            }
         }
 
         @media (max-width: 480px) {
@@ -252,51 +319,118 @@
     <div class="container">
         <div class="header">
             <h1>🚀 FlutterKaigi 2025</h1>
-            <p>ステージング環境 企業ロゴギャラリー</p>
-            <div class="environment-badge">🟡 ステージング環境</div>
+            <p>企業ロゴギャラリー</p>
         </div>
 
-        <div class="stats">
-            <h3>📊 統計情報</h3>
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <div class="stat-number" id="total-count">-</div>
-                    <div class="stat-label">総企業数</div>
+        <div class="tab-container">
+            <div class="tab-buttons">
+                <button class="tab-button active" onclick="switchTab('staging')">🟡 ステージング環境</button>
+                <button class="tab-button" onclick="switchTab('production')">🟢 本番環境</button>
+            </div>
+
+            <!-- ステージング環境タブ -->
+            <div id="staging-tab" class="tab-content active">
+                <div class="environment-info">
+                    <div class="environment-badge staging">🟡 ステージング環境</div>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-number" id="loaded-count">-</div>
-                    <div class="stat-label">読み込み済み</div>
+                
+                <div class="stats">
+                    <h3>📊 統計情報</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number" id="staging-total-count">-</div>
+                            <div class="stat-label">総企業数</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="staging-loaded-count">-</div>
+                            <div class="stat-label">読み込み済み</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="staging-error-count">-</div>
+                            <div class="stat-label">エラー数</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-number" id="error-count">-</div>
-                    <div class="stat-label">エラー数</div>
+
+                <div class="loading" id="staging-loading">
+                    🔄 企業ロゴを読み込み中...<br>
+                    <small>ステージング環境のR2バケットから画像を取得しています</small>
+                </div>
+                
+                <div class="gallery" id="staging-gallery"></div>
+                
+                <div class="error" id="staging-error" style="display: none;">
+                    <h4>❌ 画像読み込みエラー</h4>
+                    <p>一部の企業ロゴの読み込みに失敗しました</p>
+                    <div class="error-list" id="staging-error-list"></div>
+                </div>
+
+                <div class="success-message" id="staging-success-message" style="display: none;">
+                    <h4>✅ 全ての企業ロゴが正常に読み込まれました</h4>
+                    <p>ステージング環境の企業ロゴギャラリーが完成しました</p>
                 </div>
             </div>
-        </div>
 
-        <div class="loading" id="loading">
-            🔄 企業ロゴを読み込み中...<br>
-            <small>R2バケットから画像を取得しています</small>
-        </div>
-        
-        <div class="gallery" id="gallery"></div>
-        
-        <div class="error" id="error" style="display: none;">
-            <h4>❌ 画像読み込みエラー</h4>
-            <p>一部の企業ロゴの読み込みに失敗しました</p>
-            <div class="error-list" id="error-list"></div>
-        </div>
+            <!-- 本番環境タブ -->
+            <div id="production-tab" class="tab-content">
+                <div class="environment-info">
+                    <div class="environment-badge production">🟢 本番環境</div>
+                </div>
+                
+                <div class="stats">
+                    <h3>📊 統計情報</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number" id="production-total-count">-</div>
+                            <div class="stat-label">総企業数</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="production-loaded-count">-</div>
+                            <div class="stat-label">読み込み済み</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="production-error-count">-</div>
+                            <div class="stat-label">エラー数</div>
+                        </div>
+                    </div>
+                </div>
 
-        <div class="success-message" id="success-message" style="display: none;">
-            <h4>✅ 全ての企業ロゴが正常に読み込まれました</h4>
-            <p>ステージング環境の企業ロゴギャラリーが完成しました</p>
+                <div class="loading" id="production-loading">
+                    🔄 企業ロゴを読み込み中...<br>
+                    <small>本番環境のR2バケットから画像を取得しています</small>
+                </div>
+                
+                <div class="gallery" id="production-gallery"></div>
+                
+                <div class="error" id="production-error" style="display: none;">
+                    <h4>❌ 画像読み込みエラー</h4>
+                    <p>一部の企業ロゴの読み込みに失敗しました</p>
+                    <div class="error-list" id="production-error-list"></div>
+                </div>
+
+                <div class="success-message" id="production-success-message" style="display: none;">
+                    <h4>✅ 全ての企業ロゴが正常に読み込まれました</h4>
+                    <p>本番環境の企業ロゴギャラリーが完成しました</p>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-        // R2バケットのパブリックURL
-        const R2_BASE_URL = 'https://pub-27ad8ed93aa141a0b45f128f849914ed.r2.dev';
-        
+        // 環境設定
+        const ENVIRONMENTS = {
+            staging: {
+                name: 'ステージング環境',
+                baseUrl: 'https://pub-27ad8ed93aa141a0b45f128f849914ed.r2.dev',
+                badge: '🟡 ステージング環境'
+            },
+            production: {
+                name: '本番環境',
+                baseUrl: 'https://2025-bucket.flutterkaigi.jp',
+                badge: '🟢 本番環境'
+            }
+        };
+
         // 画像ファイル一覧（実際のファイル名に合わせて調整）
         const imageFiles = [
             '04feaac2-4660-4260-b66c-e5d8a071d219.webp',
@@ -325,20 +459,47 @@
             '53366548-10d0-4272-8bb6-462321f51e4d.webp'
         ];
 
-        let loadedCount = 0;
-        let errorCount = 0;
-        let errorFiles = [];
+        let currentEnvironment = 'staging';
+        let environmentData = {
+            staging: { loadedCount: 0, errorCount: 0, errorFiles: [], initialized: false },
+            production: { loadedCount: 0, errorCount: 0, errorFiles: [], initialized: false }
+        };
+
+        // タブ切り替え
+        function switchTab(environment) {
+            // タブボタンの状態を更新
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // タブコンテンツの表示を切り替え
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(`${environment}-tab`).classList.add('active');
+
+            currentEnvironment = environment;
+
+            // 初回アクセス時はギャラリーを初期化
+            if (!environmentData[environment].initialized) {
+                initGallery(environment);
+                environmentData[environment].initialized = true;
+            }
+        }
 
         // 統計情報を更新
-        function updateStats() {
-            document.getElementById('total-count').textContent = imageFiles.length;
-            document.getElementById('loaded-count').textContent = loadedCount;
-            document.getElementById('error-count').textContent = errorCount;
+        function updateStats(environment) {
+            const data = environmentData[environment];
+            document.getElementById(`${environment}-total-count`).textContent = imageFiles.length;
+            document.getElementById(`${environment}-loaded-count`).textContent = data.loadedCount;
+            document.getElementById(`${environment}-error-count`).textContent = data.errorCount;
         }
 
         // 画像カードを作成
-        function createImageCard(imageFile) {
-            const imageUrl = `${R2_BASE_URL}/companies/${imageFile}`;
+        function createImageCard(imageFile, environment) {
+            const baseUrl = ENVIRONMENTS[environment].baseUrl;
+            const imageUrl = `${baseUrl}/companies/${imageFile}`;
             
             const card = document.createElement('div');
             card.className = 'image-card';
@@ -348,8 +509,8 @@
                     <img src="${imageUrl}" 
                          alt="企業ロゴ: ${imageFile}" 
                          loading="lazy"
-                         onload="onImageLoad('${imageFile}')"
-                         onerror="onImageError('${imageFile}')">
+                         onload="onImageLoad('${imageFile}', '${environment}')"
+                         onerror="onImageError('${imageFile}', '${environment}')">
                 </div>
                 <div class="image-info">
                     <div class="image-name">${imageFile}</div>
@@ -361,40 +522,41 @@
         }
 
         // 画像読み込み成功時の処理
-        function onImageLoad(imageFile) {
-            loadedCount++;
-            updateStats();
+        function onImageLoad(imageFile, environment) {
+            environmentData[environment].loadedCount++;
+            updateStats(environment);
             
             // 全ての画像が処理されたらローディング表示を非表示
-            if (loadedCount + errorCount === imageFiles.length) {
-                finishLoading();
+            if (environmentData[environment].loadedCount + environmentData[environment].errorCount === imageFiles.length) {
+                finishLoading(environment);
             }
         }
 
         // 画像読み込みエラー時の処理
-        function onImageError(imageFile) {
-            errorCount++;
-            errorFiles.push(imageFile);
-            updateStats();
+        function onImageError(imageFile, environment) {
+            environmentData[environment].errorCount++;
+            environmentData[environment].errorFiles.push(imageFile);
+            updateStats(environment);
             
             // 全ての画像が処理されたらローディング表示を非表示
-            if (loadedCount + errorCount === imageFiles.length) {
-                finishLoading();
+            if (environmentData[environment].loadedCount + environmentData[environment].errorCount === imageFiles.length) {
+                finishLoading(environment);
             }
         }
 
         // 読み込み完了時の処理
-        function finishLoading() {
-            document.getElementById('loading').style.display = 'none';
+        function finishLoading(environment) {
+            document.getElementById(`${environment}-loading`).style.display = 'none';
             
-            if (errorCount === 0) {
+            if (environmentData[environment].errorCount === 0) {
                 // 全て成功
-                document.getElementById('success-message').style.display = 'block';
-            } else if (errorCount > 0) {
+                document.getElementById(`${environment}-success-message`).style.display = 'block';
+            } else if (environmentData[environment].errorCount > 0) {
                 // エラーあり
-                document.getElementById('error').style.display = 'block';
-                const errorList = document.getElementById('error-list');
-                errorFiles.forEach(file => {
+                document.getElementById(`${environment}-error`).style.display = 'block';
+                const errorList = document.getElementById(`${environment}-error-list`);
+                errorList.innerHTML = '';
+                environmentData[environment].errorFiles.forEach(file => {
                     const errorItem = document.createElement('div');
                     errorItem.className = 'error-item';
                     errorItem.textContent = file;
@@ -404,19 +566,23 @@
         }
 
         // ギャラリーを初期化
-        function initGallery() {
-            const gallery = document.getElementById('gallery');
+        function initGallery(environment) {
+            const gallery = document.getElementById(`${environment}-gallery`);
+            gallery.innerHTML = '';
             
             imageFiles.forEach(imageFile => {
-                const card = createImageCard(imageFile);
+                const card = createImageCard(imageFile, environment);
                 gallery.appendChild(card);
             });
             
-            updateStats();
+            updateStats(environment);
         }
 
-        // ページ読み込み完了時にギャラリーを初期化
-        document.addEventListener('DOMContentLoaded', initGallery);
+        // ページ読み込み完了時にステージング環境のギャラリーを初期化
+        document.addEventListener('DOMContentLoaded', () => {
+            initGallery('staging');
+            environmentData.staging.initialized = true;
+        });
     </script>
 </body>
 </html>
