@@ -11,6 +11,7 @@ Future<DbClient> dbClient(Ref ref) async {
   // ローカル環境ではSSLを無効にする
   final db = await DbClient.connect(
     env.postgresUrl,
+    logoBaseUrl: env.logoBaseUrl,
     disableSsl: env.isLocal,
   );
 
