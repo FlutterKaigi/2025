@@ -37,6 +37,7 @@ _Environments _$EnvironmentsFromJson(Map<String, dynamic> json) =>
             (v) => v as String,
           ),
           xApiKey: $checkedConvert('X_API_KEY', (v) => v as String),
+          logoBaseUrl: $checkedConvert('LOGO_BASE_URL', (v) => v as String),
         );
         return val;
       },
@@ -49,6 +50,7 @@ _Environments _$EnvironmentsFromJson(Map<String, dynamic> json) =>
         'postgresUrl': 'POSTGRES_URL',
         'internalApiUrl': 'INTERNAL_API_URL',
         'xApiKey': 'X_API_KEY',
+        'logoBaseUrl': 'LOGO_BASE_URL',
       },
     );
 
@@ -62,4 +64,5 @@ Map<String, dynamic> _$EnvironmentsToJson(_Environments instance) =>
       'POSTGRES_URL': instance.postgresUrl,
       'INTERNAL_API_URL': instance.internalApiUrl,
       'X_API_KEY': instance.xApiKey,
+      'LOGO_BASE_URL': instance.logoBaseUrl,
     };
