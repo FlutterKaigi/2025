@@ -143,7 +143,7 @@ class _SponsorFlexibleSpaceBackground extends StatelessWidget {
             // 黒半透明オーバーレイ
             const Positioned.fill(
               child: ColoredBox(
-                color: Colors.black45,
+                color: Colors.black38,
               ),
             ),
           ],
