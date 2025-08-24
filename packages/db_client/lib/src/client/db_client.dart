@@ -8,10 +8,15 @@ import 'package:db_client/src/client/user/user_db_client.dart';
 import 'package:postgres/postgres.dart';
 
 class DbClient {
-  DbClient({required Connection connection}) : _connection = connection;
+  DbClient({
+    required Connection connection,
+    required String logoBaseUrl,
+  }) : _connection = connection,
+       _logoBaseUrl = logoBaseUrl;
 
   static Future<DbClient> connect(
     String connectionString, {
+    required String logoBaseUrl,
     bool disableSsl = false,
   }) async {
     final connection = await Connection.open(
@@ -22,14 +27,21 @@ class DbClient {
         sslMode: disableSsl ? SslMode.disable : SslMode.require,
       ),
     );
-    return DbClient(connection: connection);
+    return DbClient(
+      connection: connection,
+      logoBaseUrl: logoBaseUrl,
+    );
   }
 
   final Connection _connection;
+  final String _logoBaseUrl;
 
   UserDbClient get user => UserDbClient(connection: _connection);
   NewsDbClient get news => NewsDbClient(connection: _connection);
-  SponsorDbClient get sponsor => SponsorDbClient(connection: _connection);
+  SponsorDbClient get sponsor => SponsorDbClient(
+    connection: _connection,
+    logoBaseUrl: _logoBaseUrl,
+  );
   TicketTypeDbClient get ticketType =>
       TicketTypeDbClient(connection: _connection);
   TicketOptionDbClient get ticketOption =>

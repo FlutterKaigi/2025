@@ -17,7 +17,7 @@ _CompanySponsorDetail _$CompanySponsorDetailFromJson(
     final val = _CompanySponsorDetail(
       id: $checkedConvert('id', (v) => (v as num).toInt()),
       name: $checkedConvert('name', (v) => v as String),
-      logoName: $checkedConvert('logo_name', (v) => v as String),
+      logoUrl: $checkedConvert('logo_url', (v) => v as String),
       slug: $checkedConvert('slug', (v) => v as String),
       prText: $checkedConvert('pr_text', (v) => v as String),
       websiteUrl: $checkedConvert('website_url', (v) => v as String),
@@ -41,7 +41,7 @@ _CompanySponsorDetail _$CompanySponsorDetailFromJson(
     return val;
   },
   fieldKeyMap: const {
-    'logoName': 'logo_name',
+    'logoUrl': 'logo_url',
     'prText': 'pr_text',
     'websiteUrl': 'website_url',
     'sponsorType': 'sponsor_type',
@@ -55,7 +55,7 @@ Map<String, dynamic> _$CompanySponsorDetailToJson(
 ) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
-  'logo_name': instance.logoName,
+  'logo_url': instance.logoUrl,
   'slug': instance.slug,
   'pr_text': instance.prText,
   'website_url': instance.websiteUrl,
@@ -98,13 +98,13 @@ _IndividualSponsorDetail _$IndividualSponsorDetailFromJson(
       id: $checkedConvert('id', (v) => (v as num).toInt()),
       name: $checkedConvert('name', (v) => v as String),
       slug: $checkedConvert('slug', (v) => v as String),
-      logoName: $checkedConvert('logo_name', (v) => v as String),
+      logoUrl: $checkedConvert('logo_url', (v) => v as String),
       enthusiasm: $checkedConvert('enthusiasm', (v) => v as String?),
       xAccount: $checkedConvert('x_account', (v) => v as String?),
     );
     return val;
   },
-  fieldKeyMap: const {'logoName': 'logo_name', 'xAccount': 'x_account'},
+  fieldKeyMap: const {'logoUrl': 'logo_url', 'xAccount': 'x_account'},
 );
 
 Map<String, dynamic> _$IndividualSponsorDetailToJson(
@@ -113,7 +113,7 @@ Map<String, dynamic> _$IndividualSponsorDetailToJson(
   'id': instance.id,
   'name': instance.name,
   'slug': instance.slug,
-  'logo_name': instance.logoName,
+  'logo_url': instance.logoUrl,
   'enthusiasm': instance.enthusiasm,
   'x_account': instance.xAccount,
 };

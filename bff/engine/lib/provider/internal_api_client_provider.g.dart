@@ -93,7 +93,7 @@ final class InternalApiDioProvider extends $FunctionalProvider<Dio, Dio, Dio>
   }
 }
 
-String _$internalApiDioHash() => r'40aad04a40987a302a0815abd3e0cc796a4b97a3';
+String _$internalApiDioHash() => r'c56bc408ceb637a8ce11d968dd7a5201abad44b0';
 
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

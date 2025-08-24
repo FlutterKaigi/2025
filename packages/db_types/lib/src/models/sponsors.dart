@@ -10,7 +10,7 @@ abstract class CompanySponsorDetail with _$CompanySponsorDetail {
   const factory CompanySponsorDetail({
     required int id,
     required String name,
-    required String logoName,
+    required String logoUrl,
     required String slug,
     required String prText,
     required String websiteUrl,
@@ -30,7 +30,7 @@ abstract class IndividualSponsorDetail with _$IndividualSponsorDetail {
     required int id,
     required String name,
     required String slug,
-    required String logoName,
+    required String logoUrl,
     String? enthusiasm,
     String? xAccount,
   }) = _IndividualSponsorDetail;
