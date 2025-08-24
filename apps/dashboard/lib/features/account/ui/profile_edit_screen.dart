@@ -1,6 +1,7 @@
+import 'package:dashboard/features/account/data/model/sns_link_form_data.dart';
 import 'package:dashboard/features/account/provider/profile_provider.dart';
 import 'package:dashboard/features/account/ui/component/account_circle_image.dart';
-import 'package:db_types/db_types.dart';
+import 'package:dashboard/features/account/ui/component/sns_link_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -18,134 +19,22 @@ class ProfileEditScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     final formKey = useMemoized(GlobalKey<FormState>.new);
     final nameController = useTextEditingController();
     final commentController = useTextEditingController();
-    final formState = useState(const ProfileFormState());
-
-    // 画面表示時にプロファイル情報を取得
-    useEffect(() {
-      ref.read(profileNotifierProvider.notifier).fetchProfile();
-      return null;
-    }, []);
+    final snsLinksState = useState<List<SnsLinkFormData>>([]);
+    final isAdultState = useState(false);
 
     final profileAsync = ref.watch(profileNotifierProvider);
-
-    // フォーム状態更新のヘルパー関数
-    void updateFormState(ProfileFormState Function(ProfileFormState) updater) {
-      formState.value = updater(formState.value);
-    }
-
-    void updateName(String name) {
-      updateFormState((state) => state.copyWith(name: name));
-    }
-
-    void updateComment(String comment) {
-      updateFormState((state) => state.copyWith(comment: comment));
-    }
-
-    void updateIsAdult(bool isAdult) {
-      updateFormState((state) => state.copyWith(isAdult: isAdult));
-    }
-
-    void addSnsLink() {
-      updateFormState((state) {
-        final newLinks = List<SnsLinkFormState>.from(state.snsLinks)
-          ..add(const SnsLinkFormState());
-        return state.copyWith(snsLinks: newLinks);
-      });
-    }
-
-    void removeSnsLink(int index) {
-      updateFormState((state) {
-        final newLinks = List<SnsLinkFormState>.from(state.snsLinks)
-          ..removeAt(index);
-        return state.copyWith(snsLinks: newLinks);
-      });
-    }
-
-    void updateSnsLink(int index, SnsLinkFormState linkState) {
-      updateFormState((state) {
-        final newLinks = List<SnsLinkFormState>.from(state.snsLinks);
-        newLinks[index] = linkState;
-        return state.copyWith(snsLinks: newLinks);
-      });
-    }
-
-    Future<void> saveProfile() async {
-      if (!formKey.currentState!.validate()) {
-        return;
-      }
-
-      try {
-        final request = createRequestFromFormState(formState.value);
-        await ref.read(profileNotifierProvider.notifier).updateProfile(request);
-
-        if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('プロファイルを更新しました')),
-          );
-          Navigator.of(context).pop();
-        }
-      } catch (e) {
-        if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('更新に失敗しました: $e')),
-          );
-        }
-      }
-    }
-
-    Future<void> uploadAvatar() async {
-      // TODO: ファイル選択とアップロード処理を実装
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('アバターアップロード機能は準備中です')),
-      );
-    }
-
-    Future<void> deleteAvatar() async {
-      final confirmed = await showDialog<bool>(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: const Text('アバター削除'),
-          content: const Text('アバター画像を削除しますか？'),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(false),
-              child: const Text('キャンセル'),
-            ),
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(true),
-              child: const Text('削除'),
-            ),
-          ],
-        ),
-      );
-
-      if (confirmed ?? false) {
-        try {
-          await ref.read(profileNotifierProvider.notifier).deleteAvatar();
-          if (context.mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('アバターを削除しました')),
-            );
-          }
-        } catch (e) {
-          if (context.mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('削除に失敗しました: $e')),
-            );
-          }
-        }
-      }
-    }
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('プロフィール編集'),
         actions: [
           TextButton(
-            onPressed: saveProfile,
+            onPressed: () {},
             child: const Text('保存'),
           ),
         ],
@@ -158,8 +47,7 @@ class ProfileEditScreen extends HookConsumerWidget {
             children: [
               Text('エラーが発生しました: $error'),
               ElevatedButton(
-                onPressed: () =>
-                    ref.read(profileNotifierProvider.notifier).fetchProfile(),
+                onPressed: () => ref.invalidate(profileNotifierProvider),
                 child: const Text('再試行'),
               ),
             ],
@@ -172,7 +60,6 @@ class ProfileEditScreen extends HookConsumerWidget {
               if (nameController.text.isEmpty) {
                 nameController.text = profile.profile.name;
                 commentController.text = profile.profile.comment;
-                formState.value = createFormStateFromProfile(profile);
               }
               return null;
             }, [profile]);
@@ -188,25 +75,21 @@ class ProfileEditScreen extends HookConsumerWidget {
                     if (!profile.canEditNameplate &&
                         profile.nameplateNote != null)
                       Card(
-                        color: Theme.of(
-                          context,
-                        ).colorScheme.secondary.withOpacity(0.1),
+                        color: colorScheme.secondary.withValues(alpha: 0.1),
                         child: Padding(
                           padding: const EdgeInsets.all(16),
                           child: Row(
                             children: [
                               Icon(
                                 Icons.warning,
-                                color: Theme.of(context).colorScheme.secondary,
+                                color: colorScheme.secondary,
                               ),
                               const SizedBox(width: 8),
                               Expanded(
                                 child: Text(
                                   profile.nameplateNote!,
                                   style: TextStyle(
-                                    color: Theme.of(
-                                      context,
-                                    ).colorScheme.onSecondaryContainer,
+                                    color: colorScheme.onSecondaryContainer,
                                   ),
                                 ),
                               ),
@@ -230,13 +113,13 @@ class ProfileEditScreen extends HookConsumerWidget {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               TextButton.icon(
-                                onPressed: uploadAvatar,
+                                onPressed: () {},
                                 icon: const Icon(Icons.upload),
                                 label: const Text('アップロード'),
                               ),
                               if (profile.profile.avatarKey != null)
                                 TextButton.icon(
-                                  onPressed: deleteAvatar,
+                                  onPressed: () {},
                                   icon: const Icon(Icons.delete),
                                   label: const Text('削除'),
                                 ),
@@ -260,7 +143,7 @@ class ProfileEditScreen extends HookConsumerWidget {
                         }
                         return null;
                       },
-                      onChanged: updateName,
+                      onChanged: (value) {},
                     ),
                     const SizedBox(height: 16),
 
@@ -283,15 +166,17 @@ class ProfileEditScreen extends HookConsumerWidget {
                         }
                         return null;
                       },
-                      onChanged: updateComment,
+                      onChanged: (value) {},
                     ),
                     const SizedBox(height: 16),
 
                     // 成人確認
                     CheckboxListTile(
                       title: const Text('20歳以上です'),
-                      value: formState.value.isAdult,
-                      onChanged: (value) => updateIsAdult(value ?? false),
+                      value: isAdultState.value,
+                      onChanged: (value) {
+                        isAdultState.value = value ?? false;
+                      },
                       controlAffinity: ListTileControlAffinity.leading,
                     ),
                     const SizedBox(height: 24),
@@ -308,7 +193,12 @@ class ProfileEditScreen extends HookConsumerWidget {
                         ),
                         const Spacer(),
                         TextButton.icon(
-                          onPressed: addSnsLink,
+                          onPressed: () {
+                            snsLinksState.value = [
+                              ...snsLinksState.value,
+                              const SnsLinkFormData(),
+                            ];
+                          },
                           icon: const Icon(Icons.add),
                           label: const Text('追加'),
                         ),
@@ -317,14 +207,22 @@ class ProfileEditScreen extends HookConsumerWidget {
                     const SizedBox(height: 8),
 
                     // SNSリンクリスト
-                    ...formState.value.snsLinks.asMap().entries.map((entry) {
+                    ...snsLinksState.value.asMap().entries.map((entry) {
                       final index = entry.key;
                       final link = entry.value;
-                      return _SnsLinkForm(
+                      return SnsLinkForm(
                         key: ValueKey(index),
                         snsLink: link,
-                        onChanged: (newLink) => updateSnsLink(index, newLink),
-                        onRemove: () => removeSnsLink(index),
+                        onChanged: (newLink) {
+                          final newList = [...snsLinksState.value];
+                          newList[index] = newLink;
+                          snsLinksState.value = newList;
+                        },
+                        onRemove: () {
+                          final newList = [...snsLinksState.value];
+                          newList.removeAt(index);
+                          snsLinksState.value = newList;
+                        },
                       );
                     }),
                   ],
@@ -337,187 +235,5 @@ class ProfileEditScreen extends HookConsumerWidget {
         },
       ),
     );
-  }
-}
-
-class _SnsLinkForm extends StatefulWidget {
-  const _SnsLinkForm({
-    required this.snsLink,
-    required this.onChanged,
-    required this.onRemove,
-    super.key,
-  });
-
-  final SnsLinkFormState snsLink;
-  final ValueChanged<SnsLinkFormState> onChanged;
-  final VoidCallback onRemove;
-
-  @override
-  State<_SnsLinkForm> createState() => _SnsLinkFormState();
-}
-
-class _SnsLinkFormState extends State<_SnsLinkForm> {
-  late TextEditingController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = TextEditingController(text: widget.snsLink.value);
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: DropdownButtonFormField<SnsType>(
-                    value: widget.snsLink.snsType,
-                    decoration: const InputDecoration(
-                      labelText: 'SNSタイプ',
-                      border: OutlineInputBorder(),
-                    ),
-                    items: SnsType.values.map((type) {
-                      return DropdownMenuItem(
-                        value: type,
-                        child: Text(_getSnsTypeDisplayName(type)),
-                      );
-                    }).toList(),
-                    onChanged: (value) {
-                      widget.onChanged(widget.snsLink.copyWith(snsType: value));
-                    },
-                  ),
-                ),
-                const SizedBox(width: 8),
-                IconButton(
-                  onPressed: widget.onRemove,
-                  icon: const Icon(Icons.delete),
-                ),
-              ],
-            ),
-            const SizedBox(height: 12),
-            TextFormField(
-              controller: _controller,
-              decoration: InputDecoration(
-                labelText: 'URL/ユーザーID',
-                border: const OutlineInputBorder(),
-                helperText: _getHelperText(widget.snsLink.snsType),
-              ),
-              validator: (value) {
-                if (value == null || value.trim().isEmpty) {
-                  return 'URL/ユーザーIDを入力してください';
-                }
-
-                final snsType = widget.snsLink.snsType;
-                if (snsType != null) {
-                  final validationError = _validateSnsValue(
-                    snsType,
-                    value.trim(),
-                  );
-                  if (validationError != null) {
-                    return validationError;
-                  }
-                }
-
-                return null;
-              },
-              onChanged: (value) {
-                widget.onChanged(widget.snsLink.copyWith(value: value));
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  String _getSnsTypeDisplayName(SnsType type) {
-    switch (type) {
-      case SnsType.github:
-        return 'GitHub';
-      case SnsType.x:
-        return 'X (Twitter)';
-      case SnsType.discord:
-        return 'Discord';
-      case SnsType.medium:
-        return 'Medium';
-      case SnsType.qiita:
-        return 'Qiita';
-      case SnsType.zenn:
-        return 'Zenn';
-      case SnsType.note:
-        return 'note';
-      case SnsType.other:
-        return 'その他';
-    }
-  }
-
-  String? _getHelperText(SnsType? type) {
-    if (type == null) return null;
-
-    switch (type) {
-      case SnsType.github:
-        return '例: octocat または https://github.com/octocat';
-      case SnsType.x:
-        return '例: twitter または https://x.com/twitter';
-      case SnsType.discord:
-        return '例: 123456789012345678 (ユーザーID)';
-      case SnsType.medium:
-        return '例: username または https://medium.com/@username';
-      case SnsType.qiita:
-        return '例: username または https://qiita.com/username';
-      case SnsType.zenn:
-        return '例: username または https://zenn.dev/username';
-      case SnsType.note:
-        return '例: username または https://note.com/username';
-      case SnsType.other:
-        return '完全なURLを入力してください';
-    }
-  }
-
-  String? _validateSnsValue(SnsType type, String value) {
-    // URLが入力された場合はそのまま通す
-    if (value.startsWith('http://') || value.startsWith('https://')) {
-      try {
-        Uri.parse(value);
-        return null;
-      } catch (e) {
-        return '有効なURLを入力してください';
-      }
-    }
-
-    // ユーザーIDの形式チェック
-    switch (type) {
-      case SnsType.github:
-      case SnsType.x:
-      case SnsType.medium:
-      case SnsType.qiita:
-      case SnsType.zenn:
-      case SnsType.note:
-        // 英数字、アンダースコア、ハイフンのみ許可
-        if (!RegExp(r'^[a-zA-Z0-9_-]+$').hasMatch(value)) {
-          return '英数字、アンダースコア、ハイフンのみ使用可能です';
-        }
-      case SnsType.discord:
-        // DiscordユーザーIDは数字のみ（通常18桁）
-        if (!RegExp(r'^\d{17,19}$').hasMatch(value)) {
-          return 'DiscordユーザーIDは17-19桁の数字である必要があります';
-        }
-      case SnsType.other:
-        // その他の場合はURLである必要がある
-        return 'その他の場合は完全なURLを入力してください';
-    }
-
-    return null;
   }
 }

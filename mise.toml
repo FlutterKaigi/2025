@@ -2,7 +2,7 @@
 "aqua:suzuki-shunsuke/tfcmt" = "4.14.7"
 bun = "1.2.19"
 dprint = "0.50.1"
-flutter = "3.33.0-0.1.pre-beta"
+flutter = "3.36.0-0.1.pre-beta"
 node = "24.4.0"
 stripe = "latest"
 terraform = "1.12.2"

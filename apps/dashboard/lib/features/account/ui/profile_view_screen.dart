@@ -21,10 +21,6 @@ class _ProfileViewScreenState extends ConsumerState<ProfileViewScreen> {
   @override
   void initState() {
     super.initState();
-    // 画面表示時にプロファイル情報を取得
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(profileNotifierProvider.notifier).fetchProfile();
-    });
   }
 
   @override
@@ -63,8 +59,7 @@ class _ProfileViewScreenState extends ConsumerState<ProfileViewScreen> {
               Text('$error'),
               const SizedBox(height: 16),
               ElevatedButton(
-                onPressed: () =>
-                    ref.read(profileNotifierProvider.notifier).fetchProfile(),
+                onPressed: () => ref.invalidate(profileNotifierProvider),
                 child: const Text('再試行'),
               ),
             ],

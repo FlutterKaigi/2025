@@ -12,12 +12,12 @@ dependencies:
   freezed_annotation: ^3.0.0
   retrofit: ^4.4.2
   # https://github.com/supabase/supabase-flutter/pull/1196 を含む安定版リリース待ち
-  supabase_flutter: 2.9.0
+  supabase_flutter: ^2.9.1
 
 dev_dependencies:
   altive_lints: ^1.19.1
   build_runner: ^2.4.15
-  custom_lint: ^0.7.5
+  custom_lint: ^0.8.0
   flutterkaigi_lints:
     path: ../flutterkaigi_lints
   freezed: ^3.0.6
