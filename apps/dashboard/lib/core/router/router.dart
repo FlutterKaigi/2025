@@ -123,7 +123,7 @@ class LoginRoute extends GoRouteData with _$LoginRoute {
     TypedStatefulShellBranch<AccountBranch>(routes: _accountRoutes),
   ],
 )
-class MainRoute extends StatefulShellRouteData with _$MainRoute {
+class MainRoute extends StatefulShellRouteData {
   const MainRoute();
 
   @override

@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:bff_client/bff_client.dart';
@@ -59,6 +60,9 @@ class ProfileNotifier extends _$ProfileNotifier {
       ),
     );
     final preSignedUrl = presignedUrlResponse.data;
+    log(preSignedUrl.toString());
+
+    throw UnimplementedError();
 
     // TODO(YumNumm): Upload file using presigned url
   }
