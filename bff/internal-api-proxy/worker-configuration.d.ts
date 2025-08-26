@@ -7,6 +7,7 @@ declare namespace Cloudflare {
 		X_API_KEY: string;
 		PAYMENT_WORKFLOW_INTERNAL_API: Fetcher /* payment-workflow-internal-api-staging */;
 		STRIPE_INTERNAL_API: Fetcher /* stripe-internal-api-staging */;
+		R2_INTERNAL_API: Fetcher /* r2-internal-api-staging */;
 	}
 }
 interface CloudflareBindings extends Cloudflare.Env {}

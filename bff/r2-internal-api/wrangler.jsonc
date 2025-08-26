@@ -1,0 +1,41 @@
+{
+  "$schema": "https://unpkg.com/wrangler@latest/config-schema.json",
+  "name": "r2-internal-api",
+  "account_id": "cdd8f59359fe226645e7b541cdc53b57",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-07-15",
+  "observability": {
+    "enabled": true,
+  },
+  "compatibility_flags": ["nodejs_compat"],
+  "env": {
+    "staging": {
+      "workers_dev": false,
+      "vars": {
+        "ENVIRONMENT": "staging",
+        "R2_BUCKET_NAME": "flutterkaigi-2025-staging",
+        "R2_ENDPOINT": "https://cdd8f59359fe226645e7b541cdc53b57.r2.cloudflarestorage.com",
+      },
+      "r2_buckets": [
+        {
+          "binding": "R2_BUCKET",
+          "bucket_name": "flutterkaigi-2025-staging",
+        },
+      ],
+    },
+    "production": {
+      "workers_dev": false,
+      "vars": {
+        "ENVIRONMENT": "production",
+        "R2_BUCKET_NAME": "flutterkaigi-2025-production",
+        "R2_ENDPOINT": "https://cdd8f59359fe226645e7b541cdc53b57.r2.cloudflarestorage.com",
+      },
+      "r2_buckets": [
+        {
+          "binding": "R2_BUCKET",
+          "bucket_name": "flutterkaigi-2025-production",
+        },
+      ],
+    },
+  },
+}
