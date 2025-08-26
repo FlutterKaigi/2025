@@ -23,7 +23,7 @@ class SponsorBranch extends StatefulShellBranchData {
   ];
 }
 
-class SponsorListRoute extends GoRouteData {
+class SponsorListRoute extends GoRouteData with _$SponsorListRoute {
   const SponsorListRoute();
 
   @override
@@ -31,7 +31,7 @@ class SponsorListRoute extends GoRouteData {
       const SponsorListScreen();
 }
 
-class SponsorDetailRoute extends GoRouteData {
+class SponsorDetailRoute extends GoRouteData with _$SponsorDetailRoute {
   const SponsorDetailRoute({required this.slug});
 
   final String slug;
@@ -41,7 +41,7 @@ class SponsorDetailRoute extends GoRouteData {
       SponsorDetailScreen(slug: slug);
 }
 
-class SponsorEditRoute extends GoRouteData {
+class SponsorEditRoute extends GoRouteData with _$SponsorEditRoute {
   const SponsorEditRoute({required this.slug});
 
   final String slug;

@@ -55,7 +55,35 @@ class _TicketOptionSelectorState extends State<TicketOptionSelector> {
             const SizedBox(height: 12),
 
             // 選択UI（オプションの種類に応じて動的に変更）
-            _buildOptionSelector(),
+            () {
+              // オプション名に基づいて適切なUIを選択
+              final optionName = widget.option.name.toLowerCase();
+
+              if (optionName.contains('懇親会') || optionName.contains('パーティー')) {
+                return _YesNoSelector(
+                  selectedValue: _selectedValue,
+                  onChanged: _updateSelection,
+                );
+              } else if (optionName.contains('サイズ') ||
+                  optionName.contains('size')) {
+                return _SizeSelector(
+                  selectedValue: _selectedValue,
+                  onChanged: _updateSelection,
+                );
+              } else if (optionName.contains('食事') ||
+                  optionName.contains('meal')) {
+                return _MealSelector(
+                  selectedValue: _selectedValue,
+                  onChanged: _updateSelection,
+                );
+              } else {
+                // デフォルトは Yes/No 選択
+                return _YesNoSelector(
+                  selectedValue: _selectedValue,
+                  onChanged: _updateSelection,
+                );
+              }
+            }(),
 
             // 在庫制限情報（ある場合）
             if (widget.option.maxQuantity != null) ...[
@@ -82,62 +110,89 @@ class _TicketOptionSelectorState extends State<TicketOptionSelector> {
     );
   }
 
-  Widget _buildOptionSelector() {
-    // オプション名に基づいて適切なUIを選択
-    final optionName = widget.option.name.toLowerCase();
-
-    if (optionName.contains('懇親会') || optionName.contains('パーティー')) {
-      return _buildYesNoSelector();
-    } else if (optionName.contains('サイズ') || optionName.contains('size')) {
-      return _buildSizeSelector();
-    } else if (optionName.contains('食事') || optionName.contains('meal')) {
-      return _buildMealSelector();
-    } else {
-      // デフォルトは Yes/No 選択
-      return _buildYesNoSelector();
-    }
+  void _updateSelection(String? value) {
+    setState(() {
+      _selectedValue = value;
+    });
+    widget.onChanged(value);
   }
+}
 
-  Widget _buildYesNoSelector() {
+/// Yes/No選択用のプライベートWidget
+class _YesNoSelector extends StatelessWidget {
+  const _YesNoSelector({
+    required this.selectedValue,
+    required this.onChanged,
+  });
+
+  final String? selectedValue;
+  final ValueChanged<String?> onChanged;
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       children: [
         RadioListTile<String>(
           title: const Text('参加する'),
           value: 'yes',
-          groupValue: _selectedValue,
-          onChanged: _updateSelection,
+          groupValue: selectedValue,
+          onChanged: onChanged,
           contentPadding: EdgeInsets.zero,
         ),
         RadioListTile<String>(
           title: const Text('参加しない'),
           value: 'no',
-          groupValue: _selectedValue,
-          onChanged: _updateSelection,
+          groupValue: selectedValue,
+          onChanged: onChanged,
           contentPadding: EdgeInsets.zero,
         ),
       ],
     );
   }
+}
 
-  Widget _buildSizeSelector() {
+/// サイズ選択用のプライベートWidget
+class _SizeSelector extends StatelessWidget {
+  const _SizeSelector({
+    required this.selectedValue,
+    required this.onChanged,
+  });
+
+  final String? selectedValue;
+  final ValueChanged<String?> onChanged;
+
+  @override
+  Widget build(BuildContext context) {
     const sizes = ['S', 'M', 'L', 'XL'];
 
     return Wrap(
       spacing: 8,
       children: sizes.map((size) {
-        final isSelected = _selectedValue == size;
+        final isSelected = selectedValue == size;
         return ChoiceChip(
           label: Text(size),
           selected: isSelected,
           onSelected: (selected) {
-            _updateSelection(selected ? size : null);
+            onChanged(selected ? size : null);
           },
         );
       }).toList(),
     );
   }
+}
 
-  Widget _buildMealSelector() {
+/// 食事選択用のプライベートWidget
+class _MealSelector extends StatelessWidget {
+  const _MealSelector({
+    required this.selectedValue,
+    required this.onChanged,
+  });
+
+  final String? selectedValue;
+  final ValueChanged<String?> onChanged;
+
+  @override
+  Widget build(BuildContext context) {
     const meals = [
       {'value': 'normal', 'label': '通常食'},
       {'value': 'vegetarian', 'label': 'ベジタリアン'},
@@ -150,18 +205,11 @@ class _TicketOptionSelectorState extends State<TicketOptionSelector> {
         return RadioListTile<String>(
           title: Text(meal['label']!),
           value: meal['value']!,
-          groupValue: _selectedValue,
-          onChanged: _updateSelection,
+          groupValue: selectedValue,
+          onChanged: onChanged,
           contentPadding: EdgeInsets.zero,
         );
       }).toList(),
     );
-  }
-
-  void _updateSelection(String? value) {
-    setState(() {
-      _selectedValue = value;
-    });
-    widget.onChanged(value);
   }
 }

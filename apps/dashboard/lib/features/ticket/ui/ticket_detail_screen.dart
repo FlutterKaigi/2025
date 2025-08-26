@@ -331,7 +331,7 @@ class TicketDetailScreen extends ConsumerWidget {
   Future<void> _handlePurchase(BuildContext context, WidgetRef ref) async {
     final ticketDetailAsync = ref.read(ticketDetailProvider(ticketTypeId));
 
-    ticketDetailAsync.when(
+    return ticketDetailAsync.when(
       data: (ticketDetail) async {
         // 購入確認Sheetを表示
         await showCheckoutSummarySheet(

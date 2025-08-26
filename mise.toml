@@ -1,8 +1,8 @@
 [tools]
 "aqua:suzuki-shunsuke/tfcmt" = "4.14.7"
-bun = "1.2.19"
+bun = "1.2.21"
 dprint = "0.50.1"
-flutter = "3.33.0-0.1.pre-beta"
+flutter = "3.36.0-0.1.pre-beta"
 node = "24.4.0"
 rclone = "1.70.3"
 stripe = "latest"

@@ -8,4 +8,4 @@ environment:
 
 dev_dependencies:
   altive_lints: ^1.19.1
-  custom_lint: ^0.7.5
+  custom_lint: ^0.8.0

@@ -21,7 +21,7 @@ class TicketBranch extends StatefulShellBranchData {
   ];
 }
 
-class TicketListRoute extends GoRouteData {
+class TicketListRoute extends GoRouteData with _$TicketListRoute {
   const TicketListRoute();
 
   @override
@@ -29,7 +29,7 @@ class TicketListRoute extends GoRouteData {
       const TicketListScreen();
 }
 
-class TicketDetailRoute extends GoRouteData {
+class TicketDetailRoute extends GoRouteData with _$TicketDetailRoute {
   const TicketDetailRoute({required this.ticketTypeId});
 
   final String ticketTypeId;
@@ -39,7 +39,7 @@ class TicketDetailRoute extends GoRouteData {
       TicketDetailScreen(ticketTypeId: ticketTypeId);
 }
 
-class OwnedTicketsRoute extends GoRouteData {
+class OwnedTicketsRoute extends GoRouteData with _$OwnedTicketsRoute {
   const OwnedTicketsRoute();
 
   @override

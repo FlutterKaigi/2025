@@ -16,7 +16,7 @@ dependencies:
 dev_dependencies:
   altive_lints: ^1.19.1
   build_runner: ^2.4.15
-  custom_lint: ^0.7.5
+  custom_lint: ^0.8.0
   flutterkaigi_lints:
     path: ../flutterkaigi_lints
   freezed: ^3.0.6

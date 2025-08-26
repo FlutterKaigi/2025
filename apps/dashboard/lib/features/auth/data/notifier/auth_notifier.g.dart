@@ -76,7 +76,7 @@ final class _AuthStateChangeStreamProvider
       );
 
   @override
-  String debugGetCreateSourceHash() => _$authStateChangeStreamHash();
+  String debugGetCreateSourceHash() => _$_authStateChangeStreamHash();
 
   @$internal
   @override
@@ -90,7 +90,7 @@ final class _AuthStateChangeStreamProvider
   }
 }
 
-String _$authStateChangeStreamHash() =>
+String _$_authStateChangeStreamHash() =>
     r'1e3091507c1ddb2585f5f27a981ca3186392932b';
 
 // ignore_for_file: type=lint

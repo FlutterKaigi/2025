@@ -1,0 +1,125 @@
+import 'dart:convert';
+
+import 'package:bff_client/bff_client.dart';
+import 'package:db_types/db_types.dart';
+import 'package:engine/main.dart';
+import 'package:engine/provider/db_client_provider.dart';
+import 'package:engine/provider/supabase_util.dart';
+import 'package:engine/util/exception_handler.dart';
+import 'package:engine/util/json_response.dart';
+import 'package:shelf/shelf.dart';
+import 'package:shelf_router/shelf_router.dart';
+
+part 'profile_api_service.g.dart';
+
+class ProfileApiService {
+  @Route.get('/me')
+  Future<Response> _getMyProfile(Request request) async => jsonResponse(
+    () async {
+      final supabaseUtil = container.read(supabaseUtilProvider);
+      final userResult = await supabaseUtil.extractUser(request);
+      final (_, user, _) = userResult.unwrap;
+
+      final database = await container.read(dbClientProvider.future);
+
+      final profileWithSns = await database.profile.getProfileWithSnsLinks(
+        user.id,
+      );
+      if (profileWithSns == null) {
+        throw ErrorResponse.errorCode(
+          code: ErrorCode.notFound,
+          detail: 'プロファイルが見つかりません',
+        );
+      }
+
+      // ネームプレート変更可能かどうかの判定
+      final profileCreatedAt = profileWithSns.profile.createdAt;
+      // TODO(YumNumm): 日付を設定する
+      const nameplateDeadline = '2025-02-01T00:00:00Z';
+      final deadline = DateTime.parse(nameplateDeadline);
+      final canEditNameplate = profileCreatedAt.isAfter(deadline);
+
+      final response = ProfileResponse(
+        profile: profileWithSns.profile,
+        snsLinks: profileWithSns.snsLinks,
+        canEditNameplate: canEditNameplate,
+        nameplateNote: canEditNameplate
+            ? null
+            : 'このアカウントは$nameplateDeadline以前に作成されたため、ネームプレートに印刷済みの情報は変更できません。',
+      );
+      return response.toJson();
+    },
+  );
+
+  @Route.put('/me')
+  Future<Response> _updateMyProfile(Request request) async => jsonResponse(
+    () async {
+      final supabaseUtil = container.read(supabaseUtilProvider);
+      final userResult = await supabaseUtil.extractUser(request);
+      final (_, user, _) = userResult.unwrap;
+
+      final body =
+          jsonDecode(await request.readAsString()) as Map<String, dynamic>;
+      final updateRequest = ProfileUpdateRequest.fromJson(body);
+      final database = await container.read(dbClientProvider.future);
+
+      // バリデーション
+      if (updateRequest.comment != null &&
+          updateRequest.comment!.length > 100) {
+        throw ErrorResponse.errorCode(
+          code: ErrorCode.badRequest,
+          detail: 'コメントは100文字以内で入力してください',
+        );
+      }
+
+      // プロファイル更新データを作成
+      final profileData = ProfileUpdateData(
+        name: updateRequest.name,
+        comment: updateRequest.comment,
+        isAdult: updateRequest.isAdult,
+        updatedAt: DateTime.now(),
+      );
+
+      // プロファイルを更新
+      final updatedProfile = await database.profile.updateProfile(
+        user.id,
+        profileData,
+      );
+
+      // SNSリンクを更新
+      final snsLinksData = updateRequest.snsLinks;
+      if (snsLinksData != null) {
+        final linksToReplace = snsLinksData
+            .map(
+              (link) => SnsLinkData(
+                snsType: link.snsType,
+                value: link.value.trim(),
+              ),
+            )
+            .toList();
+
+        await database.profile.replaceSnsLinks(user.id, linksToReplace);
+      }
+
+      return updatedProfile.toJson();
+    },
+  );
+
+  @Route.delete('/me/avatar')
+  Future<Response> _deleteMyAvatar(Request request) async => exceptionHandler(
+    () async {
+        final supabaseUtil = container.read(supabaseUtilProvider);
+        final userResult = await supabaseUtil.extractUser(request);
+        final (_, user, _) = userResult.unwrap;
+
+        final database = await container.read(dbClientProvider.future);
+
+        await database.profile.deleteAvatar(user.id);
+
+        // TODO: 実際のファイル削除処理を実装
+        return Response(204);
+    }
+  );
+
+  Router get router => _$ProfileApiServiceRouter(this);
+}
