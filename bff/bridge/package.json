@@ -11,13 +11,13 @@
     "cf-typegen": "wrangler types --env-interface CloudflareBindings -e staging"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.1.2",
-    "@types/pg": "^8.15.2",
-    "typescript": "^5.8.3",
-    "wrangler": "^4.32.0"
+    "@biomejs/biome": "2.2.2",
+    "@types/pg": "^8.15.5",
+    "typescript": "^5.9.2",
+    "wrangler": "^4.33.0"
   },
   "dependencies": {
-    "@cloudflare/containers": "^0.0.25",
-    "pg": "^8.16.0"
+    "@cloudflare/containers": "^0.0.26",
+    "pg": "^8.16.3"
   }
 }
