@@ -14,7 +14,6 @@
       "vars": {
         "ENVIRONMENT": "staging",
         "R2_BUCKET_NAME": "flutterkaigi-2025-staging",
-        "R2_ENDPOINT": "https://cdd8f59359fe226645e7b541cdc53b57.r2.cloudflarestorage.com",
       },
       "r2_buckets": [
         {
@@ -28,7 +27,6 @@
       "vars": {
         "ENVIRONMENT": "production",
         "R2_BUCKET_NAME": "flutterkaigi-2025-production",
-        "R2_ENDPOINT": "https://cdd8f59359fe226645e7b541cdc53b57.r2.cloudflarestorage.com",
       },
       "r2_buckets": [
         {
