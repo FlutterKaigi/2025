@@ -2,11 +2,13 @@ import 'dart:convert';
 
 import 'package:bff_client/bff_client.dart';
 import 'package:db_types/db_types.dart';
+import 'package:dio/dio.dart' as dio;
 import 'package:engine/main.dart';
 import 'package:engine/provider/db_client_provider.dart';
 import 'package:engine/provider/supabase_util.dart';
 import 'package:engine/util/exception_handler.dart';
 import 'package:engine/util/json_response.dart';
+import 'package:internal_api_client/internal_api_client.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 
@@ -106,20 +108,61 @@ class ProfileApiService {
   );
 
   @Route.delete('/me/avatar')
-  Future<Response> _deleteMyAvatar(Request request) async => exceptionHandler(
-    () async {
-        final supabaseUtil = container.read(supabaseUtilProvider);
-        final userResult = await supabaseUtil.extractUser(request);
-        final (_, user, _) = userResult.unwrap;
+  Future<Response> _deleteMyAvatar(
+    Request request,
+  ) async => exceptionHandler(() async {
+    final supabaseUtil = container.read(supabaseUtilProvider);
+    final userResult = await supabaseUtil.extractUser(request);
+    final (_, user, _) = userResult.unwrap;
 
-        final database = await container.read(dbClientProvider.future);
+    final database = await container.read(dbClientProvider.future);
 
-        await database.profile.deleteAvatar(user.id);
-
-        // TODO: 実際のファイル削除処理を実装
-        return Response(204);
+    // 現在のプロファイル情報を取得してアバターURLを確認
+    final profileWithSns = await database.profile.getProfileWithSnsLinks(
+      user.id,
+    );
+    if (profileWithSns == null) {
+      throw ErrorResponse.errorCode(
+        code: ErrorCode.notFound,
+        detail: 'プロファイルが見つかりません',
+      );
     }
-  );
+
+    final profile = profileWithSns.profile;
+
+    // アバターURLからR2のキーを抽出
+    if (profile.avatarKey != null && profile.avatarKey!.isNotEmpty) {
+      try {
+        final avatarKey = profile.avatarKey!;
+
+        // R2 Internal APIクライアントを作成
+        final dioClient = dio.Dio();
+        dioClient.options.baseUrl =
+            'https://flutter-kaigi-2025-internal-api-proxy.ryo-onoue.workers.dev';
+        final internalApiClient = InternalApiClient(dio: dioClient);
+
+        // R2からファイルを削除
+        final deleteResponse = await internalApiClient.r2InternalApi.r2Api
+            .deleteObject(
+              request: DeleteObjectRequest(key: avatarKey),
+            );
+
+        if (deleteResponse.response.statusCode != 200 ||
+            !deleteResponse.data.success) {
+          // R2削除に失敗してもDBの削除は続行する（オーファンファイルになってもアバターは削除される）
+          print('R2からのファイル削除に失敗しました: ${deleteResponse.response.statusCode}');
+        }
+      } catch (e) {
+        // R2削除に失敗してもDBの削除は続行する
+        print('R2からのファイル削除中にエラーが発生しました: $e');
+      }
+    }
+
+    // データベースからアバター情報を削除
+    await database.profile.deleteAvatar(user.id);
+
+    return Response(204);
+  });
 
   Router get router => _$ProfileApiServiceRouter(this);
 }

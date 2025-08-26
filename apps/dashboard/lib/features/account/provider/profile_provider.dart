@@ -55,15 +55,14 @@ class ProfileNotifier extends _$ProfileNotifier {
     final client = ref.read(bffClientProvider);
     // get presigned url
     final presignedUrlResponse = await client.v1.profile.getAvatarUploadUrl(
-      request: const FilesUploadRequest(
+      request: FilesUploadRequest(
         variant: FileVariant.avatar,
+        contentLength: bytes.length,
       ),
     );
     final preSignedUrl = presignedUrlResponse.data;
     log(preSignedUrl.toString());
 
-    throw UnimplementedError();
-
-    // TODO(YumNumm): Upload file using presigned url
+    
   }
 }
