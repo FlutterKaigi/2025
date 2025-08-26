@@ -1,0 +1,41 @@
+{
+  "$schema": "https://unpkg.com/wrangler@latest/config-schema.json",
+  "name": "r2-internal-api",
+  "account_id": "cdd8f59359fe226645e7b541cdc53b57",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-07-15",
+  "observability": {
+    "enabled": true,
+  },
+  "compatibility_flags": ["nodejs_compat"],
+  "env": {
+    "staging": {
+      "workers_dev": false,
+      "vars": {
+        "ENVIRONMENT": "staging",
+        "R2_BUCKET_NAME": "2025-staging",
+        "CLOUDFLARE_ACCOUNT_ID": "cdd8f59359fe226645e7b541cdc53b57"
+      },
+      "r2_buckets": [
+        {
+          "binding": "R2_BUCKET",
+          "bucket_name": "2025-staging",
+        },
+      ],
+    },
+    "production": {
+      "workers_dev": false,
+      "vars": {
+        "ENVIRONMENT": "production",
+        "R2_BUCKET_NAME": "2025-production",
+        "CLOUDFLARE_ACCOUNT_ID": "cdd8f59359fe226645e7b541cdc53b57"
+      },
+      "r2_buckets": [
+        {
+          "binding": "R2_BUCKET",
+          "bucket_name": "2025-production",
+        },
+      ],
+    },
+  },
+}
