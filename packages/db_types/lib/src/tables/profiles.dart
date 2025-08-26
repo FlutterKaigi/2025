@@ -55,4 +55,3 @@ abstract class SnsAccount with _$SnsAccount {
   factory SnsAccount.fromJson(Map<String, dynamic> json) =>
       _$SnsAccountFromJson(json);
 }
-

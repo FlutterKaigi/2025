@@ -16,4 +16,3 @@ abstract class ProfileResponse with _$ProfileResponse {
   factory ProfileResponse.fromJson(Map<String, dynamic> json) =>
       _$ProfileResponseFromJson(json);
 }
-

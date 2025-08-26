@@ -15,4 +15,3 @@ abstract class ProfileWithSnsLinks with _$ProfileWithSnsLinks {
   factory ProfileWithSnsLinks.fromJson(Map<String, dynamic> json) =>
       _$ProfileWithSnsLinksFromJson(json);
 }
-
