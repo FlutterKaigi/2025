@@ -24,14 +24,13 @@ class FilesApiService {
         jsonDecode(await request.readAsString()) as Map<String, dynamic>;
     final uploadRequest = FilesUploadRequest.fromJson(body);
 
-    // ファイルの拡張子とMIMEタイプを決定（アバターの場合はJPEG/PNG/WEBPを想定）
     const extension = 'webp';
     const mimeType = 'image/webp';
-    final contentLength = uploadRequest.contentLength;
     const expiresIn = 60 * 5; // 5m
 
-    const maxContentLength = 5 * 1024 * 1024; // 5MB
-    if (contentLength > maxContentLength) {
+    final contentLength = uploadRequest.contentLength;
+    const contentLengthLimit = 5 * 1024 * 1024; // 5MB
+    if (contentLength > contentLengthLimit) {
       throw ErrorResponse.errorCode(
         code: ErrorCode.badRequest,
         detail: 'ファイルサイズが5MBを超えています',

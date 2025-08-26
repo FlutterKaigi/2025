@@ -87,5 +87,14 @@ Future<shelf.Response> exceptionHandler(
       ).toJson(),
       HttpStatus.internalServerError,
     );
+    // ignore: unused_catch_clause, avoid_catching_errors
+  } on ParallelWaitError<dynamic, dynamic> catch (e) {
+    return jsonResponse(
+      () async => ErrorResponse.errorCode(
+        code: ErrorCode.internalServerError,
+        detail: 'ParallelWaitError: ${e.runtimeType} $e',
+      ).toJson(),
+      HttpStatus.internalServerError,
+    );
   }
 }

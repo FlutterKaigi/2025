@@ -46,29 +46,3 @@ Map<String, dynamic> _$ProfilesToJson(_Profiles instance) => <String, dynamic>{
   'created_at': const RequiredDateTimeConverter().toJson(instance.createdAt),
   'updated_at': const RequiredDateTimeConverter().toJson(instance.updatedAt),
 };
-
-_SnsAccount _$SnsAccountFromJson(Map<String, dynamic> json) =>
-    $checkedCreate('_SnsAccount', json, ($checkedConvert) {
-      final val = _SnsAccount(
-        type: $checkedConvert('type', (v) => $enumDecode(_$SnsTypeEnumMap, v)),
-        link: $checkedConvert('link', (v) => Uri.parse(v as String)),
-      );
-      return val;
-    });
-
-Map<String, dynamic> _$SnsAccountToJson(_SnsAccount instance) =>
-    <String, dynamic>{
-      'type': _$SnsTypeEnumMap[instance.type]!,
-      'link': instance.link.toString(),
-    };
-
-const _$SnsTypeEnumMap = {
-  SnsType.github: 'github',
-  SnsType.x: 'x',
-  SnsType.discord: 'discord',
-  SnsType.medium: 'medium',
-  SnsType.qiita: 'qiita',
-  SnsType.zenn: 'zenn',
-  SnsType.note: 'note',
-  SnsType.other: 'other',
-};

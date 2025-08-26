@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ProfileUpdateRequest {
 
- String? get name; String? get comment; bool? get isAdult; List<SnsLinkRequest>? get snsLinks;
+ String? get name; String? get comment; bool? get isAdult; List<SnsLinkData>? get snsLinks;
 /// Create a copy of ProfileUpdateRequest
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $ProfileUpdateRequestCopyWith<$Res>  {
   factory $ProfileUpdateRequestCopyWith(ProfileUpdateRequest value, $Res Function(ProfileUpdateRequest) _then) = _$ProfileUpdateRequestCopyWithImpl;
 @useResult
 $Res call({
- String? name, String? comment, bool? isAdult, List<SnsLinkRequest>? snsLinks
+ String? name, String? comment, bool? isAdult, List<SnsLinkData>? snsLinks
 });
 
 
@@ -71,7 +71,7 @@ name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullab
 as String?,comment: freezed == comment ? _self.comment : comment // ignore: cast_nullable_to_non_nullable
 as String?,isAdult: freezed == isAdult ? _self.isAdult : isAdult // ignore: cast_nullable_to_non_nullable
 as bool?,snsLinks: freezed == snsLinks ? _self.snsLinks : snsLinks // ignore: cast_nullable_to_non_nullable
-as List<SnsLinkRequest>?,
+as List<SnsLinkData>?,
   ));
 }
 
@@ -156,7 +156,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? name,  String? comment,  bool? isAdult,  List<SnsLinkRequest>? snsLinks)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? name,  String? comment,  bool? isAdult,  List<SnsLinkData>? snsLinks)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ProfileUpdateRequest() when $default != null:
 return $default(_that.name,_that.comment,_that.isAdult,_that.snsLinks);case _:
@@ -177,7 +177,7 @@ return $default(_that.name,_that.comment,_that.isAdult,_that.snsLinks);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? name,  String? comment,  bool? isAdult,  List<SnsLinkRequest>? snsLinks)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? name,  String? comment,  bool? isAdult,  List<SnsLinkData>? snsLinks)  $default,) {final _that = this;
 switch (_that) {
 case _ProfileUpdateRequest():
 return $default(_that.name,_that.comment,_that.isAdult,_that.snsLinks);case _:
@@ -197,7 +197,7 @@ return $default(_that.name,_that.comment,_that.isAdult,_that.snsLinks);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? name,  String? comment,  bool? isAdult,  List<SnsLinkRequest>? snsLinks)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? name,  String? comment,  bool? isAdult,  List<SnsLinkData>? snsLinks)?  $default,) {final _that = this;
 switch (_that) {
 case _ProfileUpdateRequest() when $default != null:
 return $default(_that.name,_that.comment,_that.isAdult,_that.snsLinks);case _:
@@ -212,14 +212,14 @@ return $default(_that.name,_that.comment,_that.isAdult,_that.snsLinks);case _:
 @JsonSerializable()
 
 class _ProfileUpdateRequest implements ProfileUpdateRequest {
-  const _ProfileUpdateRequest({this.name, this.comment, this.isAdult, final  List<SnsLinkRequest>? snsLinks}): _snsLinks = snsLinks;
+  const _ProfileUpdateRequest({this.name, this.comment, this.isAdult, final  List<SnsLinkData>? snsLinks}): _snsLinks = snsLinks;
   factory _ProfileUpdateRequest.fromJson(Map<String, dynamic> json) => _$ProfileUpdateRequestFromJson(json);
 
 @override final  String? name;
 @override final  String? comment;
 @override final  bool? isAdult;
- final  List<SnsLinkRequest>? _snsLinks;
-@override List<SnsLinkRequest>? get snsLinks {
+ final  List<SnsLinkData>? _snsLinks;
+@override List<SnsLinkData>? get snsLinks {
   final value = _snsLinks;
   if (value == null) return null;
   if (_snsLinks is EqualUnmodifiableListView) return _snsLinks;
@@ -261,7 +261,7 @@ abstract mixin class _$ProfileUpdateRequestCopyWith<$Res> implements $ProfileUpd
   factory _$ProfileUpdateRequestCopyWith(_ProfileUpdateRequest value, $Res Function(_ProfileUpdateRequest) _then) = __$ProfileUpdateRequestCopyWithImpl;
 @override @useResult
 $Res call({
- String? name, String? comment, bool? isAdult, List<SnsLinkRequest>? snsLinks
+ String? name, String? comment, bool? isAdult, List<SnsLinkData>? snsLinks
 });
 
 
@@ -284,7 +284,7 @@ name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullab
 as String?,comment: freezed == comment ? _self.comment : comment // ignore: cast_nullable_to_non_nullable
 as String?,isAdult: freezed == isAdult ? _self.isAdult : isAdult // ignore: cast_nullable_to_non_nullable
 as bool?,snsLinks: freezed == snsLinks ? _self._snsLinks : snsLinks // ignore: cast_nullable_to_non_nullable
-as List<SnsLinkRequest>?,
+as List<SnsLinkData>?,
   ));
 }
 

@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SnsLinkData {
 
-@JsonKey(name: 'sns_type') String get snsType; String get value;
+ SnsType get snsType; String get value;
 /// Create a copy of SnsLinkData
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $SnsLinkDataCopyWith<$Res>  {
   factory $SnsLinkDataCopyWith(SnsLinkData value, $Res Function(SnsLinkData) _then) = _$SnsLinkDataCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(name: 'sns_type') String snsType, String value
+ SnsType snsType, String value
 });
 
 
@@ -68,7 +68,7 @@ class _$SnsLinkDataCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') @override $Res call({Object? snsType = null,Object? value = null,}) {
   return _then(_self.copyWith(
 snsType: null == snsType ? _self.snsType : snsType // ignore: cast_nullable_to_non_nullable
-as String,value: null == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
+as SnsType,value: null == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }
@@ -154,7 +154,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'sns_type')  String snsType,  String value)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( SnsType snsType,  String value)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SnsLinkData() when $default != null:
 return $default(_that.snsType,_that.value);case _:
@@ -175,7 +175,7 @@ return $default(_that.snsType,_that.value);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'sns_type')  String snsType,  String value)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( SnsType snsType,  String value)  $default,) {final _that = this;
 switch (_that) {
 case _SnsLinkData():
 return $default(_that.snsType,_that.value);case _:
@@ -195,7 +195,7 @@ return $default(_that.snsType,_that.value);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'sns_type')  String snsType,  String value)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( SnsType snsType,  String value)?  $default,) {final _that = this;
 switch (_that) {
 case _SnsLinkData() when $default != null:
 return $default(_that.snsType,_that.value);case _:
@@ -210,10 +210,10 @@ return $default(_that.snsType,_that.value);case _:
 @JsonSerializable()
 
 class _SnsLinkData implements SnsLinkData {
-  const _SnsLinkData({@JsonKey(name: 'sns_type') required this.snsType, required this.value});
+  const _SnsLinkData({required this.snsType, required this.value});
   factory _SnsLinkData.fromJson(Map<String, dynamic> json) => _$SnsLinkDataFromJson(json);
 
-@override@JsonKey(name: 'sns_type') final  String snsType;
+@override final  SnsType snsType;
 @override final  String value;
 
 /// Create a copy of SnsLinkData
@@ -249,7 +249,7 @@ abstract mixin class _$SnsLinkDataCopyWith<$Res> implements $SnsLinkDataCopyWith
   factory _$SnsLinkDataCopyWith(_SnsLinkData value, $Res Function(_SnsLinkData) _then) = __$SnsLinkDataCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(name: 'sns_type') String snsType, String value
+ SnsType snsType, String value
 });
 
 
@@ -269,7 +269,7 @@ class __$SnsLinkDataCopyWithImpl<$Res>
 @override @pragma('vm:prefer-inline') $Res call({Object? snsType = null,Object? value = null,}) {
   return _then(_SnsLinkData(
 snsType: null == snsType ? _self.snsType : snsType // ignore: cast_nullable_to_non_nullable
-as String,value: null == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
+as SnsType,value: null == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }

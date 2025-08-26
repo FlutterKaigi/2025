@@ -9,7 +9,7 @@ class SnsLinkCard extends StatelessWidget {
     super.key,
   });
 
-  final SnsAccount snsAccount;
+  final SnsLinkData snsAccount;
 
   @override
   Widget build(BuildContext context) {
@@ -18,17 +18,17 @@ class SnsLinkCard extends StatelessWidget {
     return Card(
       child: ListTile(
         leading: Icon(
-          _getSnsIcon(snsAccount.type),
-          color: _getSnsColor(snsAccount.type, colorScheme),
+          _getSnsIcon(snsAccount.snsType),
+          color: _getSnsColor(snsAccount.snsType, colorScheme),
         ),
-        title: Text(_getSnsTypeDisplayName(snsAccount.type)),
+        title: Text(_getSnsTypeDisplayName(snsAccount.snsType)),
         subtitle: Text(
-          snsAccount.link.toString(),
+          snsAccount.value,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),
         trailing: const Icon(Icons.open_in_new),
-        onTap: () => _launchUrl(snsAccount.link),
+        onTap: () => _launchUrl(Uri.parse(snsAccount.value)),
       ),
     );
   }
@@ -128,7 +128,11 @@ class SnsLinksList extends StatelessWidget {
 
     return Column(
       children: snsLinks
-          .map((link) => SnsLinkCard(snsAccount: link.toSnsAccount()))
+          .map(
+            (link) => SnsLinkCard(
+              snsAccount: SnsLinkData(snsType: link.snsType, value: link.value),
+            ),
+          )
           .toList(),
     );
   }

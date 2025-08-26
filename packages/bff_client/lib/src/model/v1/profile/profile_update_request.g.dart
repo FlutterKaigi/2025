@@ -21,7 +21,7 @@ _ProfileUpdateRequest _$ProfileUpdateRequestFromJson(
       snsLinks: $checkedConvert(
         'sns_links',
         (v) => (v as List<dynamic>?)
-            ?.map((e) => SnsLinkRequest.fromJson(e as Map<String, dynamic>))
+            ?.map((e) => SnsLinkData.fromJson(e as Map<String, dynamic>))
             .toList(),
       ),
     );

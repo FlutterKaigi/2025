@@ -1,8 +1,9 @@
--- [user_id]のSNSアカウントを更新する関数
--- [sns_accounts]はJSONB型の配列で、各要素は以下のような形式です。
--- {type: sns_type, value: string}[]
--- 実行すると、既存のSNSアカウント登録は削除され、全てのSNSアカウントが新しいものに更新されます。
-CREATE OR REPLACE FUNCTION public.replace_user_sns_links (user_id uuid, sns_accounts jsonb) returns void language plpgsql AS $$
+set check_function_bodies = off;
+
+CREATE OR REPLACE FUNCTION public.replace_user_sns_links(user_id uuid, sns_accounts jsonb)
+ RETURNS void
+ LANGUAGE plpgsql
+AS $function$
 BEGIN
   -- 既存のSNSアカウント情報を削除
   DELETE FROM public.user_sns_links WHERE user_sns_links.user_id = replace_user_sns_links.user_id;
@@ -21,4 +22,7 @@ BEGIN
     WHERE trim(j->>'value') != '';
   END IF;
 END;
-$$;
+$function$
+;
+
+

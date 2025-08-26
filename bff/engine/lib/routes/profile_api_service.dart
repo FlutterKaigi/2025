@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:bff_client/bff_client.dart';
 import 'package:db_types/db_types.dart';
-import 'package:dio/dio.dart' as dio;
 import 'package:engine/main.dart';
 import 'package:engine/provider/db_client_provider.dart';
+import 'package:engine/provider/internal_api_client_provider.dart';
 import 'package:engine/provider/supabase_util.dart';
 import 'package:engine/util/exception_handler.dart';
 import 'package:engine/util/json_response.dart';
@@ -83,7 +83,7 @@ class ProfileApiService {
       );
 
       // プロファイルを更新
-      final updatedProfile = await database.profile.updateProfile(
+      final updatedProfile = await database.profile.upsertProfile(
         user.id,
         profileData,
       );
@@ -135,12 +135,7 @@ class ProfileApiService {
       try {
         final avatarKey = profile.avatarKey!;
 
-        // R2 Internal APIクライアントを作成
-        final dioClient = dio.Dio();
-        dioClient.options.baseUrl =
-            'https://flutter-kaigi-2025-internal-api-proxy.ryo-onoue.workers.dev';
-        final internalApiClient = InternalApiClient(dio: dioClient);
-
+        final internalApiClient = container.read(internalApiClientProvider);
         // R2からファイルを削除
         final deleteResponse = await internalApiClient.r2InternalApi.r2Api
             .deleteObject(
@@ -149,18 +144,23 @@ class ProfileApiService {
 
         if (deleteResponse.response.statusCode != 200 ||
             !deleteResponse.data.success) {
-          // R2削除に失敗してもDBの削除は続行する（オーファンファイルになってもアバターは削除される）
           print('R2からのファイル削除に失敗しました: ${deleteResponse.response.statusCode}');
+          throw ErrorResponse.errorCode(
+            code: ErrorCode.internalServerError,
+            detail: 'R2からのファイル削除に失敗しました',
+          );
         }
-      } catch (e) {
-        // R2削除に失敗してもDBの削除は続行する
+
+        // データベースからアバター情報を削除
+        await database.profile.deleteAvatar(user.id);
+      } on Exception catch (e) {
         print('R2からのファイル削除中にエラーが発生しました: $e');
+        throw ErrorResponse.errorCode(
+          code: ErrorCode.internalServerError,
+          detail: 'R2からのファイル削除中にエラーが発生しました',
+        );
       }
     }
-
-    // データベースからアバター情報を削除
-    await database.profile.deleteAvatar(user.id);
-
     return Response(204);
   });
 
