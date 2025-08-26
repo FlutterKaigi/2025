@@ -1,5 +1,5 @@
 import 'package:db_types/src/converters/date_time_converter.dart';
-import 'package:db_types/src/tables/profiles.dart';
+import 'package:db_types/src/request/sns_link_data.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'user_sns_links.freezed.dart';
@@ -18,14 +18,4 @@ abstract class UserSnsLinks with _$UserSnsLinks {
 
   factory UserSnsLinks.fromJson(Map<String, dynamic> json) =>
       _$UserSnsLinksFromJson(json);
-}
-
-extension UserSnsLinksExtension on UserSnsLinks {
-  /// UserSnsLinksからSnsAccountに変換
-  SnsAccount toSnsAccount() {
-    return SnsAccount(
-      type: snsType,
-      link: snsType.toUri(value),
-    );
-  }
 }

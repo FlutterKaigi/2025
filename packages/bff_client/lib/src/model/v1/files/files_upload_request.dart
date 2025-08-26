@@ -7,6 +7,7 @@ part 'files_upload_request.g.dart';
 abstract class FilesUploadRequest with _$FilesUploadRequest {
   const factory FilesUploadRequest({
     required FileVariant variant,
+    required int contentLength,
   }) = _FilesUploadRequest;
 
   factory FilesUploadRequest.fromJson(Map<String, dynamic> json) =>

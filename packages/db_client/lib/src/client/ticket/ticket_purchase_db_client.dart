@@ -15,7 +15,7 @@ class TicketPurchaseDbClient {
   ) async {
     final result = await _connection.execute(
       Sql.named('''
-        SELECT *
+        SELECT *, status::text AS "status"
         FROM ticket_purchases
         WHERE user_id = @userId AND ticket_type_id = @ticketTypeId
         ORDER BY created_at DESC
@@ -38,7 +38,7 @@ class TicketPurchaseDbClient {
   ) async {
     final result = await _connection.execute(
       Sql.named('''
-        SELECT *
+        SELECT *, status::text AS "status"
         FROM ticket_purchases
         WHERE user_id = @userId
         ORDER BY created_at DESC

@@ -6,10 +6,22 @@ part 'sns_link_data.g.dart';
 @freezed
 abstract class SnsLinkData with _$SnsLinkData {
   const factory SnsLinkData({
-    @JsonKey(name: 'sns_type') required String snsType,
+    required SnsType snsType,
     required String value,
   }) = _SnsLinkData;
 
   factory SnsLinkData.fromJson(Map<String, dynamic> json) =>
       _$SnsLinkDataFromJson(json);
+}
+
+
+enum SnsType {
+  github,
+  x,
+  discord,
+  medium,
+  qiita,
+  zenn,
+  note,
+  other,
 }

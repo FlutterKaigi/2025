@@ -1,4 +1,4 @@
-import 'package:dashboard/features/account/provider/profile_provider.dart';
+import 'package:dashboard/features/account/data/provider/profile_provider.dart';
 import 'package:dashboard/features/account/ui/component/account_circle_image.dart';
 import 'package:dashboard/features/account/ui/component/sns_link_card.dart';
 import 'package:flutter/material.dart';
@@ -10,21 +10,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// - ユーザーのプロファイル情報を表示する
 /// - SNSリンクを表示する
 /// - 編集画面への遷移を提供する
-class ProfileViewScreen extends ConsumerStatefulWidget {
+class ProfileViewScreen extends HookConsumerWidget {
   const ProfileViewScreen({super.key});
 
   @override
-  ConsumerState<ProfileViewScreen> createState() => _ProfileViewScreenState();
-}
-
-class _ProfileViewScreenState extends ConsumerState<ProfileViewScreen> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final profileAsync = ref.watch(profileNotifierProvider);
 
     return Scaffold(
@@ -84,11 +74,12 @@ class _ProfileViewScreenState extends ConsumerState<ProfileViewScreen> {
                   const SizedBox(height: 8),
                   const Text('プロファイル情報を作成してください'),
                   const SizedBox(height: 16),
-                  ElevatedButton(
+                  ElevatedButton.icon(
                     onPressed: () => Navigator.of(
                       context,
                     ).pushNamed('/account/profile-edit'),
-                    child: const Text('プロファイルを作成'),
+                    icon: const Icon(Icons.edit),
+                    label: const Text('プロファイルを編集'),
                   ),
                 ],
               ),

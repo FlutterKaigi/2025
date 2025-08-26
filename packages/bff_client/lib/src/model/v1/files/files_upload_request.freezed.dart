@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$FilesUploadRequest {
 
- FileVariant get variant;
+ FileVariant get variant; int get contentLength;
 /// Create a copy of FilesUploadRequest
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $FilesUploadRequestCopyWith<FilesUploadRequest> get copyWith => _$FilesUploadReq
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FilesUploadRequest&&(identical(other.variant, variant) || other.variant == variant));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FilesUploadRequest&&(identical(other.variant, variant) || other.variant == variant)&&(identical(other.contentLength, contentLength) || other.contentLength == contentLength));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,variant);
+int get hashCode => Object.hash(runtimeType,variant,contentLength);
 
 @override
 String toString() {
-  return 'FilesUploadRequest(variant: $variant)';
+  return 'FilesUploadRequest(variant: $variant, contentLength: $contentLength)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $FilesUploadRequestCopyWith<$Res>  {
   factory $FilesUploadRequestCopyWith(FilesUploadRequest value, $Res Function(FilesUploadRequest) _then) = _$FilesUploadRequestCopyWithImpl;
 @useResult
 $Res call({
- FileVariant variant
+ FileVariant variant, int contentLength
 });
 
 
@@ -65,10 +65,11 @@ class _$FilesUploadRequestCopyWithImpl<$Res>
 
 /// Create a copy of FilesUploadRequest
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? variant = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? variant = null,Object? contentLength = null,}) {
   return _then(_self.copyWith(
 variant: null == variant ? _self.variant : variant // ignore: cast_nullable_to_non_nullable
-as FileVariant,
+as FileVariant,contentLength: null == contentLength ? _self.contentLength : contentLength // ignore: cast_nullable_to_non_nullable
+as int,
   ));
 }
 
@@ -153,10 +154,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( FileVariant variant)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( FileVariant variant,  int contentLength)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _FilesUploadRequest() when $default != null:
-return $default(_that.variant);case _:
+return $default(_that.variant,_that.contentLength);case _:
   return orElse();
 
 }
@@ -174,10 +175,10 @@ return $default(_that.variant);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( FileVariant variant)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( FileVariant variant,  int contentLength)  $default,) {final _that = this;
 switch (_that) {
 case _FilesUploadRequest():
-return $default(_that.variant);case _:
+return $default(_that.variant,_that.contentLength);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -194,10 +195,10 @@ return $default(_that.variant);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( FileVariant variant)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( FileVariant variant,  int contentLength)?  $default,) {final _that = this;
 switch (_that) {
 case _FilesUploadRequest() when $default != null:
-return $default(_that.variant);case _:
+return $default(_that.variant,_that.contentLength);case _:
   return null;
 
 }
@@ -209,10 +210,11 @@ return $default(_that.variant);case _:
 @JsonSerializable()
 
 class _FilesUploadRequest implements FilesUploadRequest {
-  const _FilesUploadRequest({required this.variant});
+  const _FilesUploadRequest({required this.variant, required this.contentLength});
   factory _FilesUploadRequest.fromJson(Map<String, dynamic> json) => _$FilesUploadRequestFromJson(json);
 
 @override final  FileVariant variant;
+@override final  int contentLength;
 
 /// Create a copy of FilesUploadRequest
 /// with the given fields replaced by the non-null parameter values.
@@ -227,16 +229,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FilesUploadRequest&&(identical(other.variant, variant) || other.variant == variant));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FilesUploadRequest&&(identical(other.variant, variant) || other.variant == variant)&&(identical(other.contentLength, contentLength) || other.contentLength == contentLength));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,variant);
+int get hashCode => Object.hash(runtimeType,variant,contentLength);
 
 @override
 String toString() {
-  return 'FilesUploadRequest(variant: $variant)';
+  return 'FilesUploadRequest(variant: $variant, contentLength: $contentLength)';
 }
 
 
@@ -247,7 +249,7 @@ abstract mixin class _$FilesUploadRequestCopyWith<$Res> implements $FilesUploadR
   factory _$FilesUploadRequestCopyWith(_FilesUploadRequest value, $Res Function(_FilesUploadRequest) _then) = __$FilesUploadRequestCopyWithImpl;
 @override @useResult
 $Res call({
- FileVariant variant
+ FileVariant variant, int contentLength
 });
 
 
@@ -264,10 +266,11 @@ class __$FilesUploadRequestCopyWithImpl<$Res>
 
 /// Create a copy of FilesUploadRequest
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? variant = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? variant = null,Object? contentLength = null,}) {
   return _then(_FilesUploadRequest(
 variant: null == variant ? _self.variant : variant // ignore: cast_nullable_to_non_nullable
-as FileVariant,
+as FileVariant,contentLength: null == contentLength ? _self.contentLength : contentLength // ignore: cast_nullable_to_non_nullable
+as int,
   ));
 }
 

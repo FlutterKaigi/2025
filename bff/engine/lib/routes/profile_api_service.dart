@@ -4,9 +4,11 @@ import 'package:bff_client/bff_client.dart';
 import 'package:db_types/db_types.dart';
 import 'package:engine/main.dart';
 import 'package:engine/provider/db_client_provider.dart';
+import 'package:engine/provider/internal_api_client_provider.dart';
 import 'package:engine/provider/supabase_util.dart';
 import 'package:engine/util/exception_handler.dart';
 import 'package:engine/util/json_response.dart';
+import 'package:internal_api_client/internal_api_client.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 
@@ -81,7 +83,7 @@ class ProfileApiService {
       );
 
       // プロファイルを更新
-      final updatedProfile = await database.profile.updateProfile(
+      final updatedProfile = await database.profile.upsertProfile(
         user.id,
         profileData,
       );
@@ -106,20 +108,61 @@ class ProfileApiService {
   );
 
   @Route.delete('/me/avatar')
-  Future<Response> _deleteMyAvatar(Request request) async => exceptionHandler(
-    () async {
-        final supabaseUtil = container.read(supabaseUtilProvider);
-        final userResult = await supabaseUtil.extractUser(request);
-        final (_, user, _) = userResult.unwrap;
+  Future<Response> _deleteMyAvatar(
+    Request request,
+  ) async => exceptionHandler(() async {
+    final supabaseUtil = container.read(supabaseUtilProvider);
+    final userResult = await supabaseUtil.extractUser(request);
+    final (_, user, _) = userResult.unwrap;
 
-        final database = await container.read(dbClientProvider.future);
+    final database = await container.read(dbClientProvider.future);
 
-        await database.profile.deleteAvatar(user.id);
-
-        // TODO: 実際のファイル削除処理を実装
-        return Response(204);
+    // 現在のプロファイル情報を取得してアバターURLを確認
+    final profileWithSns = await database.profile.getProfileWithSnsLinks(
+      user.id,
+    );
+    if (profileWithSns == null) {
+      throw ErrorResponse.errorCode(
+        code: ErrorCode.notFound,
+        detail: 'プロファイルが見つかりません',
+      );
     }
-  );
+
+    final profile = profileWithSns.profile;
+
+    // アバターURLからR2のキーを抽出
+    if (profile.avatarKey != null && profile.avatarKey!.isNotEmpty) {
+      try {
+        final avatarKey = profile.avatarKey!;
+
+        final internalApiClient = container.read(internalApiClientProvider);
+        // R2からファイルを削除
+        final deleteResponse = await internalApiClient.r2InternalApi.r2Api
+            .deleteObject(
+              request: DeleteObjectRequest(key: avatarKey),
+            );
+
+        if (deleteResponse.response.statusCode != 200 ||
+            !deleteResponse.data.success) {
+          print('R2からのファイル削除に失敗しました: ${deleteResponse.response.statusCode}');
+          throw ErrorResponse.errorCode(
+            code: ErrorCode.internalServerError,
+            detail: 'R2からのファイル削除に失敗しました',
+          );
+        }
+
+        // データベースからアバター情報を削除
+        await database.profile.deleteAvatar(user.id);
+      } on Exception catch (e) {
+        print('R2からのファイル削除中にエラーが発生しました: $e');
+        throw ErrorResponse.errorCode(
+          code: ErrorCode.internalServerError,
+          detail: 'R2からのファイル削除中にエラーが発生しました',
+        );
+      }
+    }
+    return Response(204);
+  });
 
   Router get router => _$ProfileApiServiceRouter(this);
 }

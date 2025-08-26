@@ -15,11 +15,18 @@ _FilesUploadRequest _$FilesUploadRequestFromJson(Map<String, dynamic> json) =>
           'variant',
           (v) => $enumDecode(_$FileVariantEnumMap, v),
         ),
+        contentLength: $checkedConvert(
+          'content_length',
+          (v) => (v as num).toInt(),
+        ),
       );
       return val;
-    });
+    }, fieldKeyMap: const {'contentLength': 'content_length'});
 
 Map<String, dynamic> _$FilesUploadRequestToJson(_FilesUploadRequest instance) =>
-    <String, dynamic>{'variant': _$FileVariantEnumMap[instance.variant]!};
+    <String, dynamic>{
+      'variant': _$FileVariantEnumMap[instance.variant]!,
+      'content_length': instance.contentLength,
+    };
 
 const _$FileVariantEnumMap = {FileVariant.avatar: 'avatar'};

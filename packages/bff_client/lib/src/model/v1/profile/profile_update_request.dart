@@ -1,4 +1,4 @@
-import 'package:bff_client/src/model/v1/profile/sns_link_request.dart';
+import 'package:db_types/db_types.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'profile_update_request.freezed.dart';
@@ -10,7 +10,7 @@ abstract class ProfileUpdateRequest with _$ProfileUpdateRequest {
     String? name,
     String? comment,
     bool? isAdult,
-    List<SnsLinkRequest>? snsLinks,
+    List<SnsLinkData>? snsLinks,
   }) = _ProfileUpdateRequest;
 
   factory ProfileUpdateRequest.fromJson(Map<String, dynamic> json) =>

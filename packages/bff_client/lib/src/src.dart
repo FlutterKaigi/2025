@@ -21,7 +21,6 @@ export 'model/v1/news/news_update_request.dart';
 export 'model/v1/profile/profile.dart';
 export 'model/v1/profile/profile_response.dart';
 export 'model/v1/profile/profile_update_request.dart';
-export 'model/v1/profile/sns_link_request.dart';
 export 'model/v1/tickets/ticket_checkout_request.dart';
 export 'model/v1/tickets/ticket_checkout_response.dart';
 export 'model/v1/tickets/ticket_checkout_session_response.dart';
