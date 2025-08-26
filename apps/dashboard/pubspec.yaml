@@ -55,3 +55,6 @@ flutter:
   generate: true
   assets:
     - res/assets/
+
+  config:
+   enable-swift-package-manager: true

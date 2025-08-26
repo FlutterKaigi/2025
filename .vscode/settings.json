@@ -7,7 +7,7 @@
   "mise.configureExtensionsAutomaticallyIgnoreList": ["dart-code.flutter"],
   "dprint.path": "~/.local/share/mise/shims/dprint",
   "bun.runtime": "${workspaceFolder}/.vscode/mise-tools/bun",
-  "dart.flutterSdkPath": "~/.local/share/mise/installs/flutter/3.33.0-0.1.pre-beta",
+  "dart.flutterSdkPath": "~/.local/share/mise/installs/flutter/3.36.0-0.1.pre-beta",
   "search.exclude": {
     "**/node_modules": true
   },
