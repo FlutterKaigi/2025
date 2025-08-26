@@ -2,8 +2,8 @@ name: flutterkaigi_2025
 publish_to: none
 
 environment:
-  sdk: ^3.9.0-100.2.beta
-  flutter: ^3.33.0-0.1.pre
+  sdk: ^3.10.0-75.1.beta
+  flutter: ^3.36.0-0.1.pre
 
 dev_dependencies:
   melos: ^7.0.0
@@ -13,6 +13,8 @@ dependency_overrides:
   custom_lint_builder: ^0.8.0
   source_gen: ^3.0.0
   build: ^3.0.0
+  # https://github.com/supabase/supabase-flutter/pull/1196 を含む安定版リリース待ち
+  supabase_flutter: 2.9.0
 
 workspace:
   # apps
@@ -38,8 +40,8 @@ melos:
   command:
     bootstrap:
       environment:
-        sdk: ^3.9.0-100.2.beta
-        flutter: ^3.33.0-0.1.pre
+        sdk: ^3.10.0-75.1.beta
+        flutter: ^3.36.0-0.1.pre
       dependencies:
         flutter_localizations:
           sdk: flutter
