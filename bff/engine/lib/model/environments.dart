@@ -15,6 +15,7 @@ abstract class Environments with _$Environments {
     required String postgresUrl,
     required String internalApiUrl,
     required String xApiKey,
+    required String logoBaseUrl,
   }) = _Environments;
 
   const Environments._();

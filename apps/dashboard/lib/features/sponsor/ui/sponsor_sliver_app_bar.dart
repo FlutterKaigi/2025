@@ -99,6 +99,13 @@ class _SponsorFlexibleSpaceBackground extends StatelessWidget {
 
         return Stack(
           children: [
+            // 背景色
+            const Positioned.fill(
+              child: ColoredBox(
+                color: Colors.white,
+              ),
+            ),
+
             // 背景画像
             Positioned(
               top: parallax,
@@ -136,7 +143,7 @@ class _SponsorFlexibleSpaceBackground extends StatelessWidget {
             // 黒半透明オーバーレイ
             const Positioned.fill(
               child: ColoredBox(
-                color: Colors.black45,
+                color: Colors.black38,
               ),
             ),
           ],

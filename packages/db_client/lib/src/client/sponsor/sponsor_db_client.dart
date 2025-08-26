@@ -3,10 +3,14 @@ import 'package:db_types/db_types.dart';
 import 'package:postgres/postgres.dart';
 
 class SponsorDbClient {
-  const SponsorDbClient({required Connection connection})
-    : _connection = connection;
+  const SponsorDbClient({
+    required Connection connection,
+    required String logoBaseUrl,
+  }) : _connection = connection,
+       _logoBaseUrl = logoBaseUrl;
 
   final Connection _connection;
+  final String _logoBaseUrl;
 
   /// 企業スポンサーの詳細情報を取得
   Future<List<CompanySponsorDetail>> getCompanySponsors() async {
@@ -59,9 +63,13 @@ class SponsorDbClient {
       '''),
     );
 
-    return result
-        .map((e) => CompanySponsorDetail.fromJson(e.toColumnMapSafe()))
-        .toList();
+    return result.map((e) {
+      final json = e.toColumnMapSafe();
+      // ロゴ名をロゴURLに変換
+      final logoFileName = json['logo_name'] as String;
+      json['logo_url'] = '$_logoBaseUrl/companies/$logoFileName';
+      return CompanySponsorDetail.fromJson(json);
+    }).toList();
   }
 
   /// 個人スポンサーの詳細情報を取得
@@ -89,9 +97,13 @@ class SponsorDbClient {
       '''),
     );
 
-    return result
-        .map((e) => IndividualSponsorDetail.fromJson(e.toColumnMapSafe()))
-        .toList();
+    return result.map((e) {
+      final json = e.toColumnMapSafe();
+      // ロゴ名をロゴURLに変換
+      final logoFileName = json['logo_name'] as String;
+      json['logo_url'] = '$_logoBaseUrl/individuals/$logoFileName';
+      return IndividualSponsorDetail.fromJson(json);
+    }).toList();
   }
 
   /// スポンサー情報のサマリーを取得
