@@ -22,6 +22,10 @@
           "binding": "STRIPE_INTERNAL_API",
           "service": "stripe-internal-api-staging",
         },
+        {
+          "binding": "R2_INTERNAL_API",
+          "service": "r2-internal-api-staging",
+        },
       ],
     },
     "production": {
@@ -36,6 +40,10 @@
         {
           "binding": "STRIPE_INTERNAL_API",
           "service": "stripe-internal-api-production",
+        },
+        {
+          "binding": "R2_INTERNAL_API",
+          "service": "r2-internal-api-production",
         },
       ],
     },

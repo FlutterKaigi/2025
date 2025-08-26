@@ -37,6 +37,7 @@ const app = new Hono<{
         service: v.union([
           v.literal("payment-workflow-internal-api"),
           v.literal("stripe-internal-api"),
+          v.literal("r2-internal-api"),
         ]),
       })
     ),
@@ -57,6 +58,10 @@ const app = new Hono<{
         }
         case "stripe-internal-api": {
           fetcher = c.env.STRIPE_INTERNAL_API;
+          break;
+        }
+        case "r2-internal-api": {
+          fetcher = c.env.R2_INTERNAL_API;
           break;
         }
         default: {
