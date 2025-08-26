@@ -31,7 +31,7 @@ class _R2ApiClient implements R2ApiClient {
       Options(method: 'PUT', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/proxy/r2-internal-api/internal/r2/signed-url',
+            '/proxy/r2-internal-api/internal/r2/upload',
             queryParameters: queryParameters,
             data: _data,
           )

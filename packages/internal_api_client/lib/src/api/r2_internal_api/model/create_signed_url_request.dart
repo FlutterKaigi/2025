@@ -7,9 +7,9 @@ part 'create_signed_url_request.g.dart';
 abstract class CreateSignedUrlRequest with _$CreateSignedUrlRequest {
   const factory CreateSignedUrlRequest({
     required String key,
-    required int size,
+    required String extension,
+    required int contentLength,
     required String mimeType,
-    required String variant,
     required int expiresIn,
   }) = _CreateSignedUrlRequest;
 

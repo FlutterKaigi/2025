@@ -11,7 +11,7 @@ part 'r2_api_client.g.dart';
 abstract class R2ApiClient {
   factory R2ApiClient(Dio dio, {String baseUrl}) = _R2ApiClient;
 
-  @PUT('/proxy/r2-internal-api/internal/r2/signed-url')
+  @PUT('/proxy/r2-internal-api/internal/r2/upload')
   Future<HttpResponse<CreateSignedUrlResponse>> createSignedUrl({
     @Body() required CreateSignedUrlRequest request,
   });

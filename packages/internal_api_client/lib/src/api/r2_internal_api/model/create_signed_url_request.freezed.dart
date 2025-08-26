@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$CreateSignedUrlRequest {
 
- String get key; int get size; String get mimeType; String get variant; int get expiresIn;
+ String get key; String get extension; int get contentLength; String get mimeType; int get expiresIn;
 /// Create a copy of CreateSignedUrlRequest
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $CreateSignedUrlRequestCopyWith<CreateSignedUrlRequest> get copyWith => _$Create
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CreateSignedUrlRequest&&(identical(other.key, key) || other.key == key)&&(identical(other.size, size) || other.size == size)&&(identical(other.mimeType, mimeType) || other.mimeType == mimeType)&&(identical(other.variant, variant) || other.variant == variant)&&(identical(other.expiresIn, expiresIn) || other.expiresIn == expiresIn));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CreateSignedUrlRequest&&(identical(other.key, key) || other.key == key)&&(identical(other.extension, extension) || other.extension == extension)&&(identical(other.contentLength, contentLength) || other.contentLength == contentLength)&&(identical(other.mimeType, mimeType) || other.mimeType == mimeType)&&(identical(other.expiresIn, expiresIn) || other.expiresIn == expiresIn));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,key,size,mimeType,variant,expiresIn);
+int get hashCode => Object.hash(runtimeType,key,extension,contentLength,mimeType,expiresIn);
 
 @override
 String toString() {
-  return 'CreateSignedUrlRequest(key: $key, size: $size, mimeType: $mimeType, variant: $variant, expiresIn: $expiresIn)';
+  return 'CreateSignedUrlRequest(key: $key, extension: $extension, contentLength: $contentLength, mimeType: $mimeType, expiresIn: $expiresIn)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $CreateSignedUrlRequestCopyWith<$Res>  {
   factory $CreateSignedUrlRequestCopyWith(CreateSignedUrlRequest value, $Res Function(CreateSignedUrlRequest) _then) = _$CreateSignedUrlRequestCopyWithImpl;
 @useResult
 $Res call({
- String key, int size, String mimeType, String variant, int expiresIn
+ String key, String extension, int contentLength, String mimeType, int expiresIn
 });
 
 
@@ -65,12 +65,12 @@ class _$CreateSignedUrlRequestCopyWithImpl<$Res>
 
 /// Create a copy of CreateSignedUrlRequest
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? key = null,Object? size = null,Object? mimeType = null,Object? variant = null,Object? expiresIn = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? key = null,Object? extension = null,Object? contentLength = null,Object? mimeType = null,Object? expiresIn = null,}) {
   return _then(_self.copyWith(
 key: null == key ? _self.key : key // ignore: cast_nullable_to_non_nullable
-as String,size: null == size ? _self.size : size // ignore: cast_nullable_to_non_nullable
+as String,extension: null == extension ? _self.extension : extension // ignore: cast_nullable_to_non_nullable
+as String,contentLength: null == contentLength ? _self.contentLength : contentLength // ignore: cast_nullable_to_non_nullable
 as int,mimeType: null == mimeType ? _self.mimeType : mimeType // ignore: cast_nullable_to_non_nullable
-as String,variant: null == variant ? _self.variant : variant // ignore: cast_nullable_to_non_nullable
 as String,expiresIn: null == expiresIn ? _self.expiresIn : expiresIn // ignore: cast_nullable_to_non_nullable
 as int,
   ));
@@ -157,10 +157,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String key,  int size,  String mimeType,  String variant,  int expiresIn)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String key,  String extension,  int contentLength,  String mimeType,  int expiresIn)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CreateSignedUrlRequest() when $default != null:
-return $default(_that.key,_that.size,_that.mimeType,_that.variant,_that.expiresIn);case _:
+return $default(_that.key,_that.extension,_that.contentLength,_that.mimeType,_that.expiresIn);case _:
   return orElse();
 
 }
@@ -178,10 +178,10 @@ return $default(_that.key,_that.size,_that.mimeType,_that.variant,_that.expiresI
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String key,  int size,  String mimeType,  String variant,  int expiresIn)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String key,  String extension,  int contentLength,  String mimeType,  int expiresIn)  $default,) {final _that = this;
 switch (_that) {
 case _CreateSignedUrlRequest():
-return $default(_that.key,_that.size,_that.mimeType,_that.variant,_that.expiresIn);case _:
+return $default(_that.key,_that.extension,_that.contentLength,_that.mimeType,_that.expiresIn);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -198,10 +198,10 @@ return $default(_that.key,_that.size,_that.mimeType,_that.variant,_that.expiresI
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String key,  int size,  String mimeType,  String variant,  int expiresIn)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String key,  String extension,  int contentLength,  String mimeType,  int expiresIn)?  $default,) {final _that = this;
 switch (_that) {
 case _CreateSignedUrlRequest() when $default != null:
-return $default(_that.key,_that.size,_that.mimeType,_that.variant,_that.expiresIn);case _:
+return $default(_that.key,_that.extension,_that.contentLength,_that.mimeType,_that.expiresIn);case _:
   return null;
 
 }
@@ -213,13 +213,13 @@ return $default(_that.key,_that.size,_that.mimeType,_that.variant,_that.expiresI
 @JsonSerializable()
 
 class _CreateSignedUrlRequest implements CreateSignedUrlRequest {
-  const _CreateSignedUrlRequest({required this.key, required this.size, required this.mimeType, required this.variant, required this.expiresIn});
+  const _CreateSignedUrlRequest({required this.key, required this.extension, required this.contentLength, required this.mimeType, required this.expiresIn});
   factory _CreateSignedUrlRequest.fromJson(Map<String, dynamic> json) => _$CreateSignedUrlRequestFromJson(json);
 
 @override final  String key;
-@override final  int size;
+@override final  String extension;
+@override final  int contentLength;
 @override final  String mimeType;
-@override final  String variant;
 @override final  int expiresIn;
 
 /// Create a copy of CreateSignedUrlRequest
@@ -235,16 +235,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CreateSignedUrlRequest&&(identical(other.key, key) || other.key == key)&&(identical(other.size, size) || other.size == size)&&(identical(other.mimeType, mimeType) || other.mimeType == mimeType)&&(identical(other.variant, variant) || other.variant == variant)&&(identical(other.expiresIn, expiresIn) || other.expiresIn == expiresIn));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CreateSignedUrlRequest&&(identical(other.key, key) || other.key == key)&&(identical(other.extension, extension) || other.extension == extension)&&(identical(other.contentLength, contentLength) || other.contentLength == contentLength)&&(identical(other.mimeType, mimeType) || other.mimeType == mimeType)&&(identical(other.expiresIn, expiresIn) || other.expiresIn == expiresIn));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,key,size,mimeType,variant,expiresIn);
+int get hashCode => Object.hash(runtimeType,key,extension,contentLength,mimeType,expiresIn);
 
 @override
 String toString() {
-  return 'CreateSignedUrlRequest(key: $key, size: $size, mimeType: $mimeType, variant: $variant, expiresIn: $expiresIn)';
+  return 'CreateSignedUrlRequest(key: $key, extension: $extension, contentLength: $contentLength, mimeType: $mimeType, expiresIn: $expiresIn)';
 }
 
 
@@ -255,7 +255,7 @@ abstract mixin class _$CreateSignedUrlRequestCopyWith<$Res> implements $CreateSi
   factory _$CreateSignedUrlRequestCopyWith(_CreateSignedUrlRequest value, $Res Function(_CreateSignedUrlRequest) _then) = __$CreateSignedUrlRequestCopyWithImpl;
 @override @useResult
 $Res call({
- String key, int size, String mimeType, String variant, int expiresIn
+ String key, String extension, int contentLength, String mimeType, int expiresIn
 });
 
 
@@ -272,12 +272,12 @@ class __$CreateSignedUrlRequestCopyWithImpl<$Res>
 
 /// Create a copy of CreateSignedUrlRequest
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? key = null,Object? size = null,Object? mimeType = null,Object? variant = null,Object? expiresIn = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? key = null,Object? extension = null,Object? contentLength = null,Object? mimeType = null,Object? expiresIn = null,}) {
   return _then(_CreateSignedUrlRequest(
 key: null == key ? _self.key : key // ignore: cast_nullable_to_non_nullable
-as String,size: null == size ? _self.size : size // ignore: cast_nullable_to_non_nullable
+as String,extension: null == extension ? _self.extension : extension // ignore: cast_nullable_to_non_nullable
+as String,contentLength: null == contentLength ? _self.contentLength : contentLength // ignore: cast_nullable_to_non_nullable
 as int,mimeType: null == mimeType ? _self.mimeType : mimeType // ignore: cast_nullable_to_non_nullable
-as String,variant: null == variant ? _self.variant : variant // ignore: cast_nullable_to_non_nullable
 as String,expiresIn: null == expiresIn ? _self.expiresIn : expiresIn // ignore: cast_nullable_to_non_nullable
 as int,
   ));
