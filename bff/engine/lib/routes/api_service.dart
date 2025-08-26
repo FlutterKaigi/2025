@@ -63,7 +63,10 @@ class ApiService {
           'You requested ${request.requestedUri} '
           "which doesn't exist in this API.",
     );
-    return jsonResponse(() async => response.toJson());
+    return jsonResponse(
+      () async => response.toJson(),
+      HttpStatus.notFound,
+    );
   }
 
   Handler get handler => _$ApiServiceRouter(this).call;
