@@ -88,6 +88,12 @@
       "path": "./.cspell/widgetbook-term.txt",
       "addWords": true,
     },
+    {
+      "name": "sns-term",
+      "description": "SNS related terms",
+      "path": "./.cspell/sns-term.txt",
+      "addWords": true,
+    },
   ],
   "dictionaries": [
     "bff-term",
@@ -104,6 +110,7 @@
     "supabase-term",
     "terraform-term",
     "widgetbook-term",
+    "sns-term",
   ],
   "files": [
     "**/*.{md,yaml,yml,dart,ts,js}",
