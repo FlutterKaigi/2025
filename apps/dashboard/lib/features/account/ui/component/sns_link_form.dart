@@ -36,7 +36,7 @@ extension _SnsTypeExtension on SnsType {
       try {
         Uri.parse(value);
         return null;
-      } catch (e) {
+      } on FormatException {
         return '有効なURLを入力してください';
       }
     }

@@ -26,7 +26,8 @@ class _R2ApiClient implements R2ApiClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = request;
+    final _data = <String, dynamic>{};
+    _data.addAll(request.toJson());
     final _options = _setStreamType<HttpResponse<CreateSignedUrlResponse>>(
       Options(method: 'PUT', headers: _headers, extra: _extra)
           .compose(
@@ -56,7 +57,8 @@ class _R2ApiClient implements R2ApiClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = request;
+    final _data = <String, dynamic>{};
+    _data.addAll(request.toJson());
     final _options = _setStreamType<HttpResponse<DeleteObjectResponse>>(
       Options(method: 'DELETE', headers: _headers, extra: _extra)
           .compose(

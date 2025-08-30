@@ -130,23 +130,23 @@ class _YesNoSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        RadioListTile<String>(
-          title: const Text('参加する'),
-          value: 'yes',
-          groupValue: selectedValue,
-          onChanged: onChanged,
-          contentPadding: EdgeInsets.zero,
-        ),
-        RadioListTile<String>(
-          title: const Text('参加しない'),
-          value: 'no',
-          groupValue: selectedValue,
-          onChanged: onChanged,
-          contentPadding: EdgeInsets.zero,
-        ),
-      ],
+    return RadioGroup<String>(
+      groupValue: selectedValue,
+      onChanged: onChanged,
+      child: const Column(
+        children: [
+          RadioListTile<String>(
+            title: Text('参加する'),
+            value: 'yes',
+            contentPadding: EdgeInsets.zero,
+          ),
+          RadioListTile<String>(
+            title: Text('参加しない'),
+            value: 'no',
+            contentPadding: EdgeInsets.zero,
+          ),
+        ],
+      ),
     );
   }
 }
@@ -200,16 +200,18 @@ class _MealSelector extends StatelessWidget {
       {'value': 'halal', 'label': 'ハラル'},
     ];
 
-    return Column(
-      children: meals.map((meal) {
-        return RadioListTile<String>(
-          title: Text(meal['label']!),
-          value: meal['value']!,
-          groupValue: selectedValue,
-          onChanged: onChanged,
-          contentPadding: EdgeInsets.zero,
-        );
-      }).toList(),
+    return RadioGroup<String>(
+      groupValue: selectedValue,
+      onChanged: onChanged,
+      child: Column(
+        children: meals.map((meal) {
+          return RadioListTile<String>(
+            title: Text(meal['label']!),
+            value: meal['value']!,
+            contentPadding: EdgeInsets.zero,
+          );
+        }).toList(),
+      ),
     );
   }
 }

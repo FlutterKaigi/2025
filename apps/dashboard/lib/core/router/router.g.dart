@@ -11,9 +11,9 @@ part of 'router.dart';
 List<RouteBase> get $appRoutes => [$loginRoute, $mainRoute, $debugRoute];
 
 RouteBase get $loginRoute =>
-    GoRouteData.$route(path: '/login', factory: _$LoginRoute._fromState);
+    GoRouteData.$route(path: '/login', factory: $LoginRoute._fromState);
 
-mixin _$LoginRoute on GoRouteData {
+mixin $LoginRoute on GoRouteData {
   static LoginRoute _fromState(GoRouterState state) => const LoginRoute();
 
   @override
@@ -41,9 +41,9 @@ RouteBase get $mainRoute => StatefulShellRouteData.$route(
       routes: [
         GoRouteData.$route(
           path: '/event',
-          factory: _$EventInfoRoute._fromState,
+          factory: $EventInfoRoute._fromState,
           routes: [
-            GoRouteData.$route(path: 'news', factory: _$NewsRoute._fromState),
+            GoRouteData.$route(path: 'news', factory: $NewsRoute._fromState),
           ],
         ),
       ],
@@ -53,16 +53,16 @@ RouteBase get $mainRoute => StatefulShellRouteData.$route(
       routes: [
         GoRouteData.$route(
           path: '/sponsors',
-          factory: _$SponsorListRoute._fromState,
+          factory: $SponsorListRoute._fromState,
           routes: [
             GoRouteData.$route(
               path: ':slug',
-              factory: _$SponsorDetailRoute._fromState,
+              factory: $SponsorDetailRoute._fromState,
               routes: [
                 GoRouteData.$route(
                   path: 'edit',
                   parentNavigatorKey: SponsorEditRoute.$parentNavigatorKey,
-                  factory: _$SponsorEditRoute._fromState,
+                  factory: $SponsorEditRoute._fromState,
                 ),
               ],
             ),
@@ -75,15 +75,15 @@ RouteBase get $mainRoute => StatefulShellRouteData.$route(
       routes: [
         GoRouteData.$route(
           path: '/tickets',
-          factory: _$TicketListRoute._fromState,
+          factory: $TicketListRoute._fromState,
           routes: [
             GoRouteData.$route(
               path: ':ticketTypeId',
-              factory: _$TicketDetailRoute._fromState,
+              factory: $TicketDetailRoute._fromState,
             ),
             GoRouteData.$route(
               path: 'owned',
-              factory: _$OwnedTicketsRoute._fromState,
+              factory: $OwnedTicketsRoute._fromState,
             ),
           ],
         ),
@@ -94,17 +94,17 @@ RouteBase get $mainRoute => StatefulShellRouteData.$route(
       routes: [
         GoRouteData.$route(
           path: '/account',
-          factory: _$AccountInfoRoute._fromState,
+          factory: $AccountInfoRoute._fromState,
           routes: [
             GoRouteData.$route(
               path: 'profile-edit',
               parentNavigatorKey: ProfileEditRoute.$parentNavigatorKey,
-              factory: _$ProfileEditRoute._fromState,
+              factory: $ProfileEditRoute._fromState,
             ),
             GoRouteData.$route(
               path: 'withdrawal',
               parentNavigatorKey: WithdrawalRoute.$parentNavigatorKey,
-              factory: _$WithdrawalRoute._fromState,
+              factory: $WithdrawalRoute._fromState,
             ),
           ],
         ),
@@ -117,7 +117,7 @@ extension $MainRouteExtension on MainRoute {
   static MainRoute _fromState(GoRouterState state) => const MainRoute();
 }
 
-mixin _$EventInfoRoute on GoRouteData {
+mixin $EventInfoRoute on GoRouteData {
   static EventInfoRoute _fromState(GoRouterState state) =>
       const EventInfoRoute();
 
@@ -138,7 +138,7 @@ mixin _$EventInfoRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin _$NewsRoute on GoRouteData {
+mixin $NewsRoute on GoRouteData {
   static NewsRoute _fromState(GoRouterState state) => const NewsRoute();
 
   @override
@@ -158,7 +158,7 @@ mixin _$NewsRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin _$SponsorListRoute on GoRouteData {
+mixin $SponsorListRoute on GoRouteData {
   static SponsorListRoute _fromState(GoRouterState state) =>
       const SponsorListRoute();
 
@@ -179,7 +179,7 @@ mixin _$SponsorListRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin _$SponsorDetailRoute on GoRouteData {
+mixin $SponsorDetailRoute on GoRouteData {
   static SponsorDetailRoute _fromState(GoRouterState state) =>
       SponsorDetailRoute(slug: state.pathParameters['slug']!);
 
@@ -203,7 +203,7 @@ mixin _$SponsorDetailRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin _$SponsorEditRoute on GoRouteData {
+mixin $SponsorEditRoute on GoRouteData {
   static SponsorEditRoute _fromState(GoRouterState state) =>
       SponsorEditRoute(slug: state.pathParameters['slug']!);
 
@@ -228,7 +228,7 @@ mixin _$SponsorEditRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin _$TicketListRoute on GoRouteData {
+mixin $TicketListRoute on GoRouteData {
   static TicketListRoute _fromState(GoRouterState state) =>
       const TicketListRoute();
 
@@ -249,7 +249,7 @@ mixin _$TicketListRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin _$TicketDetailRoute on GoRouteData {
+mixin $TicketDetailRoute on GoRouteData {
   static TicketDetailRoute _fromState(GoRouterState state) =>
       TicketDetailRoute(ticketTypeId: state.pathParameters['ticketTypeId']!);
 
@@ -274,7 +274,7 @@ mixin _$TicketDetailRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin _$OwnedTicketsRoute on GoRouteData {
+mixin $OwnedTicketsRoute on GoRouteData {
   static OwnedTicketsRoute _fromState(GoRouterState state) =>
       const OwnedTicketsRoute();
 
@@ -295,7 +295,7 @@ mixin _$OwnedTicketsRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin _$AccountInfoRoute on GoRouteData {
+mixin $AccountInfoRoute on GoRouteData {
   static AccountInfoRoute _fromState(GoRouterState state) =>
       const AccountInfoRoute();
 
@@ -316,7 +316,7 @@ mixin _$AccountInfoRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin _$ProfileEditRoute on GoRouteData {
+mixin $ProfileEditRoute on GoRouteData {
   static ProfileEditRoute _fromState(GoRouterState state) =>
       const ProfileEditRoute();
 
@@ -337,7 +337,7 @@ mixin _$ProfileEditRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin _$WithdrawalRoute on GoRouteData {
+mixin $WithdrawalRoute on GoRouteData {
   static WithdrawalRoute _fromState(GoRouterState state) =>
       const WithdrawalRoute();
 
@@ -360,13 +360,13 @@ mixin _$WithdrawalRoute on GoRouteData {
 
 RouteBase get $debugRoute => GoRouteData.$route(
   path: '/debug',
-  factory: _$DebugRoute._fromState,
+  factory: $DebugRoute._fromState,
   routes: [
-    GoRouteData.$route(path: 'talker', factory: _$TalkerRoute._fromState),
+    GoRouteData.$route(path: 'talker', factory: $TalkerRoute._fromState),
   ],
 );
 
-mixin _$DebugRoute on GoRouteData {
+mixin $DebugRoute on GoRouteData {
   static DebugRoute _fromState(GoRouterState state) => const DebugRoute();
 
   @override
@@ -386,7 +386,7 @@ mixin _$DebugRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin _$TalkerRoute on GoRouteData {
+mixin $TalkerRoute on GoRouteData {
   static TalkerRoute _fromState(GoRouterState state) => const TalkerRoute();
 
   @override

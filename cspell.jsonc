@@ -82,6 +82,18 @@
       "path": "./.cspell/terraform-term.txt",
       "addWords": true,
     },
+    {
+      "name": "widgetbook-term",
+      "description": "Widgetbook related terms",
+      "path": "./.cspell/widgetbook-term.txt",
+      "addWords": true,
+    },
+    {
+      "name": "sns-term",
+      "description": "SNS related terms",
+      "path": "./.cspell/sns-term.txt",
+      "addWords": true,
+    },
   ],
   "dictionaries": [
     "bff-term",
@@ -97,6 +109,8 @@
     "project-term",
     "supabase-term",
     "terraform-term",
+    "widgetbook-term",
+    "sns-term",
   ],
   "files": [
     "**/*.{md,yaml,yml,dart,ts,js}",
@@ -105,6 +119,7 @@
     // 自動生成ファイル
     "*.*.dart",
     "worker-configuration.d.ts",
+    "pnpm-lock.yaml",
     // 隠しファイル
     ".*.{yaml,yml}",
     // スキーマファイル

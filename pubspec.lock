@@ -609,18 +609,18 @@ packages:
     dependency: transitive
     description:
       name: go_router
-      sha256: ced3fdc143c1437234ac3b8e985f3286cf138968bb83ca9a6f94d22f2951c6b9
+      sha256: eb059dfe59f08546e9787f895bd01652076f996bcbf485a8609ef990419ad227
       url: "https://pub.dev"
     source: hosted
-    version: "16.2.0"
+    version: "16.2.1"
   go_router_builder:
     dependency: transitive
     description:
       name: go_router_builder
-      sha256: c61a202a7314f9f47ec6fb6a66bb9309e57323b957a0c3b20cd6057b7fd868e2
+      sha256: cb67f563e8508879b78ff8d8f47e00d4f33e00e70effb6f37844abf1cbbd08fd
       url: "https://pub.dev"
     source: hosted
-    version: "3.3.0"
+    version: "4.0.0"
   gotrue:
     dependency: transitive
     description:
@@ -832,19 +832,12 @@ packages:
   jaspr_builder:
     dependency: transitive
     description:
-      name: jaspr_builder
-      sha256: "89dc806088a130394147d8a6f98cfb0ab57969f89555156f76a515f6a0428096"
-      url: "https://pub.dev"
-    source: hosted
+      path: "packages/jaspr_builder"
+      ref: "827dd3c6ab0dc3018d17eb36b6f7f7a390a6da99"
+      resolved-ref: "827dd3c6ab0dc3018d17eb36b6f7f7a390a6da99"
+      url: "https://github.com/schultek/jaspr.git"
+    source: git
     version: "0.20.0"
-  jaspr_lints:
-    dependency: transitive
-    description:
-      name: jaspr_lints
-      sha256: "70f6b5cbb3a3cdd42f06bd617d4e26eaa31626bf1717ccf65cf97a3e41e9c28d"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.4.0"
   jaspr_router:
     dependency: transitive
     description:
