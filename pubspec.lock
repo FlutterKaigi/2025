@@ -832,10 +832,11 @@ packages:
   jaspr_builder:
     dependency: transitive
     description:
-      name: jaspr_builder
-      sha256: "89dc806088a130394147d8a6f98cfb0ab57969f89555156f76a515f6a0428096"
-      url: "https://pub.dev"
-    source: hosted
+      path: "packages/jaspr_builder"
+      ref: "827dd3c6ab0dc3018d17eb36b6f7f7a390a6da99"
+      resolved-ref: "827dd3c6ab0dc3018d17eb36b6f7f7a390a6da99"
+      url: "https://github.com/schultek/jaspr.git"
+    source: git
     version: "0.20.0"
   jaspr_router:
     dependency: transitive
