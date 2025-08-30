@@ -119,6 +119,7 @@
     // 自動生成ファイル
     "*.*.dart",
     "worker-configuration.d.ts",
+    "pnpm-lock.yaml",
     // 隠しファイル
     ".*.{yaml,yml}",
     // スキーマファイル
