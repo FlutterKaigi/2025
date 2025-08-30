@@ -82,6 +82,12 @@
       "path": "./.cspell/terraform-term.txt",
       "addWords": true,
     },
+    {
+      "name": "widgetbook-term",
+      "description": "Widgetbook related terms",
+      "path": "./.cspell/widgetbook-term.txt",
+      "addWords": true,
+    },
   ],
   "dictionaries": [
     "bff-term",
@@ -97,6 +103,7 @@
     "project-term",
     "supabase-term",
     "terraform-term",
+    "widgetbook-term",
   ],
   "files": [
     "**/*.{md,yaml,yml,dart,ts,js}",
