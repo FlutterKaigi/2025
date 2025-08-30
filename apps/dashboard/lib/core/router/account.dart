@@ -10,6 +10,9 @@ const _accountRoutes = [
       TypedGoRoute<WithdrawalRoute>(
         path: 'withdrawal',
       ),
+      TypedGoRoute<ImageCropRoute>(
+        path: 'image-crop',
+      ),
     ],
   ),
 ];
@@ -21,7 +24,7 @@ class AccountBranch extends StatefulShellBranchData {
   ];
 }
 
-class AccountInfoRoute extends GoRouteData with _$AccountInfoRoute {
+class AccountInfoRoute extends GoRouteData with $AccountInfoRoute {
   const AccountInfoRoute();
 
   @override
@@ -52,7 +55,7 @@ class AccountInfoRoute extends GoRouteData with _$AccountInfoRoute {
   }
 }
 
-class ProfileEditRoute extends GoRouteData with _$ProfileEditRoute {
+class ProfileEditRoute extends GoRouteData with $ProfileEditRoute {
   const ProfileEditRoute();
 
   static final GlobalKey<NavigatorState> $parentNavigatorKey =
@@ -63,7 +66,7 @@ class ProfileEditRoute extends GoRouteData with _$ProfileEditRoute {
       const ProfileEditScreen();
 }
 
-class WithdrawalRoute extends GoRouteData with _$WithdrawalRoute {
+class WithdrawalRoute extends GoRouteData with $WithdrawalRoute {
   const WithdrawalRoute();
 
   static final GlobalKey<NavigatorState> $parentNavigatorKey =
@@ -72,4 +75,13 @@ class WithdrawalRoute extends GoRouteData with _$WithdrawalRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) =>
       const WithdrawalScreen();
+}
+
+class ImageCropRoute extends GoRouteData with $ImageCropRoute {
+  const ImageCropRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const ImageCropScreen();
+  }
 }

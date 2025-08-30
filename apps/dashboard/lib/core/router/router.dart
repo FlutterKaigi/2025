@@ -4,6 +4,7 @@ import 'package:dashboard/core/debug/debug_screen.dart';
 import 'package:dashboard/core/debug/talker.dart';
 import 'package:dashboard/core/gen/l10n/l10n.dart';
 import 'package:dashboard/core/ui/main/main_screen.dart';
+import 'package:dashboard/features/account/ui/image_crop_screen.dart';
 import 'package:dashboard/features/account/ui/info/account_info_screen.dart';
 import 'package:dashboard/features/account/ui/profile_edit_screen.dart';
 import 'package:dashboard/features/account/ui/withdrawal_screen.dart';
@@ -120,7 +121,8 @@ class LoginRoute extends GoRouteData with _$LoginRoute {
     TypedStatefulShellBranch<EventBranch>(routes: _eventRoutes),
     TypedStatefulShellBranch<SponsorBranch>(routes: _sponsorRoutes),
     TypedStatefulShellBranch<TicketBranch>(routes: _ticketRoutes),
-    TypedStatefulShellBranch<AccountBranch>(routes: _accountRoutes),
+    TypedStatefulShellBranch<AccountBranch>(routes: _accountRoutes,
+    ),
   ],
 )
 class MainRoute extends StatefulShellRouteData {

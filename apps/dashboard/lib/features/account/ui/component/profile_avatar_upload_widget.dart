@@ -1,5 +1,5 @@
 import 'package:dashboard/features/account/data/provider/profile_provider.dart';
-import 'package:dashboard/features/account/data/service/profile_avatar_action.dart';
+import 'package:dashboard/features/account/data/action/profile_avatar_action.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:hooks_riverpod/experimental/mutation.dart';
@@ -12,7 +12,7 @@ class ProfileAvatarUploadWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final avatarAction = ref.watch(profileAvatarActionProvider);
     final profile = ref.watch(profileNotifierProvider);
-    
+
     return Card(
       margin: const EdgeInsets.all(16),
       child: Padding(
@@ -25,7 +25,7 @@ class ProfileAvatarUploadWidget extends ConsumerWidget {
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             const SizedBox(height: 16),
-            
+
             // 現在のプロフィール画像表示
             if (profile.hasValue && profile.value?.profile.avatarKey != null)
               Row(
@@ -55,9 +55,9 @@ class ProfileAvatarUploadWidget extends ConsumerWidget {
                   ),
                 ],
               ),
-            
+
             const SizedBox(height: 24),
-            
+
             // アクションボタン
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -70,9 +70,9 @@ class ProfileAvatarUploadWidget extends ConsumerWidget {
                   label: 'デバイスから画像を選択してクロップ',
                   description: '画像を選択後、正方形にクロップして400x400のWebPでアップロード',
                 ),
-                
+
                 const SizedBox(height: 12),
-                
+
                 // 2. Google Account画像を使用
                 _MutationButton(
                   mutation: ProfileAvatarAction.useGoogleAvatarMutation,
@@ -81,9 +81,9 @@ class ProfileAvatarUploadWidget extends ConsumerWidget {
                   label: 'Google Accountの画像を使用',
                   description: 'Googleアカウントの画像をダウンロードして400x400のWebPでアップロード',
                 ),
-                
+
                 const SizedBox(height: 12),
-                
+
                 // 3. アバターを削除
                 _MutationButton(
                   mutation: ProfileAvatarAction.removeAvatarMutation,
@@ -124,7 +124,7 @@ class _MutationButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final mutationState = ref.watch(mutation);
     final isLoading = mutationState.isLoading;
-    
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -143,7 +143,7 @@ class _MutationButton extends ConsumerWidget {
               }
             }
           },
-          icon: isLoading 
+          icon: isLoading
               ? const SizedBox(
                   width: 16,
                   height: 16,
@@ -152,10 +152,10 @@ class _MutationButton extends ConsumerWidget {
               : Icon(icon),
           label: Text(label),
           style: ElevatedButton.styleFrom(
-            backgroundColor: isDestructive 
+            backgroundColor: isDestructive
                 ? Theme.of(context).colorScheme.error
                 : null,
-            foregroundColor: isDestructive 
+            foregroundColor: isDestructive
                 ? Theme.of(context).colorScheme.onError
                 : null,
           ),
@@ -167,7 +167,7 @@ class _MutationButton extends ConsumerWidget {
             color: Theme.of(context).colorScheme.onSurfaceVariant,
           ),
         ),
-        
+
         // エラー表示
         if (mutationState.hasError)
           Padding(
@@ -179,7 +179,7 @@ class _MutationButton extends ConsumerWidget {
               ),
             ),
           ),
-          
+
         // 成功メッセージ
         if (mutationState.hasValue && !mutationState.isLoading)
           Padding(
