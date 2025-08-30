@@ -14,7 +14,7 @@
       "vars": {
         "ENVIRONMENT": "staging",
         "R2_BUCKET_NAME": "2025-staging",
-        "CLOUDFLARE_ACCOUNT_ID": "cdd8f59359fe226645e7b541cdc53b57"
+        "CLOUDFLARE_ACCOUNT_ID": "cdd8f59359fe226645e7b541cdc53b57",
       },
       "r2_buckets": [
         {
@@ -28,7 +28,7 @@
       "vars": {
         "ENVIRONMENT": "production",
         "R2_BUCKET_NAME": "2025-production",
-        "CLOUDFLARE_ACCOUNT_ID": "cdd8f59359fe226645e7b541cdc53b57"
+        "CLOUDFLARE_ACCOUNT_ID": "cdd8f59359fe226645e7b541cdc53b57",
       },
       "r2_buckets": [
         {

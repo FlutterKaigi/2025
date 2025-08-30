@@ -21,7 +21,7 @@ class AccountBranch extends StatefulShellBranchData {
   ];
 }
 
-class AccountInfoRoute extends GoRouteData with _$AccountInfoRoute {
+class AccountInfoRoute extends GoRouteData with $AccountInfoRoute {
   const AccountInfoRoute();
 
   @override
@@ -52,7 +52,7 @@ class AccountInfoRoute extends GoRouteData with _$AccountInfoRoute {
   }
 }
 
-class ProfileEditRoute extends GoRouteData with _$ProfileEditRoute {
+class ProfileEditRoute extends GoRouteData with $ProfileEditRoute {
   const ProfileEditRoute();
 
   static final GlobalKey<NavigatorState> $parentNavigatorKey =
@@ -63,7 +63,7 @@ class ProfileEditRoute extends GoRouteData with _$ProfileEditRoute {
       const ProfileEditScreen();
 }
 
-class WithdrawalRoute extends GoRouteData with _$WithdrawalRoute {
+class WithdrawalRoute extends GoRouteData with $WithdrawalRoute {
   const WithdrawalRoute();
 
   static final GlobalKey<NavigatorState> $parentNavigatorKey =
