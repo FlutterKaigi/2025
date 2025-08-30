@@ -26,7 +26,8 @@ class _InternalPaymentApiClient implements InternalPaymentApiClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = request;
+    final _data = <String, dynamic>{};
+    _data.addAll(request.toJson());
     final _options = _setStreamType<HttpResponse<PutCheckoutSessionResponse>>(
       Options(method: 'PUT', headers: _headers, extra: _extra)
           .compose(

@@ -28,7 +28,8 @@ class _PaymentCompletionApiClient implements PaymentCompletionApiClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = paymentIntent;
+    final _data = <String, dynamic>{};
+    _data.addAll(paymentIntent.toJson());
     final _options = _setStreamType<HttpResponse<IdResponse>>(
       Options(method: 'PUT', headers: _headers, extra: _extra)
           .compose(

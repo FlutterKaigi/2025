@@ -4,8 +4,8 @@ publish_to: "none"
 version: 0.1.0+1
 
 environment:
-  sdk: ^3.9.0-100.2.beta
-  flutter: ^3.33.0-0.1.pre
+  sdk: ^3.10.0-75.1.beta
+  flutter: ^3.36.0-0.1.pre
 
 resolution: workspace
 

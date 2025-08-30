@@ -107,7 +107,7 @@ Future<void> _handleIdentityAlreadyExistsError(
 }
 
 @TypedGoRoute<LoginRoute>(path: '/login')
-class LoginRoute extends GoRouteData with _$LoginRoute {
+class LoginRoute extends GoRouteData with $LoginRoute {
   const LoginRoute();
 
   @override
@@ -146,7 +146,7 @@ class MainRoute extends StatefulShellRouteData {
     ),
   ],
 )
-class DebugRoute extends GoRouteData with _$DebugRoute {
+class DebugRoute extends GoRouteData with $DebugRoute {
   const DebugRoute();
 
   @override
@@ -155,7 +155,7 @@ class DebugRoute extends GoRouteData with _$DebugRoute {
   }
 }
 
-class TalkerRoute extends GoRouteData with _$TalkerRoute {
+class TalkerRoute extends GoRouteData with $TalkerRoute {
   const TalkerRoute();
 
   @override
