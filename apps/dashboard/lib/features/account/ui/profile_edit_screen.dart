@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bff_client/bff_client.dart';
 import 'package:dashboard/features/account/data/model/sns_link_form_data.dart';
 import 'package:dashboard/features/account/data/provider/profile_provider.dart';
@@ -92,28 +90,6 @@ class ProfileEditScreen extends HookConsumerWidget {
           ),
         );
         Navigator.of(context).pop();
-      }
-    } on StateError catch (e) {
-      log(e.toString());
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).clearSnackBars();
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Row(
-              children: [
-                Icon(Icons.error, color: Colors.white),
-                SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    'プロファイルデータが読み込まれていません。画面を再読み込みしてください。',
-                  ),
-                ),
-              ],
-            ),
-            backgroundColor: Colors.red,
-            duration: Duration(seconds: 5),
-          ),
-        );
       }
     } catch (e) {
       if (context.mounted) {
