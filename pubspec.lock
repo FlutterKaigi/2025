@@ -609,18 +609,18 @@ packages:
     dependency: transitive
     description:
       name: go_router
-      sha256: ced3fdc143c1437234ac3b8e985f3286cf138968bb83ca9a6f94d22f2951c6b9
+      sha256: b453934c36e289cef06525734d1e676c1f91da9e22e2017d9dcab6ce0f999175
       url: "https://pub.dev"
     source: hosted
-    version: "16.2.0"
+    version: "15.1.3"
   go_router_builder:
     dependency: transitive
     description:
       name: go_router_builder
-      sha256: c61a202a7314f9f47ec6fb6a66bb9309e57323b957a0c3b20cd6057b7fd868e2
+      sha256: "7f6f4bfb97cadc3d25378a0237fe4ddd98b54d6094b5a5c158b775a2cc30843e"
       url: "https://pub.dev"
     source: hosted
-    version: "3.3.0"
+    version: "2.9.0"
   gotrue:
     dependency: transitive
     description:
