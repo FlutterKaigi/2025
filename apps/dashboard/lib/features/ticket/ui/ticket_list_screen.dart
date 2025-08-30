@@ -1,10 +1,10 @@
+import 'package:app/core/router/router.dart';
+import 'package:app/features/auth/data/notifier/auth_notifier.dart';
+import 'package:app/features/ticket/provider/active_checkout_provider.dart';
+import 'package:app/features/ticket/provider/ticket_list_provider.dart';
+import 'package:app/features/ticket/ui/active_checkout_screen.dart';
+import 'package:app/features/ticket/ui/components/ticket_card.dart';
 import 'package:bff_client/bff_client.dart';
-import 'package:dashboard/core/router/router.dart';
-import 'package:dashboard/features/auth/data/notifier/auth_notifier.dart';
-import 'package:dashboard/features/ticket/provider/active_checkout_provider.dart';
-import 'package:dashboard/features/ticket/provider/ticket_list_provider.dart';
-import 'package:dashboard/features/ticket/ui/active_checkout_screen.dart';
-import 'package:dashboard/features/ticket/ui/components/ticket_card.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

@@ -1,7 +1,7 @@
+import 'package:app/core/provider/environment.dart';
+import 'package:app/features/account/ui/info/account_info_screen.dart';
+import 'package:app/features/auth/data/notifier/auth_notifier.dart';
 import 'package:auth_client/auth_client.dart';
-import 'package:dashboard/core/provider/environment.dart';
-import 'package:dashboard/features/account/ui/info/account_info_screen.dart';
-import 'package:dashboard/features/auth/data/notifier/auth_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:widgetbook/widgetbook.dart';

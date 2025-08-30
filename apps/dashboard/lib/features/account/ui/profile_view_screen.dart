@@ -1,6 +1,6 @@
-import 'package:dashboard/features/account/data/provider/profile_provider.dart';
-import 'package:dashboard/features/account/ui/component/account_circle_image.dart';
-import 'package:dashboard/features/account/ui/component/sns_link_card.dart';
+import 'package:app/features/account/data/provider/profile_provider.dart';
+import 'package:app/features/account/ui/component/account_circle_image.dart';
+import 'package:app/features/account/ui/component/sns_link_card.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

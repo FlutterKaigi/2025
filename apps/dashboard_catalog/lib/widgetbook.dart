@@ -1,6 +1,6 @@
-import 'package:dashboard/core/designsystem/theme/theme.dart';
-import 'package:dashboard/core/gen/l10n/l10n.dart';
-import 'package:dashboard_catalog/widgetbook.directories.g.dart';
+import 'package:app/core/designsystem/theme/theme.dart';
+import 'package:app/core/gen/l10n/l10n.dart';
+import 'package:app_catalog/widgetbook.directories.g.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:widgetbook/widgetbook.dart';

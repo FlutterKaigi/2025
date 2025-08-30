@@ -10,7 +10,7 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:dashboard_catalog/feature/account/account_info_screen.dart'
+import 'package:app_catalog/feature/account/account_info_screen.dart'
     as _dashboard_catalog_feature_account_account_info_screen;
 import 'package:widgetbook/widgetbook.dart' as _widgetbook;
 

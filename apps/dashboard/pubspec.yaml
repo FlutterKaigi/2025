@@ -1,5 +1,5 @@
-name: dashboard
-description: "A new Flutter project."
+name: app
+description: "FlutterKaigi 2025 Conference Application"
 publish_to: "none"
 version: 0.1.0+1
 

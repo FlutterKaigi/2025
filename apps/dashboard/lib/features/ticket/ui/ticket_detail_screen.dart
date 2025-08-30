@@ -1,9 +1,9 @@
+import 'package:app/features/auth/data/notifier/auth_notifier.dart';
+import 'package:app/features/ticket/provider/ticket_detail_provider.dart';
+import 'package:app/features/ticket/ui/components/checkout_summary.dart';
+import 'package:app/features/ticket/ui/components/login_prompt_widget.dart';
+import 'package:app/features/ticket/ui/components/ticket_option_selector.dart';
 import 'package:bff_client/bff_client.dart';
-import 'package:dashboard/features/auth/data/notifier/auth_notifier.dart';
-import 'package:dashboard/features/ticket/provider/ticket_detail_provider.dart';
-import 'package:dashboard/features/ticket/ui/components/checkout_summary.dart';
-import 'package:dashboard/features/ticket/ui/components/login_prompt_widget.dart';
-import 'package:dashboard/features/ticket/ui/components/ticket_option_selector.dart';
 import 'package:db_types/db_types.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

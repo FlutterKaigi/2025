@@ -1,4 +1,4 @@
-import 'package:dashboard/features/ticket/data/ticket_repository.dart';
+import 'package:app/features/ticket/data/ticket_repository.dart';
 import 'package:db_types/db_types.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

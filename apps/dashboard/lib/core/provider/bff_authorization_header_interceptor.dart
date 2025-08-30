@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:dashboard/features/auth/data/notifier/auth_notifier.dart';
+import 'package:app/features/auth/data/notifier/auth_notifier.dart';
 import 'package:dio/dio.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

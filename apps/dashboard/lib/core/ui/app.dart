@@ -1,6 +1,6 @@
-import 'package:dashboard/core/designsystem/theme/theme.dart';
-import 'package:dashboard/core/gen/l10n/l10n.dart';
-import 'package:dashboard/core/router/router.dart';
+import 'package:app/core/designsystem/theme/theme.dart';
+import 'package:app/core/gen/l10n/l10n.dart';
+import 'package:app/core/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

@@ -1,8 +1,8 @@
+import 'package:app/features/auth/data/notifier/auth_notifier.dart';
+import 'package:app/features/ticket/data/ticket_repository.dart';
+import 'package:app/features/ticket/provider/ticket_detail_provider.dart';
+import 'package:app/features/ticket/ui/components/login_prompt_widget.dart';
 import 'package:bff_client/bff_client.dart';
-import 'package:dashboard/features/auth/data/notifier/auth_notifier.dart';
-import 'package:dashboard/features/ticket/data/ticket_repository.dart';
-import 'package:dashboard/features/ticket/provider/ticket_detail_provider.dart';
-import 'package:dashboard/features/ticket/ui/components/login_prompt_widget.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

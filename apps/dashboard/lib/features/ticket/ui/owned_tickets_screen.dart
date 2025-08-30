@@ -1,6 +1,6 @@
-import 'package:dashboard/features/auth/data/notifier/auth_notifier.dart';
-import 'package:dashboard/features/ticket/provider/owned_tickets_provider.dart';
-import 'package:dashboard/features/ticket/ui/components/login_prompt_widget.dart';
+import 'package:app/features/auth/data/notifier/auth_notifier.dart';
+import 'package:app/features/ticket/provider/owned_tickets_provider.dart';
+import 'package:app/features/ticket/ui/components/login_prompt_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

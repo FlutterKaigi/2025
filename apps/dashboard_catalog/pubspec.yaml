@@ -1,5 +1,5 @@
-name: dashboard_catalog
-description: "A new Flutter project."
+name: app_catalog
+description: "FlutterKaigi 2025 Conference Application Catalog"
 publish_to: "none"
 version: 0.1.0+1
 
@@ -10,9 +10,9 @@ environment:
 resolution: workspace
 
 dependencies:
+  app: 0.1.0+1
   auth_client: any
   cupertino_icons: 1.0.8
-  dashboard: 0.1.0+1
   flutter:
     sdk: flutter
   hooks_riverpod: 3.0.0-dev.17

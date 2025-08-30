@@ -1,4 +1,4 @@
-import 'package:dashboard/core/util/window_size.dart';
+import 'package:app/core/util/window_size.dart';
 import 'package:flutter/material.dart';
 
 /// A destination for the [ResponsiveScaffold].

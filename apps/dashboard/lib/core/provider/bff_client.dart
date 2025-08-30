@@ -1,9 +1,9 @@
 import 'dart:io';
 
+import 'package:app/core/debug/talker.dart';
+import 'package:app/core/provider/bff_authorization_header_interceptor.dart';
+import 'package:app/core/provider/environment.dart';
 import 'package:bff_client/bff_client.dart';
-import 'package:dashboard/core/debug/talker.dart';
-import 'package:dashboard/core/provider/bff_authorization_header_interceptor.dart';
-import 'package:dashboard/core/provider/environment.dart';
 import 'package:dio/dio.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

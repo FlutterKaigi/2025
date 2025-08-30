@@ -1,6 +1,6 @@
-import 'package:dashboard/core/gen/assets/assets.gen.dart';
-import 'package:dashboard/core/gen/l10n/l10n.dart';
-import 'package:dashboard/features/auth/data/notifier/auth_notifier.dart';
+import 'package:app/core/gen/assets/assets.gen.dart';
+import 'package:app/core/gen/l10n/l10n.dart';
+import 'package:app/features/auth/data/notifier/auth_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

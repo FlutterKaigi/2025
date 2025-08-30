@@ -2,9 +2,9 @@ import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:app/core/provider/bff_client.dart';
+import 'package:app/core/provider/file_upload_dio.dart';
 import 'package:bff_client/bff_client.dart';
-import 'package:dashboard/core/provider/bff_client.dart';
-import 'package:dashboard/core/provider/file_upload_dio.dart';
 import 'package:db_types/db_types.dart';
 import 'package:dio/dio.dart';
 import 'package:hooks_riverpod/experimental/mutation.dart';

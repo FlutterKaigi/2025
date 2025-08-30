@@ -1,5 +1,5 @@
-import 'package:dashboard/core/provider/bff_client.dart';
-import 'package:dashboard/features/sponsor/data/sponsor.dart';
+import 'package:app/core/provider/bff_client.dart';
+import 'package:app/features/sponsor/data/sponsor.dart';
 import 'package:db_types/db_types.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

@@ -1,5 +1,5 @@
-import 'package:dashboard/core/debug/debug_overlay.dart';
-import 'package:dashboard/core/ui/main/responsive_scaffold.dart';
+import 'package:app/core/debug/debug_overlay.dart';
+import 'package:app/core/ui/main/responsive_scaffold.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

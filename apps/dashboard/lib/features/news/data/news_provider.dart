@@ -1,6 +1,6 @@
+import 'package:app/core/provider/bff_client.dart';
+import 'package:app/features/news/data/news.dart';
 import 'package:bff_client/bff_client.dart';
-import 'package:dashboard/core/provider/bff_client.dart';
-import 'package:dashboard/features/news/data/news.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'news_provider.g.dart';

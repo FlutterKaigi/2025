@@ -1,9 +1,9 @@
 import 'dart:developer';
 
-import 'package:dashboard/core/provider/environment.dart';
-import 'package:dashboard/core/ui/app.dart';
-import 'package:dashboard/features/auth/data/notifier/auth_notifier.dart';
-import 'package:dashboard/features/auth/data/provider/auth_service.dart';
+import 'package:app/core/provider/environment.dart';
+import 'package:app/core/ui/app.dart';
+import 'package:app/features/auth/data/notifier/auth_notifier.dart';
+import 'package:app/features/auth/data/provider/auth_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

@@ -1,6 +1,6 @@
+import 'package:app/core/provider/environment.dart';
+import 'package:app/features/auth/data/provider/auth_service.dart';
 import 'package:auth_client/auth_client.dart';
-import 'package:dashboard/core/provider/environment.dart';
-import 'package:dashboard/features/auth/data/provider/auth_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'auth_notifier.g.dart';

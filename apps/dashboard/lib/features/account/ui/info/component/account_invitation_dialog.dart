@@ -1,4 +1,4 @@
-import 'package:dashboard/core/gen/l10n/l10n.dart';
+import 'package:app/core/gen/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 

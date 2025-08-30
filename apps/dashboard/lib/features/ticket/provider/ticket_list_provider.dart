@@ -1,5 +1,5 @@
+import 'package:app/features/ticket/data/ticket_repository.dart';
 import 'package:bff_client/bff_client.dart';
-import 'package:dashboard/features/ticket/data/ticket_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'ticket_list_provider.g.dart';

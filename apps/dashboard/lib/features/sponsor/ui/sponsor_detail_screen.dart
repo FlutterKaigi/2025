@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:dashboard/core/gen/l10n/l10n.dart';
-import 'package:dashboard/core/router/router.dart';
-import 'package:dashboard/features/sponsor/data/sponsor.dart';
-import 'package:dashboard/features/sponsor/data/sponsor_provider.dart';
-import 'package:dashboard/features/sponsor/ui/sponsor_sliver_app_bar.dart';
+import 'package:app/core/gen/l10n/l10n.dart';
+import 'package:app/core/router/router.dart';
+import 'package:app/features/sponsor/data/sponsor.dart';
+import 'package:app/features/sponsor/data/sponsor_provider.dart';
+import 'package:app/features/sponsor/ui/sponsor_sliver_app_bar.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

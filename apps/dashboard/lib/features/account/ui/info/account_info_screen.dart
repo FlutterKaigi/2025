@@ -1,10 +1,10 @@
+import 'package:app/core/gen/assets/assets.gen.dart';
+import 'package:app/core/gen/l10n/l10n.dart';
+import 'package:app/features/account/ui/component/account_circle_image.dart';
+import 'package:app/features/account/ui/component/account_scaffold.dart';
+import 'package:app/features/account/ui/info/component/account_invitation_dialog.dart';
+import 'package:app/features/auth/data/notifier/auth_notifier.dart';
 import 'package:auth_client/auth_client.dart';
-import 'package:dashboard/core/gen/assets/assets.gen.dart';
-import 'package:dashboard/core/gen/l10n/l10n.dart';
-import 'package:dashboard/features/account/ui/component/account_circle_image.dart';
-import 'package:dashboard/features/account/ui/component/account_scaffold.dart';
-import 'package:dashboard/features/account/ui/info/component/account_invitation_dialog.dart';
-import 'package:dashboard/features/auth/data/notifier/auth_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

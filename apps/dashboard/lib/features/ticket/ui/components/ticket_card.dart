@@ -1,5 +1,5 @@
+import 'package:app/features/ticket/provider/ticket_list_provider.dart';
 import 'package:bff_client/bff_client.dart';
-import 'package:dashboard/features/ticket/provider/ticket_list_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

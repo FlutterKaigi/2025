@@ -1,8 +1,8 @@
+import 'package:app/features/account/data/model/sns_link_form_data.dart';
+import 'package:app/features/account/data/provider/profile_provider.dart';
+import 'package:app/features/account/ui/component/account_circle_image.dart';
+import 'package:app/features/account/ui/component/sns_link_form.dart';
 import 'package:bff_client/bff_client.dart';
-import 'package:dashboard/features/account/data/model/sns_link_form_data.dart';
-import 'package:dashboard/features/account/data/provider/profile_provider.dart';
-import 'package:dashboard/features/account/ui/component/account_circle_image.dart';
-import 'package:dashboard/features/account/ui/component/sns_link_form.dart';
 import 'package:db_types/db_types.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
