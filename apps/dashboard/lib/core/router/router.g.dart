@@ -5,8 +5,6 @@
 part of 'router.dart';
 
 // **************************************************************************
-<<<<<<< HEAD
-=======
 // GoRouterGenerator
 // **************************************************************************
 
@@ -107,6 +105,10 @@ RouteBase get $mainRoute => StatefulShellRouteData.$route(
               path: 'withdrawal',
               parentNavigatorKey: WithdrawalRoute.$parentNavigatorKey,
               factory: $WithdrawalRoute._fromState,
+            ),
+            GoRouteData.$route(
+              path: 'image-crop',
+              factory: $ImageCropRoute._fromState,
             ),
           ],
         ),
@@ -360,6 +362,27 @@ mixin $WithdrawalRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
+mixin $ImageCropRoute on GoRouteData {
+  static ImageCropRoute _fromState(GoRouterState state) =>
+      const ImageCropRoute();
+
+  @override
+  String get location => GoRouteData.$location('/account/image-crop');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
 RouteBase get $debugRoute => GoRouteData.$route(
   path: '/debug',
   factory: $DebugRoute._fromState,
@@ -409,7 +432,6 @@ mixin $TalkerRoute on GoRouteData {
 }
 
 // **************************************************************************
->>>>>>> 2bf10d4087a50789d6026d4baa1563d7a4033745
 // RiverpodGenerator
 // **************************************************************************
 
