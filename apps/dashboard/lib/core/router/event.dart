@@ -18,7 +18,7 @@ class EventBranch extends StatefulShellBranchData {
   ];
 }
 
-class EventInfoRoute extends GoRouteData with _$EventInfoRoute {
+class EventInfoRoute extends GoRouteData with $EventInfoRoute {
   const EventInfoRoute();
 
   @override
@@ -26,7 +26,7 @@ class EventInfoRoute extends GoRouteData with _$EventInfoRoute {
       const EventInfoScreen();
 }
 
-class NewsRoute extends GoRouteData with _$NewsRoute {
+class NewsRoute extends GoRouteData with $NewsRoute {
   const NewsRoute();
 
   @override
