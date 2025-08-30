@@ -91,7 +91,7 @@ class ProfileEditScreen extends HookConsumerWidget {
         );
         Navigator.of(context).pop();
       }
-    } catch (e) {
+    } on Exception catch (e) {
       if (context.mounted) {
         ScaffoldMessenger.of(context).clearSnackBars();
         ScaffoldMessenger.of(context).showSnackBar(
