@@ -837,14 +837,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.20.0"
-  jaspr_lints:
-    dependency: transitive
-    description:
-      name: jaspr_lints
-      sha256: "70f6b5cbb3a3cdd42f06bd617d4e26eaa31626bf1717ccf65cf97a3e41e9c28d"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.4.0"
   jaspr_router:
     dependency: transitive
     description:
