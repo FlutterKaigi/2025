@@ -8,7 +8,7 @@ abstract class NewsCreateRequest with _$NewsCreateRequest {
   const factory NewsCreateRequest({
     required String title,
     required String url,
-    DateTime? startsAt,
+    required DateTime startsAt,
     DateTime? endsAt,
   }) = _NewsCreateRequest;
 
