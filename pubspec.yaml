@@ -20,6 +20,7 @@ workspace:
   # apps
   - apps/app
   - apps/app_catalog
+  - apps/dashboard_prototype
   - apps/website
   # packages
   - packages/flutterkaigi_lints
