@@ -1,6 +1,6 @@
 {
-  "name": "dashboard_catalog",
-  "short_name": "dashboard_catalog",
+  "name": "app_catalog",
+  "short_name": "app_catalog",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#0175C2",

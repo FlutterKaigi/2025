@@ -1,4 +1,4 @@
-# dashboard_catalog
+# app_catalog
 
 A new Flutter project.
 
