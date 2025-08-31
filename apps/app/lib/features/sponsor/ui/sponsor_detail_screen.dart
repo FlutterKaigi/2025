@@ -18,7 +18,7 @@ import 'package:url_launcher/url_launcher.dart';
 /// - 編集画面への導線を提供する
 ///
 /// 参考:
-/// - [SCREENS.md](https://github.com/FlutterKaigi/2025/blob/main/docs/dashboard/SCREENS.md)
+/// - [SCREENS.md](https://github.com/FlutterKaigi/2025/blob/main/docs/app/SCREENS.md)
 class SponsorDetailScreen extends ConsumerWidget {
   const SponsorDetailScreen({
     required this.slug,

@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 /// - セッション確認や初期化処理を行う
 ///
 /// 参考:
-/// - [SCREENS.md](https://github.com/FlutterKaigi/2025/blob/main/docs/dashboard/SCREENS.md)
+/// - [SCREENS.md](https://github.com/FlutterKaigi/2025/blob/main/docs/app/SCREENS.md)
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 

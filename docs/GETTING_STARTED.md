@@ -41,7 +41,7 @@ mise run bootstrap
 
 ### カンファレンスアプリケーション
 
-カンファレンスアプリケーションの詳細な環境設定については、[apps/dashboard/README.md](../apps/dashboard/README.md) を参照してください。
+カンファレンスアプリケーションの詳細な環境設定については、[apps/app/README.md](../apps/app/README.md) を参照してください。
 
 ### Websiteアプリケーション
 
@@ -54,7 +54,7 @@ mise run bootstrap
 ```
 /
 ├── apps/
-│   ├── dashboard/            # カンファレンスアプリケーション
+│   ├── app/                  # カンファレンスアプリケーション
 │   └── website/              # ウェブサイトアプリケーション
 ├── packages/                 # 共有パッケージ
 │   ├── auth_client/          # 認証クライアント
@@ -103,7 +103,7 @@ melos run format
 melos run format:check
 
 # カンファレンスアプリケーションのみの解析
-cd apps/dashboard && flutter analyze
+cd apps/app && flutter analyze
 ```
 
 ### コード生成
@@ -188,9 +188,9 @@ melos run gen
 
 ### カンファレンスアプリケーション
 
-- [README](../apps/dashboard/README.md) - アプリケーションの詳細なセットアップと開発ガイド
-- [アーキテクチャガイド](./dashboard/ARCHITECTURE.md) - アプリケーションの設計と構造
-- [画面一覧](./dashboard/SCREENS.md) - 各画面の仕様と実装詳細
+- [README](../apps/app/README.md) - アプリケーションの詳細なセットアップと開発ガイド
+- [アーキテクチャガイド](./app/ARCHITECTURE.md) - アプリケーションの設計と構造
+- [画面一覧](./app/SCREENS.md) - 各画面の仕様と実装詳細
 
 ### Websiteアプリケーション
 

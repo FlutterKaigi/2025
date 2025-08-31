@@ -16,7 +16,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// - プロフィール編集や招待コード入力などの機能を提供する
 ///
 /// 参考:
-/// - [SCREENS.md](https://github.com/FlutterKaigi/2025/blob/main/docs/dashboard/SCREENS.md)
+/// - [SCREENS.md](https://github.com/FlutterKaigi/2025/blob/main/docs/app/SCREENS.md)
 final class AccountInfoScreen extends ConsumerWidget {
   const AccountInfoScreen({
     required VoidCallback onProfileEdit,

@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 /// - メイン画面や他イベント画面から遷移して利用される
 ///
 /// 参考:
-/// - [SCREENS.md](https://github.com/FlutterKaigi/2025/blob/main/docs/dashboard/SCREENS.md)
+/// - [SCREENS.md](https://github.com/FlutterKaigi/2025/blob/main/docs/app/SCREENS.md)
 class EventInfoScreen extends StatelessWidget {
   const EventInfoScreen({super.key});
 

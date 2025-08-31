@@ -15,7 +15,7 @@ import 'package:url_launcher/url_launcher.dart';
 /// - イベント画面などから遷移して利用される
 ///
 /// 参考:
-/// - [SCREENS.md](https://github.com/FlutterKaigi/2025/blob/main/docs/dashboard/SCREENS.md)
+/// - [SCREENS.md](https://github.com/FlutterKaigi/2025/blob/main/docs/app/SCREENS.md)
 class NewsScreen extends StatelessWidget {
   const NewsScreen({super.key});
 

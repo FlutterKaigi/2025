@@ -75,7 +75,7 @@ flowchart TD
 ### 4.1 新規追加ファイル構成
 
 ```
-apps/dashboard/lib/features/ticket/
+apps/app/lib/features/ticket/
 ├── data/
 │   ├── ticket_repository.dart              # チケットデータ取得・操作
 │   └── ticket_checkout_repository.dart     # チェックアウト操作
@@ -100,7 +100,7 @@ apps/dashboard/lib/features/ticket/
 
 #### 4.2.1 タブ追加
 
-`apps/dashboard/lib/core/ui/main/main_screen.dart` の `destinations` にチケットタブを追加：
+`apps/app/lib/core/ui/main/main_screen.dart` の `destinations` にチケットタブを追加：
 
 ```dart
 ResponsiveScaffoldDestination(icon: Icons.confirmation_number, title: 'チケット'),
@@ -108,7 +108,7 @@ ResponsiveScaffoldDestination(icon: Icons.confirmation_number, title: 'チケッ
 
 #### 4.2.2 ルーティング設定
 
-`apps/dashboard/lib/core/router/router.dart` にチケット関連ルートを追加。
+`apps/app/lib/core/router/router.dart` にチケット関連ルートを追加。
 
 ### 4.3 状態管理設計
 

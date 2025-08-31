@@ -11,7 +11,7 @@ import 'package:go_router/go_router.dart';
 /// - 各タブへのナビゲーションを提供する
 ///
 /// 参考:
-/// - [SCREENS.md](https://github.com/FlutterKaigi/2025/blob/main/docs/dashboard/SCREENS.md)
+/// - [SCREENS.md](https://github.com/FlutterKaigi/2025/blob/main/docs/app/SCREENS.md)
 class MainScreen extends StatelessWidget {
   const MainScreen({
     required this.navigationShell,
