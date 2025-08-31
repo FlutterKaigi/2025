@@ -18,8 +18,8 @@ dependency_overrides:
 
 workspace:
   # apps
-  - apps/dashboard
-  - apps/dashboard_catalog
+  - apps/app
+  - apps/app_catalog
   - apps/website
   # packages
   - packages/flutterkaigi_lints

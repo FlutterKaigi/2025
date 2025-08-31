@@ -35,7 +35,7 @@ cp .env.example .env
 その後、開発チームリーダーから必要な値を共有してもらい、開発環境であれば以下のように設定する。
 
 ```env
-APP_REDIRECT_URL=jp.flutterkaigi.2025.dashboard.dev://login-callback
+APP_REDIRECT_URL=jp.flutterkaigi.conf2025.dev://login-callback
 SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_ID=xxx
 SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_SECRET=xxx
 ```

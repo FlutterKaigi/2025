@@ -55,14 +55,14 @@ melos run fix
 melos run fix:custom
 
 # Analyze specific app
-cd apps/dashboard && flutter analyze
+cd apps/app && flutter analyze
 ```
 
 ### Individual App Development
 
 ```bash
-# Dashboard app
-cd apps/dashboard
+# Conference app
+cd apps/app
 flutter pub get
 flutter config --enable-swift-package-manager  # First time only
 flutter run -d {device}
@@ -83,8 +83,8 @@ This is a **monorepo** using **melos** for workspace management with three main 
 
 ### Apps Structure
 
-- `apps/dashboard/` - Flutter-based dashboard application for FlutterKaigi 2025
-- `apps/dashboard_catalog/` - Widgetbook catalog for dashboard components
+- `apps/app/` - Flutter-based conference application for FlutterKaigi 2025
+- `apps/app_catalog/` - Widgetbook catalog for conference components
 - `apps/website/` - Static website built with Jaspr (Dart-based web framework)
 
 ### BFF (Backend for Frontend)
