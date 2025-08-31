@@ -9,24 +9,24 @@
       "type": "dart"
     },
     {
-      "name": "dashboard-development-debug",
-      "cwd": "apps/dashboard",
+      "name": "app-development-debug",
+      "cwd": "apps/app",
       "request": "launch",
       "program": "lib/main.dart",
       "type": "dart",
       "args": ["--dart-define-from-file", "environments/.env.dev"]
     },
     {
-      "name": "dashboard-staging-debug",
-      "cwd": "apps/dashboard",
+      "name": "app-staging-debug",
+      "cwd": "apps/app",
       "request": "launch",
       "program": "lib/main.dart",
       "type": "dart",
       "args": ["--dart-define-from-file", "environments/.env.stg"]
     },
     {
-      "name": "dashboard-production-debug",
-      "cwd": "apps/dashboard",
+      "name": "app-production-debug",
+      "cwd": "apps/app",
       "request": "launch",
       "program": "lib/main.dart",
       "type": "dart",
