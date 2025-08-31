@@ -24,7 +24,6 @@
 | E-FMAP | - | 会場フロアマップ画面 | VenueFloorMapScreen | Flutter | - | 全員（匿名可） |
 | S-LIST | スポンサー | スポンサー一覧画面 | SponsorListScreen | Flutter | - | 全員（匿名可） |
 | S-DETA | - | スポンサー詳細画面 | SponsorDetailScreen | Flutter | Push | 全員（匿名可） |
-| S-YTRO | - | スポンサー編集画面 | SponsorEditScreen | Flutter | Modal | 企業担当者 |
 | K-INFO | アカウント | アカウント情報画面 | AccountInfoScreen | Flutter | - | 全員（匿名可） |
 | K-OVJL | - | プロフィール編集画面 | ProfileEditScreen | Flutter | Modal | 認証ユーザー |
 | K-XRPU | - | 退会申請画面 | WithdrawalScreen | Flutter | Modal | 認証ユーザー |
@@ -138,7 +137,6 @@ flowchart TD
     NewsScreen[お知らせ画面]
     SessionDetailScreen[セッション詳細画面]
     SponsorDetailScreen[スポンサー詳細画面]
-    SponsorEditScreen[スポンサー編集画面<br>※企業担当者のみ]
     ProfileEditScreen[プロフィール編集画面]
     WithdrawalScreen[退会申請画面]
 
@@ -168,5 +166,4 @@ flowchart TD
     EventInfoScreen --> NewsScreen
     SessionListScreen --> SessionDetailScreen
     SponsorListScreen --> SponsorDetailScreen
-    SponsorDetailScreen --> |企業担当者のみ| SponsorEditScreen
 ```
