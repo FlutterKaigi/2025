@@ -25,7 +25,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>jp.flutterkaigi.2025.dashboard${APP_ID_SUFFIX}</string>
+				<string>jp.flutterkaigi.conf2025${APP_ID_SUFFIX}</string>
 			</array>
 		</dict>
 	</array>

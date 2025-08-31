@@ -385,7 +385,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "jp.flutterkaigi.2025.dashboard${APP_ID_SUFFIX}";
+				PRODUCT_BUNDLE_IDENTIFIER = "jp.flutterkaigi.conf2025${APP_ID_SUFFIX}";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
@@ -525,7 +525,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "jp.flutterkaigi.2025.dashboard${APP_ID_SUFFIX}";
+				PRODUCT_BUNDLE_IDENTIFIER = "jp.flutterkaigi.conf2025${APP_ID_SUFFIX}";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -551,7 +551,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "jp.flutterkaigi.2025.dashboard${APP_ID_SUFFIX}";
+				PRODUCT_BUNDLE_IDENTIFIER = "jp.flutterkaigi.conf2025${APP_ID_SUFFIX}";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};

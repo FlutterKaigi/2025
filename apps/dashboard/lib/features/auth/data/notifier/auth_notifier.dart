@@ -17,7 +17,7 @@ class AuthNotifier extends _$AuthNotifier {
   Future<User?> signInWithGoogle() async {
     final environment = ref.read(environmentProvider);
     final redirectTo =
-        'jp.flutterkaigi.2025.dashboard${environment.appIdSuffix}'
+        'jp.flutterkaigi.conf2025${environment.appIdSuffix}'
         '://login-callback';
     return ref
         .read(authServiceProvider)
@@ -31,7 +31,7 @@ class AuthNotifier extends _$AuthNotifier {
   Future<void> linkAnonymousUserWithGoogle() async {
     final environment = ref.read(environmentProvider);
     final redirectTo =
-        'jp.flutterkaigi.2025.dashboard${environment.appIdSuffix}'
+        'jp.flutterkaigi.conf2025${environment.appIdSuffix}'
         '://login-callback';
     await ref
         .read(authServiceProvider)

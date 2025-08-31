@@ -1,4 +1,4 @@
-package com.example.dashboard
+package jp.flutterkaigi.conf2025
 
 import io.flutter.embedding.android.FlutterActivity
 
