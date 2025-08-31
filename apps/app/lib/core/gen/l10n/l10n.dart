@@ -201,24 +201,6 @@ abstract class L10n {
   /// **'プロフィールを編集する'**
   String get accountProfileEdit;
 
-  /// No description provided for @accountInvitationCodeInput.
-  ///
-  /// In ja, this message translates to:
-  /// **'招待コードを入力する'**
-  String get accountInvitationCodeInput;
-
-  /// No description provided for @accountInvitationCodeApplied.
-  ///
-  /// In ja, this message translates to:
-  /// **'招待コードが適用されました'**
-  String get accountInvitationCodeApplied;
-
-  /// No description provided for @accountInvitationCodeApplyFailed.
-  ///
-  /// In ja, this message translates to:
-  /// **'招待コードの適用に失敗しました'**
-  String get accountInvitationCodeApplyFailed;
-
   /// No description provided for @accountOthers.
   ///
   /// In ja, this message translates to:

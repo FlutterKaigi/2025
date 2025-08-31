@@ -64,15 +64,6 @@ class L10nJa extends L10n {
   String get accountProfileEdit => 'プロフィールを編集する';
 
   @override
-  String get accountInvitationCodeInput => '招待コードを入力する';
-
-  @override
-  String get accountInvitationCodeApplied => '招待コードが適用されました';
-
-  @override
-  String get accountInvitationCodeApplyFailed => '招待コードの適用に失敗しました';
-
-  @override
   String get accountOthers => 'Others';
 
   @override
