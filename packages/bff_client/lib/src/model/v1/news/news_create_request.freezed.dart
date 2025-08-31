@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$NewsCreateRequest {
 
- String get title; String get url; DateTime? get startsAt; DateTime? get endsAt;
+ String get title; String get url; DateTime get startsAt; DateTime? get endsAt;
 /// Create a copy of NewsCreateRequest
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $NewsCreateRequestCopyWith<$Res>  {
   factory $NewsCreateRequestCopyWith(NewsCreateRequest value, $Res Function(NewsCreateRequest) _then) = _$NewsCreateRequestCopyWithImpl;
 @useResult
 $Res call({
- String title, String url, DateTime? startsAt, DateTime? endsAt
+ String title, String url, DateTime startsAt, DateTime? endsAt
 });
 
 
@@ -65,12 +65,12 @@ class _$NewsCreateRequestCopyWithImpl<$Res>
 
 /// Create a copy of NewsCreateRequest
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? title = null,Object? url = null,Object? startsAt = freezed,Object? endsAt = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? title = null,Object? url = null,Object? startsAt = null,Object? endsAt = freezed,}) {
   return _then(_self.copyWith(
 title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,url: null == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
-as String,startsAt: freezed == startsAt ? _self.startsAt : startsAt // ignore: cast_nullable_to_non_nullable
-as DateTime?,endsAt: freezed == endsAt ? _self.endsAt : endsAt // ignore: cast_nullable_to_non_nullable
+as String,startsAt: null == startsAt ? _self.startsAt : startsAt // ignore: cast_nullable_to_non_nullable
+as DateTime,endsAt: freezed == endsAt ? _self.endsAt : endsAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,
   ));
 }
@@ -156,7 +156,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String title,  String url,  DateTime? startsAt,  DateTime? endsAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String title,  String url,  DateTime startsAt,  DateTime? endsAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _NewsCreateRequest() when $default != null:
 return $default(_that.title,_that.url,_that.startsAt,_that.endsAt);case _:
@@ -177,7 +177,7 @@ return $default(_that.title,_that.url,_that.startsAt,_that.endsAt);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String title,  String url,  DateTime? startsAt,  DateTime? endsAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String title,  String url,  DateTime startsAt,  DateTime? endsAt)  $default,) {final _that = this;
 switch (_that) {
 case _NewsCreateRequest():
 return $default(_that.title,_that.url,_that.startsAt,_that.endsAt);case _:
@@ -197,7 +197,7 @@ return $default(_that.title,_that.url,_that.startsAt,_that.endsAt);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String title,  String url,  DateTime? startsAt,  DateTime? endsAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String title,  String url,  DateTime startsAt,  DateTime? endsAt)?  $default,) {final _that = this;
 switch (_that) {
 case _NewsCreateRequest() when $default != null:
 return $default(_that.title,_that.url,_that.startsAt,_that.endsAt);case _:
@@ -212,12 +212,12 @@ return $default(_that.title,_that.url,_that.startsAt,_that.endsAt);case _:
 @JsonSerializable()
 
 class _NewsCreateRequest implements NewsCreateRequest {
-  const _NewsCreateRequest({required this.title, required this.url, this.startsAt, this.endsAt});
+  const _NewsCreateRequest({required this.title, required this.url, required this.startsAt, this.endsAt});
   factory _NewsCreateRequest.fromJson(Map<String, dynamic> json) => _$NewsCreateRequestFromJson(json);
 
 @override final  String title;
 @override final  String url;
-@override final  DateTime? startsAt;
+@override final  DateTime startsAt;
 @override final  DateTime? endsAt;
 
 /// Create a copy of NewsCreateRequest
@@ -253,7 +253,7 @@ abstract mixin class _$NewsCreateRequestCopyWith<$Res> implements $NewsCreateReq
   factory _$NewsCreateRequestCopyWith(_NewsCreateRequest value, $Res Function(_NewsCreateRequest) _then) = __$NewsCreateRequestCopyWithImpl;
 @override @useResult
 $Res call({
- String title, String url, DateTime? startsAt, DateTime? endsAt
+ String title, String url, DateTime startsAt, DateTime? endsAt
 });
 
 
@@ -270,12 +270,12 @@ class __$NewsCreateRequestCopyWithImpl<$Res>
 
 /// Create a copy of NewsCreateRequest
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? title = null,Object? url = null,Object? startsAt = freezed,Object? endsAt = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? title = null,Object? url = null,Object? startsAt = null,Object? endsAt = freezed,}) {
   return _then(_NewsCreateRequest(
 title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,url: null == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
-as String,startsAt: freezed == startsAt ? _self.startsAt : startsAt // ignore: cast_nullable_to_non_nullable
-as DateTime?,endsAt: freezed == endsAt ? _self.endsAt : endsAt // ignore: cast_nullable_to_non_nullable
+as String,startsAt: null == startsAt ? _self.startsAt : startsAt // ignore: cast_nullable_to_non_nullable
+as DateTime,endsAt: freezed == endsAt ? _self.endsAt : endsAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,
   ));
 }

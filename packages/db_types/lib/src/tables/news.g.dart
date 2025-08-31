@@ -18,7 +18,7 @@ _News _$NewsFromJson(Map<String, dynamic> json) => $checkedCreate(
       url: $checkedConvert('url', (v) => v as String?),
       startsAt: $checkedConvert(
         'starts_at',
-        (v) => const DateTimeConverter().fromJson(v),
+        (v) => const RequiredDateTimeConverter().fromJson(v),
       ),
       endsAt: $checkedConvert(
         'ends_at',
@@ -47,7 +47,7 @@ Map<String, dynamic> _$NewsToJson(_News instance) => <String, dynamic>{
   'id': instance.id,
   'title': instance.title,
   'url': instance.url,
-  'starts_at': const DateTimeConverter().toJson(instance.startsAt),
+  'starts_at': const RequiredDateTimeConverter().toJson(instance.startsAt),
   'ends_at': const DateTimeConverter().toJson(instance.endsAt),
   'created_at': const RequiredDateTimeConverter().toJson(instance.createdAt),
   'updated_at': const RequiredDateTimeConverter().toJson(instance.updatedAt),
