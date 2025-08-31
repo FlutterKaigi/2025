@@ -28,7 +28,7 @@ Widget accountInfoScreenUseCase(BuildContext context) {
       environmentProvider.overrideWithValue(
         const Environment(
           appIdSuffix: '.dev',
-          appName: 'FlutterKaigi Dashboard',
+          appName: 'FlutterKaigi',
           flavor: 'dev',
           bffBaseUrl: '',
           supabaseUrl: '',

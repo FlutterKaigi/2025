@@ -96,7 +96,7 @@ abstract class L10n {
   /// No description provided for @appName.
   ///
   /// In ja, this message translates to:
-  /// **'FlutterKaigi 2025 Dashboard'**
+  /// **'FlutterKaigi 2025'**
   String get appName;
 
   /// No description provided for @newsTileTitle.

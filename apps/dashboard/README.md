@@ -1,4 +1,4 @@
-# FlutterKaigi 2025 Dashboard Application
+# FlutterKaigi 2025 Application
 
 [WIP]
 

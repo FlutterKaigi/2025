@@ -1,4 +1,4 @@
-# FlutterKaigi 2025 Dashboard アプリのアーキテクチャ
+# FlutterKaigi 2025 アプリのアーキテクチャ
 
 ## ディレクトリ構造
 

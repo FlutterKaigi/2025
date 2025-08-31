@@ -2,7 +2,7 @@
 
 ## 1. 概要
 
-FlutterKaigi 2025 Dashboard アプリにチケット購入機能を実装する。
+FlutterKaigi 2025 アプリにチケット購入機能を実装する。
 
 ## 2. 実装方針
 

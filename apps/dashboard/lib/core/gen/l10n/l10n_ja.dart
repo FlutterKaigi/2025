@@ -9,7 +9,7 @@ class L10nJa extends L10n {
   L10nJa([String locale = 'ja']) : super(locale);
 
   @override
-  String get appName => 'FlutterKaigi 2025 Dashboard';
+  String get appName => 'FlutterKaigi 2025';
 
   @override
   String get newsTileTitle => '最新のお知らせ';
