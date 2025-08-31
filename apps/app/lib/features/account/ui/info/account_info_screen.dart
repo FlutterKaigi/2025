@@ -2,7 +2,6 @@ import 'package:app/core/gen/assets/assets.gen.dart';
 import 'package:app/core/gen/l10n/l10n.dart';
 import 'package:app/features/account/ui/component/account_circle_image.dart';
 import 'package:app/features/account/ui/component/account_scaffold.dart';
-import 'package:app/features/account/ui/info/component/account_invitation_dialog.dart';
 import 'package:app/features/auth/data/notifier/auth_notifier.dart';
 import 'package:auth_client/auth_client.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +12,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// 主な役割:
 /// - ユーザーのアカウント情報を表示する
 /// - 匿名ユーザーの場合は適切な表示を行う
-/// - プロフィール編集や招待コード入力などの機能を提供する
+/// - プロフィール編集などの機能を提供する
 ///
 /// 参考:
 /// - [SCREENS.md](https://github.com/FlutterKaigi/2025/blob/main/docs/app/SCREENS.md)
@@ -187,47 +186,6 @@ class _UserInfoCard extends ConsumerWidget {
                   foregroundColor: Theme.of(
                     context,
                   ).colorScheme.onSecondary,
-                  visualDensity: VisualDensity.comfortable,
-                ),
-              ),
-            ),
-            const SizedBox(height: 8),
-            SizedBox(
-              width: double.infinity,
-              child: OutlinedButton.icon(
-                onPressed: () async {
-                  await showDialog<bool?>(
-                    useRootNavigator: false,
-                    context: context,
-                    builder: (context) => AccountInvitationDialog(
-                      onCancel: () => Navigator.of(context).pop(),
-                      onFailure: () => Navigator.of(context).pop(false),
-                      onSuccess: () => Navigator.of(context).pop(true),
-                    ),
-                  ).then((value) {
-                    if (context.mounted && value != null) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            value
-                                ? L10n.of(
-                                    context,
-                                  ).accountInvitationCodeApplied
-                                : L10n.of(
-                                    context,
-                                  ).accountInvitationCodeApplyFailed,
-                          ),
-                          behavior: SnackBarBehavior.floating,
-                        ),
-                      );
-                    }
-                  });
-                },
-                icon: const Icon(Icons.card_giftcard),
-                label: Text(
-                  L10n.of(context).accountInvitationCodeInput,
-                ),
-                style: OutlinedButton.styleFrom(
                   visualDensity: VisualDensity.comfortable,
                 ),
               ),

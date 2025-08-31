@@ -100,24 +100,6 @@ class L10nJa extends L10n {
   String get accountOssLicenses => 'OSS Licenses';
 
   @override
-  String get accountInvitationDialogTitle => '招待コードを入力';
-
-  @override
-  String get accountInvitationCode => '招待コード';
-
-  @override
-  String get accountInvitationCodeHint => 'FLUTTER2025';
-
-  @override
-  String get accountInvitationCodeValidation => '招待コードを入力してください';
-
-  @override
-  String get accountCancel => 'キャンセル';
-
-  @override
-  String get accountApply => '適用';
-
-  @override
   String get guestSignInButton => 'ゲストで利用する';
 
   @override

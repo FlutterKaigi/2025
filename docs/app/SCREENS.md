@@ -14,7 +14,6 @@
 |-|-|-|-|-|-|-|
 | L-SPLH | 起動 | スプラッシュ画面 | SplashScreen | Flutter | Replace | 全員 |
 | A-PLXM | 認証 | Google/Apple認証画面 | SocialAuthBottomSheet | InAppBrowser | BottomSheet | 要認証時 |
-| A-URVN | - | 招待コード入力画面 | InvitationCodeScreen | Flutter | Push | 要認証時 |
 | A-KYSD | - | アカウント作成エラーダイアログ | AccountCreationErrorDialog | Flutter | Dialog | 要認証時 |
 | D-HTFA | メイン | メイン画面 | MainScreen | Flutter | Replace | 全員（匿名可） |
 | E-INFO | イベント | イベント情報画面 | EventInfoScreen | Flutter | - | 全員（匿名可） |
@@ -53,7 +52,6 @@ flowchart TD
     %% 画面一覧
     SplashScreen[スプラッシュ画面]
     SocialAuthBottomSheet[Google/Apple認証画面]
-    InvitationCodeScreen[招待コード入力画面]
     AccountCreationErrorDialog[アカウント作成<br>エラーダイアログ]
     subgraph MainScreen[メイン画面]
       direction LR
@@ -92,13 +90,14 @@ flowchart TD
     %% 認証フロー
     SocialAuthBottomSheet --> AccountCheck{アカウント存在確認}
     AccountCheck --> |存在する| AccountInfoScreen
-    AccountCheck --> |存在しない| InvitationCodeScreen
+    AccountCheck --> |存在しない| AccountCreationErrorDialog
+    AccountCreationErrorDialog --> ProfileEditScreen
     
     %% 新規登録フロー
-    InvitationCodeScreen --> DomainCheck{ドメイン一致確認}
+    ProfileEditScreen --> DomainCheck{ドメイン一致確認}
     DomainCheck --> |一致| CreateAccount((アカウント作成))
     DomainCheck --> |不一致| AccountCreationErrorDialog
-    AccountCreationErrorDialog --> InvitationCodeScreen
+    AccountCreationErrorDialog --> ProfileEditScreen
     CreateAccount --> AccountInfoScreen
     
     %% メイン画面以降のフロー（匿名でも利用可能）
@@ -114,7 +113,6 @@ flowchart TD
     %% 画面一覧
     SplashScreen[スプラッシュ画面]
     SocialAuthBottomSheet[Google/Apple認証画面]
-    InvitationCodeScreen[招待コード入力画面]
     AccountCreationErrorDialog[アカウント作成<br>エラーダイアログ]
     subgraph MainScreen[メイン画面]
       direction LR
@@ -153,13 +151,14 @@ flowchart TD
     %% 認証フロー（企業担当者の場合）
     SocialAuthBottomSheet --> AccountCheck{アカウント存在確認}
     AccountCheck --> |存在する| AccountInfoScreen
-    AccountCheck --> |存在しない| InvitationCodeScreen
+    AccountCheck --> |存在しない| AccountCreationErrorDialog
+    AccountCreationErrorDialog --> ProfileEditScreen
     
     %% 新規登録フロー（企業担当者の場合）
-    InvitationCodeScreen --> DomainCheck{ドメイン一致確認}
+    ProfileEditScreen --> DomainCheck{ドメイン一致確認}
     DomainCheck --> |一致| CreateAccount((アカウント作成))
     DomainCheck --> |不一致| AccountCreationErrorDialog
-    AccountCreationErrorDialog --> InvitationCodeScreen
+    AccountCreationErrorDialog --> ProfileEditScreen
     CreateAccount --> AccountInfoScreen
     
     %% メイン画面以降のフロー（匿名でも利用可能）
