@@ -13,7 +13,7 @@ class NewsDbClient {
 SELECT *
 FROM public.news
 WHERE
-  (starts_at IS NULL OR starts_at <= NOW()) AND
+  starts_at <= NOW() AND
   (ends_at IS NULL OR ends_at > NOW())
 ORDER BY id DESC
 '''),
@@ -59,7 +59,7 @@ LIMIT 1
   Future<News> createNews({
     required String title,
     required String url,
-    DateTime? startsAt,
+    required DateTime startsAt,
     DateTime? endsAt,
   }) async {
     final result = await _connection.execute(
@@ -84,7 +84,7 @@ RETURNING *
     required int id,
     required String title,
     required String url,
-    DateTime? startsAt,
+    required DateTime startsAt,
     DateTime? endsAt,
   }) async {
     final result = await _connection.execute(
