@@ -1,7 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Flutter Run -> 'dashboard staging debug'" type="FlutterRunConfigurationType" factoryName="Flutter">
-    <option name="additionalArgs" value="--dart-define-from-file environments/.env.stg" />
-    <option name="filePath" value="$PROJECT_DIR$/apps/dashboard/lib/main.dart" />
-    <method v="2" />
-  </configuration>
-</component>
