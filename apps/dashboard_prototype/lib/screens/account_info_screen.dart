@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../features/account/ui/component/account_circle_image.dart';
 import '../features/account/ui/component/account_scaffold.dart';
-import '../core/auth/auth_state.dart';
+import '../core/auth/auth_provider.dart';
 
-class AccountInfoScreen extends StatelessWidget {
+class AccountInfoScreen extends ConsumerWidget {
   const AccountInfoScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Consumer<AuthState>(
-      builder: (context, authState, child) {
-        return AccountScaffold(
+  Widget build(BuildContext context, WidgetRef ref) {
+    final authState = ref.watch(authProvider);
+    return AccountScaffold(
           body: Column(
             children: [
               _UserInfoCard(
@@ -100,7 +99,7 @@ class AccountInfoScreen extends StatelessWidget {
                                   TextButton(
                                     onPressed: () {
                                       Navigator.pop(context);
-                                      authState.signOut();
+                                      ref.read(authProvider.notifier).signOut();
                                       context.go('/login');
                                     },
                                     child: const Text('ログアウト'),
@@ -129,8 +128,6 @@ class AccountInfoScreen extends StatelessWidget {
             ],
           ),
         );
-      },
-    );
   }
 }
 

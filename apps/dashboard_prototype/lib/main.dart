@@ -1,27 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'router/router.dart';
 import 'core/designsystem/theme/theme.dart';
-import 'core/auth/auth_state.dart';
+import 'core/auth/auth_provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    const ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
-class _AppWrapper extends StatefulWidget {
+class _AppWrapper extends ConsumerStatefulWidget {
   const _AppWrapper();
 
   @override
-  State<_AppWrapper> createState() => _AppWrapperState();
+  ConsumerState<_AppWrapper> createState() => _AppWrapperState();
 }
 
-class _AppWrapperState extends State<_AppWrapper> {
+class _AppWrapperState extends ConsumerState<_AppWrapper> {
   @override
   void initState() {
     super.initState();
     // 自動で匿名ログインを実行
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<AuthState>().setAnonymousUser();
+      ref.read(authProvider.notifier).setAnonymousUser();
     });
   }
 
@@ -42,9 +47,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => AuthState(),
-      child: const _AppWrapper(),
-    );
+    return const _AppWrapper();
   }
 }

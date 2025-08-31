@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../core/gen/assets/assets.gen.dart';
-import '../core/auth/auth_state.dart';
+import '../core/auth/auth_provider.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends ConsumerWidget {
   const LoginScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     
     return Scaffold(
@@ -34,14 +34,14 @@ class LoginScreen extends StatelessWidget {
                     _GoogleSignInButton(
                       onPressed: () async {
                         // Google認証を実行（仮）
-                        context.read<AuthState>().setAuthenticatedUser('user@example.com');
+                        ref.read(authProvider.notifier).setAuthenticatedUser('user@example.com');
                         context.go('/event');
                       },
                     ),
                     _GuestSignInButton(
                       onPressed: () async {
                         // 匿名ログインを実行
-                        context.read<AuthState>().setAnonymousUser();
+                        ref.read(authProvider.notifier).setAnonymousUser();
                         context.go('/event');
                       },
                     ),
