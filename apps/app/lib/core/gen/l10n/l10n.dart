@@ -267,42 +267,6 @@ abstract class L10n {
   /// **'OSS Licenses'**
   String get accountOssLicenses;
 
-  /// No description provided for @accountInvitationDialogTitle.
-  ///
-  /// In ja, this message translates to:
-  /// **'招待コードを入力'**
-  String get accountInvitationDialogTitle;
-
-  /// No description provided for @accountInvitationCode.
-  ///
-  /// In ja, this message translates to:
-  /// **'招待コード'**
-  String get accountInvitationCode;
-
-  /// No description provided for @accountInvitationCodeHint.
-  ///
-  /// In ja, this message translates to:
-  /// **'FLUTTER2025'**
-  String get accountInvitationCodeHint;
-
-  /// No description provided for @accountInvitationCodeValidation.
-  ///
-  /// In ja, this message translates to:
-  /// **'招待コードを入力してください'**
-  String get accountInvitationCodeValidation;
-
-  /// No description provided for @accountCancel.
-  ///
-  /// In ja, this message translates to:
-  /// **'キャンセル'**
-  String get accountCancel;
-
-  /// No description provided for @accountApply.
-  ///
-  /// In ja, this message translates to:
-  /// **'適用'**
-  String get accountApply;
-
   /// No description provided for @guestSignInButton.
   ///
   /// In ja, this message translates to:
