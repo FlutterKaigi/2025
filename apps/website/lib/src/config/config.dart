@@ -278,16 +278,22 @@ const _sponsors = <SponsorInfo>[
     ),
     logo: '/img/sponsor/iiba.png',
     type: SponsorType.gold,
-    disable: true,
+    disable: false,
   ),
   (
-    name: '',
-    url: '',
-    sns: (x: null),
-    pr: (ja: '', en: null),
-    logo: '',
+    name: 'シンプレクス株式会社',
+    url: 'https://www.simplex.inc/',
+    sns: (x: 'SimplexHoldings'),
+    pr: (
+      ja:
+          'シンプレクスは1997年の創業以来、メガバンクや大手総合証券を筆頭に、'
+          '日本を代表する金融機関のテクノロジーパートナーとしてビジネスを展開してきました。'
+          '現在では、金融領域で培った豊富なノウハウを活用し、金融機関以外の領域でもソリューションを展開しています。',
+      en: null,
+    ),
+    logo: '/img/sponsor/simplex.png',
     type: SponsorType.gold,
-    disable: true,
+    disable: false,
   ),
   (
     name: 'Codemagic',
