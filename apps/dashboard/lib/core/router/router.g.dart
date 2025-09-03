@@ -364,23 +364,27 @@ mixin $WithdrawalRoute on GoRouteData {
 
 mixin $ImageCropRoute on GoRouteData {
   static ImageCropRoute _fromState(GoRouterState state) =>
-      const ImageCropRoute();
+      ImageCropRoute($extra: state.extra as Uint8List);
+
+  ImageCropRoute get _self => this as ImageCropRoute;
 
   @override
   String get location => GoRouteData.$location('/account/image-crop');
 
   @override
-  void go(BuildContext context) => context.go(location);
+  void go(BuildContext context) => context.go(location, extra: _self.$extra);
 
   @override
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+  Future<T?> push<T>(BuildContext context) =>
+      context.push<T>(location, extra: _self.$extra);
 
   @override
   void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
+      context.pushReplacement(location, extra: _self.$extra);
 
   @override
-  void replace(BuildContext context) => context.replace(location);
+  void replace(BuildContext context) =>
+      context.replace(location, extra: _self.$extra);
 }
 
 RouteBase get $debugRoute => GoRouteData.$route(

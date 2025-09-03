@@ -78,10 +78,14 @@ class WithdrawalRoute extends GoRouteData with $WithdrawalRoute {
 }
 
 class ImageCropRoute extends GoRouteData with $ImageCropRoute {
-  const ImageCropRoute();
+  const ImageCropRoute({
+    required this.$extra,
+  });
+
+  final Uint8List $extra;
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return const ImageCropScreen();
+    return ImageCropScreen(imageBytes: $extra);
   }
 }
