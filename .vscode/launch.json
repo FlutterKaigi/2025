@@ -14,7 +14,13 @@
       "request": "launch",
       "program": "lib/main.dart",
       "type": "dart",
-      "args": ["--dart-define-from-file", "environments/.env.dev"]
+      "args": [
+        "--dart-define-from-file",
+        "environments/.env.dev",
+        "--web-experimental-hot-reload",
+        "--web-port",
+        "8080"
+      ]
     },
     {
       "name": "app-staging-debug",
@@ -22,7 +28,13 @@
       "request": "launch",
       "program": "lib/main.dart",
       "type": "dart",
-      "args": ["--dart-define-from-file", "environments/.env.stg"]
+      "args": [
+        "--dart-define-from-file",
+        "environments/.env.stg",
+        "--web-experimental-hot-reload",
+        "--web-port",
+        "8080"
+      ]
     },
     {
       "name": "app-production-debug",
@@ -30,7 +42,13 @@
       "request": "launch",
       "program": "lib/main.dart",
       "type": "dart",
-      "args": ["--dart-define-from-file", "environments/.env.prod"]
+      "args": [
+        "--dart-define-from-file",
+        "environments/.env.prod",
+        "--web-experimental-hot-reload",
+        "--web-port",
+        "8080"
+      ]
     }
   ]
 }

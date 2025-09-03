@@ -18,7 +18,7 @@ Future<List<News>> news(Ref ref) async {
           id: news.id,
           title: news.title,
           url: news.url != null ? Uri.parse(news.url!) : null,
-          startedAt: news.createdAt,
+          startedAt: news.startsAt,
         ),
       )
       .toList();

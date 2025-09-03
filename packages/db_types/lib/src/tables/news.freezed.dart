@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$News {
 
- int get id; String get title; String? get url;@DateTimeConverter() DateTime? get startsAt;@DateTimeConverter() DateTime? get endsAt;@RequiredDateTimeConverter() DateTime get createdAt;@RequiredDateTimeConverter() DateTime get updatedAt;
+ int get id; String get title; String? get url;@RequiredDateTimeConverter() DateTime get startsAt;@DateTimeConverter() DateTime? get endsAt;@RequiredDateTimeConverter() DateTime get createdAt;@RequiredDateTimeConverter() DateTime get updatedAt;
 /// Create a copy of News
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $NewsCopyWith<$Res>  {
   factory $NewsCopyWith(News value, $Res Function(News) _then) = _$NewsCopyWithImpl;
 @useResult
 $Res call({
- int id, String title, String? url,@DateTimeConverter() DateTime? startsAt,@DateTimeConverter() DateTime? endsAt,@RequiredDateTimeConverter() DateTime createdAt,@RequiredDateTimeConverter() DateTime updatedAt
+ int id, String title, String? url,@RequiredDateTimeConverter() DateTime startsAt,@DateTimeConverter() DateTime? endsAt,@RequiredDateTimeConverter() DateTime createdAt,@RequiredDateTimeConverter() DateTime updatedAt
 });
 
 
@@ -65,13 +65,13 @@ class _$NewsCopyWithImpl<$Res>
 
 /// Create a copy of News
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? url = freezed,Object? startsAt = freezed,Object? endsAt = freezed,Object? createdAt = null,Object? updatedAt = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? url = freezed,Object? startsAt = null,Object? endsAt = freezed,Object? createdAt = null,Object? updatedAt = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,url: freezed == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
-as String?,startsAt: freezed == startsAt ? _self.startsAt : startsAt // ignore: cast_nullable_to_non_nullable
-as DateTime?,endsAt: freezed == endsAt ? _self.endsAt : endsAt // ignore: cast_nullable_to_non_nullable
+as String?,startsAt: null == startsAt ? _self.startsAt : startsAt // ignore: cast_nullable_to_non_nullable
+as DateTime,endsAt: freezed == endsAt ? _self.endsAt : endsAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,
@@ -159,7 +159,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String title,  String? url, @DateTimeConverter()  DateTime? startsAt, @DateTimeConverter()  DateTime? endsAt, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String title,  String? url, @RequiredDateTimeConverter()  DateTime startsAt, @DateTimeConverter()  DateTime? endsAt, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _News() when $default != null:
 return $default(_that.id,_that.title,_that.url,_that.startsAt,_that.endsAt,_that.createdAt,_that.updatedAt);case _:
@@ -180,7 +180,7 @@ return $default(_that.id,_that.title,_that.url,_that.startsAt,_that.endsAt,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String title,  String? url, @DateTimeConverter()  DateTime? startsAt, @DateTimeConverter()  DateTime? endsAt, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String title,  String? url, @RequiredDateTimeConverter()  DateTime startsAt, @DateTimeConverter()  DateTime? endsAt, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)  $default,) {final _that = this;
 switch (_that) {
 case _News():
 return $default(_that.id,_that.title,_that.url,_that.startsAt,_that.endsAt,_that.createdAt,_that.updatedAt);case _:
@@ -200,7 +200,7 @@ return $default(_that.id,_that.title,_that.url,_that.startsAt,_that.endsAt,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String title,  String? url, @DateTimeConverter()  DateTime? startsAt, @DateTimeConverter()  DateTime? endsAt, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String title,  String? url, @RequiredDateTimeConverter()  DateTime startsAt, @DateTimeConverter()  DateTime? endsAt, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)?  $default,) {final _that = this;
 switch (_that) {
 case _News() when $default != null:
 return $default(_that.id,_that.title,_that.url,_that.startsAt,_that.endsAt,_that.createdAt,_that.updatedAt);case _:
@@ -215,13 +215,13 @@ return $default(_that.id,_that.title,_that.url,_that.startsAt,_that.endsAt,_that
 @JsonSerializable()
 
 class _News implements News {
-  const _News({required this.id, required this.title, this.url, @DateTimeConverter() this.startsAt, @DateTimeConverter() this.endsAt, @RequiredDateTimeConverter() required this.createdAt, @RequiredDateTimeConverter() required this.updatedAt});
+  const _News({required this.id, required this.title, this.url, @RequiredDateTimeConverter() required this.startsAt, @DateTimeConverter() this.endsAt, @RequiredDateTimeConverter() required this.createdAt, @RequiredDateTimeConverter() required this.updatedAt});
   factory _News.fromJson(Map<String, dynamic> json) => _$NewsFromJson(json);
 
 @override final  int id;
 @override final  String title;
 @override final  String? url;
-@override@DateTimeConverter() final  DateTime? startsAt;
+@override@RequiredDateTimeConverter() final  DateTime startsAt;
 @override@DateTimeConverter() final  DateTime? endsAt;
 @override@RequiredDateTimeConverter() final  DateTime createdAt;
 @override@RequiredDateTimeConverter() final  DateTime updatedAt;
@@ -259,7 +259,7 @@ abstract mixin class _$NewsCopyWith<$Res> implements $NewsCopyWith<$Res> {
   factory _$NewsCopyWith(_News value, $Res Function(_News) _then) = __$NewsCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String title, String? url,@DateTimeConverter() DateTime? startsAt,@DateTimeConverter() DateTime? endsAt,@RequiredDateTimeConverter() DateTime createdAt,@RequiredDateTimeConverter() DateTime updatedAt
+ int id, String title, String? url,@RequiredDateTimeConverter() DateTime startsAt,@DateTimeConverter() DateTime? endsAt,@RequiredDateTimeConverter() DateTime createdAt,@RequiredDateTimeConverter() DateTime updatedAt
 });
 
 
@@ -276,13 +276,13 @@ class __$NewsCopyWithImpl<$Res>
 
 /// Create a copy of News
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? url = freezed,Object? startsAt = freezed,Object? endsAt = freezed,Object? createdAt = null,Object? updatedAt = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? url = freezed,Object? startsAt = null,Object? endsAt = freezed,Object? createdAt = null,Object? updatedAt = null,}) {
   return _then(_News(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,url: freezed == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
-as String?,startsAt: freezed == startsAt ? _self.startsAt : startsAt // ignore: cast_nullable_to_non_nullable
-as DateTime?,endsAt: freezed == endsAt ? _self.endsAt : endsAt // ignore: cast_nullable_to_non_nullable
+as String?,startsAt: null == startsAt ? _self.startsAt : startsAt // ignore: cast_nullable_to_non_nullable
+as DateTime,endsAt: freezed == endsAt ? _self.endsAt : endsAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,

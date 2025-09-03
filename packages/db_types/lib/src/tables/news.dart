@@ -10,7 +10,7 @@ abstract class News with _$News {
     required int id,
     required String title,
     String? url,
-    @DateTimeConverter() DateTime? startsAt,
+    @RequiredDateTimeConverter() required DateTime startsAt,
     @DateTimeConverter() DateTime? endsAt,
     @RequiredDateTimeConverter() required DateTime createdAt,
     @RequiredDateTimeConverter() required DateTime updatedAt,

@@ -189,24 +189,6 @@ abstract class L10n {
   /// **'設定されていません'**
   String get sponsorXAccountNotSet;
 
-  /// No description provided for @sponsorEditButtonLabel.
-  ///
-  /// In ja, this message translates to:
-  /// **'スポンサー情報を編集する'**
-  String get sponsorEditButtonLabel;
-
-  /// No description provided for @sponsorEditScreenTitle.
-  ///
-  /// In ja, this message translates to:
-  /// **'スポンサー編集'**
-  String get sponsorEditScreenTitle;
-
-  /// No description provided for @sponsorEditSaveButtonLabel.
-  ///
-  /// In ja, this message translates to:
-  /// **'保存する'**
-  String get sponsorEditSaveButtonLabel;
-
   /// No description provided for @sponsorName.
   ///
   /// In ja, this message translates to:
@@ -218,24 +200,6 @@ abstract class L10n {
   /// In ja, this message translates to:
   /// **'プロフィールを編集する'**
   String get accountProfileEdit;
-
-  /// No description provided for @accountInvitationCodeInput.
-  ///
-  /// In ja, this message translates to:
-  /// **'招待コードを入力する'**
-  String get accountInvitationCodeInput;
-
-  /// No description provided for @accountInvitationCodeApplied.
-  ///
-  /// In ja, this message translates to:
-  /// **'招待コードが適用されました'**
-  String get accountInvitationCodeApplied;
-
-  /// No description provided for @accountInvitationCodeApplyFailed.
-  ///
-  /// In ja, this message translates to:
-  /// **'招待コードの適用に失敗しました'**
-  String get accountInvitationCodeApplyFailed;
 
   /// No description provided for @accountOthers.
   ///
@@ -284,42 +248,6 @@ abstract class L10n {
   /// In ja, this message translates to:
   /// **'OSS Licenses'**
   String get accountOssLicenses;
-
-  /// No description provided for @accountInvitationDialogTitle.
-  ///
-  /// In ja, this message translates to:
-  /// **'招待コードを入力'**
-  String get accountInvitationDialogTitle;
-
-  /// No description provided for @accountInvitationCode.
-  ///
-  /// In ja, this message translates to:
-  /// **'招待コード'**
-  String get accountInvitationCode;
-
-  /// No description provided for @accountInvitationCodeHint.
-  ///
-  /// In ja, this message translates to:
-  /// **'FLUTTER2025'**
-  String get accountInvitationCodeHint;
-
-  /// No description provided for @accountInvitationCodeValidation.
-  ///
-  /// In ja, this message translates to:
-  /// **'招待コードを入力してください'**
-  String get accountInvitationCodeValidation;
-
-  /// No description provided for @accountCancel.
-  ///
-  /// In ja, this message translates to:
-  /// **'キャンセル'**
-  String get accountCancel;
-
-  /// No description provided for @accountApply.
-  ///
-  /// In ja, this message translates to:
-  /// **'適用'**
-  String get accountApply;
 
   /// No description provided for @guestSignInButton.
   ///

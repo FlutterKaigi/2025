@@ -58,13 +58,6 @@ RouteBase get $mainRoute => StatefulShellRouteData.$route(
             GoRouteData.$route(
               path: ':slug',
               factory: $SponsorDetailRoute._fromState,
-              routes: [
-                GoRouteData.$route(
-                  path: 'edit',
-                  parentNavigatorKey: SponsorEditRoute.$parentNavigatorKey,
-                  factory: $SponsorEditRoute._fromState,
-                ),
-              ],
             ),
           ],
         ),
@@ -192,31 +185,6 @@ mixin $SponsorDetailRoute on GoRouteData {
   @override
   String get location =>
       GoRouteData.$location('/sponsors/${Uri.encodeComponent(_self.slug)}');
-
-  @override
-  void go(BuildContext context) => context.go(location);
-
-  @override
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  @override
-  void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
-
-  @override
-  void replace(BuildContext context) => context.replace(location);
-}
-
-mixin $SponsorEditRoute on GoRouteData {
-  static SponsorEditRoute _fromState(GoRouterState state) =>
-      SponsorEditRoute(slug: state.pathParameters['slug']!);
-
-  SponsorEditRoute get _self => this as SponsorEditRoute;
-
-  @override
-  String get location => GoRouteData.$location(
-    '/sponsors/${Uri.encodeComponent(_self.slug)}/edit',
-  );
 
   @override
   void go(BuildContext context) => context.go(location);
