@@ -2,11 +2,18 @@ import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
 import 'package:image/image.dart' as img;
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-/// 画像変換のユーティリティクラス
+part 'image_utils.g.dart';
+
+@Riverpod(keepAlive: true)
+ImageUtils imageUtils(Ref ref) => const ImageUtils._();
+
 class ImageUtils {
-  /// 画像を400x400のWebPに変換する
-  static Future<Uint8List> convertToWebP400({
+  const ImageUtils._();
+
+  /// 画像を400x400のPngに変換する
+  Future<Uint8List> convertToPng400({
     required Uint8List imageBytes,
   }) async {
     // 画像をデコード
@@ -18,13 +25,13 @@ class ImageUtils {
     // 400x400にリサイズ（アスペクト比を保持してクロップ）
     final resizedImage = img.copyResizeCropSquare(originalImage, size: 400);
 
-    // WebPにエンコード
-    final webpBytes = img.encodeWebP(resizedImage);
-    return Uint8List.fromList(webpBytes);
+    // PNGにエンコード
+    final pngBytes = img.encodePng(resizedImage);
+    return Uint8List.fromList(pngBytes);
   }
 
-  /// ネットワーク画像を400x400のWebPに変換する
-  static Future<Uint8List> convertNetworkImageToWebP400({
+  /// ネットワーク画像を400x400のPNGに変換する
+  Future<Uint8List> convertNetworkImageToPng400({
     required String imageUrl,
   }) async {
     try {
@@ -35,7 +42,6 @@ class ImageUtils {
         options: Options(
           responseType: ResponseType.bytes,
           followRedirects: true,
-          validateStatus: (status) => status != null && status < 500,
         ),
       );
 
@@ -44,16 +50,9 @@ class ImageUtils {
       }
 
       final bytes = Uint8List.fromList(response.data!);
-      return await convertToWebP400(imageBytes: bytes);
+      return await convertToPng400(imageBytes: bytes);
     } catch (e) {
       throw Exception('ネットワーク画像の取得に失敗しました: $e');
     }
-  }
-
-  /// クロップされた画像を400x400のWebPに変換する
-  static Future<Uint8List> convertCroppedImageToWebP400({
-    required Uint8List croppedBytes,
-  }) async {
-    return convertToWebP400(imageBytes: croppedBytes);
   }
 }

@@ -4,10 +4,8 @@ import 'dart:typed_data';
 
 import 'package:app/core/provider/bff_client.dart';
 import 'package:app/core/provider/file_upload_dio.dart';
-import 'package:app/features/account/data/service/profile_avatar_action.dart';
-import 'package:app/features/auth/data/notifier/auth_notifier.dart';
-import 'package:auth_client/auth_client.dart';
 import 'package:bff_client/bff_client.dart';
+import 'package:db_types/db_types.dart';
 import 'package:dio/dio.dart';
 import 'package:hooks_riverpod/experimental/mutation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -31,7 +29,6 @@ class ProfileNotifier extends _$ProfileNotifier {
   }
 
   /// プロファイル情報を更新する
-  static final updateProfileMutation = Mutation<Profiles>();
   Future<Profiles> updateProfile(ProfileUpdateRequest request) async {
     final client = ref.read(bffClientProvider);
     final response = await client.v1.profile.updateMyProfile(request: request);
@@ -86,19 +83,4 @@ class ProfileNotifier extends _$ProfileNotifier {
     // プロファイルを再取得して状態を更新
     ref.invalidateSelf(asReload: true);
   }
-}
-
-/// ProfileAvatarAction のインスタンスを提供するプロバイダー
-@riverpod
-ProfileAvatarAction profileAvatarAction(Ref ref) {
-  final bffClient = ref.watch(bffClientProvider);
-  final profileNotifier = ref.watch(profileNotifierProvider.notifier);
-  final user = ref.watch(authNotifierProvider).valueOrNull;
-
-  return ProfileAvatarAction(
-    bffClient: bffClient,
-    uploadAvatar: profileNotifier.uploadAvatar,
-    deleteAvatar: profileNotifier.deleteAvatar,
-    user: user,
-  );
 }
