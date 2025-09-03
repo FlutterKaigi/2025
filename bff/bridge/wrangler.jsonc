@@ -12,6 +12,9 @@
   },
   "env": {
     "staging": {
+      "vars": {
+        "ENVIRONMENT": "staging",
+      },
       "containers": [
         {
           "class_name": "BffEngine",
@@ -40,6 +43,9 @@
       },
     },
     "production": {
+      "vars": {
+        "ENVIRONMENT": "production",
+      },
       "routes": [
         {
           "pattern": "2025-bff.flutterkaigi.jp",
