@@ -141,7 +141,7 @@ class _UserInfoCard extends ConsumerWidget {
               },
             ),
             const SizedBox(height: 8),
-            const _LogoutButton(),
+            const _LogoutButton(isGuest: true),
           ]
         : [
             if (user.avatarUrl != null)
@@ -201,14 +201,20 @@ extension on User {
 
 /// ログアウトボタン用のカスタムウィジェット
 class _LogoutButton extends ConsumerWidget {
-  const _LogoutButton();
+  const _LogoutButton({
+    this.isGuest = false,
+  });
+
+  final bool isGuest;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = L10n.of(context);
     final colorScheme = Theme.of(context).colorScheme;
+
     return SizedBox(
-      width: double.infinity,
+      width: isGuest ? 210 : double.infinity,
+      height: isGuest ? 48 : null,
       child: OutlinedButton.icon(
         onPressed: () async {
           await ref.read(authNotifierProvider.notifier).signOut();
@@ -220,7 +226,14 @@ class _LogoutButton extends ConsumerWidget {
           side: BorderSide(
             color: colorScheme.error,
           ),
-          visualDensity: VisualDensity.comfortable,
+          shape: isGuest
+              ? RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(40),
+                )
+              : null,
+          visualDensity: isGuest
+              ? VisualDensity.standard
+              : VisualDensity.comfortable,
         ),
       ),
     );
