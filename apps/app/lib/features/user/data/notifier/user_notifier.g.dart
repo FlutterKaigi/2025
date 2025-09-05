@@ -1,0 +1,58 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+// ignore_for_file: type=lint, duplicate_ignore
+
+part of 'user_notifier.dart';
+
+// **************************************************************************
+// RiverpodGenerator
+// **************************************************************************
+
+@ProviderFor(UserNotifier)
+const userNotifierProvider = UserNotifierProvider._();
+
+final class UserNotifierProvider
+    extends $AsyncNotifierProvider<UserNotifier, UserAndUserRoles> {
+  const UserNotifierProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'userNotifierProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$userNotifierHash();
+
+  @$internal
+  @override
+  UserNotifier create() => UserNotifier();
+}
+
+String _$userNotifierHash() => r'60328671fdef4a460319f64d52609ef0302233d5';
+
+abstract class _$UserNotifier extends $AsyncNotifier<UserAndUserRoles> {
+  FutureOr<UserAndUserRoles> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref =
+        this.ref as $Ref<AsyncValue<UserAndUserRoles>, UserAndUserRoles>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<UserAndUserRoles>, UserAndUserRoles>,
+              AsyncValue<UserAndUserRoles>,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}
+
+// ignore_for_file: type=lint
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

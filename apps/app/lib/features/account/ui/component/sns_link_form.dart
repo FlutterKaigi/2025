@@ -1,65 +1,7 @@
 import 'package:app/features/account/data/model/sns_link_form_data.dart';
-import 'package:db_types/db_types.dart';
+import 'package:bff_client/bff_client.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-
-/// SnsType用のprivate extension
-extension _SnsTypeExtension on SnsType {
-  /// SNSタイプの表示名
-  String get displayName => switch (this) {
-    SnsType.github => 'GitHub',
-    SnsType.x => 'X (Twitter)',
-    SnsType.discord => 'Discord',
-    SnsType.medium => 'Medium',
-    SnsType.qiita => 'Qiita',
-    SnsType.zenn => 'Zenn',
-    SnsType.note => 'note',
-    SnsType.other => 'その他',
-  };
-
-  /// ヘルパーテキスト
-  String get helperText => switch (this) {
-    SnsType.github => '例: octocat または https://github.com/octocat',
-    SnsType.x => '例: twitter または https://x.com/twitter',
-    SnsType.discord => '例: 123456789012345678 (ユーザーID)',
-    SnsType.medium => '例: username または https://medium.com/@username',
-    SnsType.qiita => '例: username または https://qiita.com/username',
-    SnsType.zenn => '例: username または https://zenn.dev/username',
-    SnsType.note => '例: username または https://note.com/username',
-    SnsType.other => '完全なURLを入力してください',
-  };
-
-  /// SNS値のバリデーション
-  String? validateValue(String value) {
-    // URLが入力された場合はそのまま通す
-    if (value.startsWith('http://') || value.startsWith('https://')) {
-      try {
-        Uri.parse(value);
-        return null;
-      } on FormatException {
-        return '有効なURLを入力してください';
-      }
-    }
-
-    // ユーザーIDの形式チェック
-    return switch (this) {
-      SnsType.github ||
-      SnsType.x ||
-      SnsType.medium ||
-      SnsType.qiita ||
-      SnsType.zenn ||
-      SnsType.note =>
-        RegExp(r'^[a-zA-Z0-9_-]+$').hasMatch(value)
-            ? null
-            : '英数字、アンダースコア、ハイフンのみ使用可能です',
-      SnsType.discord =>
-        RegExp(r'^\d{17,19}$').hasMatch(value)
-            ? null
-            : 'DiscordユーザーIDは17-19桁の数字である必要があります',
-      SnsType.other => 'その他の場合は完全なURLを入力してください',
-    };
-  }
-}
 
 /// SNSリンクの入力フォームWidget
 class SnsLinkForm extends HookWidget {
@@ -140,5 +82,51 @@ class SnsLinkForm extends HookWidget {
         ),
       ),
     );
+  }
+}
+
+/// SnsType用のprivate extension
+extension _SnsTypeExtension on SnsType {
+  /// SNSタイプの表示名
+  String get displayName => switch (this) {
+    SnsType.github => 'GitHub',
+    SnsType.x => 'X (Twitter)',
+    SnsType.discord => 'Discord',
+    SnsType.medium => 'Medium',
+    SnsType.qiita => 'Qiita',
+    SnsType.zenn => 'Zenn',
+    SnsType.note => 'note',
+    SnsType.other => 'その他',
+  };
+
+  /// ヘルパーテキスト
+  String get helperText => switch (this) {
+    SnsType.github => '例: octocat',
+    SnsType.x => '例: twitter',
+    SnsType.discord => '例: 123456789012345678 (ユーザーID)',
+    SnsType.medium => '例: username',
+    SnsType.qiita => '例: username',
+    SnsType.zenn => '例: username',
+    SnsType.note => '例: username',
+    SnsType.other => '完全なURLを入力してください',
+  };
+
+  /// SNS値のバリデーション
+  String? validateValue(String value) {
+    final uriOrNull = Uri.tryParse(value);
+    final isHttpUrl = uriOrNull?.scheme == 'https';
+    final isHttpsUrl = uriOrNull?.scheme == 'https';
+
+    final isValid = isHttpUrl || isHttpsUrl;
+    // ユーザーIDの形式チェック
+    return switch (this) {
+      SnsType.other when uriOrNull == null || !isValid => '完全なURLを入力してください',
+      SnsType.other when uriOrNull != null => null,
+      _ when uriOrNull != null && isValid => 'ユーザーIDのみを入力してください',
+      _ =>
+        RegExp(r'^[a-zA-Z0-9_-]+$').hasMatch(value)
+            ? null
+            : '英数字、アンダースコア、ハイフンのみ使用可能です',
+    };
   }
 }

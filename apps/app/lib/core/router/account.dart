@@ -10,9 +10,6 @@ const _accountRoutes = [
       TypedGoRoute<WithdrawalRoute>(
         path: 'withdrawal',
       ),
-      TypedGoRoute<ImageCropRoute>(
-        path: 'image-crop',
-      ),
     ],
   ),
 ];
@@ -75,17 +72,4 @@ class WithdrawalRoute extends GoRouteData with $WithdrawalRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) =>
       const WithdrawalScreen();
-}
-
-class ImageCropRoute extends GoRouteData with $ImageCropRoute {
-  const ImageCropRoute({
-    required this.$extra,
-  });
-
-  final Uint8List $extra;
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) {
-    return ImageCropScreen(imageBytes: $extra);
-  }
 }

@@ -47,8 +47,10 @@ const app = new Hono<{
       const originalUrl = new URL(c.req.url);
 
       const targetUrl = new URL(`/${path}`, originalUrl.origin);
+      console.log("targetUrl", targetUrl.toString());
       // Query parametersを維持
       targetUrl.search = originalUrl.search;
+      console.log("targetUrl", targetUrl.toString());
 
       let fetcher: Fetcher;
       switch (service) {
@@ -71,7 +73,7 @@ const app = new Hono<{
       }
       console.log(`Proxying to: ${targetUrl.toString()}`);
 
-      return proxy(targetUrl.toString(), {
+      const response = await proxy(targetUrl.toString(), {
         fetcher,
         ...c.req, // optional, specify only when forwarding all the request data (including credentials) is necessary.
         headers: {
@@ -79,6 +81,8 @@ const app = new Hono<{
           "X-Forwarded-Host": c.req.header("host"),
         },
       });
+      console.log("response", response);
+      return response;
     }
   )
   .get("/scalar", Scalar({ url: "/openapi", title: "Internal API Proxy" }));

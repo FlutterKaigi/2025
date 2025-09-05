@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:bff_client/bff_client.dart';
+import 'package:dio/dio.dart' as dio;
 import 'package:engine/main.dart';
 import 'package:engine/model/files/file_object_key.dart';
 import 'package:engine/provider/internal_api_client_provider.dart';
@@ -24,8 +25,8 @@ class FilesApiService {
         jsonDecode(await request.readAsString()) as Map<String, dynamic>;
     final uploadRequest = FilesUploadRequest.fromJson(body);
 
-    const extension = 'webp';
-    const mimeType = 'image/webp';
+    const extension = 'png';
+    const mimeType = 'image/png';
     const expiresIn = 60 * 5; // 5m
 
     final contentLength = uploadRequest.contentLength;
@@ -49,8 +50,8 @@ class FilesApiService {
       final internalApiClient = container.read(internalApiClientProvider);
       final response = await internalApiClient.r2InternalApi.r2Api
           .createSignedUrl(
-            request: CreateSignedUrlRequest(
-              key: key.toString(),
+            request: SignedUrlRequest.put(
+              key: key.objectKey(),
               extension: extension,
               contentLength: contentLength,
               mimeType: mimeType,
@@ -73,6 +74,14 @@ class FilesApiService {
     } catch (e) {
       if (e is ErrorResponse) {
         rethrow;
+      }
+      if (e is dio.DioException) {
+        print(e.response?.data);
+        print(e.response?.statusCode);
+        throw ErrorResponse.errorCode(
+          code: ErrorCode.internalServerError,
+          detail: 'ファイルアップロード用URLの生成中にエラーが発生しました: ${e.response?.data}',
+        );
       }
       throw ErrorResponse.errorCode(
         code: ErrorCode.internalServerError,

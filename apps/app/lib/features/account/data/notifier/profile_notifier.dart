@@ -5,12 +5,10 @@ import 'dart:typed_data';
 import 'package:app/core/provider/bff_client.dart';
 import 'package:app/core/provider/file_upload_dio.dart';
 import 'package:bff_client/bff_client.dart';
-import 'package:db_types/db_types.dart';
 import 'package:dio/dio.dart';
-import 'package:hooks_riverpod/experimental/mutation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'profile_provider.g.dart';
+part 'profile_notifier.g.dart';
 
 @riverpod
 class ProfileNotifier extends _$ProfileNotifier {
@@ -38,7 +36,6 @@ class ProfileNotifier extends _$ProfileNotifier {
   }
 
   /// アバターを削除する
-  static final deleteAvatarMutation = Mutation<void>();
   Future<void> deleteAvatar() async {
     final currentValue = state.value;
     if (currentValue == null) {
@@ -48,18 +45,17 @@ class ProfileNotifier extends _$ProfileNotifier {
     await client.v1.profile.deleteMyAvatar();
     state = AsyncData(
       currentValue.copyWith(
-        profile: currentValue.profile.copyWith(avatarKey: null),
+        profile: currentValue.profile.copyWith(avatarUrl: null),
       ),
     );
   }
 
-  static final uploadAvatarMutation = Mutation<void>();
   Future<void> uploadAvatar({
     required Uint8List bytes,
   }) async {
     final client = ref.read(bffClientProvider);
     // get presigned url
-    final presignedUrlResponse = await client.v1.profile.getAvatarUploadUrl(
+    final presignedUrlResponse = await client.v1.files.getUploadUrl(
       request: FilesUploadRequest(
         variant: FileVariant.avatar,
         contentLength: bytes.length,
@@ -69,18 +65,26 @@ class ProfileNotifier extends _$ProfileNotifier {
     log(preSignedUrl.toString());
 
     final uploadDio = ref.read(fileUploadDioProvider);
-    final response = await uploadDio.put<Map<String, dynamic>>(
+    await uploadDio.put<Map<String, dynamic>>(
       preSignedUrl.url,
       data: bytes,
-      options: Options(
-        headers: {
-          'Content-Type': 'image/webp',
-        },
+      options: Options(),
+    );
+
+    final currentStatus = state.value;
+    if (currentStatus == null) {
+      throw StateError('Profile is not loaded');
+    }
+    await updateProfile(
+      ProfileUpdateRequest(
+        comment: currentStatus.profile.comment,
+        isAdult: currentStatus.profile.isAdult,
+        snsLinks: currentStatus.snsLinks,
+        name: currentStatus.profile.name,
+
+        avatarKey: preSignedUrl.key,
       ),
     );
-    log(response.data.toString());
-
-    // プロファイルを再取得して状態を更新
     ref.invalidateSelf(asReload: true);
   }
 }

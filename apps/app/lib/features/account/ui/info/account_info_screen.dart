@@ -126,8 +126,7 @@ class _UserInfoCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isAnonymous = user.isAnonymous;
-    final children = isAnonymous
+    final children = user.isAnonymous
         ? [
             Text(
               L10n.of(context).guestUserLabel,
@@ -143,7 +142,6 @@ class _UserInfoCard extends ConsumerWidget {
             ),
           ]
         : [
-            // TODO(YumNumm): Repository層でパースする
             if (user.avatarUrl != null)
               AccountCircleImage(
                 imageUrl: user.avatarUrl!,

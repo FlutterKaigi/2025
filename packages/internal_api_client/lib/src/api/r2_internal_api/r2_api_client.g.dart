@@ -20,16 +20,16 @@ class _R2ApiClient implements R2ApiClient {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<HttpResponse<CreateSignedUrlResponse>> createSignedUrl({
-    required CreateSignedUrlRequest request,
+  Future<HttpResponse<SignedUrlResponse>> createSignedUrl({
+    required SignedUrlRequest request,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(request.toJson());
-    final _options = _setStreamType<HttpResponse<CreateSignedUrlResponse>>(
-      Options(method: 'PUT', headers: _headers, extra: _extra)
+    final _options = _setStreamType<HttpResponse<SignedUrlResponse>>(
+      Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
             '/proxy/r2-internal-api/internal/r2/upload',
@@ -39,9 +39,9 @@ class _R2ApiClient implements R2ApiClient {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late CreateSignedUrlResponse _value;
+    late SignedUrlResponse _value;
     try {
-      _value = CreateSignedUrlResponse.fromJson(_result.data!);
+      _value = SignedUrlResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

@@ -1,10 +1,10 @@
 export 'api/payment_workflow_internal_api/payment_completion_api_client.dart';
 export 'api/payment_workflow_internal_api/payment_workflow_internal_api.dart';
 export 'api/payment_workflow_internal_api/ticket_checkout_api_client.dart';
-export 'api/r2_internal_api/model/create_signed_url_request.dart';
-export 'api/r2_internal_api/model/create_signed_url_response.dart';
 export 'api/r2_internal_api/model/delete_object_request.dart';
 export 'api/r2_internal_api/model/delete_object_response.dart';
+export 'api/r2_internal_api/model/signed_url_request.dart';
+export 'api/r2_internal_api/model/signed_url_response.dart';
 export 'api/r2_internal_api/r2_api_client.dart';
 export 'api/r2_internal_api/r2_internal_api.dart';
 export 'api/stripe_internal_api/internal_payment_api_client.dart';

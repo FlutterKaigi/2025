@@ -6,10 +6,21 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ImageCropScreen extends HookConsumerWidget {
-  const ImageCropScreen({
+  const ImageCropScreen._({
     required this.imageBytes,
     super.key,
   });
+
+  static Future<Uint8List?> show({
+    required BuildContext context,
+    required Uint8List imageBytes,
+  }) async => showDialog(
+    builder: (context) => ImageCropScreen._(
+      imageBytes: imageBytes,
+    ),
+    context: context,
+    fullscreenDialog: true,
+  );
 
   final Uint8List imageBytes;
 
@@ -43,7 +54,7 @@ class ImageCropScreen extends HookConsumerWidget {
                 onCropped: (croppedData) {
                   switch (croppedData) {
                     case CropSuccess(:final croppedImage):
-                      croppedBytes.value = croppedImage;
+                      Navigator.of(context).pop(croppedImage);
                     case CropFailure(:final cause):
                       throw Exception(cause);
                   }
@@ -66,7 +77,7 @@ class ImageCropScreen extends HookConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton.icon(
-                  onPressed: cropController.value.crop,
+                  onPressed: () async => cropController.value.crop(),
                   icon: const Icon(Icons.crop),
                   label: const Text('クロップ'),
                 ),

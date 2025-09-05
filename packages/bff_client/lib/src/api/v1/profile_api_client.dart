@@ -1,5 +1,4 @@
 import 'package:bff_client/bff_client.dart';
-import 'package:db_types/db_types.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -25,11 +24,4 @@ abstract class ProfileApiClient {
   /// Authorization Headerが必須
   @DELETE('/profile/me/avatar')
   Future<HttpResponse<void>> deleteMyAvatar();
-
-  /// アバターアップロード用の署名付きURLを取得します
-  /// Authorization Headerが必須
-  @POST('/profile/me/avatar/upload-url')
-  Future<HttpResponse<FilesUploadResponse>> getAvatarUploadUrl({
-    @Body() required FilesUploadRequest request,
-  });
 }

@@ -1,8 +1,9 @@
 import 'dart:convert';
 
 import 'package:bff_client/bff_client.dart';
-import 'package:db_types/db_types.dart';
+import 'package:db_types/db_types.dart' as db;
 import 'package:engine/main.dart';
+import 'package:engine/model/files/file_object_key.dart';
 import 'package:engine/provider/db_client_provider.dart';
 import 'package:engine/provider/internal_api_client_provider.dart';
 import 'package:engine/provider/supabase_util.dart';
@@ -41,9 +42,31 @@ class ProfileApiService {
       final deadline = DateTime.parse(nameplateDeadline);
       final canEditNameplate = profileCreatedAt.isAfter(deadline);
 
+      final profile = profileWithSns.profile;
+      String? avatarUrl;
+      if (profile.avatarKey != null) {
+        final internalApiClient = container.read(internalApiClientProvider);
+        final signedUrlResponse = await internalApiClient.r2InternalApi.r2Api
+            .createSignedUrl(
+              request: SignedUrlRequest.get(
+                key: profile.avatarKey!,
+                expiresIn: const Duration(days: 1).inSeconds,
+              ),
+            );
+        avatarUrl = signedUrlResponse.data.signedUrl;
+      }
+
       final response = ProfileResponse(
-        profile: profileWithSns.profile,
-        snsLinks: profileWithSns.snsLinks,
+        profile: Profiles(
+          id: profile.id,
+          name: profile.name,
+          comment: profile.comment,
+          isAdult: profile.isAdult,
+          createdAt: profile.createdAt,
+          updatedAt: profile.updatedAt,
+          avatarUrl: avatarUrl != null ? Uri.parse(avatarUrl) : null,
+        ),
+        snsLinks: profileWithSns.snsLinks.map((e) => e.toSnsLink()).toList(),
         canEditNameplate: canEditNameplate,
         nameplateNote: canEditNameplate
             ? null
@@ -74,12 +97,37 @@ class ProfileApiService {
         );
       }
 
+      final currentProfile = await database.profile.getProfileWithSnsLinks(
+        user.id,
+      );
+      if (currentProfile == null) {
+        throw ErrorResponse.errorCode(
+          code: ErrorCode.notFound,
+          detail: 'プロファイルが見つかりません',
+        );
+      }
+
+      // avatarKeyのバリデーション
+      final updateAvatarKey = updateRequest.avatarKey;
+      if (updateAvatarKey != null) {
+        final key = FileObjectKey.parse(updateAvatarKey);
+        if (key case FileObjectAvatarKey(
+          :final userId,
+        ) when userId != user.id) {
+          throw ErrorResponse.errorCode(
+            code: ErrorCode.badRequest,
+            detail: 'アバターのキーが不正です',
+          );
+        }
+      }
+
       // プロファイル更新データを作成
-      final profileData = ProfileUpdateData(
+      final profileData = db.ProfileUpdateData(
         name: updateRequest.name,
         comment: updateRequest.comment,
         isAdult: updateRequest.isAdult,
         updatedAt: DateTime.now(),
+        avatarKey: updateRequest.avatarKey,
       );
 
       // プロファイルを更新
@@ -88,13 +136,26 @@ class ProfileApiService {
         profileData,
       );
 
+      // アバターが変更されているかどうかを確認
+      final newAvatarKey = updatedProfile.avatarKey;
+      final currentAvatarKey = currentProfile.profile.avatarKey;
+      if (newAvatarKey != currentAvatarKey &&
+          newAvatarKey != null &&
+          currentAvatarKey != null) {
+        final internalApiClient = container.read(internalApiClientProvider);
+        // 古いアバターを削除
+        await internalApiClient.r2InternalApi.r2Api.deleteObject(
+          request: DeleteObjectRequest(key: currentAvatarKey),
+        );
+      }
+
       // SNSリンクを更新
       final snsLinksData = updateRequest.snsLinks;
       if (snsLinksData != null) {
         final linksToReplace = snsLinksData
             .map(
-              (link) => SnsLinkData(
-                snsType: link.snsType,
+              (link) => db.SnsLinkData(
+                snsType: link.snsType.toDbSnsType(),
                 value: link.value.trim(),
               ),
             )

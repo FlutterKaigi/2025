@@ -99,10 +99,6 @@ RouteBase get $mainRoute => StatefulShellRouteData.$route(
               parentNavigatorKey: WithdrawalRoute.$parentNavigatorKey,
               factory: $WithdrawalRoute._fromState,
             ),
-            GoRouteData.$route(
-              path: 'image-crop',
-              factory: $ImageCropRoute._fromState,
-            ),
           ],
         ),
       ],
@@ -328,31 +324,6 @@ mixin $WithdrawalRoute on GoRouteData {
 
   @override
   void replace(BuildContext context) => context.replace(location);
-}
-
-mixin $ImageCropRoute on GoRouteData {
-  static ImageCropRoute _fromState(GoRouterState state) =>
-      ImageCropRoute($extra: state.extra as Uint8List);
-
-  ImageCropRoute get _self => this as ImageCropRoute;
-
-  @override
-  String get location => GoRouteData.$location('/account/image-crop');
-
-  @override
-  void go(BuildContext context) => context.go(location, extra: _self.$extra);
-
-  @override
-  Future<T?> push<T>(BuildContext context) =>
-      context.push<T>(location, extra: _self.$extra);
-
-  @override
-  void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location, extra: _self.$extra);
-
-  @override
-  void replace(BuildContext context) =>
-      context.replace(location, extra: _self.$extra);
 }
 
 RouteBase get $debugRoute => GoRouteData.$route(
