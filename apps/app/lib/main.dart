@@ -11,6 +11,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   setupWebEnvironment();
   final container = ProviderContainer();
   final environment = container.read(environmentProvider);
@@ -23,11 +24,19 @@ Future<void> main() async {
       );
   try {
     // `authNotifierProvider` のビルド時に中断されないようにするために監視しておく
-    final authSubscription = container.listen(authNotifierProvider, (_, _) {});
+    final authSubscription = container.listen(
+      authNotifierProvider,
+      (_, _) {},
+    );
     await container.read(authNotifierProvider.future);
     authSubscription.close();
   } on Exception catch (e) {
     log(e.toString());
   }
-  runApp(UncontrolledProviderScope(container: container, child: const App()));
+  runApp(
+    UncontrolledProviderScope(
+      container: container,
+      child: const App(),
+    ),
+  );
 }

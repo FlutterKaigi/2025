@@ -1,5 +1,4 @@
 import 'package:bff_client/bff_client.dart';
-import 'package:db_types/db_types.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 

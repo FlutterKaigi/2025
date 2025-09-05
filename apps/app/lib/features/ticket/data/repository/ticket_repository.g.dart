@@ -61,7 +61,7 @@ final class TicketRepositoryProvider
   }
 }
 
-String _$ticketRepositoryHash() => r'167b06f1fb2c288944eca3750b593838f1a86a51';
+String _$ticketRepositoryHash() => r'636aeb183427cdbe7d620e43e8d39d754af0f9ed';
 
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -1,174 +1,207 @@
-import 'package:app/features/ticket/provider/ticket_list_provider.dart';
 import 'package:bff_client/bff_client.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 
-/// チケット種別を表示するカードコンポーネント
-///
-/// 機能:
-/// - チケット名、価格、販売状況を表示
-/// - 販売期間とアクティブ状態の視覚的表示
-/// - タップ時のコールバック処理
-class TicketCard extends ConsumerWidget {
+class TicketCard extends StatelessWidget {
   const TicketCard({
-    required this.ticketType,
-    required this.onTap,
+    required this.ticket,
     super.key,
   });
 
-  final TicketTypeWithOptionsItem ticketType;
-  final VoidCallback onTap;
+  final TicketItem ticket;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final ticketListNotifier = ref.read(ticketListNotifierProvider.notifier);
-    final isActive = ticketListNotifier.isTicketTypeActive(ticketType);
-    final statusMessage = ticketListNotifier.getSalesStatusMessage(ticketType);
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
 
     return Card(
-      elevation: 2,
-      child: InkWell(
-        onTap: isActive ? onTap : null,
-        borderRadius: BorderRadius.circular(8),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // ヘッダー行（チケット名と価格）
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Text(
-                      ticketType.ticketType.name,
-                      style: Theme.of(context).textTheme.headlineSmall
-                          ?.copyWith(
-                            color: isActive ? null : Colors.grey,
-                          ),
-                    ),
-                  ),
-                  const SizedBox(width: 8),
+      margin: const EdgeInsets.only(bottom: 16),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildHeader(context, ticket, theme, colorScheme),
+            const SizedBox(height: 12),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  ticket.ticketType.name,
+                  style: theme.textTheme.titleLarge,
+                ),
+                if (ticket.ticketType.description?.isNotEmpty ?? false) ...[
+                  const SizedBox(height: 4),
                   Text(
-                    '¥${_formatPrice(ticketType.ticketType.price)}',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      color: isActive
-                          ? Theme.of(context).primaryColor
-                          : Colors.grey,
-                      fontWeight: FontWeight.bold,
+                    ticket.ticketType.description!,
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: colorScheme.onSurfaceVariant,
                     ),
                   ),
                 ],
-              ),
-
-              const SizedBox(height: 8),
-
-              // 販売状況バッジ
-              Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 4,
-                    ),
-                    decoration: BoxDecoration(
-                      color: _getStatusColor(isActive),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Text(
-                      statusMessage,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-
-                  // 在庫制限表示
-                  if (ticketType.ticketType.maxQuantity != null) ...[
-                    const SizedBox(width: 8),
-                    Text(
-                      '限定${ticketType.ticketType.maxQuantity}枚',
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: Colors.orange,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
-                ],
-              ),
-
-              // 説明文（ある場合）
-              if (ticketType.ticketType.description != null) ...[
-                const SizedBox(height: 12),
-                Text(
-                  ticketType.ticketType.description!,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: isActive ? null : Colors.grey,
-                  ),
-                ),
               ],
-
-              // オプション情報（ある場合）
-              if (ticketType.options.isNotEmpty) ...[
-                const SizedBox(height: 12),
-                Text(
-                  'オプション${ticketType.options.length}種類あり',
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(context).primaryColor,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ],
-
-              // 販売期間情報
-              if (ticketType.ticketType.saleStartsAt != null ||
-                  ticketType.ticketType.saleEndsAt != null) ...[
-                const SizedBox(height: 8),
-                _buildSalesPeriodInfo(context),
-              ],
+            ),
+            if (ticket.options.isNotEmpty) ...[
+              const SizedBox(height: 12),
+              _buildOptions(context, ticket.options, theme, colorScheme),
             ],
-          ),
+            const SizedBox(height: 12),
+            _buildDateInfo(context, ticket, theme, colorScheme),
+          ],
         ),
       ),
     );
   }
 
-  Widget _buildSalesPeriodInfo(BuildContext context) {
-    final startDate = ticketType.ticketType.saleStartsAt;
-    final endDate = ticketType.ticketType.saleEndsAt;
+  Widget _buildHeader(
+    BuildContext context,
+    TicketItem ticket,
+    ThemeData theme,
+    ColorScheme colorScheme,
+  ) {
+    final color = switch (ticket) {
+      TicketPurchaseItem() => colorScheme.primary,
+      TicketCheckoutItem() => colorScheme.primaryContainer,
+    };
+    final icon = switch (ticket) {
+      TicketPurchaseItem() => Icons.check_circle,
+      TicketCheckoutItem() => Icons.hourglass_empty,
+    };
+    final onColor = switch (ticket) {
+      TicketPurchaseItem() => colorScheme.onPrimary,
+      TicketCheckoutItem() => colorScheme.onPrimaryContainer,
+    };
+    final label = switch (ticket) {
+      TicketPurchaseItem() => '購入済み',
+      TicketCheckoutItem() => '決済待ち',
+    };
+    return Row(
+      children: [
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                icon,
+                size: 16,
+                color: onColor,
+              ),
+              const SizedBox(width: 4),
+              Text(
+                label,
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: onColor,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+        ),
+        const Spacer(),
+        Text(
+          '¥${ticket.ticketType.price.toStringAsFixed(0)}',
+          style: theme.textTheme.titleMedium?.copyWith(
+            fontWeight: FontWeight.bold,
+            color: colorScheme.primary,
+          ),
+        ),
+      ],
+    );
+  }
 
-    var periodText = '';
-    if (startDate != null && endDate != null) {
-      periodText =
-          '販売期間: ${_formatDateTime(startDate)} - ${_formatDateTime(endDate)}';
-    } else if (startDate != null) {
-      periodText = '販売開始: ${_formatDateTime(startDate)}';
-    } else if (endDate != null) {
-      periodText = '販売終了: ${_formatDateTime(endDate)}';
-    }
+  Widget _buildOptions(
+    BuildContext context,
+    List<TicketOption> options,
+    ThemeData theme,
+    ColorScheme colorScheme,
+  ) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'オプション:',
+          style: theme.textTheme.bodyMedium?.copyWith(
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        const SizedBox(height: 4),
+        ...options.map(
+          (option) => Padding(
+            padding: const EdgeInsets.only(left: 16, top: 4),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.circle,
+                  size: 4,
+                  color: colorScheme.onSurfaceVariant,
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    option.name,
+                    style: theme.textTheme.bodySmall,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 
-    return Text(
-      periodText,
-      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-        color: Colors.grey[600],
+  Widget _buildDateInfo(
+    BuildContext context,
+    TicketItem ticket,
+    ThemeData theme,
+    ColorScheme colorScheme,
+  ) {
+    final dateFormat = DateFormat('yyyy/MM/dd HH:mm');
+
+    return switch (ticket) {
+      TicketPurchaseItem(:final purchase) => Row(
+        children: [
+          Icon(
+            Icons.schedule,
+            size: 16,
+            color: colorScheme.onSurfaceVariant,
+          ),
+          const SizedBox(width: 4),
+          Text(
+            '購入日時: ${dateFormat.format(purchase.createdAt.toLocal())}',
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: colorScheme.onSurfaceVariant,
+            ),
+          ),
+        ],
       ),
-    );
-  }
-
-  Color _getStatusColor(bool isActive) {
-    return isActive ? Colors.green : Colors.grey;
-  }
-
-  String _formatPrice(int price) {
-    return price.toString().replaceAllMapped(
-      RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-      (m) => '${m[1]},',
-    );
-  }
-
-  String _formatDateTime(DateTime dateTime) {
-    return '${dateTime.month}/${dateTime.day} ${dateTime.hour}:${dateTime.minute.toString().padLeft(2, '0')}';
+      TicketCheckoutItem(:final checkout) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(
+                Icons.access_time,
+                size: 16,
+                color: colorScheme.error,
+              ),
+              const SizedBox(width: 4),
+              Text(
+                '期限: ${dateFormat.format(checkout.expiresAt.toLocal())}',
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: colorScheme.error,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    };
   }
 }

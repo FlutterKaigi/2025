@@ -8,6 +8,8 @@ abstract class TicketCheckoutRequest with _$TicketCheckoutRequest {
   const factory TicketCheckoutRequest({
     required String ticketTypeId,
     required List<TicketOptionRequest> options,
+    required String successUrl,
+    required String cancelUrl,
   }) = _TicketCheckoutRequest;
 
   factory TicketCheckoutRequest.fromJson(Map<String, dynamic> json) =>
