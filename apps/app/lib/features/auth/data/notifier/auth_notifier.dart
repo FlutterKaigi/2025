@@ -1,6 +1,7 @@
 import 'package:app/core/provider/environment.dart';
 import 'package:app/features/auth/data/provider/auth_service.dart';
 import 'package:auth_client/auth_client.dart';
+import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'auth_notifier.g.dart';
@@ -16,9 +17,7 @@ class AuthNotifier extends _$AuthNotifier {
 
   Future<User?> signInWithGoogle() async {
     final environment = ref.read(environmentProvider);
-    final redirectTo =
-        'jp.flutterkaigi.conf2025${environment.appIdSuffix}'
-        '://login-callback';
+    final redirectTo = _getRedirectTo(environment);
     return ref
         .read(authServiceProvider)
         .signInWithGoogle(redirectTo: redirectTo);
@@ -30,9 +29,7 @@ class AuthNotifier extends _$AuthNotifier {
 
   Future<void> linkAnonymousUserWithGoogle() async {
     final environment = ref.read(environmentProvider);
-    final redirectTo =
-        'jp.flutterkaigi.conf2025${environment.appIdSuffix}'
-        '://login-callback';
+    final redirectTo = _getRedirectTo(environment);
     await ref
         .read(authServiceProvider)
         .linkAnonymousUserWithGoogle(redirectTo: redirectTo);
@@ -52,6 +49,15 @@ class AuthNotifier extends _$AuthNotifier {
       return response.session?.accessToken;
     }
     return session.accessToken;
+  }
+
+  String _getRedirectTo(Environment environment) {
+    // Webプラットフォームの場合は `scheme://host:port` を使用
+    if (kIsWeb) {
+      return Uri.base.origin;
+    }
+    // モバイルプラットフォームの場合は従来のカスタムスキームを使用
+    return 'jp.flutterkaigi.conf2025${environment.appIdSuffix}://login-callback';
   }
 }
 
