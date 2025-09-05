@@ -140,6 +140,8 @@ class _UserInfoCard extends ConsumerWidget {
                     .linkAnonymousUserWithGoogle();
               },
             ),
+            const SizedBox(height: 8),
+            const _LogoutButton(),
           ]
         : [
             if (user.avatarUrl != null)
@@ -170,23 +172,7 @@ class _UserInfoCard extends ConsumerWidget {
               ),
             ),
             const SizedBox(height: 8),
-            SizedBox(
-              width: double.infinity,
-              child: OutlinedButton.icon(
-                onPressed: () async {
-                  await ref.read(authNotifierProvider.notifier).signOut();
-                },
-                icon: const Icon(Icons.logout),
-                label: Text(L10n.of(context).accountLogout),
-                style: OutlinedButton.styleFrom(
-                  foregroundColor: Theme.of(context).colorScheme.error,
-                  side: BorderSide(
-                    color: Theme.of(context).colorScheme.error,
-                  ),
-                  visualDensity: VisualDensity.comfortable,
-                ),
-              ),
-            ),
+            const _LogoutButton(),
           ];
 
     return Card(
@@ -210,6 +196,34 @@ extension on User {
   String? get avatarUrl {
     return userMetadata?['avatar_url']?.toString() ??
         identities?.firstOrNull?.identityData?['avatar_url']?.toString();
+  }
+}
+
+/// ログアウトボタン用のカスタムウィジェット
+class _LogoutButton extends ConsumerWidget {
+  const _LogoutButton();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = L10n.of(context);
+    final colorScheme = Theme.of(context).colorScheme;
+    return SizedBox(
+      width: double.infinity,
+      child: OutlinedButton.icon(
+        onPressed: () async {
+          await ref.read(authNotifierProvider.notifier).signOut();
+        },
+        icon: const Icon(Icons.logout),
+        label: Text(l10n.accountLogout),
+        style: OutlinedButton.styleFrom(
+          foregroundColor: colorScheme.error,
+          side: BorderSide(
+            color: colorScheme.error,
+          ),
+          visualDensity: VisualDensity.comfortable,
+        ),
+      ),
+    );
   }
 }
 
