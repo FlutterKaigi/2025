@@ -28,6 +28,7 @@ class SponsorDbClient {
           cd.website_url,
           sc.sponsor_type,
           bsc.basic_plan_type,
+          sc.display_order,
           COALESCE(
             array_agg(sco.option_plan_type::text) FILTER (WHERE sco.option_plan_type IS NOT NULL),
             ARRAY[]::text[]
@@ -50,16 +51,10 @@ class SponsorDbClient {
           cd.pr_text,
           cd.website_url,
           sc.sponsor_type,
-          bsc.basic_plan_type
+          bsc.basic_plan_type,
+          sc.display_order
         ORDER BY 
-          CASE bsc.basic_plan_type
-            WHEN 'platinum' THEN 1
-            WHEN 'gold' THEN 2
-            WHEN 'silver' THEN 3
-            WHEN 'bronze' THEN 4
-            ELSE 5
-          END,
-          c.name
+          sc.display_order
       '''),
     );
 

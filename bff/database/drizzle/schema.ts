@@ -369,26 +369,6 @@ export const sessionsInAuth = auth.table(
 	],
 );
 
-export const ssoProvidersInAuth = auth.table(
-	"sso_providers",
-	{
-		id: uuid().primaryKey().notNull(),
-		resourceId: text("resource_id"),
-		createdAt: timestamp("created_at", { withTimezone: true, mode: "string" }),
-		updatedAt: timestamp("updated_at", { withTimezone: true, mode: "string" }),
-	},
-	() => [
-		uniqueIndex("sso_providers_resource_id_idx").using(
-			"btree",
-			sql`lower(resource_id)`,
-		),
-		check(
-			"resource_id not empty",
-			sql`(resource_id = NULL::text) OR (char_length(resource_id) > 0)`,
-		),
-	],
-);
-
 export const ssoDomainsInAuth = auth.table(
 	"sso_domains",
 	{
@@ -672,6 +652,31 @@ export const mfaChallengesInAuth = auth.table(
 			foreignColumns: [mfaFactorsInAuth.id],
 			name: "mfa_challenges_auth_factor_id_fkey",
 		}).onDelete("cascade"),
+	],
+);
+
+export const ssoProvidersInAuth = auth.table(
+	"sso_providers",
+	{
+		id: uuid().primaryKey().notNull(),
+		resourceId: text("resource_id"),
+		createdAt: timestamp("created_at", { withTimezone: true, mode: "string" }),
+		updatedAt: timestamp("updated_at", { withTimezone: true, mode: "string" }),
+		disabled: boolean(),
+	},
+	(table) => [
+		uniqueIndex("sso_providers_resource_id_idx").using(
+			"btree",
+			sql`lower(resource_id)`,
+		),
+		index("sso_providers_resource_id_pattern_idx").using(
+			"btree",
+			table.resourceId.asc().nullsLast().op("text_pattern_ops"),
+		),
+		check(
+			"resource_id not empty",
+			sql`(resource_id = NULL::text) OR (char_length(resource_id) > 0)`,
+		),
 	],
 );
 
@@ -1211,32 +1216,6 @@ export const jobBoards = pgTable(
 	],
 );
 
-export const sponsorCompanies = pgTable(
-	"sponsor_companies",
-	{
-		id: smallint().primaryKey().generatedAlwaysAsIdentity({
-			name: "sponsor_companies_id_seq",
-			startWith: 1,
-			increment: 1,
-			minValue: 1,
-			maxValue: 32767,
-			cache: 1,
-		}),
-		companyId: smallint("company_id"),
-		sponsorType: companySponsorType("sponsor_type").notNull(),
-		createdAt: timestamp("created_at", { mode: "string" })
-			.defaultNow()
-			.notNull(),
-	},
-	(table) => [
-		foreignKey({
-			columns: [table.companyId],
-			foreignColumns: [companies.id],
-			name: "sponsor_companies_company_id_fkey",
-		}).onDelete("cascade"),
-	],
-);
-
 export const companyDrafts = pgTable(
 	"company_drafts",
 	{
@@ -1365,6 +1344,33 @@ export const userSnsLinks = pgTable(
 			"user_sns_links_value_check",
 			sql`char_length(TRIM(BOTH FROM value)) > 0`,
 		),
+	],
+);
+
+export const sponsorCompanies = pgTable(
+	"sponsor_companies",
+	{
+		id: smallint().primaryKey().generatedAlwaysAsIdentity({
+			name: "sponsor_companies_id_seq",
+			startWith: 1,
+			increment: 1,
+			minValue: 1,
+			maxValue: 32767,
+			cache: 1,
+		}),
+		companyId: smallint("company_id"),
+		sponsorType: companySponsorType("sponsor_type").notNull(),
+		createdAt: timestamp("created_at", { mode: "string" })
+			.defaultNow()
+			.notNull(),
+		displayOrder: text("display_order").notNull(),
+	},
+	(table) => [
+		foreignKey({
+			columns: [table.companyId],
+			foreignColumns: [companies.id],
+			name: "sponsor_companies_company_id_fkey",
+		}).onDelete("cascade"),
 	],
 );
 
