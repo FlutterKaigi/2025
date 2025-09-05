@@ -13,7 +13,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   setupWebEnvironment();
-  final container = ProviderContainer(observers: []);
+  final container = ProviderContainer();
   final environment = container.read(environmentProvider);
   await container
       .read(authServiceProvider)
