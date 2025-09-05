@@ -1,4 +1,4 @@
-import 'package:db_types/db_types.dart';
+import 'package:bff_client/bff_client.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'sns_link_form_data.freezed.dart';

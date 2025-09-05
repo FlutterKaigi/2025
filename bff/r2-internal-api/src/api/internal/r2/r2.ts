@@ -1,17 +1,29 @@
 import { env } from "cloudflare:workers";
-import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import {
+  GetObjectCommand,
+  PutObjectCommand,
+  S3Client,
+} from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { vValidator } from "@hono/valibot-validator";
 import { Hono } from "hono";
 import * as v from "valibot";
 
-const CreateSignedUrlRequestSchema = v.object({
-  key: v.string(),
-  extension: v.string(),
-  content_length: v.number(),
-  expires_in: v.pipe(v.number(), v.integer(), v.minValue(0)),
-  mime_type: v.string(),
-});
+const SignedUrlRequestSchema = v.union([
+  v.object({
+    type: v.literal("put"),
+    key: v.string(),
+    extension: v.string(),
+    content_length: v.number(),
+    expires_in: v.pipe(v.number(), v.integer(), v.minValue(0)),
+    mime_type: v.string(),
+  }),
+  v.object({
+    type: v.literal("get"),
+    key: v.string(),
+    expires_in: v.pipe(v.number(), v.integer(), v.minValue(0)),
+  }),
+]);
 
 const s3Client = new S3Client({
   region: "auto",
@@ -23,49 +35,55 @@ const s3Client = new S3Client({
 });
 
 export const r2Api = new Hono()
-  .post(
-    "/upload",
-    vValidator("json", CreateSignedUrlRequestSchema),
-    async (c) => {
-      const { key, extension, content_length, mime_type, expires_in } =
-        c.req.valid("json");
-      console.log("Generating signed URL", {
-        key,
-        extension,
-        content_length,
-        mime_type,
-        expires_in,
-      });
-      // keyの末尾に拡張子を追加
-      const keys = key.split("/");
-      const dispositionName = `${keys[keys.length - 1]}.${extension}`;
-
-      try {
-        const signedUrl = await getSignedUrl(
-          s3Client,
-          new PutObjectCommand({
-            Bucket: env.R2_BUCKET_NAME,
-            Key: key,
-            ContentLength: content_length,
-            ContentType: mime_type,
-            ContentDisposition: `inline; filename="${dispositionName}"`,
-          }),
+  .post("/upload", vValidator("json", SignedUrlRequestSchema), async (c) => {
+    const request = c.req.valid("json");
+    console.log("Generating signed URL", request);
+    try {
+      let signedUrl: string;
+      switch (request.type) {
+        case "put":
           {
-            expiresIn: expires_in,
+            signedUrl = await getSignedUrl(
+              s3Client,
+              new PutObjectCommand({
+                Bucket: env.R2_BUCKET_NAME,
+                Key: request.key,
+                ContentLength: request.content_length,
+                ContentType: request.mime_type,
+              }),
+              {
+                expiresIn: request.expires_in,
+              }
+            );
           }
-        );
-        console.log("Signed URL:", signedUrl);
-
-        return c.json({
-          key,
-          signed_url: signedUrl,
-        });
-      } catch (error) {
-        console.error("Error creating signed URL:", error);
-        return c.json({ error: "Failed to create signed URL" }, 500);
+          break;
+        case "get": {
+          signedUrl = await getSignedUrl(
+            s3Client,
+            new GetObjectCommand({
+              Bucket: env.R2_BUCKET_NAME,
+              Key: request.key,
+            }),
+            {
+              expiresIn: request.expires_in,
+            }
+          );
+          break;
+        }
+        default: {
+          const _exhaustive: never = request;
+          throw new Error(`Invalid request type: ${_exhaustive}`);
+        }
       }
+      return c.json({
+        key: request.key,
+        signed_url: signedUrl,
+      });
+    } catch (error) {
+      console.error("Error creating signed URL:", error);
+      return c.json({ error: "Failed to create signed URL" }, 500);
     }
-  )
+  })
   .delete(
     "/object",
     vValidator(

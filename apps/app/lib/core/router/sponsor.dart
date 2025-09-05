@@ -6,11 +6,6 @@ const _sponsorRoutes = [
     routes: [
       TypedGoRoute<SponsorDetailRoute>(
         path: ':slug',
-        routes: [
-          TypedGoRoute<SponsorEditRoute>(
-            path: 'edit',
-          ),
-        ],
       ),
     ],
   ),
@@ -39,17 +34,4 @@ class SponsorDetailRoute extends GoRouteData with $SponsorDetailRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) =>
       SponsorDetailScreen(slug: slug);
-}
-
-class SponsorEditRoute extends GoRouteData with $SponsorEditRoute {
-  const SponsorEditRoute({required this.slug});
-
-  final String slug;
-
-  static final GlobalKey<NavigatorState> $parentNavigatorKey =
-      _rootNavigatorKey;
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      SponsorEditScreen(slug: slug);
 }

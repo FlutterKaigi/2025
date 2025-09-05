@@ -2,7 +2,7 @@
 
 // ignore_for_file: type=lint, duplicate_ignore
 
-part of 'profile_provider.dart';
+part of 'profile_notifier.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -32,7 +32,7 @@ final class ProfileNotifierProvider
   ProfileNotifier create() => ProfileNotifier();
 }
 
-String _$profileNotifierHash() => r'979ab45a04e6dff405a1a76978d9a114ae7c2f3d';
+String _$profileNotifierHash() => r'ce9b738f5588f07ce9904180adbaac506909307a';
 
 abstract class _$ProfileNotifier extends $AsyncNotifier<ProfileResponse?> {
   FutureOr<ProfileResponse?> build();

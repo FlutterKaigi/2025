@@ -1,7 +1,4 @@
-import 'package:bff_client/src/api/v1/profile_api_client.dart';
-import 'package:bff_client/src/api/v1/sponsors_api_client.dart';
-import 'package:bff_client/src/api/v1/tickets_api_client.dart';
-import 'package:bff_client/src/api/v1/users_api_client.dart';
+import 'package:bff_client/bff_client.dart';
 import 'package:dio/dio.dart';
 
 class BffApiClient {
@@ -21,4 +18,5 @@ class BffApiClientV1 {
   SponsorsApiClient get sponsors => SponsorsApiClient(_dio);
   TicketsApiClient get tickets => TicketsApiClient(_dio);
   UsersApiClient get users => UsersApiClient(_dio);
+  FilesApiClient get files => FilesApiClient(_dio);
 }

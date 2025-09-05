@@ -1,4 +1,4 @@
-import 'package:db_types/db_types.dart';
+import 'package:bff_client/bff_client.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -9,7 +9,7 @@ class SnsLinkCard extends StatelessWidget {
     super.key,
   });
 
-  final SnsLinkData snsAccount;
+  final SnsLink snsAccount;
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +111,7 @@ class SnsLinksList extends StatelessWidget {
     super.key,
   });
 
-  final List<UserSnsLinks> snsLinks;
+  final List<SnsLink> snsLinks;
 
   @override
   Widget build(BuildContext context) {
@@ -130,7 +130,7 @@ class SnsLinksList extends StatelessWidget {
       children: snsLinks
           .map(
             (link) => SnsLinkCard(
-              snsAccount: SnsLinkData(snsType: link.snsType, value: link.value),
+              snsAccount: SnsLink(snsType: link.snsType, value: link.value),
             ),
           )
           .toList(),

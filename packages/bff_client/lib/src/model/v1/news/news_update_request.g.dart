@@ -18,7 +18,7 @@ _NewsUpdateRequest _$NewsUpdateRequestFromJson(Map<String, dynamic> json) =>
           url: $checkedConvert('url', (v) => v as String),
           startsAt: $checkedConvert(
             'starts_at',
-            (v) => v == null ? null : DateTime.parse(v as String),
+            (v) => DateTime.parse(v as String),
           ),
           endsAt: $checkedConvert(
             'ends_at',
@@ -34,6 +34,6 @@ Map<String, dynamic> _$NewsUpdateRequestToJson(_NewsUpdateRequest instance) =>
     <String, dynamic>{
       'title': instance.title,
       'url': instance.url,
-      'starts_at': instance.startsAt?.toIso8601String(),
+      'starts_at': instance.startsAt.toIso8601String(),
       'ends_at': instance.endsAt?.toIso8601String(),
     };

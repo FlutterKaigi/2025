@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:app/core/gen/l10n/l10n.dart';
-import 'package:app/core/router/router.dart';
 import 'package:app/features/sponsor/data/sponsor.dart';
 import 'package:app/features/sponsor/data/sponsor_provider.dart';
 import 'package:app/features/sponsor/ui/sponsor_sliver_app_bar.dart';
@@ -15,7 +14,6 @@ import 'package:url_launcher/url_launcher.dart';
 ///
 /// 主な役割:
 /// - スポンサー企業の詳細情報を表示する
-/// - 編集画面への導線を提供する
 ///
 /// 参考:
 /// - [SCREENS.md](https://github.com/FlutterKaigi/2025/blob/main/docs/app/SCREENS.md)
@@ -179,15 +177,6 @@ class _SponsorDetail extends ConsumerWidget {
       child: SizedBox.shrink(),
     );
 
-    // 以下の条件のいずれかを満たす場合に編集可能とする
-    // - ログインユーザーが　　Admin, Staff のいずれかのロールを持っている
-    // - ログインユーザーが Sponsor のロールを持っている、かつ、ログインユーザーのメールアドレスと
-    //   スポンサーのメールアドレスのドメイン部分が一致している
-    //
-    // TODO: 本番データとの繋ぎ込みを行う際に修正する
-    final isEditable =
-        sponsor is CompanySponsor || sponsor is IndividualSponsor;
-
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -196,22 +185,6 @@ class _SponsorDetail extends ConsumerWidget {
           spacer,
         ],
       ),
-      bottomNavigationBar: isEditable
-          ? Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: FilledButton.icon(
-                style: FilledButton.styleFrom(
-                  backgroundColor: colorScheme.secondaryContainer,
-                  foregroundColor: colorScheme.onSurface,
-                ),
-                icon: const Icon(Icons.edit),
-                label: Text(l10n.sponsorEditButtonLabel),
-                onPressed: () {
-                  SponsorEditRoute(slug: sponsor.slug).go(context);
-                },
-              ),
-            )
-          : null,
     );
   }
 }

@@ -11,10 +11,12 @@ import {
 	individualDraftApprovals,
 	individualDrafts,
 	individuals,
+	jobBoards,
 	mfaAmrClaimsInAuth,
 	mfaChallengesInAuth,
 	mfaFactorsInAuth,
 	oneTimeTokensInAuth,
+	profiles,
 	refreshTokensInAuth,
 	samlProvidersInAuth,
 	samlRelayStatesInAuth,
@@ -31,6 +33,7 @@ import {
 	ticketPurchases,
 	ticketTypes,
 	userRoles,
+	userSnsLinks,
 	users,
 	usersInAuth,
 } from "./schema";
@@ -93,6 +96,8 @@ export const usersInAuthRelations = relations(usersInAuth, ({ many }) => ({
 	oneTimeTokensInAuths: many(oneTimeTokensInAuth),
 	mfaFactorsInAuths: many(mfaFactorsInAuth),
 	users: many(users),
+	profiles: many(profiles),
+	userSnsLinks: many(userSnsLinks),
 }));
 
 export const ssoDomainsInAuthRelations = relations(
@@ -261,6 +266,7 @@ export const companyInvitationRelations = relations(
 
 export const companiesRelations = relations(companies, ({ many }) => ({
 	companyInvitations: many(companyInvitation),
+	jobBoards: many(jobBoards),
 	companyDrafts: many(companyDrafts),
 	sponsorCompanies: many(sponsorCompanies),
 	companyMembers: many(companyMembers),
@@ -356,11 +362,11 @@ export const sponsorCompaniesRelations = relations(
 	sponsorCompanies,
 	({ one, many }) => ({
 		basicSponsorCompanies: many(basicSponsorCompanies),
+		sponsorCompanyOptions: many(sponsorCompanyOptions),
 		company: one(companies, {
 			fields: [sponsorCompanies.companyId],
 			references: [companies.id],
 		}),
-		sponsorCompanyOptions: many(sponsorCompanyOptions),
 	}),
 );
 
@@ -373,6 +379,27 @@ export const sponsorCompanyOptionsRelations = relations(
 		}),
 	}),
 );
+
+export const jobBoardsRelations = relations(jobBoards, ({ one }) => ({
+	company: one(companies, {
+		fields: [jobBoards.id],
+		references: [companies.id],
+	}),
+}));
+
+export const profilesRelations = relations(profiles, ({ one }) => ({
+	usersInAuth: one(usersInAuth, {
+		fields: [profiles.id],
+		references: [usersInAuth.id],
+	}),
+}));
+
+export const userSnsLinksRelations = relations(userSnsLinks, ({ one }) => ({
+	usersInAuth: one(usersInAuth, {
+		fields: [userSnsLinks.userId],
+		references: [usersInAuth.id],
+	}),
+}));
 
 export const userRolesRelations = relations(userRoles, ({ one }) => ({
 	user: one(users, {

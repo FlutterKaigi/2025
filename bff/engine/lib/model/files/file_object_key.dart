@@ -5,6 +5,8 @@ part 'file_object_key.g.dart';
 
 @Freezed(unionKey: 'type')
 sealed class FileObjectKey with _$FileObjectKey {
+  const FileObjectKey._();
+
   const factory FileObjectKey.avatar({
     required String userId,
     required String uuid,
@@ -16,7 +18,7 @@ sealed class FileObjectKey with _$FileObjectKey {
 
   factory FileObjectKey.parse(String key) {
     final parts = key.split('/');
-    if (parts.length != 2) {
+    if (parts.length != 3) {
       throw ArgumentError('Invalid key format: $key');
     }
 
@@ -34,8 +36,7 @@ sealed class FileObjectKey with _$FileObjectKey {
     };
   }
 
-  @override
-  String toString() {
+  String objectKey() {
     return switch (this) {
       FileObjectAvatarKey() => 'avatar/$userId/$uuid.$extension',
     };

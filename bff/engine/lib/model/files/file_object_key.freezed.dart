@@ -42,6 +42,10 @@ bool operator ==(Object other) {
 @override
 int get hashCode => Object.hash(runtimeType,userId,uuid,extension);
 
+@override
+String toString() {
+  return 'FileObjectKey(userId: $userId, uuid: $uuid, extension: $extension)';
+}
 
 
 }
@@ -207,8 +211,8 @@ return avatar(_that.userId,_that.uuid,_that.extension);case _:
 /// @nodoc
 @JsonSerializable()
 
-class FileObjectAvatarKey implements FileObjectKey {
-  const FileObjectAvatarKey({required this.userId, required this.uuid, required this.extension});
+class FileObjectAvatarKey extends FileObjectKey {
+  const FileObjectAvatarKey({required this.userId, required this.uuid, required this.extension}): super._();
   factory FileObjectAvatarKey.fromJson(Map<String, dynamic> json) => _$FileObjectAvatarKeyFromJson(json);
 
 @override final  String userId;
@@ -235,6 +239,10 @@ bool operator ==(Object other) {
 @override
 int get hashCode => Object.hash(runtimeType,userId,uuid,extension);
 
+@override
+String toString() {
+  return 'FileObjectKey.avatar(userId: $userId, uuid: $uuid, extension: $extension)';
+}
 
 
 }
