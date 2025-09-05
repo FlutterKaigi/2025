@@ -2,49 +2,50 @@
 
 // ignore_for_file: type=lint, duplicate_ignore
 
-part of 'news_provider.dart';
+part of 'ticket_items_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-@ProviderFor(news)
-const newsProvider = NewsProvider._();
+@ProviderFor(ticketItems)
+const ticketItemsProvider = TicketItemsProvider._();
 
-final class NewsProvider
+final class TicketItemsProvider
     extends
         $FunctionalProvider<
-          AsyncValue<List<News>>,
-          List<News>,
-          FutureOr<List<News>>
+          AsyncValue<List<TicketItem>>,
+          List<TicketItem>,
+          FutureOr<List<TicketItem>>
         >
-    with $FutureModifier<List<News>>, $FutureProvider<List<News>> {
-  const NewsProvider._()
+    with $FutureModifier<List<TicketItem>>, $FutureProvider<List<TicketItem>> {
+  const TicketItemsProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'newsProvider',
+        name: r'ticketItemsProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$newsHash();
+  String debugGetCreateSourceHash() => _$ticketItemsHash();
 
   @$internal
   @override
-  $FutureProviderElement<List<News>> $createElement($ProviderPointer pointer) =>
-      $FutureProviderElement(pointer);
+  $FutureProviderElement<List<TicketItem>> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
 
   @override
-  FutureOr<List<News>> create(Ref ref) {
-    return news(ref);
+  FutureOr<List<TicketItem>> create(Ref ref) {
+    return ticketItems(ref);
   }
 }
 
-String _$newsHash() => r'67407a1de612f74858ba17ce8e7ab294b2d8323a';
+String _$ticketItemsHash() => r'c9f6cf726f18b459a882234a0fbd2507bccbc2b1';
 
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

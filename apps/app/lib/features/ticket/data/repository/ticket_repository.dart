@@ -10,13 +10,13 @@ part 'ticket_repository.g.dart';
 @riverpod
 TicketRepository ticketRepository(Ref ref) {
   final bffClient = ref.watch(bffClientProvider);
-  return TicketRepository(
+  return TicketRepository._(
     ticketsApiClient: bffClient.v1.tickets,
   );
 }
 
 class TicketRepository {
-  const TicketRepository({
+  const TicketRepository._({
     required TicketsApiClient ticketsApiClient,
   }) : _ticketsApiClient = ticketsApiClient;
 
@@ -25,9 +25,8 @@ class TicketRepository {
   /// チケット種別一覧を取得（オプション情報も含む）
   ///
   /// 匿名ユーザーでも利用可能
-  Future<TicketTypesWithOptionsResponse> getTicketTypes() async {
-    return _ticketsApiClient.getTicketTypes();
-  }
+  Future<TicketTypesWithOptionsResponse> getTicketTypes() async =>
+      _ticketsApiClient.getTicketTypes();
 
   /// 特定のチケット種別の詳細情報を取得
   ///
@@ -36,15 +35,14 @@ class TicketRepository {
   /// [ticketTypeId] 取得したいチケット種別のID
   Future<TicketTypeWithOptionsResponse> getTicketTypeWithOptions(
     String ticketTypeId,
-  ) async {
-    return _ticketsApiClient.getTicketTypeWithOptions(ticketTypeId);
-  }
+  ) async => _ticketsApiClient.getTicketTypeWithOptions(ticketTypeId);
 
   /// ユーザーのチケット情報を取得（購入済み + 進行中チェックアウト）
   ///
   /// 認証が必要
-  Future<UserTicketsResponse> getUserTickets() async {
-    return _ticketsApiClient.getUserTickets();
+  Future<List<TicketItem>> getUserTickets() async {
+    final response = await _ticketsApiClient.getUserTickets();
+    return response.tickets;
   }
 
   /// チケットチェックアウト（枠確保）を実行
@@ -55,9 +53,7 @@ class TicketRepository {
   /// [request] チェックアウト要求（チケット種別ID + オプション）
   Future<TicketCheckoutSessionResponse> createCheckout(
     TicketCheckoutRequest request,
-  ) async {
-    return _ticketsApiClient.createCheckout(request);
-  }
+  ) async => _ticketsApiClient.createCheckout(request);
 
   /// チェックアウトセッションの詳細情報を取得
   ///
@@ -66,7 +62,14 @@ class TicketRepository {
   /// [sessionId] チェックアウトセッションID
   Future<TicketCheckoutSessionResponse> getCheckoutSession(
     String sessionId,
-  ) async {
-    return _ticketsApiClient.getCheckoutSession(sessionId);
-  }
+  ) async => _ticketsApiClient.getCheckoutSession(sessionId);
+
+  /// チケットチェックアウトキャンセル
+  ///w
+  /// 認証が必要
+  ///
+  /// [checkoutId] チェックアウトセッションID
+  Future<TicketCheckoutSessionResponse> cancelCheckout(
+    String checkoutId,
+  ) async => _ticketsApiClient.cancelCheckout(checkoutId);
 }

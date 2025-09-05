@@ -17,12 +17,12 @@ _TicketTypeWithOptionsResponse _$TicketTypeWithOptionsResponseFromJson(
     final val = _TicketTypeWithOptionsResponse(
       ticketType: $checkedConvert(
         'ticket_type',
-        (v) => TicketTypes.fromJson(v as Map<String, dynamic>),
+        (v) => TicketType.fromJson(v as Map<String, dynamic>),
       ),
       options: $checkedConvert(
         'options',
         (v) => (v as List<dynamic>)
-            .map((e) => TicketOptions.fromJson(e as Map<String, dynamic>))
+            .map((e) => TicketOption.fromJson(e as Map<String, dynamic>))
             .toList(),
       ),
     );

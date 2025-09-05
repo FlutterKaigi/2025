@@ -22,10 +22,16 @@ _TicketCheckoutRequest _$TicketCheckoutRequestFromJson(
             .map((e) => TicketOptionRequest.fromJson(e as Map<String, dynamic>))
             .toList(),
       ),
+      successUrl: $checkedConvert('success_url', (v) => v as String),
+      cancelUrl: $checkedConvert('cancel_url', (v) => v as String),
     );
     return val;
   },
-  fieldKeyMap: const {'ticketTypeId': 'ticket_type_id'},
+  fieldKeyMap: const {
+    'ticketTypeId': 'ticket_type_id',
+    'successUrl': 'success_url',
+    'cancelUrl': 'cancel_url',
+  },
 );
 
 Map<String, dynamic> _$TicketCheckoutRequestToJson(
@@ -33,6 +39,8 @@ Map<String, dynamic> _$TicketCheckoutRequestToJson(
 ) => <String, dynamic>{
   'ticket_type_id': instance.ticketTypeId,
   'options': instance.options,
+  'success_url': instance.successUrl,
+  'cancel_url': instance.cancelUrl,
 };
 
 _TicketOptionRequest _$TicketOptionRequestFromJson(Map<String, dynamic> json) =>

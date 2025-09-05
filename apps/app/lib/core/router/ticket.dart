@@ -1,14 +1,17 @@
 part of 'router.dart';
 
 const _ticketRoutes = [
-  TypedGoRoute<TicketListRoute>(
+  TypedGoRoute<TicketRoute>(
     path: '/tickets',
     routes: [
-      TypedGoRoute<TicketDetailRoute>(
-        path: ':ticketTypeId',
+      TypedGoRoute<AvailableTicketListRoute>(
+        path: 'available',
       ),
-      TypedGoRoute<OwnedTicketsRoute>(
-        path: 'owned',
+      TypedGoRoute<ActiveCheckoutRoute>(
+        path: 'active/:checkoutId',
+      ),
+      TypedGoRoute<TicketListRoute>(
+        path: 'list',
       ),
     ],
   ),
@@ -21,28 +24,37 @@ class TicketBranch extends StatefulShellBranchData {
   ];
 }
 
+class TicketRoute extends GoRouteData with $TicketRoute {
+  const TicketRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const TicketScreen();
+}
+
+class AvailableTicketListRoute extends GoRouteData
+    with $AvailableTicketListRoute {
+  const AvailableTicketListRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const AvailableTicketListScreen();
+}
+
+class ActiveCheckoutRoute extends GoRouteData with $ActiveCheckoutRoute {
+  const ActiveCheckoutRoute({required this.checkoutId});
+
+  final String checkoutId;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      ActiveCheckoutScreen(checkoutId: checkoutId);
+}
+
 class TicketListRoute extends GoRouteData with $TicketListRoute {
   const TicketListRoute();
 
   @override
   Widget build(BuildContext context, GoRouterState state) =>
       const TicketListScreen();
-}
-
-class TicketDetailRoute extends GoRouteData with $TicketDetailRoute {
-  const TicketDetailRoute({required this.ticketTypeId});
-
-  final String ticketTypeId;
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      TicketDetailScreen(ticketTypeId: ticketTypeId);
-}
-
-class OwnedTicketsRoute extends GoRouteData with $OwnedTicketsRoute {
-  const OwnedTicketsRoute();
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      const OwnedTicketsScreen();
 }

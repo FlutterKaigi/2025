@@ -19,7 +19,9 @@ class NewsApiService {
       final database = await container.read(dbClientProvider.future);
       final newsList = await database.news.getPublishedNewsList();
 
-      return NewsListResponse(news: newsList).toJson();
+      return NewsListResponse(
+        news: newsList.map((e) => e.toNews()).toList(),
+      ).toJson();
     },
   );
 
@@ -42,7 +44,9 @@ class NewsApiService {
       final database = await container.read(dbClientProvider.future);
       final newsList = await database.news.getAllNewsList();
 
-      return NewsListResponse(news: newsList).toJson();
+      return NewsListResponse(
+        news: newsList.map((e) => e.toNews()).toList(),
+      ).toJson();
     },
   );
 

@@ -68,15 +68,19 @@ RouteBase get $mainRoute => StatefulShellRouteData.$route(
       routes: [
         GoRouteData.$route(
           path: '/tickets',
-          factory: $TicketListRoute._fromState,
+          factory: $TicketRoute._fromState,
           routes: [
             GoRouteData.$route(
-              path: ':ticketTypeId',
-              factory: $TicketDetailRoute._fromState,
+              path: 'available',
+              factory: $AvailableTicketListRoute._fromState,
             ),
             GoRouteData.$route(
-              path: 'owned',
-              factory: $OwnedTicketsRoute._fromState,
+              path: 'active/:checkoutId',
+              factory: $ActiveCheckoutRoute._fromState,
+            ),
+            GoRouteData.$route(
+              path: 'list',
+              factory: $TicketListRoute._fromState,
             ),
           ],
         ),
@@ -196,9 +200,8 @@ mixin $SponsorDetailRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin $TicketListRoute on GoRouteData {
-  static TicketListRoute _fromState(GoRouterState state) =>
-      const TicketListRoute();
+mixin $TicketRoute on GoRouteData {
+  static TicketRoute _fromState(GoRouterState state) => const TicketRoute();
 
   @override
   String get location => GoRouteData.$location('/tickets');
@@ -217,15 +220,36 @@ mixin $TicketListRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin $TicketDetailRoute on GoRouteData {
-  static TicketDetailRoute _fromState(GoRouterState state) =>
-      TicketDetailRoute(ticketTypeId: state.pathParameters['ticketTypeId']!);
+mixin $AvailableTicketListRoute on GoRouteData {
+  static AvailableTicketListRoute _fromState(GoRouterState state) =>
+      const AvailableTicketListRoute();
 
-  TicketDetailRoute get _self => this as TicketDetailRoute;
+  @override
+  String get location => GoRouteData.$location('/tickets/available');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $ActiveCheckoutRoute on GoRouteData {
+  static ActiveCheckoutRoute _fromState(GoRouterState state) =>
+      ActiveCheckoutRoute(checkoutId: state.pathParameters['checkoutId']!);
+
+  ActiveCheckoutRoute get _self => this as ActiveCheckoutRoute;
 
   @override
   String get location => GoRouteData.$location(
-    '/tickets/${Uri.encodeComponent(_self.ticketTypeId)}',
+    '/tickets/active/${Uri.encodeComponent(_self.checkoutId)}',
   );
 
   @override
@@ -242,12 +266,12 @@ mixin $TicketDetailRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin $OwnedTicketsRoute on GoRouteData {
-  static OwnedTicketsRoute _fromState(GoRouterState state) =>
-      const OwnedTicketsRoute();
+mixin $TicketListRoute on GoRouteData {
+  static TicketListRoute _fromState(GoRouterState state) =>
+      const TicketListRoute();
 
   @override
-  String get location => GoRouteData.$location('/tickets/owned');
+  String get location => GoRouteData.$location('/tickets/list');
 
   @override
   void go(BuildContext context) => context.go(location);

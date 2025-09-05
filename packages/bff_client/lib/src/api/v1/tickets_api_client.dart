@@ -30,7 +30,19 @@ abstract class TicketsApiClient {
     @Path('sessionId') String sessionId,
   );
 
+  /// チケットチェックアウトキャンセル
+  @PUT('/tickets/checkout/{checkoutId}/cancel')
+  Future<TicketCheckoutSessionResponse> cancelCheckout(
+    @Path('checkoutId') String checkoutId,
+  );
+
   /// 自分の購入済みチケット一覧を取得
   @GET('/tickets/me')
   Future<UserTicketsResponse> getUserTickets();
+
+  /// ユーザのチケット一覧を取得
+  @GET('/tickets/users/{userId}')
+  Future<UserTicketsResponse> getUserTicketsByUserId(
+    @Path('userId') String userId,
+  );
 }
