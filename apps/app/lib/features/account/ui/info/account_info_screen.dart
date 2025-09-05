@@ -140,6 +140,8 @@ class _UserInfoCard extends ConsumerWidget {
                     .linkAnonymousUserWithGoogle();
               },
             ),
+            const SizedBox(height: 8),
+            const _LogoutButton(isGuest: true),
           ]
         : [
             if (user.avatarUrl != null)
@@ -169,6 +171,8 @@ class _UserInfoCard extends ConsumerWidget {
                 ),
               ),
             ),
+            const SizedBox(height: 8),
+            const _LogoutButton(),
           ];
 
     return Card(
@@ -192,6 +196,47 @@ extension on User {
   String? get avatarUrl {
     return userMetadata?['avatar_url']?.toString() ??
         identities?.firstOrNull?.identityData?['avatar_url']?.toString();
+  }
+}
+
+/// ログアウトボタン用のカスタムウィジェット
+class _LogoutButton extends ConsumerWidget {
+  const _LogoutButton({
+    this.isGuest = false,
+  });
+
+  final bool isGuest;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = L10n.of(context);
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return SizedBox(
+      width: isGuest ? 210 : double.infinity,
+      height: isGuest ? 48 : null,
+      child: OutlinedButton.icon(
+        onPressed: () async {
+          await ref.read(authNotifierProvider.notifier).signOut();
+        },
+        icon: const Icon(Icons.logout),
+        label: Text(l10n.accountLogout),
+        style: OutlinedButton.styleFrom(
+          foregroundColor: colorScheme.error,
+          side: BorderSide(
+            color: colorScheme.error,
+          ),
+          shape: isGuest
+              ? RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(40),
+                )
+              : null,
+          visualDensity: isGuest
+              ? VisualDensity.standard
+              : VisualDensity.comfortable,
+        ),
+      ),
+    );
   }
 }
 
