@@ -118,11 +118,11 @@ class TicketApiService {
             user.id,
             requestData.ticketTypeId,
           );
-      final purhcases = existingPurchases
+      final purchases = existingPurchases
           .map((e) => e.toTicketPurchase())
           .toList();
       // 既存の購入で、同じチケットタイプのもの かつ 購入済みのもの
-      final sameTicketTypePurchases = purhcases.where(
+      final sameTicketTypePurchases = purchases.where(
         (purchase) =>
             purchase.ticketTypeId == requestData.ticketTypeId &&
             purchase.status == TicketPurchaseStatus.completed,
