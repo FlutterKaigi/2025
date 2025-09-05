@@ -65,11 +65,16 @@ class ProfileEditScreen extends HookConsumerWidget {
           )
           .toList();
 
+      final avatarKey = ref
+          .read(profileNotifierProvider)
+          .requireValue!
+          .avatarKey;
       final request = ProfileUpdateRequest(
         name: nameController.text.trim(),
         comment: commentController.text.trim(),
         isAdult: isAdult,
         snsLinks: validSnsLinks,
+        avatarKey: avatarKey,
       );
 
       final notifier = ref.read(profileNotifierProvider.notifier);
@@ -356,5 +361,15 @@ class ProfileEditScreen extends HookConsumerWidget {
         skipLoadingOnReload: true,
       ),
     );
+  }
+}
+
+extension on ProfileResponse {
+  String? get avatarKey {
+    final avatarUrl = profile.avatarUrl;
+    if (avatarUrl == null) {
+      return null;
+    }
+    return avatarUrl.path.replaceFirst('/', '');
   }
 }
