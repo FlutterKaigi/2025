@@ -4,7 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'ticket_types_provider.g.dart';
 
-@Riverpod(keepAlive: true)
+@riverpod
 Future<List<TicketTypeWithOptionsItem>> ticketTypes(Ref ref) async {
   final repository = ref.watch(ticketRepositoryProvider);
   final response = await repository.getTicketTypes();

@@ -27,7 +27,7 @@ final class TicketTypesProvider
         argument: null,
         retry: null,
         name: r'ticketTypesProvider',
-        isAutoDispose: false,
+        isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -47,7 +47,7 @@ final class TicketTypesProvider
   }
 }
 
-String _$ticketTypesHash() => r'a7d325d441cedf78edbed381c716bfd8686dc8a3';
+String _$ticketTypesHash() => r'dcf0289d81a46ad42d1fb0527d7ed8d186efcc37';
 
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

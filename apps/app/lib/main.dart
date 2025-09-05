@@ -10,9 +10,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final container = ProviderContainer(
-    observers: []
-  );
+
+  final container = ProviderContainer(observers: []);
   final environment = container.read(environmentProvider);
   await container
       .read(authServiceProvider)
