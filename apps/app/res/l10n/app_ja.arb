@@ -57,5 +57,7 @@
   "guestUserLabel": "ゲストでログイン中",
   "@guestUserLabel": {},
   "authErrorIdentityAlreadyExists": "このGoogleアカウントは既に別のユーザーと紐づけられています。ログアウトしてから再度ログインしてください。",
-  "@authErrorIdentityAlreadyExists": {}
+  "@authErrorIdentityAlreadyExists": {},
+  "accountLogout": "ログアウト",
+  "@accountLogout": {}
 }

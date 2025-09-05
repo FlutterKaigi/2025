@@ -169,6 +169,24 @@ class _UserInfoCard extends ConsumerWidget {
                 ),
               ),
             ),
+            const SizedBox(height: 8),
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton.icon(
+                onPressed: () async {
+                  await ref.read(authNotifierProvider.notifier).signOut();
+                },
+                icon: const Icon(Icons.logout),
+                label: Text(L10n.of(context).accountLogout),
+                style: OutlinedButton.styleFrom(
+                  foregroundColor: Theme.of(context).colorScheme.error,
+                  side: BorderSide(
+                    color: Theme.of(context).colorScheme.error,
+                  ),
+                  visualDensity: VisualDensity.comfortable,
+                ),
+              ),
+            ),
           ];
 
     return Card(

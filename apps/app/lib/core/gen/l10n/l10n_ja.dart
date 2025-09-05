@@ -99,4 +99,7 @@ class L10nJa extends L10n {
   @override
   String get authErrorIdentityAlreadyExists =>
       'このGoogleアカウントは既に別のユーザーと紐づけられています。ログアウトしてから再度ログインしてください。';
+
+  @override
+  String get accountLogout => 'ログアウト';
 }
