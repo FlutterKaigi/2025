@@ -1,8 +1,23 @@
+import java.util.Base64
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
+}
+
+val dartDefines = mutableMapOf<String, String>()
+if (project.hasProperty("dart-defines")) {
+  // カンマ区切りかつBase64でエンコードされている dart-defines をデコードして変数に格納します。
+  val defines = project.property("dart-defines") as String
+  defines.split(",").forEach { entry ->
+    val decoded = String(Base64.getDecoder().decode(entry))
+    val pair = decoded.split("=")
+    if (pair.size == 2) {
+      dartDefines[pair[0]] = pair[1]
+    }
+  }
 }
 
 android {
@@ -22,6 +37,7 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "jp.flutterkaigi.conf2025"
+        manifestPlaceholders["appLabel"] = dartDefines["APP_NAME"] ?: "FlutterKaigi 2025"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion

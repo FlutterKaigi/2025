@@ -6,7 +6,7 @@ WITH
 INSERT INTO
     public.company_drafts (company_id, slug, pr_text, website_url, x_account, created_at, updated_at)
 SELECT
-    company_id,
+    c.id,
     slug,
     pr_text,
     website_url,
@@ -17,14 +17,14 @@ FROM
     (
         VALUES
             (
-                1,
+                '株式会社ゆめみ',
                 'yumemi',
                 '6000万人のみんな知ってるあのサービスも、ゆめみが一緒に作ってます。大手企業や急成長スタートアップと共創型でWeb/スマホのサービス作りや内製化支援を行っています。【エンジニアが最も成長できる会社No.1】を目標にした、アジャイル組織として先端を走るエンジニア集団です。',
                 'https://yumemi.co.jp/',
                 'yumemiinc'
             ),
             (
-                2,
+                '株式会社出前館',
                 'demae-can',
                 '出前館はクイックコマースサービスとして領域を拡大し、当社のコーポレートミッション「テクノロジーで時間価値を高める」に基づき、利用いただいた皆さまに対して“時間価値の最大化“を実現していきたいと考えています。
 地域活性化とともに、少子高齢化や買い物難民の増加をはじめとした地域や社会課題の解決に向き合い、社会にとって不可欠なライフインフラとして日本経済の発展に貢献できるサービスを目指して挑戦を続けています。',
@@ -32,7 +32,7 @@ FROM
                 NULL
             ),
             (
-                3,
+                '株式会社アサイン',
                 'assign',
                 'アサインは「人」と「技術」の力で、若手ハイエンド向けのキャリア支援サービスを提供しています。
 
@@ -45,84 +45,84 @@ FROM
                 NULL
             ),
             (
-                4,
+                'RevenueCat, Inc.',
                 'revenue-cat',
                 'RevenueCatは、iOS、Android、Webに対応した、世界有数のコンシューマーアプリ収益化プラットフォームを提供する米国企業です。サブスクリプション、消耗型アイテム、買い切り、ポイントに対応した課金・分析・コンバージョン最適化の一元管理を可能にします。ChatGPTやNotionを含む5万本以上のアプリに導入され、100億ドル以上の年間追跡売上を処理しています。詳しくはrevenuecat.com/jpをご覧ください。',
                 'https://www.revenuecat.com/jp/',
                 'RevenueCat'
             ),
             (
-                5,
+                'Flutter',
                 'flutter',
                 'Flutter is an open source framework by Google for building beautiful, natively compiled, multi-platform applications. Transform your app development process to launch faster with less resources by building, testing, and deploying from a single codebase.',
                 'https://flutter.dev/',
                 'https://flutter.dev/'
             ),
             (
-                6,
+                '株式会社サイバーエージェント',
                 'cyberagent',
                 'サイバーエージェントはインターネットを軸に、メディア&IP事業、インターネット広告事業、ゲーム事業と主に3つの事業を展開しています。その他にもIP・コンテンツ、AI、DXを強化分野として事業創出に取り組んでおり、様々な事業でFlutterの活用事例があります。社内発の社外向けの勉強会である「CA.flutter」も定期的に開催しています。',
                 'https://www.cyberagent.co.jp/',
                 'ca_developers'
             ),
             (
-                7,
+                '株式会社iiba',
                 'iiba',
                 '株式会社iibaは、全国10万件超の子育てスポット情報を集約するマップアプリを運営しています。自治体・企業と連携し、地域経済を動かすプラットフォームへ成長中です。FlutterでUXを磨き、バウチャー決済や位置情報解析などを高速実装。社会課題を事業で解決しスケールさせる開発に挑みたい方、ぜひお話ししましょう！',
                 'https://corporate.iiba.space/',
                 'nanaizw'
             ),
             (
-                8,
+                'シンプレクス株式会社',
                 'simplex',
                 'シンプレクスは1997年の創業以来、メガバンクや大手総合証券を筆頭に、日本を代表する金融機関のテクノロジーパートナーとしてビジネスを展開してきました。現在では、金融領域で培った豊富なノウハウを活用し、金融機関以外の領域でもソリューションを展開しています。',
                 'https://www.simplex.inc/',
                 'SimplexHoldings'
             ),
             (
-                9,
+                'Codemagic',
                 'codemagic',
                 'Codemagic はモバイルアプリ向けの高速 CI/CD です。iOS、Android、Flutter、React Native アプリをシームレスにビルド・テスト・リリースできます。ワークフローを自動化し、時間を節約して、自信を持ってリリースしましょう。',
                 'https://codemagic.io',
                 'codemagicio'
             ),
             (
-                10,
+                '株式会社MagicPod',
                 'magic-pod',
                 'MagicPodは、モバイルアプリ・ブラウザ（ウェブアプリ）テストの両方に対応したAIテスト自動化プラットフォームを提供しています。自然言語だけでテストの作成・編集・実行ができる「MagicPod Autopilot」機能や、AIによる自動修正、クラウドでのサービス提供によるメンテナンス性の高さで、リリースサイクルの高速化を支援しています。',
                 'https://magicpod.com/',
                 'MagicPodJP'
             ),
             (
-                11,
+                '株式会社ZOZO',
                 'zozo',
                 'ファッションEC「ZOZOTOWN」、ファッションコーディネートアプリ「WEAR by ZOZO」など各種サービスの企画・展開のほか、「ZOZOSUIT」「ZOZOMAT」「ZOZOGLASS」など計測技術の開発・活用にも取り組んでいます。',
                 'https://corp.zozo.com/',
                 'zozotech'
             ),
             (
-                12,
+                '株式会社GENDA',
                 'genda',
                 '「世界中の人々の人生をより楽しく」をAspirationに掲げるエンタメ企業。「GiGO」等のアミューズメント施設運営やカラオケ、キャラクターMD、F&B、コンテンツ&プロモーションなどエンタメ領域で事業を展開しています。',
                 'https://genda.jp/',
                 'GENDA_jp'
             ),
             (
-                13,
+                'エムスリー株式会社',
                 'm3',
                 'エムスリーは"インターネットを活用し、健康で楽しく長生きする人を１人でも増やし、不必要な医療コストを１円でも減らすこと" をミッションに、テクノロジーの力で日本および世界の医療の変革にチャレンジしています。',
                 'https://jobs.m3.com/product/',
                 'm3_engineering'
             ),
             (
-                14,
+                '株式会社Linc''well',
                 'linc-well',
                 'Linc''wellは「テクノロジーを通じて、医療を一歩前へ」をミッションに掲げ、医療を効率化し患者の医療体験と医療の質の向上を目指した事業展開を行っています。2023年リリースのFlutterアプリ「クリフォア」を開発する仲間を募集中です！',
                 'https://linc-well.com/',
                 'lincwell_dev'
             ),
             (
-                15,
+                '株式会社ディー・エヌ・エー',
                 'dena',
                 'DeNAは、事業価値の最大化と課題解決のためのAI活用と独自のデータ分析手法によって、ゲーム、ライブスコミュニティ、スポーツ・まちづくり、ヘルスケア・メディカルなど幅広い事業を展開しています。
 
@@ -131,21 +131,21 @@ At DeNA (pronounced "D-N-A") we use AI technology and our unique data analysis m
                 'DeNAxTech'
             ),
             (
-                16,
+                'CodeRabbit',
                 'coderabbit',
                 'CodeRabbitはAIコードレビューサービスです。GitHub/GitLabなどのPRに対して、自動的にコードレビューを行います。レビューの負荷軽減、時間削減、チーム開発効率化に貢献します！',
                 'https://www.coderabbit.ai',
                 'Coderabbitaija'
             ),
             (
-                17,
+                '株式会社YOUTRUST',
                 'youtrust',
                 '技術で世界を変えるFlutterエンジニアを応援！YOUTRUSTはキャリアSNSで技術者のつながりを創り、Flutter開発者の挑戦と成長を心から応援しています。',
                 'https://youtrust.co.jp/',
                 'YOUTRUSTinc'
             ),
             (
-                18,
+                'ソニー株式会社',
                 'sony',
                 'ソニー株式会社は「テクノロジーの力で未来のエンタテインメントをクリエイターと共創する」ことをミッションとし、世界中の人に感動を届けることをめざしています。
 新たな映像や音を表現するテクノロジーとサービスに挑戦し続け、世界中の人々を感動させるエンタテイメントの未来を、クリエイターと共に創造しています。',
@@ -153,70 +153,70 @@ At DeNA (pronounced "D-N-A") we use AI technology and our unique data analysis m
                 NULL
             ),
             (
-                19,
+                'チームラボ',
                 'team-lab',
                 '最新のテクノロジーを活用したソリューション、大規模なシステム開発、都市計画や、ICT空間設計などを行う。チームラボのFlutter活用事例はGoogle I/Oでも紹介されました。https://youtu.be/OyS812ZoTzw',
                 'https://www.team-lab.com/',
                 'teamlab_recruit'
             ),
             (
-                20,
+                '株式会社hacomono',
                 'hacomono',
                 'hacomonoはウェルネス産業向けVertical SaaS企業です。会員管理のデジタル化を提供し、ジュニアスクールや公共施設等に導入されています。7月に発表のtoC向け新サービス「FitFits」の開発にFlutterを採用しています。',
                 'https://www.hacomono.co.jp/',
                 'hacomono_Dev'
             ),
             (
-                21,
+                'SODA inc.',
                 'soda',
                 '「SNKRDUNK（スニーカーダンク）」は、スニーカーやアパレルを中心とするファッション領域やトレーディングカード・フィギュアなどを中心に、個人間での売買を簡単に行える国内最大級のファッション・コレクティブルマーケットプレイスです。',
                 'https://soda-inc.jp/',
                 NULL
             ),
             (
-                22,
+                '株式会社MIXI',
                 'mixi',
                 'MIXIは、「豊かなコミュニケーションを広げ、世界を幸せな驚きで包む。」というパーパスのもと、「mixi」や「モンスターストライク」など、友人や家族間で一緒に楽しむコミュニケーションサービスを提供しています。',
                 'https://mixi.co.jp/',
                 'mixi_engineers'
             ),
             (
-                23,
+                'スタディプラス株式会社',
                 'studyplus',
                 'スタディプラスは「学ぶ喜びをすべての人へ」をミッションに、学習の記録・可視化・共有をサポートするStudyplusを提供しています。楽しく学びを広げるプラットフォームを一緒に作りませんか？あなたのアイデアが、学びを豊かにする力になります。',
                 'https://info.studyplus.co.jp/',
                 'studyplus_dev'
             ),
             (
-                24,
+                '株式会社ギークニア',
                 'geekneer',
                 'ギークニアは、転職エージェントが全員元エンジニアの人材紹介会社です。エンジニア、ITコンサル、PM、データサイエンティスト、PdM、SRE、QAエンジニアなどIT専門職の方のキャリアサクセスを応援しております。',
                 'https://geekneer.com/',
                 'geekneerjp'
             ),
             (
-                25,
+                'Sentry',
                 'sentry',
                 'Sentryはリアルタイムエラー追跡と詳細情報提供で迅速な問題特定を実現。多言語対応でウェブ、モバイル、バックエンドを一気通貫で監視が可能。Ichizokuとの協業で日本市場向けに特化した強力なサポートを提供し、迅速な対応を実現しています。',
                 'https://sentry.ichizoku.io/',
                 'SentryJapan'
             ),
             (
-                26,
+                'パイオニア株式会社',
                 'pioneer',
                 '企業ミッション「より多くの人と、感動を」のもと、カーエレクトロニクス分野を中心に、斬新でユニークな発想とテクノロジーを活かし、車室内の快適性、感動、安心・安全を実現する製品・サービスを提供することで、新たな価値を提案していく会社です',
                 'https://jpn.pioneer/ja/',
                 'Pioneer_PR'
             ),
             (
-                27,
+                '株式会社メドレー',
                 'medley',
                 'メドレーは、「医療ヘルスケアの未来をつくる」ミッションのもと、テクノロジーを活用した事業やプロジェクトを通じて、医療ヘルスケア分野の課題を解決していきます。それにより、「持続可能な医療」の実現と、「納得できる医療」の実現を目指しています。',
                 'https://www.medley.jp/',
                 'medley_dev'
             ),
             (
-                28,
+                'Hamee株式会社',
                 'hamee',
                 '私たちHameeのPurposeは「クリエイティブ魂に火をつける」です。
 クリエイティブ魂は、自分らしさを最大限に発揮し、挑戦し、成し遂げる時に燃え盛ります。
@@ -225,7 +225,7 @@ At DeNA (pronounced "D-N-A") we use AI technology and our unique data analysis m
                 NULL
             ),
             (
-                29,
+                '株式会社アイビス',
                 'ibis',
                 'アイビスはFlutterでの開発支援を通じて、関わるすべての人と企業が成長できる持続可能な関係づくりを目指しています。
 共にアイビスを創る仲間も募集しています。',
@@ -233,21 +233,21 @@ At DeNA (pronounced "D-N-A") we use AI technology and our unique data analysis m
                 'Ibis_official_'
             ),
             (
-                30,
+                '株式会社LayerX',
                 'layerx',
                 'LayerXは「すべての経済活動を、デジタル化する。」をミッションに掲げ、SaaS+Fintechを軸に、AIを中心としたソフトウェア体験を社会実装するスタートアップです。AIを活用し「時間を創造するモバイルアプリ」を一緒に作りませんか？',
                 'https://layerx.co.jp',
                 'LayerX_Tech'
             ),
             (
-                31,
+                'NTTレゾナントテクノロジー株式会社',
                 'ntt-resonant-tech',
                 'FlutterKaigi参加者の皆さんへ──NTTレゾナントテクノロジーはUXにこだわるNTTドコモグループの技術カンパニーです。技術を活かし、共に革新的な体験を創りませんか？フルリモート・フルフレックスで挑戦できる環境が整っています。',
                 'https://nttr-tech.co.jp/',
                 'nttr_tech'
             ),
             (
-                32,
+                '株式会社IBJ',
                 'ibj',
                 '様々な婚活サービスとライフデザインサービスを提供し、日本の婚姻数の3％、最も多くの結婚カップルを創出しています。
 「IT×ヒト」を強みにサービス部門だけでなく、アプリやシステムを改修・開発などクリエイターやエンジニアも活躍している会社です。',
@@ -255,49 +255,50 @@ At DeNA (pronounced "D-N-A") we use AI technology and our unique data analysis m
                 'IBJ_renmei'
             ),
             (
-                33,
+                '株式会社メンバーズ',
                 'members',
                 '「DX現場支援で顧客と共に社会変革をリードする」を掲げ、デジタル人材の伴走によるDX現場支援事業を展開。高い専門スキルを持つデジタル人材が取引先企業のチームの一員として、内製によるDX推進を伴走支援しDX投資のROI最大化に貢献します。',
                 'https://www.members.co.jp/',
                 'Members_corp'
             ),
             (
-                34,
+                '株式会社TRUSTDOCK',
                 'trustdock',
                 'TRUSTDOCKは急成長するeKYC市場で、toB向け本人確認APIやtoC向けデジタルIDウォレットを開発し、社会のデジタル化を推進しています。フルリモートの環境で、社会に必要とされるプロダクトを一緒に開発しませんか？',
                 'https://biz.trustdock.io/company',
                 NULL
             ),
-            (35, 'gmo-connect', 'GMOコネクト株式会社の企業情報', 'https://example.com', NULL),
+            ('GMOコネクト株式会社', 'gmo-connect', 'GMOコネクト株式会社の企業情報', 'https://example.com', NULL),
             (
-                36,
+                '株式会社Leafea',
                 'leafea',
                 'Leafea（リーフィ）は、物価高騰・低賃金時代における生活コスト削減を支援する福利厚生SaaSを展開するスタートアップ企業です。Flutterを活用したモバイルアプリ開発とAIの活用に注力しております。',
                 'https://leafea.co.jp/',
                 NULL
             ),
             (
-                37,
+                '東急株式会社',
                 'tokyu',
                 '東急(株)URBAN HACKSは「街づくりのDX」を実現するための内製開発チームです。東急グループの次の100年を変革する大プロジェクト。あなたの技術や知識を活かし、一緒に世界一の街づくりを目指してみませんか？',
                 'https://10q89s.jp/',
                 'urban_89s'
             ),
             (
-                38,
+                '株式会社UPSIDER',
                 'upsider',
                 '株式会社UPSIDERは「挑戦者を支える世界的な金融プラットフォームを創る」をミッションに、法人カード「UPSIDER」や請求書カード払いサービス「支払い.com」等の金融サービスやUPSIDER AI 経理などの新規サービスを展開。',
                 'https://corp.up-sider.com/',
                 'upsider_inc'
             ),
             (
-                39,
+                'Kibela',
                 'kibela',
                 'Kibelaはシンプルさに徹底的にこだわったドキュメント・ナレッジ管理特化型ツールです。AIによる補助機能、一歩踏み込めば組織拡大にも応える管理機能、無駄なコストが出ないアクティブ課金。一人ひとりがナレッジを活用し自走する組織へ導きます。',
                 'https://kibe.la/',
                 'kibe_la'
             )
-    ) AS drafts (company_id, slug, pr_text, website_url, x_account)
+    ) AS drafts (company_name, slug, pr_text, website_url, x_account)
+    JOIN public.companies c ON c.name = drafts.company_name
     CROSS JOIN timestamp;
 
 -- company_drafts の全てのレコードを承認ユーザーで承認する
