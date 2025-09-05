@@ -15,6 +15,7 @@ abstract class CompanySponsorDetail with _$CompanySponsorDetail {
     required String prText,
     required String websiteUrl,
     required CompanySponsorType sponsorType,
+    required String displayOrder,
     BasicPlanType? basicPlanType,
     @Default([]) List<OptionPlanType> optionPlanTypes,
   }) = _CompanySponsorDetail;
