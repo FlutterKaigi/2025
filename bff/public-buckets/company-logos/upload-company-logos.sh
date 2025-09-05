@@ -8,7 +8,7 @@
 #       Cloudflare R2 バケットに一括アップロード
 # 
 # 使用方法: 
-# - プロジェクトルートから: ./bff/public-buckets/upload-company-logos.sh
+# - プロジェクトルートから: ./bff/public-buckets/company-logos/upload-company-logos.sh
 # - スクリプトディレクトリから: ./upload-company-logos.sh
 # 
 # 前提条件:
