@@ -106,7 +106,7 @@ def generate_company_drafts_sql(sponsor_data: List[Dict], company_data: List[Dic
         "INSERT INTO",
         "    public.company_drafts (company_id, slug, pr_text, website_url, x_account, created_at, updated_at)",
         "SELECT",
-        "    company_id,",
+        "    c.id,",
         "    slug,",
         "    pr_text,",
         "    website_url,",
@@ -122,13 +122,14 @@ def generate_company_drafts_sql(sponsor_data: List[Dict], company_data: List[Dic
     company_info_map = {row['申し込み名']: row for row in company_data}
     
     values = []
-    company_id = 1
     
     for row in sponsor_data:
         company_name = row['申し込み名']
         if company_name in company_info_map:
             company_info = company_info_map[company_name]
             
+            # 表示会社名を使用
+            display_name = company_info['表示会社名']
             slug = company_info.get('スラッグ', '')
             pr_text = company_info.get('PR文章', '')
             website_url = company_info.get('サイトURL ', '')
@@ -140,7 +141,7 @@ def generate_company_drafts_sql(sponsor_data: List[Dict], company_data: List[Dic
                 continue
             
             if not pr_text or pr_text == '-':
-                pr_text = f"{company_name}の企業情報"
+                pr_text = f"{display_name}の企業情報"
                 print(f"警告: {company_name} のPR文章が不足しているためデフォルト値を設定します")
             
             if not website_url or website_url == '-':
@@ -148,17 +149,18 @@ def generate_company_drafts_sql(sponsor_data: List[Dict], company_data: List[Dic
                 print(f"警告: {company_name} のサイトURLが不足しているためデフォルト値を設定します")
             
             # 空の値をNULLに変換
+            escaped_display_name = escape_company_name(display_name)
             slug = escape_sql_string(slug)
             pr_text = escape_sql_string(pr_text)
             website_url = escape_sql_string(website_url)
             x_account = escape_sql_string(x_account) if x_account and x_account != '-' else 'NULL'
             
-            values.append(f"            ({company_id}, {slug}, {pr_text}, {website_url}, {x_account})")
-            company_id += 1
+            values.append(f"            ('{escaped_display_name}', {slug}, {pr_text}, {website_url}, {x_account})")
     
     sql_parts.append(",\n".join(values))
     sql_parts.extend([
-        "    ) AS drafts (company_id, slug, pr_text, website_url, x_account)",
+        "    ) AS drafts (company_name, slug, pr_text, website_url, x_account)",
+        "    JOIN public.companies c ON c.name = drafts.company_name",
         "    CROSS JOIN timestamp;",
         "",
         "-- company_drafts の全てのレコードを承認ユーザーで承認する",
