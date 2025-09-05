@@ -267,8 +267,8 @@ export const companyInvitationRelations = relations(
 export const companiesRelations = relations(companies, ({ many }) => ({
 	companyInvitations: many(companyInvitation),
 	jobBoards: many(jobBoards),
-	sponsorCompanies: many(sponsorCompanies),
 	companyDrafts: many(companyDrafts),
+	sponsorCompanies: many(sponsorCompanies),
 	companyMembers: many(companyMembers),
 }));
 
