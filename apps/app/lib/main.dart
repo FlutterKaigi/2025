@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:app/core/provider/environment.dart';
 import 'package:app/core/ui/app.dart';
+import 'package:app/core/util/setup_web_environment.dart';
 import 'package:app/features/auth/data/notifier/auth_notifier.dart';
 import 'package:app/features/auth/data/provider/auth_service.dart';
 import 'package:flutter/foundation.dart';
@@ -10,6 +11,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  setupWebEnvironment();
   final container = ProviderContainer();
   final environment = container.read(environmentProvider);
   await container

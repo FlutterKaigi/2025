@@ -69,7 +69,9 @@ GoRouter router(Ref ref) {
       if (isAuthorized && state.fullPath == const LoginRoute().location) {
         return const EventInfoRoute().location;
       }
-      if (isAuthorized && state.uri.host == 'login-callback') {
+      if (isAuthorized &&
+          (state.uri.host == 'login-callback' ||
+              (kIsWeb && state.uri.queryParameters.containsKey('code')))) {
         // エラーパラメータをチェック
         final errorCode = state.uri.queryParameters['error_code'];
         if (errorCode == 'identity_already_exists') {
