@@ -1,5 +1,6 @@
 [tools]
 "aqua:suzuki-shunsuke/tfcmt" = "4.14.7"
+aws-cli = "latest"
 bun = "1.2.21"
 dprint = "0.50.1"
 flutter = "3.36.0-0.1.pre-beta"
