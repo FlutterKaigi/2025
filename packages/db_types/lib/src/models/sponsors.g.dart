@@ -25,6 +25,7 @@ _CompanySponsorDetail _$CompanySponsorDetailFromJson(
         'sponsor_type',
         (v) => $enumDecode(_$CompanySponsorTypeEnumMap, v),
       ),
+      displayOrder: $checkedConvert('display_order', (v) => v as String),
       basicPlanType: $checkedConvert(
         'basic_plan_type',
         (v) => $enumDecodeNullable(_$BasicPlanTypeEnumMap, v),
@@ -45,6 +46,7 @@ _CompanySponsorDetail _$CompanySponsorDetailFromJson(
     'prText': 'pr_text',
     'websiteUrl': 'website_url',
     'sponsorType': 'sponsor_type',
+    'displayOrder': 'display_order',
     'basicPlanType': 'basic_plan_type',
     'optionPlanTypes': 'option_plan_types',
   },
@@ -60,6 +62,7 @@ Map<String, dynamic> _$CompanySponsorDetailToJson(
   'pr_text': instance.prText,
   'website_url': instance.websiteUrl,
   'sponsor_type': _$CompanySponsorTypeEnumMap[instance.sponsorType]!,
+  'display_order': instance.displayOrder,
   'basic_plan_type': _$BasicPlanTypeEnumMap[instance.basicPlanType],
   'option_plan_types': instance.optionPlanTypes
       .map((e) => _$OptionPlanTypeEnumMap[e]!)

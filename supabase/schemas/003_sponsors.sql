@@ -12,6 +12,7 @@ CREATE TABLE public.sponsor_companies (
   id smallint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   company_id smallint REFERENCES public.companies (id) ON DELETE CASCADE,
   sponsor_type public.company_sponsor_type NOT NULL,
+  display_order text NOT NULL,
   created_at timestamp DEFAULT now() NOT NULL
 );
 
