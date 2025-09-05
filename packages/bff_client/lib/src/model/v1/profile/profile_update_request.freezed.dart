@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ProfileUpdateRequest {
 
- String? get name; String? get comment; bool? get isAdult; List<SnsLinkData>? get snsLinks;
+ String? get name; String? get comment; bool? get isAdult; List<SnsLink>? get snsLinks; String? get avatarKey;
 /// Create a copy of ProfileUpdateRequest
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $ProfileUpdateRequestCopyWith<ProfileUpdateRequest> get copyWith => _$ProfileUpd
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProfileUpdateRequest&&(identical(other.name, name) || other.name == name)&&(identical(other.comment, comment) || other.comment == comment)&&(identical(other.isAdult, isAdult) || other.isAdult == isAdult)&&const DeepCollectionEquality().equals(other.snsLinks, snsLinks));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProfileUpdateRequest&&(identical(other.name, name) || other.name == name)&&(identical(other.comment, comment) || other.comment == comment)&&(identical(other.isAdult, isAdult) || other.isAdult == isAdult)&&const DeepCollectionEquality().equals(other.snsLinks, snsLinks)&&(identical(other.avatarKey, avatarKey) || other.avatarKey == avatarKey));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,comment,isAdult,const DeepCollectionEquality().hash(snsLinks));
+int get hashCode => Object.hash(runtimeType,name,comment,isAdult,const DeepCollectionEquality().hash(snsLinks),avatarKey);
 
 @override
 String toString() {
-  return 'ProfileUpdateRequest(name: $name, comment: $comment, isAdult: $isAdult, snsLinks: $snsLinks)';
+  return 'ProfileUpdateRequest(name: $name, comment: $comment, isAdult: $isAdult, snsLinks: $snsLinks, avatarKey: $avatarKey)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $ProfileUpdateRequestCopyWith<$Res>  {
   factory $ProfileUpdateRequestCopyWith(ProfileUpdateRequest value, $Res Function(ProfileUpdateRequest) _then) = _$ProfileUpdateRequestCopyWithImpl;
 @useResult
 $Res call({
- String? name, String? comment, bool? isAdult, List<SnsLinkData>? snsLinks
+ String? name, String? comment, bool? isAdult, List<SnsLink>? snsLinks, String? avatarKey
 });
 
 
@@ -65,13 +65,14 @@ class _$ProfileUpdateRequestCopyWithImpl<$Res>
 
 /// Create a copy of ProfileUpdateRequest
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = freezed,Object? comment = freezed,Object? isAdult = freezed,Object? snsLinks = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? name = freezed,Object? comment = freezed,Object? isAdult = freezed,Object? snsLinks = freezed,Object? avatarKey = freezed,}) {
   return _then(_self.copyWith(
 name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String?,comment: freezed == comment ? _self.comment : comment // ignore: cast_nullable_to_non_nullable
 as String?,isAdult: freezed == isAdult ? _self.isAdult : isAdult // ignore: cast_nullable_to_non_nullable
 as bool?,snsLinks: freezed == snsLinks ? _self.snsLinks : snsLinks // ignore: cast_nullable_to_non_nullable
-as List<SnsLinkData>?,
+as List<SnsLink>?,avatarKey: freezed == avatarKey ? _self.avatarKey : avatarKey // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 
@@ -156,10 +157,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? name,  String? comment,  bool? isAdult,  List<SnsLinkData>? snsLinks)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? name,  String? comment,  bool? isAdult,  List<SnsLink>? snsLinks,  String? avatarKey)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ProfileUpdateRequest() when $default != null:
-return $default(_that.name,_that.comment,_that.isAdult,_that.snsLinks);case _:
+return $default(_that.name,_that.comment,_that.isAdult,_that.snsLinks,_that.avatarKey);case _:
   return orElse();
 
 }
@@ -177,10 +178,10 @@ return $default(_that.name,_that.comment,_that.isAdult,_that.snsLinks);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? name,  String? comment,  bool? isAdult,  List<SnsLinkData>? snsLinks)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? name,  String? comment,  bool? isAdult,  List<SnsLink>? snsLinks,  String? avatarKey)  $default,) {final _that = this;
 switch (_that) {
 case _ProfileUpdateRequest():
-return $default(_that.name,_that.comment,_that.isAdult,_that.snsLinks);case _:
+return $default(_that.name,_that.comment,_that.isAdult,_that.snsLinks,_that.avatarKey);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -197,10 +198,10 @@ return $default(_that.name,_that.comment,_that.isAdult,_that.snsLinks);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? name,  String? comment,  bool? isAdult,  List<SnsLinkData>? snsLinks)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? name,  String? comment,  bool? isAdult,  List<SnsLink>? snsLinks,  String? avatarKey)?  $default,) {final _that = this;
 switch (_that) {
 case _ProfileUpdateRequest() when $default != null:
-return $default(_that.name,_that.comment,_that.isAdult,_that.snsLinks);case _:
+return $default(_that.name,_that.comment,_that.isAdult,_that.snsLinks,_that.avatarKey);case _:
   return null;
 
 }
@@ -212,14 +213,14 @@ return $default(_that.name,_that.comment,_that.isAdult,_that.snsLinks);case _:
 @JsonSerializable()
 
 class _ProfileUpdateRequest implements ProfileUpdateRequest {
-  const _ProfileUpdateRequest({this.name, this.comment, this.isAdult, final  List<SnsLinkData>? snsLinks}): _snsLinks = snsLinks;
+  const _ProfileUpdateRequest({this.name, this.comment, this.isAdult, final  List<SnsLink>? snsLinks, this.avatarKey}): _snsLinks = snsLinks;
   factory _ProfileUpdateRequest.fromJson(Map<String, dynamic> json) => _$ProfileUpdateRequestFromJson(json);
 
 @override final  String? name;
 @override final  String? comment;
 @override final  bool? isAdult;
- final  List<SnsLinkData>? _snsLinks;
-@override List<SnsLinkData>? get snsLinks {
+ final  List<SnsLink>? _snsLinks;
+@override List<SnsLink>? get snsLinks {
   final value = _snsLinks;
   if (value == null) return null;
   if (_snsLinks is EqualUnmodifiableListView) return _snsLinks;
@@ -227,6 +228,7 @@ class _ProfileUpdateRequest implements ProfileUpdateRequest {
   return EqualUnmodifiableListView(value);
 }
 
+@override final  String? avatarKey;
 
 /// Create a copy of ProfileUpdateRequest
 /// with the given fields replaced by the non-null parameter values.
@@ -241,16 +243,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProfileUpdateRequest&&(identical(other.name, name) || other.name == name)&&(identical(other.comment, comment) || other.comment == comment)&&(identical(other.isAdult, isAdult) || other.isAdult == isAdult)&&const DeepCollectionEquality().equals(other._snsLinks, _snsLinks));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProfileUpdateRequest&&(identical(other.name, name) || other.name == name)&&(identical(other.comment, comment) || other.comment == comment)&&(identical(other.isAdult, isAdult) || other.isAdult == isAdult)&&const DeepCollectionEquality().equals(other._snsLinks, _snsLinks)&&(identical(other.avatarKey, avatarKey) || other.avatarKey == avatarKey));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,comment,isAdult,const DeepCollectionEquality().hash(_snsLinks));
+int get hashCode => Object.hash(runtimeType,name,comment,isAdult,const DeepCollectionEquality().hash(_snsLinks),avatarKey);
 
 @override
 String toString() {
-  return 'ProfileUpdateRequest(name: $name, comment: $comment, isAdult: $isAdult, snsLinks: $snsLinks)';
+  return 'ProfileUpdateRequest(name: $name, comment: $comment, isAdult: $isAdult, snsLinks: $snsLinks, avatarKey: $avatarKey)';
 }
 
 
@@ -261,7 +263,7 @@ abstract mixin class _$ProfileUpdateRequestCopyWith<$Res> implements $ProfileUpd
   factory _$ProfileUpdateRequestCopyWith(_ProfileUpdateRequest value, $Res Function(_ProfileUpdateRequest) _then) = __$ProfileUpdateRequestCopyWithImpl;
 @override @useResult
 $Res call({
- String? name, String? comment, bool? isAdult, List<SnsLinkData>? snsLinks
+ String? name, String? comment, bool? isAdult, List<SnsLink>? snsLinks, String? avatarKey
 });
 
 
@@ -278,13 +280,14 @@ class __$ProfileUpdateRequestCopyWithImpl<$Res>
 
 /// Create a copy of ProfileUpdateRequest
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = freezed,Object? comment = freezed,Object? isAdult = freezed,Object? snsLinks = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = freezed,Object? comment = freezed,Object? isAdult = freezed,Object? snsLinks = freezed,Object? avatarKey = freezed,}) {
   return _then(_ProfileUpdateRequest(
 name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String?,comment: freezed == comment ? _self.comment : comment // ignore: cast_nullable_to_non_nullable
 as String?,isAdult: freezed == isAdult ? _self.isAdult : isAdult // ignore: cast_nullable_to_non_nullable
 as bool?,snsLinks: freezed == snsLinks ? _self._snsLinks : snsLinks // ignore: cast_nullable_to_non_nullable
-as List<SnsLinkData>?,
+as List<SnsLink>?,avatarKey: freezed == avatarKey ? _self.avatarKey : avatarKey // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 

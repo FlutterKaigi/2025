@@ -13,3 +13,10 @@ targets:
           ignore_for_file:
             - type=lint
             - duplicate_ignore
+global_options:
+  freezed:
+    runs_before:
+      - json_serializable
+  json_serializable:
+    runs_before:
+      - retrofit_generator

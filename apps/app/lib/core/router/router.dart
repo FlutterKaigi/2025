@@ -119,7 +119,9 @@ class LoginRoute extends GoRouteData with $LoginRoute {
     TypedStatefulShellBranch<EventBranch>(routes: _eventRoutes),
     TypedStatefulShellBranch<SponsorBranch>(routes: _sponsorRoutes),
     TypedStatefulShellBranch<TicketBranch>(routes: _ticketRoutes),
-    TypedStatefulShellBranch<AccountBranch>(routes: _accountRoutes),
+    TypedStatefulShellBranch<AccountBranch>(
+      routes: _accountRoutes,
+    ),
   ],
 )
 class MainRoute extends StatefulShellRouteData {

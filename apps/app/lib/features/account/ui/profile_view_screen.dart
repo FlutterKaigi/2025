@@ -1,4 +1,4 @@
-import 'package:app/features/account/data/provider/profile_provider.dart';
+import 'package:app/features/account/data/notifier/profile_notifier.dart';
 import 'package:app/features/account/ui/component/account_circle_image.dart';
 import 'package:app/features/account/ui/component/sns_link_card.dart';
 import 'package:flutter/material.dart';
@@ -130,7 +130,7 @@ class ProfileViewScreen extends HookConsumerWidget {
                       children: [
                         // アバター画像
                         AccountCircleImage(
-                          imageUrl: profile.profile.avatarKey ?? '',
+                          imageUrl: profile.profile.avatarUrl?.toString() ?? '',
                           imageSize: 120,
                           circleRadius: 60,
                         ),

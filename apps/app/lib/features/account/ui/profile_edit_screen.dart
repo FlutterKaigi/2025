@@ -1,9 +1,9 @@
 import 'package:app/features/account/data/model/sns_link_form_data.dart';
-import 'package:app/features/account/data/provider/profile_provider.dart';
+import 'package:app/features/account/data/notifier/profile_notifier.dart';
+import 'package:app/features/account/ui/action/change_avatar_action.dart';
 import 'package:app/features/account/ui/component/account_circle_image.dart';
 import 'package:app/features/account/ui/component/sns_link_form.dart';
 import 'package:bff_client/bff_client.dart';
-import 'package:db_types/db_types.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -58,7 +58,7 @@ class ProfileEditScreen extends HookConsumerWidget {
       final validSnsLinks = snsLinks
           .where((link) => link.snsType != null && link.value.trim().isNotEmpty)
           .map(
-            (link) => SnsLinkData(
+            (link) => SnsLink(
               snsType: link.snsType!,
               value: link.value.trim(),
             ),
@@ -179,173 +179,181 @@ class ProfileEditScreen extends HookConsumerWidget {
             return null;
           }, [profile]);
 
+          final nameplateNote = profile?.nameplateNote;
+
           return SingleChildScrollView(
             padding: const EdgeInsets.all(16),
-            child: Form(
-              key: formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // ネームプレート注意事項（プロフィールが存在する場合のみ）
-                  if (profile != null &&
-                      !profile.canEditNameplate &&
-                      profile.nameplateNote != null)
-                    Card(
-                      color: colorScheme.secondary.withValues(alpha: 0.1),
-                      child: Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.warning,
-                              color: colorScheme.secondary,
-                            ),
-                            const SizedBox(width: 8),
-                            Expanded(
-                              child: Text(
-                                profile.nameplateNote!,
-                                style: TextStyle(
-                                  color: colorScheme.onSecondaryContainer,
+            child: SafeArea(
+              child: Form(
+                key: formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // ネームプレート注意事項（プロフィールが存在する場合のみ）
+                    if (nameplateNote != null)
+                      Card(
+                        color: colorScheme.secondary.withValues(alpha: 0.1),
+                        child: Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.warning,
+                                color: colorScheme.secondary,
+                              ),
+                              const SizedBox(width: 8),
+                              Expanded(
+                                child: Text(
+                                  nameplateNote,
+                                  style: TextStyle(
+                                    color: colorScheme.onSecondaryContainer,
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  const SizedBox(height: 16),
+                    const SizedBox(height: 16),
 
-                  // アバター画像
-                  Center(
-                    child: Column(
-                      children: [
-                        AccountCircleImage(
-                          imageUrl: profile?.profile.avatarKey ?? '',
-                          imageSize: 120,
-                          circleRadius: 60,
-                        ),
-                        const SizedBox(height: 8),
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            TextButton.icon(
-                              onPressed: () {},
-                              icon: const Icon(Icons.upload),
-                              label: const Text('アップロード'),
-                            ),
-                            if (profile?.profile.avatarKey != null)
+                    // アバター画像
+                    Center(
+                      child: Column(
+                        children: [
+                          AccountCircleImage(
+                            imageUrl:
+                                profile?.profile.avatarUrl?.toString() ?? '',
+                            imageSize: 120,
+                            circleRadius: 60,
+                          ),
+                          const SizedBox(height: 8),
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
                               TextButton.icon(
-                                onPressed: () {},
-                                icon: const Icon(Icons.delete),
-                                label: const Text('削除'),
+                                onPressed: () async => ref
+                                    .read(changeAvatarActionProvider)
+                                    .changeAvatar(context: context),
+                                icon: const Icon(Icons.upload),
+                                label: const Text('アップロード'),
                               ),
-                          ],
+                              if (profile?.profile.avatarUrl != null)
+                                TextButton.icon(
+                                  onPressed: () async => ref
+                                      .read(changeAvatarActionProvider)
+                                      .deleteAvatar(context: context),
+                                  icon: const Icon(Icons.delete),
+                                  label: const Text('削除'),
+                                ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+
+                    // 名前
+                    TextFormField(
+                      controller: nameController,
+                      decoration: const InputDecoration(
+                        labelText: '名前 *',
+                        border: OutlineInputBorder(),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return '名前を入力してください';
+                        }
+                        return null;
+                      },
+                      onChanged: (value) {},
+                    ),
+                    const SizedBox(height: 16),
+
+                    // ひとことコメント
+                    TextFormField(
+                      controller: commentController,
+                      decoration: const InputDecoration(
+                        labelText: 'ひとことコメント *',
+                        border: OutlineInputBorder(),
+                        helperText: '100文字以内',
+                      ),
+                      maxLength: 100,
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'ひとことコメントを入力してください';
+                        }
+                        if (value.length > 100) {
+                          return 'ひとことコメントは100文字以内で入力してください';
+                        }
+                        return null;
+                      },
+                      onChanged: (value) {},
+                    ),
+                    const SizedBox(height: 16),
+
+                    // 成人確認
+                    CheckboxListTile(
+                      title: const Text('20歳以上です'),
+                      value: isAdultState.value,
+                      onChanged: (value) {
+                        isAdultState.value = value ?? false;
+                      },
+                      controlAffinity: ListTileControlAffinity.leading,
+                    ),
+                    const SizedBox(height: 24),
+
+                    // SNSリンク
+                    Row(
+                      children: [
+                        const Text(
+                          'SNSリンク',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const Spacer(),
+                        TextButton.icon(
+                          onPressed: () {
+                            snsLinksState.value = [
+                              ...snsLinksState.value,
+                              const SnsLinkFormData(),
+                            ];
+                          },
+                          icon: const Icon(Icons.add),
+                          label: const Text('追加'),
                         ),
                       ],
                     ),
-                  ),
-                  const SizedBox(height: 24),
+                    const SizedBox(height: 8),
 
-                  // 名前
-                  TextFormField(
-                    controller: nameController,
-                    decoration: const InputDecoration(
-                      labelText: '名前 *',
-                      border: OutlineInputBorder(),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.trim().isEmpty) {
-                        return '名前を入力してください';
-                      }
-                      return null;
-                    },
-                    onChanged: (value) {},
-                  ),
-                  const SizedBox(height: 16),
-
-                  // ひとことコメント
-                  TextFormField(
-                    controller: commentController,
-                    decoration: const InputDecoration(
-                      labelText: 'ひとことコメント *',
-                      border: OutlineInputBorder(),
-                      helperText: '100文字以内',
-                    ),
-                    maxLength: 100,
-                    maxLines: 3,
-                    validator: (value) {
-                      if (value == null || value.trim().isEmpty) {
-                        return 'ひとことコメントを入力してください';
-                      }
-                      if (value.length > 100) {
-                        return 'ひとことコメントは100文字以内で入力してください';
-                      }
-                      return null;
-                    },
-                    onChanged: (value) {},
-                  ),
-                  const SizedBox(height: 16),
-
-                  // 成人確認
-                  CheckboxListTile(
-                    title: const Text('20歳以上です'),
-                    value: isAdultState.value,
-                    onChanged: (value) {
-                      isAdultState.value = value ?? false;
-                    },
-                    controlAffinity: ListTileControlAffinity.leading,
-                  ),
-                  const SizedBox(height: 24),
-
-                  // SNSリンク
-                  Row(
-                    children: [
-                      const Text(
-                        'SNSリンク',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const Spacer(),
-                      TextButton.icon(
-                        onPressed: () {
-                          snsLinksState.value = [
-                            ...snsLinksState.value,
-                            const SnsLinkFormData(),
-                          ];
+                    // SNSリンクリスト
+                    ...snsLinksState.value.asMap().entries.map((entry) {
+                      final index = entry.key;
+                      final link = entry.value;
+                      return SnsLinkForm(
+                        key: ValueKey(index),
+                        snsLink: link,
+                        onChanged: (newLink) {
+                          final newList = [...snsLinksState.value];
+                          newList[index] = newLink;
+                          snsLinksState.value = newList;
                         },
-                        icon: const Icon(Icons.add),
-                        label: const Text('追加'),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-
-                  // SNSリンクリスト
-                  ...snsLinksState.value.asMap().entries.map((entry) {
-                    final index = entry.key;
-                    final link = entry.value;
-                    return SnsLinkForm(
-                      key: ValueKey(index),
-                      snsLink: link,
-                      onChanged: (newLink) {
-                        final newList = [...snsLinksState.value];
-                        newList[index] = newLink;
-                        snsLinksState.value = newList;
-                      },
-                      onRemove: () {
-                        final newList = [...snsLinksState.value];
-                        newList.removeAt(index);
-                        snsLinksState.value = newList;
-                      },
-                    );
-                  }),
-                ],
+                        onRemove: () {
+                          final newList = [...snsLinksState.value];
+                          newList.removeAt(index);
+                          snsLinksState.value = newList;
+                        },
+                      );
+                    }),
+                  ],
+                ),
               ),
             ),
           );
         },
+        skipLoadingOnRefresh: true,
+        skipLoadingOnReload: true,
       ),
     );
   }

@@ -174,3 +174,5 @@ dist
 # engine wasm
 
 engine-artifact/
+
+/.dart_tool

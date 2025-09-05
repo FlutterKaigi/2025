@@ -21,13 +21,18 @@ _ProfileUpdateRequest _$ProfileUpdateRequestFromJson(
       snsLinks: $checkedConvert(
         'sns_links',
         (v) => (v as List<dynamic>?)
-            ?.map((e) => SnsLinkData.fromJson(e as Map<String, dynamic>))
+            ?.map((e) => SnsLink.fromJson(e as Map<String, dynamic>))
             .toList(),
       ),
+      avatarKey: $checkedConvert('avatar_key', (v) => v as String?),
     );
     return val;
   },
-  fieldKeyMap: const {'isAdult': 'is_adult', 'snsLinks': 'sns_links'},
+  fieldKeyMap: const {
+    'isAdult': 'is_adult',
+    'snsLinks': 'sns_links',
+    'avatarKey': 'avatar_key',
+  },
 );
 
 Map<String, dynamic> _$ProfileUpdateRequestToJson(
@@ -37,4 +42,5 @@ Map<String, dynamic> _$ProfileUpdateRequestToJson(
   'comment': instance.comment,
   'is_adult': instance.isAdult,
   'sns_links': instance.snsLinks,
+  'avatar_key': instance.avatarKey,
 };
