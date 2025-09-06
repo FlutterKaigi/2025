@@ -261,7 +261,7 @@ Future<UserTicketsResponse> _getUserTicketsResponse(String userId) async {
     final matchedTicketType = ticketTypes.firstWhere(
       (e) => e.ticketType.id == item.ticketTypeId,
     );
-    final matchedOptiosn = matchedTicketType.options
+    final matchedOption = matchedTicketType.options
         .where((e) => item.options.any((o) => o.id == e.id))
         .toList();
 
@@ -272,13 +272,13 @@ Future<UserTicketsResponse> _getUserTicketsResponse(String userId) async {
       return TicketItem.purchase(
         ticketType: matchedTicketType.ticketType,
         purchase: purchase,
-        options: matchedOptiosn,
+        options: matchedOption,
       );
     } else if (checkout != null) {
       return TicketItem.checkout(
         ticketType: matchedTicketType.ticketType,
         checkout: checkout,
-        options: matchedOptiosn,
+        options: matchedOption,
       );
     } else {
       throw ErrorResponse.errorCode(

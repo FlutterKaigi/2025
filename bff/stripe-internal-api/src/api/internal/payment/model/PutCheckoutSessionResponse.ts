@@ -1,7 +1,7 @@
 import * as v from "valibot";
 
 export const PutCheckoutSessionResponse = v.object({
-	id: v.pipe(v.string(), v.uuid()),
+	id: v.string(),
 	url: v.pipe(v.string(), v.url()),
 	expires_at: v.pipe(v.string(), v.isoDateTime()),
 	status: v.picklist(["open", "complete", "expired"]),
