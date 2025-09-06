@@ -102,4 +102,13 @@ class L10nJa extends L10n {
 
   @override
   String get accountLogout => 'ログアウト';
+
+  @override
+  String get notFoundTitle => 'ページが見つかりません';
+
+  @override
+  String get notFoundMessage => 'お探しのページは存在しないか、\n移動された可能性があります。';
+
+  @override
+  String get notFoundBackToTop => 'トップに戻る';
 }
