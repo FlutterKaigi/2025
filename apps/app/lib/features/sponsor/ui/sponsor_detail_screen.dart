@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:app/core/gen/l10n/l10n.dart';
+import 'package:app/core/ui/main/not_found_screen.dart';
 import 'package:app/features/sponsor/data/sponsor.dart';
 import 'package:app/features/sponsor/data/sponsor_provider.dart';
 import 'package:app/features/sponsor/ui/sponsor_sliver_app_bar.dart';
@@ -47,7 +48,7 @@ class SponsorDetailScreen extends ConsumerWidget {
     return switch (sponsor) {
       _Loading() => const Center(child: CircularProgressIndicator()),
       _Success(:final sponsor) => _SponsorDetail(sponsor: sponsor),
-      _NotFound() => throw UnimplementedError(),
+      _NotFound() => const NotFoundScreen(),
       _Failure(:final error) => Center(child: Text(error.toString())),
     };
   }
