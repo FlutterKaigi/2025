@@ -17,16 +17,18 @@ class ForceUpdateDialogListener extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.listen(forceUpdateStateNotifierProvider, (previous, state) {
-      if (state.isUpdateRequired && 
-          state.versionInfo != null && 
+      if (state.isUpdateRequired &&
+          state.versionInfo != null &&
           state.platform != null) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          unawaited(_showForceUpdateDialog(
-            context,
-            state.versionInfo!,
-            state.platform!,
-            ref,
-          ));
+          unawaited(
+            _showForceUpdateDialog(
+              context,
+              state.versionInfo!,
+              state.platform!,
+              ref,
+            ),
+          );
         });
       }
     });
@@ -68,4 +70,3 @@ class ForceUpdateDialogListener extends ConsumerWidget {
     }
   }
 }
-

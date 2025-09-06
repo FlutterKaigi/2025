@@ -32,7 +32,9 @@ class ForceUpdateChecker {
     final platform = Platform.isIOS ? 'ios' : 'android';
 
     final versionInfo = await checkVersion();
-    if (versionInfo == null) return;
+    if (versionInfo == null) {
+      return;
+    }
 
     final currentVersion = packageInfo.version;
     final minimumVersion = versionInfo.minimumVersion;
@@ -43,7 +45,6 @@ class ForceUpdateChecker {
       }
     }
   }
-
 
   Future<void> _showForceUpdateDialog(
     BuildContext context,
