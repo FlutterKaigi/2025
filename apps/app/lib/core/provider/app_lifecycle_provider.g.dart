@@ -47,7 +47,7 @@ final class AppLifecycleProvider
   }
 }
 
-String _$appLifecycleHash() => r'67a673428c7010fbf53fc41c7381b0cf72c5a6ac';
+String _$appLifecycleHash() => r'48335bfcac453276c6e31712ec049454f5422af8';
 
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

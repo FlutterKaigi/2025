@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:bff_client/bff_client.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:pub_semver/pub_semver.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ForceUpdateChecker {
@@ -10,48 +11,39 @@ class ForceUpdateChecker {
 
   final BffApiClient _client;
 
+  Future<AppVersionResponse?> checkVersion() async {
+    try {
+      final response = await _client.v1.appVersion.checkVersion();
+      return response.data;
+    } on Exception catch (e) {
+      debugPrint('Version check failed: $e');
+      return null;
+    }
+  }
+
+  bool isUpdateRequired(String currentVersion, String minimumVersion) {
+    final current = Version.parse(currentVersion);
+    final minimum = Version.parse(minimumVersion);
+    return current < minimum;
+  }
+
   Future<void> checkAndShowUpdateDialog(BuildContext context) async {
     final packageInfo = await PackageInfo.fromPlatform();
     final platform = Platform.isIOS ? 'ios' : 'android';
 
-    try {
-      final response = await _client.v1.appVersion.checkVersion();
-      final versionInfo = response.data;
+    final versionInfo = await checkVersion();
+    if (versionInfo == null) return;
 
-      final currentVersion = packageInfo.version;
-      final minimumVersion = versionInfo.minimumVersion;
+    final currentVersion = packageInfo.version;
+    final minimumVersion = versionInfo.minimumVersion;
 
-      if (_isUpdateRequired(currentVersion, minimumVersion)) {
-        if (context.mounted) {
-          await _showForceUpdateDialog(context, versionInfo, platform);
-        }
-      }
-    } on Exception catch (e) {
-      // エラー時はアップデートチェックをスキップ
-      debugPrint('Version check failed: $e');
-    }
-  }
-
-  bool _isUpdateRequired(String currentVersion, String minimumVersion) {
-    return _compareVersions(currentVersion, minimumVersion) < 0;
-  }
-
-  int _compareVersions(String v1, String v2) {
-    final parts1 = v1.split('.').map(int.parse).toList();
-    final parts2 = v2.split('.').map(int.parse).toList();
-
-    for (var i = 0; i < 3; i++) {
-      final p1 = i < parts1.length ? parts1[i] : 0;
-      final p2 = i < parts2.length ? parts2[i] : 0;
-      if (p1 < p2) {
-        return -1;
-      }
-      if (p1 > p2) {
-        return 1;
+    if (isUpdateRequired(currentVersion, minimumVersion)) {
+      if (context.mounted) {
+        await _showForceUpdateDialog(context, versionInfo, platform);
       }
     }
-    return 0;
   }
+
 
   Future<void> _showForceUpdateDialog(
     BuildContext context,
