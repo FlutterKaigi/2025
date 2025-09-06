@@ -38,7 +38,7 @@ const app = new Hono()
 			}
 			case "staging": {
 				allowedOrigins = [
-					"https://*.2025-app.flutterkaigi.jp",
+					"https://*.flutter-kaigi.workers.dev",
 					"http://localhost:8080",
 				];
 				break;
