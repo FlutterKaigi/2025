@@ -2,7 +2,6 @@ import 'package:app/core/designsystem/components/error_view.dart';
 import 'package:app/features/ticket/data/notifier/ticket_checkout_notifier.dart';
 import 'package:app/features/ticket/data/provider/ticket_items_provider.dart';
 import 'package:app/features/ticket/ui/components/active_checkout_screen.dart';
-import 'package:app/features/ticket/ui/components/available_ticket_list_screen.dart';
 import 'package:app/features/ticket/ui/components/ticket_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -16,15 +15,21 @@ class TicketScreen extends ConsumerWidget {
     final ticketStatus = ref.watch(ticketItemsProvider);
     final checkoutStatus = ref.watch(ticketCheckoutNotifierProvider);
 
+    const loading = Scaffold(
+      body: Center(
+        child: CircularProgressIndicator.adaptive(),
+      ),
+    );
+
     return ticketStatus.when(
-      loading: () => const _Loading(),
+      loading: () => loading,
       error: (error, stackTrace) => ErrorView(
         error: error,
         onRetry: () => ref.invalidate(ticketItemsProvider),
         isRetrying: ref.watch(ticketItemsProvider.select((v) => v.isLoading)),
       ),
       data: (tickets) => checkoutStatus.when(
-        loading: () => const _Loading(),
+        loading: () => loading,
         error: (error, stackTrace) => ErrorView(
           error: error,
           onRetry: () => ref.invalidate(ticketCheckoutNotifierProvider),
@@ -37,26 +42,8 @@ class TicketScreen extends ConsumerWidget {
           if (checkout.isNotEmpty) {
             return ActiveCheckoutScreen(checkoutId: checkout.first.checkout.id);
           }
-          // 有効なチケットがある場合
-          if (tickets.isNotEmpty) {
-            return const TicketListScreen();
-          }
-          // チケットが無い場合
-          return const AvailableTicketListScreen();
+          return const TicketListScreen();
         },
-      ),
-    );
-  }
-}
-
-class _Loading extends StatelessWidget {
-  const _Loading({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: CircularProgressIndicator.adaptive(),
       ),
     );
   }
