@@ -1,6 +1,7 @@
 import 'package:app/core/gen/assets/assets.gen.dart';
 import 'package:app/core/gen/l10n/l10n.dart';
 import 'package:app/core/router/router.dart';
+import 'package:app/features/force_update/force_update.dart';
 import 'package:flutter/material.dart';
 
 /// イベント情報画面
@@ -16,12 +17,14 @@ class EventInfoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView(
-        children: const [
-          _NewsListTile(),
-          _EventInfoCard(),
-        ],
+    return ForceUpdateDialogListener(
+      child: Scaffold(
+        body: ListView(
+          children: const [
+            _NewsListTile(),
+            _EventInfoCard(),
+          ],
+        ),
       ),
     );
   }

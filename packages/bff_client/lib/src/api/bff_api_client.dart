@@ -14,6 +14,7 @@ class BffApiClientV1 {
 
   final Dio _dio;
 
+  AppVersionApiClient get appVersion => AppVersionApiClient(_dio);
   ProfileApiClient get profile => ProfileApiClient(_dio);
   SponsorsApiClient get sponsors => SponsorsApiClient(_dio);
   TicketsApiClient get tickets => TicketsApiClient(_dio);
