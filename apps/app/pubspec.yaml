@@ -39,6 +39,7 @@ dependencies:
   json_annotation: ^4.9.0
   package_info_plus: ^8.1.2
   path: ^1.9.1
+  pub_semver: ^2.1.4
   riverpod_annotation: ^3.0.0-dev.17
   shared_preferences: ^2.5.3
   talker_dio_logger: ^5.0.0

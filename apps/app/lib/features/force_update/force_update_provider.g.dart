@@ -56,5 +56,59 @@ final class ForceUpdateCheckerProvider
 String _$forceUpdateCheckerHash() =>
     r'70e85ade601c2169aa0808962dd354c46da2842d';
 
+@ProviderFor(ForceUpdateStateNotifier)
+const forceUpdateStateNotifierProvider = ForceUpdateStateNotifierProvider._();
+
+final class ForceUpdateStateNotifierProvider
+    extends $NotifierProvider<ForceUpdateStateNotifier, ForceUpdateState> {
+  const ForceUpdateStateNotifierProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'forceUpdateStateNotifierProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$forceUpdateStateNotifierHash();
+
+  @$internal
+  @override
+  ForceUpdateStateNotifier create() => ForceUpdateStateNotifier();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(ForceUpdateState value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<ForceUpdateState>(value),
+    );
+  }
+}
+
+String _$forceUpdateStateNotifierHash() =>
+    r'61ad8958ed33eaebec45d3d2c9c9667c981173fb';
+
+abstract class _$ForceUpdateStateNotifier extends $Notifier<ForceUpdateState> {
+  ForceUpdateState build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<ForceUpdateState, ForceUpdateState>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<ForceUpdateState, ForceUpdateState>,
+              ForceUpdateState,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}
+
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
