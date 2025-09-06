@@ -59,5 +59,11 @@
   "authErrorIdentityAlreadyExists": "このGoogleアカウントは既に別のユーザーと紐づけられています。ログアウトしてから再度ログインしてください。",
   "@authErrorIdentityAlreadyExists": {},
   "accountLogout": "ログアウト",
-  "@accountLogout": {}
+  "@accountLogout": {},
+  "notFoundTitle": "ページが見つかりません",
+  "@notFoundTitle": {},
+  "notFoundMessage": "お探しのページは存在しないか、\n移動された可能性があります。",
+  "@notFoundMessage": {},
+  "notFoundBackToTop": "トップに戻る",
+  "@notFoundBackToTop": {}
 }
