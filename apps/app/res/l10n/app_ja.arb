@@ -65,5 +65,11 @@
   "notFoundMessage": "お探しのページは存在しないか、\n移動された可能性があります。",
   "@notFoundMessage": {},
   "notFoundBackToTop": "トップに戻る",
-  "@notFoundBackToTop": {}
+  "@notFoundBackToTop": {},
+  "errorTitle": "サーバー側で問題が発生したようです。",
+  "@errorTitle": {},
+  "errorMessage": "FlutterKaigi スタッフへお問い合わせください。",
+  "@errorMessage": {},
+  "errorRetry": "リトライ",
+  "@errorRetry": {}
 }
