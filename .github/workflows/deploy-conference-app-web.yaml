@@ -87,9 +87,14 @@ jobs:
         id: build
         working-directory: apps/app
         run: |
+          if [ "$environment" = "production" ]; then
+            environment_file="environments/.env.prod"
+          else
+            environment_file="environments/.env.stg"
+          fi
           {
             echo "LOG<<EOL"
-            flutter build web --wasm 2>&1
+            flutter build web --wasm --dart-define-from-file=$environment_file 2>&1
             echo "EOL"
           } | tee -a $GITHUB_OUTPUT
 
