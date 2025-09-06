@@ -6,7 +6,8 @@ compatibility_date = "2025-04-23"
 
 [assets]
 directory = "./build/web"
-binding = "STATIC"
+binding = "ASSETS"
+not_found_handling = "single-page-application"
 
 [route]
 custom_domain = true
