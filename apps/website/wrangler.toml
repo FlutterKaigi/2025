@@ -11,3 +11,6 @@ binding = "STATIC"
 [route]
 custom_domain = true
 pattern = "2025.flutterkaigi.jp"
+
+[observability]
+enabled = true

@@ -1,4 +1,4 @@
-import 'package:db_types/db_types.dart';
+import 'package:bff_client/bff_client.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'ticket_types_with_options_response.freezed.dart';
@@ -7,8 +7,8 @@ part 'ticket_types_with_options_response.g.dart';
 @freezed
 abstract class TicketTypeWithOptionsItem with _$TicketTypeWithOptionsItem {
   const factory TicketTypeWithOptionsItem({
-    required TicketTypes ticketType,
-    required List<TicketOptions> options,
+    required TicketType ticketType,
+    required List<TicketOption> options,
   }) = _TicketTypeWithOptionsItem;
 
   factory TicketTypeWithOptionsItem.fromJson(Map<String, dynamic> json) =>

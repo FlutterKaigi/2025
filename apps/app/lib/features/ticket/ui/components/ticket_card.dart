@@ -15,51 +15,55 @@ class TicketCard extends StatelessWidget {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
-    return Card(
-      margin: const EdgeInsets.only(bottom: 16),
+    return Card.outlined(
+      color: colorScheme.surfaceContainer,
+      margin: const EdgeInsets.only(bottom: 8),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          spacing: 8,
           children: [
-            _buildHeader(context, ticket, theme, colorScheme),
-            const SizedBox(height: 12),
+            _TicketHeader(ticket: ticket),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: 8,
               children: [
                 Text(
                   ticket.ticketType.name,
                   style: theme.textTheme.titleLarge,
                 ),
-                if (ticket.ticketType.description?.isNotEmpty ?? false) ...[
-                  const SizedBox(height: 4),
+                if (ticket.ticketType.description?.isNotEmpty ?? false)
                   Text(
                     ticket.ticketType.description!,
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: colorScheme.onSurfaceVariant,
                     ),
                   ),
-                ],
               ],
             ),
-            if (ticket.options.isNotEmpty) ...[
-              const SizedBox(height: 12),
-              _buildOptions(context, ticket.options, theme, colorScheme),
-            ],
-            const SizedBox(height: 12),
-            _buildDateInfo(context, ticket, theme, colorScheme),
+            if (ticket.options.isNotEmpty)
+              _TicketOptions(options: ticket.options),
+            _TicketDateInfo(ticket: ticket),
           ],
         ),
       ),
     );
   }
+}
 
-  Widget _buildHeader(
-    BuildContext context,
-    TicketItem ticket,
-    ThemeData theme,
-    ColorScheme colorScheme,
-  ) {
+class _TicketHeader extends StatelessWidget {
+  const _TicketHeader({
+    required this.ticket,
+  });
+
+  final TicketItem ticket;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     final color = switch (ticket) {
       TicketPurchaseItem() => colorScheme.primary,
       TicketCheckoutItem() => colorScheme.primaryContainer,
@@ -76,6 +80,7 @@ class TicketCard extends StatelessWidget {
       TicketPurchaseItem() => '購入済み',
       TicketCheckoutItem() => '決済待ち',
     };
+
     return Row(
       children: [
         Container(
@@ -105,7 +110,7 @@ class TicketCard extends StatelessWidget {
         ),
         const Spacer(),
         Text(
-          '¥${ticket.ticketType.price.toStringAsFixed(0)}',
+          '¥${NumberFormat.decimalPattern().format(ticket.ticketType.price)}',
           style: theme.textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.bold,
             color: colorScheme.primary,
@@ -114,15 +119,23 @@ class TicketCard extends StatelessWidget {
       ],
     );
   }
+}
 
-  Widget _buildOptions(
-    BuildContext context,
-    List<TicketOption> options,
-    ThemeData theme,
-    ColorScheme colorScheme,
-  ) {
+class _TicketOptions extends StatelessWidget {
+  const _TicketOptions({
+    required this.options,
+  });
+
+  final List<TicketOption> options;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      spacing: 4,
       children: [
         Text(
           'オプション:',
@@ -130,18 +143,17 @@ class TicketCard extends StatelessWidget {
             fontWeight: FontWeight.w500,
           ),
         ),
-        const SizedBox(height: 4),
         ...options.map(
           (option) => Padding(
-            padding: const EdgeInsets.only(left: 16, top: 4),
+            padding: const EdgeInsets.only(left: 16),
             child: Row(
+              spacing: 8,
               children: [
                 Icon(
                   Icons.circle,
                   size: 4,
                   color: colorScheme.onSurfaceVariant,
                 ),
-                const SizedBox(width: 8),
                 Expanded(
                   child: Text(
                     option.name,
@@ -155,24 +167,30 @@ class TicketCard extends StatelessWidget {
       ],
     );
   }
+}
 
-  Widget _buildDateInfo(
-    BuildContext context,
-    TicketItem ticket,
-    ThemeData theme,
-    ColorScheme colorScheme,
-  ) {
+class _TicketDateInfo extends StatelessWidget {
+  const _TicketDateInfo({
+    required this.ticket,
+  });
+
+  final TicketItem ticket;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
     final dateFormat = DateFormat('yyyy/MM/dd HH:mm');
 
     return switch (ticket) {
       TicketPurchaseItem(:final purchase) => Row(
+        spacing: 4,
         children: [
           Icon(
             Icons.schedule,
             size: 16,
             color: colorScheme.onSurfaceVariant,
           ),
-          const SizedBox(width: 4),
           Text(
             '購入日時: ${dateFormat.format(purchase.createdAt.toLocal())}',
             style: theme.textTheme.bodySmall?.copyWith(
@@ -181,24 +199,19 @@ class TicketCard extends StatelessWidget {
           ),
         ],
       ),
-      TicketCheckoutItem(:final checkout) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      TicketCheckoutItem(:final checkout) => Row(
+        spacing: 4,
         children: [
-          Row(
-            children: [
-              Icon(
-                Icons.access_time,
-                size: 16,
-                color: colorScheme.error,
-              ),
-              const SizedBox(width: 4),
-              Text(
-                '期限: ${dateFormat.format(checkout.expiresAt.toLocal())}',
-                style: theme.textTheme.bodySmall?.copyWith(
-                  color: colorScheme.error,
-                ),
-              ),
-            ],
+          Icon(
+            Icons.access_time,
+            size: 16,
+            color: colorScheme.error,
+          ),
+          Text(
+            '期限: ${dateFormat.format(checkout.expiresAt.toLocal())}',
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: colorScheme.error,
+            ),
           ),
         ],
       ),

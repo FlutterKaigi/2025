@@ -16,11 +16,9 @@ _TicketCheckoutRequest _$TicketCheckoutRequestFromJson(
   ($checkedConvert) {
     final val = _TicketCheckoutRequest(
       ticketTypeId: $checkedConvert('ticket_type_id', (v) => v as String),
-      options: $checkedConvert(
-        'options',
-        (v) => (v as List<dynamic>)
-            .map((e) => TicketOptionRequest.fromJson(e as Map<String, dynamic>))
-            .toList(),
+      optionIds: $checkedConvert(
+        'option_ids',
+        (v) => (v as List<dynamic>).map((e) => e as String).toList(),
       ),
       successUrl: $checkedConvert('success_url', (v) => v as String),
       cancelUrl: $checkedConvert('cancel_url', (v) => v as String),
@@ -29,6 +27,7 @@ _TicketCheckoutRequest _$TicketCheckoutRequestFromJson(
   },
   fieldKeyMap: const {
     'ticketTypeId': 'ticket_type_id',
+    'optionIds': 'option_ids',
     'successUrl': 'success_url',
     'cancelUrl': 'cancel_url',
   },
@@ -38,20 +37,7 @@ Map<String, dynamic> _$TicketCheckoutRequestToJson(
   _TicketCheckoutRequest instance,
 ) => <String, dynamic>{
   'ticket_type_id': instance.ticketTypeId,
-  'options': instance.options,
+  'option_ids': instance.optionIds,
   'success_url': instance.successUrl,
   'cancel_url': instance.cancelUrl,
 };
-
-_TicketOptionRequest _$TicketOptionRequestFromJson(Map<String, dynamic> json) =>
-    $checkedCreate('_TicketOptionRequest', json, ($checkedConvert) {
-      final val = _TicketOptionRequest(
-        optionId: $checkedConvert('option_id', (v) => v as String),
-        value: $checkedConvert('value', (v) => v as String),
-      );
-      return val;
-    }, fieldKeyMap: const {'optionId': 'option_id'});
-
-Map<String, dynamic> _$TicketOptionRequestToJson(
-  _TicketOptionRequest instance,
-) => <String, dynamic>{'option_id': instance.optionId, 'value': instance.value};

@@ -11,11 +11,6 @@ part of 'ticket_api_service.dart';
 Router _$TicketApiServiceRouter(TicketApiService service) {
   final router = Router();
   router.add('GET', r'/types', service._getTicketTypes);
-  router.add(
-    'GET',
-    r'/types/<ticketTypeId>',
-    service._getTicketTypeWithOptions,
-  );
   router.add('POST', r'/checkout', service._createCheckout);
   router.add('PUT', r'/checkout/<checkoutId>/cancel', service._cancelCheckout);
   router.add('GET', r'/me', service._getMyTickets);

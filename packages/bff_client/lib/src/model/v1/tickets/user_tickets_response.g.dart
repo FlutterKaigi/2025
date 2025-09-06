@@ -31,13 +31,13 @@ TicketPurchaseItem _$TicketPurchaseItemFromJson(Map<String, dynamic> json) =>
       json,
       ($checkedConvert) {
         final val = TicketPurchaseItem(
-          purchase: $checkedConvert(
-            'purchase',
-            (v) => TicketPurchase.fromJson(v as Map<String, dynamic>),
-          ),
           ticketType: $checkedConvert(
             'ticket_type',
             (v) => TicketType.fromJson(v as Map<String, dynamic>),
+          ),
+          purchase: $checkedConvert(
+            'purchase',
+            (v) => TicketPurchase.fromJson(v as Map<String, dynamic>),
           ),
           options: $checkedConvert(
             'options',
@@ -54,8 +54,8 @@ TicketPurchaseItem _$TicketPurchaseItemFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$TicketPurchaseItemToJson(TicketPurchaseItem instance) =>
     <String, dynamic>{
-      'purchase': instance.purchase,
       'ticket_type': instance.ticketType,
+      'purchase': instance.purchase,
       'options': instance.options,
       'runtimeType': instance.$type,
     };
@@ -66,13 +66,13 @@ TicketCheckoutItem _$TicketCheckoutItemFromJson(Map<String, dynamic> json) =>
       json,
       ($checkedConvert) {
         final val = TicketCheckoutItem(
-          checkout: $checkedConvert(
-            'checkout',
-            (v) => TicketCheckout.fromJson(v as Map<String, dynamic>),
-          ),
           ticketType: $checkedConvert(
             'ticket_type',
             (v) => TicketType.fromJson(v as Map<String, dynamic>),
+          ),
+          checkout: $checkedConvert(
+            'checkout',
+            (v) => TicketCheckout.fromJson(v as Map<String, dynamic>),
           ),
           options: $checkedConvert(
             'options',
@@ -89,8 +89,8 @@ TicketCheckoutItem _$TicketCheckoutItemFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$TicketCheckoutItemToJson(TicketCheckoutItem instance) =>
     <String, dynamic>{
-      'checkout': instance.checkout,
       'ticket_type': instance.ticketType,
+      'checkout': instance.checkout,
       'options': instance.options,
       'runtimeType': instance.$type,
     };

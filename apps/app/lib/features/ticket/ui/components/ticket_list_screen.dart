@@ -1,7 +1,10 @@
 import 'package:app/core/designsystem/components/error_view.dart';
+import 'package:app/features/auth/data/notifier/auth_notifier.dart';
 import 'package:app/features/ticket/data/provider/ticket_items_provider.dart';
 import 'package:app/features/ticket/data/provider/ticket_types_provider.dart';
+import 'package:app/features/ticket/ui/components/login_before_purchase_card.dart';
 import 'package:app/features/ticket/ui/components/ticket_card.dart';
+import 'package:app/features/ticket/ui/components/ticket_checkout_sheet.dart';
 import 'package:app/features/ticket/ui/components/ticket_type_card.dart';
 import 'package:bff_client/bff_client.dart';
 import 'package:flutter/material.dart';
@@ -47,6 +50,12 @@ class TicketListScreen extends ConsumerWidget {
                 ref.refresh(ticketTypesProvider.future),
               ).wait;
             },
+            isLoggedIn: ref.watch(
+              authNotifierProvider.select((v) => v.value != null),
+            ),
+            isAnonymous: ref.watch(
+              authNotifierProvider.select((v) => v.value?.isAnonymous ?? false),
+            ),
           ),
         ),
       ),
@@ -59,11 +68,15 @@ class _TicketsListView extends HookWidget {
     required this.tickets,
     required this.ticketTypes,
     required this.onRefresh,
+    required this.isLoggedIn,
+    required this.isAnonymous,
   });
 
   final List<TicketItem> tickets;
   final List<TicketTypeWithOptionsItem> ticketTypes;
   final Future<void> Function() onRefresh;
+  final bool isLoggedIn;
+  final bool isAnonymous;
 
   @override
   Widget build(BuildContext context) {
@@ -79,10 +92,26 @@ class _TicketsListView extends HookWidget {
       [tickets, ticketTypes],
     );
 
+    final isAuthorizedByGoogle = isLoggedIn && !isAnonymous;
+
     return RefreshIndicator.adaptive(
       onRefresh: onRefresh,
       child: CustomScrollView(
+        primary: true,
         slivers: [
+          if (!isLoggedIn)
+            SliverToBoxAdapter(
+              child: LoginBeforePurchaseCard.login(),
+            )
+          else if (isAnonymous)
+            SliverToBoxAdapter(
+              child: LoginBeforePurchaseCard.anonymous(),
+            ),
+          if (!isLoggedIn || isAnonymous)
+            const SliverToBoxAdapter(
+              child: Divider(),
+            ),
+
           if (tickets.isNotEmpty)
             SliverList.builder(
               itemBuilder: (context, index) =>
@@ -91,9 +120,18 @@ class _TicketsListView extends HookWidget {
             ),
           if (notPurchasedTicketTypes.isNotEmpty)
             SliverList.builder(
-              itemBuilder: (context, index) => TicketTypeCard(
-                ticketTypeItem: notPurchasedTicketTypes[index],
-              ),
+              itemBuilder: (context, index) {
+                final ticketType = notPurchasedTicketTypes[index];
+                return TicketTypeCard(
+                  ticketTypeItem: ticketType,
+                  onCheckoutButtonPressed: isAuthorizedByGoogle
+                      ? () => TicketCheckoutSheet.show(
+                          context,
+                          ticketType.ticketType.id,
+                        )
+                      : null,
+                );
+              },
               itemCount: notPurchasedTicketTypes.length,
             ),
         ],

@@ -9,7 +9,7 @@ abstract class TicketPurchaseWithDetails with _$TicketPurchaseWithDetails {
   const factory TicketPurchaseWithDetails({
     TicketPurchases? purchase,
     TicketCheckoutSessions? checkoutSession,
-    required TicketTypes ticketType,
+    required String ticketTypeId,
     required List<TicketOptions> options,
   }) = _TicketPurchaseWithDetails;
 

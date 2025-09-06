@@ -158,19 +158,7 @@ class TicketCheckoutDbClient {
             'updated_at', tp.updated_at
           ) AS purchase,
           NULL AS "checkout_session",
-          json_build_object(
-            'id', tt.id,
-            'name', tt.name,
-            'price', tt.price,
-            'max_quantity', tt.max_quantity,
-            'description', tt.description,
-            'is_active', tt.is_active,
-            'sale_starts_at', tt.sale_starts_at,
-            'sale_ends_at', tt.sale_ends_at,
-            'stripe_price_id', tt.stripe_price_id,
-            'created_at', tt.created_at,
-            'updated_at', tt.updated_at
-          ) AS "ticket_type",
+          tt.id AS ticket_type_id,
           COALESCE(
             json_agg(
               CASE
@@ -214,19 +202,7 @@ class TicketCheckoutDbClient {
             'created_at', tcs.created_at,
             'updated_at', tcs.updated_at
           ) AS "checkout_session",
-          json_build_object(
-            'id', tt.id,
-            'name', tt.name,
-            'price', tt.price,
-            'max_quantity', tt.max_quantity,
-            'description', tt.description,
-            'is_active', tt.is_active,
-            'sale_starts_at', tt.sale_starts_at,
-            'sale_ends_at', tt.sale_ends_at,
-            'stripe_price_id', tt.stripe_price_id,
-            'created_at', tt.created_at,
-            'updated_at', tt.updated_at
-          ) AS "ticket_type",
+          tt.id AS ticket_type_id,
           COALESCE(
             json_agg(
               CASE

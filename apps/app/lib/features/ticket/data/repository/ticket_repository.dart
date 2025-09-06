@@ -28,15 +28,6 @@ class TicketRepository {
   Future<TicketTypesWithOptionsResponse> getTicketTypes() async =>
       _ticketsApiClient.getTicketTypes();
 
-  /// 特定のチケット種別の詳細情報を取得
-  ///
-  /// 匿名ユーザーでも利用可能
-  ///
-  /// [ticketTypeId] 取得したいチケット種別のID
-  Future<TicketTypeWithOptionsResponse> getTicketTypeWithOptions(
-    String ticketTypeId,
-  ) async => _ticketsApiClient.getTicketTypeWithOptions(ticketTypeId);
-
   /// ユーザーのチケット情報を取得（購入済み + 進行中チェックアウト）
   ///
   /// 認証が必要
@@ -55,17 +46,8 @@ class TicketRepository {
     TicketCheckoutRequest request,
   ) async => _ticketsApiClient.createCheckout(request);
 
-  /// チェックアウトセッションの詳細情報を取得
-  ///
-  /// 認証が必要
-  ///
-  /// [sessionId] チェックアウトセッションID
-  Future<TicketCheckoutSessionResponse> getCheckoutSession(
-    String sessionId,
-  ) async => _ticketsApiClient.getCheckoutSession(sessionId);
-
   /// チケットチェックアウトキャンセル
-  ///w
+  ///
   /// 認証が必要
   ///
   /// [checkoutId] チェックアウトセッションID
