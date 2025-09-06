@@ -53,14 +53,13 @@ graph LR
 {
   "result": {
     "minimum_version": "1.0.0",
-    "latest_version": "1.2.3",
     "store_urls": {
       "ios": "https://apps.apple.com/jp/app/flutterkaigi/id...",
       "android": "https://play.google.com/store/apps/details?id=jp.flutterkaigi"
     },
     "message": {
-      "ja": "新しいバージョンが利用可能です",
-      "en": "A new version is available"
+      "ja": "アプリをアップデートしてください",
+      "en": "Please update your app"
     }
   }
 }
@@ -71,7 +70,6 @@ graph LR
 | フィールド      | 型     | 説明                                      |
 | --------------- | ------ | ----------------------------------------- |
 | minimum_version | string | サポートされる最小バージョン              |
-| latest_version  | string | 最新のアプリバージョン                    |
 | store_urls      | object | iOS・Android両プラットフォームのストアURL |
 | message         | object | 多言語対応のメッセージ                    |
 
@@ -100,7 +98,6 @@ class AppVersionApiService {
       () async => {
         'result': {
           'minimum_version': config['minimum_version'],
-          'latest_version': config['latest_version'],
           'store_urls': {
             'ios': config['ios_store_url'],
             'android': config['android_store_url'],
@@ -115,12 +112,11 @@ class AppVersionApiService {
     // 環境変数または Workers KVから設定を読み込み
     return {
       'minimum_version': '1.0.0',
-      'latest_version': '1.2.3',
       'ios_store_url': 'https://apps.apple.com/jp/app/flutterkaigi/id...',
       'android_store_url': 'https://play.google.com/store/apps/details?id=jp.flutterkaigi',
       'message': {
-        'ja': '新しいバージョンが利用可能です',
-        'en': 'A new version is available',
+        'ja': 'アプリをアップデートしてください',
+        'en': 'Please update your app',
       },
     };
   }
@@ -180,8 +176,6 @@ class ForceUpdateChecker {
       
       if (_isUpdateRequired(currentVersion, minimumVersion)) {
         await _showForceUpdateDialog(context, response, platform);
-      } else if (_isOptionalUpdateAvailable(currentVersion, response.latestVersion)) {
-        await _showOptionalUpdateDialog(context, response, platform);
       }
     } catch (e) {
       // エラー時はアップデートチェックをスキップ
@@ -193,9 +187,6 @@ class ForceUpdateChecker {
     return _compareVersions(currentVersion, minimumVersion) < 0;
   }
   
-  bool _isOptionalUpdateAvailable(String currentVersion, String latestVersion) {
-    return _compareVersions(currentVersion, latestVersion) < 0;
-  }
   
   int _compareVersions(String v1, String v2) {
     final parts1 = v1.split('.').map(int.parse).toList();
@@ -233,31 +224,6 @@ class ForceUpdateChecker {
     );
   }
   
-  Future<void> _showOptionalUpdateDialog(
-    BuildContext context,
-    AppVersionResponse response,
-    String platform,
-  ) async {
-    final storeUrl = response.storeUrls[platform] ?? '';
-    
-    await showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('新しいバージョンが利用可能です'),
-        content: Text(response.message['ja'] ?? '最新版にアップデートできます'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text('後で'),
-          ),
-          TextButton(
-            onPressed: () => _openStore(storeUrl),
-            child: Text('アップデート'),
-          ),
-        ],
-      ),
-    );
-  }
   
   Future<void> _openStore(String url) async {
     if (await canLaunchUrl(Uri.parse(url))) {
@@ -323,7 +289,6 @@ Cloudflare Workers KVを使用してバージョン設定を管理:
 ```json
 {
   "minimum_version": "1.0.0",
-  "latest_version": "1.2.3",
   "ios_store_url": "https://apps.apple.com/jp/app/flutterkaigi/id...",
   "android_store_url": "https://play.google.com/store/apps/details?id=jp.flutterkaigi",
   "message": {
@@ -335,13 +300,7 @@ Cloudflare Workers KVを使用してバージョン設定を管理:
 
 ## 運用手順
 
-### 1. 通常のアップデート
-
-1. 新バージョンをストアにリリース
-2. Workers KVの`latest_version`を更新
-3. 必要に応じて`message`を更新
-
-### 2. 強制アップデート
+### 強制アップデート
 
 1. 重大なバグ修正や必須機能を含む新バージョンをリリース
 2. Workers KVの以下を更新:
@@ -352,7 +311,7 @@ Cloudflare Workers KVを使用してバージョン設定を管理:
 
 ```bash
 # Wrangler CLIを使用した更新
-wrangler kv:key put --namespace-id=xxx-xxx-xxx "version_config" '{"minimum_version":"1.1.0","latest_version":"1.2.3","ios_store_url":"...","android_store_url":"..."}'
+wrangler kv:key put --namespace-id=xxx-xxx-xxx "version_config" '{"minimum_version":"1.1.0","ios_store_url":"...","android_store_url":"..."}'
 ```
 
 ## セキュリティ考慮事項
@@ -383,7 +342,6 @@ wrangler kv:key put --namespace-id=xxx-xxx-xxx "version_config" '{"minimum_versi
 ### 3. シナリオテスト
 
 - 強制アップデート時の動作
-- オプショナルアップデート時の動作
 - API障害時の動作
 
 ## 参考資料

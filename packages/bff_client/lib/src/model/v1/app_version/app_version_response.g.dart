@@ -18,7 +18,6 @@ _AppVersionResponse _$AppVersionResponseFromJson(Map<String, dynamic> json) =>
             'minimum_version',
             (v) => v as String,
           ),
-          latestVersion: $checkedConvert('latest_version', (v) => v as String),
           storeUrls: $checkedConvert(
             'store_urls',
             (v) => Map<String, String>.from(v as Map),
@@ -32,7 +31,6 @@ _AppVersionResponse _$AppVersionResponseFromJson(Map<String, dynamic> json) =>
       },
       fieldKeyMap: const {
         'minimumVersion': 'minimum_version',
-        'latestVersion': 'latest_version',
         'storeUrls': 'store_urls',
       },
     );
@@ -40,7 +38,6 @@ _AppVersionResponse _$AppVersionResponseFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$AppVersionResponseToJson(_AppVersionResponse instance) =>
     <String, dynamic>{
       'minimum_version': instance.minimumVersion,
-      'latest_version': instance.latestVersion,
       'store_urls': instance.storeUrls,
       'message': instance.message,
     };

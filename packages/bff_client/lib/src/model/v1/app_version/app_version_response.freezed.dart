@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AppVersionResponse {
 
-@JsonKey(name: 'minimum_version') String get minimumVersion;@JsonKey(name: 'latest_version') String get latestVersion;@JsonKey(name: 'store_urls') Map<String, String> get storeUrls; Map<String, String> get message;
+@JsonKey(name: 'minimum_version') String get minimumVersion;@JsonKey(name: 'store_urls') Map<String, String> get storeUrls; Map<String, String> get message;
 /// Create a copy of AppVersionResponse
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $AppVersionResponseCopyWith<AppVersionResponse> get copyWith => _$AppVersionResp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AppVersionResponse&&(identical(other.minimumVersion, minimumVersion) || other.minimumVersion == minimumVersion)&&(identical(other.latestVersion, latestVersion) || other.latestVersion == latestVersion)&&const DeepCollectionEquality().equals(other.storeUrls, storeUrls)&&const DeepCollectionEquality().equals(other.message, message));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AppVersionResponse&&(identical(other.minimumVersion, minimumVersion) || other.minimumVersion == minimumVersion)&&const DeepCollectionEquality().equals(other.storeUrls, storeUrls)&&const DeepCollectionEquality().equals(other.message, message));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,minimumVersion,latestVersion,const DeepCollectionEquality().hash(storeUrls),const DeepCollectionEquality().hash(message));
+int get hashCode => Object.hash(runtimeType,minimumVersion,const DeepCollectionEquality().hash(storeUrls),const DeepCollectionEquality().hash(message));
 
 @override
 String toString() {
-  return 'AppVersionResponse(minimumVersion: $minimumVersion, latestVersion: $latestVersion, storeUrls: $storeUrls, message: $message)';
+  return 'AppVersionResponse(minimumVersion: $minimumVersion, storeUrls: $storeUrls, message: $message)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $AppVersionResponseCopyWith<$Res>  {
   factory $AppVersionResponseCopyWith(AppVersionResponse value, $Res Function(AppVersionResponse) _then) = _$AppVersionResponseCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(name: 'minimum_version') String minimumVersion,@JsonKey(name: 'latest_version') String latestVersion,@JsonKey(name: 'store_urls') Map<String, String> storeUrls, Map<String, String> message
+@JsonKey(name: 'minimum_version') String minimumVersion,@JsonKey(name: 'store_urls') Map<String, String> storeUrls, Map<String, String> message
 });
 
 
@@ -65,10 +65,9 @@ class _$AppVersionResponseCopyWithImpl<$Res>
 
 /// Create a copy of AppVersionResponse
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? minimumVersion = null,Object? latestVersion = null,Object? storeUrls = null,Object? message = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? minimumVersion = null,Object? storeUrls = null,Object? message = null,}) {
   return _then(_self.copyWith(
 minimumVersion: null == minimumVersion ? _self.minimumVersion : minimumVersion // ignore: cast_nullable_to_non_nullable
-as String,latestVersion: null == latestVersion ? _self.latestVersion : latestVersion // ignore: cast_nullable_to_non_nullable
 as String,storeUrls: null == storeUrls ? _self.storeUrls : storeUrls // ignore: cast_nullable_to_non_nullable
 as Map<String, String>,message: null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
 as Map<String, String>,
@@ -156,10 +155,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'minimum_version')  String minimumVersion, @JsonKey(name: 'latest_version')  String latestVersion, @JsonKey(name: 'store_urls')  Map<String, String> storeUrls,  Map<String, String> message)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'minimum_version')  String minimumVersion, @JsonKey(name: 'store_urls')  Map<String, String> storeUrls,  Map<String, String> message)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AppVersionResponse() when $default != null:
-return $default(_that.minimumVersion,_that.latestVersion,_that.storeUrls,_that.message);case _:
+return $default(_that.minimumVersion,_that.storeUrls,_that.message);case _:
   return orElse();
 
 }
@@ -177,10 +176,10 @@ return $default(_that.minimumVersion,_that.latestVersion,_that.storeUrls,_that.m
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'minimum_version')  String minimumVersion, @JsonKey(name: 'latest_version')  String latestVersion, @JsonKey(name: 'store_urls')  Map<String, String> storeUrls,  Map<String, String> message)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'minimum_version')  String minimumVersion, @JsonKey(name: 'store_urls')  Map<String, String> storeUrls,  Map<String, String> message)  $default,) {final _that = this;
 switch (_that) {
 case _AppVersionResponse():
-return $default(_that.minimumVersion,_that.latestVersion,_that.storeUrls,_that.message);case _:
+return $default(_that.minimumVersion,_that.storeUrls,_that.message);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -197,10 +196,10 @@ return $default(_that.minimumVersion,_that.latestVersion,_that.storeUrls,_that.m
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'minimum_version')  String minimumVersion, @JsonKey(name: 'latest_version')  String latestVersion, @JsonKey(name: 'store_urls')  Map<String, String> storeUrls,  Map<String, String> message)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'minimum_version')  String minimumVersion, @JsonKey(name: 'store_urls')  Map<String, String> storeUrls,  Map<String, String> message)?  $default,) {final _that = this;
 switch (_that) {
 case _AppVersionResponse() when $default != null:
-return $default(_that.minimumVersion,_that.latestVersion,_that.storeUrls,_that.message);case _:
+return $default(_that.minimumVersion,_that.storeUrls,_that.message);case _:
   return null;
 
 }
@@ -212,11 +211,10 @@ return $default(_that.minimumVersion,_that.latestVersion,_that.storeUrls,_that.m
 @JsonSerializable()
 
 class _AppVersionResponse implements AppVersionResponse {
-  const _AppVersionResponse({@JsonKey(name: 'minimum_version') required this.minimumVersion, @JsonKey(name: 'latest_version') required this.latestVersion, @JsonKey(name: 'store_urls') required final  Map<String, String> storeUrls, required final  Map<String, String> message}): _storeUrls = storeUrls,_message = message;
+  const _AppVersionResponse({@JsonKey(name: 'minimum_version') required this.minimumVersion, @JsonKey(name: 'store_urls') required final  Map<String, String> storeUrls, required final  Map<String, String> message}): _storeUrls = storeUrls,_message = message;
   factory _AppVersionResponse.fromJson(Map<String, dynamic> json) => _$AppVersionResponseFromJson(json);
 
 @override@JsonKey(name: 'minimum_version') final  String minimumVersion;
-@override@JsonKey(name: 'latest_version') final  String latestVersion;
  final  Map<String, String> _storeUrls;
 @override@JsonKey(name: 'store_urls') Map<String, String> get storeUrls {
   if (_storeUrls is EqualUnmodifiableMapView) return _storeUrls;
@@ -245,16 +243,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AppVersionResponse&&(identical(other.minimumVersion, minimumVersion) || other.minimumVersion == minimumVersion)&&(identical(other.latestVersion, latestVersion) || other.latestVersion == latestVersion)&&const DeepCollectionEquality().equals(other._storeUrls, _storeUrls)&&const DeepCollectionEquality().equals(other._message, _message));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AppVersionResponse&&(identical(other.minimumVersion, minimumVersion) || other.minimumVersion == minimumVersion)&&const DeepCollectionEquality().equals(other._storeUrls, _storeUrls)&&const DeepCollectionEquality().equals(other._message, _message));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,minimumVersion,latestVersion,const DeepCollectionEquality().hash(_storeUrls),const DeepCollectionEquality().hash(_message));
+int get hashCode => Object.hash(runtimeType,minimumVersion,const DeepCollectionEquality().hash(_storeUrls),const DeepCollectionEquality().hash(_message));
 
 @override
 String toString() {
-  return 'AppVersionResponse(minimumVersion: $minimumVersion, latestVersion: $latestVersion, storeUrls: $storeUrls, message: $message)';
+  return 'AppVersionResponse(minimumVersion: $minimumVersion, storeUrls: $storeUrls, message: $message)';
 }
 
 
@@ -265,7 +263,7 @@ abstract mixin class _$AppVersionResponseCopyWith<$Res> implements $AppVersionRe
   factory _$AppVersionResponseCopyWith(_AppVersionResponse value, $Res Function(_AppVersionResponse) _then) = __$AppVersionResponseCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(name: 'minimum_version') String minimumVersion,@JsonKey(name: 'latest_version') String latestVersion,@JsonKey(name: 'store_urls') Map<String, String> storeUrls, Map<String, String> message
+@JsonKey(name: 'minimum_version') String minimumVersion,@JsonKey(name: 'store_urls') Map<String, String> storeUrls, Map<String, String> message
 });
 
 
@@ -282,10 +280,9 @@ class __$AppVersionResponseCopyWithImpl<$Res>
 
 /// Create a copy of AppVersionResponse
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? minimumVersion = null,Object? latestVersion = null,Object? storeUrls = null,Object? message = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? minimumVersion = null,Object? storeUrls = null,Object? message = null,}) {
   return _then(_AppVersionResponse(
 minimumVersion: null == minimumVersion ? _self.minimumVersion : minimumVersion // ignore: cast_nullable_to_non_nullable
-as String,latestVersion: null == latestVersion ? _self.latestVersion : latestVersion // ignore: cast_nullable_to_non_nullable
 as String,storeUrls: null == storeUrls ? _self._storeUrls : storeUrls // ignore: cast_nullable_to_non_nullable
 as Map<String, String>,message: null == message ? _self._message : message // ignore: cast_nullable_to_non_nullable
 as Map<String, String>,
