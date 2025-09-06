@@ -25,11 +25,6 @@ class ForceUpdateChecker {
         if (context.mounted) {
           await _showForceUpdateDialog(context, versionInfo, platform);
         }
-      } else if (_isOptionalUpdateAvailable(
-          currentVersion, versionInfo.latestVersion)) {
-        if (context.mounted) {
-          await _showOptionalUpdateDialog(context, versionInfo, platform);
-        }
       }
     } on Exception catch (e) {
       // エラー時はアップデートチェックをスキップ
@@ -39,10 +34,6 @@ class ForceUpdateChecker {
 
   bool _isUpdateRequired(String currentVersion, String minimumVersion) {
     return _compareVersions(currentVersion, minimumVersion) < 0;
-  }
-
-  bool _isOptionalUpdateAvailable(String currentVersion, String latestVersion) {
-    return _compareVersions(currentVersion, latestVersion) < 0;
   }
 
   int _compareVersions(String v1, String v2) {
@@ -76,32 +67,6 @@ class ForceUpdateChecker {
         title: const Text('アップデートが必要です'),
         content: Text(response.message['ja'] ?? 'アプリをアップデートしてください'),
         actions: [
-          TextButton(
-            onPressed: () => _openStore(storeUrl),
-            child: const Text('アップデート'),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Future<void> _showOptionalUpdateDialog(
-    BuildContext context,
-    AppVersionResponse response,
-    String platform,
-  ) async {
-    final storeUrl = response.storeUrls[platform] ?? '';
-
-    await showDialog<void>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('新しいバージョンが利用可能です'),
-        content: Text(response.message['ja'] ?? '最新版にアップデートできます'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: const Text('後で'),
-          ),
           TextButton(
             onPressed: () => _openStore(storeUrl),
             child: const Text('アップデート'),
