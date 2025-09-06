@@ -1,0 +1,12 @@
+"$schema" = "node_modules/wrangler/config-schema.json"
+name = "flutterkaigi-2025-conference-app"
+account_id = "cdd8f59359fe226645e7b541cdc53b57"
+compatibility_date = "2025-04-23"
+
+[assets]
+directory = "./build/web"
+binding = "STATIC"
+
+[route]
+custom_domain = true
+pattern = "2025-app.flutterkaigi.jp"
