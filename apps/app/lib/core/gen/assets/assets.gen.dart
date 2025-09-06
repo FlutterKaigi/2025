@@ -21,6 +21,14 @@ class $ResGen {
 class $ResAssetsGen {
   const $ResAssetsGen();
 
+  /// File path: res/assets/dashumaru_guruguru.webp
+  AssetGenImage get dashumaruGuruguru =>
+      const AssetGenImage('res/assets/dashumaru_guruguru.webp');
+
+  /// File path: res/assets/dashumaru_magao.webp
+  AssetGenImage get dashumaruMagao =>
+      const AssetGenImage('res/assets/dashumaru_magao.webp');
+
   /// File path: res/assets/google_sign_in_button.webp
   AssetGenImage get googleSignInButton =>
       const AssetGenImage('res/assets/google_sign_in_button.webp');
@@ -29,7 +37,12 @@ class $ResAssetsGen {
   AssetGenImage get logo => const AssetGenImage('res/assets/logo.webp');
 
   /// List of all assets
-  List<AssetGenImage> get values => [googleSignInButton, logo];
+  List<AssetGenImage> get values => [
+    dashumaruGuruguru,
+    dashumaruMagao,
+    googleSignInButton,
+    logo,
+  ];
 }
 
 class Assets {
