@@ -25,13 +25,13 @@ class AppVersionApiService {
 
   Future<Map<String, dynamic>> _getVersionConfig() async {
     return {
-      'minimum_version': '1.0.0',
+      'minimum_version': '0.0.1',
       'ios_store_url': 'https://apps.apple.com/jp/app/flutterkaigi/id...',
       'android_store_url':
-          'https://play.google.com/store/apps/details?id=jp.flutterkaigi',
+          'https://play.google.com/store/apps/details?id=jp.flutterkaigi.conf2025',
       'message': {
-        'ja': 'アプリをアップデートしてください',
-        'en': 'Please update your app',
+        'ja': 'このアプリを使うには最新のバージョンにアップデートしてください。',
+        'en': 'To use this app, please update to the latest version.',
       },
     };
   }
