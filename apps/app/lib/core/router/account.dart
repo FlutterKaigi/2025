@@ -37,7 +37,10 @@ class AccountInfoRoute extends GoRouteData with $AccountInfoRoute {
       onTapContactTile: () => _openUrl(
         urlString: L10n.of(context).accountContactUrl,
       ),
-      onTapOssLicensesTile: () => showLicensePage(context: context),
+      onTapOssLicensesTile: () => showLicensePage(
+        context: context,
+        applicationName: L10n.of(context).appName,
+      ),
     );
   }
 
