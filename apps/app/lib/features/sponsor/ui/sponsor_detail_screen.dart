@@ -4,6 +4,7 @@ import 'package:app/core/gen/l10n/l10n.dart';
 import 'package:app/features/sponsor/data/sponsor.dart';
 import 'package:app/features/sponsor/data/sponsor_provider.dart';
 import 'package:app/features/sponsor/ui/sponsor_sliver_app_bar.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -31,17 +32,56 @@ class SponsorDetailScreen extends ConsumerWidget {
       sponsorsProvider.select(
         (s) {
           return switch (s) {
-            AsyncData(:final value) => value.firstWhere((s) => s.slug == slug),
-            _ => null,
+            AsyncLoading() => _ScreenState.loading(),
+            AsyncData(:final value) => () {
+              final sponsor = value.firstWhereOrNull((s) => s.slug == slug);
+              return sponsor == null
+                  ? _ScreenState.notFound()
+                  : _ScreenState.success(sponsor: sponsor);
+            }(),
+            AsyncError() => _ScreenState.failure(error: s.error),
           };
         },
       ),
     );
     return switch (sponsor) {
-      null => const Center(child: CircularProgressIndicator()),
-      final Sponsor s => _SponsorDetail(sponsor: s),
+      _Loading() => const Center(child: CircularProgressIndicator()),
+      _Success(:final sponsor) => _SponsorDetail(sponsor: sponsor),
+      _NotFound() => throw UnimplementedError(),
+      _Failure(:final error) => Center(child: Text(error.toString())),
     };
   }
+}
+
+sealed class _ScreenState {
+  const _ScreenState();
+
+  factory _ScreenState.loading() => const _Loading();
+  factory _ScreenState.success({required Sponsor sponsor}) =>
+      _Success(sponsor: sponsor);
+  factory _ScreenState.notFound() => const _NotFound();
+  factory _ScreenState.failure({required Object error}) =>
+      _Failure(error: error);
+}
+
+final class _Loading extends _ScreenState {
+  const _Loading();
+}
+
+final class _Success extends _ScreenState {
+  const _Success({required this.sponsor});
+
+  final Sponsor sponsor;
+}
+
+final class _NotFound extends _ScreenState {
+  const _NotFound();
+}
+
+final class _Failure extends _ScreenState {
+  const _Failure({required this.error});
+
+  final Object error;
 }
 
 class _SponsorDetail extends ConsumerWidget {
