@@ -30,26 +30,24 @@ const INSTANCE_COUNT = 1;
 const app = new Hono()
 	// CORS
 	.use("*", async (c, next) => {
-		var allowedOrigins: string[];
-		switch (env.ENVIRONMENT) {
-			case "development": {
-				allowedOrigins = ["*"];
-				break;
-			}
-			case "staging": {
-				allowedOrigins = [
-					"https://*.flutter-kaigi.workers.dev",
-					"http://localhost:8080",
-				];
-				break;
-			}
-			case "production": {
-				allowedOrigins = ["https://2025-app.flutterkaigi.jp"];
-				break;
-			}
-		}
 		const corsMiddlewareHandler = cors({
-			origin: allowedOrigins,
+			origin: (origin) => {
+				if (!origin) return null;
+
+				switch (env.ENVIRONMENT) {
+					case "development": {
+						return "*";
+					}
+					case "staging": {
+						return origin.endsWith("flutter-kaigi.workers.dev")
+							? origin
+							: "http://localhost:8080";
+					}
+					case "production": {
+						return "https://2025-app.flutterkaigi.jp";
+					}
+				}
+			},
 		});
 		return corsMiddlewareHandler(c, next);
 	})
