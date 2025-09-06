@@ -111,4 +111,13 @@ class L10nJa extends L10n {
 
   @override
   String get notFoundBackToTop => 'トップに戻る';
+
+  @override
+  String get errorTitle => 'サーバー側で問題が発生したようです。';
+
+  @override
+  String get errorMessage => 'FlutterKaigi スタッフへお問い合わせください。';
+
+  @override
+  String get errorRetry => 'リトライ';
 }

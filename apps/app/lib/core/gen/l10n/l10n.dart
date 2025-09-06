@@ -290,6 +290,24 @@ abstract class L10n {
   /// In ja, this message translates to:
   /// **'トップに戻る'**
   String get notFoundBackToTop;
+
+  /// No description provided for @errorTitle.
+  ///
+  /// In ja, this message translates to:
+  /// **'サーバー側で問題が発生したようです。'**
+  String get errorTitle;
+
+  /// No description provided for @errorMessage.
+  ///
+  /// In ja, this message translates to:
+  /// **'FlutterKaigi スタッフへお問い合わせください。'**
+  String get errorMessage;
+
+  /// No description provided for @errorRetry.
+  ///
+  /// In ja, this message translates to:
+  /// **'リトライ'**
+  String get errorRetry;
 }
 
 class _L10nDelegate extends LocalizationsDelegate<L10n> {

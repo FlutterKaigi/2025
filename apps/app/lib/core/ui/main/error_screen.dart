@@ -1,4 +1,5 @@
 import 'package:app/core/gen/assets/assets.gen.dart';
+import 'package:app/core/gen/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 
 /// エラー表示画面
@@ -16,6 +17,7 @@ class ErrorScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = L10n.of(context);
 
     return Scaffold(
       body: SafeArea(
@@ -36,7 +38,7 @@ class ErrorScreen extends StatelessWidget {
 
                   // エラーメッセージ
                   Text(
-                    'サーバー側で問題が発生したようです。',
+                    l10n.errorTitle,
                     style: theme.textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
@@ -45,7 +47,7 @@ class ErrorScreen extends StatelessWidget {
                   const SizedBox(height: 16),
 
                   Text(
-                    'FlutterKaigi スタッフへお問い合わせください。',
+                    l10n.errorMessage,
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
                     ),
@@ -57,7 +59,7 @@ class ErrorScreen extends StatelessWidget {
                   FilledButton.icon(
                     onPressed: onRetry,
                     icon: const Icon(Icons.refresh),
-                    label: const Text('リトライ'),
+                    label: Text(l10n.errorRetry),
                     style: FilledButton.styleFrom(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 32,
