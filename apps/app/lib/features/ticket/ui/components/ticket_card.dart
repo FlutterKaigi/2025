@@ -45,6 +45,8 @@ class TicketCard extends StatelessWidget {
             if (ticket.options.isNotEmpty)
               _TicketOptions(options: ticket.options),
             _TicketDateInfo(ticket: ticket),
+            if (ticket is TicketCheckoutItem)
+              _TicketCheckoutButtons(ticket: ticket),
           ],
         ),
       ),
@@ -216,5 +218,33 @@ class _TicketDateInfo extends StatelessWidget {
         ],
       ),
     };
+  }
+}
+
+class _TicketCheckoutButtons extends StatelessWidget {
+  const _TicketCheckoutButtons({
+    required this.ticket,
+  });
+
+  final TicketItem ticket;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      spacing: 8,
+      children: [
+        OutlinedButton.icon(
+          onPressed: () {},
+          label: const Text('キャンセル'),
+          icon: const Icon(Icons.cancel),
+        ),
+        FilledButton.icon(
+          onPressed: () {},
+          label: const Text('決済へ進む'),
+          icon: const Icon(Icons.payment),
+        ),
+      ],
+    );
   }
 }
