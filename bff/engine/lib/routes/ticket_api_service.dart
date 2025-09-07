@@ -128,7 +128,7 @@ class TicketApiService {
         );
       }
 
-      // 対象ユーザの進行中のCheckoutがないことを確認
+      // 対象ユーザに進行中のCheckoutがないことを確認
       final checkout = await database.ticketCheckout
           .getUserAllTicketsWithDetails(
             userId: user.id,
