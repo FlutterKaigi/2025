@@ -10,7 +10,6 @@ class TicketCheckoutNotifier extends _$TicketCheckoutNotifier {
   @override
   Future<List<TicketCheckoutItem>> build() async {
     final ticketItems = await ref.watch(ticketItemsProvider.future);
-    ref.onDispose(() => ref.invalidate(ticketItemsProvider));
     return ticketItems.whereType<TicketCheckoutItem>().toList();
   }
 
@@ -19,7 +18,7 @@ class TicketCheckoutNotifier extends _$TicketCheckoutNotifier {
   ) async {
     final repository = ref.read(ticketRepositoryProvider);
     final response = await repository.createCheckout(request);
-    ref.invalidateSelf(asReload: true);
+    ref.invalidate(ticketItemsProvider, asReload: true);
 
     return response;
   }
@@ -27,6 +26,6 @@ class TicketCheckoutNotifier extends _$TicketCheckoutNotifier {
   Future<void> cancelCheckout(String checkoutId) async {
     final repository = ref.read(ticketRepositoryProvider);
     await repository.cancelCheckout(checkoutId);
-    ref.invalidateSelf(asReload: true);
+    ref.invalidate(ticketItemsProvider, asReload: true);
   }
 }
