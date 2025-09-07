@@ -19,6 +19,7 @@ class TicketCheckoutSheet extends HookConsumerWidget {
       showDialog<void>(
         context: context,
         barrierDismissible: false,
+        fullscreenDialog: true,
         builder: (context) => TicketCheckoutSheet._(ticketTypeId: ticketTypeId),
       );
 
@@ -60,10 +61,6 @@ class TicketCheckoutSheet extends HookConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('チケット購入'),
-        leading: IconButton(
-          icon: const Icon(Icons.close),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
       ),
       body: Stepper(
         currentStep: currentStep.value,
