@@ -65,6 +65,10 @@ class WidgetBuildErrorScreen extends StatelessWidget {
           ),
           const SizedBox(height: 16),
 
+          // エラー詳細のコールアウト
+          _WidgetBuildErrorCallout(details: details),
+          const SizedBox(height: 24),
+
           // 開発者向けメッセージ
           Text(
             l10n.widgetBuildErrorMessage,
