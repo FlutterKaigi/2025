@@ -3,6 +3,7 @@ import 'package:bff_client/bff_client.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class TicketCard extends StatelessWidget {
   const TicketCard({
@@ -244,7 +245,20 @@ class _TicketCheckoutButtons extends ConsumerWidget {
           icon: const Icon(Icons.cancel),
         ),
         FilledButton.icon(
-          onPressed: () {},
+          onPressed: () async {
+            final uri = Uri.parse(ticket.checkout.stripeCheckoutUrl);
+            if (await canLaunchUrl(uri)) {
+              await launchUrl(uri, mode: LaunchMode.externalApplication);
+            } else {
+              if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('決済ページを開けませんでした'),
+                  ),
+                );
+              }
+            }
+          },
           label: const Text('決済へ進む'),
           icon: const Icon(Icons.payment),
         ),
