@@ -10,7 +10,6 @@ class TicketCheckoutNotifier extends _$TicketCheckoutNotifier {
   @override
   Future<List<TicketCheckoutItem>> build() async {
     final ticketItems = await ref.watch(ticketItemsProvider.future);
-    ref.onDispose(() => ref.invalidate(ticketItemsProvider));
     return ticketItems.whereType<TicketCheckoutItem>().toList();
   }
 
