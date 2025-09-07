@@ -84,25 +84,25 @@ class TicketApiService {
 
       // 購入可能かチェック
       final targetTicketType = targetTicketTypeAndOptions.ticketType;
-      // if (targetTicketType.status case TicketStatusSelling()) {
-      //   throw ErrorResponse.errorCode(
-      //     code: ErrorCode.badRequest,
-      //     detail:
-      //         'このチケットは現在購入できません: ${targetTicketType.id} '
-      //         'is not selling status '
-      //         '${targetTicketType.status}',
-      //   );
-      // }
-      // for (final option in targetOptions) {
-      //   if (option.status case TicketStatusSelling()) {
-      //     throw ErrorResponse.errorCode(
-      //       code: ErrorCode.badRequest,
-      //       detail:
-      //           'このチケットのオプションは現在購入できません: ${option.id} is not selling status '
-      //           '${option.status}',
-      //     );
-      //   }
-      // }
+      if (targetTicketType.status is! TicketStatusSelling) {
+        throw ErrorResponse.errorCode(
+          code: ErrorCode.badRequest,
+          detail:
+              'このチケットは現在購入できません: ${targetTicketType.id} '
+              'is not selling status '
+              '${targetTicketType.status}',
+        );
+      }
+      for (final option in targetOptions) {
+        if (option.status is! TicketStatusSelling) {
+          throw ErrorResponse.errorCode(
+            code: ErrorCode.badRequest,
+            detail:
+                'このチケットのオプションは現在購入できません: ${option.id} is not selling status '
+                '${option.status}',
+          );
+        }
+      }
 
       // 3. 既存の購入チェック（同じユーザー・同じチケットタイプ）
       final existingPurchases = await database.ticketPurchase
@@ -125,6 +125,25 @@ class TicketApiService {
           detail:
               'このチケットタイプは既に購入済みです: '
               '${sameTicketTypePurchases.map((p) => p.id).join(', ')}',
+        );
+      }
+
+      // 対象ユーザの進行中のCheckoutがないことを確認
+      final checkout = await database.ticketCheckout
+          .getUserAllTicketsWithDetails(
+            userId: user.id,
+          );
+      final pendingCheckout = checkout.where((e) {
+        final status = e.checkoutSession?.status;
+        if (status == TicketCheckoutStatus.pending) {
+          return true;
+        }
+        return false;
+      }).toList();
+      if (pendingCheckout.isNotEmpty) {
+        throw ErrorResponse.errorCode(
+          code: ErrorCode.badRequest,
+          detail: '進行中のCheckoutがあります',
         );
       }
 
