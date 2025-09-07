@@ -34,7 +34,7 @@ class UnhandledErrorScreen extends StatelessWidget {
     final exceptionText = details.exception.toString();
     if (kDebugMode) {
       return Material(
-        color: Colors.white70,
+        color: Colors.white30,
         child: Center(
           child: Padding(
             padding: const EdgeInsets.all(8),
@@ -48,14 +48,14 @@ class UnhandledErrorScreen extends StatelessWidget {
                 ),
                 Row(
                   mainAxisSize: MainAxisSize.min,
-                  spacing: 4,
                   children: [
-                    Expanded(
+                    Flexible(
                       child: Text(
                         exceptionText,
-                        textAlign: TextAlign.end,
+                        style: Theme.of(context).textTheme.bodySmall,
                       ),
                     ),
+                    const SizedBox(width: 8),
                     IconButton.filled(
                       onPressed: () async {
                         await Clipboard.setData(
