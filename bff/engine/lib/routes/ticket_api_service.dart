@@ -135,7 +135,7 @@ class TicketApiService {
           );
       final pendingCheckout = checkout.where((e) {
         final status = e.checkoutSession?.status;
-        if (status == TicketCheckoutStatus.pending) {
+        if (status == db_types.TicketCheckoutStatus.pending) {
           return true;
         }
         return false;
