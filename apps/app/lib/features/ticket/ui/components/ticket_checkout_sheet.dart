@@ -616,12 +616,14 @@ class _CheckoutConfirmStep extends StatelessWidget {
 // auth_notifier.dartの_getRedirectToを参考にしたリダイレクトURL生成
 String _getRedirectUrl(WidgetRef ref) {
   final environment = ref.read(environmentProvider);
-  final ticketPath = const TicketRoute().location;
+  final ticketPath = const TicketRoute().location.replaceFirst('/', '');
 
   // Webプラットフォームの場合は `scheme://host:port` を使用
   if (kIsWeb) {
     return Uri.base.replace(path: ticketPath).toString();
   }
-  // モバイルプラットフォームの場合は従来のカスタムスキームを使用
-  return 'jp.flutterkaigi.conf2025${environment.appIdSuffix}://$ticketPath';
+  return Uri(
+    scheme: 'jp.flutterkaigi.conf2025${environment.appIdSuffix}',
+    host: ticketPath,
+  ).toString();
 }
