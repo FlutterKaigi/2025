@@ -8,12 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-/// エラーハンドリング漏れ表示画面
+/// Widgetのbuildメソッドでエラーが発生した際の表示画面
 ///
-/// エラーハンドリング漏れなど、開発者の実装ミスが原因で発生した
-/// 予期しないエラーが発生した際に表示されるページ
-class UnhandledErrorScreen extends StatelessWidget {
-  const UnhandledErrorScreen({
+/// ErrorWidget.builderで表示される画面で、Widgetの構築中に
+/// エラーが発生した際にユーザーに適切なフィードバックを提供
+class WidgetBuildErrorScreen extends StatelessWidget {
+  const WidgetBuildErrorScreen({
     required this.details,
     super.key,
   });
