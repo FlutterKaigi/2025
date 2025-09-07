@@ -120,4 +120,14 @@ class L10nJa extends L10n {
 
   @override
   String get errorRetry => 'リトライ';
+
+  @override
+  String get widgetBuildErrorTitle => '予期しないエラーが発生しました';
+
+  @override
+  String get widgetBuildErrorMessage =>
+      '申し訳ございません。UI 構築中に予期しないエラーが発生しました。\n\nこの問題を解決するため、GitHub の Issue を作成していただけると大変助かります。';
+
+  @override
+  String get widgetBuildErrorGitHubButton => 'GitHub の Issue ページを開く';
 }

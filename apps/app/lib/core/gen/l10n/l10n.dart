@@ -308,6 +308,24 @@ abstract class L10n {
   /// In ja, this message translates to:
   /// **'リトライ'**
   String get errorRetry;
+
+  /// No description provided for @widgetBuildErrorTitle.
+  ///
+  /// In ja, this message translates to:
+  /// **'予期しないエラーが発生しました'**
+  String get widgetBuildErrorTitle;
+
+  /// No description provided for @widgetBuildErrorMessage.
+  ///
+  /// In ja, this message translates to:
+  /// **'申し訳ございません。UI 構築中に予期しないエラーが発生しました。\n\nこの問題を解決するため、GitHub の Issue を作成していただけると大変助かります。'**
+  String get widgetBuildErrorMessage;
+
+  /// No description provided for @widgetBuildErrorGitHubButton.
+  ///
+  /// In ja, this message translates to:
+  /// **'GitHub の Issue ページを開く'**
+  String get widgetBuildErrorGitHubButton;
 }
 
 class _L10nDelegate extends LocalizationsDelegate<L10n> {

@@ -71,5 +71,11 @@
   "errorMessage": "FlutterKaigi スタッフへお問い合わせください。",
   "@errorMessage": {},
   "errorRetry": "リトライ",
-  "@errorRetry": {}
+  "@errorRetry": {},
+  "widgetBuildErrorTitle": "予期しないエラーが発生しました",
+  "@widgetBuildErrorTitle": {},
+  "widgetBuildErrorMessage": "申し訳ございません。UI 構築中に予期しないエラーが発生しました。\n\nこの問題を解決するため、GitHub の Issue を作成していただけると大変助かります。",
+  "@widgetBuildErrorMessage": {},
+  "widgetBuildErrorGitHubButton": "GitHub の Issue ページを開く",
+  "@widgetBuildErrorGitHubButton": {}
 }
