@@ -37,7 +37,7 @@ class WidgetBuildErrorScreen extends StatelessWidget {
         child: Center(
           child: Padding(
             padding: const EdgeInsets.all(8),
-            child: _CalloutErrorWidget(details: details),
+            child: _WidgetBuildErrorCallout(details: details),
           ),
         ),
       );
@@ -122,9 +122,11 @@ class WidgetBuildErrorScreen extends StatelessWidget {
   }
 }
 
-/// コールアウトエラー表示用のウィジェット
-class _CalloutErrorWidget extends StatelessWidget {
-  const _CalloutErrorWidget({
+/// Widget Build Error のコールアウト表示
+///
+/// 発生したエラーをクリップボードにコピーする機能を提供する
+class _WidgetBuildErrorCallout extends StatelessWidget {
+  const _WidgetBuildErrorCallout({
     required this.details,
     super.key,
   });
