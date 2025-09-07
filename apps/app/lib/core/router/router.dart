@@ -100,16 +100,18 @@ Future<void> _handleIdentityAlreadyExistsError(
   BuildContext context,
   Ref ref,
 ) async {
-  // エラーメッセージを表示
-  if (context.mounted) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(L10n.of(context).authErrorIdentityAlreadyExists),
-        behavior: SnackBarBehavior.floating,
-        duration: const Duration(seconds: 5),
-      ),
-    );
-  }
+  // 現在のフレームの描画が完了した後に SnackBar を表示
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    if (context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(L10n.of(context).authErrorIdentityAlreadyExists),
+          behavior: SnackBarBehavior.floating,
+          duration: const Duration(seconds: 5),
+        ),
+      );
+    }
+  });
 }
 
 @TypedGoRoute<LoginRoute>(path: '/login')
