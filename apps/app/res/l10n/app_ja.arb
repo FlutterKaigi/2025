@@ -74,9 +74,9 @@
   "@errorRetry": {},
   "widgetBuildErrorTitle": "予期しないエラーが発生しました",
   "@widgetBuildErrorTitle": {},
-  "widgetBuildErrorMessage": "申し訳ございません。開発者のエラーハンドリングの実装が漏れていて、予期しないエラーが発生しました。\n\nこの問題を解決するため、GitHubのIssueを作成していただけると大変助かります。",
+  "widgetBuildErrorMessage": "申し訳ございません。UI 構築中に予期しないエラーが発生しました。\n\nこの問題を解決するため、GitHub の Issue を作成していただけると大変助かります。",
   "@widgetBuildErrorMessage": {},
-  "widgetBuildErrorGitHubButton": "GitHubのIssueページを開く",
+  "widgetBuildErrorGitHubButton": "GitHub の Issue ページを開く",
   "@widgetBuildErrorGitHubButton": {},
   "widgetBuildErrorBackToTop": "トップに戻る",
   "@widgetBuildErrorBackToTop": {}

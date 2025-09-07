@@ -318,13 +318,13 @@ abstract class L10n {
   /// No description provided for @widgetBuildErrorMessage.
   ///
   /// In ja, this message translates to:
-  /// **'申し訳ございません。開発者のエラーハンドリングの実装が漏れていて、予期しないエラーが発生しました。\n\nこの問題を解決するため、GitHubのIssueを作成していただけると大変助かります。'**
+  /// **'申し訳ございません。UI 構築中に予期しないエラーが発生しました。\n\nこの問題を解決するため、GitHub の Issue を作成していただけると大変助かります。'**
   String get widgetBuildErrorMessage;
 
   /// No description provided for @widgetBuildErrorGitHubButton.
   ///
   /// In ja, this message translates to:
-  /// **'GitHubのIssueページを開く'**
+  /// **'GitHub の Issue ページを開く'**
   String get widgetBuildErrorGitHubButton;
 
   /// No description provided for @widgetBuildErrorBackToTop.
