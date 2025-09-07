@@ -53,7 +53,7 @@ class WidgetBuildErrorScreen extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 // ダシュマル画像
-                Assets.res.assets.dashumaruMagao.image(
+                Assets.res.assets.dashumaruOverflow2.image(
                   height: 200,
                   fit: BoxFit.contain,
                 ),
