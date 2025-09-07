@@ -233,36 +233,40 @@ class _TicketCheckoutButtons extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      spacing: 8,
-      children: [
-        OutlinedButton.icon(
-          onPressed: () => ref
-              .read(ticketNotifierProvider.notifier)
-              .cancelCheckout(ticket.checkout.id),
-          label: const Text('キャンセル'),
-          icon: const Icon(Icons.cancel),
-        ),
-        FilledButton.icon(
-          onPressed: () async {
-            final uri = Uri.parse(ticket.checkout.stripeCheckoutUrl);
-            if (await canLaunchUrl(uri)) {
-              await launchUrl(uri, mode: LaunchMode.externalApplication);
-            } else {
-              if (context.mounted) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('決済ページを開けませんでした'),
-                  ),
-                );
+    return SizedBox(
+      width: double.infinity,
+      child: Wrap(
+        alignment: WrapAlignment.end,
+        spacing: 8,
+        runSpacing: 8,
+        children: [
+          OutlinedButton.icon(
+            onPressed: () => ref
+                .read(ticketNotifierProvider.notifier)
+                .cancelCheckout(ticket.checkout.id),
+            label: const Text('キャンセル'),
+            icon: const Icon(Icons.cancel),
+          ),
+          FilledButton.icon(
+            onPressed: () async {
+              final uri = Uri.parse(ticket.checkout.stripeCheckoutUrl);
+              if (await canLaunchUrl(uri)) {
+                await launchUrl(uri, mode: LaunchMode.externalApplication);
+              } else {
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('決済ページを開けませんでした'),
+                    ),
+                  );
+                }
               }
-            }
-          },
-          label: const Text('決済へ進む'),
-          icon: const Icon(Icons.payment),
-        ),
-      ],
+            },
+            label: const Text('決済へ進む'),
+            icon: const Icon(Icons.payment),
+          ),
+        ],
+      ),
     );
   }
 }
