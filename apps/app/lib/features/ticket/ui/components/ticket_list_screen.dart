@@ -115,26 +115,32 @@ class _TicketsListView extends HookWidget {
             ),
 
           if (tickets.isNotEmpty)
-            SliverList.builder(
-              itemBuilder: (context, index) =>
-                  TicketCard(ticket: tickets[index]),
-              itemCount: tickets.length,
+            SliverPadding(
+              padding: const EdgeInsetsGeometry.symmetric(horizontal: 16),
+              sliver: SliverList.builder(
+                itemBuilder: (context, index) =>
+                    TicketCard(ticket: tickets[index]),
+                itemCount: tickets.length,
+              ),
             ),
           if (notPurchasedTicketTypes.isNotEmpty)
-            SliverList.builder(
-              itemBuilder: (context, index) {
-                final ticketType = notPurchasedTicketTypes[index];
-                return TicketTypeCard(
-                  ticketTypeItem: ticketType,
-                  onCheckoutButtonPressed: isAuthorizedByGoogle
-                      ? () => TicketCheckoutSheet.show(
-                          context,
-                          ticketType.ticketType.id,
-                        )
-                      : null,
-                );
-              },
-              itemCount: notPurchasedTicketTypes.length,
+            SliverPadding(
+              padding: const EdgeInsetsGeometry.symmetric(horizontal: 16),
+              sliver: SliverList.builder(
+                itemBuilder: (context, index) {
+                  final ticketType = notPurchasedTicketTypes[index];
+                  return TicketTypeCard(
+                    ticketTypeItem: ticketType,
+                    onCheckoutButtonPressed: isAuthorizedByGoogle
+                        ? () => TicketCheckoutSheet.show(
+                            context,
+                            ticketType.ticketType.id,
+                          )
+                        : null,
+                  );
+                },
+                itemCount: notPurchasedTicketTypes.length,
+              ),
             ),
         ],
       ),
