@@ -106,8 +106,9 @@ class TicketCheckoutDbClient {
       Sql.named('''
         UPDATE ticket_checkout_sessions
         SET status = 'expired' AND updated_at = now() AND expires_at = now()
-        WHERE id = @checkoutId
-        RETURNING *
+        WHERE id = @checkoutId AND status = 'pending';
+
+        SELECT * FROM ticket_checkout_sessions WHERE id = @checkoutId;
       '''),
     );
     if (result.isEmpty) {
