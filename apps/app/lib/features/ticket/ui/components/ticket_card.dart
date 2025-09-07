@@ -1,6 +1,9 @@
+import 'package:app/features/ticket/data/notifier/ticket_notifier.dart';
 import 'package:bff_client/bff_client.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class TicketCard extends StatelessWidget {
   const TicketCard({
@@ -17,7 +20,7 @@ class TicketCard extends StatelessWidget {
 
     return Card.outlined(
       color: colorScheme.surfaceContainer,
-      margin: const EdgeInsets.only(bottom: 8),
+      margin: const EdgeInsets.only(bottom: 16),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -45,6 +48,8 @@ class TicketCard extends StatelessWidget {
             if (ticket.options.isNotEmpty)
               _TicketOptions(options: ticket.options),
             _TicketDateInfo(ticket: ticket),
+            if (ticket case final TicketCheckoutItem checkout)
+              _TicketCheckoutButtons(ticket: checkout),
           ],
         ),
       ),
@@ -216,5 +221,52 @@ class _TicketDateInfo extends StatelessWidget {
         ],
       ),
     };
+  }
+}
+
+class _TicketCheckoutButtons extends ConsumerWidget {
+  const _TicketCheckoutButtons({
+    required this.ticket,
+  });
+
+  final TicketCheckoutItem ticket;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return SizedBox(
+      width: double.infinity,
+      child: Wrap(
+        alignment: WrapAlignment.end,
+        spacing: 8,
+        runSpacing: 8,
+        children: [
+          OutlinedButton.icon(
+            onPressed: () => ref
+                .read(ticketNotifierProvider.notifier)
+                .cancelCheckout(ticket.checkout.id),
+            label: const Text('キャンセル'),
+            icon: const Icon(Icons.cancel),
+          ),
+          FilledButton.icon(
+            onPressed: () async {
+              final uri = Uri.parse(ticket.checkout.stripeCheckoutUrl);
+              if (await canLaunchUrl(uri)) {
+                await launchUrl(uri, mode: LaunchMode.externalApplication);
+              } else {
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('決済ページを開けませんでした'),
+                    ),
+                  );
+                }
+              }
+            },
+            label: const Text('決済へ進む'),
+            icon: const Icon(Icons.payment),
+          ),
+        ],
+      ),
+    );
   }
 }

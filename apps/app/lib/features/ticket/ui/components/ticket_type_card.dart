@@ -22,7 +22,7 @@ class TicketTypeCard extends StatelessWidget {
 
     return Card.outlined(
       color: colorScheme.surfaceContainer,
-      margin: const EdgeInsets.only(bottom: 8),
+      margin: const EdgeInsets.only(bottom: 16),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -62,14 +62,17 @@ class TicketTypeCard extends StatelessWidget {
               ],
             ),
             if (onCheckoutButtonPressed != null)
-              SizedBox(
-                width: double.infinity,
+              Align(
+                alignment: Alignment.centerRight,
                 child: FilledButton.icon(
-                  icon: const Icon(Icons.add),
+                  icon: switch (ticketType.status) {
+                    TicketStatusNotSelling() || TicketStatusSoldOut() => null,
+                    TicketStatusSelling() => const Icon(Icons.shopping_cart),
+                  },
                   label: switch (ticketType.status) {
                     TicketStatusNotSelling() => const Text('販売終了'),
                     TicketStatusSoldOut() => const Text('完売'),
-                    TicketStatusSelling() => const Text('購入する'),
+                    TicketStatusSelling() => const Text('購入へ進む'),
                   },
                   onPressed: switch ((
                     ticketType.status,
