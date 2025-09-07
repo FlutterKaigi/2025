@@ -72,19 +72,22 @@ GoRouter router(Ref ref) {
       if (isAuthorized && state.fullPath == const LoginRoute().location) {
         return const EventInfoRoute().location;
       }
+
+      // ログインコールバック
+      final queryParameters = state.uri.queryParameters;
       if (isAuthorized &&
           (state.uri.host == 'login-callback' ||
-              (kIsWeb && state.uri.queryParameters.containsKey('code')))) {
-        // エラーパラメータをチェック
-        final errorCode = state.uri.queryParameters['error_code'];
-        if (errorCode == 'identity_already_exists') {
-          // エラーメッセージを表示
-          unawaited(_handleIdentityAlreadyExistsError(context, ref));
-        } else {
-          unawaited(
-            ref.read(authServiceProvider).refreshSession(),
-          );
-        }
+              (kIsWeb && queryParameters.containsKey('code')))) {
+        unawaited(
+          ref.read(authServiceProvider).refreshSession(),
+        );
+        return const AccountInfoRoute().location;
+      }
+
+      // ゲストユーザーが Google アカウントと紐づけられている場合エラーメッセージを表示
+      if (isAuthorized &&
+          queryParameters['error_code'] == 'identity_already_exists') {
+        unawaited(_handleIdentityAlreadyExistsError(context, ref));
         return const AccountInfoRoute().location;
       }
       return null;
