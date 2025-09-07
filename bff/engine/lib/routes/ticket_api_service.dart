@@ -208,7 +208,6 @@ class TicketApiService {
               detail: 'チケットチェックアウトが見つかりません',
             );
           }
-          await database.ticketCheckout.getTicketCheckout(checkoutId);
 
           // ticketCheckout.userId == user.id || user.role == Role.admin
           if (checkout.userId != user.id &&
