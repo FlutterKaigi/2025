@@ -108,8 +108,12 @@ class TicketCheckoutDbClient {
         SET status = 'expired' AND updated_at = now() AND expires_at = now()
         WHERE id = @checkoutId AND status = 'pending';
 
-        SELECT * FROM ticket_checkout_sessions WHERE id = @checkoutId;
+        SELECT *, status::text as status
+        FROM ticket_checkout_sessions WHERE id = @checkoutId;
       '''),
+      parameters: {
+        checkoutId: checkoutId,
+      },
     );
     if (result.isEmpty) {
       throw Exception('TicketCheckout not found: $checkoutId');
