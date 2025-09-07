@@ -3,12 +3,12 @@ import 'package:app/features/ticket/data/repository/ticket_repository.dart';
 import 'package:bff_client/bff_client.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'ticket_checkout_notifier.g.dart';
+part 'ticket_notifier.g.dart';
 
 @riverpod
-class TicketCheckoutNotifier extends _$TicketCheckoutNotifier {
+class TicketNotifier extends _$TicketNotifier {
   @override
-  Future<List<TicketCheckoutItem>> build() async {
+  Future<List<TicketItem>> build() async {
     final ticketItems = await ref.watch(ticketItemsProvider.future);
     return ticketItems.whereType<TicketCheckoutItem>().toList();
   }

@@ -1,5 +1,5 @@
 import 'package:app/core/designsystem/components/error_view.dart';
-import 'package:app/features/ticket/data/notifier/ticket_checkout_notifier.dart';
+import 'package:app/features/ticket/data/notifier/ticket_notifier.dart';
 import 'package:app/features/ticket/data/provider/ticket_items_provider.dart';
 import 'package:app/features/ticket/ui/components/ticket_list_screen.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +12,7 @@ class TicketScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final ticketStatus = ref.watch(ticketItemsProvider);
-    final checkoutStatus = ref.watch(ticketCheckoutNotifierProvider);
+    final checkoutStatus = ref.watch(ticketNotifierProvider);
 
     const loading = Scaffold(
       body: Center(
@@ -31,9 +31,9 @@ class TicketScreen extends ConsumerWidget {
         loading: () => loading,
         error: (error, stackTrace) => ErrorView(
           error: error,
-          onRetry: () => ref.invalidate(ticketCheckoutNotifierProvider),
+          onRetry: () => ref.invalidate(ticketNotifierProvider),
           isRetrying: ref.watch(
-            ticketCheckoutNotifierProvider.select((v) => v.isLoading),
+            ticketNotifierProvider.select((v) => v.isLoading),
           ),
         ),
         data: (checkout) {
