@@ -65,7 +65,7 @@ class WidgetBuildErrorScreen extends StatelessWidget {
 
                   // エラータイトル
                   Text(
-                    '予期しないエラーが発生しました',
+                    l10n.widgetBuildErrorTitle,
                     style: theme.textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.bold,
                       color: theme.colorScheme.error,
@@ -76,7 +76,7 @@ class WidgetBuildErrorScreen extends StatelessWidget {
 
                   // 開発者向けメッセージ
                   Text(
-                    '申し訳ございません。開発者のエラーハンドリングの実装が漏れていて、予期しないエラーが発生しました。\n\nこの問題を解決するため、GitHubのIssueを作成していただけると大変助かります。',
+                    l10n.widgetBuildErrorMessage,
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
                     ),
@@ -88,7 +88,7 @@ class WidgetBuildErrorScreen extends StatelessWidget {
                   FilledButton.icon(
                     onPressed: () => _openGitHubIssue(context),
                     icon: const Icon(Icons.bug_report),
-                    label: const Text('GitHubのIssueページを開く'),
+                    label: Text(l10n.widgetBuildErrorGitHubButton),
                     style: FilledButton.styleFrom(
                       backgroundColor: theme.colorScheme.secondary,
                       foregroundColor: theme.colorScheme.onSecondary,
@@ -104,7 +104,7 @@ class WidgetBuildErrorScreen extends StatelessWidget {
                   FilledButton.icon(
                     onPressed: () => const EventInfoRoute().go(context),
                     icon: const Icon(Icons.home),
-                    label: Text(l10n.notFoundBackToTop),
+                    label: Text(l10n.widgetBuildErrorBackToTop),
                     style: FilledButton.styleFrom(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 32,
