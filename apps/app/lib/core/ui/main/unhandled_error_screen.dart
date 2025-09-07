@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:app/core/gen/assets/assets.gen.dart';
 import 'package:app/core/gen/l10n/l10n.dart';
 import 'package:app/core/router/router.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /// エラーハンドリング漏れ表示画面
@@ -9,28 +13,71 @@ import 'package:url_launcher/url_launcher.dart';
 /// エラーハンドリング漏れなど、開発者の実装ミスが原因で発生した
 /// 予期しないエラーが発生した際に表示されるページ
 class UnhandledErrorScreen extends StatelessWidget {
-  const UnhandledErrorScreen({super.key});
+  const UnhandledErrorScreen({
+    required this.details,
+    super.key,
+  });
+
+  final FlutterErrorDetails details;
 
   /// GitHubのIssue一覧ページを開く
   Future<void> _openGitHubIssue(BuildContext context) async {
     const githubIssueUrl = 'https://github.com/FlutterKaigi/2025/issues';
     final uri = Uri.parse(githubIssueUrl);
-
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
-    } else {
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('GitHubのIssue一覧ページを開けませんでした'),
-          ),
-        );
-      }
-    }
+    unawaited(
+      launchUrl(uri, mode: LaunchMode.externalApplication),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    final exceptionText = details.exception.toString();
+    if (kDebugMode) {
+      return Material(
+        color: Colors.white70,
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(8),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              spacing: 4,
+              children: [
+                const Icon(
+                  Icons.error_outline,
+                  color: Colors.red,
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  spacing: 4,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        exceptionText,
+                        textAlign: TextAlign.end,
+                      ),
+                    ),
+                    IconButton.filled(
+                      onPressed: () async {
+                        await Clipboard.setData(
+                          ClipboardData(text: exceptionText),
+                        );
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('コピーしました')),
+                          );
+                        }
+                      },
+                      icon: const Icon(Icons.copy_all_outlined),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+
     final theme = Theme.of(context);
     final l10n = L10n.of(context);
 
