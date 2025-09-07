@@ -1,5 +1,7 @@
+import 'package:app/features/ticket/data/notifier/ticket_notifier.dart';
 import 'package:bff_client/bff_client.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 
 class TicketCard extends StatelessWidget {
@@ -45,8 +47,8 @@ class TicketCard extends StatelessWidget {
             if (ticket.options.isNotEmpty)
               _TicketOptions(options: ticket.options),
             _TicketDateInfo(ticket: ticket),
-            if (ticket is TicketCheckoutItem)
-              _TicketCheckoutButtons(ticket: ticket),
+            if (ticket case final TicketCheckoutItem checkout)
+              _TicketCheckoutButtons(ticket: checkout),
           ],
         ),
       ),
@@ -221,21 +223,23 @@ class _TicketDateInfo extends StatelessWidget {
   }
 }
 
-class _TicketCheckoutButtons extends StatelessWidget {
+class _TicketCheckoutButtons extends ConsumerWidget {
   const _TicketCheckoutButtons({
     required this.ticket,
   });
 
-  final TicketItem ticket;
+  final TicketCheckoutItem ticket;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       spacing: 8,
       children: [
         OutlinedButton.icon(
-          onPressed: () {},
+          onPressed: () => ref
+              .read(ticketNotifierProvider.notifier)
+              .cancelCheckout(ticket.checkout.id),
           label: const Text('キャンセル'),
           icon: const Icon(Icons.cancel),
         ),
