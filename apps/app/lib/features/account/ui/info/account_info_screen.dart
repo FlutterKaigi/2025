@@ -1,10 +1,13 @@
 import 'package:app/core/gen/assets/assets.gen.dart';
 import 'package:app/core/gen/l10n/l10n.dart';
+import 'package:app/features/account/data/notifier/profile_notifier.dart';
 import 'package:app/features/account/ui/component/account_circle_image.dart';
 import 'package:app/features/account/ui/component/account_scaffold.dart';
 import 'package:app/features/auth/data/notifier/auth_notifier.dart';
 import 'package:auth_client/auth_client.dart';
+import 'package:bff_client/bff_client.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// アカウント情報画面
@@ -126,6 +129,8 @@ class _UserInfoCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final profileAsync = ref.watch(profileNotifierProvider);
+
     final children = user.isAnonymous
         ? [
             Text(
@@ -144,10 +149,55 @@ class _UserInfoCard extends ConsumerWidget {
             const _LogoutButton(isGuest: true),
           ]
         : [
-            if (user.avatarUrl != null)
-              AccountCircleImage(
-                imageUrl: user.avatarUrl!,
-              ),
+            // プロフィール画像を優先し、なければ Google アカウントの画像を使用
+            SizedBox.square(
+              dimension: 100,
+              child: switch (profileAsync) {
+                AsyncData(:final value) => () {
+                  final avatarUrl = value?.profile.avatarUrl;
+                  if (avatarUrl == null) {
+                    if (user.avatarUrl == null) {
+                      return DecoratedBox(
+                        decoration: BoxDecoration(
+                          color: Colors.black.withValues(alpha: 0.5),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Center(
+                          child: Icon(
+                            Icons.person,
+                            size: 40,
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.onSurfaceVariant,
+                          ),
+                        ),
+                      );
+                    }
+                    return Stack(
+                      children: [
+                        AccountCircleImage(
+                          imageUrl: user.avatarUrl!,
+                        ),
+                        DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: Colors.black.withValues(alpha: 0.5),
+                            shape: BoxShape.circle,
+                          ),
+                          child: const Center(
+                            child: FaIcon(FontAwesomeIcons.google),
+                          ),
+                        ),
+                      ],
+                    );
+                  }
+                  return AccountCircleImage(
+                    imageUrl: avatarUrl.toString(),
+                  );
+                }(),
+                AsyncLoading() => const CircularProgressIndicator.adaptive(),
+                AsyncError() => const Icon(Icons.error),
+              },
+            ),
             const SizedBox(height: 16),
             Text(
               user.email ?? '',
