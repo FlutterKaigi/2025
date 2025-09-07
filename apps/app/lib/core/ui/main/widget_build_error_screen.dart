@@ -28,6 +28,7 @@ class WidgetBuildErrorScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (kDebugMode) {
+      // デバッグモードでは必要最低限のみ表示
       return Material(
         color: Colors.white30,
         child: Center(
