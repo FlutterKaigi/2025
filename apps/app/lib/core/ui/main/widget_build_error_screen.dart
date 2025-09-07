@@ -45,72 +45,70 @@ class WidgetBuildErrorScreen extends StatelessWidget {
 
     return Scaffold(
       body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(24),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  // ダシュマル画像
-                  Assets.res.assets.dashumaruMagao.image(
-                    height: 200,
-                    fit: BoxFit.contain,
-                  ),
-                  const SizedBox(height: 32),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // ダシュマル画像
+                Assets.res.assets.dashumaruMagao.image(
+                  height: 200,
+                  fit: BoxFit.contain,
+                ),
+                const SizedBox(height: 32),
 
-                  // エラータイトル
-                  Text(
-                    l10n.widgetBuildErrorTitle,
-                    style: theme.textTheme.headlineSmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: theme.colorScheme.error,
-                    ),
-                    textAlign: TextAlign.center,
+                // エラータイトル
+                Text(
+                  l10n.widgetBuildErrorTitle,
+                  style: theme.textTheme.headlineSmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: theme.colorScheme.error,
                   ),
-                  const SizedBox(height: 16),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 16),
 
-                  // 開発者向けメッセージ
-                  Text(
-                    l10n.widgetBuildErrorMessage,
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      color: theme.colorScheme.onSurfaceVariant,
-                    ),
-                    textAlign: TextAlign.center,
+                // 開発者向けメッセージ
+                Text(
+                  l10n.widgetBuildErrorMessage,
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: theme.colorScheme.onSurfaceVariant,
                   ),
-                  const SizedBox(height: 32),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 32),
 
-                  // GitHub の Issue 一覧ページを開くボタン
-                  FilledButton.icon(
-                    onPressed: () => _openGitHubIssue(context),
-                    icon: const Icon(Icons.bug_report),
-                    label: Text(l10n.widgetBuildErrorGitHubButton),
-                    style: FilledButton.styleFrom(
-                      backgroundColor: theme.colorScheme.secondary,
-                      foregroundColor: theme.colorScheme.onSecondary,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 32,
-                        vertical: 16,
-                      ),
+                // GitHub の Issue 一覧ページを開くボタン
+                FilledButton.icon(
+                  onPressed: () => _openGitHubIssue(context),
+                  icon: const Icon(Icons.bug_report),
+                  label: Text(l10n.widgetBuildErrorGitHubButton),
+                  style: FilledButton.styleFrom(
+                    backgroundColor: theme.colorScheme.secondary,
+                    foregroundColor: theme.colorScheme.onSecondary,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 32,
+                      vertical: 16,
                     ),
                   ),
-                  const SizedBox(height: 16),
+                ),
+                const SizedBox(height: 16),
 
-                  // トップに戻るボタン
-                  FilledButton.icon(
-                    onPressed: () => const EventInfoRoute().go(context),
-                    icon: const Icon(Icons.home),
-                    label: Text(l10n.widgetBuildErrorBackToTop),
-                    style: FilledButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 32,
-                        vertical: 16,
-                      ),
+                // トップに戻るボタン
+                FilledButton.icon(
+                  onPressed: () => const EventInfoRoute().go(context),
+                  icon: const Icon(Icons.home),
+                  label: Text(l10n.widgetBuildErrorBackToTop),
+                  style: FilledButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 32,
+                      vertical: 16,
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
