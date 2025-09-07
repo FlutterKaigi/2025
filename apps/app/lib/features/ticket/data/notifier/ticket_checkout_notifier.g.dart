@@ -37,7 +37,7 @@ final class TicketCheckoutNotifierProvider
 }
 
 String _$ticketCheckoutNotifierHash() =>
-    r'7fa9f1e801057293ef027439f9c9a1797fb1b4d1';
+    r'7ba36c969df7e49ce3a26645da64f1000ca03f0c';
 
 abstract class _$TicketCheckoutNotifier
     extends $AsyncNotifier<List<TicketCheckoutItem>> {
