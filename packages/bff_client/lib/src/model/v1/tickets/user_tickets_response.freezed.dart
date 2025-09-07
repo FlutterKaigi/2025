@@ -455,11 +455,11 @@ return checkout(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( TicketPurchase purchase,  TicketType ticketType,  List<TicketOption> options)?  purchase,TResult Function( TicketCheckout checkout,  TicketType ticketType,  List<TicketOption> options)?  checkout,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( TicketType ticketType,  TicketPurchase purchase,  List<TicketOption> options)?  purchase,TResult Function( TicketType ticketType,  TicketCheckout checkout,  List<TicketOption> options)?  checkout,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case TicketPurchaseItem() when purchase != null:
-return purchase(_that.purchase,_that.ticketType,_that.options);case TicketCheckoutItem() when checkout != null:
-return checkout(_that.checkout,_that.ticketType,_that.options);case _:
+return purchase(_that.ticketType,_that.purchase,_that.options);case TicketCheckoutItem() when checkout != null:
+return checkout(_that.ticketType,_that.checkout,_that.options);case _:
   return orElse();
 
 }
@@ -477,11 +477,11 @@ return checkout(_that.checkout,_that.ticketType,_that.options);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( TicketPurchase purchase,  TicketType ticketType,  List<TicketOption> options)  purchase,required TResult Function( TicketCheckout checkout,  TicketType ticketType,  List<TicketOption> options)  checkout,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( TicketType ticketType,  TicketPurchase purchase,  List<TicketOption> options)  purchase,required TResult Function( TicketType ticketType,  TicketCheckout checkout,  List<TicketOption> options)  checkout,}) {final _that = this;
 switch (_that) {
 case TicketPurchaseItem():
-return purchase(_that.purchase,_that.ticketType,_that.options);case TicketCheckoutItem():
-return checkout(_that.checkout,_that.ticketType,_that.options);}
+return purchase(_that.ticketType,_that.purchase,_that.options);case TicketCheckoutItem():
+return checkout(_that.ticketType,_that.checkout,_that.options);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -495,11 +495,11 @@ return checkout(_that.checkout,_that.ticketType,_that.options);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( TicketPurchase purchase,  TicketType ticketType,  List<TicketOption> options)?  purchase,TResult? Function( TicketCheckout checkout,  TicketType ticketType,  List<TicketOption> options)?  checkout,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( TicketType ticketType,  TicketPurchase purchase,  List<TicketOption> options)?  purchase,TResult? Function( TicketType ticketType,  TicketCheckout checkout,  List<TicketOption> options)?  checkout,}) {final _that = this;
 switch (_that) {
 case TicketPurchaseItem() when purchase != null:
-return purchase(_that.purchase,_that.ticketType,_that.options);case TicketCheckoutItem() when checkout != null:
-return checkout(_that.checkout,_that.ticketType,_that.options);case _:
+return purchase(_that.ticketType,_that.purchase,_that.options);case TicketCheckoutItem() when checkout != null:
+return checkout(_that.ticketType,_that.checkout,_that.options);case _:
   return null;
 
 }
@@ -511,11 +511,11 @@ return checkout(_that.checkout,_that.ticketType,_that.options);case _:
 @JsonSerializable()
 
 class TicketPurchaseItem implements TicketItem {
-  const TicketPurchaseItem({required this.purchase, required this.ticketType, required final  List<TicketOption> options, final  String? $type}): _options = options,$type = $type ?? 'purchase';
+  const TicketPurchaseItem({required this.ticketType, required this.purchase, required final  List<TicketOption> options, final  String? $type}): _options = options,$type = $type ?? 'purchase';
   factory TicketPurchaseItem.fromJson(Map<String, dynamic> json) => _$TicketPurchaseItemFromJson(json);
 
- final  TicketPurchase purchase;
 @override final  TicketType ticketType;
+ final  TicketPurchase purchase;
  final  List<TicketOption> _options;
 @override List<TicketOption> get options {
   if (_options is EqualUnmodifiableListView) return _options;
@@ -541,16 +541,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TicketPurchaseItem&&(identical(other.purchase, purchase) || other.purchase == purchase)&&(identical(other.ticketType, ticketType) || other.ticketType == ticketType)&&const DeepCollectionEquality().equals(other._options, _options));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TicketPurchaseItem&&(identical(other.ticketType, ticketType) || other.ticketType == ticketType)&&(identical(other.purchase, purchase) || other.purchase == purchase)&&const DeepCollectionEquality().equals(other._options, _options));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,purchase,ticketType,const DeepCollectionEquality().hash(_options));
+int get hashCode => Object.hash(runtimeType,ticketType,purchase,const DeepCollectionEquality().hash(_options));
 
 @override
 String toString() {
-  return 'TicketItem.purchase(purchase: $purchase, ticketType: $ticketType, options: $options)';
+  return 'TicketItem.purchase(ticketType: $ticketType, purchase: $purchase, options: $options)';
 }
 
 
@@ -561,11 +561,11 @@ abstract mixin class $TicketPurchaseItemCopyWith<$Res> implements $TicketItemCop
   factory $TicketPurchaseItemCopyWith(TicketPurchaseItem value, $Res Function(TicketPurchaseItem) _then) = _$TicketPurchaseItemCopyWithImpl;
 @override @useResult
 $Res call({
- TicketPurchase purchase, TicketType ticketType, List<TicketOption> options
+ TicketType ticketType, TicketPurchase purchase, List<TicketOption> options
 });
 
 
-$TicketPurchaseCopyWith<$Res> get purchase;@override $TicketTypeCopyWith<$Res> get ticketType;
+@override $TicketTypeCopyWith<$Res> get ticketType;$TicketPurchaseCopyWith<$Res> get purchase;
 
 }
 /// @nodoc
@@ -578,11 +578,11 @@ class _$TicketPurchaseItemCopyWithImpl<$Res>
 
 /// Create a copy of TicketItem
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? purchase = null,Object? ticketType = null,Object? options = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? ticketType = null,Object? purchase = null,Object? options = null,}) {
   return _then(TicketPurchaseItem(
-purchase: null == purchase ? _self.purchase : purchase // ignore: cast_nullable_to_non_nullable
-as TicketPurchase,ticketType: null == ticketType ? _self.ticketType : ticketType // ignore: cast_nullable_to_non_nullable
-as TicketType,options: null == options ? _self._options : options // ignore: cast_nullable_to_non_nullable
+ticketType: null == ticketType ? _self.ticketType : ticketType // ignore: cast_nullable_to_non_nullable
+as TicketType,purchase: null == purchase ? _self.purchase : purchase // ignore: cast_nullable_to_non_nullable
+as TicketPurchase,options: null == options ? _self._options : options // ignore: cast_nullable_to_non_nullable
 as List<TicketOption>,
   ));
 }
@@ -591,19 +591,19 @@ as List<TicketOption>,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$TicketPurchaseCopyWith<$Res> get purchase {
+$TicketTypeCopyWith<$Res> get ticketType {
   
-  return $TicketPurchaseCopyWith<$Res>(_self.purchase, (value) {
-    return _then(_self.copyWith(purchase: value));
+  return $TicketTypeCopyWith<$Res>(_self.ticketType, (value) {
+    return _then(_self.copyWith(ticketType: value));
   });
 }/// Create a copy of TicketItem
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$TicketTypeCopyWith<$Res> get ticketType {
+$TicketPurchaseCopyWith<$Res> get purchase {
   
-  return $TicketTypeCopyWith<$Res>(_self.ticketType, (value) {
-    return _then(_self.copyWith(ticketType: value));
+  return $TicketPurchaseCopyWith<$Res>(_self.purchase, (value) {
+    return _then(_self.copyWith(purchase: value));
   });
 }
 }
@@ -612,11 +612,11 @@ $TicketTypeCopyWith<$Res> get ticketType {
 @JsonSerializable()
 
 class TicketCheckoutItem implements TicketItem {
-  const TicketCheckoutItem({required this.checkout, required this.ticketType, required final  List<TicketOption> options, final  String? $type}): _options = options,$type = $type ?? 'checkout';
+  const TicketCheckoutItem({required this.ticketType, required this.checkout, required final  List<TicketOption> options, final  String? $type}): _options = options,$type = $type ?? 'checkout';
   factory TicketCheckoutItem.fromJson(Map<String, dynamic> json) => _$TicketCheckoutItemFromJson(json);
 
- final  TicketCheckout checkout;
 @override final  TicketType ticketType;
+ final  TicketCheckout checkout;
  final  List<TicketOption> _options;
 @override List<TicketOption> get options {
   if (_options is EqualUnmodifiableListView) return _options;
@@ -642,16 +642,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TicketCheckoutItem&&(identical(other.checkout, checkout) || other.checkout == checkout)&&(identical(other.ticketType, ticketType) || other.ticketType == ticketType)&&const DeepCollectionEquality().equals(other._options, _options));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TicketCheckoutItem&&(identical(other.ticketType, ticketType) || other.ticketType == ticketType)&&(identical(other.checkout, checkout) || other.checkout == checkout)&&const DeepCollectionEquality().equals(other._options, _options));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,checkout,ticketType,const DeepCollectionEquality().hash(_options));
+int get hashCode => Object.hash(runtimeType,ticketType,checkout,const DeepCollectionEquality().hash(_options));
 
 @override
 String toString() {
-  return 'TicketItem.checkout(checkout: $checkout, ticketType: $ticketType, options: $options)';
+  return 'TicketItem.checkout(ticketType: $ticketType, checkout: $checkout, options: $options)';
 }
 
 
@@ -662,11 +662,11 @@ abstract mixin class $TicketCheckoutItemCopyWith<$Res> implements $TicketItemCop
   factory $TicketCheckoutItemCopyWith(TicketCheckoutItem value, $Res Function(TicketCheckoutItem) _then) = _$TicketCheckoutItemCopyWithImpl;
 @override @useResult
 $Res call({
- TicketCheckout checkout, TicketType ticketType, List<TicketOption> options
+ TicketType ticketType, TicketCheckout checkout, List<TicketOption> options
 });
 
 
-$TicketCheckoutCopyWith<$Res> get checkout;@override $TicketTypeCopyWith<$Res> get ticketType;
+@override $TicketTypeCopyWith<$Res> get ticketType;$TicketCheckoutCopyWith<$Res> get checkout;
 
 }
 /// @nodoc
@@ -679,11 +679,11 @@ class _$TicketCheckoutItemCopyWithImpl<$Res>
 
 /// Create a copy of TicketItem
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? checkout = null,Object? ticketType = null,Object? options = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? ticketType = null,Object? checkout = null,Object? options = null,}) {
   return _then(TicketCheckoutItem(
-checkout: null == checkout ? _self.checkout : checkout // ignore: cast_nullable_to_non_nullable
-as TicketCheckout,ticketType: null == ticketType ? _self.ticketType : ticketType // ignore: cast_nullable_to_non_nullable
-as TicketType,options: null == options ? _self._options : options // ignore: cast_nullable_to_non_nullable
+ticketType: null == ticketType ? _self.ticketType : ticketType // ignore: cast_nullable_to_non_nullable
+as TicketType,checkout: null == checkout ? _self.checkout : checkout // ignore: cast_nullable_to_non_nullable
+as TicketCheckout,options: null == options ? _self._options : options // ignore: cast_nullable_to_non_nullable
 as List<TicketOption>,
   ));
 }
@@ -692,19 +692,19 @@ as List<TicketOption>,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$TicketCheckoutCopyWith<$Res> get checkout {
+$TicketTypeCopyWith<$Res> get ticketType {
   
-  return $TicketCheckoutCopyWith<$Res>(_self.checkout, (value) {
-    return _then(_self.copyWith(checkout: value));
+  return $TicketTypeCopyWith<$Res>(_self.ticketType, (value) {
+    return _then(_self.copyWith(ticketType: value));
   });
 }/// Create a copy of TicketItem
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$TicketTypeCopyWith<$Res> get ticketType {
+$TicketCheckoutCopyWith<$Res> get checkout {
   
-  return $TicketTypeCopyWith<$Res>(_self.ticketType, (value) {
-    return _then(_self.copyWith(ticketType: value));
+  return $TicketCheckoutCopyWith<$Res>(_self.checkout, (value) {
+    return _then(_self.copyWith(checkout: value));
   });
 }
 }

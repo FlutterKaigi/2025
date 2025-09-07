@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$TicketOption {
 
- String get id; String get ticketTypeId; String get name; String? get description; int? get maxQuantity;
+ String get id; String get ticketTypeId; String get name; TicketStatus get status; String? get description;
 /// Create a copy of TicketOption
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $TicketOptionCopyWith<TicketOption> get copyWith => _$TicketOptionCopyWithImpl<T
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TicketOption&&(identical(other.id, id) || other.id == id)&&(identical(other.ticketTypeId, ticketTypeId) || other.ticketTypeId == ticketTypeId)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.maxQuantity, maxQuantity) || other.maxQuantity == maxQuantity));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TicketOption&&(identical(other.id, id) || other.id == id)&&(identical(other.ticketTypeId, ticketTypeId) || other.ticketTypeId == ticketTypeId)&&(identical(other.name, name) || other.name == name)&&(identical(other.status, status) || other.status == status)&&(identical(other.description, description) || other.description == description));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,ticketTypeId,name,description,maxQuantity);
+int get hashCode => Object.hash(runtimeType,id,ticketTypeId,name,status,description);
 
 @override
 String toString() {
-  return 'TicketOption(id: $id, ticketTypeId: $ticketTypeId, name: $name, description: $description, maxQuantity: $maxQuantity)';
+  return 'TicketOption(id: $id, ticketTypeId: $ticketTypeId, name: $name, status: $status, description: $description)';
 }
 
 
@@ -48,11 +48,11 @@ abstract mixin class $TicketOptionCopyWith<$Res>  {
   factory $TicketOptionCopyWith(TicketOption value, $Res Function(TicketOption) _then) = _$TicketOptionCopyWithImpl;
 @useResult
 $Res call({
- String id, String ticketTypeId, String name, String? description, int? maxQuantity
+ String id, String ticketTypeId, String name, TicketStatus status, String? description
 });
 
 
-
+$TicketStatusCopyWith<$Res> get status;
 
 }
 /// @nodoc
@@ -65,17 +65,26 @@ class _$TicketOptionCopyWithImpl<$Res>
 
 /// Create a copy of TicketOption
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? ticketTypeId = null,Object? name = null,Object? description = freezed,Object? maxQuantity = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? ticketTypeId = null,Object? name = null,Object? status = null,Object? description = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,ticketTypeId: null == ticketTypeId ? _self.ticketTypeId : ticketTypeId // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
-as String?,maxQuantity: freezed == maxQuantity ? _self.maxQuantity : maxQuantity // ignore: cast_nullable_to_non_nullable
-as int?,
+as String,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as TicketStatus,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
-
+/// Create a copy of TicketOption
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$TicketStatusCopyWith<$Res> get status {
+  
+  return $TicketStatusCopyWith<$Res>(_self.status, (value) {
+    return _then(_self.copyWith(status: value));
+  });
+}
 }
 
 
@@ -157,10 +166,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String ticketTypeId,  String name,  String? description,  int? maxQuantity)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String ticketTypeId,  String name,  TicketStatus status,  String? description)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _TicketOption() when $default != null:
-return $default(_that.id,_that.ticketTypeId,_that.name,_that.description,_that.maxQuantity);case _:
+return $default(_that.id,_that.ticketTypeId,_that.name,_that.status,_that.description);case _:
   return orElse();
 
 }
@@ -178,10 +187,10 @@ return $default(_that.id,_that.ticketTypeId,_that.name,_that.description,_that.m
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String ticketTypeId,  String name,  String? description,  int? maxQuantity)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String ticketTypeId,  String name,  TicketStatus status,  String? description)  $default,) {final _that = this;
 switch (_that) {
 case _TicketOption():
-return $default(_that.id,_that.ticketTypeId,_that.name,_that.description,_that.maxQuantity);case _:
+return $default(_that.id,_that.ticketTypeId,_that.name,_that.status,_that.description);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -198,10 +207,10 @@ return $default(_that.id,_that.ticketTypeId,_that.name,_that.description,_that.m
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String ticketTypeId,  String name,  String? description,  int? maxQuantity)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String ticketTypeId,  String name,  TicketStatus status,  String? description)?  $default,) {final _that = this;
 switch (_that) {
 case _TicketOption() when $default != null:
-return $default(_that.id,_that.ticketTypeId,_that.name,_that.description,_that.maxQuantity);case _:
+return $default(_that.id,_that.ticketTypeId,_that.name,_that.status,_that.description);case _:
   return null;
 
 }
@@ -213,14 +222,14 @@ return $default(_that.id,_that.ticketTypeId,_that.name,_that.description,_that.m
 @JsonSerializable()
 
 class _TicketOption implements TicketOption {
-  const _TicketOption({required this.id, required this.ticketTypeId, required this.name, this.description, this.maxQuantity});
+  const _TicketOption({required this.id, required this.ticketTypeId, required this.name, required this.status, this.description});
   factory _TicketOption.fromJson(Map<String, dynamic> json) => _$TicketOptionFromJson(json);
 
 @override final  String id;
 @override final  String ticketTypeId;
 @override final  String name;
+@override final  TicketStatus status;
 @override final  String? description;
-@override final  int? maxQuantity;
 
 /// Create a copy of TicketOption
 /// with the given fields replaced by the non-null parameter values.
@@ -235,16 +244,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TicketOption&&(identical(other.id, id) || other.id == id)&&(identical(other.ticketTypeId, ticketTypeId) || other.ticketTypeId == ticketTypeId)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.maxQuantity, maxQuantity) || other.maxQuantity == maxQuantity));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TicketOption&&(identical(other.id, id) || other.id == id)&&(identical(other.ticketTypeId, ticketTypeId) || other.ticketTypeId == ticketTypeId)&&(identical(other.name, name) || other.name == name)&&(identical(other.status, status) || other.status == status)&&(identical(other.description, description) || other.description == description));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,ticketTypeId,name,description,maxQuantity);
+int get hashCode => Object.hash(runtimeType,id,ticketTypeId,name,status,description);
 
 @override
 String toString() {
-  return 'TicketOption(id: $id, ticketTypeId: $ticketTypeId, name: $name, description: $description, maxQuantity: $maxQuantity)';
+  return 'TicketOption(id: $id, ticketTypeId: $ticketTypeId, name: $name, status: $status, description: $description)';
 }
 
 
@@ -255,11 +264,11 @@ abstract mixin class _$TicketOptionCopyWith<$Res> implements $TicketOptionCopyWi
   factory _$TicketOptionCopyWith(_TicketOption value, $Res Function(_TicketOption) _then) = __$TicketOptionCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String ticketTypeId, String name, String? description, int? maxQuantity
+ String id, String ticketTypeId, String name, TicketStatus status, String? description
 });
 
 
-
+@override $TicketStatusCopyWith<$Res> get status;
 
 }
 /// @nodoc
@@ -272,18 +281,27 @@ class __$TicketOptionCopyWithImpl<$Res>
 
 /// Create a copy of TicketOption
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? ticketTypeId = null,Object? name = null,Object? description = freezed,Object? maxQuantity = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? ticketTypeId = null,Object? name = null,Object? status = null,Object? description = freezed,}) {
   return _then(_TicketOption(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,ticketTypeId: null == ticketTypeId ? _self.ticketTypeId : ticketTypeId // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
-as String?,maxQuantity: freezed == maxQuantity ? _self.maxQuantity : maxQuantity // ignore: cast_nullable_to_non_nullable
-as int?,
+as String,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as TicketStatus,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 
-
+/// Create a copy of TicketOption
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$TicketStatusCopyWith<$Res> get status {
+  
+  return $TicketStatusCopyWith<$Res>(_self.status, (value) {
+    return _then(_self.copyWith(status: value));
+  });
+}
 }
 
 // dart format on

@@ -41,27 +41,6 @@ class TicketTypeDbClient {
     return TicketTypes.fromJson(result.first.toColumnMap());
   }
 
-  /// アクティブなチケットタイプとオプションを一括取得
-  Future<List<TicketTypeWithOptions>> getActiveTicketTypesWithOptions() async {
-    final result = await _connection.execute(
-      Sql.named('''
-        SELECT
-          to_json(tt.*) AS ticket_type,
-          COALESCE(json_agg(to_json(topt.*) ORDER BY topt.created_at) FILTER (WHERE topt.id IS NOT NULL), '[]'::json) AS options
-        FROM
-          ticket_types AS tt
-          LEFT JOIN ticket_options AS topt ON tt.id = topt.ticket_type_id
-        WHERE
-          tt.is_active = true
-        GROUP BY tt.id, tt.created_at
-        ORDER BY tt.created_at ASC
-      '''),
-    );
-
-    return result
-        .map((row) => TicketTypeWithOptions.fromJson(row.toColumnMap()))
-        .toList();
-  }
 
   /// アクティブなチケットタイプとオプションを在庫数とともに一括取得
   Future<List<TicketTypeWithOptionsAndCounts>>

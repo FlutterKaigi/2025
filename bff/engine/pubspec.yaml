@@ -10,6 +10,7 @@ environment:
 dependencies:
   bff_client:
     path: ../../packages/bff_client
+  collection: ^1.19.1
   db_client:
     path: ../../packages/db_client
   db_types:

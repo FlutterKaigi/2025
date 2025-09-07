@@ -12,22 +12,10 @@ abstract class TicketsApiClient {
   @GET('/tickets/types')
   Future<TicketTypesWithOptionsResponse> getTicketTypes();
 
-  /// 特定のチケット種別とオプションを取得
-  @GET('/tickets/types/{ticketTypeId}')
-  Future<TicketTypeWithOptionsResponse> getTicketTypeWithOptions(
-    @Path('ticketTypeId') String ticketTypeId,
-  );
-
   /// チケットチェックアウト（Stripe決済開始）
   @POST('/tickets/checkout')
   Future<TicketCheckoutSessionResponse> createCheckout(
     @Body() TicketCheckoutRequest request,
-  );
-
-  /// チェックアウトセッション詳細取得
-  @GET('/tickets/checkout/{sessionId}')
-  Future<TicketCheckoutSessionResponse> getCheckoutSession(
-    @Path('sessionId') String sessionId,
   );
 
   /// チケットチェックアウトキャンセル

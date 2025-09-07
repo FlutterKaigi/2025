@@ -45,7 +45,7 @@ final class TicketItemsProvider
   }
 }
 
-String _$ticketItemsHash() => r'c9f6cf726f18b459a882234a0fbd2507bccbc2b1';
+String _$ticketItemsHash() => r'467c76ac4af4b597cca7792ec4791954439255c1';
 
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

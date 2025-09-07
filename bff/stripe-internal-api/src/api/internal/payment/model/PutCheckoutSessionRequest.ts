@@ -5,7 +5,7 @@ export const PutCheckoutSessionRequest = v.object({
 	cancel_url: v.pipe(v.string(), v.url()),
 	user_id: v.pipe(v.string(), v.uuid()),
 	ticket_type_id: v.string(),
-	ticket_option_ids: v.array(v.pipe(v.string(), v.uuid())),
+	ticket_option_ids: v.array(v.string()),
 });
 
 export type PutCheckoutSessionRequest = v.InferOutput<

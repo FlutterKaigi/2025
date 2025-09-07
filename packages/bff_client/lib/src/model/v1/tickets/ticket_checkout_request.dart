@@ -7,22 +7,11 @@ part 'ticket_checkout_request.g.dart';
 abstract class TicketCheckoutRequest with _$TicketCheckoutRequest {
   const factory TicketCheckoutRequest({
     required String ticketTypeId,
-    required List<TicketOptionRequest> options,
+    required List<String> optionIds,
     required String successUrl,
     required String cancelUrl,
   }) = _TicketCheckoutRequest;
 
   factory TicketCheckoutRequest.fromJson(Map<String, dynamic> json) =>
       _$TicketCheckoutRequestFromJson(json);
-}
-
-@freezed
-abstract class TicketOptionRequest with _$TicketOptionRequest {
-  const factory TicketOptionRequest({
-    required String optionId,
-    required String value,
-  }) = _TicketOptionRequest;
-
-  factory TicketOptionRequest.fromJson(Map<String, dynamic> json) =>
-      _$TicketOptionRequestFromJson(json);
 }

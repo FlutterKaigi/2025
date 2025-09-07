@@ -27,10 +27,7 @@ _TicketPurchaseWithDetails _$TicketPurchaseWithDetailsFromJson(
             ? null
             : TicketCheckoutSessions.fromJson(v as Map<String, dynamic>),
       ),
-      ticketType: $checkedConvert(
-        'ticket_type',
-        (v) => TicketTypes.fromJson(v as Map<String, dynamic>),
-      ),
+      ticketTypeId: $checkedConvert('ticket_type_id', (v) => v as String),
       options: $checkedConvert(
         'options',
         (v) => (v as List<dynamic>)
@@ -42,7 +39,7 @@ _TicketPurchaseWithDetails _$TicketPurchaseWithDetailsFromJson(
   },
   fieldKeyMap: const {
     'checkoutSession': 'checkout_session',
-    'ticketType': 'ticket_type',
+    'ticketTypeId': 'ticket_type_id',
   },
 );
 
@@ -51,6 +48,6 @@ Map<String, dynamic> _$TicketPurchaseWithDetailsToJson(
 ) => <String, dynamic>{
   'purchase': instance.purchase,
   'checkout_session': instance.checkoutSession,
-  'ticket_type': instance.ticketType,
+  'ticket_type_id': instance.ticketTypeId,
   'options': instance.options,
 };

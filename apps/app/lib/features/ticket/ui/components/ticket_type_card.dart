@@ -17,12 +17,6 @@ class TicketTypeCard extends StatelessWidget {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final ticketType = ticketTypeItem.ticketType;
-
-    // アクティブでないチケットは表示しない
-    if (!ticketType.isActive) {
-      return const SizedBox.shrink();
-    }
-
     final priceText =
         '¥${NumberFormat.decimalPattern().format(ticketType.price)}';
 
@@ -37,28 +31,27 @@ class TicketTypeCard extends StatelessWidget {
           children: [
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: 16,
               children: [
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    spacing: 8,
                     children: [
                       Text(
                         ticketType.name,
                         style: theme.textTheme.titleLarge,
                       ),
-                      if (ticketType.description?.isNotEmpty ?? false) ...[
-                        const SizedBox(height: 8),
+                      if (ticketType.description?.isNotEmpty ?? false)
                         Text(
                           ticketType.description!,
                           style: theme.textTheme.bodyMedium?.copyWith(
                             color: colorScheme.onSurfaceVariant,
                           ),
                         ),
-                      ],
                     ],
                   ),
                 ),
-                const SizedBox(width: 16),
                 Text(
                   priceText,
                   style: theme.textTheme.titleLarge?.copyWith(
@@ -68,20 +61,25 @@ class TicketTypeCard extends StatelessWidget {
                 ),
               ],
             ),
-            if (ticketType.maxQuantity != null)
-              Text(
-                '販売枚数: ${ticketType.maxQuantity}',
-                style: theme.textTheme.bodySmall?.copyWith(
-                  color: colorScheme.onSurfaceVariant,
-                ),
-              ),
             if (onCheckoutButtonPressed != null)
               SizedBox(
                 width: double.infinity,
                 child: FilledButton.icon(
                   icon: const Icon(Icons.add),
-                  label: const Text('購入する'),
-                  onPressed: onCheckoutButtonPressed,
+                  label: switch (ticketType.status) {
+                    TicketStatusNotSelling() => const Text('販売終了'),
+                    TicketStatusSoldOut() => const Text('完売'),
+                    TicketStatusSelling() => const Text('購入する'),
+                  },
+                  onPressed: switch ((
+                    ticketType.status,
+                    onCheckoutButtonPressed,
+                  )) {
+                    (_, null) => null,
+                    (TicketStatusNotSelling(), _) ||
+                    (TicketStatusSoldOut(), _) => null,
+                    (TicketStatusSelling(), _) => onCheckoutButtonPressed,
+                  },
                 ),
               ),
           ],

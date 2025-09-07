@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:bff_client/bff_client.dart';
+import 'package:collection/collection.dart';
 import 'package:db_types/db_types.dart' as db_types;
 import 'package:engine/main.dart';
 import 'package:engine/provider/db_client_provider.dart';
@@ -22,43 +23,16 @@ class TicketApiService {
 
       // 販売中のチケットタイプとオプションを一括取得
       final ticketTypesWithOptions = await database.ticketType
-          .getActiveTicketTypesWithOptions();
+          .getActiveTicketTypesWithOptionsAndCounts();
 
       return TicketTypesWithOptionsResponse(
-        ticketTypes: ticketTypesWithOptions.map((item) {
-          return TicketTypeWithOptionsItem(
-            ticketType: item.ticketType,
-            options: item.options,
-          );
-        }).toList(),
-      ).toJson();
-    },
-  );
-
-  /// 特定のチケット種別とオプションを取得
-  @Route.get('/types/<ticketTypeId>')
-  Future<Response> _getTicketTypeWithOptions(
-    Request request,
-    String ticketTypeId,
-  ) async => jsonResponse(
-    () async {
-      final database = await container.read(dbClientProvider.future);
-
-      final ticketType = await database.ticketType.getTicketType(ticketTypeId);
-      if (ticketType == null) {
-        throw ErrorResponse.errorCode(
-          code: ErrorCode.routeNotFound,
-          detail: 'チケットタイプが見つかりません',
-        );
-      }
-
-      final options = await database.ticketOption.getTicketOptions(
-        ticketTypeId,
-      );
-
-      return TicketTypeWithOptionsResponse(
-        ticketType: ticketType.toTicketType(),
-        options: options.map((e) => e.toTicketOption()).toList(),
+        ticketTypes: ticketTypesWithOptions
+            .map((item) => item.toTicketTypeWithOptionsItem())
+            .where(
+              (item) =>
+                  item.ticketType.status != const TicketStatus.notSelling(),
+            )
+            .toList(),
       ).toJson();
     },
   );
@@ -79,44 +53,62 @@ class TicketApiService {
       final database = await container.read(dbClientProvider.future);
 
       // 1. チケットタイプの有効性チェック
-      final ticketType = await database.ticketType.getTicketType(
-        requestData.ticketTypeId,
-      );
-      if (ticketType == null || !ticketType.isActive) {
+      final dbTicketTypesWithOptions = await database.ticketType
+          .getActiveTicketTypesWithOptionsAndCounts();
+      final ticketTypesWithOptions = dbTicketTypesWithOptions
+          .map((e) => e.toTicketTypeWithOptionsItem())
+          .toList();
+      final targetTicketTypeAndOptions = ticketTypesWithOptions
+          .firstWhereOrNull(
+            (e) => e.ticketType.id == requestData.ticketTypeId,
+          );
+      if (targetTicketTypeAndOptions == null) {
         throw ErrorResponse.errorCode(
           code: ErrorCode.badRequest,
-          detail: 'このチケットタイプは現在購入できません',
+          detail: 'このチケットタイプは現在購入できません: ${requestData.ticketTypeId} not found',
+        );
+      }
+      final targetOptions = targetTicketTypeAndOptions.options
+          .where(
+            (e) => requestData.optionIds.any((o) => o == e.id),
+          )
+          .toList();
+      if (targetOptions.length != requestData.optionIds.length) {
+        throw ErrorResponse.errorCode(
+          code: ErrorCode.badRequest,
+          detail:
+              'このチケットのオプションが見つかりません: '
+              '${requestData.optionIds.join(', ')}',
         );
       }
 
-      // 2. 販売期間チェック
-      final now = DateTime.now();
-      if (ticketType.saleStartsAt == null && ticketType.saleEndsAt == null) {
-        throw ErrorResponse.errorCode(
-          code: ErrorCode.badRequest,
-          detail: 'このチケットの販売はまだ開始されていません: 販売期間が設定されていません',
-        );
-      }
-      if (ticketType.saleStartsAt != null &&
-          now.isBefore(ticketType.saleStartsAt!)) {
-        throw ErrorResponse.errorCode(
-          code: ErrorCode.badRequest,
-          detail: 'このチケットの販売はまだ開始されていません: ${ticketType.saleStartsAt}',
-        );
-      }
-      if (ticketType.saleEndsAt != null &&
-          now.isAfter(ticketType.saleEndsAt!)) {
-        throw ErrorResponse.errorCode(
-          code: ErrorCode.badRequest,
-          detail: 'このチケットの販売は終了しました: ${ticketType.saleEndsAt}',
-        );
-      }
+      // 購入可能かチェック
+      final targetTicketType = targetTicketTypeAndOptions.ticketType;
+      // if (targetTicketType.status case TicketStatusSelling()) {
+      //   throw ErrorResponse.errorCode(
+      //     code: ErrorCode.badRequest,
+      //     detail:
+      //         'このチケットは現在購入できません: ${targetTicketType.id} '
+      //         'is not selling status '
+      //         '${targetTicketType.status}',
+      //   );
+      // }
+      // for (final option in targetOptions) {
+      //   if (option.status case TicketStatusSelling()) {
+      //     throw ErrorResponse.errorCode(
+      //       code: ErrorCode.badRequest,
+      //       detail:
+      //           'このチケットのオプションは現在購入できません: ${option.id} is not selling status '
+      //           '${option.status}',
+      //     );
+      //   }
+      // }
 
       // 3. 既存の購入チェック（同じユーザー・同じチケットタイプ）
       final existingPurchases = await database.ticketPurchase
           .getUserTicketPurchase(
             user.id,
-            requestData.ticketTypeId,
+            targetTicketType.id,
           );
       final purchases = existingPurchases
           .map((e) => e.toTicketPurchase())
@@ -124,7 +116,7 @@ class TicketApiService {
       // 既存の購入で、同じチケットタイプのもの かつ 購入済みのもの
       final sameTicketTypePurchases = purchases.where(
         (purchase) =>
-            purchase.ticketTypeId == requestData.ticketTypeId &&
+            purchase.ticketTypeId == targetTicketType.id &&
             purchase.status == TicketPurchaseStatus.completed,
       );
       if (sameTicketTypePurchases.isNotEmpty) {
@@ -136,22 +128,6 @@ class TicketApiService {
         );
       }
 
-      // 5. チケットオプションの有効性チェック
-      final ticketOptions = await database.ticketOption.getTicketOptions(
-        requestData.ticketTypeId,
-      );
-      final availableOptionIds = ticketOptions.map((o) => o.id).toSet();
-
-      for (final option in requestData.options) {
-        if (!availableOptionIds.contains(option.optionId) ||
-            !ticketOptions.any((o) => o.id == option.optionId)) {
-          throw ErrorResponse.errorCode(
-            code: ErrorCode.badRequest,
-            detail: '無効なオプションが指定されています: ${option.optionId}',
-          );
-        }
-      }
-
       // Payment Intentを作成
       final internalApiClient = container.read(internalApiClientProvider);
       final ticketCheckoutSessionResponse = await internalApiClient
@@ -160,12 +136,10 @@ class TicketApiService {
           .createCheckoutSession(
             request: PutCheckoutSessionRequest(
               successUrl: requestData.successUrl,
-              cancelUrl: 'https://example.com/cancel',
+              cancelUrl: requestData.cancelUrl,
               userId: user.id,
-              ticketTypeId: requestData.ticketTypeId,
-              ticketOptionIds: requestData.options
-                  .map((e) => e.optionId)
-                  .toList(),
+              ticketTypeId: targetTicketType.id,
+              ticketOptionIds: targetOptions.map((e) => e.id).toList(),
             ),
           );
       final ticketCheckoutSessionData = ticketCheckoutSessionResponse.data;
@@ -242,16 +216,8 @@ class TicketApiService {
       final userResult = await supabaseUtil.extractUser(request);
       final (_, user, _) = userResult.unwrap;
 
-      final database = await container.read(dbClientProvider.future);
-      final response = await database.ticketCheckout
-          .getUserAllTicketsWithDetails(
-            userId: user.id,
-          );
-      final tickets = response.map((e) => e.toTicketItem()).toList();
-
-      return UserTicketsResponse(
-        tickets: tickets,
-      ).toJson();
+      final response = await _getUserTicketsResponse(user.id);
+      return response.toJson();
     },
   );
 
@@ -262,25 +228,67 @@ class TicketApiService {
         () async {
           final supabaseUtil = container.read(supabaseUtilProvider);
           final userResult = await supabaseUtil.extractUser(request);
-          final (_, _, roles) = userResult.unwrap;
+          final (_, user, roles) = userResult.unwrap;
 
-          // 管理者権限のチェック
-          if (!roles.contains(db_types.Role.admin)) {
+          // 管理者権限 もしくは ユーザー自身
+          if (!roles.contains(db_types.Role.admin) && userId != user.id) {
             throw ErrorResponse.errorCode(
               code: ErrorCode.forbidden,
               detail: '管理者権限がありません',
             );
           }
 
-          final database = await container.read(dbClientProvider.future);
-          final response = await database.ticketCheckout
-              .getUserAllTicketsWithDetails(
-                userId: userId,
-              );
-          final tickets = response.map((e) => e.toTicketItem()).toList();
-          return UserTicketsResponse(tickets: tickets).toJson();
+          final response = await _getUserTicketsResponse(user.id);
+          return response.toJson();
         },
       );
 
   Router get router => _$TicketApiServiceRouter(this);
+}
+
+Future<UserTicketsResponse> _getUserTicketsResponse(String userId) async {
+  final database = await container.read(dbClientProvider.future);
+  final (response, dbTicketTypes) = await (
+    database.ticketCheckout.getUserAllTicketsWithDetails(
+      userId: userId,
+    ),
+    database.ticketType.getActiveTicketTypesWithOptionsAndCounts(),
+  ).wait;
+  final ticketTypes = dbTicketTypes
+      .map((e) => e.toTicketTypeWithOptionsItem())
+      .toList();
+  final tickets = response.map((item) {
+    final matchedTicketType = ticketTypes.firstWhere(
+      (e) => e.ticketType.id == item.ticketTypeId,
+    );
+    final matchedOption = matchedTicketType.options
+        .where((e) => item.options.any((o) => o.id == e.id))
+        .toList();
+
+    final purchase = item.purchase?.toTicketPurchase();
+    final checkout = item.checkoutSession?.toTicketCheckout();
+
+    if (purchase != null) {
+      return TicketItem.purchase(
+        ticketType: matchedTicketType.ticketType,
+        purchase: purchase,
+        options: matchedOption,
+      );
+    } else if (checkout != null) {
+      return TicketItem.checkout(
+        ticketType: matchedTicketType.ticketType,
+        checkout: checkout,
+        options: matchedOption,
+      );
+    } else {
+      throw ErrorResponse.errorCode(
+        code: ErrorCode.badRequest,
+        detail: 'チケット情報が見つかりません',
+      );
+    }
+  }).toList();
+
+  return UserTicketsResponse(
+    tickets: tickets,
+  );
 }

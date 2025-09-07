@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$TicketTypeWithOptionsItem {
 
- TicketTypes get ticketType; List<TicketOptions> get options;
+ TicketType get ticketType; List<TicketOption> get options;
 /// Create a copy of TicketTypeWithOptionsItem
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,11 +48,11 @@ abstract mixin class $TicketTypeWithOptionsItemCopyWith<$Res>  {
   factory $TicketTypeWithOptionsItemCopyWith(TicketTypeWithOptionsItem value, $Res Function(TicketTypeWithOptionsItem) _then) = _$TicketTypeWithOptionsItemCopyWithImpl;
 @useResult
 $Res call({
- TicketTypes ticketType, List<TicketOptions> options
+ TicketType ticketType, List<TicketOption> options
 });
 
 
-$TicketTypesCopyWith<$Res> get ticketType;
+$TicketTypeCopyWith<$Res> get ticketType;
 
 }
 /// @nodoc
@@ -68,17 +68,17 @@ class _$TicketTypeWithOptionsItemCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') @override $Res call({Object? ticketType = null,Object? options = null,}) {
   return _then(_self.copyWith(
 ticketType: null == ticketType ? _self.ticketType : ticketType // ignore: cast_nullable_to_non_nullable
-as TicketTypes,options: null == options ? _self.options : options // ignore: cast_nullable_to_non_nullable
-as List<TicketOptions>,
+as TicketType,options: null == options ? _self.options : options // ignore: cast_nullable_to_non_nullable
+as List<TicketOption>,
   ));
 }
 /// Create a copy of TicketTypeWithOptionsItem
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$TicketTypesCopyWith<$Res> get ticketType {
+$TicketTypeCopyWith<$Res> get ticketType {
   
-  return $TicketTypesCopyWith<$Res>(_self.ticketType, (value) {
+  return $TicketTypeCopyWith<$Res>(_self.ticketType, (value) {
     return _then(_self.copyWith(ticketType: value));
   });
 }
@@ -163,7 +163,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( TicketTypes ticketType,  List<TicketOptions> options)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( TicketType ticketType,  List<TicketOption> options)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _TicketTypeWithOptionsItem() when $default != null:
 return $default(_that.ticketType,_that.options);case _:
@@ -184,7 +184,7 @@ return $default(_that.ticketType,_that.options);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( TicketTypes ticketType,  List<TicketOptions> options)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( TicketType ticketType,  List<TicketOption> options)  $default,) {final _that = this;
 switch (_that) {
 case _TicketTypeWithOptionsItem():
 return $default(_that.ticketType,_that.options);case _:
@@ -204,7 +204,7 @@ return $default(_that.ticketType,_that.options);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( TicketTypes ticketType,  List<TicketOptions> options)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( TicketType ticketType,  List<TicketOption> options)?  $default,) {final _that = this;
 switch (_that) {
 case _TicketTypeWithOptionsItem() when $default != null:
 return $default(_that.ticketType,_that.options);case _:
@@ -219,12 +219,12 @@ return $default(_that.ticketType,_that.options);case _:
 @JsonSerializable()
 
 class _TicketTypeWithOptionsItem implements TicketTypeWithOptionsItem {
-  const _TicketTypeWithOptionsItem({required this.ticketType, required final  List<TicketOptions> options}): _options = options;
+  const _TicketTypeWithOptionsItem({required this.ticketType, required final  List<TicketOption> options}): _options = options;
   factory _TicketTypeWithOptionsItem.fromJson(Map<String, dynamic> json) => _$TicketTypeWithOptionsItemFromJson(json);
 
-@override final  TicketTypes ticketType;
- final  List<TicketOptions> _options;
-@override List<TicketOptions> get options {
+@override final  TicketType ticketType;
+ final  List<TicketOption> _options;
+@override List<TicketOption> get options {
   if (_options is EqualUnmodifiableListView) return _options;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_options);
@@ -264,11 +264,11 @@ abstract mixin class _$TicketTypeWithOptionsItemCopyWith<$Res> implements $Ticke
   factory _$TicketTypeWithOptionsItemCopyWith(_TicketTypeWithOptionsItem value, $Res Function(_TicketTypeWithOptionsItem) _then) = __$TicketTypeWithOptionsItemCopyWithImpl;
 @override @useResult
 $Res call({
- TicketTypes ticketType, List<TicketOptions> options
+ TicketType ticketType, List<TicketOption> options
 });
 
 
-@override $TicketTypesCopyWith<$Res> get ticketType;
+@override $TicketTypeCopyWith<$Res> get ticketType;
 
 }
 /// @nodoc
@@ -284,8 +284,8 @@ class __$TicketTypeWithOptionsItemCopyWithImpl<$Res>
 @override @pragma('vm:prefer-inline') $Res call({Object? ticketType = null,Object? options = null,}) {
   return _then(_TicketTypeWithOptionsItem(
 ticketType: null == ticketType ? _self.ticketType : ticketType // ignore: cast_nullable_to_non_nullable
-as TicketTypes,options: null == options ? _self._options : options // ignore: cast_nullable_to_non_nullable
-as List<TicketOptions>,
+as TicketType,options: null == options ? _self._options : options // ignore: cast_nullable_to_non_nullable
+as List<TicketOption>,
   ));
 }
 
@@ -293,9 +293,9 @@ as List<TicketOptions>,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$TicketTypesCopyWith<$Res> get ticketType {
+$TicketTypeCopyWith<$Res> get ticketType {
   
-  return $TicketTypesCopyWith<$Res>(_self.ticketType, (value) {
+  return $TicketTypeCopyWith<$Res>(_self.ticketType, (value) {
     return _then(_self.copyWith(ticketType: value));
   });
 }
