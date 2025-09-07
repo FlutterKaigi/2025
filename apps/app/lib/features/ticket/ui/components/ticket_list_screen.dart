@@ -1,6 +1,6 @@
 import 'package:app/core/designsystem/components/error_view.dart';
 import 'package:app/features/auth/data/notifier/auth_notifier.dart';
-import 'package:app/features/ticket/data/provider/ticket_items_provider.dart';
+import 'package:app/features/ticket/data/notifier/ticket_notifier.dart';
 import 'package:app/features/ticket/data/provider/ticket_types_provider.dart';
 import 'package:app/features/ticket/ui/components/login_before_purchase_card.dart';
 import 'package:app/features/ticket/ui/components/ticket_card.dart';
@@ -16,7 +16,7 @@ class TicketListScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final ticketItemsStatus = ref.watch(ticketItemsProvider);
+    final ticketItemsStatus = ref.watch(ticketNotifierProvider);
     final ticketTypesStatus = ref.watch(ticketTypesProvider);
 
     const loading = Center(
@@ -27,8 +27,10 @@ class TicketListScreen extends ConsumerWidget {
       loading: () => loading,
       error: (error, stackTrace) => ErrorView(
         error: error,
-        onRetry: () => ref.invalidate(ticketItemsProvider),
-        isRetrying: ref.watch(ticketItemsProvider.select((v) => v.isLoading)),
+        onRetry: () => ref.invalidate(ticketNotifierProvider),
+        isRetrying: ref.watch(
+          ticketNotifierProvider.select((v) => v.isLoading),
+        ),
       ),
       data: (tickets) => ticketTypesStatus.when(
         loading: () => loading,
@@ -46,7 +48,7 @@ class TicketListScreen extends ConsumerWidget {
             ticketTypes: ticketTypes,
             onRefresh: () async {
               await (
-                ref.refresh(ticketItemsProvider.future),
+                ref.refresh(ticketNotifierProvider.future),
                 ref.refresh(ticketTypesProvider.future),
               ).wait;
             },
