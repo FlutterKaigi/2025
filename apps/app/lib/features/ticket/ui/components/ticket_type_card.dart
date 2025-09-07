@@ -22,7 +22,7 @@ class TicketTypeCard extends StatelessWidget {
 
     return Card.outlined(
       color: colorScheme.surfaceContainer,
-      margin: const EdgeInsets.only(bottom: 8),
+      margin: const EdgeInsets.only(bottom: 16),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
