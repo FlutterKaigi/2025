@@ -8,10 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-/// Widgetのbuildメソッドでエラーが発生した際の表示画面
-///
-/// ErrorWidget.builderで表示される画面で、Widgetの構築中に
-/// エラーが発生した際にユーザーに適切なフィードバックを提供
+/// Widget Build Error の表示画面
 class WidgetBuildErrorScreen extends StatelessWidget {
   const WidgetBuildErrorScreen({
     required this.details,
@@ -20,7 +17,7 @@ class WidgetBuildErrorScreen extends StatelessWidget {
 
   final FlutterErrorDetails details;
 
-  /// GitHubのIssue一覧ページを開く
+  /// GitHub の Issue 一覧ページを開く
   Future<void> _openGitHubIssue(BuildContext context) async {
     const githubIssueUrl = 'https://github.com/FlutterKaigi/2025/issues';
     final uri = Uri.parse(githubIssueUrl);
@@ -56,7 +53,7 @@ class WidgetBuildErrorScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // ダシュマル画像（dashumaruOverflow2の代わりにdashumaruMagaoを使用）
+                  // ダシュマル画像
                   Assets.res.assets.dashumaruMagao.image(
                     height: 200,
                     fit: BoxFit.contain,
@@ -84,7 +81,7 @@ class WidgetBuildErrorScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 32),
 
-                  // GitHubのIssue一覧ページを開くボタン
+                  // GitHub の Issue 一覧ページを開くボタン
                   FilledButton.icon(
                     onPressed: () => _openGitHubIssue(context),
                     icon: const Icon(Icons.bug_report),
