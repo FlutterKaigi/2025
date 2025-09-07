@@ -18,7 +18,7 @@ class TicketCheckoutNotifier extends _$TicketCheckoutNotifier {
   ) async {
     final repository = ref.read(ticketRepositoryProvider);
     final response = await repository.createCheckout(request);
-    ref.invalidateSelf(asReload: true);
+    ref.invalidate(ticketItemsProvider, asReload: true);
 
     return response;
   }
@@ -26,6 +26,6 @@ class TicketCheckoutNotifier extends _$TicketCheckoutNotifier {
   Future<void> cancelCheckout(String checkoutId) async {
     final repository = ref.read(ticketRepositoryProvider);
     await repository.cancelCheckout(checkoutId);
-    ref.invalidateSelf(asReload: true);
+    ref.invalidate(ticketItemsProvider, asReload: true);
   }
 }
