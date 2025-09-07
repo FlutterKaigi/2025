@@ -130,7 +130,4 @@ class L10nJa extends L10n {
 
   @override
   String get widgetBuildErrorGitHubButton => 'GitHub の Issue ページを開く';
-
-  @override
-  String get widgetBuildErrorBackToTop => 'トップに戻る';
 }

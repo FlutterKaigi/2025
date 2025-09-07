@@ -326,12 +326,6 @@ abstract class L10n {
   /// In ja, this message translates to:
   /// **'GitHub の Issue ページを開く'**
   String get widgetBuildErrorGitHubButton;
-
-  /// No description provided for @widgetBuildErrorBackToTop.
-  ///
-  /// In ja, this message translates to:
-  /// **'トップに戻る'**
-  String get widgetBuildErrorBackToTop;
 }
 
 class _L10nDelegate extends LocalizationsDelegate<L10n> {

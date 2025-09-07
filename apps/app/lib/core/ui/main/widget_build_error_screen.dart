@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:app/core/gen/assets/assets.gen.dart';
 import 'package:app/core/gen/l10n/l10n.dart';
-import 'package:app/core/router/router.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -84,20 +83,6 @@ class WidgetBuildErrorScreen extends StatelessWidget {
             style: FilledButton.styleFrom(
               backgroundColor: theme.colorScheme.secondary,
               foregroundColor: theme.colorScheme.onSecondary,
-              padding: const EdgeInsets.symmetric(
-                horizontal: 32,
-                vertical: 16,
-              ),
-            ),
-          ),
-          const SizedBox(height: 16),
-
-          // トップに戻るボタン
-          FilledButton.icon(
-            onPressed: () => const EventInfoRoute().go(context),
-            icon: const Icon(Icons.home),
-            label: Text(l10n.widgetBuildErrorBackToTop),
-            style: FilledButton.styleFrom(
               padding: const EdgeInsets.symmetric(
                 horizontal: 32,
                 vertical: 16,
