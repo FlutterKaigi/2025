@@ -87,7 +87,7 @@ GoRouter router(Ref ref) {
       // ゲストユーザーが Google アカウントと紐づけられている場合エラーメッセージを表示
       if (isAuthorized &&
           queryParameters['error_code'] == 'identity_already_exists') {
-        unawaited(_handleIdentityAlreadyExistsError(context, ref));
+        unawaited(_handleIdentityAlreadyExistsError(context));
         return const AccountInfoRoute().location;
       }
       return null;
@@ -98,7 +98,6 @@ GoRouter router(Ref ref) {
 /// Googleアカウントが既に別のユーザーと紐づけられている場合エラートーストを表示する
 Future<void> _handleIdentityAlreadyExistsError(
   BuildContext context,
-  Ref ref,
 ) async {
   // 現在のフレームの描画が完了した後に SnackBar を表示
   WidgetsBinding.instance.addPostFrameCallback((_) {

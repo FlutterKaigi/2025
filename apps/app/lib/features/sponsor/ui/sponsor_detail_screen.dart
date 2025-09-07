@@ -51,7 +51,7 @@ class SponsorDetailScreen extends ConsumerWidget {
       _Success(:final sponsor) => _SponsorDetail(sponsor: sponsor),
       _NotFound() => const NotFoundScreen(),
       _Failure() => ErrorScreen(
-        onRetry: () => ref.invalidate(sponsorsProvider),
+        onRetry: () => ref.invalidate(sponsorsProvider, asReload: true),
       ),
     };
   }

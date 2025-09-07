@@ -119,7 +119,7 @@ class TicketCheckoutSheet extends HookConsumerWidget {
                 } else {
                   throw Exception('決済ページを開けませんでした');
                 }
-              } catch (e) {
+              } on Exception catch (e) {
                 if (context.mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
@@ -157,6 +157,7 @@ List<Step> _buildSteps({
   required TicketTypeWithOptionsItem ticketTypeItem,
   required List<TicketOption> availableOptions,
   required Map<String, bool> selectedOptions,
+  // ignore: avoid_positional_boolean_parameters
   required void Function(String optionId, bool value) onOptionChanged,
 }) {
   final steps = <Step>[];
@@ -275,6 +276,7 @@ class _TicketOptionStep extends StatelessWidget {
 
   final TicketOption option;
   final bool isSelected;
+  // ignore: avoid_positional_boolean_parameters
   final void Function(bool value) onChanged;
 
   @override
@@ -331,14 +333,14 @@ class _TicketOptionStep extends StatelessWidget {
               Icon(
                 Icons.info_outline,
                 size: 16,
-                color: colorScheme.onSurface.withOpacity(0.6),
+                color: colorScheme.onSurface.withValues(alpha: 0.6),
               ),
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
                   'このオプションが必要な場合はチェックしてください。',
                   style: textTheme.bodySmall?.copyWith(
-                    color: colorScheme.onSurface.withOpacity(0.6),
+                    color: colorScheme.onSurface.withValues(alpha: 0.6),
                   ),
                 ),
               ),
@@ -521,7 +523,9 @@ class _CheckoutConfirmStep extends StatelessWidget {
                       .where((entry) => entry.value)
                       .toList();
 
-                  if (checkedOptions.isEmpty) return <Widget>[];
+                  if (checkedOptions.isEmpty) {
+                    return <Widget>[];
+                  }
 
                   return [
                     const Divider(),
@@ -616,12 +620,14 @@ class _CheckoutConfirmStep extends StatelessWidget {
 // auth_notifier.dartの_getRedirectToを参考にしたリダイレクトURL生成
 String _getRedirectUrl(WidgetRef ref) {
   final environment = ref.read(environmentProvider);
-  final ticketPath = const TicketRoute().location;
+  final ticketPath = const TicketRoute().location.replaceFirst('/', '');
 
   // Webプラットフォームの場合は `scheme://host:port` を使用
   if (kIsWeb) {
     return Uri.base.replace(path: ticketPath).toString();
   }
-  // モバイルプラットフォームの場合は従来のカスタムスキームを使用
-  return 'jp.flutterkaigi.conf2025${environment.appIdSuffix}://$ticketPath';
+  return Uri(
+    scheme: 'jp.flutterkaigi.conf2025${environment.appIdSuffix}',
+    host: ticketPath,
+  ).toString();
 }
