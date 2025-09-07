@@ -31,48 +31,13 @@ class UnhandledErrorScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final exceptionText = details.exception.toString();
     if (kDebugMode) {
       return Material(
         color: Colors.white30,
         child: Center(
           child: Padding(
             padding: const EdgeInsets.all(8),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              spacing: 4,
-              children: [
-                const Icon(
-                  Icons.error_outline,
-                  color: Colors.red,
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Flexible(
-                      child: Text(
-                        exceptionText,
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    IconButton.filled(
-                      onPressed: () async {
-                        await Clipboard.setData(
-                          ClipboardData(text: exceptionText),
-                        );
-                        if (context.mounted) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('コピーしました')),
-                          );
-                        }
-                      },
-                      icon: const Icon(Icons.copy_all_outlined),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+            child: _CalloutErrorWidget(details: details),
           ),
         ),
       );
@@ -151,6 +116,86 @@ class UnhandledErrorScreen extends StatelessWidget {
               ),
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+/// コールアウトエラー表示用のウィジェット
+class _CalloutErrorWidget extends StatelessWidget {
+  const _CalloutErrorWidget({
+    required this.details,
+    super.key,
+  });
+
+  final FlutterErrorDetails details;
+
+  @override
+  Widget build(BuildContext context) {
+    final exceptionText = details.exception.toString();
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: Colors.red.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: Colors.red.withValues(alpha: 0.3),
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                const Icon(
+                  Icons.error_outline,
+                  color: Colors.red,
+                  size: 20,
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  'Widget Build Error',
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                    color: Colors.red.shade700,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    exceptionText,
+                    style: Theme.of(
+                      context,
+                    ).textTheme.bodySmall,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                IconButton.filled(
+                  onPressed: () async {
+                    await Clipboard.setData(
+                      ClipboardData(text: exceptionText),
+                    );
+                    if (context.mounted) {
+                      ScaffoldMessenger.of(
+                        context,
+                      ).showSnackBar(
+                        const SnackBar(
+                          content: Text('Successfully copied to clipboard!'),
+                        ),
+                      );
+                    }
+                  },
+                  icon: const Icon(Icons.copy_all_outlined),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
