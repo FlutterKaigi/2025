@@ -1,6 +1,6 @@
 import 'package:app/core/provider/environment.dart';
 import 'package:app/core/router/router.dart';
-import 'package:app/features/ticket/data/notifier/ticket_checkout_notifier.dart';
+import 'package:app/features/ticket/data/notifier/ticket_notifier.dart';
 import 'package:app/features/ticket/data/provider/ticket_types_provider.dart';
 import 'package:bff_client/bff_client.dart';
 import 'package:collection/collection.dart';
@@ -90,7 +90,7 @@ class TicketCheckoutSheet extends HookConsumerWidget {
               isLoading.value = true;
               try {
                 final notifier = ref.read(
-                  ticketCheckoutNotifierProvider.notifier,
+                  ticketNotifierProvider.notifier,
                 );
                 final redirectUrl = _getRedirectUrl(ref);
 

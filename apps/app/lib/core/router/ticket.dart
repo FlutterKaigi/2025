@@ -7,9 +7,6 @@ const _ticketRoutes = [
       TypedGoRoute<AvailableTicketListRoute>(
         path: 'available',
       ),
-      TypedGoRoute<ActiveCheckoutRoute>(
-        path: 'active/:checkoutId',
-      ),
       TypedGoRoute<TicketListRoute>(
         path: 'list',
       ),
@@ -39,16 +36,6 @@ class AvailableTicketListRoute extends GoRouteData
   @override
   Widget build(BuildContext context, GoRouterState state) =>
       const AvailableTicketListScreen();
-}
-
-class ActiveCheckoutRoute extends GoRouteData with $ActiveCheckoutRoute {
-  const ActiveCheckoutRoute({required this.checkoutId});
-
-  final String checkoutId;
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      ActiveCheckoutScreen(checkoutId: checkoutId);
 }
 
 class TicketListRoute extends GoRouteData with $TicketListRoute {

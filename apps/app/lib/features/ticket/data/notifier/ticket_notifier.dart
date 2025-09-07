@@ -1,16 +1,25 @@
-import 'package:app/features/ticket/data/provider/ticket_items_provider.dart';
+import 'package:app/features/auth/data/notifier/auth_notifier.dart';
 import 'package:app/features/ticket/data/repository/ticket_repository.dart';
 import 'package:bff_client/bff_client.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'ticket_checkout_notifier.g.dart';
+part 'ticket_notifier.g.dart';
 
 @riverpod
-class TicketCheckoutNotifier extends _$TicketCheckoutNotifier {
+class TicketNotifier extends _$TicketNotifier {
   @override
-  Future<List<TicketCheckoutItem>> build() async {
-    final ticketItems = await ref.watch(ticketItemsProvider.future);
-    return ticketItems.whereType<TicketCheckoutItem>().toList();
+  Future<List<TicketItem>> build() async {
+    final isAnonymousOrNull = ref.watch(
+      authNotifierProvider.select((v) => v.value?.isAnonymous),
+    );
+
+    if (isAnonymousOrNull == null || isAnonymousOrNull) {
+      return [];
+    }
+
+    final repository = ref.watch(ticketRepositoryProvider);
+    return repository.getUserTickets();
   }
 
   Future<TicketCheckoutSessionResponse> createCheckout(
@@ -18,7 +27,7 @@ class TicketCheckoutNotifier extends _$TicketCheckoutNotifier {
   ) async {
     final repository = ref.read(ticketRepositoryProvider);
     final response = await repository.createCheckout(request);
-    ref.invalidate(ticketItemsProvider, asReload: true);
+    ref.invalidateSelf(asReload: true);
 
     return response;
   }
@@ -26,6 +35,6 @@ class TicketCheckoutNotifier extends _$TicketCheckoutNotifier {
   Future<void> cancelCheckout(String checkoutId) async {
     final repository = ref.read(ticketRepositoryProvider);
     await repository.cancelCheckout(checkoutId);
-    ref.invalidate(ticketItemsProvider, asReload: true);
+    ref.invalidateSelf(asReload: true);
   }
 }

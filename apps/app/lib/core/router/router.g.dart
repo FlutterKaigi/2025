@@ -75,10 +75,6 @@ RouteBase get $mainRoute => StatefulShellRouteData.$route(
               factory: $AvailableTicketListRoute._fromState,
             ),
             GoRouteData.$route(
-              path: 'active/:checkoutId',
-              factory: $ActiveCheckoutRoute._fromState,
-            ),
-            GoRouteData.$route(
               path: 'list',
               factory: $TicketListRoute._fromState,
             ),
@@ -226,31 +222,6 @@ mixin $AvailableTicketListRoute on GoRouteData {
 
   @override
   String get location => GoRouteData.$location('/tickets/available');
-
-  @override
-  void go(BuildContext context) => context.go(location);
-
-  @override
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  @override
-  void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
-
-  @override
-  void replace(BuildContext context) => context.replace(location);
-}
-
-mixin $ActiveCheckoutRoute on GoRouteData {
-  static ActiveCheckoutRoute _fromState(GoRouterState state) =>
-      ActiveCheckoutRoute(checkoutId: state.pathParameters['checkoutId']!);
-
-  ActiveCheckoutRoute get _self => this as ActiveCheckoutRoute;
-
-  @override
-  String get location => GoRouteData.$location(
-    '/tickets/active/${Uri.encodeComponent(_self.checkoutId)}',
-  );
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -441,7 +412,7 @@ final class RouterProvider
   }
 }
 
-String _$routerHash() => r'e2ba3a85081f260a7e3d011122865214a995a427';
+String _$routerHash() => r'bd1ae91c8c6cffc2c6b852c03eaacbac59aa4cfb';
 
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

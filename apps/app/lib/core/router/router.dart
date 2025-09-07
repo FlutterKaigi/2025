@@ -15,7 +15,6 @@ import 'package:app/features/event/ui/event_info_screen.dart';
 import 'package:app/features/news/ui/news_screen.dart';
 import 'package:app/features/sponsor/ui/sponsor_detail_screen.dart';
 import 'package:app/features/sponsor/ui/sponsor_list_screen.dart';
-import 'package:app/features/ticket/ui/components/active_checkout_screen.dart';
 import 'package:app/features/ticket/ui/components/available_ticket_list_screen.dart';
 import 'package:app/features/ticket/ui/components/ticket_list_screen.dart';
 import 'package:app/features/ticket/ui/ticket_screen.dart';
