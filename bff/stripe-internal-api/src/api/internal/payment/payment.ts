@@ -101,7 +101,7 @@ export const paymentApi = new Hono().put(
     }
 
     // ticketCheckoutを作成
-    const id = crypto.randomUUID();
+    const ticketCheckoutId = crypto.randomUUID();
     const stripe = new Stripe(env.STRIPE_API_KEY);
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
@@ -120,30 +120,46 @@ export const paymentApi = new Hono().put(
         receipt_email: authUser.email,
       },
       metadata: {
-        ticket_checkout_id: id,
+        ticket_checkout_id: ticketCheckoutId,
       },
     });
     if (!session.id || !session.url || !session.expires_at || !session.status) {
       return c.json({ error: "session is not valid" }, 500);
     }
 
-    const ticketCheckoutSession = await db
-      .insert(databaseSchema.ticketCheckoutSessions)
-      .values({
-        id,
-        ticketTypeId: request.ticket_type_id,
-        expiresAt: new Date(Date.now() + 10 * 60 * 1000).toISOString(),
-        userId: authUser.id,
-        status: "pending",
-        stripeCheckoutSessionId: session.id,
-        stripeCheckoutUrl: session.url ?? undefined,
-      })
-      .returning();
+    const ticketCheckoutSession = await db.transaction(async (tx) => {
+      const ticketCheckoutSessions = await tx
+        .insert(databaseSchema.ticketCheckoutSessions)
+        .values({
+          id: ticketCheckoutId,
+          ticketTypeId: request.ticket_type_id,
+          expiresAt: new Date(Date.now() + 10 * 60 * 1000).toISOString(),
+          userId: authUser.id,
+          status: "pending",
+          stripeCheckoutSessionId: session.id,
+          stripeCheckoutUrl:
+            session.url ??
+            (() => {
+              throw new Error("session.url is not valid");
+            })(),
+        })
+        .returning();
+      const insertedSession = ticketCheckoutSessions[0];
+
+      for (const ticketOptionId of request.ticket_option_ids) {
+        await tx.insert(databaseSchema.ticketCheckoutOptions).values({
+          checkoutSessionId: insertedSession.id,
+          ticketOptionId,
+        });
+      }
+
+      return insertedSession;
+    });
 
     const response = {
-      id: ticketCheckoutSession[0].id,
+      id: ticketCheckoutSession.id,
       url: session.url,
-      expires_at: new Date(session.expires_at * 1000).toISOString(),
+      expires_at: new Date(session.expires_at * 1000 ).toISOString(),
       status: session.status,
       customer_email: authUser.email,
       session: session,
