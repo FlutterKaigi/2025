@@ -133,14 +133,14 @@ class TicketApiService {
           .getUserAllTicketsWithDetails(
             userId: user.id,
           );
-      final pendingCheckout = checkout.where((e) {
+      final hasPendingCheckout = checkout.any((e) {
         final status = e.checkoutSession?.status;
         if (status == db_types.TicketCheckoutStatus.pending) {
           return true;
         }
         return false;
-      }).toList();
-      if (pendingCheckout.isNotEmpty) {
+      });
+      if (hasPendingCheckout) {
         throw ErrorResponse.errorCode(
           code: ErrorCode.badRequest,
           detail: '進行中のCheckoutがあります',
