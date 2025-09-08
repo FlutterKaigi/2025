@@ -1,5 +1,6 @@
 import 'package:flutterkaigi_2025_website/src/components/countdown_view.dart';
 import 'package:flutterkaigi_2025_website/src/components/external_link.dart';
+import 'package:flutterkaigi_2025_website/src/components/open_in_new.dart';
 import 'package:flutterkaigi_2025_website/src/components/section_layout.dart';
 import 'package:flutterkaigi_2025_website/src/components/sized_dashsay.dart';
 import 'package:flutterkaigi_2025_website/src/components/sponsor.dart';
@@ -7,12 +8,14 @@ import 'package:flutterkaigi_2025_website/src/components/tagline.dart';
 import 'package:flutterkaigi_2025_website/src/components/top_event_info.dart';
 import 'package:flutterkaigi_2025_website/src/config/config.dart';
 import 'package:flutterkaigi_2025_website/src/constants/styles.dart';
+import 'package:flutterkaigi_2025_website/src/constants/theme.dart';
 import 'package:flutterkaigi_2025_website/src/pages/call_for_proposal.dart';
 import 'package:flutterkaigi_2025_website/src/pages/news.dart';
 import 'package:flutterkaigi_2025_website/src/pages/staff.dart';
 import 'package:flutterkaigi_2025_website/src/pages/timeline.dart';
 import 'package:flutterkaigi_2025_website/text.dart';
 import 'package:jaspr/jaspr.dart';
+import 'package:jaspr_router/jaspr_router.dart';
 
 class Home extends StatelessComponent {
   const Home({super.key});
@@ -159,6 +162,26 @@ class _MainArticle extends StatelessComponent {
                         content: event.place.name.text(context).toComponent,
                         url: event.place.url,
                         styles: const Styles(color: Color.inherit),
+                      ),
+                    ),
+                    Link(
+                      to: event.tickets.url,
+                      target: Target.blank,
+                      child: button(
+                        styles: Styles(
+                          display: Display.flex,
+                          position: const Position.relative(),
+                          cursor: Cursor.pointer,
+                          justifyContent: JustifyContent.center,
+                          gap: Gap.all(1.rem),
+                          color: beyondRed,
+                          fontSize: 1.rem,
+                        ),
+                        classes: 'primary-button primary-button-reverse',
+                        [
+                          event.tickets.title.text(context).toComponent,
+                          const OpenInNew(color: beyondRed),
+                        ],
                       ),
                     ),
                   ],
