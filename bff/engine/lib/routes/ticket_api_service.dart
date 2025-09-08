@@ -220,6 +220,14 @@ class TicketApiService {
 
           final canceledCheckout = await database.ticketCheckout
               .cancelTicketCheckout(checkoutId);
+
+          await container
+              .read(internalApiClientProvider)
+              .stripeInternalApi
+              .internalPaymentApi
+              .expireCheckoutSession(
+                checkoutSessionId: canceledCheckout.stripeCheckoutSessionId,
+              );
           return TicketCheckoutSessionResponse(
             session: canceledCheckout,
           ).toJson();

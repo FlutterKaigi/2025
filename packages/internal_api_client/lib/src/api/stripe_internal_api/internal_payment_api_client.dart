@@ -14,4 +14,9 @@ abstract class InternalPaymentApiClient {
   Future<HttpResponse<PutCheckoutSessionResponse>> createCheckoutSession({
     @Body() required PutCheckoutSessionRequest request,
   });
+
+  @PUT('/proxy/stripe-internal-api/internal/payment/checkout-session/{checkoutSessionId}')
+  Future<HttpResponse<void>> expireCheckoutSession({
+    @Path() required String checkoutSessionId,
+  });
 }
