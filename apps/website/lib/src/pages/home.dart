@@ -167,6 +167,7 @@ class _MainArticle extends StatelessComponent {
                     Link(
                       to: event.tickets.url,
                       target: Target.blank,
+                      styles: Styles(margin: Margin.only(top: 2.rem)),
                       child: button(
                         styles: Styles(
                           display: Display.flex,
