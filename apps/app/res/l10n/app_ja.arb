@@ -77,5 +77,9 @@
   "widgetBuildErrorMessage": "申し訳ございません。UI 構築中に予期しないエラーが発生しました。\n\nこの問題を解決するため、GitHub の Issue を作成していただけると大変助かります。",
   "@widgetBuildErrorMessage": {},
   "widgetBuildErrorGitHubButton": "GitHub の Issue ページを開く",
-  "@widgetBuildErrorGitHubButton": {}
+  "@widgetBuildErrorGitHubButton": {},
+  "ticketNoticeTitle": "ご注意",
+  "@ticketNoticeTitle": {},
+  "ticketNoticeMessage": "「個人スポンサーチケット」のみでは、FlutterKaigi 2025本編（カンファレンス会場）へのご入場はできません。\n入場をご希望の方は、アーリーチケット（9月末まで販売予定）またはノーマルチケットを別途ご購入ください。\nなお、「個人スポンサーチケット」は、入場を目的とせず FlutterKaigi を応援したい方のご支援も大歓迎です！\n\n前夜祭への参加は「アーリーチケット」のみが対象です。\nノーマルチケットでは前夜祭に参加できませんのでご注意ください。",
+  "@ticketNoticeMessage": {}
 }

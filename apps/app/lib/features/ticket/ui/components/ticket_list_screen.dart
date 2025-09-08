@@ -1,4 +1,5 @@
 import 'package:app/core/designsystem/components/error_view.dart';
+import 'package:app/core/gen/l10n/l10n.dart';
 import 'package:app/features/auth/data/notifier/auth_notifier.dart';
 import 'package:app/features/ticket/data/notifier/ticket_notifier.dart';
 import 'package:app/features/ticket/data/provider/ticket_types_provider.dart';
@@ -162,6 +163,7 @@ class _TicketNoticeCallout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = L10n.of(context);
     final textTheme = Theme.of(context).textTheme;
     const warningColor = Colors.amber;
     return DecoratedBox(
@@ -187,7 +189,7 @@ class _TicketNoticeCallout extends StatelessWidget {
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  'ご注意',
+                  l10n.ticketNoticeTitle,
                   style: textTheme.titleSmall?.copyWith(
                     color: warningColor,
                     fontWeight: FontWeight.bold,
@@ -197,11 +199,7 @@ class _TicketNoticeCallout extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              '「個人スポンサーチケット」のみでは、FlutterKaigi 2025本編（カンファレンス会場）へのご入場はできません。\n'
-              '入場をご希望の方は、アーリーチケット（9月末まで販売予定）またはノーマルチケットを別途ご購入ください。\n'
-              'なお、「個人スポンサーチケット」は、入場を目的とせず FlutterKaigi を応援したい方のご支援も大歓迎です！\n\n'
-              '前夜祭への参加は「アーリーチケット」のみが対象です。\n'
-              'ノーマルチケットでは前夜祭に参加できませんのでご注意ください。',
+              l10n.ticketNoticeMessage,
               style: textTheme.bodySmall,
             ),
           ],
