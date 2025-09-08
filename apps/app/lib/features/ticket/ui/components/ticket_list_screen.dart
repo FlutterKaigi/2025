@@ -7,7 +7,7 @@ import 'package:app/features/ticket/ui/components/login_before_purchase_card.dar
 import 'package:app/features/ticket/ui/components/ticket_card.dart';
 import 'package:app/features/ticket/ui/components/ticket_checkout_sheet.dart';
 import 'package:app/features/ticket/ui/components/ticket_type_card.dart';
-import 'package:app/features/ticket/ui/components/student_refund_card.dart';
+import 'package:app/features/ticket/ui/components/student_refund_dialog.dart';
 import 'package:bff_client/bff_client.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -128,7 +128,7 @@ class _TicketsListView extends HookWidget {
           const SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsets.only(left: 16, right: 16, bottom: 16),
-              child: StudentRefundCard(),
+              child: _StudentRefundCallout(),
             ),
           ),
 
@@ -210,6 +210,79 @@ class _TicketNoticeCallout extends StatelessWidget {
             Text(
               l10n.ticketNoticeMessage,
               style: textTheme.bodySmall,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// 学生向け返金・費用補助についてのコールアウト
+class _StudentRefundCallout extends StatelessWidget {
+  const _StudentRefundCallout();
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = L10n.of(context);
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+    final infoColor = colorScheme.primary;
+
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: infoColor.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: infoColor.withValues(alpha: 0.3),
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              children: [
+                Icon(
+                  Icons.school,
+                  color: infoColor,
+                  size: 20,
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    l10n.studentRefundTitle,
+                    style: textTheme.titleSmall?.copyWith(
+                      color: infoColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Text(
+              l10n.studentRefundDescription,
+              style: textTheme.bodySmall,
+            ),
+            const SizedBox(height: 12),
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton.icon(
+                onPressed: () => StudentRefundDialog.show(context),
+                icon: const Icon(Icons.info_outline, size: 16),
+                label: Text(l10n.studentRefundDetailsButton),
+                style: OutlinedButton.styleFrom(
+                  foregroundColor: infoColor,
+                  side: BorderSide(color: infoColor),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 8,
+                  ),
+                ),
+              ),
             ),
           ],
         ),
