@@ -13,7 +13,9 @@ export const webhookApi = new Hono().post(
 		description: "Stripe Webhook",
 	}),
 	async (c) => {
-		const stripe = new Stripe(env.STRIPE_API_KEY);
+		const stripe = new Stripe(env.STRIPE_API_KEY, {
+			apiVersion: "2025-08-27.basil",
+		});
 		const signature = c.req.header("stripe-signature");
 		try {
 			if (!signature) {

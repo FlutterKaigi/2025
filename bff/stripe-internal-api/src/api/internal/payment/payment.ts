@@ -1,6 +1,5 @@
 import { env } from "cloudflare:workers";
-import { databaseSchema, getDatabase } from "@2025/database";
-import { eq } from "drizzle-orm";
+import { databaseSchema, eq, getDatabase } from "@2025/database";
 import { Hono } from "hono";
 import { describeRoute } from "hono-openapi";
 import { resolver, validator as vValidator } from "hono-openapi/valibot";
