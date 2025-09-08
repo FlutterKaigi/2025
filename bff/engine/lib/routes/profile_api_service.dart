@@ -100,13 +100,6 @@ class ProfileApiService {
       final currentProfile = await database.profile.getProfileWithSnsLinks(
         user.id,
       );
-      if (currentProfile == null) {
-        throw ErrorResponse.errorCode(
-          code: ErrorCode.notFound,
-          detail: 'プロファイルが見つかりません',
-        );
-      }
-
       // avatarKeyのバリデーション
       final updateAvatarKey = updateRequest.avatarKey;
       if (updateAvatarKey != null) {
@@ -138,7 +131,7 @@ class ProfileApiService {
 
       // アバターが変更されているかどうかを確認
       final newAvatarKey = updatedProfile.avatarKey;
-      final currentAvatarKey = currentProfile.profile.avatarKey;
+      final currentAvatarKey = currentProfile?.profile.avatarKey;
       if (newAvatarKey != currentAvatarKey &&
           newAvatarKey != null &&
           currentAvatarKey != null) {
