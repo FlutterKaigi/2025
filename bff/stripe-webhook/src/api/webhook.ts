@@ -1,5 +1,5 @@
 import { env } from "cloudflare:workers";
-import type { PaymentWorkflowApiType } from "@2025/payment-workflow-internal-api";
+import  { PaymentWorkflowApiClient  } from "@2025/payment-workflow-internal-api";
 import { Hono } from "hono";
 import { hc } from "hono/client";
 import { describeRoute } from "hono-openapi";
@@ -36,11 +36,11 @@ export const webhookApi = new Hono().post(
 				case "checkout.session.completed": {
 					const url = new URL(c.req.url);
 					const baseUrl = `${url.protocol}//${url.hostname}`;
-					const paymentWorkflowApiClient = hc<PaymentWorkflowApiType>(baseUrl, {
-						fetch: env.PAYMENT_WORKFLOW_INTERNAL_API.fetch.bind(
-							env.PAYMENT_WORKFLOW_INTERNAL_API,
-						),
-					});
+					const paymentWorkflowApiClient = PaymentWorkflowApiClient(baseUrl, {
+            fetch: env.PAYMENT_WORKFLOW_INTERNAL_API.fetch.bind(
+              env.PAYMENT_WORKFLOW_INTERNAL_API
+            ),
+          });
 					const response = await paymentWorkflowApiClient["payment-completion"][
 						":ticketCheckoutId"
 					].$put({
