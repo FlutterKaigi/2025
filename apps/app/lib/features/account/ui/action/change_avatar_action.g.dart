@@ -54,7 +54,7 @@ final class ChangeAvatarActionProvider
 }
 
 String _$changeAvatarActionHash() =>
-    r'3521a8f68e9064eae5e91da0a1e22c55a9688170';
+    r'04c02a57b40c650da65091ddad309ea4cf87b5be';
 
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
