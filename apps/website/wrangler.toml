@@ -3,6 +3,7 @@ name = "flutterkaigi-2025-website"
 account_id = "cdd8f59359fe226645e7b541cdc53b57"
 main = "bin/main.js"
 compatibility_date = "2025-04-23"
+preview_urls = true
 
 [assets]
 directory = "./build/jaspr"
