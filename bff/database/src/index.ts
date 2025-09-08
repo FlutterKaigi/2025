@@ -15,8 +15,6 @@ export const databaseSchema = {
 	...schema,
 };
 
-//
-
 export function getDatabase(postgresUrl: string) {
 	const db = drizzle(postgresUrl, { schema: databaseSchema, logger: true });
 	return db;
