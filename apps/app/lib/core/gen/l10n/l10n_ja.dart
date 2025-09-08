@@ -130,4 +130,11 @@ class L10nJa extends L10n {
 
   @override
   String get widgetBuildErrorGitHubButton => 'GitHub の Issue ページを開く';
+
+  @override
+  String get ticketNoticeTitle => 'ご注意';
+
+  @override
+  String get ticketNoticeMessage =>
+      '「個人スポンサーチケット」のみでは、FlutterKaigi 2025本編（カンファレンス会場）へのご入場はできません。\n入場をご希望の方は、アーリーチケット（9月末まで販売予定）またはノーマルチケットを別途ご購入ください。\nなお、「個人スポンサーチケット」は、入場を目的とせず FlutterKaigi を応援したい方のご支援も大歓迎です！\n\n前夜祭への参加は「アーリーチケット」のみが対象です。\nノーマルチケットでは前夜祭に参加できませんのでご注意ください。';
 }

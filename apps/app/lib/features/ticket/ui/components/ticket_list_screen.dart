@@ -1,4 +1,5 @@
 import 'package:app/core/designsystem/components/error_view.dart';
+import 'package:app/core/gen/l10n/l10n.dart';
 import 'package:app/features/auth/data/notifier/auth_notifier.dart';
 import 'package:app/features/ticket/data/notifier/ticket_notifier.dart';
 import 'package:app/features/ticket/data/provider/ticket_types_provider.dart';
@@ -114,6 +115,14 @@ class _TicketsListView extends HookWidget {
               child: Divider(),
             ),
 
+          // チケット購入に関する注意事項
+          const SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.all(16),
+              child: _TicketNoticeCallout(),
+            ),
+          ),
+
           if (tickets.isNotEmpty)
             SliverPadding(
               padding: const EdgeInsetsGeometry.symmetric(horizontal: 16),
@@ -143,6 +152,58 @@ class _TicketsListView extends HookWidget {
               ),
             ),
         ],
+      ),
+    );
+  }
+}
+
+/// チケット購入に関する注意事項
+class _TicketNoticeCallout extends StatelessWidget {
+  const _TicketNoticeCallout();
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = L10n.of(context);
+    final textTheme = Theme.of(context).textTheme;
+    const warningColor = Colors.amber;
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: warningColor.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: warningColor.withValues(alpha: 0.3),
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              children: [
+                const Icon(
+                  Icons.warning_amber_rounded,
+                  color: warningColor,
+                  size: 20,
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  l10n.ticketNoticeTitle,
+                  style: textTheme.titleSmall?.copyWith(
+                    color: warningColor,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Text(
+              l10n.ticketNoticeMessage,
+              style: textTheme.bodySmall,
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -326,6 +326,18 @@ abstract class L10n {
   /// In ja, this message translates to:
   /// **'GitHub の Issue ページを開く'**
   String get widgetBuildErrorGitHubButton;
+
+  /// No description provided for @ticketNoticeTitle.
+  ///
+  /// In ja, this message translates to:
+  /// **'ご注意'**
+  String get ticketNoticeTitle;
+
+  /// No description provided for @ticketNoticeMessage.
+  ///
+  /// In ja, this message translates to:
+  /// **'「個人スポンサーチケット」のみでは、FlutterKaigi 2025本編（カンファレンス会場）へのご入場はできません。\n入場をご希望の方は、アーリーチケット（9月末まで販売予定）またはノーマルチケットを別途ご購入ください。\nなお、「個人スポンサーチケット」は、入場を目的とせず FlutterKaigi を応援したい方のご支援も大歓迎です！\n\n前夜祭への参加は「アーリーチケット」のみが対象です。\nノーマルチケットでは前夜祭に参加できませんのでご注意ください。'**
+  String get ticketNoticeMessage;
 }
 
 class _L10nDelegate extends LocalizationsDelegate<L10n> {
