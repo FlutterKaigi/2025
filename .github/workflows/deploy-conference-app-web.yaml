@@ -87,7 +87,7 @@ jobs:
         id: build
         working-directory: apps/app
         run: |
-          if [ "$environment" = "production" ]; then
+          if [ "${{ needs.define-environment.outputs.environment }}" = "production" ]; then
             environment_file="environments/.env.prod"
           else
             environment_file="environments/.env.stg"
