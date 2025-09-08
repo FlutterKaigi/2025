@@ -2,12 +2,14 @@ import 'package:app/core/provider/environment.dart';
 import 'package:app/core/router/router.dart';
 import 'package:app/features/ticket/data/notifier/ticket_notifier.dart';
 import 'package:app/features/ticket/data/provider/ticket_types_provider.dart';
+import 'package:app/features/ticket/ui/components/ticket_card_description.dart';
 import 'package:bff_client/bff_client.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class TicketCheckoutSheet extends HookConsumerWidget {
@@ -46,17 +48,10 @@ class TicketCheckoutSheet extends HookConsumerWidget {
     final colorScheme = theme.colorScheme;
 
     // 利用可能なオプション一覧を取得
-    final availableOptions = ticketTypeItem.options
-        .where(
-          (option) => option.status.maybeMap(
-            selling: (_) => true,
-            orElse: () => false,
-          ),
-        )
-        .toList();
+    final options = ticketTypeItem.options.toList();
 
     // 総ステップ数を計算（チケット情報確認 + 各オプション + 決済確認）
-    final totalSteps = 2 + availableOptions.length;
+    final totalSteps = 2 + options.length;
 
     return Scaffold(
       appBar: AppBar(
@@ -74,7 +69,7 @@ class TicketCheckoutSheet extends HookConsumerWidget {
             details: details,
             currentStep: currentStep.value,
             totalSteps: totalSteps,
-            availableOptions: availableOptions,
+            availableOptions: options,
             selectedOptions: selectedOptions.value,
             isLoading: isLoading.value,
             onNext: () {
@@ -134,7 +129,7 @@ class TicketCheckoutSheet extends HookConsumerWidget {
         steps: _buildSteps(
           currentStep: currentStep.value,
           ticketTypeItem: ticketTypeItem,
-          availableOptions: availableOptions,
+          availableOptions: options,
           selectedOptions: selectedOptions.value,
           onOptionChanged: (optionId, value) {
             selectedOptions.value = {
@@ -282,69 +277,70 @@ class _TicketOptionStep extends StatelessWidget {
     final textTheme = theme.textTheme;
     final colorScheme = theme.colorScheme;
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      spacing: 16,
-      children: [
-        Card(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              spacing: 12,
-              children: [
-                Text(
-                  option.name,
-                  style: textTheme.titleLarge,
+    final textColor = colorScheme.onSurface;
+    final isSelling = option.status.maybeMap(
+      selling: (_) => true,
+      notSelling: (_) => true,
+      orElse: () => false,
+    );
+
+    final description = option.description;
+
+    return Card.outlined(
+      color: colorScheme.surfaceContainer,
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: SizedBox(
+          width: double.infinity,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: 12,
+            children: [
+              Text(
+                option.name,
+                style: textTheme.titleLarge?.copyWith(
+                  color: textColor,
                 ),
-                if (option.description?.isNotEmpty ?? false) ...[
-                  Text(
-                    option.description!,
-                    style: textTheme.bodyMedium,
+              ),
+              if (description?.isNotEmpty ?? false) ...[
+                Text(
+                  description!,
+                  style: textTheme.bodyMedium!.copyWith(
+                    color: textColor,
                   ),
-                ],
-                CheckboxListTile(
+                ),
+              ],
+              if (isSelling)
+                CheckboxListTile.adaptive(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
                   title: Text(
-                    'このオプションを追加する',
-                    style: textTheme.bodyLarge,
+                    isSelling ? 'このオプションを追加する' : 'このオプションは販売終了しました',
                   ),
-                  subtitle: isSelected ? const Text('選択済み') : const Text('未選択'),
+                  subtitle: isSelling
+                      ? isSelected
+                            ? const Text('選択済み')
+                            : const Text('未選択')
+                      : null,
                   value: isSelected,
+                  enableFeedback: true,
+                  enabled: isSelling,
                   onChanged: (value) => onChanged(value ?? false),
                   contentPadding: EdgeInsets.zero,
                   controlAffinity: ListTileControlAffinity.leading,
-                ),
-              ],
-            ),
-          ),
-        ),
-        Container(
-          width: double.infinity,
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: colorScheme.surfaceContainerHighest,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Row(
-            children: [
-              Icon(
-                Icons.info_outline,
-                size: 16,
-                color: colorScheme.onSurface.withValues(alpha: 0.6),
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  'このオプションが必要な場合はチェックしてください。',
-                  style: textTheme.bodySmall?.copyWith(
-                    color: colorScheme.onSurface.withValues(alpha: 0.6),
+                )
+              else
+                Text(
+                  'このオプションは完売しました',
+                  style: textTheme.bodyMedium?.copyWith(
+                    color: textColor,
                   ),
                 ),
-              ),
             ],
           ),
         ),
-      ],
+      ),
     );
   }
 }
@@ -363,14 +359,11 @@ class _TicketInfoStep extends StatelessWidget {
 
     final ticketType = ticketTypeItem.ticketType;
     final priceText =
-        '¥${ticketType.price.toString().replaceAllMapped(
-          RegExp(r'(\d)(?=(\d{3})+(?!\d))'),
-          (match) => '${match[1]},',
-        )}';
+        '¥${NumberFormat.decimalPattern().format(ticketType.price)}';
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      spacing: 16,
+      spacing: 8,
       children: [
         Card(
           child: Padding(
@@ -384,42 +377,38 @@ class _TicketInfoStep extends StatelessWidget {
                     Expanded(
                       child: Text(
                         ticketType.name,
-                        style: textTheme.titleLarge,
+                        style: textTheme.titleLarge!.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 4,
-                      ),
-                      decoration: BoxDecoration(
-                        color: ticketType.status.maybeMap(
-                          selling: (status) => status.isFewRemaining
-                              ? colorScheme.errorContainer
-                              : colorScheme.primaryContainer,
-                          soldOut: (_) => colorScheme.surfaceContainerHighest,
-                          notSelling: (_) =>
-                              colorScheme.surfaceContainerHighest,
-                          orElse: () => colorScheme.surfaceContainerHighest,
-                        ),
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      child: Text(
+                    RawChip(
+                      label: Text(
                         ticketType.status.map(
                           selling: (status) =>
                               status.isFewRemaining ? '残りわずか' : '販売中',
                           soldOut: (_) => '売り切れ',
                           notSelling: (_) => '販売終了',
                         ),
-                        style: textTheme.labelSmall,
+                      ),
+                      backgroundColor: ticketType.status.maybeMap(
+                        selling: (status) => status.isFewRemaining
+                            ? colorScheme.errorContainer
+                            : colorScheme.primaryContainer,
+                        soldOut: (_) => colorScheme.surfaceContainerHighest,
+                        notSelling: (_) => colorScheme.surfaceContainerHighest,
+                        orElse: () => colorScheme.surfaceContainerHighest,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
                       ),
                     ),
                   ],
                 ),
                 if (ticketType.description?.isNotEmpty ?? false) ...[
-                  Text(
-                    ticketType.description!,
-                    style: textTheme.bodyMedium,
+                  TicketCardDescription(
+                    description: ticketType.description!,
+                    color: colorScheme.onSurface,
                   ),
                 ],
                 Row(
@@ -477,139 +466,89 @@ class _CheckoutConfirmStep extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
-    final colorScheme = theme.colorScheme;
 
     final ticketType = ticketTypeItem.ticketType;
     final priceText =
-        '¥${ticketType.price.toString().replaceAllMapped(
-          RegExp(r'(\d)(?=(\d{3})+(?!\d))'),
-          (match) => '${match[1]},',
-        )}';
+        '¥${NumberFormat.decimalPattern().format(ticketType.price)}';
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      spacing: 16,
-      children: [
-        Text(
-          '購入内容を確認してください：',
-          style: textTheme.titleMedium,
-        ),
-        Card(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              spacing: 12,
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          spacing: 12,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'チケット',
-                      style: textTheme.labelLarge,
-                    ),
-                    Text(
-                      ticketType.name,
-                      style: textTheme.bodyLarge,
-                    ),
-                  ],
+                Text(
+                  'チケット',
+                  style: textTheme.labelLarge,
                 ),
-                // 選択されたオプション（チェック済みのものだけ表示）
-                ...() {
-                  final checkedOptions = selectedOptions.entries
-                      .where((entry) => entry.value)
-                      .toList();
-
-                  if (checkedOptions.isEmpty) {
-                    return <Widget>[];
-                  }
-
-                  return [
-                    const Divider(),
-                    Text(
-                      '追加オプション',
-                      style: textTheme.labelLarge,
-                    ),
-                    ...checkedOptions.map((entry) {
-                      final option = ticketTypeItem.options.firstWhereOrNull(
-                        (opt) => opt.id == entry.key,
-                      );
-                      return Padding(
-                        padding: const EdgeInsets.only(left: 8),
-                        child: Row(
-                          children: [
-                            const Icon(
-                              Icons.check_circle,
-                              size: 16,
-                              color: Colors.green,
-                            ),
-                            const SizedBox(width: 8),
-                            Expanded(
-                              child: Text(option?.name ?? entry.key),
-                            ),
-                          ],
-                        ),
-                      );
-                    }),
-                  ];
-                }(),
-                const Divider(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      '合計',
-                      style: textTheme.titleMedium,
-                    ),
-                    Text(
-                      priceText,
-                      style: textTheme.headlineSmall?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
+                Text(
+                  ticketType.name,
+                  style: textTheme.bodyLarge,
                 ),
               ],
             ),
-          ),
-        ),
-        Container(
-          width: double.infinity,
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: colorScheme.primaryContainer,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            spacing: 8,
-            children: [
-              Row(
-                children: [
-                  Icon(
-                    Icons.info_outline,
-                    size: 20,
-                    color: colorScheme.onPrimaryContainer,
-                  ),
-                  const SizedBox(width: 8),
-                  Text(
-                    '決済について',
-                    style: textTheme.labelLarge?.copyWith(
-                      color: colorScheme.onPrimaryContainer,
-                    ),
-                  ),
-                ],
-              ),
-              Text(
-                '「決済を開始」ボタンを押すと、Stripeの決済ページに遷移します。',
-                style: textTheme.bodySmall?.copyWith(
-                  color: colorScheme.onPrimaryContainer,
+            // 選択されたオプション（チェック済みのものだけ表示）
+            ...() {
+              final checkedOptions = selectedOptions.entries
+                  .where((entry) => entry.value)
+                  .toList();
+
+              if (checkedOptions.isEmpty) {
+                return <Widget>[];
+              }
+
+              return [
+                const Divider(),
+                Text(
+                  '追加オプション',
+                  style: textTheme.labelLarge,
                 ),
-              ),
-            ],
-          ),
+                ...checkedOptions.map((entry) {
+                  final option = ticketTypeItem.options.firstWhereOrNull(
+                    (opt) => opt.id == entry.key,
+                  );
+                  return Padding(
+                    padding: const EdgeInsets.only(left: 8),
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.check_circle,
+                          size: 16,
+                          color: Colors.green,
+                        ),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Text(option?.name ?? entry.key),
+                        ),
+                      ],
+                    ),
+                  );
+                }),
+              ];
+            }(),
+            const Divider(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  '合計',
+                  style: textTheme.titleMedium,
+                ),
+                Text(
+                  priceText,
+                  style: textTheme.headlineSmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }

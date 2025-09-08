@@ -1,3 +1,4 @@
+import 'package:app/features/ticket/ui/components/ticket_card_description.dart';
 import 'package:bff_client/bff_client.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -43,11 +44,9 @@ class TicketTypeCard extends StatelessWidget {
                         style: theme.textTheme.titleLarge,
                       ),
                       if (ticketType.description?.isNotEmpty ?? false)
-                        Text(
-                          ticketType.description!,
-                          style: theme.textTheme.bodyMedium?.copyWith(
-                            color: colorScheme.onSurfaceVariant,
-                          ),
+                        TicketCardDescription(
+                          description: ticketType.description!,
+                          color: colorScheme.onSurface,
                         ),
                     ],
                   ),
