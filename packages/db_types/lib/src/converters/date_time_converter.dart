@@ -9,10 +9,13 @@ class DateTimeConverter implements JsonConverter<DateTime?, dynamic> {
       return null;
     }
     if (json is DateTime) {
-      return json;
+      return fromJson(json.toIso8601String());
     }
     if (json is String) {
-      return DateTime.parse(json);
+      if (json.contains('Z') || json.contains('+')) {
+        return DateTime.parse(json);
+      }
+      return DateTime.parse('${json}Z');
     }
     throw ArgumentError(
       'Expected DateTime, String, or null, got ${json.runtimeType}',
@@ -34,10 +37,13 @@ class RequiredDateTimeConverter implements JsonConverter<DateTime, dynamic> {
       throw ArgumentError('Required DateTime field cannot be null');
     }
     if (json is DateTime) {
-      return json;
+      return fromJson(json.toIso8601String());
     }
     if (json is String) {
-      return DateTime.parse(json);
+      if (json.contains('Z') || json.contains('+')) {
+        return DateTime.parse(json);
+      }
+      return DateTime.parse('${json}Z');
     }
     throw ArgumentError('Expected DateTime or String, got ${json.runtimeType}');
   }

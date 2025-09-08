@@ -6,7 +6,7 @@ import { logger } from "hono/logger";
 import { proxy } from "hono/proxy";
 import { secureHeaders } from "hono/secure-headers";
 import { timingSafeEqual } from "hono/utils/buffer";
-import { openAPISpecs } from "hono-openapi";
+import { openAPIRouteHandler } from "hono-openapi";
 import * as v from "valibot";
 
 const app = new Hono<{
@@ -89,7 +89,7 @@ const app = new Hono<{
 
 app.get(
   "/openapi",
-  openAPISpecs(app, {
+  openAPIRouteHandler(app, {
     documentation: {
       info: {
         title: "Internal API Proxy",

@@ -2,7 +2,7 @@ import { Scalar } from "@scalar/hono-api-reference";
 import { Hono } from "hono";
 import { logger } from "hono/logger";
 import { secureHeaders } from "hono/secure-headers";
-import { openAPISpecs } from "hono-openapi";
+import { openAPIRouteHandler } from "hono-openapi";
 import { webhookApi } from "./api/webhook";
 
 const app = new Hono<{
@@ -15,7 +15,7 @@ const app = new Hono<{
 
 app.get(
 	"/openapi",
-	openAPISpecs(app, {
+	openAPIRouteHandler(app, {
 		documentation: {
 			info: {
 				title: "Stripe Webhook API",

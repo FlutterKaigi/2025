@@ -1,6 +1,8 @@
 import { drizzle } from "drizzle-orm/node-postgres";
 
+export * from "drizzle-orm";
 export * from "drizzle-orm/node-postgres";
+export { drizzle } from "drizzle-orm/node-postgres";
 export * from "./function/createTicketCheckout";
 export * from "./function/getTicketCount";
 export * from "./function/getTicketOptionCount";

@@ -24,7 +24,7 @@
       "services": [
         {
           "binding": "PAYMENT_WORKFLOW_API",
-          "service": "payment-workflow-staging",
+          "service": "payment-workflow-internal-api-staging",
         },
       ],
     },
@@ -36,7 +36,7 @@
       "services": [
         {
           "binding": "PAYMENT_WORKFLOW_API",
-          "service": "payment-workflow-production",
+          "service": "payment-workflow-internal-api-production",
         },
       ],
     },

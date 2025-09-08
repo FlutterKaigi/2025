@@ -38,16 +38,12 @@ import {
 	usersInAuth,
 } from "./schema";
 
-export const samlRelayStatesInAuthRelations = relations(
-	samlRelayStatesInAuth,
+export const ssoDomainsInAuthRelations = relations(
+	ssoDomainsInAuth,
 	({ one }) => ({
 		ssoProvidersInAuth: one(ssoProvidersInAuth, {
-			fields: [samlRelayStatesInAuth.ssoProviderId],
+			fields: [ssoDomainsInAuth.ssoProviderId],
 			references: [ssoProvidersInAuth.id],
-		}),
-		flowStateInAuth: one(flowStateInAuth, {
-			fields: [samlRelayStatesInAuth.flowStateId],
-			references: [flowStateInAuth.id],
 		}),
 	}),
 );
@@ -55,9 +51,69 @@ export const samlRelayStatesInAuthRelations = relations(
 export const ssoProvidersInAuthRelations = relations(
 	ssoProvidersInAuth,
 	({ many }) => ({
-		samlRelayStatesInAuths: many(samlRelayStatesInAuth),
 		ssoDomainsInAuths: many(ssoDomainsInAuth),
+		samlRelayStatesInAuths: many(samlRelayStatesInAuth),
 		samlProvidersInAuths: many(samlProvidersInAuth),
+	}),
+);
+
+export const mfaAmrClaimsInAuthRelations = relations(
+	mfaAmrClaimsInAuth,
+	({ one }) => ({
+		sessionsInAuth: one(sessionsInAuth, {
+			fields: [mfaAmrClaimsInAuth.sessionId],
+			references: [sessionsInAuth.id],
+		}),
+	}),
+);
+
+export const sessionsInAuthRelations = relations(
+	sessionsInAuth,
+	({ one, many }) => ({
+		mfaAmrClaimsInAuths: many(mfaAmrClaimsInAuth),
+		refreshTokensInAuths: many(refreshTokensInAuth),
+		usersInAuth: one(usersInAuth, {
+			fields: [sessionsInAuth.userId],
+			references: [usersInAuth.id],
+		}),
+	}),
+);
+
+export const usersRelations = relations(users, ({ one, many }) => ({
+	usersInAuth: one(usersInAuth, {
+		fields: [users.id],
+		references: [usersInAuth.id],
+	}),
+	individuals: many(individuals),
+	ticketPurchases: many(ticketPurchases),
+	companyDraftApprovals: many(companyDraftApprovals),
+	ticketCheckoutSessions: many(ticketCheckoutSessions),
+	individualDraftApprovals: many(individualDraftApprovals),
+	userRoles: many(userRoles),
+	companyMembers: many(companyMembers),
+}));
+
+export const usersInAuthRelations = relations(usersInAuth, ({ many }) => ({
+	users: many(users),
+	sessionsInAuths: many(sessionsInAuth),
+	identitiesInAuths: many(identitiesInAuth),
+	oneTimeTokensInAuths: many(oneTimeTokensInAuth),
+	mfaFactorsInAuths: many(mfaFactorsInAuth),
+	profiles: many(profiles),
+	userSnsLinks: many(userSnsLinks),
+}));
+
+export const samlRelayStatesInAuthRelations = relations(
+	samlRelayStatesInAuth,
+	({ one }) => ({
+		flowStateInAuth: one(flowStateInAuth, {
+			fields: [samlRelayStatesInAuth.flowStateId],
+			references: [flowStateInAuth.id],
+		}),
+		ssoProvidersInAuth: one(ssoProvidersInAuth, {
+			fields: [samlRelayStatesInAuth.ssoProviderId],
+			references: [ssoProvidersInAuth.id],
+		}),
 	}),
 );
 
@@ -73,48 +129,6 @@ export const refreshTokensInAuthRelations = relations(
 	({ one }) => ({
 		sessionsInAuth: one(sessionsInAuth, {
 			fields: [refreshTokensInAuth.sessionId],
-			references: [sessionsInAuth.id],
-		}),
-	}),
-);
-
-export const sessionsInAuthRelations = relations(
-	sessionsInAuth,
-	({ one, many }) => ({
-		refreshTokensInAuths: many(refreshTokensInAuth),
-		usersInAuth: one(usersInAuth, {
-			fields: [sessionsInAuth.userId],
-			references: [usersInAuth.id],
-		}),
-		mfaAmrClaimsInAuths: many(mfaAmrClaimsInAuth),
-	}),
-);
-
-export const usersInAuthRelations = relations(usersInAuth, ({ many }) => ({
-	sessionsInAuths: many(sessionsInAuth),
-	identitiesInAuths: many(identitiesInAuth),
-	oneTimeTokensInAuths: many(oneTimeTokensInAuth),
-	mfaFactorsInAuths: many(mfaFactorsInAuth),
-	users: many(users),
-	profiles: many(profiles),
-	userSnsLinks: many(userSnsLinks),
-}));
-
-export const ssoDomainsInAuthRelations = relations(
-	ssoDomainsInAuth,
-	({ one }) => ({
-		ssoProvidersInAuth: one(ssoProvidersInAuth, {
-			fields: [ssoDomainsInAuth.ssoProviderId],
-			references: [ssoProvidersInAuth.id],
-		}),
-	}),
-);
-
-export const mfaAmrClaimsInAuthRelations = relations(
-	mfaAmrClaimsInAuth,
-	({ one }) => ({
-		sessionsInAuth: one(sessionsInAuth, {
-			fields: [mfaAmrClaimsInAuth.sessionId],
 			references: [sessionsInAuth.id],
 		}),
 	}),
@@ -171,26 +185,74 @@ export const mfaChallengesInAuthRelations = relations(
 	}),
 );
 
+export const ticketOptionsRelations = relations(
+	ticketOptions,
+	({ one, many }) => ({
+		ticketType: one(ticketTypes, {
+			fields: [ticketOptions.ticketTypeId],
+			references: [ticketTypes.id],
+		}),
+		ticketPurchaseOptions: many(ticketPurchaseOptions),
+		ticketCheckoutOptions: many(ticketCheckoutOptions),
+	}),
+);
+
+export const ticketTypesRelations = relations(ticketTypes, ({ many }) => ({
+	ticketOptions: many(ticketOptions),
+	ticketPurchases: many(ticketPurchases),
+	ticketCheckoutSessions: many(ticketCheckoutSessions),
+}));
+
+export const ticketPurchaseOptionsRelations = relations(
+	ticketPurchaseOptions,
+	({ one }) => ({
+		ticketOption: one(ticketOptions, {
+			fields: [ticketPurchaseOptions.ticketOptionId],
+			references: [ticketOptions.id],
+		}),
+		ticketPurchase: one(ticketPurchases, {
+			fields: [ticketPurchaseOptions.ticketPurchaseId],
+			references: [ticketPurchases.id],
+		}),
+	}),
+);
+
+export const ticketPurchasesRelations = relations(
+	ticketPurchases,
+	({ one, many }) => ({
+		ticketPurchaseOptions: many(ticketPurchaseOptions),
+		ticketType: one(ticketTypes, {
+			fields: [ticketPurchases.ticketTypeId],
+			references: [ticketTypes.id],
+		}),
+		user: one(users, {
+			fields: [ticketPurchases.userId],
+			references: [users.id],
+		}),
+	}),
+);
+
 export const individualsRelations = relations(individuals, ({ one, many }) => ({
 	user: one(users, {
 		fields: [individuals.userId],
 		references: [users.id],
 	}),
-	sponsorIndividuals: many(sponsorIndividuals),
 	individualDrafts: many(individualDrafts),
+	sponsorIndividuals: many(sponsorIndividuals),
 }));
 
-export const usersRelations = relations(users, ({ one, many }) => ({
-	individuals: many(individuals),
-	companyDraftApprovals: many(companyDraftApprovals),
-	individualDraftApprovals: many(individualDraftApprovals),
-	usersInAuth: one(usersInAuth, {
-		fields: [users.id],
-		references: [usersInAuth.id],
+export const jobBoardsRelations = relations(jobBoards, ({ one }) => ({
+	company: one(companies, {
+		fields: [jobBoards.id],
+		references: [companies.id],
 	}),
-	ticketPurchases: many(ticketPurchases),
-	ticketCheckoutSessions: many(ticketCheckoutSessions),
-	userRoles: many(userRoles),
+}));
+
+export const companiesRelations = relations(companies, ({ many }) => ({
+	jobBoards: many(jobBoards),
+	companyInvitations: many(companyInvitation),
+	sponsorCompanies: many(sponsorCompanies),
+	companyDrafts: many(companyDrafts),
 	companyMembers: many(companyMembers),
 }));
 
@@ -219,6 +281,84 @@ export const companyDraftsRelations = relations(
 	}),
 );
 
+export const basicSponsorCompaniesRelations = relations(
+	basicSponsorCompanies,
+	({ one }) => ({
+		sponsorCompany: one(sponsorCompanies, {
+			fields: [basicSponsorCompanies.sponsorCompanyId],
+			references: [sponsorCompanies.id],
+		}),
+	}),
+);
+
+export const sponsorCompaniesRelations = relations(
+	sponsorCompanies,
+	({ one, many }) => ({
+		basicSponsorCompanies: many(basicSponsorCompanies),
+		company: one(companies, {
+			fields: [sponsorCompanies.companyId],
+			references: [companies.id],
+		}),
+		sponsorCompanyOptions: many(sponsorCompanyOptions),
+	}),
+);
+
+export const companyInvitationRelations = relations(
+	companyInvitation,
+	({ one }) => ({
+		company: one(companies, {
+			fields: [companyInvitation.companyId],
+			references: [companies.id],
+		}),
+	}),
+);
+
+export const ticketCheckoutSessionsRelations = relations(
+	ticketCheckoutSessions,
+	({ one, many }) => ({
+		ticketType: one(ticketTypes, {
+			fields: [ticketCheckoutSessions.ticketTypeId],
+			references: [ticketTypes.id],
+		}),
+		user: one(users, {
+			fields: [ticketCheckoutSessions.userId],
+			references: [users.id],
+		}),
+		ticketCheckoutOptions: many(ticketCheckoutOptions),
+	}),
+);
+
+export const ticketCheckoutOptionsRelations = relations(
+	ticketCheckoutOptions,
+	({ one }) => ({
+		ticketCheckoutSession: one(ticketCheckoutSessions, {
+			fields: [ticketCheckoutOptions.checkoutSessionId],
+			references: [ticketCheckoutSessions.id],
+		}),
+		ticketOption: one(ticketOptions, {
+			fields: [ticketCheckoutOptions.ticketOptionId],
+			references: [ticketOptions.id],
+		}),
+	}),
+);
+
+export const sponsorCompanyOptionsRelations = relations(
+	sponsorCompanyOptions,
+	({ one }) => ({
+		sponsorCompany: one(sponsorCompanies, {
+			fields: [sponsorCompanyOptions.sponsorCompanyId],
+			references: [sponsorCompanies.id],
+		}),
+	}),
+);
+
+export const profilesRelations = relations(profiles, ({ one }) => ({
+	usersInAuth: one(usersInAuth, {
+		fields: [profiles.id],
+		references: [usersInAuth.id],
+	}),
+}));
+
 export const individualDraftApprovalsRelations = relations(
 	individualDraftApprovals,
 	({ one }) => ({
@@ -244,6 +384,13 @@ export const individualDraftsRelations = relations(
 	}),
 );
 
+export const userSnsLinksRelations = relations(userSnsLinks, ({ one }) => ({
+	usersInAuth: one(usersInAuth, {
+		fields: [userSnsLinks.userId],
+		references: [usersInAuth.id],
+	}),
+}));
+
 export const sponsorIndividualsRelations = relations(
 	sponsorIndividuals,
 	({ one }) => ({
@@ -253,153 +400,6 @@ export const sponsorIndividualsRelations = relations(
 		}),
 	}),
 );
-
-export const companyInvitationRelations = relations(
-	companyInvitation,
-	({ one }) => ({
-		company: one(companies, {
-			fields: [companyInvitation.companyId],
-			references: [companies.id],
-		}),
-	}),
-);
-
-export const companiesRelations = relations(companies, ({ many }) => ({
-	companyInvitations: many(companyInvitation),
-	jobBoards: many(jobBoards),
-	companyDrafts: many(companyDrafts),
-	sponsorCompanies: many(sponsorCompanies),
-	companyMembers: many(companyMembers),
-}));
-
-export const ticketPurchaseOptionsRelations = relations(
-	ticketPurchaseOptions,
-	({ one }) => ({
-		ticketOption: one(ticketOptions, {
-			fields: [ticketPurchaseOptions.ticketOptionId],
-			references: [ticketOptions.id],
-		}),
-		ticketPurchase: one(ticketPurchases, {
-			fields: [ticketPurchaseOptions.ticketPurchaseId],
-			references: [ticketPurchases.id],
-		}),
-	}),
-);
-
-export const ticketOptionsRelations = relations(
-	ticketOptions,
-	({ one, many }) => ({
-		ticketPurchaseOptions: many(ticketPurchaseOptions),
-		ticketCheckoutOptions: many(ticketCheckoutOptions),
-		ticketType: one(ticketTypes, {
-			fields: [ticketOptions.ticketTypeId],
-			references: [ticketTypes.id],
-		}),
-	}),
-);
-
-export const ticketPurchasesRelations = relations(
-	ticketPurchases,
-	({ one, many }) => ({
-		ticketPurchaseOptions: many(ticketPurchaseOptions),
-		ticketType: one(ticketTypes, {
-			fields: [ticketPurchases.ticketTypeId],
-			references: [ticketTypes.id],
-		}),
-		user: one(users, {
-			fields: [ticketPurchases.userId],
-			references: [users.id],
-		}),
-	}),
-);
-
-export const ticketTypesRelations = relations(ticketTypes, ({ many }) => ({
-	ticketPurchases: many(ticketPurchases),
-	ticketCheckoutSessions: many(ticketCheckoutSessions),
-	ticketOptions: many(ticketOptions),
-}));
-
-export const ticketCheckoutOptionsRelations = relations(
-	ticketCheckoutOptions,
-	({ one }) => ({
-		ticketCheckoutSession: one(ticketCheckoutSessions, {
-			fields: [ticketCheckoutOptions.checkoutSessionId],
-			references: [ticketCheckoutSessions.id],
-		}),
-		ticketOption: one(ticketOptions, {
-			fields: [ticketCheckoutOptions.ticketOptionId],
-			references: [ticketOptions.id],
-		}),
-	}),
-);
-
-export const ticketCheckoutSessionsRelations = relations(
-	ticketCheckoutSessions,
-	({ one, many }) => ({
-		ticketCheckoutOptions: many(ticketCheckoutOptions),
-		ticketType: one(ticketTypes, {
-			fields: [ticketCheckoutSessions.ticketTypeId],
-			references: [ticketTypes.id],
-		}),
-		user: one(users, {
-			fields: [ticketCheckoutSessions.userId],
-			references: [users.id],
-		}),
-	}),
-);
-
-export const basicSponsorCompaniesRelations = relations(
-	basicSponsorCompanies,
-	({ one }) => ({
-		sponsorCompany: one(sponsorCompanies, {
-			fields: [basicSponsorCompanies.sponsorCompanyId],
-			references: [sponsorCompanies.id],
-		}),
-	}),
-);
-
-export const sponsorCompaniesRelations = relations(
-	sponsorCompanies,
-	({ one, many }) => ({
-		basicSponsorCompanies: many(basicSponsorCompanies),
-		sponsorCompanyOptions: many(sponsorCompanyOptions),
-		company: one(companies, {
-			fields: [sponsorCompanies.companyId],
-			references: [companies.id],
-		}),
-	}),
-);
-
-export const sponsorCompanyOptionsRelations = relations(
-	sponsorCompanyOptions,
-	({ one }) => ({
-		sponsorCompany: one(sponsorCompanies, {
-			fields: [sponsorCompanyOptions.sponsorCompanyId],
-			references: [sponsorCompanies.id],
-		}),
-	}),
-);
-
-export const jobBoardsRelations = relations(jobBoards, ({ one }) => ({
-	company: one(companies, {
-		fields: [jobBoards.id],
-		references: [companies.id],
-	}),
-}));
-
-export const profilesRelations = relations(profiles, ({ one }) => ({
-	usersInAuth: one(usersInAuth, {
-		fields: [profiles.id],
-		references: [usersInAuth.id],
-	}),
-}));
-
-export const userSnsLinksRelations = relations(userSnsLinks, ({ one }) => ({
-	usersInAuth: one(usersInAuth, {
-		fields: [userSnsLinks.userId],
-		references: [usersInAuth.id],
-	}),
-}));
 
 export const userRolesRelations = relations(userRoles, ({ one }) => ({
 	user: one(users, {

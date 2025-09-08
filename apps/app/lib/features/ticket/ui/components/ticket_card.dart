@@ -1,4 +1,5 @@
 import 'package:app/features/ticket/data/notifier/ticket_notifier.dart';
+import 'package:app/features/ticket/ui/components/ticket_card_description.dart';
 import 'package:bff_client/bff_client.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -37,11 +38,9 @@ class TicketCard extends StatelessWidget {
                   style: theme.textTheme.titleLarge,
                 ),
                 if (ticket.ticketType.description?.isNotEmpty ?? false)
-                  Text(
-                    ticket.ticketType.description!,
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      color: colorScheme.onSurfaceVariant,
-                    ),
+                  TicketCardDescription(
+                    description: ticket.ticketType.description!,
+                    color: colorScheme.onSurface,
                   ),
               ],
             ),
@@ -145,7 +144,7 @@ class _TicketOptions extends StatelessWidget {
         Text(
           'オプション:',
           style: theme.textTheme.bodyMedium?.copyWith(
-            fontWeight: FontWeight.w500,
+            color: colorScheme.onSurface,
           ),
         ),
         ...options.map(
@@ -157,12 +156,14 @@ class _TicketOptions extends StatelessWidget {
                 Icon(
                   Icons.circle,
                   size: 4,
-                  color: colorScheme.onSurfaceVariant,
+                  color: colorScheme.onSurface,
                 ),
                 Expanded(
                   child: Text(
                     option.name,
-                    style: theme.textTheme.bodySmall,
+                    style: theme.textTheme.bodySmall!.copyWith(
+                      color: colorScheme.onSurface,
+                    ),
                   ),
                 ),
               ],

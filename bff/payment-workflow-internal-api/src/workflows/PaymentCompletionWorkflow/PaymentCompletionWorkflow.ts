@@ -43,81 +43,79 @@ export class PaymentCompletionWorkflow extends WorkflowEntrypoint<
 			return result;
 		});
 
-		// ticket_checkoutを購入済みとしてマーク
-		await step.do("mark_ticket_checkout_as_purchased", async () => {
-			const db = getDatabase(this.env.HYPERDRIVE.connectionString);
-			const result = await db
-				.update(databaseSchema.ticketCheckoutSessions)
-				.set({
-					status: "completed",
-				})
-				.where(
-					eq(
-						databaseSchema.ticketCheckoutSessions.id,
-						parameter.ticketCheckoutId,
-					),
-				);
-			if (result.rowCount === 0) {
-				throw new Error("Ticket checkout not found");
-			}
-		});
-
-		// ticket, ticket_optionsテーブルにチケット作成
-		const ticketAndOptions = await step.do("create_ticket", async () => {
-			const db = getDatabase(this.env.HYPERDRIVE.connectionString);
-			const result = await db.transaction(async (tx) => {
-				// チケット作成
-				const tickets = await tx
-					.insert(databaseSchema.ticketPurchases)
-					.values([
-						{
-							userId: ticketCheckout.user.id,
-							ticketTypeId: ticketCheckout.ticketType.id,
+		const ticketAndOptions = await step.do(
+			"mark_ticket_checkout_as_purchased_and_create_ticket",
+			async () => {
+				const db = getDatabase(this.env.HYPERDRIVE.connectionString);
+				const result = await db.transaction(async (tx) => {
+					// ticket_checkoutを購入済みとしてマーク
+					const result = await tx
+						.update(databaseSchema.ticketCheckoutSessions)
+						.set({
 							status: "completed",
-							stripePaymentIntentId: paymentIntent.id,
+						})
+						.where(
+							eq(
+								databaseSchema.ticketCheckoutSessions.id,
+								parameter.ticketCheckoutId,
+							),
+						);
+					if (result.rowCount === 0) {
+						throw new Error("Ticket checkout not found");
+					}
+					// チケット作成
+					const tickets = await tx
+						.insert(databaseSchema.ticketPurchases)
+						.values([
+							{
+								userId: ticketCheckout.user.id,
+								ticketTypeId: ticketCheckout.ticketType.id,
+								status: "completed",
+								stripePaymentIntentId: paymentIntent.id,
+							},
+						])
+						.returning();
+					if (tickets.length !== 1) {
+						throw new Error(`Ticket not created: ${tickets}`);
+					}
+					const ticket = tickets[0];
+
+					// チケットオプション作成
+					const ticketOptionInserts = ticketCheckout.ticketCheckoutOptions.map(
+						(option) => {
+							return {
+								ticketOptionId: option.ticketOptionId,
+								ticketPurchaseId: ticket.id,
+							} satisfies InferInsertModel<
+								typeof databaseSchema.ticketPurchaseOptions
+							>;
 						},
-					])
-					.returning();
-				if (tickets.length !== 1) {
-					throw new Error(`Ticket not created: ${tickets}`);
-				}
-				const ticket = tickets[0];
-
-				// チケットオプション作成
-				const ticketOptionInserts = ticketCheckout.ticketCheckoutOptions.map(
-					(option) => {
-						return {
-							ticketOptionId: option.id,
-							ticketPurchaseId: ticket.id,
-						} satisfies InferInsertModel<
-							typeof databaseSchema.ticketPurchaseOptions
-						>;
-					},
-				);
-				const ticketOptions: {
-					id: string;
-					createdAt: string;
-					updatedAt: string;
-					ticketPurchaseId: string;
-					ticketOptionId: string;
-					optionValue: string | null;
-				}[] = [];
-				if (ticketOptionInserts.length > 0) {
-					ticketOptions.push(
-						...(await tx
-							.insert(databaseSchema.ticketPurchaseOptions)
-							.values(ticketOptionInserts)
-							.returning()),
 					);
-				}
+					const ticketOptions: {
+						id: string;
+						createdAt: string;
+						updatedAt: string;
+						ticketPurchaseId: string;
+						ticketOptionId: string;
+						optionValue: string | null;
+					}[] = [];
+					if (ticketOptionInserts.length > 0) {
+						ticketOptions.push(
+							...(await tx
+								.insert(databaseSchema.ticketPurchaseOptions)
+								.values(ticketOptionInserts)
+								.returning()),
+						);
+					}
 
-				return {
-					ticket,
-					ticketOptions,
-				};
-			});
-			return result;
-		});
+					return {
+						ticket,
+						ticketOptions,
+					};
+				});
+				return result;
+			},
+		);
 		console.log(ticketAndOptions);
 
 		// TODO(YumNumm): Emailを送信する

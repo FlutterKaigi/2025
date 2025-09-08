@@ -1,7 +1,7 @@
 import { env } from "cloudflare:workers";
+import { vValidator } from "@hono/valibot-validator";
 import { Hono } from "hono";
-import { describeRoute } from "hono-openapi";
-import { resolver, validator as vValidator } from "hono-openapi/valibot";
+import { describeRoute, resolver } from "hono-openapi";
 import type Stripe from "stripe";
 import * as v from "valibot";
 import type { PaymentCompletionWorkflowParam } from "../workflows/PaymentCompletionWorkflow/PaymentCompletionWorkflowParam";

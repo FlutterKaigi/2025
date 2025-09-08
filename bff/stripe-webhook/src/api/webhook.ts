@@ -1,7 +1,6 @@
 import { env } from "cloudflare:workers";
-import type { PaymentWorkflowApiType } from "@2025/payment-workflow-internal-api";
+import { PaymentWorkflowApiClient } from "@2025/payment-workflow-internal-api";
 import { Hono } from "hono";
-import { hc } from "hono/client";
 import { describeRoute } from "hono-openapi";
 import Stripe from "stripe";
 import * as v from "valibot";
@@ -13,7 +12,9 @@ export const webhookApi = new Hono().post(
 		description: "Stripe Webhook",
 	}),
 	async (c) => {
-		const stripe = new Stripe(env.STRIPE_API_KEY);
+		const stripe = new Stripe(env.STRIPE_API_KEY, {
+			apiVersion: "2025-08-27.basil",
+		});
 		const signature = c.req.header("stripe-signature");
 		try {
 			if (!signature) {
@@ -34,7 +35,7 @@ export const webhookApi = new Hono().post(
 				case "checkout.session.completed": {
 					const url = new URL(c.req.url);
 					const baseUrl = `${url.protocol}//${url.hostname}`;
-					const paymentWorkflowApiClient = hc<PaymentWorkflowApiType>(baseUrl, {
+					const paymentWorkflowApiClient = PaymentWorkflowApiClient(baseUrl, {
 						fetch: env.PAYMENT_WORKFLOW_INTERNAL_API.fetch.bind(
 							env.PAYMENT_WORKFLOW_INTERNAL_API,
 						),
