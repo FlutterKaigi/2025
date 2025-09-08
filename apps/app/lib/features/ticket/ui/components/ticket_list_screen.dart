@@ -114,6 +114,14 @@ class _TicketsListView extends HookWidget {
               child: Divider(),
             ),
 
+          // チケット購入に関する注意事項
+          const SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.all(16),
+              child: _TicketNoticeCallout(),
+            ),
+          ),
+
           if (tickets.isNotEmpty)
             SliverPadding(
               padding: const EdgeInsetsGeometry.symmetric(horizontal: 16),
@@ -143,6 +151,59 @@ class _TicketsListView extends HookWidget {
               ),
             ),
         ],
+      ),
+    );
+  }
+}
+
+/// チケット購入に関する注意事項
+class _TicketNoticeCallout extends StatelessWidget {
+  const _TicketNoticeCallout();
+
+  @override
+  Widget build(BuildContext context) {
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: Colors.amber.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: Colors.amber.withValues(alpha: 0.3),
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              children: [
+                const Icon(
+                  Icons.warning_amber_rounded,
+                  color: Colors.amber,
+                  size: 20,
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  'ご注意',
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                    color: Colors.amber,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Text(
+              '「個人スポンサーチケット」のみでは、FlutterKaigi 2025本編（カンファレンス会場）へのご入場はできません。\n'
+              '入場をご希望の方は、アーリーチケット（9月末まで販売予定）またはノーマルチケットを別途ご購入ください。\n'
+              'なお、「個人スポンサーチケット」は、入場を目的とせず FlutterKaigi を応援したい方のご支援も大歓迎です！\n\n'
+              '前夜祭への参加は「アーリーチケット」のみが対象です。\n'
+              'ノーマルチケットでは前夜祭に参加できませんのでご注意ください。',
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+          ],
+        ),
       ),
     );
   }
