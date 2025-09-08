@@ -7,6 +7,7 @@ import 'package:app/features/ticket/ui/components/login_before_purchase_card.dar
 import 'package:app/features/ticket/ui/components/ticket_card.dart';
 import 'package:app/features/ticket/ui/components/ticket_checkout_sheet.dart';
 import 'package:app/features/ticket/ui/components/ticket_type_card.dart';
+import 'package:app/features/ticket/ui/components/student_refund_card.dart';
 import 'package:bff_client/bff_client.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -120,6 +121,14 @@ class _TicketsListView extends HookWidget {
             child: Padding(
               padding: EdgeInsets.all(16),
               child: _TicketNoticeCallout(),
+            ),
+          ),
+
+          // 学生向け返金・費用補助について
+          const SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: StudentRefundCard(),
             ),
           ),
 
