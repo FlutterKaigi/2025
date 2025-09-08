@@ -119,7 +119,7 @@ class _TicketsListView extends HookWidget {
           // チケット購入に関する注意事項
           const SliverToBoxAdapter(
             child: Padding(
-              padding: EdgeInsets.all(16),
+              padding: EdgeInsets.only(left: 16, right: 16, bottom: 16),
               child: _TicketNoticeCallout(),
             ),
           ),
@@ -127,7 +127,7 @@ class _TicketsListView extends HookWidget {
           // 学生向け返金・費用補助について
           const SliverToBoxAdapter(
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
+              padding: EdgeInsets.only(left: 16, right: 16, bottom: 16),
               child: StudentRefundCard(),
             ),
           ),
