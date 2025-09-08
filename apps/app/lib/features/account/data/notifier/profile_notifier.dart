@@ -68,7 +68,9 @@ class ProfileNotifier extends _$ProfileNotifier {
     await uploadDio.put<Map<String, dynamic>>(
       preSignedUrl.url,
       data: bytes,
-      options: Options(),
+      options: Options(
+        contentType: 'image/png',
+      ),
     );
 
     final currentStatus = state.value;

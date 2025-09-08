@@ -67,8 +67,7 @@ class ProfileEditScreen extends HookConsumerWidget {
 
       final avatarKey = ref
           .read(profileNotifierProvider)
-          .requireValue!
-          .avatarKey;
+          .value?.avatarKey;
       final request = ProfileUpdateRequest(
         name: nameController.text.trim(),
         comment: commentController.text.trim(),
