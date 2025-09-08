@@ -35,26 +35,28 @@ class LoginBeforePurchaseCard extends StatelessWidget {
                 size: 48,
                 color: theme.colorScheme.onPrimaryContainer,
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                spacing: 4,
-                children: [
-                  Text(
-                    type.title,
-                    style: theme.textTheme.titleLarge!.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: theme.colorScheme.onPrimaryContainer,
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  spacing: 4,
+                  children: [
+                    Text(
+                      type.title,
+                      style: theme.textTheme.titleLarge!.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: theme.colorScheme.onPrimaryContainer,
+                      ),
                     ),
-                  ),
-                  Text(
-                    type.description,
-                  ),
-                  FilledButton.icon(
-                    label: const Text('アカウント設定'),
-                    icon: const Icon(Icons.settings),
-                    onPressed: () => const AccountInfoRoute().go(context),
-                  ),
-                ],
+                    Text(
+                      type.description,
+                    ),
+                    FilledButton.icon(
+                      label: const Text('アカウント設定'),
+                      icon: const Icon(Icons.settings),
+                      onPressed: () => const AccountInfoRoute().go(context),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
