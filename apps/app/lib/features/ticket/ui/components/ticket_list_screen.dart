@@ -162,12 +162,14 @@ class _TicketNoticeCallout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    const warningColor = Colors.amber;
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: Colors.amber.withValues(alpha: 0.1),
+        color: warningColor.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
-          color: Colors.amber.withValues(alpha: 0.3),
+          color: warningColor.withValues(alpha: 0.3),
         ),
       ),
       child: Padding(
@@ -180,14 +182,14 @@ class _TicketNoticeCallout extends StatelessWidget {
               children: [
                 const Icon(
                   Icons.warning_amber_rounded,
-                  color: Colors.amber,
+                  color: warningColor,
                   size: 20,
                 ),
                 const SizedBox(width: 8),
                 Text(
                   'ご注意',
-                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                    color: Colors.amber,
+                  style: textTheme.titleSmall?.copyWith(
+                    color: warningColor,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -200,7 +202,7 @@ class _TicketNoticeCallout extends StatelessWidget {
               'なお、「個人スポンサーチケット」は、入場を目的とせず FlutterKaigi を応援したい方のご支援も大歓迎です！\n\n'
               '前夜祭への参加は「アーリーチケット」のみが対象です。\n'
               'ノーマルチケットでは前夜祭に参加できませんのでご注意ください。',
-              style: Theme.of(context).textTheme.bodySmall,
+              style: textTheme.bodySmall,
             ),
           ],
         ),
