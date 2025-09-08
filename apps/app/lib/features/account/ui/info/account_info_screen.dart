@@ -53,17 +53,23 @@ final class AccountInfoScreen extends ConsumerWidget {
           child: CircularProgressIndicator(),
         ),
         data: (user) => ListView(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.symmetric(vertical: 16),
           children: [
             if (user != null)
-              _UserInfoCard(
-                user: user,
-                onProfileEdit: _onProfileEdit,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: _UserInfoCard(
+                  user: user,
+                  onProfileEdit: _onProfileEdit,
+                ),
               ),
             const SizedBox(height: 16),
-            Text(
-              l10n.accountOthers,
-              style: textTheme.titleLarge,
+            Padding(
+              padding: const EdgeInsetsDirectional.only(start: 16),
+              child: Text(
+                l10n.accountOthers,
+                style: textTheme.titleLarge,
+              ),
             ),
             const SizedBox(height: 8),
             ...([
