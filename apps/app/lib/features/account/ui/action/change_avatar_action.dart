@@ -9,7 +9,6 @@ import 'package:app/features/user/data/notifier/user_notifier.dart';
 import 'package:db_types/db_types.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -18,8 +17,8 @@ part 'change_avatar_action.g.dart';
 @Riverpod(keepAlive: true)
 ChangeAvatarAction changeAvatarAction(Ref ref) => ChangeAvatarAction._(
   imagePicker: ref.watch(imagePickerProvider),
-  authMetaData: ref.watch(
-    userNotifierProvider.select((v) => v.value?.authMetaData),
+  userAndUserRolesFetcher: () async => ref.watch(
+    userNotifierProvider.future,
   ),
   imageUtils: ref.watch(imageUtilsProvider),
   profileNotifier: ref.watch(profileNotifierProvider.notifier),
@@ -28,16 +27,16 @@ ChangeAvatarAction changeAvatarAction(Ref ref) => ChangeAvatarAction._(
 class ChangeAvatarAction {
   const ChangeAvatarAction._({
     required ImagePicker imagePicker,
-    required AuthMetaData? authMetaData,
+    required Future<UserAndUserRoles> Function() userAndUserRolesFetcher,
     required ImageUtils imageUtils,
     required ProfileNotifier profileNotifier,
   }) : _imagePicker = imagePicker,
-       _authMetaData = authMetaData,
+       _userAndUserRolesFetcher = userAndUserRolesFetcher,
        _imageUtils = imageUtils,
        _profileNotifier = profileNotifier;
 
   final ImagePicker _imagePicker;
-  final AuthMetaData? _authMetaData;
+  final Future<UserAndUserRoles> Function() _userAndUserRolesFetcher;
   final ImageUtils _imageUtils;
   final ProfileNotifier _profileNotifier;
 
@@ -74,13 +73,12 @@ class ChangeAvatarAction {
         }
         bytes = await image.readAsBytes();
       case PickImageDialogResult.googleAccount:
-        if (_authMetaData == null) {
-          return;
-        }
+        final userAndUserRoles = await _userAndUserRolesFetcher();
+        final authMetaData = userAndUserRoles.authMetaData;
         final dio = Dio();
         try {
           final response = await dio.get<Uint8List>(
-            _authMetaData.avatarUrl,
+            authMetaData.avatarUrl,
             options: Options(
               responseType: ResponseType.bytes,
             ),
