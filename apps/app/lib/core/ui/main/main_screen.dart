@@ -26,7 +26,8 @@ class MainScreen extends StatelessWidget {
       currentIndex: navigationShell.currentIndex,
       destinations: const [
         ResponsiveScaffoldDestination(icon: Icons.event, title: 'イベント'),
-        ResponsiveScaffoldDestination(icon: Icons.business, title: 'スポンサー'),
+        // TODO: スポンサーの表示修正完了後に復活予定
+        // ResponsiveScaffoldDestination(icon: Icons.business, title: 'スポンサー'),
         ResponsiveScaffoldDestination(
           icon: Icons.confirmation_number,
           title: 'チケット',
