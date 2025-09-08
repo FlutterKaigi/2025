@@ -342,7 +342,7 @@ abstract class L10n {
   /// No description provided for @studentRefundTitle.
   ///
   /// In ja, this message translates to:
-  /// **'🎓 学生向け返金・費用補助について'**
+  /// **'学生向け返金・費用補助について'**
   String get studentRefundTitle;
 
   /// No description provided for @studentRefundDescription.

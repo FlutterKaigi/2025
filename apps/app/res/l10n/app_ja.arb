@@ -82,7 +82,7 @@
   "@ticketNoticeTitle": {},
   "ticketNoticeMessage": "「個人スポンサーチケット」のみでは、FlutterKaigi 2025本編（カンファレンス会場）へのご入場はできません。\n入場をご希望の方は、アーリーチケット（9月末まで販売予定）またはノーマルチケットを別途ご購入ください。\nなお、「個人スポンサーチケット」は、入場を目的とせず FlutterKaigi を応援したい方のご支援も大歓迎です！\n\n前夜祭への参加は「アーリーチケット」のみが対象です。\nノーマルチケットでは前夜祭に参加できませんのでご注意ください。",
   "@ticketNoticeMessage": {},
-  "studentRefundTitle": "🎓 学生向け返金・費用補助について",
+  "studentRefundTitle": "学生向け返金・費用補助について",
   "@studentRefundTitle": {},
   "studentRefundDescription": "FlutterKaigi 2025では、学生支援スポンサー様のご協力により、学生チケットをご購入の方を対象に、以下の返金・費用補助を実施いたします。",
   "@studentRefundDescription": {},
