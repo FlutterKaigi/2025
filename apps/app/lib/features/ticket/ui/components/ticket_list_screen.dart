@@ -226,8 +226,7 @@ class _StudentRefundCallout extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = L10n.of(context);
     final textTheme = Theme.of(context).textTheme;
-    final colorScheme = Theme.of(context).colorScheme;
-    final infoColor = colorScheme.primary;
+    const infoColor = Colors.blue;
 
     return DecoratedBox(
       decoration: BoxDecoration(
@@ -245,7 +244,7 @@ class _StudentRefundCallout extends StatelessWidget {
           children: [
             Row(
               children: [
-                Icon(
+                const Icon(
                   Icons.school,
                   color: infoColor,
                   size: 20,
@@ -268,15 +267,15 @@ class _StudentRefundCallout extends StatelessWidget {
               style: textTheme.bodySmall,
             ),
             const SizedBox(height: 12),
-            SizedBox(
-              width: double.infinity,
-              child: OutlinedButton.icon(
+            Align(
+              alignment: Alignment.centerRight,
+              child: FilledButton.icon(
                 onPressed: () => StudentRefundDialog.show(context),
                 icon: const Icon(Icons.info_outline, size: 16),
                 label: Text(l10n.studentRefundDetailsButton),
-                style: OutlinedButton.styleFrom(
-                  foregroundColor: infoColor,
-                  side: BorderSide(color: infoColor),
+                style: FilledButton.styleFrom(
+                  backgroundColor: infoColor,
+                  foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16,
                     vertical: 8,
