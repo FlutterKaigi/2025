@@ -40,6 +40,13 @@
       "vars": {
         "ENV": "production",
       },
+      "hyperdrive": [
+        {
+          "id": "d1f50129a40a4edea82ac8c228a01de5",
+          "binding": "HYPERDRIVE",
+          "localConnectionString": "postgresql://postgres:postgres@localhost:5432/postgres",
+        },
+      ],
       "workflows": [
         {
           "name": "ticket-checkout-workflow-production",
