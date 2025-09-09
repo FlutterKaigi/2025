@@ -31,7 +31,17 @@ class ProfileNotifier extends _$ProfileNotifier {
     final client = ref.read(bffClientProvider);
     final response = await client.v1.profile.updateMyProfile(request: request);
     final data = response.data;
-    ref.invalidateSelf(asReload: true);
+    final currentStatus = state.value;
+    if (currentStatus != null) {
+      state = AsyncData(
+        currentStatus.copyWith(
+          profile: data,
+          snsLinks: request.snsLinks ?? [],
+        ),
+      );
+    } else {
+      ref.invalidateSelf(asReload: true);
+    }
     return data;
   }
 
@@ -74,19 +84,23 @@ class ProfileNotifier extends _$ProfileNotifier {
     );
 
     final currentStatus = state.value;
-    if (currentStatus == null) {
-      throw StateError('Profile is not loaded');
-    }
-    await updateProfile(
+    final profile = await updateProfile(
       ProfileUpdateRequest(
-        comment: currentStatus.profile.comment,
-        isAdult: currentStatus.profile.isAdult,
-        snsLinks: currentStatus.snsLinks,
-        name: currentStatus.profile.name,
+        comment: currentStatus?.profile.comment,
+        isAdult: currentStatus?.profile.isAdult,
+        snsLinks: currentStatus?.snsLinks,
+        name: currentStatus?.profile.name,
 
         avatarKey: preSignedUrl.key,
       ),
     );
-    ref.invalidateSelf(asReload: true);
+    if (currentStatus != null) {
+      state = AsyncData(
+        currentStatus.copyWith(
+          profile: profile,
+          snsLinks: currentStatus.snsLinks,
+        ),
+      );
+    }
   }
 }
