@@ -6,7 +6,7 @@ part 'profile_update_data.g.dart';
 @freezed
 abstract class ProfileUpdateData with _$ProfileUpdateData {
   const factory ProfileUpdateData({
-    String? name,
+    required String name,
     String? comment,
     bool? isAdult,
     String? avatarKey,
