@@ -1,3 +1,4 @@
+import 'package:flutterkaigi_2025_website/src/components/open_in_new.dart';
 import 'package:flutterkaigi_2025_website/src/config/config.dart';
 import 'package:flutterkaigi_2025_website/text.dart';
 import 'package:jaspr/jaspr.dart';
@@ -35,7 +36,7 @@ class News extends StatelessComponent {
                 ),
                 [text(contents.checkNews.text(context))],
               ),
-              img(src: '/img/icon/open-in-new.svg'),
+              const OpenInNew(),
             ],
           ),
         ),

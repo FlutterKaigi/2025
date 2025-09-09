@@ -107,6 +107,13 @@ final event = (
   blog: (
     topUrl: 'https://medium.com/flutterkaigi',
   ),
+  tickets: (
+    title: (
+      ja: 'チケットを購入する',
+      en: 'Get Tickets',
+    ),
+    url: 'https://2025-app.flutterkaigi.jp/tickets',
+  ),
   cfp: (
     title: (
       ja: 'プロポーザル一覧を見る',
