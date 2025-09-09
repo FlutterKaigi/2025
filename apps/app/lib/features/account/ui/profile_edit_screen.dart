@@ -25,7 +25,6 @@ class ProfileEditScreen extends HookConsumerWidget {
     WidgetRef ref,
     GlobalKey<FormState> formKey,
     TextEditingController nameController,
-    TextEditingController commentController,
     bool isAdult,
     List<SnsLinkFormData> snsLinks,
   ) async {
@@ -65,13 +64,11 @@ class ProfileEditScreen extends HookConsumerWidget {
           )
           .toList();
 
-      final avatarKey = ref
-          .read(profileNotifierProvider)
-          .value?.avatarKey;
+      final avatarKey = ref.read(profileNotifierProvider).value?.avatarKey;
       final request = ProfileUpdateRequest(
         name: nameController.text.trim(),
-        comment: commentController.text.trim(),
         isAdult: isAdult,
+        comment: '',
         snsLinks: validSnsLinks,
         avatarKey: avatarKey,
       );
@@ -123,7 +120,6 @@ class ProfileEditScreen extends HookConsumerWidget {
 
     final formKey = useMemoized(GlobalKey<FormState>.new);
     final nameController = useTextEditingController();
-    final commentController = useTextEditingController();
     final snsLinksState = useState<List<SnsLinkFormData>>([]);
     final isAdultState = useState(false);
 
@@ -139,7 +135,6 @@ class ProfileEditScreen extends HookConsumerWidget {
               ref,
               formKey,
               nameController,
-              commentController,
               isAdultState.value,
               snsLinksState.value,
             ),
@@ -166,7 +161,6 @@ class ProfileEditScreen extends HookConsumerWidget {
           useEffect(() {
             if (profile != null && nameController.text.isEmpty) {
               nameController.text = profile.profile.name;
-              commentController.text = profile.profile.comment;
               isAdultState.value = profile.profile.isAdult;
               // 既存のSNSリンクがある場合は初期化
               if (profile.snsLinks.isNotEmpty) {
@@ -266,28 +260,6 @@ class ProfileEditScreen extends HookConsumerWidget {
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
                           return '名前を入力してください';
-                        }
-                        return null;
-                      },
-                      onChanged: (value) {},
-                    ),
-                    const SizedBox(height: 16),
-
-                    // ひとことコメント
-                    TextFormField(
-                      controller: commentController,
-                      decoration: const InputDecoration(
-                        labelText: 'ひとことコメント *',
-                        border: OutlineInputBorder(),
-                        helperText: '100文字以内',
-                      ),
-                      maxLength: 100,
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'ひとことコメントを入力してください';
-                        }
-                        if (value.length > 100) {
-                          return 'ひとことコメントは100文字以内で入力してください';
                         }
                         return null;
                       },

@@ -144,14 +144,6 @@ class ProfileViewScreen extends HookConsumerWidget {
                         ),
                         const SizedBox(height: 8),
 
-                        // ひとことコメント
-                        Text(
-                          profile.profile.comment,
-                          style: Theme.of(context).textTheme.bodyLarge,
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 16),
-
                         // 成人フラグ
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
