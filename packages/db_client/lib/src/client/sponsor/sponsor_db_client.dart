@@ -1,7 +1,6 @@
 import 'package:db_client/src/client/db_client.dart';
 import 'package:db_client/src/extensions/postgres_extensions.dart';
 import 'package:db_types/db_types.dart';
-import 'package:postgres/postgres.dart';
 
 class SponsorDbClient {
   const SponsorDbClient({
@@ -19,7 +18,7 @@ class SponsorDbClient {
     // - オプションプランの種類を配列として集約（enumを文字列に変換）
     // - 承認済みの下書きのみを対象とし、ベーシックプランの優先順位でソート
     final result = await _executor.execute(
-      Sql.named('''
+      '''
         SELECT
           c.id,
           c.name,
@@ -56,7 +55,7 @@ class SponsorDbClient {
           sc.display_order
         ORDER BY
           sc.display_order
-      '''),
+      ''',
     );
 
     return result.map((e) {
@@ -73,7 +72,7 @@ class SponsorDbClient {
     // SQLクエリの説明:
     // - 承認済みの下書きのみを対象とし、作成日時の降順でソート
     final result = await _executor.execute(
-      Sql.named('''
+      '''
         SELECT
           i.id,
           COALESCE(id.name, au.raw_user_meta_data->>'name') as name,
@@ -90,7 +89,7 @@ class SponsorDbClient {
           AND id.slug IS NOT NULL
           AND id.logo_name IS NOT NULL
         ORDER BY id.created_at DESC
-      '''),
+      ''',
     );
 
     return result.map((e) {

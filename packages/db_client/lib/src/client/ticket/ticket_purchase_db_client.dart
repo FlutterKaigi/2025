@@ -1,6 +1,5 @@
 import 'package:db_client/db_client.dart';
 import 'package:db_types/db_types.dart';
-import 'package:postgres/postgres.dart';
 
 class TicketPurchaseDbClient {
   TicketPurchaseDbClient({required Executor executor}) : _executor = executor;
@@ -14,12 +13,12 @@ class TicketPurchaseDbClient {
     String ticketTypeId,
   ) async {
     final result = await _executor.execute(
-      Sql.named('''
+      '''
         SELECT *, status::text AS "status"
         FROM ticket_purchases
         WHERE user_id = @userId AND ticket_type_id = @ticketTypeId
         ORDER BY created_at DESC
-      '''),
+      ''',
       parameters: {
         'userId': userId,
         'ticketTypeId': ticketTypeId,
@@ -37,12 +36,12 @@ class TicketPurchaseDbClient {
     String userId,
   ) async {
     final result = await _executor.execute(
-      Sql.named('''
+      '''
         SELECT *, status::text AS "status"
         FROM ticket_purchases
         WHERE user_id = @userId
         ORDER BY created_at DESC
-      '''),
+      ''',
       parameters: {
         'userId': userId,
       },

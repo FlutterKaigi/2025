@@ -1,22 +1,20 @@
 import 'package:db_client/src/client/db_client.dart';
 import 'package:db_types/db_types.dart';
-import 'package:postgres/postgres.dart';
 
 class TicketTypeDbClient {
-  TicketTypeDbClient({required Executor executor})
-    : _executor = executor;
+  TicketTypeDbClient({required Executor executor}) : _executor = executor;
 
   final Executor _executor;
 
   /// アクティブなチケットタイプ一覧を取得
   Future<List<TicketTypes>> getActiveTicketTypes() async {
     final result = await _executor.execute(
-      Sql.named('''
+      '''
         SELECT *
         FROM ticket_types
         WHERE is_active = true
         ORDER BY created_at ASC
-      '''),
+      ''',
     );
 
     return result
@@ -27,11 +25,11 @@ class TicketTypeDbClient {
   /// 指定されたIDのチケットタイプを取得
   Future<TicketTypes?> getTicketType(String ticketTypeId) async {
     final result = await _executor.execute(
-      Sql.named('''
+      '''
         SELECT *
         FROM ticket_types
         WHERE id = @ticketTypeId
-      '''),
+      ''',
       parameters: {'ticketTypeId': ticketTypeId},
     );
 
@@ -42,12 +40,11 @@ class TicketTypeDbClient {
     return TicketTypes.fromJson(result.first.toColumnMap());
   }
 
-
   /// アクティブなチケットタイプとオプションを在庫数とともに一括取得
   Future<List<TicketTypeWithOptionsAndCounts>>
   getActiveTicketTypesWithOptionsAndCounts() async {
     final result = await _executor.execute(
-      Sql.named('''
+      '''
         SELECT
           to_json(tt.*) AS ticket_type,
           vtc.sold_count,
@@ -71,7 +68,7 @@ class TicketTypeDbClient {
           tt.is_active = true
         GROUP BY tt.id, tt.created_at, vtc.sold_count, vtc.reserved_count
         ORDER BY tt.created_at ASC
-      '''),
+      ''',
     );
 
     return result

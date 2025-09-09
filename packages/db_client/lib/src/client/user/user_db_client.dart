@@ -1,6 +1,5 @@
 import 'package:db_client/db_client.dart';
 import 'package:db_types/db_types.dart';
-import 'package:postgres/postgres.dart';
 
 class UserDbClient {
   UserDbClient({required Executor executor}) : _executor = executor;
@@ -9,7 +8,7 @@ class UserDbClient {
 
   Future<UserAndUserRoles> getUserAndUserRoles(String userId) async {
     final result = await _executor.execute(
-      Sql.named('''
+      '''
 SELECT
   to_json(u.*) AS user,
   COALESCE(json_agg(ur.role) FILTER (WHERE ur.role IS NOT NULL), '[]'::json) AS roles,
@@ -22,7 +21,7 @@ WHERE
   u.id = @user_id AND u.deleted_at IS NULL
 GROUP BY u.id, au.raw_user_meta_data
 LIMIT 1;
-'''),
+''',
       parameters: {
         'user_id': userId,
       },
@@ -85,7 +84,7 @@ LIMIT @limit OFFSET @offset
     parameter['offset'] = offset;
 
     final result = await _executor.execute(
-      Sql.named(queryBuffer.toString()),
+      queryBuffer.toString(),
       parameters: parameter,
     );
     return result
@@ -100,9 +99,7 @@ LIMIT @limit OFFSET @offset
   ) async {
     // 削除済みユーザーのロールは更新できない
     final userExists = await _executor.execute(
-      Sql.named(
-        'SELECT 1 FROM public.users WHERE id = @user_id AND deleted_at IS NULL',
-      ),
+      'SELECT 1 FROM public.users WHERE id = @user_id AND deleted_at IS NULL',
       parameters: {'user_id': userId},
     );
 
@@ -111,9 +108,9 @@ LIMIT @limit OFFSET @offset
     }
 
     await _executor.execute(
-      Sql.named('''
+      '''
 SELECT replace_user_roles(@user_id, @new_roles)
-'''),
+''',
       parameters: {
         'user_id': userId,
         'new_roles': newRoles.map((e) => e.name).toList(),
@@ -124,11 +121,11 @@ SELECT replace_user_roles(@user_id, @new_roles)
   /// ユーザーを論理削除する
   Future<void> deleteUser(String userId) async {
     await _executor.execute(
-      Sql.named('''
+      '''
 UPDATE public.users
 SET deleted_at = NOW()
 WHERE id = @user_id AND deleted_at IS NULL
-'''),
+''',
       parameters: {
         'user_id': userId,
       },
@@ -138,11 +135,11 @@ WHERE id = @user_id AND deleted_at IS NULL
   /// ユーザーを復元する
   Future<void> restoreUser(String userId) async {
     await _executor.execute(
-      Sql.named('''
+      '''
 UPDATE public.users
 SET deleted_at = NULL
 WHERE id = @user_id AND deleted_at IS NOT NULL
-'''),
+''',
       parameters: {
         'user_id': userId,
       },

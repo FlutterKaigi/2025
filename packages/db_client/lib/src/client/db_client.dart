@@ -85,8 +85,8 @@ class Executor {
   final Connection _connection;
 
   Future<Result> execute(
-    Object query, {
-    Object? parameters,
+    String query, {
+    Map<String, dynamic>? parameters,
     bool ignoreRows = false,
     QueryMode? queryMode,
     Duration? timeout,

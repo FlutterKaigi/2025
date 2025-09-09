@@ -1,6 +1,5 @@
 import 'package:db_client/src/client/db_client.dart';
 import 'package:db_types/db_types.dart';
-import 'package:postgres/postgres.dart';
 
 class NewsDbClient {
   NewsDbClient({required Executor executor}) : _executor = executor;
@@ -10,14 +9,14 @@ class NewsDbClient {
   /// 公開中のニュース一覧を取得する
   Future<List<News>> getPublishedNewsList() async {
     final result = await _executor.execute(
-      Sql.named('''
+      '''
 SELECT *
 FROM public.news
 WHERE
   starts_at <= NOW() AND
   (ends_at IS NULL OR ends_at > NOW())
 ORDER BY id DESC
-'''),
+''',
     );
     return result.map((e) => News.fromJson(e.toColumnMap())).toList();
   }
@@ -25,11 +24,11 @@ ORDER BY id DESC
   /// 管理者向け：全てのニュース一覧を取得する（未公開含む）
   Future<List<News>> getAllNewsList() async {
     final result = await _executor.execute(
-      Sql.named('''
+      '''
 SELECT *
 FROM public.news
 ORDER BY id DESC
-'''),
+''',
     );
     return result.map((e) => News.fromJson(e.toColumnMap())).toList();
   }
@@ -37,12 +36,12 @@ ORDER BY id DESC
   /// IDでニュースを取得する
   Future<News?> getNewsById(int id) async {
     final result = await _executor.execute(
-      Sql.named('''
+      '''
 SELECT *
 FROM public.news
 WHERE id = @id
 LIMIT 1
-'''),
+''',
       parameters: {
         'id': id,
       },
@@ -64,11 +63,11 @@ LIMIT 1
     DateTime? endsAt,
   }) async {
     final result = await _executor.execute(
-      Sql.named('''
+      '''
 INSERT INTO public.news (title, url, starts_at, ends_at)
 VALUES (@title, @url, @starts_at, @ends_at)
 RETURNING *
-'''),
+''',
       parameters: {
         'title': title,
         'url': url,
@@ -89,7 +88,7 @@ RETURNING *
     DateTime? endsAt,
   }) async {
     final result = await _executor.execute(
-      Sql.named('''
+      '''
 UPDATE public.news
 SET
   title = @title,
@@ -98,7 +97,7 @@ SET
   ends_at = @ends_at
 WHERE id = @id
 RETURNING *
-'''),
+''',
       parameters: {
         'id': id,
         'title': title,
@@ -119,10 +118,10 @@ RETURNING *
   /// ニュースを削除する
   Future<bool> deleteNews(int id) async {
     final result = await _executor.execute(
-      Sql.named('''
+      '''
 DELETE FROM public.news
 WHERE id = @id
-'''),
+''',
       parameters: {
         'id': id,
       },

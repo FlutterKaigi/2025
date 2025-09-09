@@ -12,7 +12,7 @@ class ProfileDbClient {
   /// プロファイル情報とSNSリンクを取得
   Future<ProfileWithSnsLinks?> getProfileWithSnsLinks(String userId) async {
     final result = await _executor.execute(
-      Sql.named('''
+      '''
         SELECT
           json_build_object(
             'id', p.id,
@@ -40,7 +40,7 @@ class ProfileDbClient {
         LEFT JOIN user_sns_links usl ON p.id = usl.user_id
         WHERE p.id = @user_id
         GROUP BY p.id, p.name, p.comment, p.is_adult, p.avatar_key, p.created_at, p.updated_at
-      '''),
+      ''',
       parameters: {'user_id': userId},
     );
 
@@ -58,7 +58,7 @@ class ProfileDbClient {
     ProfileUpdateData profileData,
   ) async {
     final result = await _executor.execute(
-      Sql.named('''
+      '''
         INSERT INTO profiles (id, name, comment, is_adult, avatar_key)
         VALUES (@user_id, @name, @comment, @is_adult, @avatar_key)
         ON CONFLICT (id) DO UPDATE SET
@@ -68,7 +68,7 @@ class ProfileDbClient {
           avatar_key = @avatar_key,
           updated_at = @updated_at
         RETURNING *
-      '''),
+      ''',
       parameters: {
         'user_id': userId,
         'name': profileData.name,
@@ -103,9 +103,7 @@ class ProfileDbClient {
         .toList();
 
     await _executor.execute(
-      Sql.named(
-        'SELECT public.replace_user_sns_links(@user_id, @sns_accounts::jsonb)',
-      ),
+      'SELECT public.replace_user_sns_links(@user_id, @sns_accounts::jsonb)',
       parameters: {
         'user_id': userId,
         'sns_accounts': jsonEncode(snsAccountsJson),
@@ -116,11 +114,11 @@ class ProfileDbClient {
   /// アバターキーを削除
   Future<void> deleteAvatar(String userId) async {
     await _executor.execute(
-      Sql.named('''
+      '''
         UPDATE profiles
         SET avatar_key = NULL, updated_at = @updated_at
         WHERE id = @user_id
-      '''),
+      ''',
       parameters: {
         'user_id': userId,
         'updated_at': DateTime.now().toIso8601String(),
