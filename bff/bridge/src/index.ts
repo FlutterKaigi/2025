@@ -26,7 +26,7 @@ export class BffEngine extends Container<Cloudflare.Env> {
 	};
 }
 
-const INSTANCE_COUNT = 1;
+const INSTANCE_COUNT = 3;
 
 const app = new Hono()
 	.use(
@@ -62,18 +62,31 @@ const app = new Hono()
 	// Secure Headers
 	.use("*", secureHeaders())
 	.all("*", async (c) => {
-		startTime(c, "request");
-		startTime(c, "wait_for_instance_start");
-		const containerInstance = await getRandom(env.bff_engine, INSTANCE_COUNT);
+		var retryCount = 0;
 
-		containerInstance.startAndWaitForPorts();
-		endTime(c, "wait_for_instance_start");
+		while (retryCount < 3) {
+			try {
+				startTime(c, "request");
+				startTime(c, "wait_for_instance_start");
+				const containerInstance = await getRandom(
+					env.bff_engine,
+					INSTANCE_COUNT,
+				);
+				endTime(c, "wait_for_instance_start");
 
-		startTime(c, "container_fetch");
-		const response = await containerInstance.fetch(c.req.raw);
-		endTime(c, "container_fetch");
-		endTime(c, "request");
-		return response;
+				startTime(c, "container_fetch");
+				const response = await containerInstance.fetch(c.req.raw);
+				endTime(c, "container_fetch");
+				endTime(c, "request");
+				return response;
+			} catch (e) {
+				console.error({
+					retryCount,
+					error: e,
+				});
+				retryCount++;
+			}
+		}
 	});
 
 export default {
