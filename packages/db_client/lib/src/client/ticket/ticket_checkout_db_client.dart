@@ -1,19 +1,18 @@
+import 'package:db_client/src/client/db_client.dart';
 import 'package:db_types/db_types.dart';
-import 'package:postgres/postgres.dart';
 
 class TicketCheckoutDbClient {
-  TicketCheckoutDbClient({required Connection connection})
-    : _connection = connection;
+  TicketCheckoutDbClient({required Executor executor}) : _executor = executor;
 
-  final Connection _connection;
+  final Executor _executor;
 
   Future<TicketCheckoutSessions?> getTicketCheckout(String checkoutId) async {
-    final result = await _connection.execute(
-      Sql.named('''
+    final result = await _executor.execute(
+      '''
         SELECT *, status::text AS "status"
         FROM ticket_checkout_sessions WHERE id = @checkoutId
         LIMIT 1
-      '''),
+      ''',
       parameters: {
         'checkoutId': checkoutId,
       },
@@ -25,22 +24,22 @@ class TicketCheckoutDbClient {
   }
 
   Future<TicketCheckoutSessions> cancelTicketCheckout(String checkoutId) async {
-    final result = await _connection.runTx((tx) async {
+    final result = await _executor.runTx((tx) async {
       await tx.execute(
-        Sql.named('''
+        '''
           UPDATE ticket_checkout_sessions
           SET status = 'expired', updated_at = now(), expires_at = now()
           WHERE id = @checkoutId AND status = 'pending';
-        '''),
+        ''',
         parameters: {
           'checkoutId': checkoutId,
         },
       );
-      return tx.execute(
-        Sql.named('''
+      return _executor.execute(
+        '''
           SELECT *, status::text AS "status"
           FROM ticket_checkout_sessions WHERE id = @checkoutId;
-        '''),
+        ''',
         parameters: {
           'checkoutId': checkoutId,
         },
@@ -57,8 +56,8 @@ class TicketCheckoutDbClient {
   Future<List<TicketPurchaseWithDetails>> getUserAllTicketsWithDetails({
     required String userId,
   }) async {
-    final result = await _connection.execute(
-      Sql.named('''
+    final result = await _executor.execute(
+      '''
         -- 完了済みのチケット購入情報
         SELECT
           json_build_object(
@@ -145,7 +144,7 @@ class TicketCheckoutDbClient {
         GROUP BY
           tcs.id, tt.id
         ORDER BY sort_date DESC
-      '''),
+      ''',
       parameters: {
         'userId': userId,
       },
