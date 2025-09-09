@@ -32,7 +32,10 @@ class DbClient {
       ),
     );
     print(
-      'Postgres Connection Time: ${stopWatch.elapsedMicroseconds / 1000} ms',
+      jsonEncode({
+        'type': 'postgres-connection',
+        'time': stopWatch.elapsedMicroseconds / 1000,
+      }),
     );
     return DbClient(
       executor: Executor(connection: connection),
