@@ -28,7 +28,7 @@ class L10nJa extends L10n {
       '2025年、日本国内で Flutter をメインに扱う技術カンファレンス。Flutter や Dart の深い知見を持つ開発者によるセッションを多数企画します。';
 
   @override
-  String get eventDate => '2025年11月13日(金)';
+  String get eventDate => '2025年11月13日(木)';
 
   @override
   String get eventTime => '10:00 ~ 18:00';

@@ -132,7 +132,7 @@ abstract class L10n {
   /// No description provided for @eventDate.
   ///
   /// In ja, this message translates to:
-  /// **'2025年11月13日(金)'**
+  /// **'2025年11月13日(木)'**
   String get eventDate;
 
   /// No description provided for @eventTime.
