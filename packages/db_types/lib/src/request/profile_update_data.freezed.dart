@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ProfileUpdateData {
 
- String? get name; String? get comment; bool? get isAdult; String? get avatarKey;@JsonKey(name: 'updated_at') DateTime? get updatedAt;
+ String get name; String get comment; bool get isAdult; String? get avatarKey;@JsonKey(name: 'updated_at') DateTime? get updatedAt;
 /// Create a copy of ProfileUpdateData
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $ProfileUpdateDataCopyWith<$Res>  {
   factory $ProfileUpdateDataCopyWith(ProfileUpdateData value, $Res Function(ProfileUpdateData) _then) = _$ProfileUpdateDataCopyWithImpl;
 @useResult
 $Res call({
- String? name, String? comment, bool? isAdult, String? avatarKey,@JsonKey(name: 'updated_at') DateTime? updatedAt
+ String name, String comment, bool isAdult, String? avatarKey,@JsonKey(name: 'updated_at') DateTime? updatedAt
 });
 
 
@@ -65,12 +65,12 @@ class _$ProfileUpdateDataCopyWithImpl<$Res>
 
 /// Create a copy of ProfileUpdateData
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = freezed,Object? comment = freezed,Object? isAdult = freezed,Object? avatarKey = freezed,Object? updatedAt = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? comment = null,Object? isAdult = null,Object? avatarKey = freezed,Object? updatedAt = freezed,}) {
   return _then(_self.copyWith(
-name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String?,comment: freezed == comment ? _self.comment : comment // ignore: cast_nullable_to_non_nullable
-as String?,isAdult: freezed == isAdult ? _self.isAdult : isAdult // ignore: cast_nullable_to_non_nullable
-as bool?,avatarKey: freezed == avatarKey ? _self.avatarKey : avatarKey // ignore: cast_nullable_to_non_nullable
+name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,comment: null == comment ? _self.comment : comment // ignore: cast_nullable_to_non_nullable
+as String,isAdult: null == isAdult ? _self.isAdult : isAdult // ignore: cast_nullable_to_non_nullable
+as bool,avatarKey: freezed == avatarKey ? _self.avatarKey : avatarKey // ignore: cast_nullable_to_non_nullable
 as String?,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,
   ));
@@ -157,7 +157,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? name,  String? comment,  bool? isAdult,  String? avatarKey, @JsonKey(name: 'updated_at')  DateTime? updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  String comment,  bool isAdult,  String? avatarKey, @JsonKey(name: 'updated_at')  DateTime? updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ProfileUpdateData() when $default != null:
 return $default(_that.name,_that.comment,_that.isAdult,_that.avatarKey,_that.updatedAt);case _:
@@ -178,7 +178,7 @@ return $default(_that.name,_that.comment,_that.isAdult,_that.avatarKey,_that.upd
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? name,  String? comment,  bool? isAdult,  String? avatarKey, @JsonKey(name: 'updated_at')  DateTime? updatedAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  String comment,  bool isAdult,  String? avatarKey, @JsonKey(name: 'updated_at')  DateTime? updatedAt)  $default,) {final _that = this;
 switch (_that) {
 case _ProfileUpdateData():
 return $default(_that.name,_that.comment,_that.isAdult,_that.avatarKey,_that.updatedAt);case _:
@@ -198,7 +198,7 @@ return $default(_that.name,_that.comment,_that.isAdult,_that.avatarKey,_that.upd
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? name,  String? comment,  bool? isAdult,  String? avatarKey, @JsonKey(name: 'updated_at')  DateTime? updatedAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  String comment,  bool isAdult,  String? avatarKey, @JsonKey(name: 'updated_at')  DateTime? updatedAt)?  $default,) {final _that = this;
 switch (_that) {
 case _ProfileUpdateData() when $default != null:
 return $default(_that.name,_that.comment,_that.isAdult,_that.avatarKey,_that.updatedAt);case _:
@@ -213,12 +213,12 @@ return $default(_that.name,_that.comment,_that.isAdult,_that.avatarKey,_that.upd
 @JsonSerializable()
 
 class _ProfileUpdateData implements ProfileUpdateData {
-  const _ProfileUpdateData({this.name, this.comment, this.isAdult, this.avatarKey, @JsonKey(name: 'updated_at') this.updatedAt});
+  const _ProfileUpdateData({required this.name, required this.comment, required this.isAdult, this.avatarKey, @JsonKey(name: 'updated_at') this.updatedAt});
   factory _ProfileUpdateData.fromJson(Map<String, dynamic> json) => _$ProfileUpdateDataFromJson(json);
 
-@override final  String? name;
-@override final  String? comment;
-@override final  bool? isAdult;
+@override final  String name;
+@override final  String comment;
+@override final  bool isAdult;
 @override final  String? avatarKey;
 @override@JsonKey(name: 'updated_at') final  DateTime? updatedAt;
 
@@ -255,7 +255,7 @@ abstract mixin class _$ProfileUpdateDataCopyWith<$Res> implements $ProfileUpdate
   factory _$ProfileUpdateDataCopyWith(_ProfileUpdateData value, $Res Function(_ProfileUpdateData) _then) = __$ProfileUpdateDataCopyWithImpl;
 @override @useResult
 $Res call({
- String? name, String? comment, bool? isAdult, String? avatarKey,@JsonKey(name: 'updated_at') DateTime? updatedAt
+ String name, String comment, bool isAdult, String? avatarKey,@JsonKey(name: 'updated_at') DateTime? updatedAt
 });
 
 
@@ -272,12 +272,12 @@ class __$ProfileUpdateDataCopyWithImpl<$Res>
 
 /// Create a copy of ProfileUpdateData
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = freezed,Object? comment = freezed,Object? isAdult = freezed,Object? avatarKey = freezed,Object? updatedAt = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? comment = null,Object? isAdult = null,Object? avatarKey = freezed,Object? updatedAt = freezed,}) {
   return _then(_ProfileUpdateData(
-name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String?,comment: freezed == comment ? _self.comment : comment // ignore: cast_nullable_to_non_nullable
-as String?,isAdult: freezed == isAdult ? _self.isAdult : isAdult // ignore: cast_nullable_to_non_nullable
-as bool?,avatarKey: freezed == avatarKey ? _self.avatarKey : avatarKey // ignore: cast_nullable_to_non_nullable
+name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,comment: null == comment ? _self.comment : comment // ignore: cast_nullable_to_non_nullable
+as String,isAdult: null == isAdult ? _self.isAdult : isAdult // ignore: cast_nullable_to_non_nullable
+as bool,avatarKey: freezed == avatarKey ? _self.avatarKey : avatarKey // ignore: cast_nullable_to_non_nullable
 as String?,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,
   ));
