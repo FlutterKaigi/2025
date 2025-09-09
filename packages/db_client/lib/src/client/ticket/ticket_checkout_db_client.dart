@@ -1,14 +1,15 @@
 import 'package:db_types/db_types.dart';
 import 'package:postgres/postgres.dart';
+import 'package:db_client/src/client/db_client.dart';
 
 class TicketCheckoutDbClient {
-  TicketCheckoutDbClient({required Connection connection})
-    : _connection = connection;
+  TicketCheckoutDbClient({required Executor executor})
+    : _executor = executor;
 
-  final Connection _connection;
+  final Executor _executor;
 
   Future<TicketCheckoutSessions?> getTicketCheckout(String checkoutId) async {
-    final result = await _connection.execute(
+    final result = await _executor.execute(
       Sql.named('''
         SELECT *, status::text AS "status"
         FROM ticket_checkout_sessions WHERE id = @checkoutId
@@ -25,7 +26,7 @@ class TicketCheckoutDbClient {
   }
 
   Future<TicketCheckoutSessions> cancelTicketCheckout(String checkoutId) async {
-    final result = await _connection.runTx((tx) async {
+    final result = await _executor.runTx((tx) async {
       await tx.execute(
         Sql.named('''
           UPDATE ticket_checkout_sessions
@@ -36,7 +37,7 @@ class TicketCheckoutDbClient {
           'checkoutId': checkoutId,
         },
       );
-      return tx.execute(
+        return _executor.execute(
         Sql.named('''
           SELECT *, status::text AS "status"
           FROM ticket_checkout_sessions WHERE id = @checkoutId;
@@ -57,7 +58,7 @@ class TicketCheckoutDbClient {
   Future<List<TicketPurchaseWithDetails>> getUserAllTicketsWithDetails({
     required String userId,
   }) async {
-    final result = await _connection.execute(
+    final result = await _executor.execute(
       Sql.named('''
         -- 完了済みのチケット購入情報
         SELECT

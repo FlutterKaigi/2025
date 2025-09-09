@@ -1,15 +1,16 @@
+import 'package:db_client/src/client/db_client.dart';
 import 'package:db_client/src/extensions/postgres_extensions.dart';
 import 'package:db_types/db_types.dart';
 import 'package:postgres/postgres.dart';
 
 class SponsorDbClient {
   const SponsorDbClient({
-    required Connection connection,
+    required Executor executor,
     required String logoBaseUrl,
-  }) : _connection = connection,
+  }) : _executor = executor,
        _logoBaseUrl = logoBaseUrl;
 
-  final Connection _connection;
+  final Executor _executor;
   final String _logoBaseUrl;
 
   /// 企業スポンサーの詳細情報を取得
@@ -17,9 +18,9 @@ class SponsorDbClient {
     // SQLクエリの説明:
     // - オプションプランの種類を配列として集約（enumを文字列に変換）
     // - 承認済みの下書きのみを対象とし、ベーシックプランの優先順位でソート
-    final result = await _connection.execute(
+    final result = await _executor.execute(
       Sql.named('''
-        SELECT 
+        SELECT
           c.id,
           c.name,
           c.logo_name,
@@ -43,7 +44,7 @@ class SponsorDbClient {
           AND cd.slug IS NOT NULL
           AND cd.pr_text IS NOT NULL
           AND cd.website_url IS NOT NULL
-        GROUP BY 
+        GROUP BY
           c.id,
           c.name,
           c.logo_name,
@@ -53,7 +54,7 @@ class SponsorDbClient {
           sc.sponsor_type,
           bsc.basic_plan_type,
           sc.display_order
-        ORDER BY 
+        ORDER BY
           sc.display_order
       '''),
     );
@@ -71,9 +72,9 @@ class SponsorDbClient {
   Future<List<IndividualSponsorDetail>> getIndividualSponsors() async {
     // SQLクエリの説明:
     // - 承認済みの下書きのみを対象とし、作成日時の降順でソート
-    final result = await _connection.execute(
+    final result = await _executor.execute(
       Sql.named('''
-        SELECT 
+        SELECT
           i.id,
           COALESCE(id.name, au.raw_user_meta_data->>'name') as name,
           id.slug,

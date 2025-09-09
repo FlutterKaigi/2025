@@ -1,16 +1,17 @@
 import 'dart:convert';
 
+import 'package:db_client/src/client/db_client.dart';
 import 'package:db_types/db_types.dart';
 import 'package:postgres/postgres.dart';
 
 class ProfileDbClient {
-  ProfileDbClient({required Connection connection}) : _connection = connection;
+  ProfileDbClient({required Executor executor}) : _executor = executor;
 
-  final Connection _connection;
+  final Executor _executor;
 
   /// プロファイル情報とSNSリンクを取得
   Future<ProfileWithSnsLinks?> getProfileWithSnsLinks(String userId) async {
-    final result = await _connection.execute(
+    final result = await _executor.execute(
       Sql.named('''
         SELECT
           json_build_object(
@@ -56,7 +57,7 @@ class ProfileDbClient {
     String userId,
     ProfileUpdateData profileData,
   ) async {
-    final result = await _connection.execute(
+    final result = await _executor.execute(
       Sql.named('''
         INSERT INTO profiles (id, name, comment, is_adult, avatar_key)
         VALUES (@user_id, @name, @comment, @is_adult, @avatar_key)
@@ -101,7 +102,7 @@ class ProfileDbClient {
         )
         .toList();
 
-    await _connection.execute(
+    await _executor.execute(
       Sql.named(
         'SELECT public.replace_user_sns_links(@user_id, @sns_accounts::jsonb)',
       ),
@@ -114,7 +115,7 @@ class ProfileDbClient {
 
   /// アバターキーを削除
   Future<void> deleteAvatar(String userId) async {
-    await _connection.execute(
+    await _executor.execute(
       Sql.named('''
         UPDATE profiles
         SET avatar_key = NULL, updated_at = @updated_at

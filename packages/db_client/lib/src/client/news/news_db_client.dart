@@ -1,14 +1,15 @@
+import 'package:db_client/src/client/db_client.dart';
 import 'package:db_types/db_types.dart';
 import 'package:postgres/postgres.dart';
 
 class NewsDbClient {
-  NewsDbClient({required Connection connection}) : _connection = connection;
+  NewsDbClient({required Executor executor}) : _executor = executor;
 
-  final Connection _connection;
+  final Executor _executor;
 
   /// 公開中のニュース一覧を取得する
   Future<List<News>> getPublishedNewsList() async {
-    final result = await _connection.execute(
+    final result = await _executor.execute(
       Sql.named('''
 SELECT *
 FROM public.news
@@ -23,7 +24,7 @@ ORDER BY id DESC
 
   /// 管理者向け：全てのニュース一覧を取得する（未公開含む）
   Future<List<News>> getAllNewsList() async {
-    final result = await _connection.execute(
+    final result = await _executor.execute(
       Sql.named('''
 SELECT *
 FROM public.news
@@ -35,7 +36,7 @@ ORDER BY id DESC
 
   /// IDでニュースを取得する
   Future<News?> getNewsById(int id) async {
-    final result = await _connection.execute(
+    final result = await _executor.execute(
       Sql.named('''
 SELECT *
 FROM public.news
@@ -62,7 +63,7 @@ LIMIT 1
     required DateTime startsAt,
     DateTime? endsAt,
   }) async {
-    final result = await _connection.execute(
+    final result = await _executor.execute(
       Sql.named('''
 INSERT INTO public.news (title, url, starts_at, ends_at)
 VALUES (@title, @url, @starts_at, @ends_at)
@@ -87,7 +88,7 @@ RETURNING *
     required DateTime startsAt,
     DateTime? endsAt,
   }) async {
-    final result = await _connection.execute(
+    final result = await _executor.execute(
       Sql.named('''
 UPDATE public.news
 SET
@@ -117,7 +118,7 @@ RETURNING *
 
   /// ニュースを削除する
   Future<bool> deleteNews(int id) async {
-    final result = await _connection.execute(
+    final result = await _executor.execute(
       Sql.named('''
 DELETE FROM public.news
 WHERE id = @id

@@ -1,13 +1,14 @@
+import 'package:db_client/db_client.dart';
 import 'package:db_types/db_types.dart';
 import 'package:postgres/postgres.dart';
 
 class UserDbClient {
-  UserDbClient({required Connection connection}) : _connection = connection;
+  UserDbClient({required Executor executor}) : _executor = executor;
 
-  final Connection _connection;
+  final Executor _executor;
 
   Future<UserAndUserRoles> getUserAndUserRoles(String userId) async {
-    final result = await _connection.execute(
+    final result = await _executor.execute(
       Sql.named('''
 SELECT
   to_json(u.*) AS user,
@@ -83,7 +84,7 @@ LIMIT @limit OFFSET @offset
     parameter['limit'] = limit;
     parameter['offset'] = offset;
 
-    final result = await _connection.execute(
+    final result = await _executor.execute(
       Sql.named(queryBuffer.toString()),
       parameters: parameter,
     );
@@ -98,7 +99,7 @@ LIMIT @limit OFFSET @offset
     List<Role> newRoles,
   ) async {
     // 削除済みユーザーのロールは更新できない
-    final userExists = await _connection.execute(
+    final userExists = await _executor.execute(
       Sql.named(
         'SELECT 1 FROM public.users WHERE id = @user_id AND deleted_at IS NULL',
       ),
@@ -109,7 +110,7 @@ LIMIT @limit OFFSET @offset
       throw PgException('User not found or has been deleted');
     }
 
-    await _connection.execute(
+    await _executor.execute(
       Sql.named('''
 SELECT replace_user_roles(@user_id, @new_roles)
 '''),
@@ -122,7 +123,7 @@ SELECT replace_user_roles(@user_id, @new_roles)
 
   /// ユーザーを論理削除する
   Future<void> deleteUser(String userId) async {
-    await _connection.execute(
+    await _executor.execute(
       Sql.named('''
 UPDATE public.users
 SET deleted_at = NOW()
@@ -136,7 +137,7 @@ WHERE id = @user_id AND deleted_at IS NULL
 
   /// ユーザーを復元する
   Future<void> restoreUser(String userId) async {
-    await _connection.execute(
+    await _executor.execute(
       Sql.named('''
 UPDATE public.users
 SET deleted_at = NULL

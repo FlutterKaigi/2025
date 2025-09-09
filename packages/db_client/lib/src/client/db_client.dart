@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:db_client/src/client/news/news_db_client.dart';
 import 'package:db_client/src/client/profile/profile_db_client.dart';
 import 'package:db_client/src/client/sponsor/sponsor_db_client.dart';
@@ -10,9 +12,9 @@ import 'package:postgres/postgres.dart';
 
 class DbClient {
   DbClient({
-    required Connection connection,
+    required Executor executor,
     required String logoBaseUrl,
-  }) : _connection = connection,
+  }) : _executor = executor,
        _logoBaseUrl = logoBaseUrl;
 
   static Future<DbClient> connect(
@@ -20,6 +22,7 @@ class DbClient {
     required String logoBaseUrl,
     bool disableSsl = false,
   }) async {
+    final stopWatch = Stopwatch()..start();
     final connection = await Connection.open(
       parseConnectionString(connectionString),
       settings: ConnectionSettings(
@@ -28,38 +31,38 @@ class DbClient {
         sslMode: disableSsl ? SslMode.disable : SslMode.require,
       ),
     );
+    print(
+      'Postgres Connection Time: ${stopWatch.elapsedMicroseconds / 1000} ms',
+    );
     return DbClient(
-      connection: connection,
+      executor: Executor(connection: connection),
       logoBaseUrl: logoBaseUrl,
     );
   }
 
-  final Connection _connection;
+  final Executor _executor;
   final String _logoBaseUrl;
 
-  UserDbClient get user => UserDbClient(connection: _connection);
-  ProfileDbClient get profile => ProfileDbClient(connection: _connection);
-  NewsDbClient get news => NewsDbClient(connection: _connection);
+  UserDbClient get user => UserDbClient(executor: _executor);
+  ProfileDbClient get profile => ProfileDbClient(executor: _executor);
+  NewsDbClient get news => NewsDbClient(executor: _executor);
   SponsorDbClient get sponsor => SponsorDbClient(
-    connection: _connection,
+    executor: _executor,
     logoBaseUrl: _logoBaseUrl,
   );
-  TicketTypeDbClient get ticketType =>
-      TicketTypeDbClient(connection: _connection);
+  TicketTypeDbClient get ticketType => TicketTypeDbClient(executor: _executor);
   TicketOptionDbClient get ticketOption =>
-      TicketOptionDbClient(connection: _connection);
+      TicketOptionDbClient(executor: _executor);
   TicketPurchaseDbClient get ticketPurchase =>
-      TicketPurchaseDbClient(connection: _connection);
+      TicketPurchaseDbClient(executor: _executor);
   TicketCheckoutDbClient get ticketCheckout =>
-      TicketCheckoutDbClient(connection: _connection);
+      TicketCheckoutDbClient(executor: _executor);
 
   Future<void> dispose() async {
-    await _connection.close();
+    await _executor.close();
   }
 
-  ConnectionInfo get connectionInfo => _connection.info;
-
-  bool get isOpen => _connection.isOpen;
+  bool get isOpen => _executor.isOpen;
 }
 
 Endpoint parseConnectionString(String connectionString) {
@@ -71,4 +74,60 @@ Endpoint parseConnectionString(String connectionString) {
     username: uri.userInfo.split(':').first,
     password: uri.userInfo.split(':').last,
   );
+}
+
+class Executor {
+  Executor({required Connection connection}) : _connection = connection;
+
+  final Connection _connection;
+
+  Future<Result> execute(
+    Object query, {
+    Object? parameters,
+    bool ignoreRows = false,
+    QueryMode? queryMode,
+    Duration? timeout,
+  }) async {
+    final stopWatch = Stopwatch()..start();
+    final result = await _connection.execute(
+      query,
+      parameters: parameters,
+      ignoreRows: ignoreRows,
+      queryMode: queryMode,
+      timeout: timeout,
+    );
+    print(
+      jsonEncode({
+        'type': 'postgres',
+        'time': stopWatch.elapsedMicroseconds / 1000,
+        'query': query,
+        'parameters': parameters,
+        'ignoreRows': ignoreRows,
+        'queryMode': queryMode,
+        'timeout': timeout,
+      }),
+    );
+    return result;
+  }
+
+  Future<R> runTx<R>(
+    Future<R> Function(TxSession) fn, {
+    TransactionSettings? settings,
+  }) async {
+    final stopWatch = Stopwatch()..start();
+    final result = await _connection.runTx(fn, settings: settings);
+    print(
+      jsonEncode({
+        'type': 'postgres-tx',
+        'time': stopWatch.elapsedMicroseconds / 1000,
+      }),
+    );
+    return result;
+  }
+
+  Future<void> close() async {
+    await _connection.close();
+  }
+
+  bool get isOpen => _connection.isOpen;
 }

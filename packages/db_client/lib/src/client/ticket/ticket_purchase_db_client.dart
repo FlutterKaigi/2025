@@ -1,11 +1,11 @@
+import 'package:db_client/db_client.dart';
 import 'package:db_types/db_types.dart';
 import 'package:postgres/postgres.dart';
 
 class TicketPurchaseDbClient {
-  TicketPurchaseDbClient({required Connection connection})
-    : _connection = connection;
+  TicketPurchaseDbClient({required Executor executor}) : _executor = executor;
 
-  final Connection _connection;
+  final Executor _executor;
 
   /// ユーザーの特定チケットタイプの購入情報をすべて取得
   /// 複数の購入記録がある場合はすべて返す（作成日時の降順）
@@ -13,7 +13,7 @@ class TicketPurchaseDbClient {
     String userId,
     String ticketTypeId,
   ) async {
-    final result = await _connection.execute(
+    final result = await _executor.execute(
       Sql.named('''
         SELECT *, status::text AS "status"
         FROM ticket_purchases
@@ -36,7 +36,7 @@ class TicketPurchaseDbClient {
   Future<List<TicketPurchases>> getUserAllTickets(
     String userId,
   ) async {
-    final result = await _connection.execute(
+    final result = await _executor.execute(
       Sql.named('''
         SELECT *, status::text AS "status"
         FROM ticket_purchases

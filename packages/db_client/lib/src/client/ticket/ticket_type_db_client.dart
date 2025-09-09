@@ -1,15 +1,16 @@
+import 'package:db_client/src/client/db_client.dart';
 import 'package:db_types/db_types.dart';
 import 'package:postgres/postgres.dart';
 
 class TicketTypeDbClient {
-  TicketTypeDbClient({required Connection connection})
-    : _connection = connection;
+  TicketTypeDbClient({required Executor executor})
+    : _executor = executor;
 
-  final Connection _connection;
+  final Executor _executor;
 
   /// アクティブなチケットタイプ一覧を取得
   Future<List<TicketTypes>> getActiveTicketTypes() async {
-    final result = await _connection.execute(
+    final result = await _executor.execute(
       Sql.named('''
         SELECT *
         FROM ticket_types
@@ -25,7 +26,7 @@ class TicketTypeDbClient {
 
   /// 指定されたIDのチケットタイプを取得
   Future<TicketTypes?> getTicketType(String ticketTypeId) async {
-    final result = await _connection.execute(
+    final result = await _executor.execute(
       Sql.named('''
         SELECT *
         FROM ticket_types
@@ -45,7 +46,7 @@ class TicketTypeDbClient {
   /// アクティブなチケットタイプとオプションを在庫数とともに一括取得
   Future<List<TicketTypeWithOptionsAndCounts>>
   getActiveTicketTypesWithOptionsAndCounts() async {
-    final result = await _connection.execute(
+    final result = await _executor.execute(
       Sql.named('''
         SELECT
           to_json(tt.*) AS ticket_type,
