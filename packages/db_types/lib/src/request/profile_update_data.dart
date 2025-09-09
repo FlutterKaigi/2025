@@ -7,8 +7,8 @@ part 'profile_update_data.g.dart';
 abstract class ProfileUpdateData with _$ProfileUpdateData {
   const factory ProfileUpdateData({
     required String name,
-    String? comment,
-    bool? isAdult,
+    required String comment,
+    required bool isAdult,
     String? avatarKey,
     @JsonKey(name: 'updated_at') DateTime? updatedAt,
   }) = _ProfileUpdateData;

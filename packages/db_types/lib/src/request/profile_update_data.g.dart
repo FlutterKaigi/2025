@@ -15,8 +15,8 @@ _ProfileUpdateData _$ProfileUpdateDataFromJson(Map<String, dynamic> json) =>
       ($checkedConvert) {
         final val = _ProfileUpdateData(
           name: $checkedConvert('name', (v) => v as String),
-          comment: $checkedConvert('comment', (v) => v as String?),
-          isAdult: $checkedConvert('is_adult', (v) => v as bool?),
+          comment: $checkedConvert('comment', (v) => v as String),
+          isAdult: $checkedConvert('is_adult', (v) => v as bool),
           avatarKey: $checkedConvert('avatar_key', (v) => v as String?),
           updatedAt: $checkedConvert(
             'updated_at',

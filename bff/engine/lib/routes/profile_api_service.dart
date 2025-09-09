@@ -117,8 +117,8 @@ class ProfileApiService {
       // プロファイル更新データを作成
       final profileData = db.ProfileUpdateData(
         name: updateRequest.name ?? '',
-        comment: updateRequest.comment,
-        isAdult: updateRequest.isAdult,
+        comment: updateRequest.comment ?? '',
+        isAdult: updateRequest.isAdult ?? false,
         updatedAt: DateTime.now(),
         avatarKey: updateRequest.avatarKey,
       );
