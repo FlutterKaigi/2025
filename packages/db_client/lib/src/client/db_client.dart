@@ -93,7 +93,7 @@ class Executor {
   }) async {
     final stopWatch = Stopwatch()..start();
     final result = await _connection.execute(
-      query,
+      Sql.named(query),
       parameters: parameters,
       ignoreRows: ignoreRows,
       queryMode: queryMode,
