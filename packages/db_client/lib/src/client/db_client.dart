@@ -101,7 +101,6 @@ class Executor {
         'type': 'postgres',
         'time': stopWatch.elapsedMicroseconds / 1000,
         'query': query,
-        'parameters': parameters,
         'ignoreRows': ignoreRows,
         'queryMode': queryMode,
         'timeout': timeout,
