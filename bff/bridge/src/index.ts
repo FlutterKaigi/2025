@@ -4,6 +4,7 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { csrf } from "hono/csrf";
 import { secureHeaders } from "hono/secure-headers";
+import { endTime, startTime, timing } from "hono/timing";
 
 const env = workersEnv as Cloudflare.Env & {
 	ENVIRONMENT: "development" | "staging" | "production";
@@ -28,6 +29,11 @@ export class BffEngine extends Container<Cloudflare.Env> {
 const INSTANCE_COUNT = 1;
 
 const app = new Hono()
+	.use(
+		timing({
+			autoEnd: true,
+		}),
+	)
 	// CORS
 	.use("*", async (c, next) => {
 		const corsMiddlewareHandler = cors({
@@ -56,8 +62,17 @@ const app = new Hono()
 	// Secure Headers
 	.use("*", secureHeaders())
 	.all("*", async (c) => {
+		startTime(c, "request");
+		startTime(c, "wait_for_instance_start");
 		const containerInstance = await getRandom(env.bff_engine, INSTANCE_COUNT);
+
+		containerInstance.startAndWaitForPorts();
+		endTime(c, "wait_for_instance_start");
+
+		startTime(c, "container_fetch");
 		const response = await containerInstance.fetch(c.req.raw);
+		endTime(c, "container_fetch");
+		endTime(c, "request");
 		return response;
 	});
 
