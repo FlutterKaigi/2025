@@ -13,7 +13,7 @@
 1. Swift Package Managerを有効にする
    - 本プロジェクトでは、Swift Package Managerを使用しています
    - 以下のコマンドを実行して、Swift Package Managerを有効にします
-     - PC全体でSwift Package Managerを有効になるので、注意してください
+     - PC全体でSwift Package Managerが有効になるので、注意してください
    - 参考: [Swift Package Manager for app developers - Flutter](https://docs.flutter.dev/packages-and-plugins/swift-package-manager/for-app-developers)
 
    ```bash
