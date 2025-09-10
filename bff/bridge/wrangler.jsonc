@@ -56,9 +56,9 @@
         {
           "class_name": "BffEngine",
           "image": "../engine/Dockerfile",
-          "max_instances": 1,
+          "max_instances": 3,
           "image_build_context": "../../",
-          "instance_type": "basic",
+          "instance_type": "dev",
           "name": "bff_engine_prod",
         },
       ],
