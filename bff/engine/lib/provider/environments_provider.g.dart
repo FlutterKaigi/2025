@@ -47,7 +47,7 @@ final class EnvironmentsProvider
   }
 }
 
-String _$environmentsHash() => r'54da0098b00c5c980f6141566bdefe83f152d45c';
+String _$environmentsHash() => r'9041501eca6a8c9ae378d767e2870605766ea373';
 
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
