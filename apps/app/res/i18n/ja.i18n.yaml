@@ -28,6 +28,7 @@ sponsor:
 
 account:
   profileEdit: プロフィールを編集する
+  guestUserLabel: ゲストでログイン中
   others: Others
   codeOfConduct: 行動規範
   codeOfConductUrl: https://docs.flutterkaigi.jp/Code-of-Conduct.ja

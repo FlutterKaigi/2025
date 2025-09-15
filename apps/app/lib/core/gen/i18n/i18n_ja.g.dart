@@ -138,6 +138,9 @@ class TranslationsAccountJa {
 	/// ja: 'プロフィールを編集する'
 	String get profileEdit => 'プロフィールを編集する';
 
+	/// ja: 'ゲストでログイン中'
+	String get guestUserLabel => 'ゲストでログイン中';
+
 	/// ja: 'Others'
 	String get others => 'Others';
 
@@ -379,6 +382,7 @@ extension on Translations {
 			case 'sponsor.xAccountNotSet': return '設定されていません';
 			case 'sponsor.name': return 'スポンサー名';
 			case 'account.profileEdit': return 'プロフィールを編集する';
+			case 'account.guestUserLabel': return 'ゲストでログイン中';
 			case 'account.others': return 'Others';
 			case 'account.codeOfConduct': return '行動規範';
 			case 'account.codeOfConductUrl': return 'https://docs.flutterkaigi.jp/Code-of-Conduct.ja';
