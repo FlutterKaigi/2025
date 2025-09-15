@@ -59,6 +59,7 @@ melos:
       description: build_runner と l10n の生成コマンドを実行します。
       steps:
         - gen:l10n
+        - gen:i18n
         - gen:build
     gen:build:
       description: build_runner を使用してコードを生成します。
@@ -81,12 +82,20 @@ melos:
         orderDependents: true
       packageFilters:
         dependsOn: flutter_localizations
+    gen:i18n:
+      description: slang を使用して国際化ファイルを生成します。
+      run: dart run slang
+      exec:
+        orderDependents: true
+      packageFilters:
+        dependsOn: slang
 
     gen:diff:head:
       description: 未コミットの差分パッケージのみ build_runner と l10n の生成コマンドを実行します。
       steps:
         - gen:build:diff:head
         - gen:l10n:diff:head
+        - gen:i18n:diff:head
     gen:build:diff:head:
       description: 未コミットの差分パッケージのみ build_runner を使用してコードを生成します。
       run: dart run build_runner build -d
@@ -103,12 +112,21 @@ melos:
       packageFilters:
         dependsOn: flutter_localizations
         diff: "" # --diff=HEAD のワークアラウンド https://github.com/invertase/melos/issues/759
+    gen:i18n:diff:head:
+      description: 未コミットの差分パッケージのみ slang を使用して国際化ファイルを生成します。
+      run: dart run slang
+      exec:
+        orderDependents: true
+      packageFilters:
+        dependsOn: slang
+        diff: "" # --diff=HEAD のワークアラウンド https://github.com/invertase/melos/issues/759
 
     gen:diff:main:
       description: main ブランチと差分のあるパッケージのみ build_runner と l10n の生成コマンドを実行します。
       steps:
         - gen:build:diff:main
         - gen:l10n:diff:main
+        - gen:i18n:diff:main
     gen:build:diff:main:
       description: main ブランチと差分のあるパッケージのみ build_runner を使用してコードを生成します。
       run: dart run build_runner build -d
@@ -124,6 +142,14 @@ melos:
         orderDependents: true
       packageFilters:
         dependsOn: flutter_localizations
+        diff: origin/main...HEAD
+    gen:i18n:diff:main:
+      description: main ブランチと差分のあるパッケージのみ slang を使用して国際化ファイルを生成します。
+      run: dart run slang
+      exec:
+        orderDependents: true
+      packageFilters:
+        dependsOn: slang
         diff: origin/main...HEAD
 
     fix:
