@@ -39,9 +39,11 @@ Future<void> main() async {
     log(e.toString());
   }
   runApp(
-    UncontrolledProviderScope(
-      container: container,
-      child: const App(),
+    TranslationProvider(
+      child: UncontrolledProviderScope(
+        container: container,
+        child: const App(),
+      ),
     ),
   );
 }
