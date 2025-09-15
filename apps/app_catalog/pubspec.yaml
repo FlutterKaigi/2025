@@ -15,6 +15,8 @@ dependencies:
   cupertino_icons: 1.0.8
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   hooks_riverpod: 3.0.0-dev.17
   widgetbook: ^3.16.0
   widgetbook_annotation: ^3.7.0
