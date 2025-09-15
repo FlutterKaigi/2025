@@ -46,6 +46,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final TranslationsAccountJa account = TranslationsAccountJa._(_root);
 	late final TranslationsAuthJa auth = TranslationsAuthJa._(_root);
 	late final TranslationsErrorJa error = TranslationsErrorJa._(_root);
+	late final TranslationsDebugJa debug = TranslationsDebugJa._(_root);
 	late final TranslationsTicketJa ticket = TranslationsTicketJa._(_root);
 }
 
@@ -167,6 +168,8 @@ class TranslationsAccountJa {
 
 	/// ja: 'ログアウト'
 	String get logout => 'ログアウト';
+
+	late final TranslationsAccountProfileJa profile = TranslationsAccountProfileJa._(_root);
 }
 
 // Path: auth
@@ -190,6 +193,19 @@ class TranslationsErrorJa {
 	late final TranslationsErrorNotFoundJa notFound = TranslationsErrorNotFoundJa._(_root);
 	late final TranslationsErrorServerJa server = TranslationsErrorServerJa._(_root);
 	late final TranslationsErrorWidgetJa widget = TranslationsErrorWidgetJa._(_root);
+	late final TranslationsErrorGeneralJa general = TranslationsErrorGeneralJa._(_root);
+}
+
+// Path: debug
+class TranslationsDebugJa {
+	TranslationsDebugJa._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'Talker 画面へ'
+	String get talkerScreen => 'Talker 画面へ';
 }
 
 // Path: ticket
@@ -201,6 +217,7 @@ class TranslationsTicketJa {
 	// Translations
 	late final TranslationsTicketNoticeJa notice = TranslationsTicketNoticeJa._(_root);
 	late final TranslationsTicketStudentRefundJa studentRefund = TranslationsTicketStudentRefundJa._(_root);
+	late final TranslationsTicketPurchaseJa purchase = TranslationsTicketPurchaseJa._(_root);
 }
 
 // Path: news.tile
@@ -240,6 +257,70 @@ class TranslationsNewsEmptyJa {
 
 	/// ja: '現在、新しいお知らせはありません。'
 	String get message => '現在、新しいお知らせはありません。';
+}
+
+// Path: account.profile
+class TranslationsAccountProfileJa {
+	TranslationsAccountProfileJa._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'プロファイル'
+	String get title => 'プロファイル';
+
+	/// ja: 'プロフィール編集'
+	String get editTitle => 'プロフィール編集';
+
+	/// ja: 'プロファイル情報を作成してください'
+	String get createInfo => 'プロファイル情報を作成してください';
+
+	/// ja: 'プロファイルを編集'
+	String get edit => 'プロファイルを編集';
+
+	/// ja: 'プロファイルが見つかりません'
+	String get notFound => 'プロファイルが見つかりません';
+
+	/// ja: '保存中...'
+	String get saving => '保存中...';
+
+	/// ja: '保存'
+	String get save => '保存';
+
+	/// ja: 'プロファイルを保存しました'
+	String get saveSuccess => 'プロファイルを保存しました';
+
+	/// ja: '保存に失敗しました'
+	String get saveFailed => '保存に失敗しました';
+
+	/// ja: 'エラーが発生しました'
+	String get errorOccurred => 'エラーが発生しました';
+
+	/// ja: '20歳以上です'
+	String get ageOver20 => '20歳以上です';
+
+	/// ja: '名前 *'
+	String get nameLabel => '名前 *';
+
+	/// ja: '名前を入力してください'
+	String get nameRequired => '名前を入力してください';
+
+	/// ja: 'アップロード'
+	String get upload => 'アップロード';
+
+	/// ja: '削除'
+	String get delete => '削除';
+
+	/// ja: 'SNSリンク'
+	String get snsLinks => 'SNSリンク';
+
+	/// ja: '追加'
+	String get add => '追加';
+
+	late final TranslationsAccountProfileAvatarJa avatar = TranslationsAccountProfileAvatarJa._(_root);
+	late final TranslationsAccountProfileSnsJa sns = TranslationsAccountProfileSnsJa._(_root);
+	late final TranslationsAccountProfileImageJa image = TranslationsAccountProfileImageJa._(_root);
 }
 
 // Path: auth.guest
@@ -323,6 +404,18 @@ class TranslationsErrorWidgetJa {
 	String get buildErrorGitHubButton => 'GitHub の Issue ページを開く';
 }
 
+// Path: error.general
+class TranslationsErrorGeneralJa {
+	TranslationsErrorGeneralJa._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'エラーが発生しました'
+	String get occurred => 'エラーが発生しました';
+}
+
 // Path: ticket.notice
 class TranslationsTicketNoticeJa {
 	TranslationsTicketNoticeJa._(this._root);
@@ -359,6 +452,99 @@ class TranslationsTicketStudentRefundJa {
 	String get dialogContent => '🎓 学生向け返金・費用補助について\nFlutterKaigi 2025では、学生支援スポンサー様のご協力により、アーリーチケット・ノーマルチケットをご購入の方を対象に、以下の返金・費用補助を実施いたします。\n\n✅ 対象となる費用\n- チケット代金\n- 交通費（上限あり）\n- 宿泊費（上限あり）\n\n🧑‍🎓 対象となる「学生」の定義\n以下のいずれかに該当し、在学を証明できる方が対象です：\n- 日本国内外の教育機関（小学校・中学校・高等学校・高等専門学校・専門学校・大学・大学院など）に在籍中の方\n- 年齢や就業状況を問わず、学生証または在学証明書を提示できる方\n\n🎟 対象条件\n- FlutterKaigi 2025に実際に参加された方\n- 実際に学生支援スポンサーとの交流企画へ参加された方\n- 前当日の受付にて、有効な学生証や在学証明書をご提示いただいた方\n\n参加記録は運営側で確認いたします。事前申請は不要です。\n\n📩 返金手続きについて\nイベント終了後、対象の方へメールにて返金手続きの詳細をご案内いたします。\n\nその際、以下の情報をご提出いただきます：\n- チケット購入時の情報\n- 交通費・宿泊費の領収書または証明書類\n- 振込先の口座情報\n\n※ 学生証の写しなどの追加提出は不要です（当日提示済みの場合）\n※ 上限金額や詳細条件については、ご案内メールにて個別にご説明します。\n※ ご提出いただいた内容を確認のうえ、順次返金いたします。\n\n📌 ご提出いただく情報には個人情報が含まれます。返金・費用補助の確認および手続きの目的に限り使用し、手続き完了後は速やかに破棄いたします。お申し込みいただくにあたり、これらの取り扱いにご同意いただく必要がありますので、あらかじめご了承ください。\n\n📬 ご不明点がある場合は：staff@flutterkaigi.jp';
 }
 
+// Path: ticket.purchase
+class TranslationsTicketPurchaseJa {
+	TranslationsTicketPurchaseJa._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '購入へ進む'
+	String get proceed => '購入へ進む';
+
+	/// ja: 'チケット情報を確認'
+	String get confirmTitle => 'チケット情報を確認';
+
+	/// ja: '決済を開始'
+	String get paymentTitle => '決済を開始';
+
+	/// ja: '戻る'
+	String get back => '戻る';
+
+	/// ja: '次へ'
+	String get next => '次へ';
+
+	/// ja: '決済を開始'
+	String get startPayment => '決済を開始';
+
+	/// ja: '選択済み'
+	String get selected => '選択済み';
+
+	/// ja: '決済へ進む'
+	String get proceedToPayment => '決済へ進む';
+
+	/// ja: '決済ページを開けませんでした'
+	String get paymentPageError => '決済ページを開けませんでした';
+
+	/// ja: 'エラーが発生しました'
+	String get errorOccurred => 'エラーが発生しました';
+}
+
+// Path: account.profile.avatar
+class TranslationsAccountProfileAvatarJa {
+	TranslationsAccountProfileAvatarJa._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'アバターを削除しました'
+	String get deleteSuccess => 'アバターを削除しました';
+
+	/// ja: 'アバターを変更できませんでした'
+	String get changeFailed => 'アバターを変更できませんでした';
+
+	/// ja: 'アバターを変更しました'
+	String get changeSuccess => 'アバターを変更しました';
+}
+
+// Path: account.profile.sns
+class TranslationsAccountProfileSnsJa {
+	TranslationsAccountProfileSnsJa._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'SNSリンクが登録されていません'
+	String get notLinked => 'SNSリンクが登録されていません';
+}
+
+// Path: account.profile.image
+class TranslationsAccountProfileImageJa {
+	TranslationsAccountProfileImageJa._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '画像を選択'
+	String get selectTitle => '画像を選択';
+
+	/// ja: '画像を選択してください'
+	String get selectMessage => '画像を選択してください';
+
+	/// ja: '画像を選択'
+	String get selectButton => '画像を選択';
+
+	/// ja: 'Googleアカウントの写真を使用'
+	String get useGooglePhoto => 'Googleアカウントの写真を使用';
+
+	/// ja: '画像をクロップ'
+	String get cropTitle => '画像をクロップ';
+}
+
 /// Flat map(s) containing all translations.
 /// Only for edge cases! For simple maps, use the map function of this library.
 extension on Translations {
@@ -392,6 +578,32 @@ extension on Translations {
 			case 'account.contactUrl': return 'https://docs.google.com/forms/d/e/1FAIpQLSemYPFEWpP8594MWI4k3Nz45RJzMS7pz1ufwtnX4t3V7z2TOw/viewform';
 			case 'account.ossLicenses': return 'OSS Licenses';
 			case 'account.logout': return 'ログアウト';
+			case 'account.profile.title': return 'プロファイル';
+			case 'account.profile.editTitle': return 'プロフィール編集';
+			case 'account.profile.createInfo': return 'プロファイル情報を作成してください';
+			case 'account.profile.edit': return 'プロファイルを編集';
+			case 'account.profile.notFound': return 'プロファイルが見つかりません';
+			case 'account.profile.saving': return '保存中...';
+			case 'account.profile.save': return '保存';
+			case 'account.profile.saveSuccess': return 'プロファイルを保存しました';
+			case 'account.profile.saveFailed': return '保存に失敗しました';
+			case 'account.profile.errorOccurred': return 'エラーが発生しました';
+			case 'account.profile.ageOver20': return '20歳以上です';
+			case 'account.profile.nameLabel': return '名前 *';
+			case 'account.profile.nameRequired': return '名前を入力してください';
+			case 'account.profile.upload': return 'アップロード';
+			case 'account.profile.delete': return '削除';
+			case 'account.profile.snsLinks': return 'SNSリンク';
+			case 'account.profile.add': return '追加';
+			case 'account.profile.avatar.deleteSuccess': return 'アバターを削除しました';
+			case 'account.profile.avatar.changeFailed': return 'アバターを変更できませんでした';
+			case 'account.profile.avatar.changeSuccess': return 'アバターを変更しました';
+			case 'account.profile.sns.notLinked': return 'SNSリンクが登録されていません';
+			case 'account.profile.image.selectTitle': return '画像を選択';
+			case 'account.profile.image.selectMessage': return '画像を選択してください';
+			case 'account.profile.image.selectButton': return '画像を選択';
+			case 'account.profile.image.useGooglePhoto': return 'Googleアカウントの写真を使用';
+			case 'account.profile.image.cropTitle': return '画像をクロップ';
 			case 'auth.guest.signInButton': return 'ゲストで利用する';
 			case 'auth.guest.userLabel': return 'ゲストでログイン中';
 			case 'auth.error.identityAlreadyExists': return 'このGoogleアカウントは既に別のユーザーと紐づけられています。ログアウトしてから再度ログインしてください。';
@@ -404,12 +616,24 @@ extension on Translations {
 			case 'error.widget.buildErrorTitle': return '予期しないエラーが発生しました';
 			case 'error.widget.buildErrorMessage': return '申し訳ございません。UI 構築中に予期しないエラーが発生しました。\n\nこの問題を解決するため、GitHub の Issue を作成していただけると大変助かります。';
 			case 'error.widget.buildErrorGitHubButton': return 'GitHub の Issue ページを開く';
+			case 'error.general.occurred': return 'エラーが発生しました';
+			case 'debug.talkerScreen': return 'Talker 画面へ';
 			case 'ticket.notice.title': return 'ご注意';
 			case 'ticket.notice.message': return '「個人スポンサーチケット」のみでは、FlutterKaigi 2025本編（カンファレンス会場）へのご入場はできません。\n入場をご希望の方は、アーリーチケット（9月末まで販売予定）またはノーマルチケットを別途ご購入ください。\nなお、「個人スポンサーチケット」は、入場を目的とせず FlutterKaigi を応援したい方のご支援も大歓迎です！\n\n前夜祭への参加は「アーリーチケット」のみが対象です。\nノーマルチケットでは前夜祭に参加できませんのでご注意ください。';
 			case 'ticket.studentRefund.title': return '学生向け返金・費用補助について';
 			case 'ticket.studentRefund.description': return 'FlutterKaigi 2025では、学生支援スポンサー様のご協力により、アーリーチケット・ノーマルチケットをご購入の方を対象に返金・費用補助を実施いたします。';
 			case 'ticket.studentRefund.detailsButton': return '詳細を見る';
 			case 'ticket.studentRefund.dialogContent': return '🎓 学生向け返金・費用補助について\nFlutterKaigi 2025では、学生支援スポンサー様のご協力により、アーリーチケット・ノーマルチケットをご購入の方を対象に、以下の返金・費用補助を実施いたします。\n\n✅ 対象となる費用\n- チケット代金\n- 交通費（上限あり）\n- 宿泊費（上限あり）\n\n🧑‍🎓 対象となる「学生」の定義\n以下のいずれかに該当し、在学を証明できる方が対象です：\n- 日本国内外の教育機関（小学校・中学校・高等学校・高等専門学校・専門学校・大学・大学院など）に在籍中の方\n- 年齢や就業状況を問わず、学生証または在学証明書を提示できる方\n\n🎟 対象条件\n- FlutterKaigi 2025に実際に参加された方\n- 実際に学生支援スポンサーとの交流企画へ参加された方\n- 前当日の受付にて、有効な学生証や在学証明書をご提示いただいた方\n\n参加記録は運営側で確認いたします。事前申請は不要です。\n\n📩 返金手続きについて\nイベント終了後、対象の方へメールにて返金手続きの詳細をご案内いたします。\n\nその際、以下の情報をご提出いただきます：\n- チケット購入時の情報\n- 交通費・宿泊費の領収書または証明書類\n- 振込先の口座情報\n\n※ 学生証の写しなどの追加提出は不要です（当日提示済みの場合）\n※ 上限金額や詳細条件については、ご案内メールにて個別にご説明します。\n※ ご提出いただいた内容を確認のうえ、順次返金いたします。\n\n📌 ご提出いただく情報には個人情報が含まれます。返金・費用補助の確認および手続きの目的に限り使用し、手続き完了後は速やかに破棄いたします。お申し込みいただくにあたり、これらの取り扱いにご同意いただく必要がありますので、あらかじめご了承ください。\n\n📬 ご不明点がある場合は：staff@flutterkaigi.jp';
+			case 'ticket.purchase.proceed': return '購入へ進む';
+			case 'ticket.purchase.confirmTitle': return 'チケット情報を確認';
+			case 'ticket.purchase.paymentTitle': return '決済を開始';
+			case 'ticket.purchase.back': return '戻る';
+			case 'ticket.purchase.next': return '次へ';
+			case 'ticket.purchase.startPayment': return '決済を開始';
+			case 'ticket.purchase.selected': return '選択済み';
+			case 'ticket.purchase.proceedToPayment': return '決済へ進む';
+			case 'ticket.purchase.paymentPageError': return '決済ページを開けませんでした';
+			case 'ticket.purchase.errorOccurred': return 'エラーが発生しました';
 			default: return null;
 		}
 	}

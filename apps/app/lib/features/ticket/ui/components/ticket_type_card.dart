@@ -1,3 +1,4 @@
+import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/features/ticket/ui/components/ticket_card_description.dart';
 import 'package:bff_client/bff_client.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,7 @@ class TicketTypeCard extends StatelessWidget {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final ticketType = ticketTypeItem.ticketType;
+    final t = Translations.of(context);
     final priceText =
         '¥${NumberFormat.decimalPattern().format(ticketType.price)}';
 
@@ -71,7 +73,7 @@ class TicketTypeCard extends StatelessWidget {
                   label: switch (ticketType.status) {
                     TicketStatusNotSelling() => const Text('販売終了'),
                     TicketStatusSoldOut() => const Text('完売'),
-                    TicketStatusSelling() => const Text('購入へ進む'),
+                    TicketStatusSelling() => Text(t.ticket.purchase.proceed),
                   },
                   onPressed: switch ((
                     ticketType.status,

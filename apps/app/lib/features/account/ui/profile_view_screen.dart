@@ -1,3 +1,4 @@
+import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/features/account/data/notifier/profile_notifier.dart';
 import 'package:app/features/account/ui/component/account_circle_image.dart';
 import 'package:app/features/account/ui/component/sns_link_card.dart';
@@ -16,16 +17,17 @@ class ProfileViewScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final profileAsync = ref.watch(profileNotifierProvider);
+    final t = Translations.of(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('プロファイル'),
+        title: Text(t.account.profile.title),
         actions: [
           IconButton(
             onPressed: () =>
                 Navigator.of(context).pushNamed('/account/profile-edit'),
             icon: const Icon(Icons.edit),
-            tooltip: '編集',
+            tooltip: t.account.profile.edit,
           ),
         ],
       ),
@@ -42,7 +44,7 @@ class ProfileViewScreen extends HookConsumerWidget {
               ),
               const SizedBox(height: 16),
               Text(
-                'エラーが発生しました',
+                t.error.general.occurred,
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
               const SizedBox(height: 8),
@@ -50,7 +52,7 @@ class ProfileViewScreen extends HookConsumerWidget {
               const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () => ref.invalidate(profileNotifierProvider),
-                child: const Text('再試行'),
+                child: Text(t.error.server.retry),
               ),
             ],
           ),
@@ -68,18 +70,18 @@ class ProfileViewScreen extends HookConsumerWidget {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    'プロファイルが見つかりません',
+                    t.account.profile.notFound,
                     style: Theme.of(context).textTheme.headlineSmall,
                   ),
                   const SizedBox(height: 8),
-                  const Text('プロファイル情報を作成してください'),
+                  Text(t.account.profile.createInfo),
                   const SizedBox(height: 16),
                   ElevatedButton.icon(
                     onPressed: () => Navigator.of(
                       context,
                     ).pushNamed('/account/profile-edit'),
                     icon: const Icon(Icons.edit),
-                    label: const Text('プロファイルを編集'),
+                    label: Text(t.account.profile.edit),
                   ),
                 ],
               ),
@@ -215,7 +217,7 @@ class ProfileViewScreen extends HookConsumerWidget {
                       context,
                     ).pushNamed('/account/profile-edit'),
                     icon: const Icon(Icons.edit),
-                    label: const Text('プロファイルを編集'),
+                    label: Text(t.account.profile.edit),
                   ),
                 ),
               ],
