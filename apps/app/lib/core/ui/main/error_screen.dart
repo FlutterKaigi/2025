@@ -1,5 +1,5 @@
 import 'package:app/core/gen/assets/assets.gen.dart';
-import 'package:app/core/gen/l10n/l10n.dart';
+import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:flutter/material.dart';
 
 /// エラー表示画面
@@ -17,7 +17,7 @@ class ErrorScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final l10n = L10n.of(context);
+    final t = Translations.of(context);
 
     return Scaffold(
       body: SafeArea(
@@ -38,7 +38,7 @@ class ErrorScreen extends StatelessWidget {
 
                   // エラーメッセージ
                   Text(
-                    l10n.errorTitle,
+                    t.error.server.title,
                     style: theme.textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
@@ -47,7 +47,7 @@ class ErrorScreen extends StatelessWidget {
                   const SizedBox(height: 16),
 
                   Text(
-                    l10n.errorMessage,
+                    t.error.server.message,
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
                     ),
@@ -59,7 +59,7 @@ class ErrorScreen extends StatelessWidget {
                   FilledButton.icon(
                     onPressed: onRetry,
                     icon: const Icon(Icons.refresh),
-                    label: Text(l10n.errorRetry),
+                    label: Text(t.error.server.retry),
                     style: FilledButton.styleFrom(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 32,
