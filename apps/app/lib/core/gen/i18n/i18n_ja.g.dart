@@ -112,6 +112,12 @@ class TranslationsSponsorJa {
 	/// ja: '意気込み'
 	String get enthusiasm => '意気込み';
 
+	/// ja: '企業スポンサー'
+	String get company => '企業スポンサー';
+
+	/// ja: '個人スポンサー'
+	String get individual => '個人スポンサー';
+
 	/// ja: 'ウェブサイト'
 	String get website => 'ウェブサイト';
 
@@ -748,6 +754,8 @@ extension on Translations {
 			case 'event.address': return '東京都千代田区大手町二丁目3番1号';
 			case 'sponsor.prText': return 'PR 文章';
 			case 'sponsor.enthusiasm': return '意気込み';
+			case 'sponsor.company': return '企業スポンサー';
+			case 'sponsor.individual': return '個人スポンサー';
 			case 'sponsor.website': return 'ウェブサイト';
 			case 'sponsor.websiteNotSet': return '設定されていません';
 			case 'sponsor.xAccount': return 'X アカウント';

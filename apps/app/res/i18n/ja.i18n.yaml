@@ -20,6 +20,8 @@ event:
 sponsor:
   prText: PR 文章
   enthusiasm: 意気込み
+  company: 企業スポンサー
+  individual: 個人スポンサー
   website: ウェブサイト
   websiteNotSet: 設定されていません
   xAccount: X アカウント
