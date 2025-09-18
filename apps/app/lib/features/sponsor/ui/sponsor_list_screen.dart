@@ -1,3 +1,4 @@
+import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/core/router/router.dart';
 import 'package:app/features/sponsor/data/sponsor.dart';
 import 'package:app/features/sponsor/data/sponsor_provider.dart';
@@ -28,6 +29,7 @@ class _SponsorList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final t = Translations.of(context);
     final sponsors = ref.watch(sponsorsProvider);
     return switch (sponsors) {
       AsyncData(:final value) => () {
@@ -40,7 +42,7 @@ class _SponsorList extends ConsumerWidget {
           if (companySponsors.isNotEmpty) ...[
             SliverPersistentHeader(
               pinned: true,
-              delegate: _SectionHeaderDelegate(title: '企業スポンサー'),
+              delegate: _SectionHeaderDelegate(title: t.sponsor.company),
             ),
             SliverList(
               delegate: SliverChildBuilderDelegate(
@@ -53,7 +55,7 @@ class _SponsorList extends ConsumerWidget {
           if (individualSponsors.isNotEmpty) ...[
             SliverPersistentHeader(
               pinned: true,
-              delegate: _SectionHeaderDelegate(title: '個人スポンサー'),
+              delegate: _SectionHeaderDelegate(title: t.sponsor.individual),
             ),
             SliverList(
               delegate: SliverChildBuilderDelegate(

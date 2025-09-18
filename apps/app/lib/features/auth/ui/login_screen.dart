@@ -1,5 +1,5 @@
 import 'package:app/core/gen/assets/assets.gen.dart';
-import 'package:app/core/gen/l10n/l10n.dart';
+import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/features/auth/data/notifier/auth_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -18,7 +18,7 @@ class LoginScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    final l10n = L10n.of(context);
+    final t = Translations.of(context);
 
     return Scaffold(
       body: SafeArea(
@@ -37,7 +37,7 @@ class LoginScreen extends ConsumerWidget {
                       fit: BoxFit.fitHeight,
                     ),
                     Text(
-                      l10n.appName,
+                      t.app.name,
                       style: theme.textTheme.titleMedium,
                     ),
                     _GoogleSignInButton(
@@ -89,7 +89,7 @@ class _GuestSignInButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final l10n = L10n.of(context);
+    final t = Translations.of(context);
 
     return SizedBox(
       width: 210,
@@ -102,7 +102,7 @@ class _GuestSignInButton extends StatelessWidget {
           ),
         ),
         child: Text(
-          l10n.guestSignInButton,
+          t.auth.guest.signInButton,
           style: theme.textTheme.labelLarge,
         ),
       ),

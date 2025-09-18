@@ -29,17 +29,17 @@ class AccountInfoRoute extends GoRouteData with $AccountInfoRoute {
     return AccountInfoScreen(
       onProfileEdit: () => const ProfileEditRoute().go(context),
       onTapCodeOfConductTile: () => _openUrl(
-        urlString: L10n.of(context).accountCodeOfConductUrl,
+        urlString: Translations.of(context).account.codeOfConductUrl,
       ),
       onTapPrivacyPolicyTile: () => _openUrl(
-        urlString: L10n.of(context).accountPrivacyPolicyUrl,
+        urlString: Translations.of(context).account.privacyPolicyUrl,
       ),
       onTapContactTile: () => _openUrl(
-        urlString: L10n.of(context).accountContactUrl,
+        urlString: Translations.of(context).account.contactUrl,
       ),
       onTapOssLicensesTile: () => showLicensePage(
         context: context,
-        applicationName: L10n.of(context).appName,
+        applicationName: Translations.of(context).app.name,
       ),
     );
   }

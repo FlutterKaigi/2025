@@ -1,3 +1,4 @@
+import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/features/account/data/model/sns_link_form_data.dart';
 import 'package:app/features/account/data/notifier/profile_notifier.dart';
 import 'package:app/features/account/ui/action/change_avatar_action.dart';
@@ -28,6 +29,7 @@ class ProfileEditScreen extends HookConsumerWidget {
     bool isAdult,
     List<SnsLinkFormData> snsLinks,
   ) async {
+    final t = Translations.of(context);
     if (!formKey.currentState!.validate()) {
       return;
     }
@@ -35,19 +37,19 @@ class ProfileEditScreen extends HookConsumerWidget {
     // 保存中の状態を表示
     if (context.mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+        SnackBar(
           content: Row(
             children: [
-              SizedBox(
+              const SizedBox(
                 width: 16,
                 height: 16,
                 child: CircularProgressIndicator(strokeWidth: 2),
               ),
-              SizedBox(width: 12),
-              Text('保存中...'),
+              const SizedBox(width: 12),
+              Text(t.account.profile.saving),
             ],
           ),
-          duration: Duration(seconds: 10),
+          duration: const Duration(seconds: 10),
         ),
       );
     }
@@ -79,12 +81,12 @@ class ProfileEditScreen extends HookConsumerWidget {
       if (context.mounted) {
         ScaffoldMessenger.of(context).clearSnackBars();
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
+          SnackBar(
             content: Row(
               children: [
-                Icon(Icons.check_circle, color: Colors.white),
-                SizedBox(width: 8),
-                Text('プロファイルを保存しました'),
+                const Icon(Icons.check_circle, color: Colors.white),
+                const SizedBox(width: 8),
+                Text(t.account.profile.saveSuccess),
               ],
             ),
             backgroundColor: Colors.green,
@@ -102,7 +104,7 @@ class ProfileEditScreen extends HookConsumerWidget {
                 const Icon(Icons.error, color: Colors.white),
                 const SizedBox(width: 8),
                 Expanded(
-                  child: Text('保存に失敗しました: $e'),
+                  child: Text('${t.account.profile.saveFailed}: $e'),
                 ),
               ],
             ),
@@ -117,6 +119,7 @@ class ProfileEditScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final colorScheme = Theme.of(context).colorScheme;
+    final t = Translations.of(context);
 
     final formKey = useMemoized(GlobalKey<FormState>.new);
     final nameController = useTextEditingController();
@@ -127,7 +130,7 @@ class ProfileEditScreen extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('プロフィール編集'),
+        title: Text(t.account.profile.editTitle),
         actions: [
           TextButton(
             onPressed: () => _saveProfile(
@@ -138,7 +141,7 @@ class ProfileEditScreen extends HookConsumerWidget {
               isAdultState.value,
               snsLinksState.value,
             ),
-            child: const Text('保存'),
+            child: Text(t.account.profile.save),
           ),
         ],
       ),
@@ -148,10 +151,10 @@ class ProfileEditScreen extends HookConsumerWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('エラーが発生しました: $error'),
+              Text('${t.error.general.occurred}: $error'),
               ElevatedButton(
                 onPressed: () => ref.invalidate(profileNotifierProvider),
-                child: const Text('再試行'),
+                child: Text(t.error.server.retry),
               ),
             ],
           ),
@@ -233,7 +236,7 @@ class ProfileEditScreen extends HookConsumerWidget {
                                     .read(changeAvatarActionProvider)
                                     .changeAvatar(context: context),
                                 icon: const Icon(Icons.upload),
-                                label: const Text('アップロード'),
+                                label: Text(t.account.profile.upload),
                               ),
                               if (profile?.profile.avatarUrl != null)
                                 TextButton.icon(
@@ -241,7 +244,7 @@ class ProfileEditScreen extends HookConsumerWidget {
                                       .read(changeAvatarActionProvider)
                                       .deleteAvatar(context: context),
                                   icon: const Icon(Icons.delete),
-                                  label: const Text('削除'),
+                                  label: Text(t.account.profile.delete),
                                 ),
                             ],
                           ),
@@ -253,13 +256,13 @@ class ProfileEditScreen extends HookConsumerWidget {
                     // 名前
                     TextFormField(
                       controller: nameController,
-                      decoration: const InputDecoration(
-                        labelText: '名前 *',
-                        border: OutlineInputBorder(),
+                      decoration: InputDecoration(
+                        labelText: t.account.profile.nameLabel,
+                        border: const OutlineInputBorder(),
                       ),
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
-                          return '名前を入力してください';
+                          return t.account.profile.nameRequired;
                         }
                         return null;
                       },
@@ -269,7 +272,7 @@ class ProfileEditScreen extends HookConsumerWidget {
 
                     // 成人確認
                     CheckboxListTile(
-                      title: const Text('20歳以上です'),
+                      title: Text(t.account.profile.ageOver20),
                       value: isAdultState.value,
                       onChanged: (value) {
                         isAdultState.value = value ?? false;
@@ -281,9 +284,9 @@ class ProfileEditScreen extends HookConsumerWidget {
                     // SNSリンク
                     Row(
                       children: [
-                        const Text(
-                          'SNSリンク',
-                          style: TextStyle(
+                        Text(
+                          t.account.profile.snsLinks,
+                          style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                           ),
@@ -297,7 +300,7 @@ class ProfileEditScreen extends HookConsumerWidget {
                             ];
                           },
                           icon: const Icon(Icons.add),
-                          label: const Text('追加'),
+                          label: Text(t.account.profile.add),
                         ),
                       ],
                     ),

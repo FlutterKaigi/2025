@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/core/provider/environment.dart';
 import 'package:app/core/ui/app.dart';
 import 'package:app/core/ui/main/widget_build_error_screen.dart';
@@ -12,6 +13,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await LocaleSettings.useDeviceLocale();
 
   ErrorWidget.builder = (details) => WidgetBuildErrorScreen(details: details);
 
@@ -37,9 +39,11 @@ Future<void> main() async {
     log(e.toString());
   }
   runApp(
-    UncontrolledProviderScope(
-      container: container,
-      child: const App(),
+    TranslationProvider(
+      child: UncontrolledProviderScope(
+        container: container,
+        child: const App(),
+      ),
     ),
   );
 }

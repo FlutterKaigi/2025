@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:app/core/gen/assets/assets.gen.dart';
-import 'package:app/core/gen/l10n/l10n.dart';
+import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -41,7 +41,7 @@ class WidgetBuildErrorScreen extends StatelessWidget {
     }
 
     final theme = Theme.of(context);
-    final l10n = L10n.of(context);
+    final t = Translations.of(context);
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
@@ -57,7 +57,7 @@ class WidgetBuildErrorScreen extends StatelessWidget {
 
           // エラータイトル
           Text(
-            l10n.widgetBuildErrorTitle,
+            t.error.widget.buildErrorTitle,
             style: theme.textTheme.headlineSmall?.copyWith(
               fontWeight: FontWeight.bold,
               color: theme.colorScheme.error,
@@ -72,7 +72,7 @@ class WidgetBuildErrorScreen extends StatelessWidget {
 
           // 開発者向けメッセージ
           Text(
-            l10n.widgetBuildErrorMessage,
+            t.error.widget.buildErrorMessage,
             style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
@@ -84,7 +84,7 @@ class WidgetBuildErrorScreen extends StatelessWidget {
           FilledButton.icon(
             onPressed: () => _openGitHubIssue(context),
             icon: const Icon(Icons.bug_report),
-            label: Text(l10n.widgetBuildErrorGitHubButton),
+            label: Text(t.error.widget.buildErrorGitHubButton),
             style: FilledButton.styleFrom(
               backgroundColor: theme.colorScheme.secondary,
               foregroundColor: theme.colorScheme.onSecondary,

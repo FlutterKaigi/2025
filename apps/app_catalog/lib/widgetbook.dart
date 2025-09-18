@@ -1,7 +1,8 @@
 import 'package:app/core/designsystem/theme/theme.dart';
-import 'package:app/core/gen/l10n/l10n.dart';
+import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app_catalog/widgetbook.directories.g.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
@@ -41,9 +42,9 @@ class WidgetbookApp extends StatelessWidget {
             ],
           ),
           LocalizationAddon(
-            localizationsDelegates: L10n.localizationsDelegates,
-            locales: L10n.supportedLocales,
-            initialLocale: L10n.supportedLocales.first,
+            localizationsDelegates: GlobalMaterialLocalizations.delegates,
+            locales: AppLocaleUtils.supportedLocales,
+            initialLocale: AppLocaleUtils.supportedLocales.first,
           ),
           TextScaleAddon(
             min: 1,

@@ -1,4 +1,5 @@
 import 'package:app/core/debug/debug_overlay.dart';
+import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/core/ui/main/responsive_scaffold.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -22,17 +23,27 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = Translations.of(context);
     final content = ResponsiveScaffold(
       currentIndex: navigationShell.currentIndex,
-      destinations: const [
-        ResponsiveScaffoldDestination(icon: Icons.event, title: 'イベント'),
+      destinations: [
+        ResponsiveScaffoldDestination(
+          icon: Icons.event,
+          title: t.navigation.event,
+        ),
         // TODO: スポンサーの表示修正完了後に復活予定
-        // ResponsiveScaffoldDestination(icon: Icons.business, title: 'スポンサー'),
+        // ResponsiveScaffoldDestination(
+        //   icon: Icons.business,
+        //   title: t.navigation.sponsor,
+        // ),
         ResponsiveScaffoldDestination(
           icon: Icons.confirmation_number,
-          title: 'チケット',
+          title: t.navigation.ticket,
         ),
-        ResponsiveScaffoldDestination(icon: Icons.person, title: 'アカウント'),
+        ResponsiveScaffoldDestination(
+          icon: Icons.person,
+          title: t.navigation.account,
+        ),
       ],
       onNavigationIndexChange: (index) async {
         navigationShell.goBranch(
