@@ -123,7 +123,13 @@ error:
     occurred: エラーが発生しました
 
 debug:
+  title: Debug
   talkerScreen: Talker 画面へ
+  pathRequired: パスを入力してください
+  pathMustStartWithSlash: パスは / で始めてください
+  pathCannotContainDebugOrLogin: パスに「debug」または「login」を含めることはできません
+  invalidPath: 無効なパスです
+  go: GO
 
 navigation:
   event: イベント

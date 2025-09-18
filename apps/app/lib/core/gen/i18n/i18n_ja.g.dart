@@ -214,8 +214,26 @@ class TranslationsDebugJa {
 
 	// Translations
 
+	/// ja: 'Debug'
+	String get title => 'Debug';
+
 	/// ja: 'Talker 画面へ'
 	String get talkerScreen => 'Talker 画面へ';
+
+	/// ja: 'パスを入力してください'
+	String get pathRequired => 'パスを入力してください';
+
+	/// ja: 'パスは / で始めてください'
+	String get pathMustStartWithSlash => 'パスは / で始めてください';
+
+	/// ja: 'パスに「debug」または「login」を含めることはできません'
+	String get pathCannotContainDebugOrLogin => 'パスに「debug」または「login」を含めることはできません';
+
+	/// ja: '無効なパスです'
+	String get invalidPath => '無効なパスです';
+
+	/// ja: 'GO'
+	String get go => 'GO';
 }
 
 // Path: navigation
@@ -868,7 +886,13 @@ extension on Translations {
 			case 'error.widget.buildErrorMessage': return '申し訳ございません。UI 構築中に予期しないエラーが発生しました。\n\nこの問題を解決するため、GitHub の Issue を作成していただけると大変助かります。';
 			case 'error.widget.buildErrorGitHubButton': return 'GitHub の Issue ページを開く';
 			case 'error.general.occurred': return 'エラーが発生しました';
+			case 'debug.title': return 'Debug';
 			case 'debug.talkerScreen': return 'Talker 画面へ';
+			case 'debug.pathRequired': return 'パスを入力してください';
+			case 'debug.pathMustStartWithSlash': return 'パスは / で始めてください';
+			case 'debug.pathCannotContainDebugOrLogin': return 'パスに「debug」または「login」を含めることはできません';
+			case 'debug.invalidPath': return '無効なパスです';
+			case 'debug.go': return 'GO';
 			case 'navigation.event': return 'イベント';
 			case 'navigation.sponsor': return 'スポンサー';
 			case 'navigation.ticket': return 'チケット';
