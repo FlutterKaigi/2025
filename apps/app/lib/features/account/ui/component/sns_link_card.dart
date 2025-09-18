@@ -1,3 +1,4 @@
+import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:bff_client/bff_client.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -14,6 +15,7 @@ class SnsLinkCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final t = Translations.of(context);
 
     return Card(
       child: ListTile(
@@ -120,7 +122,7 @@ class SnsLinksList extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.all(16),
           child: Center(
-            child: Text('SNSリンクが登録されていません'),
+            child: Text(t.account.profile.sns.notLinked),
           ),
         ),
       );

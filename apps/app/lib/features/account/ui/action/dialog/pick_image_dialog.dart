@@ -1,3 +1,4 @@
+import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:flutter/material.dart';
 
 class PickImageDialog extends StatelessWidget {
@@ -11,19 +12,20 @@ class PickImageDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = Translations.of(context);
     return AlertDialog(
-      title: const Text('画像を選択'),
-      content: const Text('画像を選択してください'),
+      title: Text(t.account.profile.image.selectTitle),
+      content: Text(t.account.profile.image.selectMessage),
       actions: [
         TextButton(
           onPressed: () =>
               Navigator.of(context).pop(PickImageDialogResult.imagePicker),
-          child: const Text('画像を選択'),
+          child: Text(t.account.profile.image.selectButton),
         ),
         TextButton(
           onPressed: () =>
               Navigator.of(context).pop(PickImageDialogResult.googleAccount),
-          child: const Text('Googleアカウントの写真を使用'),
+          child: Text(t.account.profile.image.useGooglePhoto),
         ),
       ],
     );

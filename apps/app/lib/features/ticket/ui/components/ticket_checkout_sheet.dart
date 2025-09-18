@@ -1,3 +1,4 @@
+import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/core/provider/environment.dart';
 import 'package:app/core/router/router.dart';
 import 'package:app/features/ticket/data/notifier/ticket_notifier.dart';
@@ -28,6 +29,7 @@ class TicketCheckoutSheet extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final ticketTypesAsync = ref.watch(ticketTypesProvider);
+    final t = Translations.of(context);
     final currentStep = useState(0);
     final selectedOptions = useState<Map<String, bool>>({});
     final isLoading = useState(false);
@@ -109,13 +111,13 @@ class TicketCheckoutSheet extends HookConsumerWidget {
                     Navigator.of(context).pop();
                   }
                 } else {
-                  throw Exception('決済ページを開けませんでした');
+                  throw Exception(t.ticket.purchase.paymentPageError);
                 }
               } on Exception catch (e) {
                 if (context.mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text('エラーが発生しました: $e'),
+                      content: Text('${t.error.general.occurred}: $e'),
                       backgroundColor: colorScheme.error,
                     ),
                   );
@@ -157,7 +159,7 @@ List<Step> _buildSteps({
   // Step 1: チケット情報確認
   steps.add(
     Step(
-      title: const Text('チケット情報を確認'),
+      title: Text(t.ticket.purchase.confirmTitle),
       content: _TicketInfoStep(ticketTypeItem: ticketTypeItem),
       isActive: currentStep == 0,
     ),
@@ -183,7 +185,7 @@ List<Step> _buildSteps({
   // 最後のStep: 決済確認
   steps.add(
     Step(
-      title: const Text('決済を開始'),
+      title: Text(t.ticket.purchase.paymentTitle),
       content: _CheckoutConfirmStep(
         ticketTypeItem: ticketTypeItem,
         selectedOptions: selectedOptions,
@@ -228,13 +230,13 @@ class _StepControls extends StatelessWidget {
           if (currentStep > 0)
             TextButton(
               onPressed: isLoading ? null : details.onStepCancel,
-              child: const Text('戻る'),
+              child: Text(t.ticket.purchase.back),
             ),
           const Spacer(),
           if (currentStep < totalSteps - 1)
             FilledButton(
               onPressed: !isLoading ? onNext : null,
-              child: const Text('次へ'),
+              child: Text(t.ticket.purchase.next),
             )
           else
             FilledButton(
@@ -245,7 +247,7 @@ class _StepControls extends StatelessWidget {
                       height: 16,
                       child: CircularProgressIndicator(strokeWidth: 2),
                     )
-                  : const Text('決済を開始'),
+                  : Text(t.ticket.purchase.startPayment),
             ),
           const SizedBox(width: 8),
           TextButton(
@@ -316,11 +318,13 @@ class _TicketOptionStep extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   title: Text(
-                    isSelling ? 'このオプションを追加する' : 'このオプションは販売終了しました',
+                    isSelling
+                        ? t.ticket.purchase.addOption
+                        : t.ticket.purchase.optionNotSelling,
                   ),
                   subtitle: isSelling
                       ? isSelected
-                            ? const Text('選択済み')
+                            ? Text(t.ticket.purchase.selected)
                             : const Text('未選択')
                       : null,
                   value: isSelected,
@@ -332,7 +336,7 @@ class _TicketOptionStep extends StatelessWidget {
                 )
               else
                 Text(
-                  'このオプションは完売しました',
+                  t.ticket.purchase.optionSoldOut,
                   style: textTheme.bodyMedium?.copyWith(
                     color: textColor,
                   ),
@@ -385,10 +389,11 @@ class _TicketInfoStep extends StatelessWidget {
                     RawChip(
                       label: Text(
                         ticketType.status.map(
-                          selling: (status) =>
-                              status.isFewRemaining ? '残りわずか' : '販売中',
-                          soldOut: (_) => '売り切れ',
-                          notSelling: (_) => '販売終了',
+                          selling: (status) => status.isFewRemaining
+                              ? t.ticket.purchase.fewRemaining
+                              : t.ticket.purchase.selling,
+                          soldOut: (_) => t.ticket.purchase.soldOut,
+                          notSelling: (_) => t.ticket.purchase.notSelling,
                         ),
                       ),
                       backgroundColor: ticketType.status.maybeMap(
@@ -432,7 +437,7 @@ class _TicketInfoStep extends StatelessWidget {
         ),
         if (ticketTypeItem.options.isNotEmpty) ...[
           Text(
-            'このチケットには以下のオプションがあります：',
+            t.ticket.purchase.optionsAvailable,
             style: textTheme.bodyMedium,
           ),
           ...ticketTypeItem.options.map(

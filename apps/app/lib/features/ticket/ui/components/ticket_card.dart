@@ -1,3 +1,4 @@
+import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/features/ticket/data/notifier/ticket_notifier.dart';
 import 'package:app/features/ticket/ui/components/ticket_card_description.dart';
 import 'package:bff_client/bff_client.dart';
@@ -18,6 +19,7 @@ class TicketCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final t = Translations.of(context);
 
     return Card.outlined(
       color: colorScheme.surfaceContainer,
@@ -257,13 +259,13 @@ class _TicketCheckoutButtons extends ConsumerWidget {
                 if (context.mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: Text('決済ページを開けませんでした'),
+                      content: Text(t.ticket.purchase.paymentPageError),
                     ),
                   );
                 }
               }
             },
-            label: const Text('決済へ進む'),
+            label: Text(t.ticket.purchase.proceedToPayment),
             icon: const Icon(Icons.payment),
           ),
         ],

@@ -489,6 +489,30 @@ class TranslationsTicketPurchaseJa {
 
 	/// ja: 'エラーが発生しました'
 	String get errorOccurred => 'エラーが発生しました';
+
+	/// ja: 'このオプションを追加する'
+	String get addOption => 'このオプションを追加する';
+
+	/// ja: 'このオプションは販売終了しました'
+	String get optionNotSelling => 'このオプションは販売終了しました';
+
+	/// ja: 'このオプションは完売しました'
+	String get optionSoldOut => 'このオプションは完売しました';
+
+	/// ja: '残りわずか'
+	String get fewRemaining => '残りわずか';
+
+	/// ja: '販売中'
+	String get selling => '販売中';
+
+	/// ja: '売り切れ'
+	String get soldOut => '売り切れ';
+
+	/// ja: '販売終了'
+	String get notSelling => '販売終了';
+
+	/// ja: 'このチケットには以下のオプションがあります：'
+	String get optionsAvailable => 'このチケットには以下のオプションがあります：';
 }
 
 // Path: account.profile.avatar
@@ -634,6 +658,14 @@ extension on Translations {
 			case 'ticket.purchase.proceedToPayment': return '決済へ進む';
 			case 'ticket.purchase.paymentPageError': return '決済ページを開けませんでした';
 			case 'ticket.purchase.errorOccurred': return 'エラーが発生しました';
+			case 'ticket.purchase.addOption': return 'このオプションを追加する';
+			case 'ticket.purchase.optionNotSelling': return 'このオプションは販売終了しました';
+			case 'ticket.purchase.optionSoldOut': return 'このオプションは完売しました';
+			case 'ticket.purchase.fewRemaining': return '残りわずか';
+			case 'ticket.purchase.selling': return '販売中';
+			case 'ticket.purchase.soldOut': return '売り切れ';
+			case 'ticket.purchase.notSelling': return '販売終了';
+			case 'ticket.purchase.optionsAvailable': return 'このチケットには以下のオプションがあります：';
 			default: return null;
 		}
 	}

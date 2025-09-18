@@ -1,3 +1,4 @@
+import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/core/router/router.dart';
 import 'package:app/features/auth/data/notifier/auth_notifier.dart';
 import 'package:flutter/material.dart';
@@ -163,10 +164,11 @@ class _TalkerArea extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = Translations.of(context);
     return Center(
       child: FilledButton(
         onPressed: () async => const TalkerRoute().push<void>(context),
-        child: const Text('Talker 画面へ'),
+        child: Text(t.debug.talkerScreen),
       ),
     );
   }

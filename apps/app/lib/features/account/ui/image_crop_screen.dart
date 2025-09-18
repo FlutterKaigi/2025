@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:crop_your_image/crop_your_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -29,10 +30,11 @@ class ImageCropScreen extends HookConsumerWidget {
     final colorScheme = Theme.of(context).colorScheme;
     final croppedBytes = useRef<Uint8List?>(null);
     final cropController = useRef<CropController>(CropController());
+    final t = Translations.of(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('画像をクロップ'),
+        title: Text(t.account.profile.image.cropTitle),
         actions: [
           TextButton(
             onPressed: croppedBytes.value != null
