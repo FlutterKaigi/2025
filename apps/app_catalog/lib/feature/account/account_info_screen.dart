@@ -1,7 +1,9 @@
 import 'package:app/core/provider/environment.dart';
+import 'package:app/features/account/data/notifier/profile_notifier.dart';
 import 'package:app/features/account/ui/info/account_info_screen.dart';
 import 'package:app/features/auth/data/notifier/auth_notifier.dart';
 import 'package:auth_client/auth_client.dart';
+import 'package:bff_client/bff_client.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:widgetbook/widgetbook.dart';
@@ -22,9 +24,14 @@ Widget accountInfoScreenUseCase(BuildContext context) {
     isAuthenticated ? _mockUser : null,
   );
 
+  final mockProfileNotifier = _MockProfileNotifier(
+    isAuthenticated ? _mockProfile : null,
+  );
+
   return ProviderScope(
     overrides: [
       authNotifierProvider.overrideWith(() => mockAuthNotifier),
+      profileNotifierProvider.overrideWith(() => mockProfileNotifier),
       environmentProvider.overrideWithValue(
         const Environment(
           appIdSuffix: '.dev',
@@ -79,4 +86,31 @@ class _MockAuthNotifier extends AuthNotifier {
 
   @override
   Future<void> signOut() async {}
+}
+
+final _mockProfile = ProfileResponse(
+  profile: Profiles(
+    id: 'test-profile-id',
+    name: 'テスト 太郎',
+    comment: 'テスト 太郎',
+    isAdult: false,
+    createdAt: DateTime.now(),
+    updatedAt: DateTime.now(),
+    avatarUrl: Uri.parse(
+      'https://storage.googleapis.com/cms-storage-bucket/0dbfcc7a59cd1cf16282.png',
+    ),
+  ),
+  snsLinks: [],
+  canEditNameplate: false,
+);
+
+class _MockProfileNotifier extends ProfileNotifier {
+  _MockProfileNotifier(this.mockProfile);
+
+  final ProfileResponse? mockProfile;
+
+  @override
+  Future<ProfileResponse?> build() async {
+    return mockProfile;
+  }
 }
