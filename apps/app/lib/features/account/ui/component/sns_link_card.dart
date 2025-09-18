@@ -14,6 +14,7 @@ class SnsLinkCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = Translations.of(context);
     final colorScheme = Theme.of(context).colorScheme;
 
     return Card(
@@ -22,7 +23,7 @@ class SnsLinkCard extends StatelessWidget {
           _getSnsIcon(snsAccount.snsType),
           color: _getSnsColor(snsAccount.snsType, colorScheme),
         ),
-        title: Text(_getSnsTypeDisplayName(snsAccount.snsType)),
+        title: Text(_getSnsTypeDisplayName(snsAccount.snsType, t)),
         subtitle: Text(
           snsAccount.value,
           maxLines: 1,
@@ -83,24 +84,24 @@ class SnsLinkCard extends StatelessWidget {
     }
   }
 
-  String _getSnsTypeDisplayName(SnsType type) {
+  String _getSnsTypeDisplayName(SnsType type, Translations t) {
     switch (type) {
       case SnsType.github:
-        return 'GitHub';
+        return t.account.profile.sns.displayNames.github;
       case SnsType.x:
-        return 'X (Twitter)';
+        return t.account.profile.sns.displayNames.x;
       case SnsType.discord:
-        return 'Discord';
+        return t.account.profile.sns.displayNames.discord;
       case SnsType.medium:
-        return 'Medium';
+        return t.account.profile.sns.displayNames.medium;
       case SnsType.qiita:
-        return 'Qiita';
+        return t.account.profile.sns.displayNames.qiita;
       case SnsType.zenn:
-        return 'Zenn';
+        return t.account.profile.sns.displayNames.zenn;
       case SnsType.note:
-        return 'note';
+        return t.account.profile.sns.displayNames.note;
       case SnsType.other:
-        return 'その他';
+        return t.account.profile.sns.other;
     }
   }
 }
