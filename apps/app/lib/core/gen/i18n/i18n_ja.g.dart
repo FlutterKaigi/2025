@@ -169,6 +169,9 @@ class TranslationsAccountJa {
 	/// ja: 'ログアウト'
 	String get logout => 'ログアウト';
 
+	/// ja: 'アカウント設定'
+	String get settings => 'アカウント設定';
+
 	late final TranslationsAccountProfileJa profile = TranslationsAccountProfileJa._(_root);
 }
 
@@ -229,6 +232,7 @@ class TranslationsTicketJa {
 	/// ja: '現在、購入可能なチケットはありません'
 	String get noAvailableTickets => '現在、購入可能なチケットはありません';
 
+	late final TranslationsTicketLoginRequiredJa loginRequired = TranslationsTicketLoginRequiredJa._(_root);
 	late final TranslationsTicketNoticeJa notice = TranslationsTicketNoticeJa._(_root);
 	late final TranslationsTicketStudentRefundJa studentRefund = TranslationsTicketStudentRefundJa._(_root);
 	late final TranslationsTicketPurchaseJa purchase = TranslationsTicketPurchaseJa._(_root);
@@ -446,6 +450,24 @@ class TranslationsTicketStatusJa {
 
 	/// ja: '決済待ち'
 	String get pending => '決済待ち';
+}
+
+// Path: ticket.loginRequired
+class TranslationsTicketLoginRequiredJa {
+	TranslationsTicketLoginRequiredJa._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'チケット購入前にGoogleアカウントでログインしてください'
+	String get title => 'チケット購入前にGoogleアカウントでログインしてください';
+
+	/// ja: 'チケット購入前にGoogleアカウントとリンクしてください'
+	String get linkTitle => 'チケット購入前にGoogleアカウントとリンクしてください';
+
+	/// ja: 'チケットを購入するためには、Googleアカウントでログインしてください'
+	String get description => 'チケットを購入するためには、Googleアカウントでログインしてください';
 }
 
 // Path: ticket.notice
@@ -739,6 +761,7 @@ extension on Translations {
 			case 'account.contactUrl': return 'https://docs.google.com/forms/d/e/1FAIpQLSemYPFEWpP8594MWI4k3Nz45RJzMS7pz1ufwtnX4t3V7z2TOw/viewform';
 			case 'account.ossLicenses': return 'OSS Licenses';
 			case 'account.logout': return 'ログアウト';
+			case 'account.settings': return 'アカウント設定';
 			case 'account.profile.title': return 'プロファイル';
 			case 'account.profile.editTitle': return 'プロフィール編集';
 			case 'account.profile.createInfo': return 'プロファイル情報を作成してください';
@@ -807,6 +830,9 @@ extension on Translations {
 			case 'ticket.purchaseDate': return '購入日時';
 			case 'ticket.expiryDate': return '期限';
 			case 'ticket.noAvailableTickets': return '現在、購入可能なチケットはありません';
+			case 'ticket.loginRequired.title': return 'チケット購入前にGoogleアカウントでログインしてください';
+			case 'ticket.loginRequired.linkTitle': return 'チケット購入前にGoogleアカウントとリンクしてください';
+			case 'ticket.loginRequired.description': return 'チケットを購入するためには、Googleアカウントでログインしてください';
 			case 'ticket.notice.title': return 'ご注意';
 			case 'ticket.notice.message': return '「個人スポンサーチケット」のみでは、FlutterKaigi 2025本編（カンファレンス会場）へのご入場はできません。\n入場をご希望の方は、アーリーチケット（9月末まで販売予定）またはノーマルチケットを別途ご購入ください。\nなお、「個人スポンサーチケット」は、入場を目的とせず FlutterKaigi を応援したい方のご支援も大歓迎です！\n\n前夜祭への参加は「アーリーチケット」のみが対象です。\nノーマルチケットでは前夜祭に参加できませんのでご注意ください。';
 			case 'ticket.studentRefund.title': return '学生向け返金・費用補助について';

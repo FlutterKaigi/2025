@@ -38,6 +38,7 @@ account:
   contactUrl: https://docs.google.com/forms/d/e/1FAIpQLSemYPFEWpP8594MWI4k3Nz45RJzMS7pz1ufwtnX4t3V7z2TOw/viewform
   ossLicenses: OSS Licenses
   logout: ログアウト
+  settings: アカウント設定
   profile:
     title: プロファイル
     editTitle: プロフィール編集
@@ -127,6 +128,10 @@ ticket:
   purchaseDate: 購入日時
   expiryDate: 期限
   noAvailableTickets: 現在、購入可能なチケットはありません
+  loginRequired:
+    title: チケット購入前にGoogleアカウントでログインしてください
+    linkTitle: チケット購入前にGoogleアカウントとリンクしてください
+    description: チケットを購入するためには、Googleアカウントでログインしてください
   notice:
     title: ご注意
     message: 「個人スポンサーチケット」のみでは、FlutterKaigi 2025本編（カンファレンス会場）へのご入場はできません。\n入場をご希望の方は、アーリーチケット（9月末まで販売予定）またはノーマルチケットを別途ご購入ください。\nなお、「個人スポンサーチケット」は、入場を目的とせず FlutterKaigi を応援したい方のご支援も大歓迎です！\n\n前夜祭への参加は「アーリーチケット」のみが対象です。\nノーマルチケットでは前夜祭に参加できませんのでご注意ください。
