@@ -20,6 +20,10 @@
           "new_sqlite_classes": ["BffEngine"],
           "tag": "v1",
         },
+        {
+          "deleted_classes": ["BffEngine"],
+          "tag": "v1.1",
+        },
       ],
       "version_metadata": {
         "binding": "CF_VERSION_METADATA",
