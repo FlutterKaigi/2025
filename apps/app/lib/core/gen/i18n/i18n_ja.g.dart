@@ -300,6 +300,9 @@ class TranslationsAccountProfileJa {
 	/// ja: '20歳以上です'
 	String get ageOver20 => '20歳以上です';
 
+	/// ja: '20歳未満'
+	String get ageUnder20 => '20歳未満';
+
 	/// ja: '名前 *'
 	String get nameLabel => '名前 *';
 
@@ -613,6 +616,7 @@ extension on Translations {
 			case 'account.profile.saveFailed': return '保存に失敗しました';
 			case 'account.profile.errorOccurred': return 'エラーが発生しました';
 			case 'account.profile.ageOver20': return '20歳以上です';
+			case 'account.profile.ageUnder20': return '20歳未満';
 			case 'account.profile.nameLabel': return '名前 *';
 			case 'account.profile.nameRequired': return '名前を入力してください';
 			case 'account.profile.upload': return 'アップロード';

@@ -161,7 +161,9 @@ class ProfileViewScreen extends HookConsumerWidget {
                             ),
                             const SizedBox(width: 8),
                             Text(
-                              profile.profile.isAdult ? '20歳以上' : '20歳未満',
+                              profile.profile.isAdult
+                                  ? t.account.profile.ageOver20
+                                  : t.account.profile.ageUnder20,
                               style: Theme.of(context).textTheme.bodyMedium,
                             ),
                           ],
@@ -176,7 +178,7 @@ class ProfileViewScreen extends HookConsumerWidget {
                 Row(
                   children: [
                     Text(
-                      'SNSリンク',
+                      t.account.profile.snsLinks,
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                     const SizedBox(width: 8),

@@ -50,6 +50,7 @@ account:
     saveFailed: 保存に失敗しました
     errorOccurred: エラーが発生しました
     ageOver20: 20歳以上です
+    ageUnder20: 20歳未満
     nameLabel: 名前 *
     nameRequired: 名前を入力してください
     upload: アップロード
