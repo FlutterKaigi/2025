@@ -226,6 +226,9 @@ class TranslationsTicketJa {
 	/// ja: '期限'
 	String get expiryDate => '期限';
 
+	/// ja: '現在、購入可能なチケットはありません'
+	String get noAvailableTickets => '現在、購入可能なチケットはありません';
+
 	late final TranslationsTicketNoticeJa notice = TranslationsTicketNoticeJa._(_root);
 	late final TranslationsTicketStudentRefundJa studentRefund = TranslationsTicketStudentRefundJa._(_root);
 	late final TranslationsTicketPurchaseJa purchase = TranslationsTicketPurchaseJa._(_root);
@@ -803,6 +806,7 @@ extension on Translations {
 			case 'ticket.options': return 'オプション';
 			case 'ticket.purchaseDate': return '購入日時';
 			case 'ticket.expiryDate': return '期限';
+			case 'ticket.noAvailableTickets': return '現在、購入可能なチケットはありません';
 			case 'ticket.notice.title': return 'ご注意';
 			case 'ticket.notice.message': return '「個人スポンサーチケット」のみでは、FlutterKaigi 2025本編（カンファレンス会場）へのご入場はできません。\n入場をご希望の方は、アーリーチケット（9月末まで販売予定）またはノーマルチケットを別途ご購入ください。\nなお、「個人スポンサーチケット」は、入場を目的とせず FlutterKaigi を応援したい方のご支援も大歓迎です！\n\n前夜祭への参加は「アーリーチケット」のみが対象です。\nノーマルチケットでは前夜祭に参加できませんのでご注意ください。';
 			case 'ticket.studentRefund.title': return '学生向け返金・費用補助について';
