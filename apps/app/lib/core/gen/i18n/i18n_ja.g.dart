@@ -215,6 +215,17 @@ class TranslationsTicketJa {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+	late final TranslationsTicketStatusJa status = TranslationsTicketStatusJa._(_root);
+
+	/// ja: 'オプション'
+	String get options => 'オプション';
+
+	/// ja: '購入日時'
+	String get purchaseDate => '購入日時';
+
+	/// ja: '期限'
+	String get expiryDate => '期限';
+
 	late final TranslationsTicketNoticeJa notice = TranslationsTicketNoticeJa._(_root);
 	late final TranslationsTicketStudentRefundJa studentRefund = TranslationsTicketStudentRefundJa._(_root);
 	late final TranslationsTicketPurchaseJa purchase = TranslationsTicketPurchaseJa._(_root);
@@ -417,6 +428,21 @@ class TranslationsErrorGeneralJa {
 
 	/// ja: 'エラーが発生しました'
 	String get occurred => 'エラーが発生しました';
+}
+
+// Path: ticket.status
+class TranslationsTicketStatusJa {
+	TranslationsTicketStatusJa._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '購入済み'
+	String get purchased => '購入済み';
+
+	/// ja: '決済待ち'
+	String get pending => '決済待ち';
 }
 
 // Path: ticket.notice
@@ -667,6 +693,11 @@ extension on Translations {
 			case 'error.widget.buildErrorGitHubButton': return 'GitHub の Issue ページを開く';
 			case 'error.general.occurred': return 'エラーが発生しました';
 			case 'debug.talkerScreen': return 'Talker 画面へ';
+			case 'ticket.status.purchased': return '購入済み';
+			case 'ticket.status.pending': return '決済待ち';
+			case 'ticket.options': return 'オプション';
+			case 'ticket.purchaseDate': return '購入日時';
+			case 'ticket.expiryDate': return '期限';
 			case 'ticket.notice.title': return 'ご注意';
 			case 'ticket.notice.message': return '「個人スポンサーチケット」のみでは、FlutterKaigi 2025本編（カンファレンス会場）へのご入場はできません。\n入場をご希望の方は、アーリーチケット（9月末まで販売予定）またはノーマルチケットを別途ご購入ください。\nなお、「個人スポンサーチケット」は、入場を目的とせず FlutterKaigi を応援したい方のご支援も大歓迎です！\n\n前夜祭への参加は「アーリーチケット」のみが対象です。\nノーマルチケットでは前夜祭に参加できませんのでご注意ください。';
 			case 'ticket.studentRefund.title': return '学生向け返金・費用補助について';
