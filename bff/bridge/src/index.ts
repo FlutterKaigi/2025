@@ -12,7 +12,7 @@ const env = workersEnv as Cloudflare.Env & {
 
 export class BffEngine extends Container<Cloudflare.Env> {
 	defaultPort = 8080;
-	sleepAfter = "30s";
+	sleepAfter = "60m";
 	envVars = {
 		SUPABASE_URL: env.SUPABASE_URL,
 		SUPABASE_SERVICE_ROLE_KEY: env.SUPABASE_SERVICE_ROLE_KEY,
@@ -26,7 +26,7 @@ export class BffEngine extends Container<Cloudflare.Env> {
 	};
 }
 
-const INSTANCE_COUNT = 3;
+const INSTANCE_COUNT = 1;
 
 const app = new Hono()
 	.use(

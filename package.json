@@ -30,6 +30,9 @@
     "bff/stripe-webhook",
     "bff/stripe-internal-api",
     "bff/database",
+    "bff/r2-internal-api",
+    "bff/internal-api-proxy",
+    "bff/database-internal-api",
     "bff/payment-workflow-internal-api"
   ],
   "trustedDependencies": [
