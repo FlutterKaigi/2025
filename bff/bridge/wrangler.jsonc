@@ -15,23 +15,6 @@
       "vars": {
         "ENVIRONMENT": "staging",
       },
-      "containers": [
-        {
-          "class_name": "BffEngine",
-          "image": "../engine/Dockerfile",
-          "max_instances": 1,
-          "image_build_context": "../../",
-          "name": "bff_engine_stg",
-        },
-      ],
-      "durable_objects": {
-        "bindings": [
-          {
-            "class_name": "BffEngine",
-            "name": "bff_engine",
-          },
-        ],
-      },
       "migrations": [
         {
           "new_sqlite_classes": ["BffEngine"],
@@ -52,28 +35,14 @@
           "custom_domain": true,
         },
       ],
-      "containers": [
-        {
-          "class_name": "BffEngine",
-          "image": "../engine/Dockerfile",
-          "max_instances": 1,
-          "image_build_context": "../../",
-          "instance_type": "basic",
-          "name": "bff_engine_prod",
-        },
-      ],
-      "durable_objects": {
-        "bindings": [
-          {
-            "class_name": "BffEngine",
-            "name": "bff_engine",
-          },
-        ],
-      },
       "migrations": [
         {
           "new_sqlite_classes": ["BffEngine"],
           "tag": "v1",
+        },
+        {
+          "deleted_classes": ["BffEngine"],
+          "tag": "v1.1",
         },
       ],
       "version_metadata": {
