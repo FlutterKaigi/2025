@@ -2,5 +2,5 @@
 # Created by `dart pub`
 .dart_tool/
 
-/.env.stg
-/.env
+!/.env.example
+/.env*

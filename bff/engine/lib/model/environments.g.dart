@@ -21,15 +21,15 @@ _Environments _$EnvironmentsFromJson(Map<String, dynamic> json) =>
           ),
           cfVersionMetadataId: $checkedConvert(
             'CF_VERSION_METADATA_ID',
-            (v) => v as String,
+            (v) => v as String?,
           ),
           cfVersionMetadataTag: $checkedConvert(
             'CF_VERSION_METADATA_TAG',
-            (v) => v as String,
+            (v) => v as String?,
           ),
           cfVersionMetadataTimestamp: $checkedConvert(
             'CF_VERSION_METADATA_TIMESTAMP',
-            (v) => v as String,
+            (v) => v as String?,
           ),
           postgresUrl: $checkedConvert('POSTGRES_URL', (v) => v as String),
           internalApiUrl: $checkedConvert(

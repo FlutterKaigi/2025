@@ -1,5 +1,6 @@
 import 'package:db_client/src/client/db_client.dart';
 import 'package:db_types/db_types.dart';
+import 'package:postgres/postgres.dart';
 
 class TicketCheckoutDbClient {
   TicketCheckoutDbClient({required Executor executor}) : _executor = executor;
@@ -26,20 +27,20 @@ class TicketCheckoutDbClient {
   Future<TicketCheckoutSessions> cancelTicketCheckout(String checkoutId) async {
     final result = await _executor.runTx((tx) async {
       await tx.execute(
-        '''
+        Sql.named('''
           UPDATE ticket_checkout_sessions
           SET status = 'expired', updated_at = now(), expires_at = now()
           WHERE id = @checkoutId AND status = 'pending';
-        ''',
+        '''),
         parameters: {
           'checkoutId': checkoutId,
         },
       );
-      return _executor.execute(
-        '''
+      return tx.execute(
+        Sql.named('''
           SELECT *, status::text AS "status"
           FROM ticket_checkout_sessions WHERE id = @checkoutId;
-        ''',
+        '''),
         parameters: {
           'checkoutId': checkoutId,
         },

@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Environments {
 
- String get supabaseUrl; String get supabaseServiceRoleKey; String get cfVersionMetadataId; String get cfVersionMetadataTag; String get cfVersionMetadataTimestamp; String get postgresUrl; String get internalApiUrl; String get xApiKey; String get logoBaseUrl;
+ String get supabaseUrl; String get supabaseServiceRoleKey; String? get cfVersionMetadataId; String? get cfVersionMetadataTag; String? get cfVersionMetadataTimestamp; String get postgresUrl; String get internalApiUrl; String get xApiKey; String get logoBaseUrl;
 /// Create a copy of Environments
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $EnvironmentsCopyWith<$Res>  {
   factory $EnvironmentsCopyWith(Environments value, $Res Function(Environments) _then) = _$EnvironmentsCopyWithImpl;
 @useResult
 $Res call({
- String supabaseUrl, String supabaseServiceRoleKey, String cfVersionMetadataId, String cfVersionMetadataTag, String cfVersionMetadataTimestamp, String postgresUrl, String internalApiUrl, String xApiKey, String logoBaseUrl
+ String supabaseUrl, String supabaseServiceRoleKey, String? cfVersionMetadataId, String? cfVersionMetadataTag, String? cfVersionMetadataTimestamp, String postgresUrl, String internalApiUrl, String xApiKey, String logoBaseUrl
 });
 
 
@@ -65,14 +65,14 @@ class _$EnvironmentsCopyWithImpl<$Res>
 
 /// Create a copy of Environments
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? supabaseUrl = null,Object? supabaseServiceRoleKey = null,Object? cfVersionMetadataId = null,Object? cfVersionMetadataTag = null,Object? cfVersionMetadataTimestamp = null,Object? postgresUrl = null,Object? internalApiUrl = null,Object? xApiKey = null,Object? logoBaseUrl = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? supabaseUrl = null,Object? supabaseServiceRoleKey = null,Object? cfVersionMetadataId = freezed,Object? cfVersionMetadataTag = freezed,Object? cfVersionMetadataTimestamp = freezed,Object? postgresUrl = null,Object? internalApiUrl = null,Object? xApiKey = null,Object? logoBaseUrl = null,}) {
   return _then(_self.copyWith(
 supabaseUrl: null == supabaseUrl ? _self.supabaseUrl : supabaseUrl // ignore: cast_nullable_to_non_nullable
 as String,supabaseServiceRoleKey: null == supabaseServiceRoleKey ? _self.supabaseServiceRoleKey : supabaseServiceRoleKey // ignore: cast_nullable_to_non_nullable
-as String,cfVersionMetadataId: null == cfVersionMetadataId ? _self.cfVersionMetadataId : cfVersionMetadataId // ignore: cast_nullable_to_non_nullable
-as String,cfVersionMetadataTag: null == cfVersionMetadataTag ? _self.cfVersionMetadataTag : cfVersionMetadataTag // ignore: cast_nullable_to_non_nullable
-as String,cfVersionMetadataTimestamp: null == cfVersionMetadataTimestamp ? _self.cfVersionMetadataTimestamp : cfVersionMetadataTimestamp // ignore: cast_nullable_to_non_nullable
-as String,postgresUrl: null == postgresUrl ? _self.postgresUrl : postgresUrl // ignore: cast_nullable_to_non_nullable
+as String,cfVersionMetadataId: freezed == cfVersionMetadataId ? _self.cfVersionMetadataId : cfVersionMetadataId // ignore: cast_nullable_to_non_nullable
+as String?,cfVersionMetadataTag: freezed == cfVersionMetadataTag ? _self.cfVersionMetadataTag : cfVersionMetadataTag // ignore: cast_nullable_to_non_nullable
+as String?,cfVersionMetadataTimestamp: freezed == cfVersionMetadataTimestamp ? _self.cfVersionMetadataTimestamp : cfVersionMetadataTimestamp // ignore: cast_nullable_to_non_nullable
+as String?,postgresUrl: null == postgresUrl ? _self.postgresUrl : postgresUrl // ignore: cast_nullable_to_non_nullable
 as String,internalApiUrl: null == internalApiUrl ? _self.internalApiUrl : internalApiUrl // ignore: cast_nullable_to_non_nullable
 as String,xApiKey: null == xApiKey ? _self.xApiKey : xApiKey // ignore: cast_nullable_to_non_nullable
 as String,logoBaseUrl: null == logoBaseUrl ? _self.logoBaseUrl : logoBaseUrl // ignore: cast_nullable_to_non_nullable
@@ -161,7 +161,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String supabaseUrl,  String supabaseServiceRoleKey,  String cfVersionMetadataId,  String cfVersionMetadataTag,  String cfVersionMetadataTimestamp,  String postgresUrl,  String internalApiUrl,  String xApiKey,  String logoBaseUrl)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String supabaseUrl,  String supabaseServiceRoleKey,  String? cfVersionMetadataId,  String? cfVersionMetadataTag,  String? cfVersionMetadataTimestamp,  String postgresUrl,  String internalApiUrl,  String xApiKey,  String logoBaseUrl)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Environments() when $default != null:
 return $default(_that.supabaseUrl,_that.supabaseServiceRoleKey,_that.cfVersionMetadataId,_that.cfVersionMetadataTag,_that.cfVersionMetadataTimestamp,_that.postgresUrl,_that.internalApiUrl,_that.xApiKey,_that.logoBaseUrl);case _:
@@ -182,7 +182,7 @@ return $default(_that.supabaseUrl,_that.supabaseServiceRoleKey,_that.cfVersionMe
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String supabaseUrl,  String supabaseServiceRoleKey,  String cfVersionMetadataId,  String cfVersionMetadataTag,  String cfVersionMetadataTimestamp,  String postgresUrl,  String internalApiUrl,  String xApiKey,  String logoBaseUrl)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String supabaseUrl,  String supabaseServiceRoleKey,  String? cfVersionMetadataId,  String? cfVersionMetadataTag,  String? cfVersionMetadataTimestamp,  String postgresUrl,  String internalApiUrl,  String xApiKey,  String logoBaseUrl)  $default,) {final _that = this;
 switch (_that) {
 case _Environments():
 return $default(_that.supabaseUrl,_that.supabaseServiceRoleKey,_that.cfVersionMetadataId,_that.cfVersionMetadataTag,_that.cfVersionMetadataTimestamp,_that.postgresUrl,_that.internalApiUrl,_that.xApiKey,_that.logoBaseUrl);case _:
@@ -202,7 +202,7 @@ return $default(_that.supabaseUrl,_that.supabaseServiceRoleKey,_that.cfVersionMe
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String supabaseUrl,  String supabaseServiceRoleKey,  String cfVersionMetadataId,  String cfVersionMetadataTag,  String cfVersionMetadataTimestamp,  String postgresUrl,  String internalApiUrl,  String xApiKey,  String logoBaseUrl)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String supabaseUrl,  String supabaseServiceRoleKey,  String? cfVersionMetadataId,  String? cfVersionMetadataTag,  String? cfVersionMetadataTimestamp,  String postgresUrl,  String internalApiUrl,  String xApiKey,  String logoBaseUrl)?  $default,) {final _that = this;
 switch (_that) {
 case _Environments() when $default != null:
 return $default(_that.supabaseUrl,_that.supabaseServiceRoleKey,_that.cfVersionMetadataId,_that.cfVersionMetadataTag,_that.cfVersionMetadataTimestamp,_that.postgresUrl,_that.internalApiUrl,_that.xApiKey,_that.logoBaseUrl);case _:
@@ -222,9 +222,9 @@ class _Environments extends Environments {
 
 @override final  String supabaseUrl;
 @override final  String supabaseServiceRoleKey;
-@override final  String cfVersionMetadataId;
-@override final  String cfVersionMetadataTag;
-@override final  String cfVersionMetadataTimestamp;
+@override final  String? cfVersionMetadataId;
+@override final  String? cfVersionMetadataTag;
+@override final  String? cfVersionMetadataTimestamp;
 @override final  String postgresUrl;
 @override final  String internalApiUrl;
 @override final  String xApiKey;
@@ -263,7 +263,7 @@ abstract mixin class _$EnvironmentsCopyWith<$Res> implements $EnvironmentsCopyWi
   factory _$EnvironmentsCopyWith(_Environments value, $Res Function(_Environments) _then) = __$EnvironmentsCopyWithImpl;
 @override @useResult
 $Res call({
- String supabaseUrl, String supabaseServiceRoleKey, String cfVersionMetadataId, String cfVersionMetadataTag, String cfVersionMetadataTimestamp, String postgresUrl, String internalApiUrl, String xApiKey, String logoBaseUrl
+ String supabaseUrl, String supabaseServiceRoleKey, String? cfVersionMetadataId, String? cfVersionMetadataTag, String? cfVersionMetadataTimestamp, String postgresUrl, String internalApiUrl, String xApiKey, String logoBaseUrl
 });
 
 
@@ -280,14 +280,14 @@ class __$EnvironmentsCopyWithImpl<$Res>
 
 /// Create a copy of Environments
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? supabaseUrl = null,Object? supabaseServiceRoleKey = null,Object? cfVersionMetadataId = null,Object? cfVersionMetadataTag = null,Object? cfVersionMetadataTimestamp = null,Object? postgresUrl = null,Object? internalApiUrl = null,Object? xApiKey = null,Object? logoBaseUrl = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? supabaseUrl = null,Object? supabaseServiceRoleKey = null,Object? cfVersionMetadataId = freezed,Object? cfVersionMetadataTag = freezed,Object? cfVersionMetadataTimestamp = freezed,Object? postgresUrl = null,Object? internalApiUrl = null,Object? xApiKey = null,Object? logoBaseUrl = null,}) {
   return _then(_Environments(
 supabaseUrl: null == supabaseUrl ? _self.supabaseUrl : supabaseUrl // ignore: cast_nullable_to_non_nullable
 as String,supabaseServiceRoleKey: null == supabaseServiceRoleKey ? _self.supabaseServiceRoleKey : supabaseServiceRoleKey // ignore: cast_nullable_to_non_nullable
-as String,cfVersionMetadataId: null == cfVersionMetadataId ? _self.cfVersionMetadataId : cfVersionMetadataId // ignore: cast_nullable_to_non_nullable
-as String,cfVersionMetadataTag: null == cfVersionMetadataTag ? _self.cfVersionMetadataTag : cfVersionMetadataTag // ignore: cast_nullable_to_non_nullable
-as String,cfVersionMetadataTimestamp: null == cfVersionMetadataTimestamp ? _self.cfVersionMetadataTimestamp : cfVersionMetadataTimestamp // ignore: cast_nullable_to_non_nullable
-as String,postgresUrl: null == postgresUrl ? _self.postgresUrl : postgresUrl // ignore: cast_nullable_to_non_nullable
+as String,cfVersionMetadataId: freezed == cfVersionMetadataId ? _self.cfVersionMetadataId : cfVersionMetadataId // ignore: cast_nullable_to_non_nullable
+as String?,cfVersionMetadataTag: freezed == cfVersionMetadataTag ? _self.cfVersionMetadataTag : cfVersionMetadataTag // ignore: cast_nullable_to_non_nullable
+as String?,cfVersionMetadataTimestamp: freezed == cfVersionMetadataTimestamp ? _self.cfVersionMetadataTimestamp : cfVersionMetadataTimestamp // ignore: cast_nullable_to_non_nullable
+as String?,postgresUrl: null == postgresUrl ? _self.postgresUrl : postgresUrl // ignore: cast_nullable_to_non_nullable
 as String,internalApiUrl: null == internalApiUrl ? _self.internalApiUrl : internalApiUrl // ignore: cast_nullable_to_non_nullable
 as String,xApiKey: null == xApiKey ? _self.xApiKey : xApiKey // ignore: cast_nullable_to_non_nullable
 as String,logoBaseUrl: null == logoBaseUrl ? _self.logoBaseUrl : logoBaseUrl // ignore: cast_nullable_to_non_nullable
