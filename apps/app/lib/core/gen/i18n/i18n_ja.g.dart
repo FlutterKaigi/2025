@@ -266,8 +266,8 @@ class TranslationsTicketJa {
 	// Translations
 	late final TranslationsTicketStatusJa status = TranslationsTicketStatusJa._(_root);
 
-	/// ja: 'オプション'
-	String get options => 'オプション';
+	/// ja: 'オプション:'
+	String get options => 'オプション:';
 
 	/// ja: '購入日時'
 	String get purchaseDate => '購入日時';
@@ -899,7 +899,7 @@ extension on Translations {
 			case 'navigation.account': return 'アカウント';
 			case 'ticket.status.purchased': return '購入済み';
 			case 'ticket.status.pending': return '決済待ち';
-			case 'ticket.options': return 'オプション';
+			case 'ticket.options': return 'オプション:';
 			case 'ticket.purchaseDate': return '購入日時';
 			case 'ticket.expiryDate': return '期限';
 			case 'ticket.noAvailableTickets': return '現在、購入可能なチケットはありません';

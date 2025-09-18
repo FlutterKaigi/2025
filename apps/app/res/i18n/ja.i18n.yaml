@@ -141,7 +141,7 @@ ticket:
   status:
     purchased: 購入済み
     pending: 決済待ち
-  options: オプション
+  options: "オプション:"
   purchaseDate: 購入日時
   expiryDate: 期限
   noAvailableTickets: 現在、購入可能なチケットはありません
