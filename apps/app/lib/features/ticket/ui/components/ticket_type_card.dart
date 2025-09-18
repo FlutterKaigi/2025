@@ -71,8 +71,10 @@ class TicketTypeCard extends StatelessWidget {
                     TicketStatusSelling() => const Icon(Icons.shopping_cart),
                   },
                   label: switch (ticketType.status) {
-                    TicketStatusNotSelling() => const Text('販売終了'),
-                    TicketStatusSoldOut() => const Text('完売'),
+                    TicketStatusNotSelling() => Text(
+                      t.ticket.purchase.notSelling,
+                    ),
+                    TicketStatusSoldOut() => Text(t.ticket.purchase.soldOut),
                     TicketStatusSelling() => Text(t.ticket.purchase.proceed),
                   },
                   onPressed: switch ((
