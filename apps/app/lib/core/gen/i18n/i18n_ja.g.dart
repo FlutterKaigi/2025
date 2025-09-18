@@ -611,8 +611,8 @@ class TranslationsTicketPurchaseJa {
 	/// ja: '販売中'
 	String get selling => '販売中';
 
-	/// ja: '売り切れ'
-	String get soldOut => '売り切れ';
+	/// ja: '完売'
+	String get soldOut => '完売';
 
 	/// ja: '販売終了'
 	String get notSelling => '販売終了';
@@ -929,7 +929,7 @@ extension on Translations {
 			case 'ticket.purchase.optionSoldOut': return 'このオプションは完売しました';
 			case 'ticket.purchase.fewRemaining': return '残りわずか';
 			case 'ticket.purchase.selling': return '販売中';
-			case 'ticket.purchase.soldOut': return '売り切れ';
+			case 'ticket.purchase.soldOut': return '完売';
 			case 'ticket.purchase.notSelling': return '販売終了';
 			case 'ticket.purchase.optionsAvailable': return 'このチケットには以下のオプションがあります：';
 			case 'ticket.purchase.cancel': return 'キャンセル';

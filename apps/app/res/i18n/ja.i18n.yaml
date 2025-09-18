@@ -175,7 +175,7 @@ ticket:
     optionSoldOut: このオプションは完売しました
     fewRemaining: 残りわずか
     selling: 販売中
-    soldOut: 売り切れ
+    soldOut: 完売
     notSelling: 販売終了
     optionsAvailable: このチケットには以下のオプションがあります：
     cancel: キャンセル
