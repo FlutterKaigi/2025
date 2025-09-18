@@ -47,6 +47,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final TranslationsAuthJa auth = TranslationsAuthJa._(_root);
 	late final TranslationsErrorJa error = TranslationsErrorJa._(_root);
 	late final TranslationsDebugJa debug = TranslationsDebugJa._(_root);
+	late final TranslationsNavigationJa navigation = TranslationsNavigationJa._(_root);
 	late final TranslationsTicketJa ticket = TranslationsTicketJa._(_root);
 }
 
@@ -215,6 +216,27 @@ class TranslationsDebugJa {
 
 	/// ja: 'Talker 画面へ'
 	String get talkerScreen => 'Talker 画面へ';
+}
+
+// Path: navigation
+class TranslationsNavigationJa {
+	TranslationsNavigationJa._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'イベント'
+	String get event => 'イベント';
+
+	/// ja: 'スポンサー'
+	String get sponsor => 'スポンサー';
+
+	/// ja: 'チケット'
+	String get ticket => 'チケット';
+
+	/// ja: 'アカウント'
+	String get account => 'アカウント';
 }
 
 // Path: ticket
@@ -847,6 +869,10 @@ extension on Translations {
 			case 'error.widget.buildErrorGitHubButton': return 'GitHub の Issue ページを開く';
 			case 'error.general.occurred': return 'エラーが発生しました';
 			case 'debug.talkerScreen': return 'Talker 画面へ';
+			case 'navigation.event': return 'イベント';
+			case 'navigation.sponsor': return 'スポンサー';
+			case 'navigation.ticket': return 'チケット';
+			case 'navigation.account': return 'アカウント';
 			case 'ticket.status.purchased': return '購入済み';
 			case 'ticket.status.pending': return '決済待ち';
 			case 'ticket.options': return 'オプション';

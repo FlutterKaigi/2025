@@ -125,6 +125,12 @@ error:
 debug:
   talkerScreen: Talker 画面へ
 
+navigation:
+  event: イベント
+  sponsor: スポンサー
+  ticket: チケット
+  account: アカウント
+
 ticket:
   status:
     purchased: 購入済み
