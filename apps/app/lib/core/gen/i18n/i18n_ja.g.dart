@@ -232,6 +232,9 @@ class TranslationsTicketJa {
 	/// ja: '現在、購入可能なチケットはありません'
 	String get noAvailableTickets => '現在、購入可能なチケットはありません';
 
+	/// ja: 'チケット一覧'
+	String get list => 'チケット一覧';
+
 	late final TranslationsTicketLoginRequiredJa loginRequired = TranslationsTicketLoginRequiredJa._(_root);
 	late final TranslationsTicketNoticeJa notice = TranslationsTicketNoticeJa._(_root);
 	late final TranslationsTicketStudentRefundJa studentRefund = TranslationsTicketStudentRefundJa._(_root);
@@ -830,6 +833,7 @@ extension on Translations {
 			case 'ticket.purchaseDate': return '購入日時';
 			case 'ticket.expiryDate': return '期限';
 			case 'ticket.noAvailableTickets': return '現在、購入可能なチケットはありません';
+			case 'ticket.list': return 'チケット一覧';
 			case 'ticket.loginRequired.title': return 'チケット購入前にGoogleアカウントでログインしてください';
 			case 'ticket.loginRequired.linkTitle': return 'チケット購入前にGoogleアカウントとリンクしてください';
 			case 'ticket.loginRequired.description': return 'チケットを購入するためには、Googleアカウントでログインしてください';

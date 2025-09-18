@@ -18,6 +18,7 @@ class TicketListScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final t = Translations.of(context);
     final ticketItemsStatus = ref.watch(ticketNotifierProvider);
     final ticketTypesStatus = ref.watch(ticketTypesProvider);
 
@@ -43,7 +44,7 @@ class TicketListScreen extends ConsumerWidget {
         ),
         data: (ticketTypes) => Scaffold(
           appBar: AppBar(
-            title: const Text('チケット一覧'),
+            title: Text(t.ticket.list),
           ),
           body: _TicketsListView(
             tickets: tickets,
