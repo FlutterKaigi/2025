@@ -15,7 +15,6 @@ class SnsLinkCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final t = Translations.of(context);
 
     return Card(
       child: ListTile(
@@ -117,10 +116,12 @@ class SnsLinksList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = Translations.of(context);
+
     if (snsLinks.isEmpty) {
-      return const Card(
+      return Card(
         child: Padding(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Center(
             child: Text(t.account.profile.sns.notLinked),
           ),

@@ -19,7 +19,6 @@ class TicketCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final t = Translations.of(context);
 
     return Card.outlined(
       color: colorScheme.surfaceContainer,
@@ -236,6 +235,8 @@ class _TicketCheckoutButtons extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final t = Translations.of(context);
+
     return SizedBox(
       width: double.infinity,
       child: Wrap(
@@ -258,7 +259,7 @@ class _TicketCheckoutButtons extends ConsumerWidget {
               } else {
                 if (context.mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
+                    SnackBar(
                       content: Text(t.ticket.purchase.paymentPageError),
                     ),
                   );
