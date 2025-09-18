@@ -9,6 +9,7 @@
   },
   "placement": { "mode": "smart" },
   "compatibility_flags": ["nodejs_compat"],
+  "logpush": true,
   "env": {
     "staging": {
       "workers_dev": false,
