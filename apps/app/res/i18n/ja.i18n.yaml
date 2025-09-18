@@ -63,6 +63,29 @@ account:
       changeSuccess: アバターを変更しました
     sns:
       notLinked: SNSリンクが登録されていません
+      type: SNSタイプ
+      urlOrUserId: URL/ユーザーID
+      urlOrUserIdRequired: URL/ユーザーIDを入力してください
+      other: その他
+      fullUrlRequired: 完全なURLを入力してください
+      userIdOnly: ユーザーIDのみを入力してください
+      alphanumericOnly: 英数字、アンダースコア、ハイフンのみ使用可能です
+      examples:
+        github: "例: octocat"
+        x: "例: twitter"
+        discord: "例: 123456789012345678 (ユーザーID)"
+        medium: "例: username"
+        qiita: "例: username"
+        zenn: "例: username"
+        note: "例: username"
+      displayNames:
+        github: GitHub
+        x: X (Twitter)
+        discord: Discord
+        medium: Medium
+        qiita: Qiita
+        zenn: Zenn
+        note: note
     image:
       selectTitle: 画像を選択
       selectMessage: 画像を選択してください

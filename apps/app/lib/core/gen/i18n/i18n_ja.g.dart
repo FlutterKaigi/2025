@@ -593,6 +593,30 @@ class TranslationsAccountProfileSnsJa {
 
 	/// ja: 'SNSリンクが登録されていません'
 	String get notLinked => 'SNSリンクが登録されていません';
+
+	/// ja: 'SNSタイプ'
+	String get type => 'SNSタイプ';
+
+	/// ja: 'URL/ユーザーID'
+	String get urlOrUserId => 'URL/ユーザーID';
+
+	/// ja: 'URL/ユーザーIDを入力してください'
+	String get urlOrUserIdRequired => 'URL/ユーザーIDを入力してください';
+
+	/// ja: 'その他'
+	String get other => 'その他';
+
+	/// ja: '完全なURLを入力してください'
+	String get fullUrlRequired => '完全なURLを入力してください';
+
+	/// ja: 'ユーザーIDのみを入力してください'
+	String get userIdOnly => 'ユーザーIDのみを入力してください';
+
+	/// ja: '英数字、アンダースコア、ハイフンのみ使用可能です'
+	String get alphanumericOnly => '英数字、アンダースコア、ハイフンのみ使用可能です';
+
+	late final TranslationsAccountProfileSnsExamplesJa examples = TranslationsAccountProfileSnsExamplesJa._(_root);
+	late final TranslationsAccountProfileSnsDisplayNamesJa displayNames = TranslationsAccountProfileSnsDisplayNamesJa._(_root);
 }
 
 // Path: account.profile.image
@@ -617,6 +641,66 @@ class TranslationsAccountProfileImageJa {
 
 	/// ja: '画像をクロップ'
 	String get cropTitle => '画像をクロップ';
+}
+
+// Path: account.profile.sns.examples
+class TranslationsAccountProfileSnsExamplesJa {
+	TranslationsAccountProfileSnsExamplesJa._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '例: octocat'
+	String get github => '例: octocat';
+
+	/// ja: '例: twitter'
+	String get x => '例: twitter';
+
+	/// ja: '例: 123456789012345678 (ユーザーID)'
+	String get discord => '例: 123456789012345678 (ユーザーID)';
+
+	/// ja: '例: username'
+	String get medium => '例: username';
+
+	/// ja: '例: username'
+	String get qiita => '例: username';
+
+	/// ja: '例: username'
+	String get zenn => '例: username';
+
+	/// ja: '例: username'
+	String get note => '例: username';
+}
+
+// Path: account.profile.sns.displayNames
+class TranslationsAccountProfileSnsDisplayNamesJa {
+	TranslationsAccountProfileSnsDisplayNamesJa._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'GitHub'
+	String get github => 'GitHub';
+
+	/// ja: 'X (Twitter)'
+	String get x => 'X (Twitter)';
+
+	/// ja: 'Discord'
+	String get discord => 'Discord';
+
+	/// ja: 'Medium'
+	String get medium => 'Medium';
+
+	/// ja: 'Qiita'
+	String get qiita => 'Qiita';
+
+	/// ja: 'Zenn'
+	String get zenn => 'Zenn';
+
+	/// ja: 'note'
+	String get note => 'note';
 }
 
 /// Flat map(s) containing all translations.
@@ -674,6 +758,27 @@ extension on Translations {
 			case 'account.profile.avatar.changeFailed': return 'アバターを変更できませんでした';
 			case 'account.profile.avatar.changeSuccess': return 'アバターを変更しました';
 			case 'account.profile.sns.notLinked': return 'SNSリンクが登録されていません';
+			case 'account.profile.sns.type': return 'SNSタイプ';
+			case 'account.profile.sns.urlOrUserId': return 'URL/ユーザーID';
+			case 'account.profile.sns.urlOrUserIdRequired': return 'URL/ユーザーIDを入力してください';
+			case 'account.profile.sns.other': return 'その他';
+			case 'account.profile.sns.fullUrlRequired': return '完全なURLを入力してください';
+			case 'account.profile.sns.userIdOnly': return 'ユーザーIDのみを入力してください';
+			case 'account.profile.sns.alphanumericOnly': return '英数字、アンダースコア、ハイフンのみ使用可能です';
+			case 'account.profile.sns.examples.github': return '例: octocat';
+			case 'account.profile.sns.examples.x': return '例: twitter';
+			case 'account.profile.sns.examples.discord': return '例: 123456789012345678 (ユーザーID)';
+			case 'account.profile.sns.examples.medium': return '例: username';
+			case 'account.profile.sns.examples.qiita': return '例: username';
+			case 'account.profile.sns.examples.zenn': return '例: username';
+			case 'account.profile.sns.examples.note': return '例: username';
+			case 'account.profile.sns.displayNames.github': return 'GitHub';
+			case 'account.profile.sns.displayNames.x': return 'X (Twitter)';
+			case 'account.profile.sns.displayNames.discord': return 'Discord';
+			case 'account.profile.sns.displayNames.medium': return 'Medium';
+			case 'account.profile.sns.displayNames.qiita': return 'Qiita';
+			case 'account.profile.sns.displayNames.zenn': return 'Zenn';
+			case 'account.profile.sns.displayNames.note': return 'note';
 			case 'account.profile.image.selectTitle': return '画像を選択';
 			case 'account.profile.image.selectMessage': return '画像を選択してください';
 			case 'account.profile.image.selectButton': return '画像を選択';
