@@ -675,6 +675,15 @@ class TranslationsAccountProfileImageJa {
 
 	/// ja: '画像をクロップ'
 	String get cropTitle => '画像をクロップ';
+
+	/// ja: '完了'
+	String get complete => '完了';
+
+	/// ja: 'クロップ'
+	String get crop => 'クロップ';
+
+	/// ja: 'リセット'
+	String get reset => 'リセット';
 }
 
 // Path: account.profile.sns.examples
@@ -821,6 +830,9 @@ extension on Translations {
 			case 'account.profile.image.selectButton': return '画像を選択';
 			case 'account.profile.image.useGooglePhoto': return 'Googleアカウントの写真を使用';
 			case 'account.profile.image.cropTitle': return '画像をクロップ';
+			case 'account.profile.image.complete': return '完了';
+			case 'account.profile.image.crop': return 'クロップ';
+			case 'account.profile.image.reset': return 'リセット';
 			case 'auth.guest.signInButton': return 'ゲストで利用する';
 			case 'auth.guest.userLabel': return 'ゲストでログイン中';
 			case 'auth.error.identityAlreadyExists': return 'このGoogleアカウントは既に別のユーザーと紐づけられています。ログアウトしてから再度ログインしてください。';

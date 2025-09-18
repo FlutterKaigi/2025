@@ -95,6 +95,9 @@ account:
       selectButton: 画像を選択
       useGooglePhoto: Googleアカウントの写真を使用
       cropTitle: 画像をクロップ
+      complete: 完了
+      crop: クロップ
+      reset: リセット
 
 auth:
   guest:

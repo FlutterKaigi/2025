@@ -40,7 +40,7 @@ class ImageCropScreen extends HookConsumerWidget {
             onPressed: croppedBytes.value != null
                 ? () => Navigator.of(context).pop(croppedBytes.value)
                 : null,
-            child: const Text('完了'),
+            child: Text(t.account.profile.image.complete),
           ),
         ],
       ),
@@ -81,12 +81,12 @@ class ImageCropScreen extends HookConsumerWidget {
                 ElevatedButton.icon(
                   onPressed: () async => cropController.value.crop(),
                   icon: const Icon(Icons.crop),
-                  label: const Text('クロップ'),
+                  label: Text(t.account.profile.image.crop),
                 ),
                 ElevatedButton.icon(
                   onPressed: cropController.value.undo,
                   icon: const Icon(Icons.refresh),
-                  label: const Text('リセット'),
+                  label: Text(t.account.profile.image.reset),
                 ),
               ],
             ),
