@@ -1,7 +1,2 @@
-POSTGRES_URL=postgresql://postgres:postgres@localhost:5432/postgres
-X_API_KEY=xxx
-SUPABASE_URL=https://xxx.supabase.co
-SUPABASE_SERVICE_ROLE_KEY=xxx
-INTERNAL_API_URL=http://localhost:8787
-LOGO_BASE_URL=https://pub-27ad8ed93aa141a0b45f128f849914ed.r2.dev
 ENVIRONMENT=staging
+BFF_API_HOST=example.com

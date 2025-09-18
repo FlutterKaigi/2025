@@ -1,5 +1,6 @@
 services:
   bff-engine:
+    image: flutterkaigi-2025-bff.sakuracr.jp/bff:v1.0.1
     build:
       context: ../../
       dockerfile: bff/engine/Dockerfile
