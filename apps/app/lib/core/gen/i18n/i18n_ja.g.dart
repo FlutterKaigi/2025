@@ -463,6 +463,9 @@ class TranslationsTicketPurchaseJa {
 
 	// Translations
 
+	/// ja: 'チケット購入'
+	String get title => 'チケット購入';
+
 	/// ja: '購入へ進む'
 	String get proceed => '購入へ進む';
 
@@ -516,6 +519,24 @@ class TranslationsTicketPurchaseJa {
 
 	/// ja: 'このチケットには以下のオプションがあります：'
 	String get optionsAvailable => 'このチケットには以下のオプションがあります：';
+
+	/// ja: 'キャンセル'
+	String get cancel => 'キャンセル';
+
+	/// ja: '未選択'
+	String get unselected => '未選択';
+
+	/// ja: '価格'
+	String get price => '価格';
+
+	/// ja: 'チケット'
+	String get ticket => 'チケット';
+
+	/// ja: '追加オプション'
+	String get additionalOptions => '追加オプション';
+
+	/// ja: '合計'
+	String get total => '合計';
 }
 
 // Path: account.profile.avatar
@@ -652,6 +673,7 @@ extension on Translations {
 			case 'ticket.studentRefund.description': return 'FlutterKaigi 2025では、学生支援スポンサー様のご協力により、アーリーチケット・ノーマルチケットをご購入の方を対象に返金・費用補助を実施いたします。';
 			case 'ticket.studentRefund.detailsButton': return '詳細を見る';
 			case 'ticket.studentRefund.dialogContent': return '🎓 学生向け返金・費用補助について\nFlutterKaigi 2025では、学生支援スポンサー様のご協力により、アーリーチケット・ノーマルチケットをご購入の方を対象に、以下の返金・費用補助を実施いたします。\n\n✅ 対象となる費用\n- チケット代金\n- 交通費（上限あり）\n- 宿泊費（上限あり）\n\n🧑‍🎓 対象となる「学生」の定義\n以下のいずれかに該当し、在学を証明できる方が対象です：\n- 日本国内外の教育機関（小学校・中学校・高等学校・高等専門学校・専門学校・大学・大学院など）に在籍中の方\n- 年齢や就業状況を問わず、学生証または在学証明書を提示できる方\n\n🎟 対象条件\n- FlutterKaigi 2025に実際に参加された方\n- 実際に学生支援スポンサーとの交流企画へ参加された方\n- 前当日の受付にて、有効な学生証や在学証明書をご提示いただいた方\n\n参加記録は運営側で確認いたします。事前申請は不要です。\n\n📩 返金手続きについて\nイベント終了後、対象の方へメールにて返金手続きの詳細をご案内いたします。\n\nその際、以下の情報をご提出いただきます：\n- チケット購入時の情報\n- 交通費・宿泊費の領収書または証明書類\n- 振込先の口座情報\n\n※ 学生証の写しなどの追加提出は不要です（当日提示済みの場合）\n※ 上限金額や詳細条件については、ご案内メールにて個別にご説明します。\n※ ご提出いただいた内容を確認のうえ、順次返金いたします。\n\n📌 ご提出いただく情報には個人情報が含まれます。返金・費用補助の確認および手続きの目的に限り使用し、手続き完了後は速やかに破棄いたします。お申し込みいただくにあたり、これらの取り扱いにご同意いただく必要がありますので、あらかじめご了承ください。\n\n📬 ご不明点がある場合は：staff@flutterkaigi.jp';
+			case 'ticket.purchase.title': return 'チケット購入';
 			case 'ticket.purchase.proceed': return '購入へ進む';
 			case 'ticket.purchase.confirmTitle': return 'チケット情報を確認';
 			case 'ticket.purchase.paymentTitle': return '決済を開始';
@@ -670,6 +692,12 @@ extension on Translations {
 			case 'ticket.purchase.soldOut': return '売り切れ';
 			case 'ticket.purchase.notSelling': return '販売終了';
 			case 'ticket.purchase.optionsAvailable': return 'このチケットには以下のオプションがあります：';
+			case 'ticket.purchase.cancel': return 'キャンセル';
+			case 'ticket.purchase.unselected': return '未選択';
+			case 'ticket.purchase.price': return '価格';
+			case 'ticket.purchase.ticket': return 'チケット';
+			case 'ticket.purchase.additionalOptions': return '追加オプション';
+			case 'ticket.purchase.total': return '合計';
 			default: return null;
 		}
 	}

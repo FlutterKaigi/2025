@@ -57,7 +57,7 @@ class TicketCheckoutSheet extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('チケット購入'),
+        title: Text(t.ticket.purchase.title),
       ),
       body: Stepper(
         currentStep: currentStep.value,
@@ -252,7 +252,7 @@ class _StepControls extends StatelessWidget {
           const SizedBox(width: 8),
           TextButton(
             onPressed: isLoading ? null : onCancel,
-            child: const Text('キャンセル'),
+            child: Text(t.ticket.purchase.cancel),
           ),
         ],
       ),
@@ -325,7 +325,7 @@ class _TicketOptionStep extends StatelessWidget {
                   subtitle: isSelling
                       ? isSelected
                             ? Text(t.ticket.purchase.selected)
-                            : const Text('未選択')
+                            : Text(t.ticket.purchase.unselected)
                       : null,
                   value: isSelected,
                   enableFeedback: true,
@@ -420,7 +420,7 @@ class _TicketInfoStep extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '価格',
+                      t.ticket.purchase.price,
                       style: textTheme.labelLarge,
                     ),
                     Text(
@@ -487,7 +487,7 @@ class _CheckoutConfirmStep extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'チケット',
+                  t.ticket.purchase.ticket,
                   style: textTheme.labelLarge,
                 ),
                 Text(
@@ -509,7 +509,7 @@ class _CheckoutConfirmStep extends StatelessWidget {
               return [
                 const Divider(),
                 Text(
-                  '追加オプション',
+                  t.ticket.purchase.additionalOptions,
                   style: textTheme.labelLarge,
                 ),
                 ...checkedOptions.map((entry) {
@@ -540,7 +540,7 @@ class _CheckoutConfirmStep extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '合計',
+                  t.ticket.purchase.total,
                   style: textTheme.titleMedium,
                 ),
                 Text(
