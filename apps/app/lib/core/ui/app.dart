@@ -5,6 +5,7 @@ import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/core/provider/app_lifecycle_provider.dart';
 import 'package:app/core/router/router.dart';
 import 'package:app/features/force_update/force_update_provider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -44,6 +45,9 @@ class App extends HookConsumerWidget {
   }
 
   Future<void> _checkForceUpdate(WidgetRef ref, {bool force = false}) async {
+    if (kIsWeb) {
+      return;
+    }
     final notifier = ref.read(forceUpdateStateNotifierProvider.notifier);
     await notifier.checkForUpdate(force: force);
   }

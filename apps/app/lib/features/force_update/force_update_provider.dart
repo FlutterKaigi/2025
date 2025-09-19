@@ -1,9 +1,7 @@
-import 'dart:io';
-
 import 'package:app/core/provider/bff_client.dart';
 import 'package:app/features/force_update/force_update_checker.dart';
 import 'package:app/features/force_update/force_update_state.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -29,7 +27,9 @@ class ForceUpdateStateNotifier extends _$ForceUpdateStateNotifier {
 
     try {
       final packageInfo = await PackageInfo.fromPlatform();
-      final platform = Platform.isIOS ? 'ios' : 'android';
+      final platform = defaultTargetPlatform == TargetPlatform.iOS
+          ? 'ios'
+          : 'android';
 
       final checker = ref.read(forceUpdateCheckerProvider);
       final updateInfo = await checker.checkVersion();
