@@ -78,29 +78,29 @@ class ChangeAvatarAction {
       case PickImageDialogResult.googleAccount:
         final userAndUserRoles = await _userAndUserRolesFetcher();
         final authMetaData = userAndUserRoles.authMetaData;
-        final dio = Dio();
-        try {
-          final response = await dio.get<Uint8List>(
-            authMetaData.avatarUrl,
-            options: Options(
-              responseType: ResponseType.bytes,
-            ),
-          );
-          bytes = response.data!;
-        } catch (e) {
-          rethrow;
+        final avatarUrl = authMetaData.avatarUrl;
+        if (avatarUrl == null) {
+          throw StateError('authMetaData.avatarUrlがnullです');
         }
+        final dio = Dio();
+        final response = await dio.get<Uint8List>(
+          avatarUrl,
+          options: Options(
+            responseType: ResponseType.bytes,
+          ),
+        );
+        bytes = response.data!;
     }
 
     // crop
-    if (!context.mounted) {
+    if (!context.mounted || bytes.isEmpty) {
       return;
     }
     final croppedBytes = await ImageCropScreen.show(
       context: context,
       imageBytes: bytes,
     );
-    if (croppedBytes == null) {
+    if (croppedBytes == null || croppedBytes.isEmpty) {
       return;
     }
 

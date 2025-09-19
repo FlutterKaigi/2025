@@ -49,7 +49,7 @@ _AuthMetaData _$AuthMetaDataFromJson(Map<String, dynamic> json) =>
     $checkedCreate('_AuthMetaData', json, ($checkedConvert) {
       final val = _AuthMetaData(
         email: $checkedConvert('email', (v) => v as String),
-        avatarUrl: $checkedConvert('avatar_url', (v) => v as String),
+        avatarUrl: $checkedConvert('avatar_url', (v) => v as String?),
         name: $checkedConvert('name', (v) => v as String),
       );
       return val;
