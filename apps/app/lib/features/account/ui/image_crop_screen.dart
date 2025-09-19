@@ -28,21 +28,12 @@ class ImageCropScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final colorScheme = Theme.of(context).colorScheme;
-    final croppedBytes = useRef<Uint8List?>(null);
     final cropController = useRef<CropController>(CropController());
     final t = Translations.of(context);
 
     return Scaffold(
       appBar: AppBar(
         title: Text(t.account.profile.image.cropTitle),
-        actions: [
-          TextButton(
-            onPressed: croppedBytes.value != null
-                ? () => Navigator.of(context).pop(croppedBytes.value)
-                : null,
-            child: Text(t.account.profile.image.complete),
-          ),
-        ],
       ),
       body: Column(
         children: [
