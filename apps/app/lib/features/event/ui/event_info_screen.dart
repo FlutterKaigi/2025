@@ -1,5 +1,5 @@
 import 'package:app/core/gen/assets/assets.gen.dart';
-import 'package:app/core/gen/l10n/l10n.dart';
+import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/core/router/router.dart';
 import 'package:app/features/force_update/force_update.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +37,7 @@ class _NewsListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = L10n.of(context);
+    final t = Translations.of(context);
     return Ink(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -51,8 +51,8 @@ class _NewsListTile extends StatelessWidget {
       ),
       child: ListTile(
         leading: const Icon(Icons.notifications_outlined),
-        title: Text(l10n.newsTileTitle),
-        subtitle: Text(l10n.newsTileSubtitle),
+        title: Text(t.news.tile.title),
+        subtitle: Text(t.news.tile.subtitle),
         trailing: const Icon(Icons.arrow_right),
         onTap: () async => const NewsRoute().go(context),
       ),
@@ -69,7 +69,7 @@ class _EventInfoCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
-    final l10n = L10n.of(context);
+    final t = Translations.of(context);
 
     return Card.outlined(
       margin: const EdgeInsets.all(16),
@@ -81,21 +81,21 @@ class _EventInfoCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Text(
-              l10n.eventDescription,
+              t.event.description,
               style: textTheme.bodyMedium,
             ),
           ),
           const SizedBox(height: 8),
           ListTile(
             leading: const Icon(Icons.calendar_today),
-            title: Text(l10n.eventDate),
-            subtitle: Text(l10n.eventTime),
+            title: Text(t.event.date),
+            subtitle: Text(t.event.time),
             dense: true,
           ),
           ListTile(
             leading: const Icon(Icons.location_on),
-            title: Text(l10n.eventVenue),
-            subtitle: Text(l10n.eventAddress),
+            title: Text(t.event.venue),
+            subtitle: Text(t.event.address),
             dense: true,
           ),
           const SizedBox(height: 20),

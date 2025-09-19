@@ -12,10 +12,14 @@ resolution: workspace
 dependencies:
   app: 0.1.0+1
   auth_client: any
+  bff_client: any
   cupertino_icons: 1.0.8
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   hooks_riverpod: 3.0.0-dev.17
+  slang_flutter: ^4.8.0
   widgetbook: ^3.16.0
   widgetbook_annotation: ^3.7.0
 

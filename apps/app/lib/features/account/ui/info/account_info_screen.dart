@@ -1,5 +1,5 @@
 import 'package:app/core/gen/assets/assets.gen.dart';
-import 'package:app/core/gen/l10n/l10n.dart';
+import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/features/account/data/notifier/profile_notifier.dart';
 import 'package:app/features/account/ui/component/account_circle_image.dart';
 import 'package:app/features/account/ui/component/account_scaffold.dart';
@@ -41,7 +41,7 @@ final class AccountInfoScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(authNotifierProvider);
-    final l10n = L10n.of(context);
+    final t = Translations.of(context);
     final textTheme = Theme.of(context).textTheme;
 
     return AccountScaffold(
@@ -67,26 +67,26 @@ final class AccountInfoScreen extends ConsumerWidget {
             Padding(
               padding: const EdgeInsetsDirectional.only(start: 16),
               child: Text(
-                l10n.accountOthers,
+                t.account.others,
                 style: textTheme.titleLarge,
               ),
             ),
             const SizedBox(height: 8),
             ...([
               (
-                title: l10n.accountCodeOfConduct,
+                title: t.account.codeOfConduct,
                 onTap: _onTapCodeOfConductTile,
               ),
               (
-                title: l10n.accountPrivacyPolicy,
+                title: t.account.privacyPolicy,
                 onTap: _onTapPrivacyPolicyTile,
               ),
               (
-                title: l10n.accountContact,
+                title: t.account.contact,
                 onTap: _onTapContactTile,
               ),
               (
-                title: l10n.accountOssLicenses,
+                title: t.account.ossLicenses,
                 onTap: _onTapOssLicensesTile,
               ),
             ].map(
@@ -137,7 +137,7 @@ class _UserInfoCard extends ConsumerWidget {
     final children = user.isAnonymous
         ? [
             Text(
-              L10n.of(context).guestUserLabel,
+              Translations.of(context).account.guestUserLabel,
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             const SizedBox(height: 16),
@@ -166,7 +166,7 @@ class _UserInfoCard extends ConsumerWidget {
               child: ElevatedButton.icon(
                 onPressed: onProfileEdit,
                 icon: const Icon(Icons.edit),
-                label: Text(L10n.of(context).accountProfileEdit),
+                label: Text(Translations.of(context).account.profileEdit),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Theme.of(
                     context,
@@ -216,7 +216,7 @@ class _LogoutButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final l10n = L10n.of(context);
+    final t = Translations.of(context);
     final colorScheme = Theme.of(context).colorScheme;
 
     return SizedBox(
@@ -227,7 +227,7 @@ class _LogoutButton extends ConsumerWidget {
           await ref.read(authNotifierProvider.notifier).signOut();
         },
         icon: const Icon(Icons.logout),
-        label: Text(l10n.accountLogout),
+        label: Text(t.account.logout),
         style: OutlinedButton.styleFrom(
           foregroundColor: colorScheme.error,
           side: BorderSide(

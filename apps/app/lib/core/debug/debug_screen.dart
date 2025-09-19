@@ -1,3 +1,4 @@
+import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/core/router/router.dart';
 import 'package:app/features/auth/data/notifier/auth_notifier.dart';
 import 'package:flutter/material.dart';
@@ -11,9 +12,10 @@ class DebugScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = Translations.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Debug'),
+        title: Text(t.debug.title),
       ),
       body: const Padding(
         padding: EdgeInsets.symmetric(vertical: 16),
@@ -35,6 +37,7 @@ class _TransitionArea extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = Translations.of(context);
     final router = GoRouter.of(context);
 
     final textController = useTextEditingController(text: '/event');
@@ -70,17 +73,17 @@ class _TransitionArea extends HookWidget {
                       autovalidateMode: AutovalidateMode.always,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'パスを入力してください';
+                          return t.debug.pathRequired;
                         }
                         if (!value.startsWith('/')) {
-                          return 'パスは / で始めてください';
+                          return t.debug.pathMustStartWithSlash;
                         }
                         if (value.contains('debug') ||
                             value.contains('login')) {
-                          return 'パスに「debug」または「login」を含めることはできません';
+                          return t.debug.pathCannotContainDebugOrLogin;
                         }
                         if (!router.canNavigate(value)) {
-                          return '無効なパスです';
+                          return t.debug.invalidPath;
                         }
                         return null;
                       },
@@ -148,7 +151,7 @@ class _TransitionArea extends HookWidget {
                 final path = textController.text;
                 router.go(path);
               },
-              child: const Text('GO'),
+              child: Text(t.debug.go),
             ),
           ),
           const SizedBox(width: 8),
@@ -163,10 +166,11 @@ class _TalkerArea extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = Translations.of(context);
     return Center(
       child: FilledButton(
         onPressed: () async => const TalkerRoute().push<void>(context),
-        child: const Text('Talker 画面へ'),
+        child: Text(t.debug.talkerScreen),
       ),
     );
   }
@@ -177,10 +181,11 @@ class _LogoutArea extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final t = Translations.of(context);
     final authNotifier = ref.watch(authNotifierProvider.notifier);
     return FilledButton(
       onPressed: () async => authNotifier.signOut(),
-      child: const Text('ログアウト'),
+      child: Text(t.account.logout),
     );
   }
 }

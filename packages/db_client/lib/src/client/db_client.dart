@@ -29,6 +29,7 @@ class DbClient {
         timeZone: 'Asia/Tokyo',
         applicationName: 'dart_bff_engine',
         sslMode: disableSsl ? SslMode.disable : SslMode.require,
+        connectTimeout: const Duration(minutes: 1),
       ),
     );
     print(
@@ -91,6 +92,9 @@ class Executor {
     QueryMode? queryMode,
     Duration? timeout,
   }) async {
+    if (!_connection.isOpen) {
+      throw Exception('Connection is closed');
+    }
     final stopWatch = Stopwatch()..start();
     final result = await _connection.execute(
       Sql.named(query),

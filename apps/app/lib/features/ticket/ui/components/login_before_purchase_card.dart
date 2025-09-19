@@ -1,3 +1,4 @@
+import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/core/router/router.dart';
 import 'package:flutter/material.dart';
 
@@ -15,6 +16,7 @@ class LoginBeforePurchaseCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = Translations.of(context);
     final theme = Theme.of(context);
 
     return Card.outlined(
@@ -41,17 +43,17 @@ class LoginBeforePurchaseCard extends StatelessWidget {
                   spacing: 4,
                   children: [
                     Text(
-                      type.title,
+                      type.title(t),
                       style: theme.textTheme.titleLarge!.copyWith(
                         fontWeight: FontWeight.bold,
                         color: theme.colorScheme.onPrimaryContainer,
                       ),
                     ),
                     Text(
-                      type.description,
+                      type.description(t),
                     ),
                     FilledButton.icon(
-                      label: const Text('アカウント設定'),
+                      label: Text(t.account.settings),
                       icon: const Icon(Icons.settings),
                       onPressed: () => const AccountInfoRoute().go(context),
                     ),
@@ -70,9 +72,9 @@ enum LoginBeforePurchaseCardType {
   login,
   anonymous;
 
-  String get title => switch (this) {
-    login => 'チケット購入前にGoogleアカウントでログインしてください',
-    anonymous => 'チケット購入前にGoogleアカウントとリンクしてください',
+  String title(Translations t) => switch (this) {
+    login => t.ticket.loginRequired.title,
+    anonymous => t.ticket.loginRequired.linkTitle,
   };
-  String get description => 'チケットを購入するためには、Googleアカウントでログインしてください';
+  String description(Translations t) => t.ticket.loginRequired.description;
 }

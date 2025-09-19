@@ -1,3 +1,4 @@
+import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/features/ticket/data/notifier/ticket_notifier.dart';
 import 'package:app/features/ticket/ui/components/ticket_card_description.dart';
 import 'package:bff_client/bff_client.dart';
@@ -67,6 +68,7 @@ class _TicketHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final t = Translations.of(context);
 
     final color = switch (ticket) {
       TicketPurchaseItem() => colorScheme.primary,
@@ -81,8 +83,8 @@ class _TicketHeader extends StatelessWidget {
       TicketCheckoutItem() => colorScheme.onPrimaryContainer,
     };
     final label = switch (ticket) {
-      TicketPurchaseItem() => '購入済み',
-      TicketCheckoutItem() => '決済待ち',
+      TicketPurchaseItem() => t.ticket.status.purchased,
+      TicketCheckoutItem() => t.ticket.status.pending,
     };
 
     return Row(
@@ -136,13 +138,14 @@ class _TicketOptions extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final t = Translations.of(context);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: 4,
       children: [
         Text(
-          'オプション:',
+          t.ticket.options,
           style: theme.textTheme.bodyMedium?.copyWith(
             color: colorScheme.onSurface,
           ),
@@ -186,6 +189,7 @@ class _TicketDateInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final t = Translations.of(context);
     final dateFormat = DateFormat('yyyy/MM/dd HH:mm');
 
     return switch (ticket) {
@@ -198,7 +202,8 @@ class _TicketDateInfo extends StatelessWidget {
             color: colorScheme.onSurfaceVariant,
           ),
           Text(
-            '購入日時: ${dateFormat.format(purchase.createdAt.toLocal())}',
+            '${t.ticket.purchaseDate}: '
+            '${dateFormat.format(purchase.createdAt.toLocal())}',
             style: theme.textTheme.bodySmall?.copyWith(
               color: colorScheme.onSurfaceVariant,
             ),
@@ -214,7 +219,8 @@ class _TicketDateInfo extends StatelessWidget {
             color: colorScheme.error,
           ),
           Text(
-            '期限: ${dateFormat.format(checkout.expiresAt.toLocal())}',
+            '${t.ticket.expiryDate}: '
+            '${dateFormat.format(checkout.expiresAt.toLocal())}',
             style: theme.textTheme.bodySmall?.copyWith(
               color: colorScheme.error,
             ),
@@ -234,6 +240,8 @@ class _TicketCheckoutButtons extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final t = Translations.of(context);
+
     return SizedBox(
       width: double.infinity,
       child: Wrap(
@@ -245,7 +253,7 @@ class _TicketCheckoutButtons extends ConsumerWidget {
             onPressed: () => ref
                 .read(ticketNotifierProvider.notifier)
                 .cancelCheckout(ticket.checkout.id),
-            label: const Text('キャンセル'),
+            label: Text(t.ticket.purchase.cancel),
             icon: const Icon(Icons.cancel),
           ),
           FilledButton.icon(
@@ -256,14 +264,14 @@ class _TicketCheckoutButtons extends ConsumerWidget {
               } else {
                 if (context.mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('決済ページを開けませんでした'),
+                    SnackBar(
+                      content: Text(t.ticket.purchase.paymentPageError),
                     ),
                   );
                 }
               }
             },
-            label: const Text('決済へ進む'),
+            label: Text(t.ticket.purchase.proceedToPayment),
             icon: const Icon(Icons.payment),
           ),
         ],

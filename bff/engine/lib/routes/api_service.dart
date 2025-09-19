@@ -23,10 +23,16 @@ class ApiService {
       final database = await container.read(
         dbClientProvider.future,
       );
+      if (!database.isOpen) {
+        throw ErrorResponse.errorCode(
+          code: ErrorCode.internalServerError,
+          detail: 'データベースが接続できませんでした',
+        );
+      }
 
       return {
         'status': 'ok',
-        'database': database.isOpen ? 'ok' : 'ng',
+        'database': 'ok',
         'container': {
           'id': Platform.environment['CF_VERSION_METADATA_ID'],
           'started_at': Platform.environment['CF_VERSION_METADATA_TIMESTAMP'],
