@@ -78,10 +78,14 @@ class ChangeAvatarAction {
       case PickImageDialogResult.googleAccount:
         final userAndUserRoles = await _userAndUserRolesFetcher();
         final authMetaData = userAndUserRoles.authMetaData;
+        final avatarUrl = authMetaData.avatarUrl;
+        if (avatarUrl == null) {
+          throw StateError('authMetaData.avatarUrlがnullです');
+        }
         final dio = Dio();
         try {
           final response = await dio.get<Uint8List>(
-            authMetaData.avatarUrl,
+            avatarUrl,
             options: Options(
               responseType: ResponseType.bytes,
             ),

@@ -1,7 +1,9 @@
 import 'package:app/core/gen/i18n/i18n.g.dart';
+import 'package:app/features/user/data/notifier/user_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class PickImageDialog extends StatelessWidget {
+class PickImageDialog extends ConsumerWidget {
   const PickImageDialog._({super.key});
 
   static Future<PickImageDialogResult?> show(BuildContext context) =>
@@ -11,7 +13,7 @@ class PickImageDialog extends StatelessWidget {
       );
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final t = Translations.of(context);
     return AlertDialog(
       title: Text(t.account.profile.image.selectTitle),
@@ -22,10 +24,26 @@ class PickImageDialog extends StatelessWidget {
               Navigator.of(context).pop(PickImageDialogResult.imagePicker),
           child: Text(t.account.profile.image.selectButton),
         ),
-        TextButton(
-          onPressed: () =>
-              Navigator.of(context).pop(PickImageDialogResult.googleAccount),
-          child: Text(t.account.profile.image.useGooglePhoto),
+        Consumer(
+          builder: (context, ref, child) {
+            final hasGoogleAvatarUrl = ref.watch(
+              userNotifierProvider.select(
+                (v) => v.whenData((d) => d.authMetaData.avatarUrl != null),
+              ),
+            );
+            return switch (hasGoogleAvatarUrl) {
+              AsyncError() => const SizedBox.shrink(),
+              AsyncLoading() => const CircularProgressIndicator.adaptive(),
+              AsyncData(:final value) => TextButton(
+                onPressed: value
+                    ? () => Navigator.of(
+                        context,
+                      ).pop(PickImageDialogResult.googleAccount)
+                    : null,
+                child: Text(t.account.profile.image.useGooglePhoto),
+              ),
+            };
+          },
         ),
       ],
     );

@@ -20,7 +20,7 @@ abstract class UserAndUserRoles with _$UserAndUserRoles {
 abstract class AuthMetaData with _$AuthMetaData {
   const factory AuthMetaData({
     required String email,
-    required String avatarUrl,
+    String? avatarUrl,
     required String name,
   }) = _AuthMetaData;
 
