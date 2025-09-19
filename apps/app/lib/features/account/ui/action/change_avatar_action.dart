@@ -83,28 +83,24 @@ class ChangeAvatarAction {
           throw StateError('authMetaData.avatarUrlがnullです');
         }
         final dio = Dio();
-        try {
-          final response = await dio.get<Uint8List>(
-            avatarUrl,
-            options: Options(
-              responseType: ResponseType.bytes,
-            ),
-          );
-          bytes = response.data!;
-        } catch (e) {
-          rethrow;
-        }
+        final response = await dio.get<Uint8List>(
+          avatarUrl,
+          options: Options(
+            responseType: ResponseType.bytes,
+          ),
+        );
+        bytes = response.data!;
     }
 
     // crop
-    if (!context.mounted) {
+    if (!context.mounted || bytes.isEmpty) {
       return;
     }
     final croppedBytes = await ImageCropScreen.show(
       context: context,
       imageBytes: bytes,
     );
-    if (croppedBytes == null) {
+    if (croppedBytes == null || croppedBytes.isEmpty) {
       return;
     }
 
