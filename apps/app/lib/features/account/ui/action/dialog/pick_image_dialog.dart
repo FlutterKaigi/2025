@@ -15,6 +15,12 @@ class PickImageDialog extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final t = Translations.of(context);
+
+    final hasGoogleAvatarUrl = ref.watch(
+      userNotifierProvider.select(
+        (v) => v.whenData((d) => d.authMetaData.avatarUrl != null),
+      ),
+    );
     return AlertDialog(
       title: Text(t.account.profile.image.selectTitle),
       content: Text(t.account.profile.image.selectMessage),
@@ -24,27 +30,16 @@ class PickImageDialog extends ConsumerWidget {
               Navigator.of(context).pop(PickImageDialogResult.imagePicker),
           child: Text(t.account.profile.image.selectButton),
         ),
-        Consumer(
-          builder: (context, ref, child) {
-            final hasGoogleAvatarUrl = ref.watch(
-              userNotifierProvider.select(
-                (v) => v.whenData((d) => d.authMetaData.avatarUrl != null),
-              ),
-            );
-            return switch (hasGoogleAvatarUrl) {
-              AsyncError() => const SizedBox.shrink(),
-              AsyncLoading() => const CircularProgressIndicator.adaptive(),
-              AsyncData(:final value) => TextButton(
-                onPressed: value
-                    ? () => Navigator.of(
-                        context,
-                      ).pop(PickImageDialogResult.googleAccount)
-                    : null,
-                child: Text(t.account.profile.image.useGooglePhoto),
-              ),
-            };
-          },
-        ),
+        switch (hasGoogleAvatarUrl) {
+          AsyncLoading() => const CircularProgressIndicator.adaptive(),
+          AsyncData(:final value) when value => TextButton(
+            onPressed: () => Navigator.of(
+              context,
+            ).pop(PickImageDialogResult.googleAccount),
+            child: Text(t.account.profile.image.useGooglePhoto),
+          ),
+          _ => const SizedBox.shrink(),
+        },
       ],
     );
   }
