@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ForceUpdateState {
 
- bool get isUpdateRequired; bool get hasChecked; AppVersionResponse? get versionInfo; String? get platform;
+ bool get isUpdateRequired; AppVersionResponse? get versionInfo; String? get platform;
 /// Create a copy of ForceUpdateState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $ForceUpdateStateCopyWith<ForceUpdateState> get copyWith => _$ForceUpdateStateCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ForceUpdateState&&(identical(other.isUpdateRequired, isUpdateRequired) || other.isUpdateRequired == isUpdateRequired)&&(identical(other.hasChecked, hasChecked) || other.hasChecked == hasChecked)&&(identical(other.versionInfo, versionInfo) || other.versionInfo == versionInfo)&&(identical(other.platform, platform) || other.platform == platform));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ForceUpdateState&&(identical(other.isUpdateRequired, isUpdateRequired) || other.isUpdateRequired == isUpdateRequired)&&(identical(other.versionInfo, versionInfo) || other.versionInfo == versionInfo)&&(identical(other.platform, platform) || other.platform == platform));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,isUpdateRequired,hasChecked,versionInfo,platform);
+int get hashCode => Object.hash(runtimeType,isUpdateRequired,versionInfo,platform);
 
 @override
 String toString() {
-  return 'ForceUpdateState(isUpdateRequired: $isUpdateRequired, hasChecked: $hasChecked, versionInfo: $versionInfo, platform: $platform)';
+  return 'ForceUpdateState(isUpdateRequired: $isUpdateRequired, versionInfo: $versionInfo, platform: $platform)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $ForceUpdateStateCopyWith<$Res>  {
   factory $ForceUpdateStateCopyWith(ForceUpdateState value, $Res Function(ForceUpdateState) _then) = _$ForceUpdateStateCopyWithImpl;
 @useResult
 $Res call({
- bool isUpdateRequired, bool hasChecked, AppVersionResponse? versionInfo, String? platform
+ bool isUpdateRequired, AppVersionResponse? versionInfo, String? platform
 });
 
 
@@ -62,10 +62,9 @@ class _$ForceUpdateStateCopyWithImpl<$Res>
 
 /// Create a copy of ForceUpdateState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? isUpdateRequired = null,Object? hasChecked = null,Object? versionInfo = freezed,Object? platform = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? isUpdateRequired = null,Object? versionInfo = freezed,Object? platform = freezed,}) {
   return _then(_self.copyWith(
 isUpdateRequired: null == isUpdateRequired ? _self.isUpdateRequired : isUpdateRequired // ignore: cast_nullable_to_non_nullable
-as bool,hasChecked: null == hasChecked ? _self.hasChecked : hasChecked // ignore: cast_nullable_to_non_nullable
 as bool,versionInfo: freezed == versionInfo ? _self.versionInfo : versionInfo // ignore: cast_nullable_to_non_nullable
 as AppVersionResponse?,platform: freezed == platform ? _self.platform : platform // ignore: cast_nullable_to_non_nullable
 as String?,
@@ -165,10 +164,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool isUpdateRequired,  bool hasChecked,  AppVersionResponse? versionInfo,  String? platform)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool isUpdateRequired,  AppVersionResponse? versionInfo,  String? platform)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ForceUpdateState() when $default != null:
-return $default(_that.isUpdateRequired,_that.hasChecked,_that.versionInfo,_that.platform);case _:
+return $default(_that.isUpdateRequired,_that.versionInfo,_that.platform);case _:
   return orElse();
 
 }
@@ -186,10 +185,10 @@ return $default(_that.isUpdateRequired,_that.hasChecked,_that.versionInfo,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool isUpdateRequired,  bool hasChecked,  AppVersionResponse? versionInfo,  String? platform)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool isUpdateRequired,  AppVersionResponse? versionInfo,  String? platform)  $default,) {final _that = this;
 switch (_that) {
 case _ForceUpdateState():
-return $default(_that.isUpdateRequired,_that.hasChecked,_that.versionInfo,_that.platform);case _:
+return $default(_that.isUpdateRequired,_that.versionInfo,_that.platform);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -206,10 +205,10 @@ return $default(_that.isUpdateRequired,_that.hasChecked,_that.versionInfo,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool isUpdateRequired,  bool hasChecked,  AppVersionResponse? versionInfo,  String? platform)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool isUpdateRequired,  AppVersionResponse? versionInfo,  String? platform)?  $default,) {final _that = this;
 switch (_that) {
 case _ForceUpdateState() when $default != null:
-return $default(_that.isUpdateRequired,_that.hasChecked,_that.versionInfo,_that.platform);case _:
+return $default(_that.isUpdateRequired,_that.versionInfo,_that.platform);case _:
   return null;
 
 }
@@ -221,11 +220,10 @@ return $default(_that.isUpdateRequired,_that.hasChecked,_that.versionInfo,_that.
 
 
 class _ForceUpdateState implements ForceUpdateState {
-  const _ForceUpdateState({this.isUpdateRequired = false, this.hasChecked = false, this.versionInfo, this.platform});
+  const _ForceUpdateState({this.isUpdateRequired = false, this.versionInfo, this.platform});
   
 
 @override@JsonKey() final  bool isUpdateRequired;
-@override@JsonKey() final  bool hasChecked;
 @override final  AppVersionResponse? versionInfo;
 @override final  String? platform;
 
@@ -239,16 +237,16 @@ _$ForceUpdateStateCopyWith<_ForceUpdateState> get copyWith => __$ForceUpdateStat
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ForceUpdateState&&(identical(other.isUpdateRequired, isUpdateRequired) || other.isUpdateRequired == isUpdateRequired)&&(identical(other.hasChecked, hasChecked) || other.hasChecked == hasChecked)&&(identical(other.versionInfo, versionInfo) || other.versionInfo == versionInfo)&&(identical(other.platform, platform) || other.platform == platform));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ForceUpdateState&&(identical(other.isUpdateRequired, isUpdateRequired) || other.isUpdateRequired == isUpdateRequired)&&(identical(other.versionInfo, versionInfo) || other.versionInfo == versionInfo)&&(identical(other.platform, platform) || other.platform == platform));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,isUpdateRequired,hasChecked,versionInfo,platform);
+int get hashCode => Object.hash(runtimeType,isUpdateRequired,versionInfo,platform);
 
 @override
 String toString() {
-  return 'ForceUpdateState(isUpdateRequired: $isUpdateRequired, hasChecked: $hasChecked, versionInfo: $versionInfo, platform: $platform)';
+  return 'ForceUpdateState(isUpdateRequired: $isUpdateRequired, versionInfo: $versionInfo, platform: $platform)';
 }
 
 
@@ -259,7 +257,7 @@ abstract mixin class _$ForceUpdateStateCopyWith<$Res> implements $ForceUpdateSta
   factory _$ForceUpdateStateCopyWith(_ForceUpdateState value, $Res Function(_ForceUpdateState) _then) = __$ForceUpdateStateCopyWithImpl;
 @override @useResult
 $Res call({
- bool isUpdateRequired, bool hasChecked, AppVersionResponse? versionInfo, String? platform
+ bool isUpdateRequired, AppVersionResponse? versionInfo, String? platform
 });
 
 
@@ -276,10 +274,9 @@ class __$ForceUpdateStateCopyWithImpl<$Res>
 
 /// Create a copy of ForceUpdateState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? isUpdateRequired = null,Object? hasChecked = null,Object? versionInfo = freezed,Object? platform = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? isUpdateRequired = null,Object? versionInfo = freezed,Object? platform = freezed,}) {
   return _then(_ForceUpdateState(
 isUpdateRequired: null == isUpdateRequired ? _self.isUpdateRequired : isUpdateRequired // ignore: cast_nullable_to_non_nullable
-as bool,hasChecked: null == hasChecked ? _self.hasChecked : hasChecked // ignore: cast_nullable_to_non_nullable
 as bool,versionInfo: freezed == versionInfo ? _self.versionInfo : versionInfo // ignore: cast_nullable_to_non_nullable
 as AppVersionResponse?,platform: freezed == platform ? _self.platform : platform // ignore: cast_nullable_to_non_nullable
 as String?,

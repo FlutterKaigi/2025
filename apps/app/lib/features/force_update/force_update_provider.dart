@@ -20,11 +20,7 @@ class ForceUpdateStateNotifier extends _$ForceUpdateStateNotifier {
     return const ForceUpdateState();
   }
 
-  Future<void> checkForUpdate({bool force = false}) async {
-    if (!force && state.hasChecked) {
-      return;
-    }
-
+  Future<void> checkForUpdate() async {
     try {
       final packageInfo = await PackageInfo.fromPlatform();
       final platform = defaultTargetPlatform == TargetPlatform.iOS
@@ -44,16 +40,15 @@ class ForceUpdateStateNotifier extends _$ForceUpdateStateNotifier {
 
         state = state.copyWith(
           isUpdateRequired: isRequired,
-          hasChecked: true,
           versionInfo: isRequired ? updateInfo : null,
           platform: platform,
         );
       } else {
-        state = state.copyWith(hasChecked: true);
+        state = state.copyWith();
       }
     } on Exception catch (e) {
       debugPrint('Force update check failed: $e');
-      state = state.copyWith(hasChecked: true);
+      state = state.copyWith();
     }
   }
 

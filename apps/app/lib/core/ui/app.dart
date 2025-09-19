@@ -30,7 +30,7 @@ class App extends HookConsumerWidget {
     ref.listen(appLifecycleProvider, (previous, next) {
       if (next.value == AppLifecycleState.resumed) {
         // フォアグラウンド復帰時にチェック（強制）
-        unawaited(_checkForceUpdate(ref, force: true));
+        unawaited(_checkForceUpdate(ref));
       }
     });
 
@@ -44,11 +44,11 @@ class App extends HookConsumerWidget {
     );
   }
 
-  Future<void> _checkForceUpdate(WidgetRef ref, {bool force = false}) async {
+  Future<void> _checkForceUpdate(WidgetRef ref) async {
     if (kIsWeb) {
       return;
     }
     final notifier = ref.read(forceUpdateStateNotifierProvider.notifier);
-    await notifier.checkForUpdate(force: force);
+    await notifier.checkForUpdate();
   }
 }
