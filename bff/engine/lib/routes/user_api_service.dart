@@ -25,9 +25,9 @@ class UserApiService {
         user: user,
         roles: roles,
         authMetaData: AuthMetaData(
-          email: supabaseUser.email ?? '',
-          avatarUrl: supabaseUser.userMetadata?['avatar_url'] as String? ?? '',
-          name: supabaseUser.userMetadata?['name'] as String? ?? '',
+          email: supabaseUser.email,
+          avatarUrl: supabaseUser.userMetadata?['avatar_url'] as String?,
+          name: supabaseUser.userMetadata?['name'] as String?,
         ),
       ).toJson();
     },
