@@ -47,6 +47,6 @@ resource "supabase_settings" "staging" {
     external_google_secret                = var.SUPABASE_GOOGLE_AUTH_CLIENT_SECRET
     external_google_skip_nonce_check      = true
     security_manual_linking_enabled       = true
-    uri_allow_list                        = "http://localhost:8080,https://*.flutter-kaigi.workers.dev,jp.flutterkaigi.conf2025.stg://login-callback"
+    uri_allow_list                        = "http://localhost:3000,https://*.flutter-kaigi.workers.dev,jp.flutterkaigi.conf2025.stg://login-callback"
   })
 }
