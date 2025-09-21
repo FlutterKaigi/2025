@@ -19,7 +19,7 @@
         "environments/.env.dev",
         "--web-experimental-hot-reload",
         "--web-port",
-        "8080"
+        "3000"
       ]
     },
     {
@@ -33,7 +33,7 @@
         "environments/.env.stg",
         "--web-experimental-hot-reload",
         "--web-port",
-        "8080"
+        "3000"
       ]
     },
     {
@@ -47,7 +47,7 @@
         "environments/.env.prod",
         "--web-experimental-hot-reload",
         "--web-port",
-        "8080"
+        "3000"
       ]
     }
   ]

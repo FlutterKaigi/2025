@@ -33,12 +33,12 @@ const app = new Hono()
 					case "staging": {
 						return origin.endsWith("flutter-kaigi.workers.dev")
 							? origin
-							: "http://localhost:8080";
+							: "http://localhost:3000";
 					}
 					case "production": {
 						return origin === "https://2025-app.flutterkaigi.jp"
 							? origin
-							: "http://localhost:8080";
+							: "http://localhost:3000";
 					}
 				}
 			},
