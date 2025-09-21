@@ -24,6 +24,7 @@ dependencies:
   riverpod: ^3.0.0-dev.17
   riverpod_annotation: ^3.0.0-dev.17
   shelf: ^1.4.0
+  shelf_cors_headers: ^0.1.5
   shelf_router: ^1.1.4
   supabase: ^2.7.0
   uuid: ^4.5.1
