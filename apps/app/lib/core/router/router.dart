@@ -57,14 +57,7 @@ GoRouter router(Ref ref) {
     observers: _rootObservers,
     routes: [
       $loginRoute,
-      StatefulShellRouteData.$route(
-        factory: $MainRouteExtension._fromState,
-        branches: ($mainRoute as StatefulShellRoute).branches
-            .whereNot(
-              (branch) => branch.defaultRoute?.path == '/sponsors',
-            )
-            .toList(),
-      ),
+      $mainRoute,
       if (kDebugMode) $debugRoute,
     ],
     errorBuilder: (context, state) => const NotFoundScreen(),
