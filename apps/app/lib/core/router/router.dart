@@ -18,7 +18,6 @@ import 'package:app/features/sponsor/ui/sponsor_list_screen.dart';
 import 'package:app/features/ticket/ui/components/available_ticket_list_screen.dart';
 import 'package:app/features/ticket/ui/components/ticket_list_screen.dart';
 import 'package:app/features/ticket/ui/ticket_screen.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
