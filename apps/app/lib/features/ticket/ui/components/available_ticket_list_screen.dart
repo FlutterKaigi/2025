@@ -1,4 +1,5 @@
 import 'package:app/core/designsystem/components/error_view.dart';
+import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/features/ticket/data/provider/ticket_types_provider.dart';
 import 'package:app/features/ticket/ui/components/ticket_checkout_sheet.dart';
 import 'package:app/features/ticket/ui/components/ticket_type_card.dart';
@@ -11,11 +12,12 @@ class AvailableTicketListScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final t = Translations.of(context);
     final status = ref.watch(ticketTypesProvider);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('チケット購入'),
+        title: Text(t.ticket.purchase.title),
       ),
       body: status.when(
         loading: () => const Center(
@@ -41,13 +43,15 @@ class _TicketListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = Translations.of(context);
+
     if (ticketTypes.isEmpty) {
-      return const Center(
+      return Center(
         child: Padding(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Text(
-            '現在、購入可能なチケットはありません',
-            style: TextStyle(fontSize: 16),
+            t.ticket.noAvailableTickets,
+            style: const TextStyle(fontSize: 16),
           ),
         ),
       );

@@ -1,3 +1,4 @@
+import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:flutter/material.dart';
 
 class ErrorView extends StatelessWidget {
@@ -14,6 +15,7 @@ class ErrorView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = Translations.of(context);
     final theme = Theme.of(context);
 
     return SingleChildScrollView(
@@ -40,7 +42,7 @@ class ErrorView extends StatelessWidget {
                     const SizedBox(width: 8),
                     Flexible(
                       child: Text(
-                        'エラーが発生しました',
+                        t.error.general.occurred,
                         style: theme.textTheme.titleLarge!.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
@@ -56,7 +58,7 @@ class ErrorView extends StatelessWidget {
                 if (onRetry != null)
                   FilledButton.tonalIcon(
                     onPressed: (isRetrying ?? false) ? null : onRetry,
-                    label: const Text('再試行'),
+                    label: Text(t.error.server.retry),
                     icon: const Icon(Icons.refresh),
                   ),
                 if (isRetrying ?? false)

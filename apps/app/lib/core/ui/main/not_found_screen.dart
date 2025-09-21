@@ -1,5 +1,5 @@
 import 'package:app/core/gen/assets/assets.gen.dart';
-import 'package:app/core/gen/l10n/l10n.dart';
+import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/core/router/router.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +12,7 @@ class NotFoundScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final l10n = L10n.of(context);
+    final t = Translations.of(context);
 
     return Scaffold(
       body: SafeArea(
@@ -33,7 +33,7 @@ class NotFoundScreen extends StatelessWidget {
 
                   // エラーメッセージ
                   Text(
-                    l10n.notFoundTitle,
+                    t.error.notFound.title,
                     style: theme.textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
@@ -42,7 +42,7 @@ class NotFoundScreen extends StatelessWidget {
                   const SizedBox(height: 16),
 
                   Text(
-                    l10n.notFoundMessage,
+                    t.error.notFound.message,
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
                     ),
@@ -54,7 +54,7 @@ class NotFoundScreen extends StatelessWidget {
                   FilledButton.icon(
                     onPressed: () => const EventInfoRoute().go(context),
                     icon: const Icon(Icons.home),
-                    label: Text(l10n.notFoundBackToTop),
+                    label: Text(t.error.notFound.backToTop),
                     style: FilledButton.styleFrom(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 32,

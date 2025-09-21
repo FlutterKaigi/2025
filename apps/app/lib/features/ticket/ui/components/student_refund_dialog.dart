@@ -1,4 +1,4 @@
-import 'package:app/core/gen/l10n/l10n.dart';
+import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:flutter/material.dart';
 
 /// 学生向け返金・費用補助についてのダイアログ
@@ -15,19 +15,19 @@ class StudentRefundDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = L10n.of(context);
+    final t = Translations.of(context);
     final textTheme = Theme.of(context).textTheme;
 
     return Dialog.fullscreen(
       child: Scaffold(
         appBar: AppBar(
-          title: Text(l10n.studentRefundTitle),
+          title: Text(t.ticket.studentRefund.title),
           centerTitle: true,
         ),
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
           child: SelectableText(
-            l10n.studentRefundDialogContent,
+            t.ticket.studentRefund.dialogContent,
             style: textTheme.bodyMedium?.copyWith(
               height: 1.6,
             ),

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:app/core/gen/l10n/l10n.dart';
+import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/features/news/data/news.dart';
 import 'package:app/features/news/data/news_provider.dart';
 import 'package:flutter/material.dart';
@@ -21,10 +21,10 @@ class NewsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = L10n.of(context);
+    final t = Translations.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.newsScreenTitle),
+        title: Text(t.news.screen.title),
       ),
       body: const _NewsList(),
     );
@@ -37,12 +37,12 @@ class _NewsList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final news = ref.watch(newsProvider);
-    final l10n = L10n.of(context);
+    final t = Translations.of(context);
     return switch (news) {
       AsyncData(:final value) =>
         value.isEmpty
             ? Center(
-                child: Text(l10n.newsEmptyMessage),
+                child: Text(t.news.empty.message),
               )
             : ListView.separated(
                 itemCount: value.length,

@@ -1,7 +1,8 @@
 import 'package:app/core/designsystem/theme/theme.dart';
-import 'package:app/core/gen/l10n/l10n.dart';
+import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/core/router/router.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class App extends ConsumerWidget {
@@ -15,8 +16,9 @@ class App extends ConsumerWidget {
       routerConfig: router,
       darkTheme: darkTheme(),
       themeMode: ThemeMode.dark,
-      localizationsDelegates: L10n.localizationsDelegates,
-      supportedLocales: L10n.supportedLocales,
+      locale: TranslationProvider.of(context).flutterLocale,
+      supportedLocales: AppLocaleUtils.supportedLocales,
+      localizationsDelegates: GlobalMaterialLocalizations.delegates,
     );
   }
 }

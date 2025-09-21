@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:app/core/gen/l10n/l10n.dart';
+import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/core/ui/main/error_screen.dart';
 import 'package:app/core/ui/main/not_found_screen.dart';
 import 'package:app/features/sponsor/data/sponsor.dart';
@@ -99,7 +99,7 @@ class _SponsorDetail extends ConsumerWidget {
     final textTheme = theme.textTheme;
     final colorScheme = theme.colorScheme;
 
-    final l10n = L10n.of(context);
+    final t = Translations.of(context);
 
     final header = SponsorSliverAppBar(
       sponsor: sponsor,
@@ -122,7 +122,7 @@ class _SponsorDetail extends ConsumerWidget {
         // PR 文章
         const SizedBox(height: 8),
         Text(
-          l10n.sponsorPrText,
+          t.sponsor.prText,
           style: titleStyle,
         ),
         const SizedBox(height: 8),
@@ -135,7 +135,7 @@ class _SponsorDetail extends ConsumerWidget {
         // ウェブサイト
         const SizedBox(height: 8),
         Text(
-          l10n.sponsorWebsite,
+          t.sponsor.website,
           style: titleStyle,
         ),
         const SizedBox(height: 8),
@@ -162,7 +162,7 @@ class _SponsorDetail extends ConsumerWidget {
         if (individual.enthusiasm != null) ...[
           const SizedBox(height: 8),
           Text(
-            l10n.sponsorEnthusiasm,
+            t.sponsor.enthusiasm,
             style: titleStyle,
           ),
           const SizedBox(height: 8),
@@ -176,13 +176,13 @@ class _SponsorDetail extends ConsumerWidget {
         // Xアカウント
         const SizedBox(height: 8),
         Text(
-          l10n.sponsorXAccount,
+          t.sponsor.xAccount,
           style: titleStyle,
         ),
         const SizedBox(height: 8),
         if (individual.xAccount == null)
           Text(
-            l10n.sponsorXAccountNotSet,
+            t.sponsor.xAccountNotSet,
             style: bodyTextStyle?.copyWith(
               color: colorScheme.onSurfaceVariant,
             ),

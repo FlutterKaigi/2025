@@ -1,5 +1,5 @@
 import 'package:app/core/designsystem/components/error_view.dart';
-import 'package:app/core/gen/l10n/l10n.dart';
+import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/features/auth/data/notifier/auth_notifier.dart';
 import 'package:app/features/ticket/data/notifier/ticket_notifier.dart';
 import 'package:app/features/ticket/data/provider/ticket_types_provider.dart';
@@ -18,6 +18,7 @@ class TicketListScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final t = Translations.of(context);
     final ticketItemsStatus = ref.watch(ticketNotifierProvider);
     final ticketTypesStatus = ref.watch(ticketTypesProvider);
 
@@ -43,7 +44,7 @@ class TicketListScreen extends ConsumerWidget {
         ),
         data: (ticketTypes) => Scaffold(
           appBar: AppBar(
-            title: const Text('チケット一覧'),
+            title: Text(t.ticket.list),
           ),
           body: _TicketsListView(
             tickets: tickets,
@@ -172,7 +173,7 @@ class _TicketNoticeCallout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = L10n.of(context);
+    final t = Translations.of(context);
     final textTheme = Theme.of(context).textTheme;
     const warningColor = Colors.amber;
     return DecoratedBox(
@@ -198,7 +199,7 @@ class _TicketNoticeCallout extends StatelessWidget {
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  l10n.ticketNoticeTitle,
+                  t.ticket.notice.title,
                   style: textTheme.titleSmall?.copyWith(
                     color: warningColor,
                     fontWeight: FontWeight.bold,
@@ -208,7 +209,7 @@ class _TicketNoticeCallout extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              l10n.ticketNoticeMessage,
+              t.ticket.notice.message,
               style: textTheme.bodySmall,
             ),
           ],
@@ -224,7 +225,7 @@ class _StudentRefundCallout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = L10n.of(context);
+    final t = Translations.of(context);
     final textTheme = Theme.of(context).textTheme;
     const infoColor = Colors.blue;
 
@@ -252,7 +253,7 @@ class _StudentRefundCallout extends StatelessWidget {
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
-                    l10n.studentRefundTitle,
+                    t.ticket.studentRefund.title,
                     style: textTheme.titleSmall?.copyWith(
                       color: infoColor,
                       fontWeight: FontWeight.bold,
@@ -263,7 +264,7 @@ class _StudentRefundCallout extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              l10n.studentRefundDescription,
+              t.ticket.studentRefund.description,
               style: textTheme.bodySmall,
             ),
             const SizedBox(height: 12),
@@ -272,7 +273,7 @@ class _StudentRefundCallout extends StatelessWidget {
               child: FilledButton.icon(
                 onPressed: () => StudentRefundDialog.show(context),
                 icon: const Icon(Icons.info_outline, size: 16),
-                label: Text(l10n.studentRefundDetailsButton),
+                label: Text(t.ticket.studentRefund.detailsButton),
                 style: FilledButton.styleFrom(
                   backgroundColor: infoColor,
                   foregroundColor: Colors.white,

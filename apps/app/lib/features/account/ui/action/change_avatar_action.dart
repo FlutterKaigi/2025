@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/core/provider/image_picker.dart';
 import 'package:app/features/account/data/notifier/profile_notifier.dart';
 import 'package:app/features/account/data/service/image_utils.dart';
@@ -45,9 +46,10 @@ class ChangeAvatarAction {
   }) async {
     await _profileNotifier.deleteAvatar();
     if (context.mounted) {
+      final t = Translations.of(context);
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('アバターを削除しました'),
+        SnackBar(
+          content: Text(t.account.profile.avatar.deleteSuccess),
         ),
       );
     }
@@ -57,6 +59,7 @@ class ChangeAvatarAction {
   Future<void> changeAvatar({
     required BuildContext context,
   }) async {
+    final t = Translations.of(context);
     // 写真を選ぶかGoogleアカウントの写真を使用するか選択させる
     final pickImageDialogResult = await PickImageDialog.show(context);
 
@@ -75,29 +78,29 @@ class ChangeAvatarAction {
       case PickImageDialogResult.googleAccount:
         final userAndUserRoles = await _userAndUserRolesFetcher();
         final authMetaData = userAndUserRoles.authMetaData;
-        final dio = Dio();
-        try {
-          final response = await dio.get<Uint8List>(
-            authMetaData.avatarUrl,
-            options: Options(
-              responseType: ResponseType.bytes,
-            ),
-          );
-          bytes = response.data!;
-        } catch (e) {
-          rethrow;
+        final avatarUrl = authMetaData.avatarUrl;
+        if (avatarUrl == null) {
+          throw StateError('authMetaData.avatarUrlがnullです');
         }
+        final dio = Dio();
+        final response = await dio.get<Uint8List>(
+          avatarUrl,
+          options: Options(
+            responseType: ResponseType.bytes,
+          ),
+        );
+        bytes = response.data!;
     }
 
     // crop
-    if (!context.mounted) {
+    if (!context.mounted || bytes.isEmpty) {
       return;
     }
     final croppedBytes = await ImageCropScreen.show(
       context: context,
       imageBytes: bytes,
     );
-    if (croppedBytes == null) {
+    if (croppedBytes == null || croppedBytes.isEmpty) {
       return;
     }
 
@@ -113,7 +116,7 @@ class ChangeAvatarAction {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('アバターを変更できませんでした: $e'),
+            content: Text('${t.account.profile.avatar.changeFailed}: $e'),
           ),
         );
         return;
@@ -123,8 +126,8 @@ class ChangeAvatarAction {
     // show snackbar
     if (context.mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('アバターを変更しました'),
+        SnackBar(
+          content: Text(t.account.profile.avatar.changeSuccess),
         ),
       );
     }
