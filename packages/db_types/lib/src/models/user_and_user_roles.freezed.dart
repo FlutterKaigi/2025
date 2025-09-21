@@ -326,7 +326,7 @@ $AuthMetaDataCopyWith<$Res> get authMetaData {
 /// @nodoc
 mixin _$AuthMetaData {
 
- String get email; String get avatarUrl; String get name;
+ String? get email; String? get avatarUrl; String? get name;
 /// Create a copy of AuthMetaData
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -359,7 +359,7 @@ abstract mixin class $AuthMetaDataCopyWith<$Res>  {
   factory $AuthMetaDataCopyWith(AuthMetaData value, $Res Function(AuthMetaData) _then) = _$AuthMetaDataCopyWithImpl;
 @useResult
 $Res call({
- String email, String avatarUrl, String name
+ String? email, String? avatarUrl, String? name
 });
 
 
@@ -376,12 +376,12 @@ class _$AuthMetaDataCopyWithImpl<$Res>
 
 /// Create a copy of AuthMetaData
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? email = null,Object? avatarUrl = null,Object? name = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? email = freezed,Object? avatarUrl = freezed,Object? name = freezed,}) {
   return _then(_self.copyWith(
-email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
-as String,avatarUrl: null == avatarUrl ? _self.avatarUrl : avatarUrl // ignore: cast_nullable_to_non_nullable
-as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,
+email: freezed == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
+as String?,avatarUrl: freezed == avatarUrl ? _self.avatarUrl : avatarUrl // ignore: cast_nullable_to_non_nullable
+as String?,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 
@@ -466,7 +466,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String email,  String avatarUrl,  String name)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? email,  String? avatarUrl,  String? name)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AuthMetaData() when $default != null:
 return $default(_that.email,_that.avatarUrl,_that.name);case _:
@@ -487,7 +487,7 @@ return $default(_that.email,_that.avatarUrl,_that.name);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String email,  String avatarUrl,  String name)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? email,  String? avatarUrl,  String? name)  $default,) {final _that = this;
 switch (_that) {
 case _AuthMetaData():
 return $default(_that.email,_that.avatarUrl,_that.name);case _:
@@ -507,7 +507,7 @@ return $default(_that.email,_that.avatarUrl,_that.name);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String email,  String avatarUrl,  String name)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? email,  String? avatarUrl,  String? name)?  $default,) {final _that = this;
 switch (_that) {
 case _AuthMetaData() when $default != null:
 return $default(_that.email,_that.avatarUrl,_that.name);case _:
@@ -522,12 +522,12 @@ return $default(_that.email,_that.avatarUrl,_that.name);case _:
 @JsonSerializable()
 
 class _AuthMetaData implements AuthMetaData {
-  const _AuthMetaData({required this.email, required this.avatarUrl, required this.name});
+  const _AuthMetaData({this.email, this.avatarUrl, this.name});
   factory _AuthMetaData.fromJson(Map<String, dynamic> json) => _$AuthMetaDataFromJson(json);
 
-@override final  String email;
-@override final  String avatarUrl;
-@override final  String name;
+@override final  String? email;
+@override final  String? avatarUrl;
+@override final  String? name;
 
 /// Create a copy of AuthMetaData
 /// with the given fields replaced by the non-null parameter values.
@@ -562,7 +562,7 @@ abstract mixin class _$AuthMetaDataCopyWith<$Res> implements $AuthMetaDataCopyWi
   factory _$AuthMetaDataCopyWith(_AuthMetaData value, $Res Function(_AuthMetaData) _then) = __$AuthMetaDataCopyWithImpl;
 @override @useResult
 $Res call({
- String email, String avatarUrl, String name
+ String? email, String? avatarUrl, String? name
 });
 
 
@@ -579,12 +579,12 @@ class __$AuthMetaDataCopyWithImpl<$Res>
 
 /// Create a copy of AuthMetaData
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? email = null,Object? avatarUrl = null,Object? name = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? email = freezed,Object? avatarUrl = freezed,Object? name = freezed,}) {
   return _then(_AuthMetaData(
-email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
-as String,avatarUrl: null == avatarUrl ? _self.avatarUrl : avatarUrl // ignore: cast_nullable_to_non_nullable
-as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,
+email: freezed == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
+as String?,avatarUrl: freezed == avatarUrl ? _self.avatarUrl : avatarUrl // ignore: cast_nullable_to_non_nullable
+as String?,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 
