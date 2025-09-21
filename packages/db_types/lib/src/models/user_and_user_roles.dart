@@ -19,9 +19,9 @@ abstract class UserAndUserRoles with _$UserAndUserRoles {
 @freezed
 abstract class AuthMetaData with _$AuthMetaData {
   const factory AuthMetaData({
-    required String email,
-    required String avatarUrl,
-    required String name,
+    String? email,
+    String? avatarUrl,
+    String? name,
   }) = _AuthMetaData;
 
   factory AuthMetaData.fromJson(Map<String, dynamic> json) =>

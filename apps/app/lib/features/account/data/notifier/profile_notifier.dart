@@ -31,17 +31,7 @@ class ProfileNotifier extends _$ProfileNotifier {
     final client = ref.read(bffClientProvider);
     final response = await client.v1.profile.updateMyProfile(request: request);
     final data = response.data;
-    final currentStatus = state.value;
-    if (currentStatus != null) {
-      state = AsyncData(
-        currentStatus.copyWith(
-          profile: data,
-          snsLinks: request.snsLinks ?? [],
-        ),
-      );
-    } else {
-      ref.invalidateSelf(asReload: true);
-    }
+    ref.invalidateSelf(asReload: true);
     return data;
   }
 
