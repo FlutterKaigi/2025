@@ -1,0 +1,7 @@
+tile:
+  title: 最新のお知らせ
+  subtitle: 最新のお知らせをご確認ください
+screen:
+  title: お知らせ
+empty:
+  message: 現在、新しいお知らせはありません。

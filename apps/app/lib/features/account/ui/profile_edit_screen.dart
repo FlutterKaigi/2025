@@ -151,10 +151,10 @@ class ProfileEditScreen extends HookConsumerWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('${t.error.general.occurred}: $error'),
+              Text('${t.common.error.general.occurred}: $error'),
               ElevatedButton(
                 onPressed: () => ref.invalidate(profileNotifierProvider),
-                child: Text(t.error.server.retry),
+                child: Text(t.common.error.server.retry),
               ),
             ],
           ),

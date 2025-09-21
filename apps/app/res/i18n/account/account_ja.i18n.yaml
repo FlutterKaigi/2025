@@ -1,0 +1,69 @@
+profileEdit: プロフィールを編集する
+guestUserLabel: ゲストでログイン中
+others: Others
+codeOfConduct: 行動規範
+codeOfConductUrl: https://docs.flutterkaigi.jp/Code-of-Conduct.ja
+privacyPolicy: プライバシーポリシー
+privacyPolicyUrl: https://docs.flutterkaigi.jp/Privacy-Policy.ja
+contact: お問い合わせ
+contactUrl: https://docs.google.com/forms/d/e/1FAIpQLSemYPFEWpP8594MWI4k3Nz45RJzMS7pz1ufwtnX4t3V7z2TOw/viewform
+ossLicenses: OSS Licenses
+logout: ログアウト
+settings: アカウント設定
+profile:
+  title: プロファイル
+  editTitle: プロフィール編集
+  createInfo: プロファイル情報を作成してください
+  edit: プロファイルを編集
+  notFound: プロファイルが見つかりません
+  saving: 保存中...
+  save: 保存
+  saveSuccess: プロファイルを保存しました
+  saveFailed: 保存に失敗しました
+  errorOccurred: エラーが発生しました
+  ageOver20: 20歳以上です
+  ageUnder20: 20歳未満
+  nameLabel: 名前 *
+  nameRequired: 名前を入力してください
+  upload: アップロード
+  delete: 削除
+  snsLinks: SNSリンク
+  add: 追加
+  avatar:
+    deleteSuccess: アバターを削除しました
+    changeFailed: アバターを変更できませんでした
+    changeSuccess: アバターを変更しました
+  sns:
+    notLinked: SNSリンクが登録されていません
+    type: SNSタイプ
+    urlOrUserId: URL/ユーザーID
+    urlOrUserIdRequired: URL/ユーザーIDを入力してください
+    other: その他
+    fullUrlRequired: 完全なURLを入力してください
+    userIdOnly: ユーザーIDのみを入力してください
+    alphanumericOnly: 英数字、アンダースコア、ハイフンのみ使用可能です
+    examples:
+      github: "例: octocat"
+      x: "例: twitter"
+      discord: "例: 123456789012345678 (ユーザーID)"
+      medium: "例: username"
+      qiita: "例: username"
+      zenn: "例: username"
+      note: "例: username"
+    displayNames:
+      github: GitHub
+      x: X (Twitter)
+      discord: Discord
+      medium: Medium
+      qiita: Qiita
+      zenn: Zenn
+      note: note
+  image:
+    selectTitle: 画像を選択
+    selectMessage: 画像を選択してください
+    selectButton: 画像を選択
+    useGooglePhoto: Googleアカウントの写真を使用
+    cropTitle: 画像をクロップ
+    complete: 完了
+    crop: クロップ
+    reset: リセット

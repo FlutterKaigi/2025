@@ -1,0 +1,5 @@
+guest:
+  signInButton: ゲストで利用する
+  userLabel: ゲストでログイン中
+error:
+  identityAlreadyExists: このGoogleアカウントは既に別のユーザーと紐づけられています。ログアウトしてから再度ログインしてください。
