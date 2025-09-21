@@ -36,7 +36,9 @@ const app = new Hono()
 							: "http://localhost:8080";
 					}
 					case "production": {
-						return "https://2025-app.flutterkaigi.jp";
+						return origin === "https://2025-app.flutterkaigi.jp"
+							? origin
+							: "http://localhost:8080";
 					}
 				}
 			},
