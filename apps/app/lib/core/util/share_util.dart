@@ -7,7 +7,7 @@ class ShareUtil {
   static Future<void> shareToX({
     required String text,
     required String url,
-    required String hashtags,
+    String? hashtags,
     String? via,
   }) async {
     final uri = Uri.https(
@@ -16,7 +16,7 @@ class ShareUtil {
       {
         'text': text,
         'url': url,
-        'hashtags': hashtags,
+        if (hashtags != null) 'hashtags': hashtags,
         if (via != null) 'via': via,
       },
     );
