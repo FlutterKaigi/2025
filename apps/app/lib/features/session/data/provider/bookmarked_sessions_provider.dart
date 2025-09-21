@@ -12,8 +12,8 @@ class BookmarkedSessions extends _$BookmarkedSessions {
 
   @override
   Future<Set<String>> build() async {
-    final prefs = ref.read(sharedPreferencesProvider);
-    final sessionIds = await prefs.getStringList(_key);
+    final preferences = ref.read(sharedPreferencesProvider);
+    final sessionIds = await preferences.getStringList(_key);
     return sessionIds?.toSet() ?? <String>{};
   }
 
@@ -35,8 +35,8 @@ class BookmarkedSessions extends _$BookmarkedSessions {
   }
 
   Future<void> _saveToDisk() async {
-    final prefs = ref.read(sharedPreferencesProvider);
+    final preferences = ref.read(sharedPreferencesProvider);
     final current = await future;
-    await prefs.setStringList(_key, current.toList());
+    await preferences.setStringList(_key, current.toList());
   }
 }

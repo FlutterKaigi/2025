@@ -139,22 +139,11 @@ navigation:
 
 session:
   title: タイムテーブル
-  description: FlutterKaigi 2025のセッションタイムテーブルです
-  speaker: スピーカー
-  time: 時間
-  venue: 会場
   detail:
-    title: セッション詳細
-    backToList: セッション一覧に戻る
     bookmark: ブックマーク
-    unbookmark: ブックマークを外す
-    description: 概要
-    watchVideo: 動画を見る
   bookmarked:
     title: お気に入りセッション
-    empty: お気に入りのセッションがありません
   empty:
-    title: セッションがありません
     message: 現在、表示可能なセッションがありません。
 
 ticket:

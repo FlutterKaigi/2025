@@ -269,18 +269,6 @@ class TranslationsSessionJa {
 	/// ja: 'タイムテーブル'
 	String get title => 'タイムテーブル';
 
-	/// ja: 'FlutterKaigi 2025のセッションタイムテーブルです'
-	String get description => 'FlutterKaigi 2025のセッションタイムテーブルです';
-
-	/// ja: 'スピーカー'
-	String get speaker => 'スピーカー';
-
-	/// ja: '時間'
-	String get time => '時間';
-
-	/// ja: '会場'
-	String get venue => '会場';
-
 	late final TranslationsSessionDetailJa detail = TranslationsSessionDetailJa._(_root);
 	late final TranslationsSessionBookmarkedJa bookmarked = TranslationsSessionBookmarkedJa._(_root);
 	late final TranslationsSessionEmptyJa empty = TranslationsSessionEmptyJa._(_root);
@@ -523,23 +511,8 @@ class TranslationsSessionDetailJa {
 
 	// Translations
 
-	/// ja: 'セッション詳細'
-	String get title => 'セッション詳細';
-
-	/// ja: 'セッション一覧に戻る'
-	String get backToList => 'セッション一覧に戻る';
-
 	/// ja: 'ブックマーク'
 	String get bookmark => 'ブックマーク';
-
-	/// ja: 'ブックマークを外す'
-	String get unbookmark => 'ブックマークを外す';
-
-	/// ja: '概要'
-	String get description => '概要';
-
-	/// ja: '動画を見る'
-	String get watchVideo => '動画を見る';
 }
 
 // Path: session.bookmarked
@@ -552,9 +525,6 @@ class TranslationsSessionBookmarkedJa {
 
 	/// ja: 'お気に入りセッション'
 	String get title => 'お気に入りセッション';
-
-	/// ja: 'お気に入りのセッションがありません'
-	String get empty => 'お気に入りのセッションがありません';
 }
 
 // Path: session.empty
@@ -564,9 +534,6 @@ class TranslationsSessionEmptyJa {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-
-	/// ja: 'セッションがありません'
-	String get title => 'セッションがありません';
 
 	/// ja: '現在、表示可能なセッションがありません。'
 	String get message => '現在、表示可能なセッションがありません。';
@@ -984,19 +951,8 @@ extension on Translations {
 			case 'navigation.ticket': return 'チケット';
 			case 'navigation.account': return 'アカウント';
 			case 'session.title': return 'タイムテーブル';
-			case 'session.description': return 'FlutterKaigi 2025のセッションタイムテーブルです';
-			case 'session.speaker': return 'スピーカー';
-			case 'session.time': return '時間';
-			case 'session.venue': return '会場';
-			case 'session.detail.title': return 'セッション詳細';
-			case 'session.detail.backToList': return 'セッション一覧に戻る';
 			case 'session.detail.bookmark': return 'ブックマーク';
-			case 'session.detail.unbookmark': return 'ブックマークを外す';
-			case 'session.detail.description': return '概要';
-			case 'session.detail.watchVideo': return '動画を見る';
 			case 'session.bookmarked.title': return 'お気に入りセッション';
-			case 'session.bookmarked.empty': return 'お気に入りのセッションがありません';
-			case 'session.empty.title': return 'セッションがありません';
 			case 'session.empty.message': return '現在、表示可能なセッションがありません。';
 			case 'ticket.status.purchased': return '購入済み';
 			case 'ticket.status.pending': return '決済待ち';
