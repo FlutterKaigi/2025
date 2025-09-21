@@ -1,17 +1,23 @@
 [tools]
-"aqua:suzuki-shunsuke/tfcmt" = "4.14.7"
+"aqua:suzuki-shunsuke/tfcmt" = "latest"
 aws-cli = "latest"
 bun = "1.2.21"
-dprint = "0.50.1"
+dprint = "latest"
 flutter = "3.36.0-0.1.pre-beta"
 node = "24.4.0"
-rclone = "1.70.3"
+rclone = "latest"
 stripe = "latest"
-terraform = "1.12.2"
-tflint = "0.58.0"
+terraform = "latest"
+tflint = "latest"
 
-[env.'_']
-file.path = "bff/engine/.env"
+[env]
+'_'.source = "scripts/export_sops_key_path.sh"
+'_'.file.path = ".env.json"
+
+SUPABASE_ACCESS_TOKEN = "{{ env.TF_VAR_SUPABASE_ACCESS_TOKEN }}"
+
+[settings.sops]
+age_key_file = "~/.config/mise/flutterkaigi.txt"
 
 [tasks.bootstrap]
 description = "Initialize the workspace."
@@ -24,3 +30,8 @@ run = [
   'bun run clean',
   'melos clean',
 ]
+
+
+[settings]
+lockfile = true
+experimental = true
