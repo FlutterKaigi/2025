@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:app/core/provider/shared_preferences.dart';
-import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'bookmarked_sessions_provider.g.dart';
@@ -18,11 +17,8 @@ class BookmarkedSessions extends _$BookmarkedSessions {
   }
 
   Future<void> save(String sessionId) async {
-    debugPrint('Saving session: $sessionId');
     final current = await future;
-    debugPrint('Current bookmarks: $current');
     final newSessionIds = {...current, sessionId};
-    debugPrint('New bookmarks: $newSessionIds');
     state = AsyncData(newSessionIds);
     unawaited(_saveToDisk());
   }

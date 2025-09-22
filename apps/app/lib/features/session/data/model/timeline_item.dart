@@ -1,66 +1,24 @@
 import 'package:app/features/session/data/model/session.dart';
-import 'package:flutter/foundation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-@immutable
-sealed class TimelineItem {
-  const TimelineItem({
-    required this.startsAt,
-    required this.endsAt,
-  });
+part 'timeline_item.freezed.dart';
+part 'timeline_item.g.dart';
 
-  final DateTime startsAt;
-  final DateTime endsAt;
-}
+@freezed
+sealed class TimelineItem with _$TimelineItem {
+  const factory TimelineItem.event({
+    required DateTime startsAt,
+    required DateTime endsAt,
+    required String title,
+    SessionVenue? venue,
+  }) = TimelineItemEvent;
 
-@immutable
-final class TimelineItemEvent extends TimelineItem {
-  const TimelineItemEvent({
-    required super.startsAt,
-    required super.endsAt,
-    required this.title,
-    this.venue,
-  });
+  const factory TimelineItem.session({
+    required DateTime startsAt,
+    required DateTime endsAt,
+    required Session session,
+  }) = TimelineItemSession;
 
-  final String title;
-  final SessionVenue? venue;
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-    return other is TimelineItemEvent &&
-        startsAt == other.startsAt &&
-        endsAt == other.endsAt &&
-        title == other.title &&
-        venue == other.venue;
-  }
-
-  @override
-  int get hashCode => Object.hash(startsAt, endsAt, title, venue);
-}
-
-@immutable
-final class TimelineItemSession extends TimelineItem {
-  const TimelineItemSession({
-    required super.startsAt,
-    required super.endsAt,
-    required this.session,
-  });
-
-  final Session session;
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-    return other is TimelineItemSession &&
-        startsAt == other.startsAt &&
-        endsAt == other.endsAt &&
-        session == other.session;
-  }
-
-  @override
-  int get hashCode => Object.hash(startsAt, endsAt, session);
+  factory TimelineItem.fromJson(Map<String, dynamic> json) =>
+      _$TimelineItemFromJson(json);
 }

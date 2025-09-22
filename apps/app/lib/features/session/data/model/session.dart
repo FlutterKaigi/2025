@@ -1,148 +1,65 @@
-import 'package:collection/collection.dart';
-import 'package:flutter/foundation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-@immutable
-final class Session {
-  const Session({
-    required this.id,
-    required this.title,
-    required this.description,
-    required this.startsAt,
-    required this.endsAt,
-    required this.venue,
-    required this.speakers,
-    required this.sponsorId,
-    required this.isLightningTalk,
-    this.videoUrl,
-  });
+part 'session.freezed.dart';
+part 'session.g.dart';
 
-  final String id;
-  final String title;
-  final String description;
-  final DateTime startsAt;
-  final DateTime endsAt;
-  final SessionVenue venue;
-  final List<Speaker> speakers;
-  final int? sponsorId;
-  final bool isLightningTalk;
-  final Uri? videoUrl;
+@freezed
+sealed class Session with _$Session {
+  const factory Session({
+    required String id,
+    required String title,
+    required String description,
+    required DateTime startsAt,
+    required DateTime endsAt,
+    required SessionVenue venue,
+    required List<Speaker> speakers,
+    required int? sponsorId,
+    required bool isLightningTalk,
+    Uri? videoUrl,
+  }) = _Session;
 
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-    return other is Session &&
-        id == other.id &&
-        title == other.title &&
-        description == other.description &&
-        startsAt == other.startsAt &&
-        endsAt == other.endsAt &&
-        venue == other.venue &&
-        const ListEquality<Speaker>().equals(speakers, other.speakers) &&
-        sponsorId == other.sponsorId &&
-        isLightningTalk == other.isLightningTalk &&
-        videoUrl == other.videoUrl;
-  }
+  const Session._();
 
-  @override
-  int get hashCode => Object.hash(
-    id,
-    title,
-    description,
-    startsAt,
-    endsAt,
-    venue,
-    const ListEquality<Speaker>().hash(speakers),
-    sponsorId,
-    isLightningTalk,
-    videoUrl,
-  );
+  factory Session.fromJson(Map<String, dynamic> json) =>
+      _$SessionFromJson(json);
 
   bool get isSponsorTalk => sponsorId != null;
 }
 
-@immutable
-final class SessionVenue {
-  const SessionVenue({
-    required this.id,
-    required this.name,
-  });
+@freezed
+sealed class SessionVenue with _$SessionVenue {
+  const factory SessionVenue({
+    required String id,
+    required String name,
+  }) = _SessionVenue;
 
-  final String id;
-  final String name;
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-    return other is SessionVenue && id == other.id && name == other.name;
-  }
-
-  @override
-  int get hashCode => Object.hash(id, name);
+  factory SessionVenue.fromJson(Map<String, dynamic> json) =>
+      _$SessionVenueFromJson(json);
 }
 
-@immutable
-final class Speaker {
-  const Speaker({
-    required this.id,
-    required this.name,
-    this.avatarUrl,
-    this.xUrl,
-    this.bio,
-  });
+@freezed
+sealed class Speaker with _$Speaker {
+  const factory Speaker({
+    required String id,
+    required String name,
+    Uri? avatarUrl,
+    Uri? xUrl,
+    String? bio,
+  }) = _Speaker;
 
-  final String id;
-  final String name;
-  final Uri? avatarUrl;
-  final Uri? xUrl;
-  final String? bio;
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-    return other is Speaker &&
-        id == other.id &&
-        name == other.name &&
-        avatarUrl == other.avatarUrl &&
-        xUrl == other.xUrl &&
-        bio == other.bio;
-  }
-
-  @override
-  int get hashCode => Object.hash(id, name, avatarUrl, xUrl, bio);
+  factory Speaker.fromJson(Map<String, dynamic> json) =>
+      _$SpeakerFromJson(json);
 }
 
-@immutable
-final class TimelineEvent {
-  const TimelineEvent({
-    required this.startsAt,
-    required this.title,
-    this.endsAt,
-    this.venueId,
-  });
+@freezed
+sealed class TimelineEvent with _$TimelineEvent {
+  const factory TimelineEvent({
+    required DateTime startsAt,
+    required String title,
+    DateTime? endsAt,
+    String? venueId,
+  }) = _TimelineEvent;
 
-  final DateTime startsAt;
-  final DateTime? endsAt;
-  final String title;
-  final String? venueId;
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-    return other is TimelineEvent &&
-        startsAt == other.startsAt &&
-        endsAt == other.endsAt &&
-        title == other.title &&
-        venueId == other.venueId;
-  }
-
-  @override
-  int get hashCode => Object.hash(startsAt, endsAt, title, venueId);
+  factory TimelineEvent.fromJson(Map<String, dynamic> json) =>
+      _$TimelineEventFromJson(json);
 }
