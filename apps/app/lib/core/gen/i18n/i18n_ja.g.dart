@@ -114,6 +114,7 @@ class TranslationsCommonJa {
 
 	// Translations
 	late final TranslationsCommonAppJa app = TranslationsCommonAppJa._(_root);
+	late final TranslationsCommonForceUpdateJa forceUpdate = TranslationsCommonForceUpdateJa._(_root);
 	late final TranslationsCommonErrorJa error = TranslationsCommonErrorJa._(_root);
 	late final TranslationsCommonNavigationJa navigation = TranslationsCommonNavigationJa._(_root);
 	late final TranslationsCommonDebugJa debug = TranslationsCommonDebugJa._(_root);
@@ -325,6 +326,24 @@ class TranslationsCommonAppJa {
 
 	/// ja: 'FlutterKaigi 2025'
 	String get name => 'FlutterKaigi 2025';
+}
+
+// Path: common.forceUpdate
+class TranslationsCommonForceUpdateJa {
+	TranslationsCommonForceUpdateJa._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'アップデートが必要です'
+	String get title => 'アップデートが必要です';
+
+	/// ja: '新しいバージョンのアプリが利用可能です。最新バージョンにアップデートしてください。'
+	String get message => '新しいバージョンのアプリが利用可能です。最新バージョンにアップデートしてください。';
+
+	/// ja: 'アップデート'
+	String get updateButton => 'アップデート';
 }
 
 // Path: common.error
@@ -868,6 +887,9 @@ extension on Translations {
 			case 'auth.guest.userLabel': return 'ゲストでログイン中';
 			case 'auth.error.identityAlreadyExists': return 'このGoogleアカウントは既に別のユーザーと紐づけられています。ログアウトしてから再度ログインしてください。';
 			case 'common.app.name': return 'FlutterKaigi 2025';
+			case 'common.forceUpdate.title': return 'アップデートが必要です';
+			case 'common.forceUpdate.message': return '新しいバージョンのアプリが利用可能です。最新バージョンにアップデートしてください。';
+			case 'common.forceUpdate.updateButton': return 'アップデート';
 			case 'common.error.notFound.title': return 'ページが見つかりません';
 			case 'common.error.notFound.message': return 'お探しのページは存在しないか、\n移動された可能性があります。';
 			case 'common.error.notFound.backToTop': return 'トップに戻る';
