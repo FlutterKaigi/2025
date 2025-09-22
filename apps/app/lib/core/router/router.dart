@@ -33,7 +33,7 @@ part 'router.g.dart';
 part 'sponsor.dart';
 part 'ticket.dart';
 
-final _rootNavigatorKey = GlobalKey<NavigatorState>();
+final rootNavigatorKey = GlobalKey<NavigatorState>();
 
 final _rootObservers = [
   TalkerRouteObserver(talker),
@@ -53,7 +53,7 @@ GoRouter router(Ref ref) {
     ..onDispose(isAuthorizedNotifier.dispose);
 
   return GoRouter(
-    navigatorKey: _rootNavigatorKey,
+    navigatorKey: rootNavigatorKey,
     observers: _rootObservers,
     routes: [
       $loginRoute,

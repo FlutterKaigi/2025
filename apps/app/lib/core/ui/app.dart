@@ -4,6 +4,7 @@ import 'package:app/core/designsystem/theme/theme.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/core/provider/app_lifecycle_provider.dart';
 import 'package:app/core/router/router.dart';
+import 'package:app/features/force_update/force_update_dialog_listener.dart';
 import 'package:app/features/force_update/force_update_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +42,9 @@ class App extends HookConsumerWidget {
       locale: TranslationProvider.of(context).flutterLocale,
       supportedLocales: AppLocaleUtils.supportedLocales,
       localizationsDelegates: GlobalMaterialLocalizations.delegates,
+      builder: (context, child) => ForceUpdateDialogListener(
+        child: child!,
+      ),
     );
   }
 

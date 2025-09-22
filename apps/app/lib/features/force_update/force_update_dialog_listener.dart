@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:app/core/router/router.dart';
 import 'package:app/features/force_update/force_update_provider.dart';
 import 'package:bff_client/bff_client.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ class ForceUpdateDialogListener extends ConsumerWidget {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           unawaited(
             _showForceUpdateDialog(
-              context,
+              rootNavigatorKey.currentContext!,
               state.versionInfo!,
               state.platform!,
               ref,
