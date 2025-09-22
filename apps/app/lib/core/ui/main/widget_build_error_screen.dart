@@ -57,7 +57,7 @@ class WidgetBuildErrorScreen extends StatelessWidget {
 
           // エラータイトル
           Text(
-            t.error.widget.buildErrorTitle,
+            t.common.error.widget.buildErrorTitle,
             style: theme.textTheme.headlineSmall?.copyWith(
               fontWeight: FontWeight.bold,
               color: theme.colorScheme.error,
@@ -72,7 +72,7 @@ class WidgetBuildErrorScreen extends StatelessWidget {
 
           // 開発者向けメッセージ
           Text(
-            t.error.widget.buildErrorMessage,
+            t.common.error.widget.buildErrorMessage,
             style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
@@ -84,7 +84,7 @@ class WidgetBuildErrorScreen extends StatelessWidget {
           FilledButton.icon(
             onPressed: () => _openGitHubIssue(context),
             icon: const Icon(Icons.bug_report),
-            label: Text(t.error.widget.buildErrorGitHubButton),
+            label: Text(t.common.error.widget.buildErrorGitHubButton),
             style: FilledButton.styleFrom(
               backgroundColor: theme.colorScheme.secondary,
               foregroundColor: theme.colorScheme.onSecondary,

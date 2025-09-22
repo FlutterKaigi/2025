@@ -29,24 +29,24 @@ class MainScreen extends StatelessWidget {
       destinations: [
         ResponsiveScaffoldDestination(
           icon: Icons.event,
-          title: t.navigation.event,
+          title: t.common.navigation.event,
         ),
         ResponsiveScaffoldDestination(
           icon: Icons.calendar_month,
-          title: t.navigation.session,
+          title: t.common.navigation.session,
         ),
         // TODO: スポンサーの表示修正完了後に復活予定
         // ResponsiveScaffoldDestination(
         //   icon: Icons.business,
-        //   title: t.navigation.sponsor,
+        //   title: t.common.navigation.sponsor,
         // ),
         ResponsiveScaffoldDestination(
           icon: Icons.confirmation_number,
-          title: t.navigation.ticket,
+          title: t.common.navigation.ticket,
         ),
         ResponsiveScaffoldDestination(
           icon: Icons.person,
-          title: t.navigation.account,
+          title: t.common.navigation.account,
         ),
       ],
       onNavigationIndexChange: (index) async {

@@ -37,7 +37,7 @@ class LoginScreen extends ConsumerWidget {
                       fit: BoxFit.fitHeight,
                     ),
                     Text(
-                      t.app.name,
+                      t.common.app.name,
                       style: theme.textTheme.titleMedium,
                     ),
                     _GoogleSignInButton(

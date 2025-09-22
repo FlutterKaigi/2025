@@ -1,0 +1,7 @@
+title: タイムテーブル
+detail:
+  bookmark: ブックマーク
+bookmarked:
+  title: お気に入りセッション
+empty:
+  message: 現在、表示可能なセッションがありません。
