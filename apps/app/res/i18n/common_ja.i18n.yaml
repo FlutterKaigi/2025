@@ -1,6 +1,11 @@
 app:
   name: FlutterKaigi 2025
 
+forceUpdate:
+  title: アップデートが必要です
+  message: 新しいバージョンのアプリが利用可能です。最新バージョンにアップデートしてください。
+  updateButton: アップデート
+
 error:
   notFound:
     title: ページが見つかりません

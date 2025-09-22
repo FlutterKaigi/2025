@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/features/force_update/force_update_provider.dart';
 import 'package:bff_client/bff_client.dart';
 import 'package:flutter/material.dart';
@@ -42,6 +43,7 @@ class ForceUpdateDialogListener extends ConsumerWidget {
     TargetPlatform platform,
     WidgetRef ref,
   ) async {
+    final t = Translations.of(context);
     final storeUrl = switch (platform) {
       TargetPlatform.iOS => response.storeUrls.ios,
       TargetPlatform.android => response.storeUrls.android,
@@ -52,12 +54,12 @@ class ForceUpdateDialogListener extends ConsumerWidget {
       context: context,
       barrierDismissible: false,
       builder: (context) => AlertDialog(
-        title: const Text('アップデートが必要です'),
-        content: Text(response.message['ja'] ?? 'アプリをアップデートしてください'),
+        title: Text(t.common.forceUpdate.title),
+        content: Text(response.message['ja'] ?? t.common.forceUpdate.message),
         actions: [
           TextButton(
             onPressed: () => _openStore(storeUrl),
-            child: const Text('アップデート'),
+            child: Text(t.common.forceUpdate.updateButton),
           ),
         ],
       ),
