@@ -39,10 +39,14 @@ class ForceUpdateDialogListener extends ConsumerWidget {
   Future<void> _showForceUpdateDialog(
     BuildContext context,
     AppVersionResponse response,
-    String platform,
+    TargetPlatform platform,
     WidgetRef ref,
   ) async {
-    final storeUrl = response.storeUrls[platform] ?? '';
+    final storeUrl = switch (platform) {
+      TargetPlatform.iOS => response.storeUrls.ios,
+      TargetPlatform.android => response.storeUrls.android,
+      _ => '',
+    };
 
     await showDialog<void>(
       context: context,

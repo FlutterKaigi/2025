@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:engine/util/json_response.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
@@ -9,7 +11,10 @@ class AppVersionApiService {
   Future<Response> checkVersion(Request request) async {
     return jsonResponse(
       () async => {
-        'minimum_version': '0.0.1',
+        'minimum_version': {
+          'ios': Platform.environment['APP_MIN_VERSION_IOS'] ?? '0.0.1',
+          'android': Platform.environment['APP_MIN_VERSION_ANDROID'] ?? '0.0.1',
+        },
         'store_urls': {
           'ios': 'https://apps.apple.com/jp/app/flutterkaigi/id...',
           'android':

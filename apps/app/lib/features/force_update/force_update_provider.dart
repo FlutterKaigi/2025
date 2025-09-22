@@ -23,16 +23,17 @@ class ForceUpdateStateNotifier extends _$ForceUpdateStateNotifier {
   Future<void> checkForUpdate() async {
     try {
       final packageInfo = await PackageInfo.fromPlatform();
-      final platform = defaultTargetPlatform == TargetPlatform.iOS
-          ? 'ios'
-          : 'android';
 
       final checker = ref.read(forceUpdateCheckerProvider);
       final updateInfo = await checker.checkVersion();
 
       if (updateInfo != null) {
         final currentVersion = packageInfo.version;
-        final minimumVersion = updateInfo.minimumVersion;
+        final minimumVersion = switch (defaultTargetPlatform) {
+          TargetPlatform.iOS => updateInfo.minimumVersion.ios,
+          TargetPlatform.android => updateInfo.minimumVersion.android,
+          _ => '0.0.0',
+        };
         final isRequired = checker.isUpdateRequired(
           currentVersion,
           minimumVersion,
@@ -41,7 +42,7 @@ class ForceUpdateStateNotifier extends _$ForceUpdateStateNotifier {
         state = state.copyWith(
           isUpdateRequired: isRequired,
           versionInfo: isRequired ? updateInfo : null,
-          platform: platform,
+          platform: defaultTargetPlatform,
         );
       } else {
         state = state.copyWith();

@@ -89,7 +89,7 @@ final class ForceUpdateStateNotifierProvider
 }
 
 String _$forceUpdateStateNotifierHash() =>
-    r'34ecef29a93a3e20353c24eb7370296cc2512b3b';
+    r'aca5c18801247b20791f13cd3f0004c1db3d27c2';
 
 abstract class _$ForceUpdateStateNotifier extends $Notifier<ForceUpdateState> {
   ForceUpdateState build();

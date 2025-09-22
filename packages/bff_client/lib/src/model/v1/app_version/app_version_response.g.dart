@@ -16,11 +16,11 @@ _AppVersionResponse _$AppVersionResponseFromJson(Map<String, dynamic> json) =>
         final val = _AppVersionResponse(
           minimumVersion: $checkedConvert(
             'minimum_version',
-            (v) => v as String,
+            (v) => PlatformMap.fromJson(v as Map<String, dynamic>),
           ),
           storeUrls: $checkedConvert(
             'store_urls',
-            (v) => Map<String, String>.from(v as Map),
+            (v) => PlatformMap.fromJson(v as Map<String, dynamic>),
           ),
           message: $checkedConvert(
             'message',
@@ -41,3 +41,15 @@ Map<String, dynamic> _$AppVersionResponseToJson(_AppVersionResponse instance) =>
       'store_urls': instance.storeUrls,
       'message': instance.message,
     };
+
+_PlatformMap _$PlatformMapFromJson(Map<String, dynamic> json) =>
+    $checkedCreate('_PlatformMap', json, ($checkedConvert) {
+      final val = _PlatformMap(
+        ios: $checkedConvert('ios', (v) => v as String),
+        android: $checkedConvert('android', (v) => v as String),
+      );
+      return val;
+    });
+
+Map<String, dynamic> _$PlatformMapToJson(_PlatformMap instance) =>
+    <String, dynamic>{'ios': instance.ios, 'android': instance.android};
