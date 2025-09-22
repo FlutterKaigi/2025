@@ -281,4 +281,3 @@ class _SessionDetailView extends ConsumerWidget {
     );
   }
 }
-

@@ -318,4 +318,3 @@ class _SessionCard extends ConsumerWidget {
     );
   }
 }
-
