@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:app/core/designsystem/components/error_view.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
@@ -10,6 +8,7 @@ import 'package:app/features/session/data/provider/session_provider.dart';
 import 'package:app/features/session/ui/components/session_speaker_icon.dart';
 import 'package:app/features/session/ui/components/session_type_chip.dart';
 import 'package:app/features/session/ui/components/session_venue_chip.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -240,7 +239,7 @@ class _SessionDetailView extends ConsumerWidget {
 
   /// カレンダーにセッションを追加する
   Future<void> _addToCalendar(Session session) async {
-    if (Platform.isIOS) {
+    if (defaultTargetPlatform == TargetPlatform.iOS) {
       // iOS の場合は add_2_calendar パッケージを使用
       final event = _createIosEvent(session);
       await Add2Calendar.addEvent2Cal(event);
