@@ -39,100 +39,13 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	Translations $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => Translations(meta: meta ?? this.$meta);
 
 	// Translations
-	late final TranslationsAppJa app = TranslationsAppJa._(_root);
-	late final TranslationsNewsJa news = TranslationsNewsJa._(_root);
-	late final TranslationsEventJa event = TranslationsEventJa._(_root);
-	late final TranslationsSponsorJa sponsor = TranslationsSponsorJa._(_root);
 	late final TranslationsAccountJa account = TranslationsAccountJa._(_root);
 	late final TranslationsAuthJa auth = TranslationsAuthJa._(_root);
-	late final TranslationsErrorJa error = TranslationsErrorJa._(_root);
-	late final TranslationsDebugJa debug = TranslationsDebugJa._(_root);
-	late final TranslationsNavigationJa navigation = TranslationsNavigationJa._(_root);
+	late final TranslationsCommonJa common = TranslationsCommonJa._(_root);
+	late final TranslationsEventJa event = TranslationsEventJa._(_root);
+	late final TranslationsNewsJa news = TranslationsNewsJa._(_root);
+	late final TranslationsSponsorJa sponsor = TranslationsSponsorJa._(_root);
 	late final TranslationsTicketJa ticket = TranslationsTicketJa._(_root);
-}
-
-// Path: app
-class TranslationsAppJa {
-	TranslationsAppJa._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: 'FlutterKaigi 2025'
-	String get name => 'FlutterKaigi 2025';
-}
-
-// Path: news
-class TranslationsNewsJa {
-	TranslationsNewsJa._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-	late final TranslationsNewsTileJa tile = TranslationsNewsTileJa._(_root);
-	late final TranslationsNewsScreenJa screen = TranslationsNewsScreenJa._(_root);
-	late final TranslationsNewsEmptyJa empty = TranslationsNewsEmptyJa._(_root);
-}
-
-// Path: event
-class TranslationsEventJa {
-	TranslationsEventJa._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: '2025年、日本国内で Flutter をメインに扱う技術カンファレンス。Flutter や Dart の深い知見を持つ開発者によるセッションを多数企画します。'
-	String get description => '2025年、日本国内で Flutter をメインに扱う技術カンファレンス。Flutter や Dart の深い知見を持つ開発者によるセッションを多数企画します。';
-
-	/// ja: '2025年11月13日(木)'
-	String get date => '2025年11月13日(木)';
-
-	/// ja: '10:00 ~ 18:00'
-	String get time => '10:00 ~ 18:00';
-
-	/// ja: '大手町プレイス ホール＆カンファレンス'
-	String get venue => '大手町プレイス ホール＆カンファレンス';
-
-	/// ja: '東京都千代田区大手町二丁目3番1号'
-	String get address => '東京都千代田区大手町二丁目3番1号';
-}
-
-// Path: sponsor
-class TranslationsSponsorJa {
-	TranslationsSponsorJa._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: 'PR 文章'
-	String get prText => 'PR 文章';
-
-	/// ja: '意気込み'
-	String get enthusiasm => '意気込み';
-
-	/// ja: '企業スポンサー'
-	String get company => '企業スポンサー';
-
-	/// ja: '個人スポンサー'
-	String get individual => '個人スポンサー';
-
-	/// ja: 'ウェブサイト'
-	String get website => 'ウェブサイト';
-
-	/// ja: '設定されていません'
-	String get websiteNotSet => '設定されていません';
-
-	/// ja: 'X アカウント'
-	String get xAccount => 'X アカウント';
-
-	/// ja: '設定されていません'
-	String get xAccountNotSet => '設定されていません';
-
-	/// ja: 'スポンサー名'
-	String get name => 'スポンサー名';
 }
 
 // Path: account
@@ -193,68 +106,89 @@ class TranslationsAuthJa {
 	late final TranslationsAuthErrorJa error = TranslationsAuthErrorJa._(_root);
 }
 
-// Path: error
-class TranslationsErrorJa {
-	TranslationsErrorJa._(this._root);
+// Path: common
+class TranslationsCommonJa {
+	TranslationsCommonJa._(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	late final TranslationsErrorNotFoundJa notFound = TranslationsErrorNotFoundJa._(_root);
-	late final TranslationsErrorServerJa server = TranslationsErrorServerJa._(_root);
-	late final TranslationsErrorWidgetJa widget = TranslationsErrorWidgetJa._(_root);
-	late final TranslationsErrorGeneralJa general = TranslationsErrorGeneralJa._(_root);
+	late final TranslationsCommonAppJa app = TranslationsCommonAppJa._(_root);
+	late final TranslationsCommonErrorJa error = TranslationsCommonErrorJa._(_root);
+	late final TranslationsCommonNavigationJa navigation = TranslationsCommonNavigationJa._(_root);
+	late final TranslationsCommonDebugJa debug = TranslationsCommonDebugJa._(_root);
 }
 
-// Path: debug
-class TranslationsDebugJa {
-	TranslationsDebugJa._(this._root);
+// Path: event
+class TranslationsEventJa {
+	TranslationsEventJa._(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
 
-	/// ja: 'Debug'
-	String get title => 'Debug';
+	/// ja: '2025年、日本国内で Flutter をメインに扱う技術カンファレンス。Flutter や Dart の深い知見を持つ開発者によるセッションを多数企画します。'
+	String get description => '2025年、日本国内で Flutter をメインに扱う技術カンファレンス。Flutter や Dart の深い知見を持つ開発者によるセッションを多数企画します。';
 
-	/// ja: 'Talker 画面へ'
-	String get talkerScreen => 'Talker 画面へ';
+	/// ja: '2025年11月13日(木)'
+	String get date => '2025年11月13日(木)';
 
-	/// ja: 'パスを入力してください'
-	String get pathRequired => 'パスを入力してください';
+	/// ja: '10:00 ~ 18:00'
+	String get time => '10:00 ~ 18:00';
 
-	/// ja: 'パスは / で始めてください'
-	String get pathMustStartWithSlash => 'パスは / で始めてください';
+	/// ja: '大手町プレイス ホール＆カンファレンス'
+	String get venue => '大手町プレイス ホール＆カンファレンス';
 
-	/// ja: 'パスに「debug」または「login」を含めることはできません'
-	String get pathCannotContainDebugOrLogin => 'パスに「debug」または「login」を含めることはできません';
-
-	/// ja: '無効なパスです'
-	String get invalidPath => '無効なパスです';
-
-	/// ja: 'GO'
-	String get go => 'GO';
+	/// ja: '東京都千代田区大手町二丁目3番1号'
+	String get address => '東京都千代田区大手町二丁目3番1号';
 }
 
-// Path: navigation
-class TranslationsNavigationJa {
-	TranslationsNavigationJa._(this._root);
+// Path: news
+class TranslationsNewsJa {
+	TranslationsNewsJa._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final TranslationsNewsTileJa tile = TranslationsNewsTileJa._(_root);
+	late final TranslationsNewsScreenJa screen = TranslationsNewsScreenJa._(_root);
+	late final TranslationsNewsEmptyJa empty = TranslationsNewsEmptyJa._(_root);
+}
+
+// Path: sponsor
+class TranslationsSponsorJa {
+	TranslationsSponsorJa._(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
 
-	/// ja: 'イベント'
-	String get event => 'イベント';
+	/// ja: 'PR 文章'
+	String get prText => 'PR 文章';
 
-	/// ja: 'スポンサー'
-	String get sponsor => 'スポンサー';
+	/// ja: '意気込み'
+	String get enthusiasm => '意気込み';
 
-	/// ja: 'チケット'
-	String get ticket => 'チケット';
+	/// ja: '企業スポンサー'
+	String get company => '企業スポンサー';
 
-	/// ja: 'アカウント'
-	String get account => 'アカウント';
+	/// ja: '個人スポンサー'
+	String get individual => '個人スポンサー';
+
+	/// ja: 'ウェブサイト'
+	String get website => 'ウェブサイト';
+
+	/// ja: '設定されていません'
+	String get websiteNotSet => '設定されていません';
+
+	/// ja: 'X アカウント'
+	String get xAccount => 'X アカウント';
+
+	/// ja: '設定されていません'
+	String get xAccountNotSet => '設定されていません';
+
+	/// ja: 'スポンサー名'
+	String get name => 'スポンサー名';
 }
 
 // Path: ticket
@@ -285,45 +219,6 @@ class TranslationsTicketJa {
 	late final TranslationsTicketNoticeJa notice = TranslationsTicketNoticeJa._(_root);
 	late final TranslationsTicketStudentRefundJa studentRefund = TranslationsTicketStudentRefundJa._(_root);
 	late final TranslationsTicketPurchaseJa purchase = TranslationsTicketPurchaseJa._(_root);
-}
-
-// Path: news.tile
-class TranslationsNewsTileJa {
-	TranslationsNewsTileJa._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: '最新のお知らせ'
-	String get title => '最新のお知らせ';
-
-	/// ja: '最新のお知らせをご確認ください'
-	String get subtitle => '最新のお知らせをご確認ください';
-}
-
-// Path: news.screen
-class TranslationsNewsScreenJa {
-	TranslationsNewsScreenJa._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: 'お知らせ'
-	String get title => 'お知らせ';
-}
-
-// Path: news.empty
-class TranslationsNewsEmptyJa {
-	TranslationsNewsEmptyJa._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: '現在、新しいお知らせはありません。'
-	String get message => '現在、新しいお知らせはありません。';
 }
 
 // Path: account.profile
@@ -420,70 +315,119 @@ class TranslationsAuthErrorJa {
 	String get identityAlreadyExists => 'このGoogleアカウントは既に別のユーザーと紐づけられています。ログアウトしてから再度ログインしてください。';
 }
 
-// Path: error.notFound
-class TranslationsErrorNotFoundJa {
-	TranslationsErrorNotFoundJa._(this._root);
+// Path: common.app
+class TranslationsCommonAppJa {
+	TranslationsCommonAppJa._(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
 
-	/// ja: 'ページが見つかりません'
-	String get title => 'ページが見つかりません';
-
-	/// ja: 'お探しのページは存在しないか、\n移動された可能性があります。'
-	String get message => 'お探しのページは存在しないか、\n移動された可能性があります。';
-
-	/// ja: 'トップに戻る'
-	String get backToTop => 'トップに戻る';
+	/// ja: 'FlutterKaigi 2025'
+	String get name => 'FlutterKaigi 2025';
 }
 
-// Path: error.server
-class TranslationsErrorServerJa {
-	TranslationsErrorServerJa._(this._root);
+// Path: common.error
+class TranslationsCommonErrorJa {
+	TranslationsCommonErrorJa._(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-
-	/// ja: 'サーバー側で問題が発生したようです。'
-	String get title => 'サーバー側で問題が発生したようです。';
-
-	/// ja: 'FlutterKaigi スタッフへお問い合わせください。'
-	String get message => 'FlutterKaigi スタッフへお問い合わせください。';
-
-	/// ja: 'リトライ'
-	String get retry => 'リトライ';
+	late final TranslationsCommonErrorNotFoundJa notFound = TranslationsCommonErrorNotFoundJa._(_root);
+	late final TranslationsCommonErrorServerJa server = TranslationsCommonErrorServerJa._(_root);
+	late final TranslationsCommonErrorWidgetJa widget = TranslationsCommonErrorWidgetJa._(_root);
+	late final TranslationsCommonErrorGeneralJa general = TranslationsCommonErrorGeneralJa._(_root);
 }
 
-// Path: error.widget
-class TranslationsErrorWidgetJa {
-	TranslationsErrorWidgetJa._(this._root);
+// Path: common.navigation
+class TranslationsCommonNavigationJa {
+	TranslationsCommonNavigationJa._(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
 
-	/// ja: '予期しないエラーが発生しました'
-	String get buildErrorTitle => '予期しないエラーが発生しました';
+	/// ja: 'イベント'
+	String get event => 'イベント';
 
-	/// ja: '申し訳ございません。UI 構築中に予期しないエラーが発生しました。\n\nこの問題を解決するため、GitHub の Issue を作成していただけると大変助かります。'
-	String get buildErrorMessage => '申し訳ございません。UI 構築中に予期しないエラーが発生しました。\n\nこの問題を解決するため、GitHub の Issue を作成していただけると大変助かります。';
+	/// ja: 'スポンサー'
+	String get sponsor => 'スポンサー';
 
-	/// ja: 'GitHub の Issue ページを開く'
-	String get buildErrorGitHubButton => 'GitHub の Issue ページを開く';
+	/// ja: 'チケット'
+	String get ticket => 'チケット';
+
+	/// ja: 'アカウント'
+	String get account => 'アカウント';
 }
 
-// Path: error.general
-class TranslationsErrorGeneralJa {
-	TranslationsErrorGeneralJa._(this._root);
+// Path: common.debug
+class TranslationsCommonDebugJa {
+	TranslationsCommonDebugJa._(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
 
-	/// ja: 'エラーが発生しました'
-	String get occurred => 'エラーが発生しました';
+	/// ja: 'Debug'
+	String get title => 'Debug';
+
+	/// ja: 'Talker 画面へ'
+	String get talkerScreen => 'Talker 画面へ';
+
+	/// ja: 'パスを入力してください'
+	String get pathRequired => 'パスを入力してください';
+
+	/// ja: 'パスは / で始めてください'
+	String get pathMustStartWithSlash => 'パスは / で始めてください';
+
+	/// ja: 'パスに「debug」または「login」を含めることはできません'
+	String get pathCannotContainDebugOrLogin => 'パスに「debug」または「login」を含めることはできません';
+
+	/// ja: '無効なパスです'
+	String get invalidPath => '無効なパスです';
+
+	/// ja: 'GO'
+	String get go => 'GO';
+}
+
+// Path: news.tile
+class TranslationsNewsTileJa {
+	TranslationsNewsTileJa._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '最新のお知らせ'
+	String get title => '最新のお知らせ';
+
+	/// ja: '最新のお知らせをご確認ください'
+	String get subtitle => '最新のお知らせをご確認ください';
+}
+
+// Path: news.screen
+class TranslationsNewsScreenJa {
+	TranslationsNewsScreenJa._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'お知らせ'
+	String get title => 'お知らせ';
+}
+
+// Path: news.empty
+class TranslationsNewsEmptyJa {
+	TranslationsNewsEmptyJa._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '現在、新しいお知らせはありません。'
+	String get message => '現在、新しいお知らせはありません。';
 }
 
 // Path: ticket.status
@@ -726,6 +670,72 @@ class TranslationsAccountProfileImageJa {
 	String get reset => 'リセット';
 }
 
+// Path: common.error.notFound
+class TranslationsCommonErrorNotFoundJa {
+	TranslationsCommonErrorNotFoundJa._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'ページが見つかりません'
+	String get title => 'ページが見つかりません';
+
+	/// ja: 'お探しのページは存在しないか、\n移動された可能性があります。'
+	String get message => 'お探しのページは存在しないか、\n移動された可能性があります。';
+
+	/// ja: 'トップに戻る'
+	String get backToTop => 'トップに戻る';
+}
+
+// Path: common.error.server
+class TranslationsCommonErrorServerJa {
+	TranslationsCommonErrorServerJa._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'サーバー側で問題が発生したようです。'
+	String get title => 'サーバー側で問題が発生したようです。';
+
+	/// ja: 'FlutterKaigi スタッフへお問い合わせください。'
+	String get message => 'FlutterKaigi スタッフへお問い合わせください。';
+
+	/// ja: 'リトライ'
+	String get retry => 'リトライ';
+}
+
+// Path: common.error.widget
+class TranslationsCommonErrorWidgetJa {
+	TranslationsCommonErrorWidgetJa._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '予期しないエラーが発生しました'
+	String get buildErrorTitle => '予期しないエラーが発生しました';
+
+	/// ja: '申し訳ございません。UI 構築中に予期しないエラーが発生しました。\n\nこの問題を解決するため、GitHub の Issue を作成していただけると大変助かります。'
+	String get buildErrorMessage => '申し訳ございません。UI 構築中に予期しないエラーが発生しました。\n\nこの問題を解決するため、GitHub の Issue を作成していただけると大変助かります。';
+
+	/// ja: 'GitHub の Issue ページを開く'
+	String get buildErrorGitHubButton => 'GitHub の Issue ページを開く';
+}
+
+// Path: common.error.general
+class TranslationsCommonErrorGeneralJa {
+	TranslationsCommonErrorGeneralJa._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'エラーが発生しました'
+	String get occurred => 'エラーが発生しました';
+}
+
 // Path: account.profile.sns.examples
 class TranslationsAccountProfileSnsExamplesJa {
 	TranslationsAccountProfileSnsExamplesJa._(this._root);
@@ -791,25 +801,6 @@ class TranslationsAccountProfileSnsDisplayNamesJa {
 extension on Translations {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
-			case 'app.name': return 'FlutterKaigi 2025';
-			case 'news.tile.title': return '最新のお知らせ';
-			case 'news.tile.subtitle': return '最新のお知らせをご確認ください';
-			case 'news.screen.title': return 'お知らせ';
-			case 'news.empty.message': return '現在、新しいお知らせはありません。';
-			case 'event.description': return '2025年、日本国内で Flutter をメインに扱う技術カンファレンス。Flutter や Dart の深い知見を持つ開発者によるセッションを多数企画します。';
-			case 'event.date': return '2025年11月13日(木)';
-			case 'event.time': return '10:00 ~ 18:00';
-			case 'event.venue': return '大手町プレイス ホール＆カンファレンス';
-			case 'event.address': return '東京都千代田区大手町二丁目3番1号';
-			case 'sponsor.prText': return 'PR 文章';
-			case 'sponsor.enthusiasm': return '意気込み';
-			case 'sponsor.company': return '企業スポンサー';
-			case 'sponsor.individual': return '個人スポンサー';
-			case 'sponsor.website': return 'ウェブサイト';
-			case 'sponsor.websiteNotSet': return '設定されていません';
-			case 'sponsor.xAccount': return 'X アカウント';
-			case 'sponsor.xAccountNotSet': return '設定されていません';
-			case 'sponsor.name': return 'スポンサー名';
 			case 'account.profileEdit': return 'プロフィールを編集する';
 			case 'account.guestUserLabel': return 'ゲストでログイン中';
 			case 'account.others': return 'Others';
@@ -876,27 +867,46 @@ extension on Translations {
 			case 'auth.guest.signInButton': return 'ゲストで利用する';
 			case 'auth.guest.userLabel': return 'ゲストでログイン中';
 			case 'auth.error.identityAlreadyExists': return 'このGoogleアカウントは既に別のユーザーと紐づけられています。ログアウトしてから再度ログインしてください。';
-			case 'error.notFound.title': return 'ページが見つかりません';
-			case 'error.notFound.message': return 'お探しのページは存在しないか、\n移動された可能性があります。';
-			case 'error.notFound.backToTop': return 'トップに戻る';
-			case 'error.server.title': return 'サーバー側で問題が発生したようです。';
-			case 'error.server.message': return 'FlutterKaigi スタッフへお問い合わせください。';
-			case 'error.server.retry': return 'リトライ';
-			case 'error.widget.buildErrorTitle': return '予期しないエラーが発生しました';
-			case 'error.widget.buildErrorMessage': return '申し訳ございません。UI 構築中に予期しないエラーが発生しました。\n\nこの問題を解決するため、GitHub の Issue を作成していただけると大変助かります。';
-			case 'error.widget.buildErrorGitHubButton': return 'GitHub の Issue ページを開く';
-			case 'error.general.occurred': return 'エラーが発生しました';
-			case 'debug.title': return 'Debug';
-			case 'debug.talkerScreen': return 'Talker 画面へ';
-			case 'debug.pathRequired': return 'パスを入力してください';
-			case 'debug.pathMustStartWithSlash': return 'パスは / で始めてください';
-			case 'debug.pathCannotContainDebugOrLogin': return 'パスに「debug」または「login」を含めることはできません';
-			case 'debug.invalidPath': return '無効なパスです';
-			case 'debug.go': return 'GO';
-			case 'navigation.event': return 'イベント';
-			case 'navigation.sponsor': return 'スポンサー';
-			case 'navigation.ticket': return 'チケット';
-			case 'navigation.account': return 'アカウント';
+			case 'common.app.name': return 'FlutterKaigi 2025';
+			case 'common.error.notFound.title': return 'ページが見つかりません';
+			case 'common.error.notFound.message': return 'お探しのページは存在しないか、\n移動された可能性があります。';
+			case 'common.error.notFound.backToTop': return 'トップに戻る';
+			case 'common.error.server.title': return 'サーバー側で問題が発生したようです。';
+			case 'common.error.server.message': return 'FlutterKaigi スタッフへお問い合わせください。';
+			case 'common.error.server.retry': return 'リトライ';
+			case 'common.error.widget.buildErrorTitle': return '予期しないエラーが発生しました';
+			case 'common.error.widget.buildErrorMessage': return '申し訳ございません。UI 構築中に予期しないエラーが発生しました。\n\nこの問題を解決するため、GitHub の Issue を作成していただけると大変助かります。';
+			case 'common.error.widget.buildErrorGitHubButton': return 'GitHub の Issue ページを開く';
+			case 'common.error.general.occurred': return 'エラーが発生しました';
+			case 'common.navigation.event': return 'イベント';
+			case 'common.navigation.sponsor': return 'スポンサー';
+			case 'common.navigation.ticket': return 'チケット';
+			case 'common.navigation.account': return 'アカウント';
+			case 'common.debug.title': return 'Debug';
+			case 'common.debug.talkerScreen': return 'Talker 画面へ';
+			case 'common.debug.pathRequired': return 'パスを入力してください';
+			case 'common.debug.pathMustStartWithSlash': return 'パスは / で始めてください';
+			case 'common.debug.pathCannotContainDebugOrLogin': return 'パスに「debug」または「login」を含めることはできません';
+			case 'common.debug.invalidPath': return '無効なパスです';
+			case 'common.debug.go': return 'GO';
+			case 'event.description': return '2025年、日本国内で Flutter をメインに扱う技術カンファレンス。Flutter や Dart の深い知見を持つ開発者によるセッションを多数企画します。';
+			case 'event.date': return '2025年11月13日(木)';
+			case 'event.time': return '10:00 ~ 18:00';
+			case 'event.venue': return '大手町プレイス ホール＆カンファレンス';
+			case 'event.address': return '東京都千代田区大手町二丁目3番1号';
+			case 'news.tile.title': return '最新のお知らせ';
+			case 'news.tile.subtitle': return '最新のお知らせをご確認ください';
+			case 'news.screen.title': return 'お知らせ';
+			case 'news.empty.message': return '現在、新しいお知らせはありません。';
+			case 'sponsor.prText': return 'PR 文章';
+			case 'sponsor.enthusiasm': return '意気込み';
+			case 'sponsor.company': return '企業スポンサー';
+			case 'sponsor.individual': return '個人スポンサー';
+			case 'sponsor.website': return 'ウェブサイト';
+			case 'sponsor.websiteNotSet': return '設定されていません';
+			case 'sponsor.xAccount': return 'X アカウント';
+			case 'sponsor.xAccountNotSet': return '設定されていません';
+			case 'sponsor.name': return 'スポンサー名';
 			case 'ticket.status.purchased': return '購入済み';
 			case 'ticket.status.pending': return '決済待ち';
 			case 'ticket.options': return 'オプション:';

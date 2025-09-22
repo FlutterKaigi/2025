@@ -117,7 +117,7 @@ class TicketCheckoutSheet extends HookConsumerWidget {
                 if (context.mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text('${t.error.general.occurred}: $e'),
+                      content: Text('${t.common.error.general.occurred}: $e'),
                       backgroundColor: colorScheme.error,
                     ),
                   );
