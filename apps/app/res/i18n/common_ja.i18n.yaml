@@ -1,0 +1,33 @@
+app:
+  name: FlutterKaigi 2025
+
+error:
+  notFound:
+    title: ページが見つかりません
+    message: お探しのページは存在しないか、\n移動された可能性があります。
+    backToTop: トップに戻る
+  server:
+    title: サーバー側で問題が発生したようです。
+    message: FlutterKaigi スタッフへお問い合わせください。
+    retry: リトライ
+  widget:
+    buildErrorTitle: 予期しないエラーが発生しました
+    buildErrorMessage: 申し訳ございません。UI 構築中に予期しないエラーが発生しました。\n\nこの問題を解決するため、GitHub の Issue を作成していただけると大変助かります。
+    buildErrorGitHubButton: GitHub の Issue ページを開く
+  general:
+    occurred: エラーが発生しました
+
+navigation:
+  event: イベント
+  sponsor: スポンサー
+  ticket: チケット
+  account: アカウント
+
+debug:
+  title: Debug
+  talkerScreen: Talker 画面へ
+  pathRequired: パスを入力してください
+  pathMustStartWithSlash: パスは / で始めてください
+  pathCannotContainDebugOrLogin: パスに「debug」または「login」を含めることはできません
+  invalidPath: 無効なパスです
+  go: GO
