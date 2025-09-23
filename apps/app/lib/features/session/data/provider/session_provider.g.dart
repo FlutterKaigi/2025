@@ -45,7 +45,7 @@ final class SessionsProvider
   }
 }
 
-String _$sessionsHash() => r'fd3add758feb259eec5563fadc583f7aeb668347';
+String _$sessionsHash() => r'526f35bb71790284fe98133512b2114a00681bb9';
 
 @ProviderFor(sessionVenues)
 const sessionVenuesProvider = SessionVenuesProvider._();
@@ -86,7 +86,7 @@ final class SessionVenuesProvider
   }
 }
 
-String _$sessionVenuesHash() => r'4394a641ce75f0175833bb80983cb2f0357d13ef';
+String _$sessionVenuesHash() => r'bde2bfcc57d00ef820f50a5b9d72e1ae05217741';
 
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

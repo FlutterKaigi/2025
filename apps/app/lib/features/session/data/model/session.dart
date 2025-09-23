@@ -12,9 +12,11 @@ sealed class Session with _$Session {
     required DateTime startsAt,
     required DateTime endsAt,
     required SessionVenue venue,
-    required List<Speaker> speakers,
-    required int? sponsorId,
-    required bool isLightningTalk,
+    @Default([]) List<Speaker> speakers,
+    @Default(null) int? sponsorId,
+    @Default(false) bool isLightningTalk,
+    @Default(false) bool isBeginnersLightningTalk,
+    @Default(false) bool isHandsOn,
     Uri? videoUrl,
   }) = _Session;
 

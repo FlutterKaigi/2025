@@ -2,13 +2,12 @@ import 'package:app/core/designsystem/components/error_view.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/core/router/router.dart';
 import 'package:app/features/session/data/model/session.dart';
+import 'package:app/features/session/data/model/session_room.dart';
 import 'package:app/features/session/data/model/timeline_item.dart';
 import 'package:app/features/session/data/provider/bookmarked_sessions_provider.dart';
-import 'package:app/features/session/data/provider/session_provider.dart';
 import 'package:app/features/session/data/provider/session_timeline_provider.dart';
 import 'package:app/features/session/ui/components/session_type_chip.dart';
 import 'package:app/features/session/ui/components/timeline_item_view.dart';
-import 'package:app/features/session/ui/components/venue_switcher_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -17,7 +16,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// セッションタイムライン画面
 ///
 /// 主な役割:
-/// - 1日開催のセッションを会場(Venue 1-4)ごとに表示する
+/// - 1日開催のセッションをルーム(Room 1-4)ごとに表示する
 /// - タイムラインビューでセッションと休憩・イベント情報を表示する
 /// - ブックマーク機能とセッション詳細画面への導線を提供する
 class SessionTimelineScreen extends HookConsumerWidget {
@@ -26,18 +25,30 @@ class SessionTimelineScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final t = Translations.of(context);
-    final currentVenue = useState('venue1');
-    final scrollControllers = useMemoized(
-      () => List.generate(4, (_) => ScrollController()),
-      [],
+    final currentRoom = useState(SessionRoom.room1);
+    final room1ScrollController = useScrollController();
+    final room2ScrollController = useScrollController();
+    final room3ScrollController = useScrollController();
+    final room4ScrollController = useScrollController();
+
+    final scrollController = switch (currentRoom.value) {
+      SessionRoom.room1 => room1ScrollController,
+      SessionRoom.room2 => room2ScrollController,
+      SessionRoom.room3 => room3ScrollController,
+      SessionRoom.room4 => room4ScrollController,
+    };
+
+    final pageStorageKey = PageStorageKey(
+      switch (currentRoom.value) {
+        SessionRoom.room1 => 'room1',
+        SessionRoom.room2 => 'room2',
+        SessionRoom.room3 => 'room3',
+        SessionRoom.room4 => 'room4',
+      },
     );
 
-    final venueIndex = int.parse(currentVenue.value.substring(5)) - 1;
-    final scrollController = scrollControllers[venueIndex];
-    final pageStorageKey = PageStorageKey('venue${currentVenue.value}');
-
     final timeline = ref.watch(
-      sessionTimelineForVenueProvider(currentVenue.value),
+      sessionTimelineForVenueProvider(currentRoom.value.id),
     );
 
     return Scaffold(
@@ -58,64 +69,45 @@ class SessionTimelineScreen extends HookConsumerWidget {
                 ],
               ),
               Expanded(
-                child: ListView.builder(
-                  key: pageStorageKey,
-                  controller: scrollController,
-                  itemCount: switch (timeline) {
-                    AsyncData(value: final List<TimelineItem> value) =>
-                      value.length,
-                    AsyncLoading() => 0,
-                    AsyncError() => 0,
-                  },
-                  itemBuilder: (context, index) => switch (timeline) {
-                    AsyncData(value: final List<TimelineItem> value) => () {
-                      final item = value[index];
-                      final isDateVisible =
-                          index == 0 ||
-                          item.startsAt != value[index - 1].startsAt;
+                child: switch (timeline) {
+                  AsyncData(value: final List<TimelineItem> value) =>
+                    ListView.builder(
+                      key: pageStorageKey,
+                      controller: scrollController,
+                      itemCount: value.length,
+                      itemBuilder: (context, index) {
+                        final item = value[index];
+                        final isDateVisible =
+                            index == 0 ||
+                            item.startsAt != value[index - 1].startsAt;
 
-                      return TimelineItemView(
-                        item: item,
-                        isDateVisible: isDateVisible,
-                        sessionCardBuilder: (session) => _SessionCard(
-                          session: session.session,
-                          onTap: () {
-                            SessionDetailRoute(
-                              sessionId: session.session.id,
-                            ).go(context);
-                          },
-                        ),
-                      );
-                    }(),
-                    AsyncLoading() => const SizedBox.shrink(),
-                    AsyncError() => const SizedBox.shrink(),
-                  },
-                ),
+                        return TimelineItemView(
+                          item: item,
+                          isDateVisible: isDateVisible,
+                          sessionCardBuilder: (session) => _SessionCard(
+                            session: session.session,
+                            onTap: () {
+                              SessionDetailRoute(
+                                sessionId: session.session.id,
+                              ).go(context);
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                  AsyncLoading() => const Center(
+                    child: CircularProgressIndicator.adaptive(),
+                  ),
+                  AsyncError(:final error) => ErrorView(
+                    error: error,
+                    onRetry: () => ref.invalidate(sessionTimelineProvider),
+                  ),
+                },
               ),
             ],
           ),
-          if (switch (timeline) {
-            AsyncData() => false,
-            AsyncLoading() => true,
-            AsyncError() => false,
-          })
-            const Center(
-              child: CircularProgressIndicator.adaptive(),
-            ),
-          if (switch (timeline) {
-            AsyncData() => false,
-            AsyncLoading() => false,
-            AsyncError() => true,
-          })
-            ErrorView(
-              error: switch (timeline) {
-                AsyncError(:final error) => error,
-                _ => Exception('Unknown error'),
-              },
-              onRetry: () => ref.invalidate(sessionTimelineProvider),
-            ),
-          _VenueSwitcher(
-            current: currentVenue,
+          _RoomSwitcher(
+            current: currentRoom,
             scrollController: scrollController,
           ),
         ],
@@ -124,20 +116,20 @@ class SessionTimelineScreen extends HookConsumerWidget {
   }
 }
 
-class _VenueSwitcher extends HookConsumerWidget {
-  const _VenueSwitcher({
+class _RoomSwitcher extends HookConsumerWidget {
+  const _RoomSwitcher({
     required this.current,
     required this.scrollController,
   });
 
-  final ValueNotifier<String> current;
+  final ValueNotifier<SessionRoom> current;
   final ScrollController scrollController;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final isShowing = useState(true);
-    final venues = ref.watch(sessionVenuesProvider);
+    // SessionRoom enumを直接使用するため、プロバイダー不要
 
     useEffect(
       () {
@@ -168,44 +160,67 @@ class _VenueSwitcher extends HookConsumerWidget {
       child: Center(
         child: Material(
           elevation: 2,
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(24),
           color: theme.colorScheme.tertiary,
           child: Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 8,
-              horizontal: 16,
-            ),
+            padding: const EdgeInsets.all(8),
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
                 mainAxisSize: MainAxisSize.min,
-                children: switch (venues) {
-                  AsyncData(:final value) => () {
-                    final venueWidgets = <Widget>[];
-                    for (var i = 0; i < value.length; i++) {
-                      if (i > 0) {
-                        venueWidgets.add(const SizedBox(width: 12));
-                      }
-                      venueWidgets.add(
-                        GestureDetector(
-                          onTap: () => current.value = value[i].id,
-                          child: VenueSwitcherButton(
-                            current: current.value,
-                            venue: value[i],
-                          ),
-                        ),
-                      );
+                children: () {
+                  final roomWidgets = <Widget>[];
+                  for (final room in SessionRoom.values) {
+                    if (room.index > 0) {
+                      roomWidgets.add(const SizedBox(width: 12));
                     }
-                    return venueWidgets;
-                  }(),
-                  AsyncLoading() => [
-                    const CircularProgressIndicator.adaptive(),
-                  ],
-                  AsyncError() => <Widget>[],
-                },
+                    roomWidgets.add(
+                      GestureDetector(
+                        onTap: () => current.value = room,
+                        child: _RoomSwitcherButton(
+                          isSelected: current.value == room,
+                          room: room,
+                        ),
+                      ),
+                    );
+                  }
+                  return roomWidgets;
+                }(),
               ),
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class _RoomSwitcherButton extends StatelessWidget {
+  const _RoomSwitcherButton({
+    required this.isSelected,
+    required this.room,
+  });
+
+  final bool isSelected;
+  final SessionRoom room;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Container(
+      padding: const EdgeInsets.all(8),
+      decoration: BoxDecoration(
+        color: isSelected ? theme.colorScheme.onTertiary : Colors.transparent,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Text(
+        room.name,
+        style: TextStyle(
+          color: isSelected
+              ? theme.colorScheme.tertiary
+              : theme.colorScheme.onTertiary,
+          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
         ),
       ),
     );

@@ -27,12 +27,25 @@ _Session _$SessionFromJson(Map<String, dynamic> json) => $checkedCreate(
       ),
       speakers: $checkedConvert(
         'speakers',
-        (v) => (v as List<dynamic>)
-            .map((e) => Speaker.fromJson(e as Map<String, dynamic>))
-            .toList(),
+        (v) =>
+            (v as List<dynamic>?)
+                ?.map((e) => Speaker.fromJson(e as Map<String, dynamic>))
+                .toList() ??
+            const [],
       ),
-      sponsorId: $checkedConvert('sponsor_id', (v) => (v as num?)?.toInt()),
-      isLightningTalk: $checkedConvert('is_lightning_talk', (v) => v as bool),
+      sponsorId: $checkedConvert(
+        'sponsor_id',
+        (v) => (v as num?)?.toInt() ?? null,
+      ),
+      isLightningTalk: $checkedConvert(
+        'is_lightning_talk',
+        (v) => v as bool? ?? false,
+      ),
+      isBeginnersLightningTalk: $checkedConvert(
+        'is_beginners_lightning_talk',
+        (v) => v as bool? ?? false,
+      ),
+      isHandsOn: $checkedConvert('is_hands_on', (v) => v as bool? ?? false),
       videoUrl: $checkedConvert(
         'video_url',
         (v) => v == null ? null : Uri.parse(v as String),
@@ -45,6 +58,8 @@ _Session _$SessionFromJson(Map<String, dynamic> json) => $checkedCreate(
     'endsAt': 'ends_at',
     'sponsorId': 'sponsor_id',
     'isLightningTalk': 'is_lightning_talk',
+    'isBeginnersLightningTalk': 'is_beginners_lightning_talk',
+    'isHandsOn': 'is_hands_on',
     'videoUrl': 'video_url',
   },
 );
@@ -59,6 +74,8 @@ Map<String, dynamic> _$SessionToJson(_Session instance) => <String, dynamic>{
   'speakers': instance.speakers,
   'sponsor_id': instance.sponsorId,
   'is_lightning_talk': instance.isLightningTalk,
+  'is_beginners_lightning_talk': instance.isBeginnersLightningTalk,
+  'is_hands_on': instance.isHandsOn,
   'video_url': instance.videoUrl?.toString(),
 };
 

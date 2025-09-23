@@ -5,6 +5,8 @@ enum SessionType {
   regularTalk,
   sponsorTalk,
   lightningTalk,
+  beginnersLightningTalk,
+  handsOn,
 }
 
 class SessionTypeChip extends StatelessWidget {
@@ -16,10 +18,14 @@ class SessionTypeChip extends StatelessWidget {
   final Session session;
 
   SessionType get _sessionType {
-    if (session.isLightningTalk) {
+    if (session.isBeginnersLightningTalk) {
+      return SessionType.beginnersLightningTalk;
+    } else if (session.isLightningTalk) {
       return SessionType.lightningTalk;
     } else if (session.isSponsorTalk) {
       return SessionType.sponsorTalk;
+    } else if (session.isHandsOn) {
+      return SessionType.handsOn;
     } else {
       return SessionType.regularTalk;
     }
@@ -33,6 +39,10 @@ class SessionTypeChip extends StatelessWidget {
         return 'Sponsored Talk';
       case SessionType.lightningTalk:
         return 'Lightning Talk';
+      case SessionType.beginnersLightningTalk:
+        return 'Beginners Lightning Talk';
+      case SessionType.handsOn:
+        return 'Hands-On Session';
     }
   }
 
@@ -44,6 +54,10 @@ class SessionTypeChip extends StatelessWidget {
         return colorScheme.primaryFixedDim;
       case SessionType.lightningTalk:
         return colorScheme.secondaryFixedDim;
+      case SessionType.beginnersLightningTalk:
+        return Colors.orange.shade800;
+      case SessionType.handsOn:
+        return Colors.blue.shade800;
     }
   }
 
@@ -55,6 +69,10 @@ class SessionTypeChip extends StatelessWidget {
         return colorScheme.onPrimaryFixedVariant;
       case SessionType.lightningTalk:
         return colorScheme.onSecondaryFixedVariant;
+      case SessionType.beginnersLightningTalk:
+        return Colors.orange.shade100;
+      case SessionType.handsOn:
+        return Colors.blue.shade100;
     }
   }
 

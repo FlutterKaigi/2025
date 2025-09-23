@@ -10,8 +10,9 @@ import 'package:app/features/session/ui/components/session_type_chip.dart';
 import 'package:app/features/session/ui/components/session_venue_chip.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intl/intl.dart';
+import 'package:intl/intl.dart' show DateFormat;
 import 'package:url_launcher/url_launcher.dart';
 
 /// セッション詳細画面
@@ -75,8 +76,7 @@ class SessionScreen extends ConsumerWidget {
               value.contains(sessionId)
                   ? const Icon(Icons.bookmark)
                   : const Icon(Icons.bookmark_outline),
-            AsyncLoading() => const Icon(Icons.bookmark_outline),
-            AsyncError() => const Icon(Icons.bookmark_outline),
+            _ => const Icon(Icons.bookmark_outline),
           },
         ),
       ),
@@ -107,8 +107,8 @@ class SessionScreen extends ConsumerWidget {
 
 final _googleCalendarDateFormatter = DateFormat("yyyyMMdd'T'HHmmss'Z'");
 
-class _SessionDetailView extends ConsumerWidget {
-  const _SessionDetailView({required this.session});
+class _SessionDetailView extends ConsumerWidget with SessionScreenMixin {
+  _SessionDetailView({required this.session});
 
   final Session session;
 
@@ -121,6 +121,10 @@ class _SessionDetailView extends ConsumerWidget {
       child: CustomScrollView(
         slivers: [
           SliverAppBar.large(
+            expandedHeight: getExpandedHeight(
+              title: session.title,
+              context: context,
+            ),
             title: Text(session.title),
             actions: [
               IconButton(
@@ -192,9 +196,8 @@ class _SessionDetailView extends ConsumerWidget {
               const SizedBox(height: 16),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Text(
-                  session.description,
-                  style: theme.textTheme.bodyLarge,
+                child: MarkdownBody(
+                  data: session.description,
                 ),
               ),
               const SizedBox(height: 8),
@@ -206,22 +209,21 @@ class _SessionDetailView extends ConsumerWidget {
                 leading: const Icon(Icons.event_outlined),
                 onTap: () => _addToCalendar(session),
               ),
-              const SizedBox(height: 16),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Text(
-                  'フィードバック',
-                  style: theme.textTheme.titleMedium,
-                ),
-              ),
-              const SizedBox(height: 8),
-              ListTile(
-                title: const Text('フィードバックを送る'),
-                trailing: const Icon(Icons.arrow_outward),
-                onTap: () {
-                  // TODO: Feedback form
-                },
-              ),
+              // TODO: フィードバック用のフォームが作成されたら復活させる
+              // const SizedBox(height: 16),
+              // Padding(
+              //   padding: const EdgeInsets.symmetric(horizontal: 16),
+              //   child: Text(
+              //     'フィードバック',
+              //     style: theme.textTheme.titleMedium,
+              //   ),
+              // ),
+              // const SizedBox(height: 8),
+              // ListTile(
+              //   title: const Text('フィードバックを送る'),
+              //   trailing: const Icon(Icons.arrow_outward),
+              //   onTap: () {},
+              // ),
               const SizedBox(height: 64),
             ],
           ),
@@ -279,5 +281,31 @@ class _SessionDetailView extends ConsumerWidget {
             '${_googleCalendarDateFormatter.format(session.startsAt.toUtc())}/${_googleCalendarDateFormatter.format(session.endsAt.toUtc())}',
       },
     );
+  }
+}
+
+mixin SessionScreenMixin {
+  final appBarSize = kToolbarHeight;
+  final padding = 16;
+
+  /// title の長さに応じて、SliverAppBar の expandedHeight を計算します
+  double getExpandedHeight({
+    required String title,
+    required BuildContext context,
+    bool forLarge = true,
+  }) {
+    final textPainter =
+        TextPainter(
+          text: TextSpan(
+            text: title,
+            style: forLarge
+                ? Theme.of(context).textTheme.headlineMedium
+                : Theme.of(context).textTheme.headlineSmall,
+          ),
+          textDirection: TextDirection.ltr,
+        )..layout(
+          maxWidth: MediaQuery.sizeOf(context).width - padding,
+        );
+    return appBarSize + padding + textPainter.height;
   }
 }
