@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:app/core/gen/i18n/i18n.g.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 class ErrorView extends StatelessWidget {
@@ -12,6 +15,34 @@ class ErrorView extends StatelessWidget {
   final Object error;
   final VoidCallback? onRetry;
   final bool? isRetrying;
+
+  String _getErrorMessage() {
+    if (error is DioException) {
+      final dioError = error as DioException;
+      final response = dioError.response;
+
+      if (response?.data != null) {
+        final data = response!.data;
+
+        // dataがMapで、messageキーが含まれている場合
+        if (data is Map && data.containsKey('message')) {
+          return data['message'].toString();
+        }
+
+        // それ以外の場合はJSONとして表示を試みる
+        try {
+          if (data is Map || data is List) {
+            return const JsonEncoder.withIndent('  ').convert(data);
+          }
+          return data.toString();
+        } on Exception catch (_) {
+          return data.toString();
+        }
+      }
+    }
+
+    return error.toString();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +82,7 @@ class ErrorView extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  error.toString(),
+                  _getErrorMessage(),
                   textAlign: TextAlign.center,
                   style: theme.textTheme.bodyMedium,
                 ),
