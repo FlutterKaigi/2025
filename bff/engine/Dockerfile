@@ -39,7 +39,7 @@ RUN cd bff/engine && \
 
 # Use a minimal base image for the final stage.
 # Debian 13: https://www.debian.org/releases/stable/
-FROM debian:trixie-sli
+FROM debian:trixie-slim
 
 # Install required dependencies for runtime
 RUN apt-get update && apt-get install -y --no-install-recommends \
