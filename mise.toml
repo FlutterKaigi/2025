@@ -10,14 +10,8 @@ stripe = "latest"
 terraform = "latest"
 tflint = "latest"
 
-[env]
-'_'.source = "scripts/export_sops_key_path.sh"
-'_'.file.path = ".env.json"
-
-SUPABASE_ACCESS_TOKEN = "{{ env.TF_VAR_SUPABASE_ACCESS_TOKEN }}"
-
-[settings.sops]
-age_key_file = "~/.config/mise/flutterkaigi.txt"
+[env.'_']
+file.path = "bff/engine/.env"
 
 [tasks.bootstrap]
 description = "Initialize the workspace."
@@ -30,7 +24,6 @@ run = [
   'bun run clean',
   'melos clean',
 ]
-
 
 [settings]
 lockfile = true
