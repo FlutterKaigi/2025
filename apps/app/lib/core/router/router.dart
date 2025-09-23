@@ -44,13 +44,22 @@ GoRouter router(Ref ref) {
   final isAuthorizedNotifier = ValueNotifier<bool>(
     ref.read(authNotifierProvider.select((v) => v.value != null)),
   );
+  final isGoogleSessionExpiredNotifier = ValueNotifier<bool>(false);
+
   ref
     ..listen(authNotifierProvider, (_, __) {
       isAuthorizedNotifier.value = ref.read(
         authNotifierProvider.select((v) => v.value != null),
       );
+      // Googleセッション切れチェック
+      isGoogleSessionExpiredNotifier.value = ref
+          .read(authNotifierProvider.notifier)
+          .isGoogleSessionExpired();
     })
-    ..onDispose(isAuthorizedNotifier.dispose);
+    ..onDispose(() {
+      isAuthorizedNotifier.dispose();
+      isGoogleSessionExpiredNotifier.dispose();
+    });
 
   return GoRouter(
     navigatorKey: _rootNavigatorKey,
@@ -73,10 +82,27 @@ GoRouter router(Ref ref) {
     initialLocation: const EventInfoRoute().location,
     redirect: (context, state) {
       final isAuthorized = isAuthorizedNotifier.value;
+      final isGoogleSessionExpired = isGoogleSessionExpiredNotifier.value;
+
+      // Googleセッション切れの場合のみログイン画面へ
+      if (isGoogleSessionExpired &&
+          state.fullPath != const LoginRoute().location) {
+        // セッション切れメッセージを表示するためのパラメータ付きでリダイレクト
+        return Uri(
+          path: const LoginRoute().location,
+          queryParameters: {'session_expired': 'true'},
+        ).toString();
+      }
+
+      // 未認証でログイン画面以外にいる場合はログイン画面へ
       if (!isAuthorized && state.fullPath != const LoginRoute().location) {
         return const LoginRoute().location;
       }
-      if (isAuthorized && state.fullPath == const LoginRoute().location) {
+
+      // 既にログイン済み（ゲストまたはGoogle）でログイン画面にいる場合はイベント画面へ
+      if (isAuthorized &&
+          !isGoogleSessionExpired &&
+          (state.fullPath?.startsWith(const LoginRoute().location) ?? false)) {
         return const EventInfoRoute().location;
       }
 
@@ -92,9 +118,12 @@ GoRouter router(Ref ref) {
       }
 
       // ゲストユーザーが Google アカウントと紐づけられている場合エラーメッセージを表示
-      if (isAuthorized &&
-          queryParameters['error_code'] == 'identity_already_exists') {
-        unawaited(_handleIdentityAlreadyExistsError(context));
+      if (queryParameters['error_code'] == 'identity_already_exists') {
+        // エラーメッセージを表示してからゲストユーザーをログアウト
+        // ログアウト完了後、AuthNotifierの監視により自動的にログイン画面へ遷移
+        _handleIdentityAlreadyExistsError(context, ref);
+        // 一旦アカウント画面に戻し、ログアウト完了後にisAuthorizedがfalseになることで
+        // ログイン画面へ自動遷移する
         return const AccountInfoRoute().location;
       }
       return null;
@@ -102,13 +131,16 @@ GoRouter router(Ref ref) {
   );
 }
 
-/// Googleアカウントが既に別のユーザーと紐づけられている場合エラートーストを表示する
-Future<void> _handleIdentityAlreadyExistsError(
+/// Googleアカウントが既に別のユーザーと紐づけられている場合、
+/// エラーメッセージを表示してゲストユーザーをログアウトする
+void _handleIdentityAlreadyExistsError(
   BuildContext context,
-) async {
-  // 現在のフレームの描画が完了した後に SnackBar を表示
-  WidgetsBinding.instance.addPostFrameCallback((_) {
+  Ref ref,
+) {
+  // 現在のフレームの描画が完了した後にエラーメッセージを表示してログアウト
+  WidgetsBinding.instance.addPostFrameCallback((_) async {
     if (context.mounted) {
+      // エラーメッセージを表示
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
@@ -118,6 +150,10 @@ Future<void> _handleIdentityAlreadyExistsError(
           duration: const Duration(seconds: 5),
         ),
       );
+
+      // メッセージ表示後にゲストユーザーをログアウト
+      // ログアウト完了後、AuthNotifierの監視により自動的にログイン画面へ遷移
+      await ref.read(authNotifierProvider.notifier).signOut();
     }
   });
 }

@@ -3,3 +3,4 @@ guest:
   userLabel: ゲストでログイン中
 error:
   identityAlreadyExists: このGoogleアカウントは既に別のユーザーと紐づけられています。ログアウトしてから再度ログインしてください。
+  sessionExpired: Googleアカウントへの再ログインが必要です。
