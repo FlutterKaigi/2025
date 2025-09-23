@@ -39,7 +39,7 @@ class AccountInfoRoute extends GoRouteData with $AccountInfoRoute {
       ),
       onTapOssLicensesTile: () => showLicensePage(
         context: context,
-        applicationName: Translations.of(context).app.name,
+        applicationName: Translations.of(context).common.app.name,
       ),
     );
   }
