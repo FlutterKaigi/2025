@@ -42,7 +42,7 @@ class ErrorView extends StatelessWidget {
                     const SizedBox(width: 8),
                     Flexible(
                       child: Text(
-                        t.error.general.occurred,
+                        t.common.error.general.occurred,
                         style: theme.textTheme.titleLarge!.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
@@ -58,7 +58,7 @@ class ErrorView extends StatelessWidget {
                 if (onRetry != null)
                   FilledButton.tonalIcon(
                     onPressed: (isRetrying ?? false) ? null : onRetry,
-                    label: Text(t.error.server.retry),
+                    label: Text(t.common.error.server.retry),
                     icon: const Icon(Icons.refresh),
                   ),
                 if (isRetrying ?? false)

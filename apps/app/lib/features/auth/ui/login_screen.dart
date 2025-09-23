@@ -1,6 +1,7 @@
 import 'package:app/core/gen/assets/assets.gen.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/features/auth/data/notifier/auth_notifier.dart';
+import 'package:app/features/force_update/force_update.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -20,37 +21,39 @@ class LoginScreen extends ConsumerWidget {
     final theme = Theme.of(context);
     final t = Translations.of(context);
 
-    return Scaffold(
-      body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            child: Card.outlined(
-              child: Padding(
-                padding: const EdgeInsets.all(36),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  spacing: 24,
-                  children: [
-                    Assets.res.assets.logo.image(
-                      height: 160,
-                      fit: BoxFit.fitHeight,
-                    ),
-                    Text(
-                      t.app.name,
-                      style: theme.textTheme.titleMedium,
-                    ),
-                    _GoogleSignInButton(
-                      onPressed: () async => ref
-                          .read(authNotifierProvider.notifier)
-                          .signInWithGoogle(),
-                    ),
-                    _GuestSignInButton(
-                      onPressed: () async => ref
-                          .read(authNotifierProvider.notifier)
-                          .signInAnonymously(),
-                    ),
-                  ],
+    return ForceUpdateDialogListener(
+      child: Scaffold(
+        body: SafeArea(
+          child: Center(
+            child: SingleChildScrollView(
+              child: Card.outlined(
+                child: Padding(
+                  padding: const EdgeInsets.all(36),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    spacing: 24,
+                    children: [
+                      Assets.res.assets.logo.image(
+                        height: 160,
+                        fit: BoxFit.fitHeight,
+                      ),
+                      Text(
+                        t.common.app.name,
+                        style: theme.textTheme.titleMedium,
+                      ),
+                      _GoogleSignInButton(
+                        onPressed: () async => ref
+                            .read(authNotifierProvider.notifier)
+                            .signInWithGoogle(),
+                      ),
+                      _GuestSignInButton(
+                        onPressed: () async => ref
+                            .read(authNotifierProvider.notifier)
+                            .signInAnonymously(),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

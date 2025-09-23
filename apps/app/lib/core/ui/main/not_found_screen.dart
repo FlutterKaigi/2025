@@ -33,7 +33,7 @@ class NotFoundScreen extends StatelessWidget {
 
                   // エラーメッセージ
                   Text(
-                    t.error.notFound.title,
+                    t.common.error.notFound.title,
                     style: theme.textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
@@ -42,7 +42,7 @@ class NotFoundScreen extends StatelessWidget {
                   const SizedBox(height: 16),
 
                   Text(
-                    t.error.notFound.message,
+                    t.common.error.notFound.message,
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
                     ),
@@ -54,7 +54,7 @@ class NotFoundScreen extends StatelessWidget {
                   FilledButton.icon(
                     onPressed: () => const EventInfoRoute().go(context),
                     icon: const Icon(Icons.home),
-                    label: Text(t.error.notFound.backToTop),
+                    label: Text(t.common.error.notFound.backToTop),
                     style: FilledButton.styleFrom(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 32,
