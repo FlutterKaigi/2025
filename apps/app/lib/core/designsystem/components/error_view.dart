@@ -16,32 +16,31 @@ class ErrorView extends StatelessWidget {
   final VoidCallback? onRetry;
   final bool? isRetrying;
 
-  String _getErrorMessage() {
-    if (error is DioException) {
-      final dioError = error as DioException;
-      final response = dioError.response;
-
-      if (response?.data != null) {
-        final data = response!.data;
-
-        // dataがMapで、messageキーが含まれている場合
-        if (data is Map && data.containsKey('message')) {
-          return data['message'].toString();
-        }
-
-        // それ以外の場合はJSONとして表示を試みる
-        try {
-          if (data is Map || data is List) {
-            return const JsonEncoder.withIndent('  ').convert(data);
-          }
-          return data.toString();
-        } on Exception catch (_) {
-          return data.toString();
-        }
-      }
+  String _getErrorMessage(Object error) {
+    if (error is! DioException) {
+      return error.toString();
     }
 
-    return error.toString();
+    final data = error.response?.data;
+
+    if (data == null) {
+      return error.toString();
+    }
+    if (data is! Map && data is! List) {
+      return data.toString();
+    }
+
+    // dataがMapで、messageキーが含まれている場合
+    if (data is Map && data.containsKey('message')) {
+      return data['message'].toString();
+    }
+
+    // それ以外の場合はJSONとして表示を試みる
+    try {
+      return const JsonEncoder.withIndent('  ').convert(data);
+    } on Exception catch (_) {
+      return data.toString();
+    }
   }
 
   @override
@@ -82,7 +81,7 @@ class ErrorView extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  _getErrorMessage(),
+                  _getErrorMessage(error),
                   textAlign: TextAlign.center,
                   style: theme.textTheme.bodyMedium,
                 ),
