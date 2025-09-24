@@ -214,13 +214,13 @@ class _SessionDetailView extends ConsumerWidget with SessionScreenMixin {
               // Padding(
               //   padding: const EdgeInsets.symmetric(horizontal: 16),
               //   child: Text(
-              //     'フィードバック',
+              //     Translations.of(context).session.feedback.title,
               //     style: theme.textTheme.titleMedium,
               //   ),
               // ),
               // const SizedBox(height: 8),
               // ListTile(
-              //   title: const Text('フィードバックを送る'),
+              //   title: Text(Translations.of(context).session.feedback.send),
               //   trailing: const Icon(Icons.arrow_outward),
               //   onTap: () {},
               // ),
