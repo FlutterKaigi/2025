@@ -69,20 +69,16 @@ export class TicketCheckoutWorkflow extends WorkflowEntrypoint<
 			return;
 		}
 
-		const session = await step.do("get_checkout_session", async () => {
+		await step.do("invalidate_checkout_session_if_opened", async () => {
 			const stripe = new Stripe(this.env.STRIPE_API_KEY);
 			const checkoutSessionId = ticketCheckout.stripeCheckoutSessionId;
-			return await stripe.checkout.sessions.retrieve(checkoutSessionId);
-		});
-
-		// openの場合はセッションを無効化
-		if (session?.status === "open") {
-			await step.do("invalidate_checkout_session", async () => {
-				const stripe = new Stripe(this.env.STRIPE_API_KEY);
-				const checkoutSessionId = ticketCheckout.stripeCheckoutSessionId;
+			const session =
+				await stripe.checkout.sessions.retrieve(checkoutSessionId);
+			if (session.status === "open") {
 				await stripe.checkout.sessions.expire(checkoutSessionId);
-			});
-		}
+			}
+			return session;
+		});
 
 		// TicketCheckoutを無効化済みとしてマーク
 		await step.do("mark_ticket_checkout_as_invalidated", async () => {
