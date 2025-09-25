@@ -6,10 +6,26 @@
   "observability": {
     "enabled": true,
   },
+  "workers_dev": true,
+  "hyperdrive": [
+    {
+      "id": "d1f50129a40a4edea82ac8c228a01de5",
+      "binding": "HYPERDRIVE",
+      "localConnectionString": "postgresql://postgres:postgres@localhost:5432/postgres",
+    },
+  ],
+  "workflows": [
+    {
+      "name": "ticket-sales-reporter",
+      "binding": "TICKET_SALES_REPORTER",
+      "class_name": "TicketSalesReporterWorkflow",
+    },
+  ],
   "triggers": {
     "crons": [
       // Everyday at 21:00 JST
-      "0 21 * * *"
-    ]
-  }
+      "0 12 * * *",
+    ],
+  },
+  "compatibility_flags": ["nodejs_compat"],
 }
