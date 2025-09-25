@@ -28,7 +28,7 @@ module "apprun" {
   X_API_KEY = var.X_API_KEY
   logo_base_url = "https://2025-bucket.flutterkaigi.jp"
   # MEMO(YumNumm): Supabase側のTerraformから取得するようにする
-  supabase_project_id = "ikrzxakkbmajammujqao"
+  supabase_project_id = "sotendzncvqiyfaxpydk"
   supabase_db_password = var.SUPABASE_DB_PASSWORD_PRODUCTION
   supabase_service_role_key = var.SUPABASE_SERVICE_ROLE_KEY_PRODUCTION
 }
