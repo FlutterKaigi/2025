@@ -1,6 +1,8 @@
 import 'package:app/core/gen/i18n/i18n.g.dart';
+import 'package:app/core/provider/bff_client.dart';
 import 'package:app/core/router/router.dart';
 import 'package:app/features/auth/data/notifier/auth_notifier.dart';
+import 'package:bff_client/bff_client.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
@@ -24,6 +26,7 @@ class DebugScreen extends StatelessWidget {
           children: [
             _TransitionArea(),
             _TalkerArea(),
+            _SessionsArea(),
             _LogoutArea(),
           ],
         ),
@@ -171,6 +174,157 @@ class _TalkerArea extends StatelessWidget {
       child: FilledButton(
         onPressed: () async => const TalkerRoute().push<void>(context),
         child: Text(t.common.debug.talkerScreen),
+      ),
+    );
+  }
+}
+
+class _SessionsArea extends HookConsumerWidget {
+  const _SessionsArea();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final bffClient = ref.watch(bffClientProvider);
+    final sessions = useState<List<SessionResponse>?>(null);
+    final venues = useState<List<VenueWithSessionsResponse>?>(null);
+    final isLoading = useState(false);
+    final errorMessage = useState<String?>(null);
+
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          spacing: 16,
+          children: [
+            const Text(
+              'Sessions Debug',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            Row(
+              spacing: 16,
+              children: [
+                ElevatedButton(
+                  onPressed: isLoading.value
+                      ? null
+                      : () async {
+                          isLoading.value = true;
+                          errorMessage.value = null;
+                          try {
+                            final response = await bffClient.v1.sessions
+                                .getSessions();
+                            sessions.value = response.sessions;
+                          } on Exception catch (e) {
+                            errorMessage.value = 'Sessions fetch failed: $e';
+                          } finally {
+                            isLoading.value = false;
+                          }
+                        },
+                  child: const Text('Fetch Sessions'),
+                ),
+                ElevatedButton(
+                  onPressed: isLoading.value
+                      ? null
+                      : () async {
+                          isLoading.value = true;
+                          errorMessage.value = null;
+                          try {
+                            final response = await bffClient.v1.sessions
+                                .getSessionsByVenue();
+                            venues.value = response.venues;
+                          } on Exception catch (e) {
+                            errorMessage.value = 'Venues fetch failed: $e';
+                          } finally {
+                            isLoading.value = false;
+                          }
+                        },
+                  child: const Text('Fetch by Venues'),
+                ),
+              ],
+            ),
+            if (isLoading.value)
+              const Center(child: CircularProgressIndicator()),
+            if (errorMessage.value != null)
+              Text(
+                errorMessage.value!,
+                style: const TextStyle(color: Colors.red),
+              ),
+            if (sessions.value != null) ...[
+              Text(
+                'Sessions (${sessions.value!.length})',
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+              ConstrainedBox(
+                constraints: const BoxConstraints(maxHeight: 200),
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: sessions.value!.length,
+                  itemBuilder: (context, index) {
+                    final session = sessions.value![index];
+                    return ListTile(
+                      dense: true,
+                      title: Text(session.title),
+                      subtitle: Text(
+                        '${session.startsAt} - ${session.endsAt}',
+                      ),
+                      trailing: session.isLightningTalk
+                          ? const Icon(Icons.flash_on, size: 16)
+                          : session.isBeginnersLightningTalk
+                          ? const Icon(Icons.school, size: 16)
+                          : session.isHandsOn
+                          ? const Icon(Icons.build, size: 16)
+                          : null,
+                    );
+                  },
+                ),
+              ),
+            ],
+            if (venues.value != null) ...[
+              Text(
+                'Venues (${venues.value!.length})',
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+              ConstrainedBox(
+                constraints: const BoxConstraints(maxHeight: 200),
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: venues.value!.length,
+                  itemBuilder: (context, index) {
+                    final venue = venues.value![index];
+                    return ExpansionTile(
+                      dense: true,
+                      title: Text('${venue.name} (${venue.sessions.length})'),
+                      children: venue.sessions.map((session) {
+                        return ListTile(
+                          dense: true,
+                          contentPadding: const EdgeInsets.only(left: 32),
+                          title: Text(session.title),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('${session.startsAt} - ${session.endsAt}'),
+                              if (session.speakers.isNotEmpty)
+                                Text(
+                                  'Speakers: ${session.speakers.map((s) => s.name).join(', ')}',
+                                ),
+                            ],
+                          ),
+                          trailing: session.isLightningTalk
+                              ? const Icon(Icons.flash_on, size: 16)
+                              : session.isBeginnersLightningTalk
+                              ? const Icon(Icons.school, size: 16)
+                              : session.isHandsOn
+                              ? const Icon(Icons.build, size: 16)
+                              : null,
+                        );
+                      }).toList(),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ],
+        ),
       ),
     );
   }
