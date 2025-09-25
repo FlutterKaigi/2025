@@ -4,7 +4,6 @@ import 'package:app/core/router/router.dart';
 import 'package:app/features/session/data/model/session.dart';
 import 'package:app/features/session/data/model/session_room.dart';
 import 'package:app/features/session/data/model/timeline_item.dart';
-import 'package:app/features/session/data/provider/bookmarked_sessions_provider.dart';
 import 'package:app/features/session/data/provider/session_timeline_provider.dart';
 import 'package:app/features/session/ui/components/session_type_chip.dart';
 import 'package:app/features/session/ui/components/timeline_item_view.dart';
@@ -58,15 +57,16 @@ class SessionTimelineScreen extends HookConsumerWidget {
             children: [
               AppBar(
                 title: Text(t.session.title),
-                actions: [
-                  IconButton(
-                    tooltip: t.session.detail.bookmark,
-                    onPressed: () {
-                      const BookmarkedSessionsRoute().go(context);
-                    },
-                    icon: const Icon(Icons.bookmarks_outlined),
-                  ),
-                ],
+                // TODO: お気に入り機能は一時的に無効化（API連携後に再有効化）
+                // actions: [
+                //   IconButton(
+                //     tooltip: t.session.detail.bookmark,
+                //     onPressed: () {
+                //       const BookmarkedSessionsRoute().go(context);
+                //     },
+                //     icon: const Icon(Icons.bookmarks_outlined),
+                //   ),
+                // ],
               ),
               Expanded(
                 child: switch (timeline) {
@@ -239,11 +239,12 @@ class _SessionCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    final isBookmarked = switch (ref.watch(bookmarkedSessionsProvider)) {
-      AsyncData(:final value) => value.contains(session.id),
-      AsyncLoading() => false,
-      AsyncError() => false,
-    };
+    // TODO: お気に入り機能は一時的に無効化（API連携後に再有効化）
+    // final isBookmarked = switch (ref.watch(bookmarkedSessionsProvider)) {
+    //   AsyncData(:final value) => value.contains(session.id),
+    //   AsyncLoading() => false,
+    //   AsyncError() => false,
+    // };
 
     return Card(
       elevation: 0,
@@ -306,25 +307,26 @@ class _SessionCard extends ConsumerWidget {
               children: [
                 SessionTypeChip(session: session),
                 const Spacer(),
-                IconButton(
-                  padding: EdgeInsets.zero,
-                  constraints: const BoxConstraints(),
-                  icon: Icon(
-                    isBookmarked ? Icons.bookmark : Icons.bookmark_outline,
-                    size: 20,
-                  ),
-                  onPressed: () async {
-                    if (isBookmarked) {
-                      await ref
-                          .read(bookmarkedSessionsProvider.notifier)
-                          .remove(session.id);
-                    } else {
-                      await ref
-                          .read(bookmarkedSessionsProvider.notifier)
-                          .save(session.id);
-                    }
-                  },
-                ),
+                // TODO: お気に入り機能は一時的に無効化（API連携後に再有効化）
+                // IconButton(
+                //   padding: EdgeInsets.zero,
+                //   constraints: const BoxConstraints(),
+                //   icon: Icon(
+                //     isBookmarked ? Icons.bookmark : Icons.bookmark_outline,
+                //     size: 20,
+                //   ),
+                //   onPressed: () async {
+                //     if (isBookmarked) {
+                //       await ref
+                //           .read(bookmarkedSessionsProvider.notifier)
+                //           .remove(session.id);
+                //     } else {
+                //       await ref
+                //           .read(bookmarkedSessionsProvider.notifier)
+                //           .save(session.id);
+                //     }
+                //   },
+                // ),
               ],
             ),
           ],

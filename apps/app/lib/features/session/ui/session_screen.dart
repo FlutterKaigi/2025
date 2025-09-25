@@ -3,7 +3,6 @@ import 'package:app/core/designsystem/components/error_view.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/core/util/share_util.dart';
 import 'package:app/features/session/data/model/session.dart';
-import 'package:app/features/session/data/provider/bookmarked_sessions_provider.dart';
 import 'package:app/features/session/data/provider/session_provider.dart';
 import 'package:app/features/session/ui/components/session_speaker_icon.dart';
 import 'package:app/features/session/ui/components/session_type_chip.dart';
@@ -55,30 +54,31 @@ class SessionScreen extends ConsumerWidget {
     return switch (session) {
       AsyncData<Session?>(value: final value) when value != null => Scaffold(
         body: _SessionDetailView(session: value),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () async {
-            final bookmarkedSessions = await ref.read(
-              bookmarkedSessionsProvider.future,
-            );
-            final isBookmarked = bookmarkedSessions.contains(sessionId);
-            if (isBookmarked) {
-              await ref
-                  .read(bookmarkedSessionsProvider.notifier)
-                  .remove(sessionId);
-            } else {
-              await ref
-                  .read(bookmarkedSessionsProvider.notifier)
-                  .save(sessionId);
-            }
-          },
-          child: switch (ref.watch(bookmarkedSessionsProvider)) {
-            AsyncData(:final value) =>
-              value.contains(sessionId)
-                  ? const Icon(Icons.bookmark)
-                  : const Icon(Icons.bookmark_outline),
-            _ => const Icon(Icons.bookmark_outline),
-          },
-        ),
+        // TODO: お気に入り機能は一時的に無効化（API連携後に再有効化）
+        // floatingActionButton: FloatingActionButton(
+        //   onPressed: () async {
+        //     final bookmarkedSessions = await ref.read(
+        //       bookmarkedSessionsProvider.future,
+        //     );
+        //     final isBookmarked = bookmarkedSessions.contains(sessionId);
+        //     if (isBookmarked) {
+        //       await ref
+        //           .read(bookmarkedSessionsProvider.notifier)
+        //           .remove(sessionId);
+        //     } else {
+        //       await ref
+        //           .read(bookmarkedSessionsProvider.notifier)
+        //           .save(sessionId);
+        //     }
+        //   },
+        //   child: switch (ref.watch(bookmarkedSessionsProvider)) {
+        //     AsyncData(:final value) =>
+        //       value.contains(sessionId)
+        //           ? const Icon(Icons.bookmark)
+        //           : const Icon(Icons.bookmark_outline),
+        //     _ => const Icon(Icons.bookmark_outline),
+        //   },
+        // ),
       ),
       AsyncData<Session?>(value: null) => Scaffold(
         body: Center(
