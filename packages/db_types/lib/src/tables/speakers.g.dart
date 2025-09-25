@@ -13,15 +13,15 @@ _Speakers _$SpeakersFromJson(Map<String, dynamic> json) =>
       final val = _Speakers(
         id: $checkedConvert('id', (v) => v as String),
         name: $checkedConvert('name', (v) => v as String),
-        avatarName: $checkedConvert('avatar_name', (v) => v as String?),
+        avatarUrl: $checkedConvert('avatar_url', (v) => v as String?),
         xId: $checkedConvert('x_id', (v) => v as String?),
       );
       return val;
-    }, fieldKeyMap: const {'avatarName': 'avatar_name', 'xId': 'x_id'});
+    }, fieldKeyMap: const {'avatarUrl': 'avatar_url', 'xId': 'x_id'});
 
 Map<String, dynamic> _$SpeakersToJson(_Speakers instance) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
-  'avatar_name': instance.avatarName,
+  'avatar_url': instance.avatarUrl,
   'x_id': instance.xId,
 };

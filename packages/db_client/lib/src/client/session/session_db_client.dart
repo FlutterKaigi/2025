@@ -60,7 +60,7 @@ class SessionDbClient {
                     json_build_object(
                       'id', sp.id,
                       'name', sp.name,
-                      'avatar_name', sp.avatar_name,
+                      'avatar_url', sp.avatar_url,
                       'x_id', sp.x_id
                     )
                   )
@@ -155,7 +155,7 @@ class SessionDbClient {
                     json_build_object(
                       'id', sp.id,
                       'name', sp.name,
-                      'avatar_name', sp.avatar_name,
+                      'avatar_url', sp.avatar_url,
                       'x_id', sp.x_id
                     )
                   )
@@ -207,7 +207,7 @@ class SessionDbClient {
               json_build_object(
                 'id', sp.id,
                 'name', sp.name,
-                'avatar_name', sp.avatar_name,
+                'avatar_url', sp.avatar_url,
                 'x_id', sp.x_id
               )
             )

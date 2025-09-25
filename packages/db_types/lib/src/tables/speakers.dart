@@ -8,7 +8,7 @@ abstract class Speakers with _$Speakers {
   const factory Speakers({
     required String id,
     required String name,
-    String? avatarName,
+    String? avatarUrl,
     String? xId,
   }) = _Speakers;
 

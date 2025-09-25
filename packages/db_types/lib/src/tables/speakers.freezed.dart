@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Speakers {
 
- String get id; String get name; String? get avatarName; String? get xId;
+ String get id; String get name; String? get avatarUrl; String? get xId;
 /// Create a copy of Speakers
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $SpeakersCopyWith<Speakers> get copyWith => _$SpeakersCopyWithImpl<Speakers>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Speakers&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.avatarName, avatarName) || other.avatarName == avatarName)&&(identical(other.xId, xId) || other.xId == xId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Speakers&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.avatarUrl, avatarUrl) || other.avatarUrl == avatarUrl)&&(identical(other.xId, xId) || other.xId == xId));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,avatarName,xId);
+int get hashCode => Object.hash(runtimeType,id,name,avatarUrl,xId);
 
 @override
 String toString() {
-  return 'Speakers(id: $id, name: $name, avatarName: $avatarName, xId: $xId)';
+  return 'Speakers(id: $id, name: $name, avatarUrl: $avatarUrl, xId: $xId)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $SpeakersCopyWith<$Res>  {
   factory $SpeakersCopyWith(Speakers value, $Res Function(Speakers) _then) = _$SpeakersCopyWithImpl;
 @useResult
 $Res call({
- String id, String name, String? avatarName, String? xId
+ String id, String name, String? avatarUrl, String? xId
 });
 
 
@@ -65,11 +65,11 @@ class _$SpeakersCopyWithImpl<$Res>
 
 /// Create a copy of Speakers
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? avatarName = freezed,Object? xId = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? avatarUrl = freezed,Object? xId = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,avatarName: freezed == avatarName ? _self.avatarName : avatarName // ignore: cast_nullable_to_non_nullable
+as String,avatarUrl: freezed == avatarUrl ? _self.avatarUrl : avatarUrl // ignore: cast_nullable_to_non_nullable
 as String?,xId: freezed == xId ? _self.xId : xId // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
@@ -156,10 +156,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  String? avatarName,  String? xId)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  String? avatarUrl,  String? xId)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Speakers() when $default != null:
-return $default(_that.id,_that.name,_that.avatarName,_that.xId);case _:
+return $default(_that.id,_that.name,_that.avatarUrl,_that.xId);case _:
   return orElse();
 
 }
@@ -177,10 +177,10 @@ return $default(_that.id,_that.name,_that.avatarName,_that.xId);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  String? avatarName,  String? xId)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  String? avatarUrl,  String? xId)  $default,) {final _that = this;
 switch (_that) {
 case _Speakers():
-return $default(_that.id,_that.name,_that.avatarName,_that.xId);case _:
+return $default(_that.id,_that.name,_that.avatarUrl,_that.xId);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -197,10 +197,10 @@ return $default(_that.id,_that.name,_that.avatarName,_that.xId);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  String? avatarName,  String? xId)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  String? avatarUrl,  String? xId)?  $default,) {final _that = this;
 switch (_that) {
 case _Speakers() when $default != null:
-return $default(_that.id,_that.name,_that.avatarName,_that.xId);case _:
+return $default(_that.id,_that.name,_that.avatarUrl,_that.xId);case _:
   return null;
 
 }
@@ -212,12 +212,12 @@ return $default(_that.id,_that.name,_that.avatarName,_that.xId);case _:
 @JsonSerializable()
 
 class _Speakers implements Speakers {
-  const _Speakers({required this.id, required this.name, this.avatarName, this.xId});
+  const _Speakers({required this.id, required this.name, this.avatarUrl, this.xId});
   factory _Speakers.fromJson(Map<String, dynamic> json) => _$SpeakersFromJson(json);
 
 @override final  String id;
 @override final  String name;
-@override final  String? avatarName;
+@override final  String? avatarUrl;
 @override final  String? xId;
 
 /// Create a copy of Speakers
@@ -233,16 +233,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Speakers&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.avatarName, avatarName) || other.avatarName == avatarName)&&(identical(other.xId, xId) || other.xId == xId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Speakers&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.avatarUrl, avatarUrl) || other.avatarUrl == avatarUrl)&&(identical(other.xId, xId) || other.xId == xId));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,avatarName,xId);
+int get hashCode => Object.hash(runtimeType,id,name,avatarUrl,xId);
 
 @override
 String toString() {
-  return 'Speakers(id: $id, name: $name, avatarName: $avatarName, xId: $xId)';
+  return 'Speakers(id: $id, name: $name, avatarUrl: $avatarUrl, xId: $xId)';
 }
 
 
@@ -253,7 +253,7 @@ abstract mixin class _$SpeakersCopyWith<$Res> implements $SpeakersCopyWith<$Res>
   factory _$SpeakersCopyWith(_Speakers value, $Res Function(_Speakers) _then) = __$SpeakersCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String name, String? avatarName, String? xId
+ String id, String name, String? avatarUrl, String? xId
 });
 
 
@@ -270,11 +270,11 @@ class __$SpeakersCopyWithImpl<$Res>
 
 /// Create a copy of Speakers
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? avatarName = freezed,Object? xId = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? avatarUrl = freezed,Object? xId = freezed,}) {
   return _then(_Speakers(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,avatarName: freezed == avatarName ? _self.avatarName : avatarName // ignore: cast_nullable_to_non_nullable
+as String,avatarUrl: freezed == avatarUrl ? _self.avatarUrl : avatarUrl // ignore: cast_nullable_to_non_nullable
 as String?,xId: freezed == xId ? _self.xId : xId // ignore: cast_nullable_to_non_nullable
 as String?,
   ));

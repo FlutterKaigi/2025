@@ -57,7 +57,7 @@ class SessionApiService {
             'speakers': s.speakers.map((sp) => <String, dynamic>{
               'id': sp.id,
               'name': sp.name,
-              'avatar_name': sp.avatarName,
+              'avatar_url': sp.avatarUrl,
               'x_id': sp.xId,
             }).toList(),
             'sponsor': s.sponsor != null ? <String, dynamic>{
@@ -118,7 +118,7 @@ class SessionApiService {
             'speakers': session.speakers.map((sp) => <String, dynamic>{
               'id': sp.id,
               'name': sp.name,
-              'avatar_name': sp.avatarName,
+              'avatar_url': sp.avatarUrl,
               'x_id': sp.xId,
             }).toList(),
           }).toList(),
@@ -155,7 +155,7 @@ class SessionApiService {
         'speakers': session.speakers.map((sp) => <String, dynamic>{
           'id': sp.id,
           'name': sp.name,
-          'avatar_name': sp.avatarName,
+          'avatar_url': sp.avatarUrl,
           'x_id': sp.xId,
         }).toList(),
         'sponsor': session.sponsor != null ? <String, dynamic>{
@@ -206,7 +206,7 @@ class SessionApiService {
             'speakers': session.speakers.map((sp) => <String, dynamic>{
               'id': sp.id,
               'name': sp.name,
-              'avatar_name': sp.avatarName,
+              'avatar_url': sp.avatarUrl,
               'x_id': sp.xId,
             }).toList(),
             'sponsor': session.sponsor != null ? <String, dynamic>{
@@ -243,11 +243,8 @@ class SessionApiService {
         'speakers': speakers.map((s) => <String, dynamic>{
           'id': s.id,
           'name': s.name,
-          'avatar_name': s.avatarName,
+          'avatar_url': s.avatarUrl,
           'x_id': s.xId,
-          'avatar_url': s.avatarName != null
-              ? database.speaker.generateAvatarUrl(s.avatarName)
-              : null,
         }).toList(),
       };
     },
@@ -271,11 +268,8 @@ class SessionApiService {
       return <String, dynamic>{
         'id': speaker.id,
         'name': speaker.name,
-        'avatar_name': speaker.avatarName,
+        'avatar_url': speaker.avatarUrl,
         'x_id': speaker.xId,
-        'avatar_url': speaker.avatarName != null
-            ? database.speaker.generateAvatarUrl(speaker.avatarName)
-            : null,
       };
     },
   );

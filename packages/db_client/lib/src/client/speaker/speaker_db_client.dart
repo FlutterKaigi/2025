@@ -5,12 +5,9 @@ import 'package:db_types/db_types.dart';
 class SpeakerDbClient {
   const SpeakerDbClient({
     required Executor executor,
-    required String storageBaseUrl,
-  }) : _executor = executor,
-       _storageBaseUrl = storageBaseUrl;
+  }) : _executor = executor;
 
   final Executor _executor;
-  final String _storageBaseUrl;
 
   /// スピーカー一覧を取得
   Future<List<Speakers>> getAllSpeakers() async {
@@ -19,7 +16,7 @@ class SpeakerDbClient {
         SELECT
           id,
           name,
-          avatar_name,
+          avatar_url,
           x_id
         FROM speakers
         ORDER BY name
@@ -38,7 +35,7 @@ class SpeakerDbClient {
         SELECT
           id,
           name,
-          avatar_name,
+          avatar_url,
           x_id
         FROM speakers
         WHERE id = @speakerId
@@ -60,7 +57,7 @@ class SpeakerDbClient {
         SELECT
           s.id,
           s.name,
-          s.avatar_name,
+          s.avatar_url,
           s.x_id
         FROM speakers s
         INNER JOIN session_speakers ss ON s.id = ss.speaker_id
@@ -73,13 +70,5 @@ class SpeakerDbClient {
     return result.map((e) {
       return Speakers.fromJson(e.toColumnMapSafe());
     }).toList();
-  }
-
-  /// スピーカーのアバターURLを生成
-  String? generateAvatarUrl(String? avatarName) {
-    if (avatarName == null) {
-      return null;
-    }
-    return '$_storageBaseUrl/storage/v1/object/public/speakers/$avatarName';
   }
 }
