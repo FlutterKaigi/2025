@@ -69,15 +69,20 @@ export class TicketCheckoutWorkflow extends WorkflowEntrypoint<
 			return;
 		}
 
-		// payment intentを無効化
-		await step.do("invalidate_checkout_session", async () => {
+		const session = await step.do("get_checkout_session", async () => {
 			const stripe = new Stripe(this.env.STRIPE_API_KEY);
 			const checkoutSessionId = ticketCheckout.stripeCheckoutSessionId;
-			if (checkoutSessionId === null) {
-				throw new Error("Stripe payment intent not found");
-			}
-			await stripe.checkout.sessions.expire(checkoutSessionId);
+			return await stripe.checkout.sessions.retrieve(checkoutSessionId);
 		});
+
+		// openの場合はセッションを無効化
+		if (session?.status === "open") {
+			await step.do("invalidate_checkout_session", async () => {
+				const stripe = new Stripe(this.env.STRIPE_API_KEY);
+				const checkoutSessionId = ticketCheckout.stripeCheckoutSessionId;
+				await stripe.checkout.sessions.expire(checkoutSessionId);
+			});
+		}
 
 		// TicketCheckoutを無効化済みとしてマーク
 		await step.do("mark_ticket_checkout_as_invalidated", async () => {
