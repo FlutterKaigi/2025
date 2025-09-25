@@ -38,27 +38,21 @@ app.post(
       string,
       string
     >;
-    console.log(bodyObject);
     const params = v.parse(SlackCommandRequestSchema, bodyObject);
 
     // check signature
     const xSlackTimestamp = headers["x-slack-request-timestamp"];
     const slackTimestamp = Number(xSlackTimestamp);
     if (isNaN(slackTimestamp)) {
-      console.error("Invalid timestamp", slackTimestamp);
-      return c.text("Invalid timestamp", 400);
+      throw new Error("Invalid timestamp: NaN");
     }
     if (Math.abs(slackTimestamp - Date.now() / 1000) > 60 * 5) {
-      console.error("Invalid timestamp", slackTimestamp);
-      return c.text("Invalid timestamp", 400);
+      throw new Error("Invalid timestamp: out of range");
     }
     const xSlackSignature = headers["x-slack-signature"];
     if (!xSlackSignature) {
-      console.error("Invalid signature", xSlackSignature);
-      return c.text("Invalid signature", 400);
+      throw new Error("Invalid signature: undefined");
     }
-    console.log("xSlackTimestamp", xSlackTimestamp);
-    console.log("body", body);
     // FormData raw str
     const bodyString = new URLSearchParams(bodyObject).toString();
     const signatureBaseString = `v0:${xSlackTimestamp}:${bodyString}`;
@@ -78,11 +72,7 @@ app.post(
     const generatedSignatureHexDigest =
       "v0=" + Buffer.from(generatedSignature).toString("hex");
     if (generatedSignatureHexDigest !== xSlackSignature) {
-      console.error("Invalid signature", {
-        generatedSignatureHexDigest,
-        xSlackSignature,
-      });
-      throw new Error("Invalid signature");
+      throw new Error("Invalid signature: mismatch");
     }
 
     if (params.command === "/ticket-sales-report") {
@@ -91,7 +81,7 @@ app.post(
           webhookUrl: params.response_url,
         },
       });
-      return c.text("Please wait a moment...");
+      return c.text("しばらくお待ち下さい... 🤖", 200);
     } else {
       throw new Error("Invalid command " + params.command);
     }
@@ -103,11 +93,12 @@ app.onError((err, c) => {
   return c.json(
     {
       response_type: "ephemeral",
-      text: "Error: " + err.message,
+      text: "😭 Error: " + err.message,
     },
     200
   );
 });
+
 export default {
   scheduled: scheduled,
   fetch: app.fetch,
