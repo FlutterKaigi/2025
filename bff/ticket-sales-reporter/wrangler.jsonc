@@ -1,0 +1,15 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "ticket-sales-reporter",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-09-25",
+  "observability": {
+    "enabled": true,
+  },
+  "triggers": {
+    "crons": [
+      // Everyday at 21:00 JST
+      "0 21 * * *"
+    ]
+  }
+}
