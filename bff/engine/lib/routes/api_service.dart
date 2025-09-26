@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:bff_client/bff_client.dart';
 import 'package:engine/main.dart';
 import 'package:engine/provider/db_client_provider.dart';
+import 'package:engine/routes/app_version_api_service.dart';
 import 'package:engine/routes/files_api_service.dart';
 import 'package:engine/routes/news_api_service.dart';
 import 'package:engine/routes/profile_api_service.dart';
@@ -59,6 +60,9 @@ class ApiService {
 
   @Route.mount('/v1/tickets')
   Router get _ticketApiService => TicketApiService().router;
+
+  @Route.mount('/v1/app')
+  Router get _appVersionApiService => AppVersionApiService().router;
 
   @Route.all('/<ignored|.*>')
   Future<Response> _notFound(Request request) async {

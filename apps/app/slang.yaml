@@ -3,4 +3,5 @@ input_directory: res/i18n
 input_file_pattern: .i18n.yaml
 output_directory: lib/core/gen/i18n
 output_file_name: i18n.g.dart
+namespaces: true
 timestamp: false

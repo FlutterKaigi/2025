@@ -15,7 +15,7 @@ class DebugScreen extends StatelessWidget {
     final t = Translations.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(t.debug.title),
+        title: Text(t.common.debug.title),
       ),
       body: const Padding(
         padding: EdgeInsets.symmetric(vertical: 16),
@@ -73,17 +73,17 @@ class _TransitionArea extends HookWidget {
                       autovalidateMode: AutovalidateMode.always,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return t.debug.pathRequired;
+                          return t.common.debug.pathRequired;
                         }
                         if (!value.startsWith('/')) {
-                          return t.debug.pathMustStartWithSlash;
+                          return t.common.debug.pathMustStartWithSlash;
                         }
                         if (value.contains('debug') ||
                             value.contains('login')) {
-                          return t.debug.pathCannotContainDebugOrLogin;
+                          return t.common.debug.pathCannotContainDebugOrLogin;
                         }
                         if (!router.canNavigate(value)) {
-                          return t.debug.invalidPath;
+                          return t.common.debug.invalidPath;
                         }
                         return null;
                       },
@@ -151,7 +151,7 @@ class _TransitionArea extends HookWidget {
                 final path = textController.text;
                 router.go(path);
               },
-              child: Text(t.debug.go),
+              child: Text(t.common.debug.go),
             ),
           ),
           const SizedBox(width: 8),
@@ -170,7 +170,7 @@ class _TalkerArea extends StatelessWidget {
     return Center(
       child: FilledButton(
         onPressed: () async => const TalkerRoute().push<void>(context),
-        child: Text(t.debug.talkerScreen),
+        child: Text(t.common.debug.talkerScreen),
       ),
     );
   }

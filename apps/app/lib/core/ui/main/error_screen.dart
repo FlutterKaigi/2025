@@ -38,7 +38,7 @@ class ErrorScreen extends StatelessWidget {
 
                   // エラーメッセージ
                   Text(
-                    t.error.server.title,
+                    t.common.error.server.title,
                     style: theme.textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
@@ -47,7 +47,7 @@ class ErrorScreen extends StatelessWidget {
                   const SizedBox(height: 16),
 
                   Text(
-                    t.error.server.message,
+                    t.common.error.server.message,
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
                     ),
@@ -59,7 +59,7 @@ class ErrorScreen extends StatelessWidget {
                   FilledButton.icon(
                     onPressed: onRetry,
                     icon: const Icon(Icons.refresh),
-                    label: Text(t.error.server.retry),
+                    label: Text(t.common.error.server.retry),
                     style: FilledButton.styleFrom(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 32,
