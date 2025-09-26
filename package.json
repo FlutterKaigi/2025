@@ -32,7 +32,8 @@
     "bff/database",
     "bff/r2-internal-api",
     "bff/internal-api-proxy",
-    "bff/payment-workflow-internal-api"
+    "bff/payment-workflow-internal-api",
+    "bff/ticket-sales-reporter"
   ],
   "trustedDependencies": [
     "@biomejs/biome",
