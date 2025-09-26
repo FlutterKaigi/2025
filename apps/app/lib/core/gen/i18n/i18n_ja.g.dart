@@ -314,6 +314,9 @@ class TranslationsAuthErrorJa {
 
 	/// ja: 'このGoogleアカウントは既に別のユーザーと紐づけられています。ログアウトしてから再度ログインしてください。'
 	String get identityAlreadyExists => 'このGoogleアカウントは既に別のユーザーと紐づけられています。ログアウトしてから再度ログインしてください。';
+
+	/// ja: 'Googleアカウントへの再ログインが必要です。'
+	String get sessionExpired => 'Googleアカウントへの再ログインが必要です。';
 }
 
 // Path: common.app
@@ -886,6 +889,7 @@ extension on Translations {
 			case 'auth.guest.signInButton': return 'ゲストで利用する';
 			case 'auth.guest.userLabel': return 'ゲストでログイン中';
 			case 'auth.error.identityAlreadyExists': return 'このGoogleアカウントは既に別のユーザーと紐づけられています。ログアウトしてから再度ログインしてください。';
+			case 'auth.error.sessionExpired': return 'Googleアカウントへの再ログインが必要です。';
 			case 'common.app.name': return 'FlutterKaigi 2025';
 			case 'common.forceUpdate.title': return 'アップデートが必要です';
 			case 'common.forceUpdate.message': return '新しいバージョンのアプリが利用可能です。最新バージョンにアップデートしてください。';
