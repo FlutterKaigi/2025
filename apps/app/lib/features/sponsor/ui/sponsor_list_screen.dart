@@ -37,36 +37,83 @@ class _SponsorList extends ConsumerWidget {
         final individualSponsors = value
             .whereType<IndividualSponsor>()
             .toList();
-
+        final platinum = companySponsors.whereType<PlatinumSponsor>().toList(
+          growable: false,
+        );
+        final gold = companySponsors.whereType<GoldSponsor>().toList(
+          growable: false,
+        );
+        final silver = companySponsors.whereType<SilverSponsor>().toList(
+          growable: false,
+        );
+        final bronze = companySponsors.whereType<BronzeSponsor>().toList(
+          growable: false,
+        );
         final slivers = <Widget>[
-          if (companySponsors.isNotEmpty) ...[
+          if (platinum.isNotEmpty) ...[
             SliverPersistentHeader(
               pinned: true,
-              delegate: _SectionHeaderDelegate(title: t.sponsor.company),
-            ),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) =>
-                    _SponsorListItem(sponsor: companySponsors[index]),
-                childCount: companySponsors.length,
+              delegate: _SectionHeaderDelegate(
+                title: 'Platinum スポンサー',
+                tierColor: _getTierColor('Platinum'),
               ),
             ),
+            _buildSponsorGrid('Platinum', platinum),
+          ],
+          if (gold.isNotEmpty) ...[
+            SliverPersistentHeader(
+              pinned: true,
+              delegate: _SectionHeaderDelegate(
+                title: 'Gold スポンサー',
+                tierColor: _getTierColor('Gold'),
+              ),
+            ),
+            _buildSponsorGrid('Gold', gold),
+          ],
+          if (silver.isNotEmpty) ...[
+            SliverPersistentHeader(
+              pinned: true,
+              delegate: _SectionHeaderDelegate(
+                title: 'Silver スポンサー',
+                tierColor: _getTierColor('Silver'),
+              ),
+            ),
+            _buildSponsorGrid('Silver', silver),
+          ],
+          if (bronze.isNotEmpty) ...[
+            SliverPersistentHeader(
+              pinned: true,
+              delegate: _SectionHeaderDelegate(
+                title: 'Bronze スポンサー',
+                tierColor: _getTierColor('Bronze'),
+              ),
+            ),
+            _buildSponsorGrid('Bronze', bronze),
           ],
           if (individualSponsors.isNotEmpty) ...[
             SliverPersistentHeader(
               pinned: true,
-              delegate: _SectionHeaderDelegate(title: t.sponsor.individual),
+              delegate: _SectionHeaderDelegate(
+                title: t.sponsor.individual,
+                tierColor: _getTierColor('Individual'),
+              ),
             ),
-            SliverList(
+            SliverGrid(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 5,
+                crossAxisSpacing: 8,
+                mainAxisSpacing: 8,
+              ),
               delegate: SliverChildBuilderDelegate(
-                (context, index) =>
-                    _SponsorListItem(sponsor: individualSponsors[index]),
+                (context, index) => _UnifiedSponsorCard(
+                  sponsor: individualSponsors[index],
+                  tier: 'Individual',
+                ),
                 childCount: individualSponsors.length,
               ),
             ),
           ],
         ];
-
         return SafeArea(
           child: CustomScrollView(
             slivers: slivers,
@@ -80,14 +127,15 @@ class _SponsorList extends ConsumerWidget {
 }
 
 class _SectionHeaderDelegate extends SliverPersistentHeaderDelegate {
-  _SectionHeaderDelegate({required this.title});
+  _SectionHeaderDelegate({required this.title, required this.tierColor});
 
   final String title;
+  final Color tierColor;
 
   @override
-  double get minExtent => 40;
+  double get minExtent => 56;
   @override
-  double get maxExtent => 40;
+  double get maxExtent => 56;
 
   @override
   Widget build(
@@ -96,16 +144,26 @@ class _SectionHeaderDelegate extends SliverPersistentHeaderDelegate {
     bool overlapsContent,
   ) {
     final theme = Theme.of(context);
-    return ColoredBox(
-      color: theme.colorScheme.surfaceContainer,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        child: Text(
-          title,
-          style: theme.textTheme.labelMedium?.copyWith(
-            color: theme.colorScheme.onSurface,
-          ),
+    return Container(
+      height: 56,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surfaceContainer,
+        border: Border(
+          left: BorderSide(color: tierColor, width: 4),
         ),
+      ),
+      child: Row(
+        children: [
+          const SizedBox(width: 12),
+          Text(
+            title,
+            style: theme.textTheme.titleMedium?.copyWith(
+              fontWeight: FontWeight.bold,
+              color: theme.colorScheme.onSurface,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -115,19 +173,175 @@ class _SectionHeaderDelegate extends SliverPersistentHeaderDelegate {
       false;
 }
 
-class _SponsorListItem extends StatelessWidget {
-  const _SponsorListItem({required this.sponsor});
+class _UnifiedSponsorCard extends StatelessWidget {
+  const _UnifiedSponsorCard({required this.sponsor, required this.tier});
 
   final Sponsor sponsor;
+  final String tier;
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(sponsor.name),
-      trailing: const Icon(Icons.arrow_right),
-      onTap: () {
-        SponsorDetailRoute(slug: sponsor.slug).go(context);
-      },
+    final theme = Theme.of(context);
+    final logoSize = _getLogoSize(tier);
+    return Card(
+      margin: const EdgeInsets.all(4),
+      child: InkWell(
+        onTap: () {
+          SponsorDetailRoute(slug: sponsor.slug).go(context);
+        },
+        borderRadius: BorderRadius.circular(12),
+        child: Column(
+          children: [
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.all(12),
+                child: Center(
+                  child: Container(
+                    width: double.infinity,
+                    height: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    clipBehavior: Clip.antiAlias,
+                    child: sponsor.logoUrl.toString().isEmpty
+                        ? Icon(
+                            tier == 'Individual'
+                                ? Icons.person
+                                : Icons.business,
+                            color: Colors.white,
+                            size: logoSize * 0.5,
+                          )
+                        : Image.network(
+                            sponsor.logoUrl.toString(),
+                            fit: BoxFit.contain,
+                            errorBuilder: (context, error, stackTrace) => Icon(
+                              tier == 'Individual'
+                                  ? Icons.person
+                                  : Icons.business,
+                              color: Colors.white,
+                              size: logoSize * 0.5,
+                            ),
+                          ),
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+              decoration: BoxDecoration(
+                color: theme.colorScheme.surfaceContainerHighest.withAlpha(51),
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(12),
+                  bottomRight: Radius.circular(12),
+                ),
+              ),
+              child: Text(
+                sponsor.name,
+                textAlign: TextAlign.center,
+                style: theme.textTheme.bodySmall?.copyWith(
+                  fontWeight: tier == 'Platinum'
+                      ? FontWeight.bold
+                      : FontWeight.w500,
+                  fontSize: _getTextSize(tier),
+                ),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
+  }
+}
+
+SliverGrid _buildSponsorGrid(String tier, List<CompanySponsor> sponsors) {
+  final config = _gridConfigForTier(tier);
+  return SliverGrid(
+    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisCount: config.crossAxisCount,
+      childAspectRatio: config.childAspectRatio,
+      crossAxisSpacing: 8,
+      mainAxisSpacing: 8,
+    ),
+    delegate: SliverChildBuilderDelegate(
+      (context, index) => _UnifiedSponsorCard(
+        sponsor: sponsors[index],
+        tier: tier,
+      ),
+      childCount: sponsors.length,
+    ),
+  );
+}
+
+_GridConfig _gridConfigForTier(String tier) {
+  switch (tier) {
+    case 'Platinum':
+      return const _GridConfig(crossAxisCount: 2, childAspectRatio: 1.5);
+    case 'Gold':
+      return const _GridConfig(crossAxisCount: 3, childAspectRatio: 1.2);
+    default:
+      return const _GridConfig(crossAxisCount: 4, childAspectRatio: 1);
+  }
+}
+
+class _GridConfig {
+  const _GridConfig({
+    required this.crossAxisCount,
+    required this.childAspectRatio,
+  });
+
+  final int crossAxisCount;
+  final double childAspectRatio;
+}
+
+Color _getTierColor(String tier) {
+  switch (tier) {
+    case 'Platinum':
+      return const Color(0xFF9C27B0);
+    case 'Gold':
+      return const Color(0xFFFFC54F);
+    case 'Silver':
+      return const Color(0xFFB5A7B6);
+    case 'Bronze':
+      return const Color(0xFFB03400);
+    case 'Individual':
+      return const Color(0xFF2196F3);
+    default:
+      return Colors.blue;
+  }
+}
+
+double _getLogoSize(String tier) {
+  switch (tier) {
+    case 'Platinum':
+      return 128;
+    case 'Gold':
+      return 104;
+    case 'Silver':
+    case 'Bronze':
+      return 80;
+    case 'Individual':
+      return 64;
+    default:
+      return 64;
+  }
+}
+
+double _getTextSize(String tier) {
+  switch (tier) {
+    case 'Platinum':
+      return 14;
+    case 'Gold':
+      return 12;
+    case 'Silver':
+    case 'Bronze':
+      return 11;
+    case 'Individual':
+      return 10;
+    default:
+      return 10;
   }
 }
