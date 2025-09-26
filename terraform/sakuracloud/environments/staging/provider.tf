@@ -4,7 +4,7 @@ terraform {
     sakuracloud = {
       # https://registry.terraform.io/providers/sacloud/sakuracloud/latest
       source  = "sacloud/sakuracloud"
-      version = "2.29.1"
+      version = "2.30.0"
     }
     random = {
       # https://registry.terraform.io/providers/hashicorp/random/latest
