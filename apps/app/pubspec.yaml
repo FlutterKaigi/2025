@@ -10,6 +10,7 @@ environment:
 resolution: workspace
 
 dependencies:
+  add_2_calendar: ^3.0.1
   auth_client:
     path: ../../packages/auth_client
   bff_client:

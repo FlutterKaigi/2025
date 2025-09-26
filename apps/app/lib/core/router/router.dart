@@ -13,6 +13,9 @@ import 'package:app/features/auth/data/provider/auth_service.dart';
 import 'package:app/features/auth/ui/login_screen.dart';
 import 'package:app/features/event/ui/event_info_screen.dart';
 import 'package:app/features/news/ui/news_screen.dart';
+import 'package:app/features/session/ui/bookmarked_sessions_screen.dart';
+import 'package:app/features/session/ui/session_screen.dart';
+import 'package:app/features/session/ui/session_timeline_screen.dart';
 import 'package:app/features/sponsor/ui/sponsor_detail_screen.dart';
 import 'package:app/features/sponsor/ui/sponsor_list_screen.dart';
 import 'package:app/features/ticket/ui/components/available_ticket_list_screen.dart';
@@ -30,6 +33,7 @@ import 'package:url_launcher/url_launcher.dart';
 part 'account.dart';
 part 'event.dart';
 part 'router.g.dart';
+part 'session.dart';
 part 'sponsor.dart';
 part 'ticket.dart';
 
@@ -135,6 +139,7 @@ class LoginRoute extends GoRouteData with $LoginRoute {
 @TypedStatefulShellRoute<MainRoute>(
   branches: [
     TypedStatefulShellBranch<EventBranch>(routes: _eventRoutes),
+    TypedStatefulShellBranch<SessionBranch>(routes: _sessionRoutes),
     TypedStatefulShellBranch<SponsorBranch>(routes: _sponsorRoutes),
     TypedStatefulShellBranch<TicketBranch>(routes: _ticketRoutes),
     TypedStatefulShellBranch<AccountBranch>(
