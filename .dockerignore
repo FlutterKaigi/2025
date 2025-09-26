@@ -1,12 +1,12 @@
 # Git
-.git/
-.gitignore
+**/.git/
+**/.gitignore
 
 # Build artifacts
 **/build
 **/.dart_tool/
 
-**/node_modules
+**/node_modules/
 
 # IDE
 .vscode/
@@ -30,3 +30,6 @@ compose.yaml
 
 **/.env*
 **/*.log
+
+
+**/.terraform/
