@@ -119,7 +119,7 @@ final event = (
       ja: 'プロポーザル一覧を見る',
       en: 'See Proposals',
     ),
-    url: 'https://fortee.jp/flutterkaigi-2025/proposal/all',
+    url: 'https://fortee.jp/flutterkaigi-2025/proposal',
   ),
   schedule: [
     (
