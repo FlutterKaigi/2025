@@ -35,11 +35,11 @@ class Home extends StatelessComponent {
       ),
       [
         const _MainArticle(),
+        const SectionLayout(title: 'News', children: [News()]),
         const SectionLayout(
           title: 'Call for Proposal',
           children: [CallForProposal()],
         ),
-        const SectionLayout(title: 'News', children: [News()]),
         SizedDashsay(
           message: contents.dayZeroPlanning.text(context),
           isBold: true,

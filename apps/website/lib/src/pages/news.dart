@@ -1,3 +1,4 @@
+import 'package:flutterkaigi_2025_website/src/components/external_link.dart';
 import 'package:flutterkaigi_2025_website/src/components/open_in_new.dart';
 import 'package:flutterkaigi_2025_website/src/config/config.dart';
 import 'package:flutterkaigi_2025_website/text.dart';
@@ -13,10 +14,33 @@ class News extends StatelessComponent {
       styles: Styles(
         display: Display.flex,
         padding: Padding.symmetric(vertical: 1.rem),
+        flexDirection: FlexDirection.column,
+        alignItems: AlignItems.center,
         justifyContent: JustifyContent.spaceAround,
         gap: Gap.all(1.rem),
       ),
       [
+        ul(
+          styles: Styles(
+            display: Display.flex,
+            flexDirection: FlexDirection.column,
+            gap: Gap.all(0.5.rem),
+          ),
+          event.news
+              .take(5)
+              .map(
+                (news) => li([
+                  ExternalLink(
+                    content: text(news.title),
+                    url: news.url,
+                    styles: const Styles(
+                      color: Color.variable('--text-color'),
+                    ),
+                  ),
+                ]),
+              )
+              .toList(),
+        ),
         Link(
           to: event.blog.topUrl,
           child: button(
