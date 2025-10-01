@@ -19,6 +19,54 @@ String _makeTimeLabel(Duration time) {
   return '${h.toString().padLeft(2, '0')}:${m.toString().padLeft(2, '0')}';
 }
 
+Iterable<Component> _timelineRooms(BuildContext context) =>
+    [
+      Place.hallA,
+      Place.hallB,
+      Place.roomA,
+      Place.roomB,
+    ].map(
+      (place) => li(
+        styles: Styles(
+          fontFamily: lexendFontFamily,
+          fontWeight: FontWeight.bold,
+          fontSize: 1.2.rem,
+          raw: {'grid-area': place.id},
+        ),
+        [place.name.text(context).toComponent],
+      ),
+    );
+
+final _timeline =
+    [
+      const Duration(hours: 10),
+      const Duration(hours: 10, minutes: 15),
+      const Duration(hours: 10, minutes: 40),
+      const Duration(hours: 11),
+      const Duration(hours: 11, minutes: 45),
+      const Duration(hours: 11, minutes: 25),
+      const Duration(hours: 12, minutes: 10),
+      const Duration(hours: 13, minutes: 30),
+      const Duration(hours: 13, minutes: 55),
+      const Duration(hours: 14, minutes: 15),
+      const Duration(hours: 14, minutes: 40),
+      const Duration(hours: 15, minutes: 15),
+      const Duration(hours: 15, minutes: 40),
+      const Duration(hours: 16),
+      const Duration(hours: 16, minutes: 25),
+      const Duration(hours: 17, minutes: 30),
+      const Duration(hours: 18),
+    ].map(
+      (d) => li(
+        styles: Styles(
+          fontSize: Unit.inherit,
+          whiteSpace: WhiteSpace.inherit,
+          raw: {'grid-area': 'time-${d.inMinutes}'},
+        ),
+        [text(_makeTimeLabel(d))],
+      ),
+    );
+
 class Timeline extends StatelessComponent {
   const Timeline({super.key});
 
@@ -27,6 +75,31 @@ class Timeline extends StatelessComponent {
     Color randomColor() => (Random().nextBool()
         ? const Color.variable('--primary-color').withLightness(0.95)
         : const Color.variable('--secondary-color').withLightness(0.9));
+
+    Component item(
+      Component child, {
+      required Place place,
+      required Duration start,
+      required Duration end,
+      Styles? styles,
+    }) => li(
+      styles: Styles(
+        backgroundColor: randomColor(),
+        padding: Spacing.all(0.25.rem),
+        fontSize: Unit.inherit,
+        whiteSpace: WhiteSpace.inherit,
+        textOverflow: TextOverflow.ellipsis,
+        overflow: Overflow.hidden,
+        raw: {
+          'grid-area': _makeGridArea(
+            place,
+            start,
+            end,
+          ),
+        },
+      ).combine(styles ?? const Styles()),
+      [child],
+    );
 
     yield ul(
       styles: Styles(
@@ -48,166 +121,56 @@ class Timeline extends StatelessComponent {
         whiteSpace: WhiteSpace.noWrap,
       ),
       [
-        ...[
-          Place.hallA,
-          Place.hallB,
-          Place.roomA,
-          Place.roomB,
-        ].map(
-          (place) => li(
-            styles: Styles(
-              fontFamily: lexendFontFamily,
-              fontWeight: FontWeight.bold,
-              fontSize: 1.2.rem,
-              raw: {'grid-area': place.id},
-            ),
-            [place.name.text(context).toComponent],
-          ),
+        ..._timelineRooms(context),
+        ..._timeline,
+        item(
+          text('ハンズオン'),
+          place: Place.roomB,
+          start: const Duration(hours: 13, minutes: 30),
+          end: const Duration(hours: 15, minutes: 40),
         ),
-        li(
-          styles: Styles(
-            backgroundColor: randomColor(),
-            padding: Spacing.all(0.25.rem),
-            fontSize: Unit.inherit,
-            whiteSpace: WhiteSpace.inherit,
-            textOverflow: TextOverflow.ellipsis,
-            overflow: Overflow.hidden,
-            raw: {
-              'grid-area': _makeGridArea(
-                Place.roomB,
-                const Duration(hours: 13, minutes: 30),
-                const Duration(hours: 15, minutes: 40),
-              ),
-            },
-          ),
-          [text('ハンズオン')],
+        item(
+          text('キーノート'),
+          place: Place.hallA,
+          start: const Duration(hours: 10, minutes: 15),
+          end: const Duration(hours: 10, minutes: 40),
         ),
-        li(
-          styles: Styles(
-            backgroundColor: randomColor(),
-            padding: Spacing.all(0.25.rem),
-            fontSize: Unit.inherit,
-            whiteSpace: WhiteSpace.inherit,
-            textOverflow: TextOverflow.ellipsis,
-            overflow: Overflow.hidden,
-            raw: {
-              'grid-area': _makeGridArea(
-                Place.hallA,
-                const Duration(hours: 10, minutes: 15),
-                const Duration(hours: 10, minutes: 40),
-              ),
-            },
-          ),
-          [text('キーノート')],
+        item(
+          text('キーノート (サテライト)'),
+          place: Place.hallB,
+          start: const Duration(hours: 10, minutes: 15),
+          end: const Duration(hours: 10, minutes: 40),
         ),
-        li(
-          styles: Styles(
-            backgroundColor: randomColor(),
-            padding: Spacing.all(0.25.rem),
-            fontSize: Unit.inherit,
-            whiteSpace: WhiteSpace.inherit,
-            textOverflow: TextOverflow.ellipsis,
-            overflow: Overflow.hidden,
-            raw: {
-              'grid-area': _makeGridArea(
-                Place.hallB,
-                const Duration(hours: 10, minutes: 15),
-                const Duration(hours: 10, minutes: 40),
-              ),
-            },
-          ),
-          [text('キーノート (サテライト)')],
+        item(
+          text('挨拶'),
+          place: Place.hallA,
+          start: const Duration(hours: 10),
+          end: const Duration(hours: 10, minutes: 10),
         ),
-        li(
-          styles: Styles(
-            backgroundColor: randomColor(),
-            padding: Spacing.all(0.25.rem),
-            fontSize: Unit.inherit,
-            whiteSpace: WhiteSpace.inherit,
-            textOverflow: TextOverflow.ellipsis,
-            overflow: Overflow.hidden,
-            raw: {
-              'grid-area': _makeGridArea(
-                Place.hallA,
-                const Duration(hours: 10),
-                const Duration(hours: 10, minutes: 10),
-              ),
-            },
-          ),
-          [text('挨拶')],
-        ),
-        li(
-          styles: Styles(
-            backgroundColor: randomColor(),
-            padding: Spacing.all(0.25.rem),
-            fontSize: Unit.inherit,
-            whiteSpace: WhiteSpace.inherit,
-            textOverflow: TextOverflow.ellipsis,
-            overflow: Overflow.hidden,
-            raw: {
-              'grid-area': _makeGridArea(
-                Place.hallB,
-                const Duration(hours: 10),
-                const Duration(hours: 10, minutes: 10),
-              ),
-            },
-          ),
-          [text('挨拶 (サテライト)')],
-        ),
-        ...[
-          const Duration(hours: 10),
-          const Duration(hours: 10, minutes: 15),
-          const Duration(hours: 10, minutes: 40),
-          const Duration(hours: 11),
-          const Duration(hours: 11, minutes: 45),
-          const Duration(hours: 11, minutes: 25),
-          const Duration(hours: 12, minutes: 10),
-          const Duration(hours: 13, minutes: 30),
-          const Duration(hours: 13, minutes: 55),
-          const Duration(hours: 14, minutes: 15),
-          const Duration(hours: 14, minutes: 40),
-          const Duration(hours: 15, minutes: 15),
-          const Duration(hours: 15, minutes: 40),
-          const Duration(hours: 16),
-          const Duration(hours: 16, minutes: 25),
-          const Duration(hours: 17, minutes: 30),
-          const Duration(hours: 18),
-        ].map(
-          (d) => li(
-            styles: Styles(
-              fontSize: Unit.inherit,
-              whiteSpace: WhiteSpace.inherit,
-              raw: {'grid-area': 'time-${d.inMinutes}'},
-            ),
-            [text(_makeTimeLabel(d))],
-          ),
+        item(
+          text('挨拶 (サテライト)'),
+          place: Place.hallB,
+          start: const Duration(hours: 10),
+          end: const Duration(hours: 10, minutes: 10),
         ),
         ...event.timeline.map(
-          (entry) => li(
+          (entry) => item(
+            ExternalLink(
+              url: entry.url,
+              content: text(entry.title),
+              styles: const Styles(
+                color: Color.variable('--text-color'),
+                fontSize: Unit.inherit,
+                whiteSpace: WhiteSpace.inherit,
+              ),
+            ),
+            place: entry.place,
+            start: entry.start,
+            end: entry.end,
             styles: Styles(
-              backgroundColor: randomColor(),
-              padding: Spacing.all(0.25.rem),
-              fontSize: Unit.inherit,
-              whiteSpace: WhiteSpace.inherit,
               minHeight:
                   ((entry.end.inMinutes - entry.start.inMinutes) / 5 * 1.5).rem,
-              textOverflow: TextOverflow.ellipsis,
-              overflow: Overflow.hidden,
-              raw: {
-                'grid-area': _makeGridArea(entry.place, entry.start, entry.end),
-              },
             ),
-            [
-              ExternalLink(
-                url: entry.url,
-                content: text(entry.title),
-                styles: const Styles(
-                  color: const Color.variable('--text-color'),
-                  fontSize: Unit.inherit,
-                  whiteSpace: WhiteSpace.inherit,
-                ),
-              ),
-            ],
           ),
         ),
       ],
