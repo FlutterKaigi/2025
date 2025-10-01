@@ -43,6 +43,7 @@ class News extends StatelessComponent {
         ),
         Link(
           to: event.blog.topUrl,
+          target: Target.blank,
           child: button(
             classes: 'primary-button',
             styles: Styles(
