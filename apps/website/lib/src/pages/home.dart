@@ -56,7 +56,7 @@ class Home extends StatelessComponent {
           children: [Sponsors()],
         ),
         const SectionLayout(
-          title: 'Staffs',
+          title: 'Staff',
           children: [Staff()],
         ),
         CountdownView(),
