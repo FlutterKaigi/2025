@@ -44,6 +44,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final TranslationsCommonJa common = TranslationsCommonJa._(_root);
 	late final TranslationsEventJa event = TranslationsEventJa._(_root);
 	late final TranslationsNewsJa news = TranslationsNewsJa._(_root);
+	late final TranslationsSessionJa session = TranslationsSessionJa._(_root);
 	late final TranslationsSponsorJa sponsor = TranslationsSponsorJa._(_root);
 	late final TranslationsTicketJa ticket = TranslationsTicketJa._(_root);
 }
@@ -154,6 +155,22 @@ class TranslationsNewsJa {
 	late final TranslationsNewsTileJa tile = TranslationsNewsTileJa._(_root);
 	late final TranslationsNewsScreenJa screen = TranslationsNewsScreenJa._(_root);
 	late final TranslationsNewsEmptyJa empty = TranslationsNewsEmptyJa._(_root);
+}
+
+// Path: session
+class TranslationsSessionJa {
+	TranslationsSessionJa._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'タイムテーブル'
+	String get title => 'タイムテーブル';
+
+	late final TranslationsSessionDetailJa detail = TranslationsSessionDetailJa._(_root);
+	late final TranslationsSessionBookmarkedJa bookmarked = TranslationsSessionBookmarkedJa._(_root);
+	late final TranslationsSessionEmptyJa empty = TranslationsSessionEmptyJa._(_root);
 }
 
 // Path: sponsor
@@ -373,6 +390,9 @@ class TranslationsCommonNavigationJa {
 	/// ja: 'スポンサー'
 	String get sponsor => 'スポンサー';
 
+	/// ja: 'セッション'
+	String get session => 'セッション';
+
 	/// ja: 'チケット'
 	String get ticket => 'チケット';
 
@@ -447,6 +467,42 @@ class TranslationsNewsEmptyJa {
 
 	/// ja: '現在、新しいお知らせはありません。'
 	String get message => '現在、新しいお知らせはありません。';
+}
+
+// Path: session.detail
+class TranslationsSessionDetailJa {
+	TranslationsSessionDetailJa._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'ブックマーク'
+	String get bookmark => 'ブックマーク';
+}
+
+// Path: session.bookmarked
+class TranslationsSessionBookmarkedJa {
+	TranslationsSessionBookmarkedJa._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'お気に入りセッション'
+	String get title => 'お気に入りセッション';
+}
+
+// Path: session.empty
+class TranslationsSessionEmptyJa {
+	TranslationsSessionEmptyJa._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '現在、表示可能なセッションがありません。'
+	String get message => '現在、表示可能なセッションがありません。';
 }
 
 // Path: ticket.status
@@ -902,6 +958,7 @@ extension on Translations {
 			case 'common.error.general.occurred': return 'エラーが発生しました';
 			case 'common.navigation.event': return 'イベント';
 			case 'common.navigation.sponsor': return 'スポンサー';
+			case 'common.navigation.session': return 'セッション';
 			case 'common.navigation.ticket': return 'チケット';
 			case 'common.navigation.account': return 'アカウント';
 			case 'common.debug.title': return 'Debug';
@@ -920,6 +977,10 @@ extension on Translations {
 			case 'news.tile.subtitle': return '最新のお知らせをご確認ください';
 			case 'news.screen.title': return 'お知らせ';
 			case 'news.empty.message': return '現在、新しいお知らせはありません。';
+			case 'session.title': return 'タイムテーブル';
+			case 'session.detail.bookmark': return 'ブックマーク';
+			case 'session.bookmarked.title': return 'お気に入りセッション';
+			case 'session.empty.message': return '現在、表示可能なセッションがありません。';
 			case 'sponsor.prText': return 'PR 文章';
 			case 'sponsor.enthusiasm': return '意気込み';
 			case 'sponsor.company': return '企業スポンサー';
