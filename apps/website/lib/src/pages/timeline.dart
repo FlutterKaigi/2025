@@ -85,11 +85,13 @@ class Timeline extends StatelessComponent {
     }) => li(
       styles: Styles(
         backgroundColor: randomColor(),
+        margin: Spacing.only(left: 0.5.rem, top: 0.5.rem),
         padding: Spacing.all(0.25.rem),
         fontSize: Unit.inherit,
         whiteSpace: WhiteSpace.inherit,
         textOverflow: TextOverflow.ellipsis,
         overflow: Overflow.hidden,
+        radius: BorderRadius.all(Radius.circular(0.5.rem)),
         raw: {
           'grid-area': _makeGridArea(
             place,
@@ -101,10 +103,38 @@ class Timeline extends StatelessComponent {
       [child],
     );
 
+    Component breakItem({
+      required Duration start,
+      required Duration end,
+      (Place, Place) place = (Place.hallA, Place.roomB),
+    }) => li(
+      styles: Styles(
+        backgroundColor: const Color.variable(
+          '--background-color',
+        ),
+        margin: Spacing.only(left: 0.5.rem, top: 0.5.rem),
+        padding: Spacing.all(0.25.rem),
+        fontSize: Unit.inherit,
+        fontFamily: lexendFontFamily,
+        whiteSpace: WhiteSpace.inherit,
+        textOverflow: TextOverflow.ellipsis,
+        textAlign: TextAlign.center,
+        overflow: Overflow.hidden,
+        radius: BorderRadius.all(Radius.circular(0.5.rem)),
+        raw: {
+          'grid-area':
+              '${place.$1.id}-${start.inMinutes}'
+              ' / ${place.$1.id}-${start.inMinutes}'
+              ' / ${place.$2.id}-${end.inMinutes}'
+              ' / ${place.$2.id}-${end.inMinutes}',
+        },
+      ),
+      [contents.breakz.text(context).toComponent],
+    );
+
     yield ul(
       styles: Styles(
         display: Display.grid,
-        gap: Gap.all(0.5.rem),
         gridTemplate: GridTemplate(
           areas: GridAreas([
             // ignore_for_file: lines_longer_than_80_chars
@@ -123,6 +153,40 @@ class Timeline extends StatelessComponent {
       [
         ..._timelineRooms(context),
         ..._timeline,
+        breakItem(
+          start: const Duration(hours: 10, minutes: 45),
+          end: const Duration(hours: 10, minutes: 55),
+        ),
+        breakItem(
+          start: const Duration(hours: 11, minutes: 30),
+          end: const Duration(hours: 11, minutes: 40),
+        ),
+        breakItem(
+          start: const Duration(hours: 12, minutes: 15),
+          end: const Duration(hours: 13, minutes: 25),
+        ),
+        breakItem(
+          start: const Duration(hours: 14),
+          end: const Duration(hours: 14, minutes: 10),
+          place: (Place.hallA, Place.roomA),
+        ),
+        breakItem(
+          start: const Duration(hours: 14, minutes: 45),
+          end: const Duration(hours: 15, minutes: 10),
+          place: (Place.hallA, Place.roomA),
+        ),
+        breakItem(
+          start: const Duration(hours: 15, minutes: 45),
+          end: const Duration(hours: 15, minutes: 55),
+        ),
+        breakItem(
+          start: const Duration(hours: 16, minutes: 30),
+          end: const Duration(hours: 16, minutes: 40),
+        ),
+        breakItem(
+          start: const Duration(hours: 17, minutes: 15),
+          end: const Duration(hours: 17, minutes: 25),
+        ),
         item(
           text('ハンズオン'),
           place: Place.roomB,

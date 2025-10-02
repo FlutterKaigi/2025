@@ -54,6 +54,7 @@ const contents = (
     ja: '全てのお知らせを見る',
     en: 'See all news',
   ),
+  breakz: (ja: '休憩', en: 'Break'),
 );
 
 String formatDate(
