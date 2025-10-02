@@ -1,9 +1,11 @@
 import 'dart:math';
 import 'package:flutterkaigi_2025_website/src/components/external_link.dart';
+import 'package:flutterkaigi_2025_website/src/components/open_in_new.dart';
 import 'package:flutterkaigi_2025_website/src/config/config.dart';
 import 'package:flutterkaigi_2025_website/src/constants/styles.dart';
 import 'package:flutterkaigi_2025_website/text.dart';
 import 'package:jaspr/jaspr.dart';
+import 'package:jaspr_router/jaspr_router.dart';
 
 String _makeGridArea(Place place, Duration start, [Duration? end]) {
   end ??= start;
@@ -235,6 +237,37 @@ class Timeline extends StatelessComponent {
               minHeight:
                   ((entry.end.inMinutes - entry.start.inMinutes) / 5 * 1.5).rem,
             ),
+          ),
+        ),
+      ],
+    );
+
+    yield p(
+      styles: Styles(
+        margin: Spacing.only(top: 2.rem),
+        display: Display.flex,
+        flexDirection: FlexDirection.column,
+        alignItems: AlignItems.center,
+      ),
+      [
+        Link(
+          to: event.cfp.url,
+          target: Target.blank,
+          child: button(
+            styles: Styles(
+              display: Display.flex,
+              position: const Position.relative(),
+              cursor: Cursor.pointer,
+              justifyContent: JustifyContent.center,
+              gap: Gap.all(1.rem),
+              color: Colors.white,
+              fontSize: 1.rem,
+            ),
+            classes: 'primary-button',
+            [
+              event.cfp.title.text(context).toComponent,
+              const OpenInNew(),
+            ],
           ),
         ),
       ],
