@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutterkaigi_2025_website/src/components/external_link.dart';
 import 'package:flutterkaigi_2025_website/src/components/open_in_new.dart';
 import 'package:flutterkaigi_2025_website/src/config/config.dart';
@@ -74,9 +73,20 @@ class Timeline extends StatelessComponent {
 
   @override
   Iterable<Component> build(BuildContext context) sync* {
-    Color randomColor() => (Random().nextBool()
-        ? const Color.variable('--primary-color').withLightness(0.95)
-        : const Color.variable('--secondary-color').withLightness(0.9));
+    Color backgroundColor(Place place) => switch (place) {
+      Place.hallA => const Color.variable(
+        '--primary-color',
+      ).withLightness(0.95),
+      Place.hallB => const Color.variable(
+        '--secondary-color',
+      ).withLightness(0.9),
+      Place.roomA => const Color.variable(
+        '--primary-color',
+      ).withLightness(0.93),
+      Place.roomB => const Color.variable(
+        '--secondary-color',
+      ).withLightness(0.88),
+    };
 
     Component item(
       Component child, {
@@ -86,7 +96,7 @@ class Timeline extends StatelessComponent {
       Styles? styles,
     }) => li(
       styles: Styles(
-        backgroundColor: randomColor(),
+        backgroundColor: backgroundColor(place),
         margin: Spacing.only(left: 0.5.rem, top: 0.5.rem),
         padding: Spacing.all(0.25.rem),
         fontSize: Unit.inherit,
