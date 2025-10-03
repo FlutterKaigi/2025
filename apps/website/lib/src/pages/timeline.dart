@@ -60,6 +60,7 @@ final _timeline =
     ].map(
       (d) => li(
         styles: Styles(
+          position: Position.sticky(left: 0.em),
           fontSize: Unit.inherit,
           whiteSpace: WhiteSpace.inherit,
           raw: {'grid-area': 'time-${d.inMinutes}'},
@@ -73,19 +74,13 @@ class Timeline extends StatelessComponent {
 
   @override
   Iterable<Component> build(BuildContext context) sync* {
-    Color backgroundColor(Place place) => switch (place) {
-      Place.hallA => const Color.variable(
+    Color shadowColor(Place place) => switch (place) {
+      Place.hallA || Place.roomA => const Color.variable(
         '--primary-color',
-      ).withLightness(0.95),
-      Place.hallB => const Color.variable(
+      ).withLightness(0.7),
+      Place.hallB || Place.roomB => const Color.variable(
         '--secondary-color',
-      ).withLightness(0.9),
-      Place.roomA => const Color.variable(
-        '--primary-color',
-      ).withLightness(0.93),
-      Place.roomB => const Color.variable(
-        '--secondary-color',
-      ).withLightness(0.88),
+      ).withLightness(0.6),
     };
 
     Component item(
@@ -96,14 +91,21 @@ class Timeline extends StatelessComponent {
       Styles? styles,
     }) => li(
       styles: Styles(
-        backgroundColor: backgroundColor(place),
-        margin: Spacing.only(left: 0.5.rem, top: 0.5.rem),
-        padding: Spacing.all(0.25.rem),
+        backgroundColor: const Color.variable('--background-color'),
+        margin: Spacing.only(left: 1.rem, top: 1.rem),
+        padding: Spacing.symmetric(horizontal: 1.rem, vertical: 0.5.rem),
         fontSize: Unit.inherit,
         whiteSpace: WhiteSpace.inherit,
+        minWidth: 12.em,
         textOverflow: TextOverflow.ellipsis,
         overflow: Overflow.hidden,
-        radius: BorderRadius.all(Radius.circular(0.5.rem)),
+        radius: BorderRadius.all(Radius.circular(1.rem)),
+        shadow: BoxShadow(
+          offsetX: 0.125.rem,
+          offsetY: 0.125.rem,
+          blur: 0.5.rem,
+          color: shadowColor(place),
+        ),
         raw: {
           'grid-area': _makeGridArea(
             place,
@@ -121,10 +123,8 @@ class Timeline extends StatelessComponent {
       (Place, Place) place = (Place.hallA, Place.roomB),
     }) => li(
       styles: Styles(
-        backgroundColor: const Color.variable(
-          '--background-color',
-        ),
-        margin: Spacing.only(left: 0.5.rem, top: 0.5.rem),
+        backgroundColor: Colors.white,
+        margin: Spacing.only(left: 1.rem, top: 1.rem, bottom: 0.5.rem),
         padding: Spacing.all(0.25.rem),
         fontSize: Unit.inherit,
         fontFamily: lexendFontFamily,
@@ -132,7 +132,7 @@ class Timeline extends StatelessComponent {
         textOverflow: TextOverflow.ellipsis,
         textAlign: TextAlign.center,
         overflow: Overflow.hidden,
-        radius: BorderRadius.all(Radius.circular(0.5.rem)),
+        radius: BorderRadius.all(Radius.circular(1.rem)),
         raw: {
           'grid-area':
               '${place.$1.id}-${start.inMinutes}'
@@ -146,6 +146,13 @@ class Timeline extends StatelessComponent {
 
     yield ul(
       styles: Styles(
+        overflow: const Overflow.only(x: Overflow.scroll),
+        padding: Spacing.all(1.5.em),
+        radius: BorderRadius.all(Radius.circular(2.rem)),
+        raw: {
+          'animation': 'scroll-shadow-inset linear',
+          'animation-timeline': 'scroll(self x)',
+        },
         display: Display.grid,
         gridTemplate: GridTemplate(
           areas: GridAreas([
