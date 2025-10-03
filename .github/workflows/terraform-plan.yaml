@@ -47,6 +47,8 @@ jobs:
           else
             # `terraform/`配下のディレクトリを取得
             dirs=$(find terraform -maxdepth 1 -type d | grep -v "^terraform$" | sed 's|^terraform/||')
+            # `sakuracloud`を除外
+            dirs=$(echo "$dirs" | grep -v "sakuracloud")
           fi
 
           # JSONの配列に変換し、outputsに設定
