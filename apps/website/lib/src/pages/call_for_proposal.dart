@@ -47,6 +47,7 @@ class CallForProposal extends StatelessComponent {
           [
             Link(
               to: event.cfp.url,
+              target: Target.blank,
               child: button(
                 styles: Styles(
                   display: Display.flex,

@@ -119,7 +119,7 @@ final event = (
       ja: 'プロポーザル一覧を見る',
       en: 'See Proposals',
     ),
-    url: 'https://fortee.jp/flutterkaigi-2025/proposal/all',
+    url: 'https://fortee.jp/flutterkaigi-2025/proposal',
   ),
   schedule: [
     (
@@ -151,7 +151,31 @@ final event = (
   ],
   sponsors: _sponsors,
   staff: _staff,
+  news: _news,
 );
+
+const _news = [
+  (
+    title: 'FlutterKaigi 2025 ハンズオンへの参加登録のご案内',
+    url:
+        'https://medium.com/flutterkaigi/flutterkaigi-2025-ハンズオンへの参加登録のご案内-6fe97a67b6eb',
+  ),
+  (
+    title: 'FlutterKaigi 2025 前夜祭について',
+    url:
+        'https://medium.com/flutterkaigi/flutterkaigi-2025-前夜祭について-625bc597c862',
+  ),
+  (
+    title: 'FlutterKaigi 2025のチケットを9月9日(火)に販売開始します',
+    url:
+        'https://medium.com/flutterkaigi/flutterkaigi-2025のチケットを9月9日-火-に販売開始します-6b731c434d48',
+  ),
+  (
+    title: 'FlutterKaigi 2025 当日ボランティアスタッフ募集',
+    url:
+        'https://medium.com/flutterkaigi/flutterkaigi-2025-当日ボランティアスタッフ募集-02f97b5996a3',
+  ),
+];
 
 typedef SponsorInfo = ({
   String name,
