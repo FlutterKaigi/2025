@@ -29,6 +29,7 @@ Iterable<Component> _timelineRooms(BuildContext context) =>
     ].map(
       (place) => li(
         styles: Styles(
+          padding: Spacing.only(left: 1.rem),
           fontFamily: lexendFontFamily,
           fontWeight: FontWeight.bold,
           fontSize: 1.2.rem,
@@ -62,8 +63,13 @@ final _timeline =
         styles: Styles(
           position: Position.sticky(left: 0.em),
           fontSize: Unit.inherit,
+          height: 1.em,
           whiteSpace: WhiteSpace.inherit,
           raw: {'grid-area': 'time-${d.inMinutes}'},
+          radius: BorderRadius.all(Radius.circular(1.em)),
+          backgroundColor: const Color.variable(
+            '--background-color',
+          ).withOpacity(0.25),
         ),
         [text(_makeTimeLabel(d))],
       ),
@@ -101,11 +107,12 @@ class Timeline extends StatelessComponent {
         overflow: Overflow.hidden,
         radius: BorderRadius.all(Radius.circular(1.rem)),
         shadow: BoxShadow(
-          offsetX: 0.125.rem,
-          offsetY: 0.125.rem,
+          offsetX: 0.rem,
+          offsetY: 0.25.rem,
           blur: 0.5.rem,
           color: shadowColor(place),
         ),
+        minHeight: ((end.inMinutes - start.inMinutes) / 5 * 1.75).rem,
         raw: {
           'grid-area': _makeGridArea(
             place,
@@ -113,8 +120,18 @@ class Timeline extends StatelessComponent {
             end,
           ),
         },
-      ).combine(styles ?? const Styles()),
-      [child],
+      ),
+      [
+        child,
+        span(
+          [text('(${end.inMinutes - start.inMinutes + 5} min)')],
+          styles: const Styles(
+            fontSize: Unit.inherit,
+            color: Colors.gray,
+            whiteSpace: WhiteSpace.noWrap,
+          ),
+        ),
+      ],
     );
 
     Component breakItem({
@@ -167,7 +184,6 @@ class Timeline extends StatelessComponent {
           ]),
         ),
         fontSize: 0.75.rem,
-        whiteSpace: WhiteSpace.noWrap,
       ),
       [
         ..._timelineRooms(context),
@@ -250,10 +266,6 @@ class Timeline extends StatelessComponent {
             place: entry.place,
             start: entry.start,
             end: entry.end,
-            styles: Styles(
-              minHeight:
-                  ((entry.end.inMinutes - entry.start.inMinutes) / 5 * 1.5).rem,
-            ),
           ),
         ),
       ],
