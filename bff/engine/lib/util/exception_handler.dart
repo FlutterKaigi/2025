@@ -69,6 +69,19 @@ Future<shelf.Response> exceptionHandler(
       ).toJson(),
       HttpStatus.internalServerError,
     );
+  } on DatabaseClosedException {
+    try {
+      return jsonResponse(
+        () async => ErrorResponse.errorCode(
+          code: ErrorCode.internalServerError,
+          detail: 'データベースへ接続できませんでした。アプリケーションを終了します。',
+        ).toJson(),
+        HttpStatus.internalServerError,
+      );
+    } finally {
+      await Future<void>.delayed(const Duration(milliseconds: 100));
+      exit(1);
+    }
   } on AuthApiException catch (e) {
     print(e);
     return jsonResponse(
