@@ -1,6 +1,6 @@
 locals {
   env                         = "production"
-  container_registry_password = random_password.container_registry_password.result
+  container_registry_password = module.random_password.container_registry_password
 }
 
 
