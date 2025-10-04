@@ -92,10 +92,12 @@ final class AccountInfoScreen extends ConsumerWidget {
                 title: t.account.ossLicenses,
                 onTap: _onTapOssLicensesTile,
               ),
-              (
-                title: t.account.withdrawal,
-                onTap: _onTapWithdrawalTile,
-              ),
+              // ゲストユーザーの場合は退会申請リンクを非表示
+              if (user != null && !user.isAnonymous)
+                (
+                  title: t.account.withdrawal,
+                  onTap: _onTapWithdrawalTile,
+                ),
             ].map(
               (item) => _OtherListItem(
                 title: item.title,
