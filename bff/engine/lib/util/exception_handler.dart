@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:bff_client/bff_client.dart';
 import 'package:db_client/db_client.dart';
 import 'package:dio/dio.dart';
+import 'package:engine/main.dart';
+import 'package:engine/provider/db_client_provider.dart';
 import 'package:engine/provider/supabase_util.dart';
 import 'package:engine/util/json_response.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -66,6 +68,15 @@ Future<shelf.Response> exceptionHandler(
       () async => ErrorResponse.errorCode(
         code: ErrorCode.internalServerError,
         detail: '${e.runtimeType}',
+      ).toJson(),
+      HttpStatus.internalServerError,
+    );
+  } on DatabaseClosedException {
+    container.invalidate(dbClientProvider);
+    return jsonResponse(
+      () async => ErrorResponse.errorCode(
+        code: ErrorCode.internalServerError,
+        detail: 'データベースへ接続できませんでした。アプリケーションを終了します。',
       ).toJson(),
       HttpStatus.internalServerError,
     );

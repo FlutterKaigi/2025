@@ -97,7 +97,7 @@ class Executor {
     Duration? timeout,
   }) async {
     if (!_connection.isOpen) {
-      throw Exception('Connection is closed');
+      throw DatabaseClosedException();
     }
     final stopWatch = Stopwatch()..start();
     final result = await _connection.execute(
@@ -140,4 +140,8 @@ class Executor {
   }
 
   bool get isOpen => _connection.isOpen;
+}
+
+class DatabaseClosedException implements Exception {
+  DatabaseClosedException();
 }
