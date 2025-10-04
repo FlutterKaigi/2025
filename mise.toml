@@ -15,7 +15,7 @@ file.path = "bff/engine/.env"
 
 [tasks.bootstrap]
 description = "Initialize the workspace."
-run = './tools/bootstrap.sh'
+run = './scripts/bootstrap.sh'
 alias = "bs"
 
 [tasks.clean]
