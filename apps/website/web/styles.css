@@ -22,6 +22,11 @@
       var(--primary-color) 0%,
       var(--color-gradient-center) 50%,
       var(--secondary-color) 100%);
+
+  /* スクロールアニメーション */
+  --scroll-shadow-color: hsla(0, 0%, 87%, 0.9);
+  --scroll-shadow-size: 0.5rem;
+  --scroll-shadow-spread: calc(var(--scroll-shadow-size) * -0.5);
 }
 
 html {
@@ -148,5 +153,27 @@ body * {
 
   100% {
     transform: translateX(-100%);
+  }
+}
+
+@keyframes scroll-shadow-inset {
+  0% {
+    box-shadow:
+      inset calc(var(--scroll-shadow-size) * -2) 0 var(--scroll-shadow-size) var(--scroll-shadow-spread)
+        var(--scroll-shadow-color),
+      inset 0 0 var(--scroll-shadow-size) var(--scroll-shadow-spread) var(--scroll-shadow-color);
+  }
+  10%,
+  90% {
+    box-shadow:
+      inset calc(var(--scroll-shadow-size) * -1) 0 var(--scroll-shadow-size) var(--scroll-shadow-spread)
+        var(--scroll-shadow-color),
+      inset var(--scroll-shadow-size) 0 var(--scroll-shadow-size) var(--scroll-shadow-spread) var(--scroll-shadow-color);
+  }
+  100% {
+    box-shadow:
+      inset 0 0 var(--scroll-shadow-size) var(--scroll-shadow-spread) var(--scroll-shadow-color),
+      inset calc(var(--scroll-shadow-size) * 2) 0 var(--scroll-shadow-size) var(--scroll-shadow-spread)
+        var(--scroll-shadow-color);
   }
 }
