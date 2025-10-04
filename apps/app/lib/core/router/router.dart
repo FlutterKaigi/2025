@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:app/core/debug/debug_screen.dart';
 import 'package:app/core/debug/talker.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
+import 'package:app/core/provider/environment.dart';
 import 'package:app/core/ui/main/main_screen.dart';
 import 'package:app/core/ui/main/not_found_screen.dart';
 import 'package:app/features/account/ui/info/account_info_screen.dart';

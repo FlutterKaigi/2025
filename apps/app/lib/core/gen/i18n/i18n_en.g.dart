@@ -58,6 +58,7 @@ class _TranslationsAccountEn extends TranslationsAccountJa {
 	@override String get contact => 'Contact Us';
 	@override String get contactUrl => 'https://docs.google.com/forms/d/e/1FAIpQLSemYPFEWpP8594MWI4k3Nz45RJzMS7pz1ufwtnX4t3V7z2TOw/viewform';
 	@override String get ossLicenses => 'OSS Licenses';
+	@override String get withdrawal => 'Withdrawal Request';
 	@override String get logout => 'Sign Out';
 	@override String get settings => 'Account Settings';
 	@override late final _TranslationsAccountProfileEn profile = _TranslationsAccountProfileEn._(_root);
@@ -188,6 +189,7 @@ extension on TranslationsEn {
 			case 'account.contact': return 'Contact Us';
 			case 'account.contactUrl': return 'https://docs.google.com/forms/d/e/1FAIpQLSemYPFEWpP8594MWI4k3Nz45RJzMS7pz1ufwtnX4t3V7z2TOw/viewform';
 			case 'account.ossLicenses': return 'OSS Licenses';
+			case 'account.withdrawal': return 'Withdrawal Request';
 			case 'account.logout': return 'Sign Out';
 			case 'account.settings': return 'Account Settings';
 			case 'account.profile.title': return 'Profile';
