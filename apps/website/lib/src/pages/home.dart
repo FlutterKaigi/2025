@@ -9,7 +9,6 @@ import 'package:flutterkaigi_2025_website/src/components/top_event_info.dart';
 import 'package:flutterkaigi_2025_website/src/config/config.dart';
 import 'package:flutterkaigi_2025_website/src/constants/styles.dart';
 import 'package:flutterkaigi_2025_website/src/constants/theme.dart';
-import 'package:flutterkaigi_2025_website/src/pages/call_for_proposal.dart';
 import 'package:flutterkaigi_2025_website/src/pages/news.dart';
 import 'package:flutterkaigi_2025_website/src/pages/staff.dart';
 import 'package:flutterkaigi_2025_website/src/pages/timeline.dart';
@@ -35,11 +34,11 @@ class Home extends StatelessComponent {
       ),
       [
         const _MainArticle(),
-        const SectionLayout(
-          title: 'Call for Proposal',
-          children: [CallForProposal()],
-        ),
         const SectionLayout(title: 'News', children: [News()]),
+        // const SectionLayout(
+        //   title: 'Call for Proposal',
+        //   children: [CallForProposal()],
+        // ),
         SizedDashsay(
           message: contents.dayZeroPlanning.text(context),
           isBold: true,
@@ -56,7 +55,7 @@ class Home extends StatelessComponent {
           children: [Sponsors()],
         ),
         const SectionLayout(
-          title: 'Staffs',
+          title: 'Staff',
           children: [Staff()],
         ),
         CountdownView(),
