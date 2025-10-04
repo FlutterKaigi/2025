@@ -25,15 +25,10 @@ class ApiService {
         dbClientProvider.future,
       );
       if (!database.isOpen) {
-        try {
-          throw ErrorResponse.errorCode(
-            code: ErrorCode.internalServerError,
-            detail: 'データベースへ接続できませんでした',
-          );
-        } finally {
-          await Future<void>.delayed(const Duration(milliseconds: 100));
-          exit(1);
-        }
+        throw ErrorResponse.errorCode(
+          code: ErrorCode.internalServerError,
+          detail: 'データベースへ接続できませんでした',
+        );
       }
 
       final environment = container.read(environmentsProvider);
