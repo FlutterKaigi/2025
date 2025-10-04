@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:bff_client/bff_client.dart';
 import 'package:db_client/db_client.dart';
 import 'package:dio/dio.dart';
+import 'package:engine/main.dart';
+import 'package:engine/provider/db_client_provider.dart';
 import 'package:engine/provider/supabase_util.dart';
 import 'package:engine/util/json_response.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -70,18 +72,14 @@ Future<shelf.Response> exceptionHandler(
       HttpStatus.internalServerError,
     );
   } on DatabaseClosedException {
-    try {
-      return jsonResponse(
-        () async => ErrorResponse.errorCode(
-          code: ErrorCode.internalServerError,
-          detail: 'データベースへ接続できませんでした。アプリケーションを終了します。',
-        ).toJson(),
-        HttpStatus.internalServerError,
-      );
-    } finally {
-      await Future<void>.delayed(const Duration(milliseconds: 100));
-      exit(1);
-    }
+    container.invalidate(dbClientProvider);
+    return jsonResponse(
+      () async => ErrorResponse.errorCode(
+        code: ErrorCode.internalServerError,
+        detail: 'データベースへ接続できませんでした。アプリケーションを終了します。',
+      ).toJson(),
+      HttpStatus.internalServerError,
+    );
   } on AuthApiException catch (e) {
     print(e);
     return jsonResponse(
