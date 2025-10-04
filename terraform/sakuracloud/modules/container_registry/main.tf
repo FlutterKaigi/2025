@@ -22,3 +22,8 @@ output "container_registry_fqdn" {
 output "container_registry_username" {
   value = local.container_registry_username
 }
+
+output "container_registry_password" {
+  value = var.container_registry_password
+  sensitive = true
+}
