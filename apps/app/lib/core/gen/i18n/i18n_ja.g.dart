@@ -86,6 +86,9 @@ class TranslationsAccountJa {
 	/// ja: 'OSS Licenses'
 	String get ossLicenses => 'OSS Licenses';
 
+	/// ja: '退会申請'
+	String get withdrawal => '退会申請';
+
 	/// ja: 'ログアウト'
 	String get logout => 'ログアウト';
 
@@ -830,6 +833,7 @@ extension on Translations {
 			case 'account.contact': return 'お問い合わせ';
 			case 'account.contactUrl': return 'https://docs.google.com/forms/d/e/1FAIpQLSemYPFEWpP8594MWI4k3Nz45RJzMS7pz1ufwtnX4t3V7z2TOw/viewform';
 			case 'account.ossLicenses': return 'OSS Licenses';
+			case 'account.withdrawal': return '退会申請';
 			case 'account.logout': return 'ログアウト';
 			case 'account.settings': return 'アカウント設定';
 			case 'account.profile.title': return 'プロファイル';

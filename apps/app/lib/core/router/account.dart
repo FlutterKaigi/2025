@@ -41,6 +41,7 @@ class AccountInfoRoute extends GoRouteData with $AccountInfoRoute {
         context: context,
         applicationName: Translations.of(context).common.app.name,
       ),
+      onTapWithdrawalTile: () => _openWithdrawalForm(context),
     );
   }
 
@@ -52,6 +53,12 @@ class AccountInfoRoute extends GoRouteData with $AccountInfoRoute {
     } else {
       throw Exception('Could not launch $urlString');
     }
+  }
+
+  Future<void> _openWithdrawalForm(BuildContext context) async {
+    final container = ProviderScope.containerOf(context);
+    final environment = container.read(environmentProvider);
+    await _openUrl(urlString: environment.withdrawalFormUrl);
   }
 }
 
