@@ -3,6 +3,7 @@ import 'package:app/core/router/router.dart';
 import 'package:app/features/sponsor/data/sponsor.dart';
 import 'package:app/features/sponsor/data/sponsor_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// スポンサー一覧画面
@@ -50,69 +51,69 @@ class _SponsorList extends ConsumerWidget {
           growable: false,
         );
         final slivers = <Widget>[
-          if (platinum.isNotEmpty) ...[
-            SliverPersistentHeader(
-              pinned: true,
-              delegate: _SectionHeaderDelegate(
-                title: 'Platinum スポンサー',
-                tierColor: _getTierColor('Platinum'),
-              ),
-            ),
-            _buildSponsorGrid('Platinum', platinum),
-          ],
-          if (gold.isNotEmpty) ...[
-            SliverPersistentHeader(
-              pinned: true,
-              delegate: _SectionHeaderDelegate(
-                title: 'Gold スポンサー',
-                tierColor: _getTierColor('Gold'),
-              ),
-            ),
-            _buildSponsorGrid('Gold', gold),
-          ],
-          if (silver.isNotEmpty) ...[
-            SliverPersistentHeader(
-              pinned: true,
-              delegate: _SectionHeaderDelegate(
-                title: 'Silver スポンサー',
-                tierColor: _getTierColor('Silver'),
-              ),
-            ),
-            _buildSponsorGrid('Silver', silver),
-          ],
-          if (bronze.isNotEmpty) ...[
-            SliverPersistentHeader(
-              pinned: true,
-              delegate: _SectionHeaderDelegate(
-                title: 'Bronze スポンサー',
-                tierColor: _getTierColor('Bronze'),
-              ),
-            ),
-            _buildSponsorGrid('Bronze', bronze),
-          ],
-          if (individualSponsors.isNotEmpty) ...[
-            SliverPersistentHeader(
-              pinned: true,
-              delegate: _SectionHeaderDelegate(
-                title: t.sponsor.individual,
-                tierColor: _getTierColor('Individual'),
-              ),
-            ),
-            SliverGrid(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 5,
-                crossAxisSpacing: 8,
-                mainAxisSpacing: 8,
-              ),
-              delegate: SliverChildBuilderDelegate(
-                (context, index) => _UnifiedSponsorCard(
-                  sponsor: individualSponsors[index],
-                  tier: 'Individual',
+          if (platinum.isNotEmpty)
+            SliverStickyHeader(
+              header: _StickyHeaderContainer(
+                child: _SectionHeader(
+                  title: 'Platinum スポンサー',
+                  tierColor: _getTierColor('Platinum'),
                 ),
-                childCount: individualSponsors.length,
+              ),
+              sliver: _buildSponsorGrid('Platinum', platinum),
+            ),
+          if (gold.isNotEmpty)
+            SliverStickyHeader(
+              header: _StickyHeaderContainer(
+                child: _SectionHeader(
+                  title: 'Gold スポンサー',
+                  tierColor: _getTierColor('Gold'),
+                ),
+              ),
+              sliver: _buildSponsorGrid('Gold', gold),
+            ),
+          if (silver.isNotEmpty)
+            SliverStickyHeader(
+              header: _StickyHeaderContainer(
+                child: _SectionHeader(
+                  title: 'Silver スポンサー',
+                  tierColor: _getTierColor('Silver'),
+                ),
+              ),
+              sliver: _buildSponsorGrid('Silver', silver),
+            ),
+          if (bronze.isNotEmpty)
+            SliverStickyHeader(
+              header: _StickyHeaderContainer(
+                child: _SectionHeader(
+                  title: 'Bronze スポンサー',
+                  tierColor: _getTierColor('Bronze'),
+                ),
+              ),
+              sliver: _buildSponsorGrid('Bronze', bronze),
+            ),
+          if (individualSponsors.isNotEmpty)
+            SliverStickyHeader(
+              header: _StickyHeaderContainer(
+                child: _SectionHeader(
+                  title: t.sponsor.individual,
+                  tierColor: _getTierColor('Individual'),
+                ),
+              ),
+              sliver: SliverGrid(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 5,
+                  crossAxisSpacing: 8,
+                  mainAxisSpacing: 8,
+                ),
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) => _UnifiedSponsorCard(
+                    sponsor: individualSponsors[index],
+                    tier: 'Individual',
+                  ),
+                  childCount: individualSponsors.length,
+                ),
               ),
             ),
-          ],
         ];
         return SafeArea(
           child: CustomScrollView(
@@ -126,23 +127,28 @@ class _SponsorList extends ConsumerWidget {
   }
 }
 
-class _SectionHeaderDelegate extends SliverPersistentHeaderDelegate {
-  _SectionHeaderDelegate({required this.title, required this.tierColor});
+class _StickyHeaderContainer extends StatelessWidget {
+  const _StickyHeaderContainer({required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return ColoredBox(
+      color: Theme.of(context).colorScheme.surfaceContainer,
+      child: child,
+    );
+  }
+}
+
+class _SectionHeader extends StatelessWidget {
+  const _SectionHeader({required this.title, required this.tierColor});
 
   final String title;
   final Color tierColor;
 
   @override
-  double get minExtent => 56;
-  @override
-  double get maxExtent => 56;
-
-  @override
-  Widget build(
-    BuildContext context,
-    double shrinkOffset,
-    bool overlapsContent,
-  ) {
+  Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Container(
       height: 56,
@@ -167,10 +173,6 @@ class _SectionHeaderDelegate extends SliverPersistentHeaderDelegate {
       ),
     );
   }
-
-  @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
-      false;
 }
 
 class _UnifiedSponsorCard extends StatelessWidget {

@@ -27,6 +27,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_markdown: ^0.7.7+1
+  flutter_sticky_header: ^0.8.0
   flutter_web_plugins:
     sdk: flutter
   font_awesome_flutter: ^10.10.0
