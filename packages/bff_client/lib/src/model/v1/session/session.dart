@@ -65,7 +65,7 @@ abstract class Sponsor with _$Sponsor {
     required String prText,
     required String websiteUrl,
     required String sponsorType,
-    required int displayOrder,
+    required String displayOrder,
     required List<String> optionPlanTypes,
     String? basicPlanType,
   }) = _Sponsor;
@@ -134,7 +134,7 @@ extension CompanySponsorDetailExtension on db_types.CompanySponsorDetail {
     prText: prText,
     websiteUrl: websiteUrl,
     sponsorType: sponsorType.name,
-    displayOrder: int.parse(displayOrder),
+    displayOrder: displayOrder,
     optionPlanTypes: optionPlanTypes.map((o) => o.name).toList(),
     basicPlanType: basicPlanType?.name,
   );

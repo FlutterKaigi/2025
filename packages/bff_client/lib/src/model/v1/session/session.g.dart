@@ -103,7 +103,7 @@ _Sponsor _$SponsorFromJson(Map<String, dynamic> json) => $checkedCreate(
       prText: $checkedConvert('pr_text', (v) => v as String),
       websiteUrl: $checkedConvert('website_url', (v) => v as String),
       sponsorType: $checkedConvert('sponsor_type', (v) => v as String),
-      displayOrder: $checkedConvert('display_order', (v) => (v as num).toInt()),
+      displayOrder: $checkedConvert('display_order', (v) => v as String),
       optionPlanTypes: $checkedConvert(
         'option_plan_types',
         (v) => (v as List<dynamic>).map((e) => e as String).toList(),

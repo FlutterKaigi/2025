@@ -843,7 +843,7 @@ as String,
 /// @nodoc
 mixin _$Sponsor {
 
- int get id; String get name; String get logoUrl; String get slug; String get prText; String get websiteUrl; String get sponsorType; int get displayOrder; List<String> get optionPlanTypes; String? get basicPlanType;
+ int get id; String get name; String get logoUrl; String get slug; String get prText; String get websiteUrl; String get sponsorType; String get displayOrder; List<String> get optionPlanTypes; String? get basicPlanType;
 /// Create a copy of Sponsor
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -876,7 +876,7 @@ abstract mixin class $SponsorCopyWith<$Res>  {
   factory $SponsorCopyWith(Sponsor value, $Res Function(Sponsor) _then) = _$SponsorCopyWithImpl;
 @useResult
 $Res call({
- int id, String name, String logoUrl, String slug, String prText, String websiteUrl, String sponsorType, int displayOrder, List<String> optionPlanTypes, String? basicPlanType
+ int id, String name, String logoUrl, String slug, String prText, String websiteUrl, String sponsorType, String displayOrder, List<String> optionPlanTypes, String? basicPlanType
 });
 
 
@@ -903,7 +903,7 @@ as String,prText: null == prText ? _self.prText : prText // ignore: cast_nullabl
 as String,websiteUrl: null == websiteUrl ? _self.websiteUrl : websiteUrl // ignore: cast_nullable_to_non_nullable
 as String,sponsorType: null == sponsorType ? _self.sponsorType : sponsorType // ignore: cast_nullable_to_non_nullable
 as String,displayOrder: null == displayOrder ? _self.displayOrder : displayOrder // ignore: cast_nullable_to_non_nullable
-as int,optionPlanTypes: null == optionPlanTypes ? _self.optionPlanTypes : optionPlanTypes // ignore: cast_nullable_to_non_nullable
+as String,optionPlanTypes: null == optionPlanTypes ? _self.optionPlanTypes : optionPlanTypes // ignore: cast_nullable_to_non_nullable
 as List<String>,basicPlanType: freezed == basicPlanType ? _self.basicPlanType : basicPlanType // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
@@ -990,7 +990,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name,  String logoUrl,  String slug,  String prText,  String websiteUrl,  String sponsorType,  int displayOrder,  List<String> optionPlanTypes,  String? basicPlanType)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name,  String logoUrl,  String slug,  String prText,  String websiteUrl,  String sponsorType,  String displayOrder,  List<String> optionPlanTypes,  String? basicPlanType)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Sponsor() when $default != null:
 return $default(_that.id,_that.name,_that.logoUrl,_that.slug,_that.prText,_that.websiteUrl,_that.sponsorType,_that.displayOrder,_that.optionPlanTypes,_that.basicPlanType);case _:
@@ -1011,7 +1011,7 @@ return $default(_that.id,_that.name,_that.logoUrl,_that.slug,_that.prText,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name,  String logoUrl,  String slug,  String prText,  String websiteUrl,  String sponsorType,  int displayOrder,  List<String> optionPlanTypes,  String? basicPlanType)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name,  String logoUrl,  String slug,  String prText,  String websiteUrl,  String sponsorType,  String displayOrder,  List<String> optionPlanTypes,  String? basicPlanType)  $default,) {final _that = this;
 switch (_that) {
 case _Sponsor():
 return $default(_that.id,_that.name,_that.logoUrl,_that.slug,_that.prText,_that.websiteUrl,_that.sponsorType,_that.displayOrder,_that.optionPlanTypes,_that.basicPlanType);case _:
@@ -1031,7 +1031,7 @@ return $default(_that.id,_that.name,_that.logoUrl,_that.slug,_that.prText,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name,  String logoUrl,  String slug,  String prText,  String websiteUrl,  String sponsorType,  int displayOrder,  List<String> optionPlanTypes,  String? basicPlanType)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name,  String logoUrl,  String slug,  String prText,  String websiteUrl,  String sponsorType,  String displayOrder,  List<String> optionPlanTypes,  String? basicPlanType)?  $default,) {final _that = this;
 switch (_that) {
 case _Sponsor() when $default != null:
 return $default(_that.id,_that.name,_that.logoUrl,_that.slug,_that.prText,_that.websiteUrl,_that.sponsorType,_that.displayOrder,_that.optionPlanTypes,_that.basicPlanType);case _:
@@ -1056,7 +1056,7 @@ class _Sponsor implements Sponsor {
 @override final  String prText;
 @override final  String websiteUrl;
 @override final  String sponsorType;
-@override final  int displayOrder;
+@override final  String displayOrder;
  final  List<String> _optionPlanTypes;
 @override List<String> get optionPlanTypes {
   if (_optionPlanTypes is EqualUnmodifiableListView) return _optionPlanTypes;
@@ -1099,7 +1099,7 @@ abstract mixin class _$SponsorCopyWith<$Res> implements $SponsorCopyWith<$Res> {
   factory _$SponsorCopyWith(_Sponsor value, $Res Function(_Sponsor) _then) = __$SponsorCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String name, String logoUrl, String slug, String prText, String websiteUrl, String sponsorType, int displayOrder, List<String> optionPlanTypes, String? basicPlanType
+ int id, String name, String logoUrl, String slug, String prText, String websiteUrl, String sponsorType, String displayOrder, List<String> optionPlanTypes, String? basicPlanType
 });
 
 
@@ -1126,7 +1126,7 @@ as String,prText: null == prText ? _self.prText : prText // ignore: cast_nullabl
 as String,websiteUrl: null == websiteUrl ? _self.websiteUrl : websiteUrl // ignore: cast_nullable_to_non_nullable
 as String,sponsorType: null == sponsorType ? _self.sponsorType : sponsorType // ignore: cast_nullable_to_non_nullable
 as String,displayOrder: null == displayOrder ? _self.displayOrder : displayOrder // ignore: cast_nullable_to_non_nullable
-as int,optionPlanTypes: null == optionPlanTypes ? _self._optionPlanTypes : optionPlanTypes // ignore: cast_nullable_to_non_nullable
+as String,optionPlanTypes: null == optionPlanTypes ? _self._optionPlanTypes : optionPlanTypes // ignore: cast_nullable_to_non_nullable
 as List<String>,basicPlanType: freezed == basicPlanType ? _self.basicPlanType : basicPlanType // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
