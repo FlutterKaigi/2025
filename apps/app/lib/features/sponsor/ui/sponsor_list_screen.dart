@@ -195,36 +195,26 @@ class _UnifiedSponsorCard extends StatelessWidget {
             Expanded(
               child: Container(
                 padding: const EdgeInsets.all(12),
-                child: Center(
-                  child: Container(
-                    width: double.infinity,
-                    height: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    clipBehavior: Clip.antiAlias,
-                    child: sponsor.logoUrl.toString().isEmpty
-                        ? Icon(
-                            tier == 'Individual'
-                                ? Icons.person
-                                : Icons.business,
-                            color: Colors.white,
-                            size: logoSize * 0.5,
-                          )
-                        : Image.network(
-                            sponsor.logoUrl.toString(),
-                            fit: BoxFit.contain,
-                            errorBuilder: (context, error, stackTrace) => Icon(
-                              tier == 'Individual'
-                                  ? Icons.person
-                                  : Icons.business,
-                              color: Colors.white,
-                              size: logoSize * 0.5,
-                            ),
-                          ),
-                  ),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
                 ),
+                child: sponsor.logoUrl.toString().isEmpty
+                    ? Icon(
+                        tier == 'Individual' ? Icons.person : Icons.business,
+                        color: Colors.white,
+                        size: logoSize * 0.5,
+                      )
+                    : Image.network(
+                        sponsor.logoUrl.toString(),
+                        fit: BoxFit.contain,
+                        errorBuilder: (context, error, stackTrace) => Icon(
+                          tier == 'Individual' ? Icons.person : Icons.business,
+                          color: Colors.white,
+                          size: logoSize * 0.5,
+                        ),
+                      ),
               ),
             ),
             Container(
