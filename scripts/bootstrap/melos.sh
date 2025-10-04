@@ -19,7 +19,7 @@ print_result() {
   fi
 }
 
-trap 'echo -e "${RED}[✖] Aborted${NC}"; exit 1' ERR INT
+trap 'echo -e "${RED}[✖] 中断されました${NC}"; exit 1' ERR INT
 
 ##############################################################################
 ##
@@ -33,8 +33,8 @@ if type melos >/dev/null 2>&1; then
     print_result $? "melos bootstrap"
   fi
 else
-  echo -e "${YELLOW}[!] melos bootstrap: Skip because it could not be found.${NC}"
-  echo -e "${YELLOW}[!] See https://melos.invertase.dev/getting-started for installation.${NC}"
+  echo -e "${YELLOW}[!] melos bootstrap: melosが見つからないためスキップします。${NC}"
+  echo -e "${YELLOW}[!] インストール方法は https://melos.invertase.dev/getting-started を参照してください。${NC}"
 fi
 
 exit "$bootstrap_result"

@@ -19,7 +19,7 @@ print_result() {
   fi
 }
 
-trap 'echo -e "${RED}[✖] Aborted${NC}"; exit 1' ERR INT
+trap 'echo -e "${RED}[✖] 中断されました${NC}"; exit 1' ERR INT
 
 ##############################################################################
 ##
@@ -33,8 +33,8 @@ if type mise >/dev/null 2>&1; then
     print_result $? "mise install"
   fi
 else
-  echo -e "${YELLOW}[!] mise install: Skip because it could not be found.${NC}"
-  echo -e "${YELLOW}[!] See https://mise.jdx.dev/getting-started.html for installation.${NC}"
+  echo -e "${YELLOW}[!] mise install: miseが見つからないためスキップします。${NC}"
+  echo -e "${YELLOW}[!] インストール方法は https://mise.jdx.dev/getting-started.html を参照してください。${NC}"
 fi
 
 exit "$bootstrap_result"

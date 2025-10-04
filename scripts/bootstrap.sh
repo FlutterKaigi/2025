@@ -15,11 +15,11 @@ print_step() {
   echo -e "${BLUE}Step $((++step)): $1${NC}"
 }
 
-trap 'echo -e "${RED}[✖] Aborted at step ${step}${NC}"; exit 1' ERR INT
+trap 'echo -e "${RED}[✖] ステップ ${step} で中断されました${NC}"; exit 1' ERR INT
 
 # Move to project root
-cd "${SCRIPT_DIR}/../" || { echo -e "${RED}[✖] Failed to cd to project root${NC}"; exit 1; }
-echo -e "${BLUE}[INFO] Working directory: $(pwd)${NC}"
+cd "${SCRIPT_DIR}/../" || { echo -e "${RED}[✖] プロジェクトルートへの移動に失敗しました${NC}"; exit 1; }
+echo -e "${BLUE}[INFO] 作業ディレクトリ: $(pwd)${NC}"
 
 ##############################################################################
 ##
@@ -46,6 +46,6 @@ print_step "melos bootstrap"
 ##############################################################################
 echo ""
 ELAPSED=$(( $(date +%s) - START_TIME ))
-echo -e "${BLUE}[INFO] Total elapsed time: ${ELAPSED}s${NC}"
-echo -e "${BLUE}[END] Bootstrap finished${NC}"
+echo -e "${BLUE}[INFO] 合計経過時間: ${ELAPSED}秒${NC}"
+echo -e "${BLUE}[END] ブートストラップが完了しました${NC}"
 exit "$bootstrap_result"
