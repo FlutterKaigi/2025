@@ -9,6 +9,7 @@ import 'package:engine/routes/app_version_api_service.dart';
 import 'package:engine/routes/files_api_service.dart';
 import 'package:engine/routes/news_api_service.dart';
 import 'package:engine/routes/profile_api_service.dart';
+import 'package:engine/routes/session_api_service.dart';
 import 'package:engine/routes/sponsor_api_service.dart';
 import 'package:engine/routes/ticket_api_service.dart';
 import 'package:engine/routes/user_api_service.dart';
@@ -60,6 +61,9 @@ class ApiService {
 
   @Route.mount('/v1')
   Router get _sponsorApiService => SponsorApiService().router;
+
+  @Route.mount('/v1')
+  Router get _sessionApiService => SessionApiService().router;
 
   @Route.mount('/v1/tickets')
   Router get _ticketApiService => TicketApiService().router;

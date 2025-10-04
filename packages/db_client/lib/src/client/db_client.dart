@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:db_client/src/client/news/news_db_client.dart';
 import 'package:db_client/src/client/profile/profile_db_client.dart';
+import 'package:db_client/src/client/session/session_db_client.dart';
+import 'package:db_client/src/client/speaker/speaker_db_client.dart';
 import 'package:db_client/src/client/sponsor/sponsor_db_client.dart';
 import 'package:db_client/src/client/ticket/ticket_checkout_db_client.dart';
 import 'package:db_client/src/client/ticket/ticket_option_db_client.dart';
@@ -50,6 +52,8 @@ class DbClient {
   UserDbClient get user => UserDbClient(executor: _executor);
   ProfileDbClient get profile => ProfileDbClient(executor: _executor);
   NewsDbClient get news => NewsDbClient(executor: _executor);
+  SessionDbClient get session => SessionDbClient(executor: _executor);
+  SpeakerDbClient get speaker => SpeakerDbClient(executor: _executor);
   SponsorDbClient get sponsor => SponsorDbClient(
     executor: _executor,
     logoBaseUrl: _logoBaseUrl,
