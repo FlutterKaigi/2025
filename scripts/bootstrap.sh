@@ -48,4 +48,11 @@ echo ""
 ELAPSED=$(( $(date +%s) - START_TIME ))
 echo -e "${BLUE}[INFO] 合計経過時間: ${ELAPSED}秒${NC}"
 echo -e "${BLUE}[END] ブートストラップが完了しました${NC}"
+
+echo ""
+echo -e "${GREEN}次のステップ:${NC}"
+echo -e "  ${BLUE}アプリケーションを実行する場合（Webビルド）:${NC}"
+echo -e "    - Visual Studio Code: \`app-staging-debug\` を実行"
+echo -e "    - IntelliJ IDEA/Android Studio: \`Flutter Run -> 'app staging debug'\` を実行"
+
 exit "$bootstrap_result"
