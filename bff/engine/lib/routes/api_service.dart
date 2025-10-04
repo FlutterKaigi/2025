@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:bff_client/bff_client.dart';
+import 'package:db_client/db_client.dart';
 import 'package:engine/main.dart';
 import 'package:engine/provider/db_client_provider.dart';
 import 'package:engine/provider/environments_provider.dart';
@@ -25,10 +26,7 @@ class ApiService {
         dbClientProvider.future,
       );
       if (!database.isOpen) {
-        throw ErrorResponse.errorCode(
-          code: ErrorCode.internalServerError,
-          detail: 'データベースへ接続できませんでした',
-        );
+        throw DatabaseClosedException();
       }
 
       final environment = container.read(environmentsProvider);
