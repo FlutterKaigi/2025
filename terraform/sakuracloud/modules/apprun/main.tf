@@ -59,9 +59,9 @@ resource "sakuracloud_apprun_application" "flutterkaigi-2025-bff" {
       value = var.logo_base_url
     }
   }
-  # lifecycle {
-  #   prevent_destroy = true
-  # }
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 
