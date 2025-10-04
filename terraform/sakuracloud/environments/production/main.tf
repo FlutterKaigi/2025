@@ -33,6 +33,10 @@ module "apprun" {
   supabase_service_role_key = var.SUPABASE_SERVICE_ROLE_KEY_PRODUCTION
 }
 
+module "random_password" {
+  source = "../../modules/random"
+}
+
 output "container_registry_fqdn" {
   value = module.container_registry.container_registry_fqdn
 }
