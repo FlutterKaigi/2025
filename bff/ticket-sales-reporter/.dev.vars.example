@@ -1,0 +1,2 @@
+SLACK_WEBHOOK_URL=https://hooks.slack.com/services/xxxx
+SLACK_SIGNING_SECRET=xxxx

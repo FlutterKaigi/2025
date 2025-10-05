@@ -1,4 +1,4 @@
-import 'package:flutterkaigi_2025_website/text.dart' show Content;
+import 'package:flutterkaigi_2025_website/text.dart' show Content, Place;
 
 typedef LangBlock = ({String ja, String en});
 
@@ -119,7 +119,7 @@ final event = (
       ja: 'プロポーザル一覧を見る',
       en: 'See Proposals',
     ),
-    url: 'https://fortee.jp/flutterkaigi-2025/proposal/all',
+    url: 'https://fortee.jp/flutterkaigi-2025/proposal',
   ),
   schedule: [
     (
@@ -151,7 +151,284 @@ final event = (
   ],
   sponsors: _sponsors,
   staff: _staff,
+  news: _news,
+  timeline: _timeline,
 );
+
+const _news = [
+  (
+    title: 'FlutterKaigi 2025 ハンズオンへの参加登録のご案内',
+    url:
+        'https://medium.com/flutterkaigi/flutterkaigi-2025-ハンズオンへの参加登録のご案内-6fe97a67b6eb',
+  ),
+  (
+    title: 'FlutterKaigi 2025 前夜祭について',
+    url:
+        'https://medium.com/flutterkaigi/flutterkaigi-2025-前夜祭について-625bc597c862',
+  ),
+  (
+    title: 'FlutterKaigi 2025のチケットを9月9日(火)に販売開始します',
+    url:
+        'https://medium.com/flutterkaigi/flutterkaigi-2025のチケットを9月9日-火-に販売開始します-6b731c434d48',
+  ),
+  (
+    title: 'FlutterKaigi 2025 当日ボランティアスタッフ募集',
+    url:
+        'https://medium.com/flutterkaigi/flutterkaigi-2025-当日ボランティアスタッフ募集-02f97b5996a3',
+  ),
+];
+
+extension PlaceExtension on Place {
+  String get id => switch (this) {
+    Place.hallA => 'hall-a',
+    Place.hallB => 'hall-b',
+    Place.roomA => 'room-a',
+    Place.roomB => 'room-b',
+  };
+}
+
+const _timeline = [
+  (
+    title: 'Impellerで何が変わったのか',
+    url:
+        'https://fortee.jp/flutterkaigi-2025/proposal/81f95806-0cfa-403d-a6f1-0276e606b20a',
+    place: Place.hallB,
+    start: Duration(hours: 11, minutes: 45),
+    end: Duration(hours: 12, minutes: 10),
+  ),
+  (
+    title: 'RenderObject とは何か？animated_to に学ぶレイアウト計算と描画の仕組み',
+    url:
+        'https://fortee.jp/flutterkaigi-2025/proposal/2bd516ee-f172-478d-a2cc-c7682fb66c07',
+    place: Place.hallB,
+    start: Duration(hours: 15, minutes: 15),
+    end: Duration(hours: 15, minutes: 40),
+  ),
+  (
+    title: 'あの日のHot reloadはなぜ動かなかったのか？ 〜OSセキュリティ(W^X)とJITコンパイラの攻防〜',
+    url:
+        'https://fortee.jp/flutterkaigi-2025/proposal/912d7f78-375a-4d57-a1ef-3b5aa438396e',
+    place: Place.hallB,
+    start: Duration(hours: 11),
+    end: Duration(hours: 11, minutes: 25),
+  ),
+  (
+    title: 'Flutterビルドキャッシュの内部構造とテスト高速化への応用',
+    url:
+        'https://fortee.jp/flutterkaigi-2025/proposal/bc8d4449-b57f-4785-a62e-78a361d581f6',
+    place: Place.hallB,
+    start: Duration(hours: 13, minutes: 30),
+    end: Duration(hours: 13, minutes: 55),
+  ),
+  (
+    title: 'Add-to-appで真のLiquid Glass対応を目指してみた',
+    url:
+        'https://fortee.jp/flutterkaigi-2025/proposal/9ddb5954-f5b7-4d60-8316-786e37cfdcf7',
+    place: Place.roomA,
+    start: Duration(hours: 16, minutes: 5),
+    end: Duration(hours: 16, minutes: 5),
+  ),
+  (
+    title: 'Flutterコントリビューションのススメ',
+    url:
+        'https://fortee.jp/flutterkaigi-2025/proposal/d4ab93e7-c6f1-4d40-b7c2-11fb2bf36d1f',
+    place: Place.hallA,
+    start: Duration(hours: 11),
+    end: Duration(hours: 11, minutes: 25),
+  ),
+  (
+    title: 'iOSのAssistive Accessって何？Flutterでも気をつけたいUIの話',
+    url:
+        'https://fortee.jp/flutterkaigi-2025/proposal/ba663f5e-cab6-473f-b7c3-974d32791197',
+    place: Place.roomA,
+    start: Duration(hours: 16, minutes: 10),
+    end: Duration(hours: 16, minutes: 10),
+  ),
+  (
+    title: 'Flutter is NOT DEAD.',
+    url:
+        'https://fortee.jp/flutterkaigi-2025/proposal/03595b88-1b15-4c6e-919c-93838724ca1e',
+    place: Place.roomA,
+    start: Duration(hours: 11, minutes: 45),
+    end: Duration(hours: 12, minutes: 10),
+  ),
+  (
+    title: 'それでは聞いてください「Impeller導入に失敗しました」',
+    url:
+        'https://fortee.jp/flutterkaigi-2025/proposal/463de64f-8f1c-4ce4-880c-5d83c7998adb',
+    place: Place.roomA,
+    start: Duration(hours: 16),
+    end: Duration(hours: 16),
+  ),
+  (
+    title: 'Server-Driven UIでアプリを作る',
+    url:
+        'https://fortee.jp/flutterkaigi-2025/proposal/8819bdad-2434-435d-976b-e4ad9142fe78',
+    place: Place.roomA,
+    start: Duration(hours: 13, minutes: 50),
+    end: Duration(hours: 13, minutes: 50),
+  ),
+  (
+    title: 'オフライン対応！Flutterアプリに全文検索エンジンを実装する',
+    url:
+        'https://fortee.jp/flutterkaigi-2025/proposal/4b6fc7d8-b6a2-41f1-8bad-684231e60681',
+    place: Place.roomA,
+    start: Duration(hours: 17, minutes: 30),
+    end: Duration(hours: 17, minutes: 55),
+  ),
+  (
+    title: 'Flutterで挑む次世代認証：Flutter銀行アプリにおける導入実録とその教訓',
+    url:
+        'https://fortee.jp/flutterkaigi-2025/proposal/ed60500d-d9f8-48fb-8dd9-a4eb2951cdec',
+    place: Place.hallA,
+    start: Duration(hours: 14, minutes: 15),
+    end: Duration(hours: 14, minutes: 40),
+  ),
+  (
+    title: 'DartASTとその活用',
+    url:
+        'https://fortee.jp/flutterkaigi-2025/proposal/672313ae-bccf-4520-a862-1a88b887fc82',
+    place: Place.hallA,
+    start: Duration(hours: 16),
+    end: Duration(hours: 16, minutes: 25),
+  ),
+  (
+    title: 'Mobile MCP × Dart VM  Service Extensionで実現するAI駆動E2Eテスト整備と自動操作',
+    url:
+        'https://fortee.jp/flutterkaigi-2025/proposal/63d2ecdf-120c-4d92-bd5b-e20dad80357c',
+    place: Place.roomA,
+    start: Duration(hours: 14, minutes: 15),
+    end: Duration(hours: 14, minutes: 40),
+  ),
+  (
+    title: 'Flutter DevToolsで発見！本番アプリのパフォーマンス問題と改善の実践',
+    url:
+        'https://fortee.jp/flutterkaigi-2025/proposal/16574c67-29bb-47a4-8c1e-2c54c352d327',
+    place: Place.hallA,
+    start: Duration(hours: 11, minutes: 45),
+    end: Duration(hours: 12, minutes: 10),
+  ),
+  (
+    title: 'Flutter Webの真価：SEOフレンドリーなPWAとデスクトップアプリケーションへの展開',
+    url:
+        'https://fortee.jp/flutterkaigi-2025/proposal/572423bf-9210-480d-813d-c6d88d640833',
+    place: Place.roomA,
+    start: Duration(hours: 15, minutes: 15),
+    end: Duration(hours: 15, minutes: 40),
+  ),
+  (
+    title: 'Flutterアプリ運用の現場で役立った監視Tips 5選',
+    url:
+        'https://fortee.jp/flutterkaigi-2025/proposal/de251e13-e939-4bcd-958c-2aea17ad20cb',
+    place: Place.roomA,
+    start: Duration(hours: 16, minutes: 20),
+    end: Duration(hours: 16, minutes: 20),
+  ),
+  (
+    title: 'MVVM から MVVM-C に変えてみた話 〜画面遷移どうしてる？〜',
+    url:
+        'https://fortee.jp/flutterkaigi-2025/proposal/5ec3701f-5b04-4717-bb2c-08d63c67a24b',
+    place: Place.roomA,
+    start: Duration(hours: 13, minutes: 35),
+    end: Duration(hours: 13, minutes: 35),
+  ),
+  (
+    title: 'ユーザーのアクションを伴うWidgetのGoldenTest',
+    url:
+        'https://fortee.jp/flutterkaigi-2025/proposal/1c87888d-a7cf-4088-9a15-83771227ec18',
+    place: Place.roomA,
+    start: Duration(hours: 16, minutes: 15),
+    end: Duration(hours: 16, minutes: 15),
+  ),
+  (
+    title: 'アプリバイナリに対する不正対策とセキュリティ向上',
+    url:
+        'https://fortee.jp/flutterkaigi-2025/proposal/24388be1-bf63-4094-9e1f-9fbbd1a66547',
+    place: Place.hallA,
+    start: Duration(hours: 16, minutes: 45),
+    end: Duration(hours: 17, minutes: 10),
+  ),
+  (
+    title: 'カスタムジェスチャーの実装から学ぶGesture',
+    url:
+        'https://fortee.jp/flutterkaigi-2025/proposal/215d2e8d-9ef7-4033-aaec-38e8ad75954f',
+    place: Place.roomB,
+    start: Duration(hours: 17, minutes: 35),
+    end: Duration(hours: 17, minutes: 35),
+  ),
+  (
+    title: 'ノリと勢いでFlutter専門サークルを創設したら3年目に突入した話',
+    url:
+        'https://fortee.jp/flutterkaigi-2025/proposal/78f48783-ebf0-41ab-b447-83b8c8d1c9d8',
+    place: Place.roomA,
+    start: Duration(hours: 13, minutes: 40),
+    end: Duration(hours: 13, minutes: 40),
+  ),
+  (
+    title: 'Master of Widget Key ~ Widget 再利用とパフォーマンス最適化 ~',
+    url:
+        'https://fortee.jp/flutterkaigi-2025/proposal/d448ffe9-c803-40b8-a38f-873be1ea9b82',
+    place: Place.roomB,
+    start: Duration(hours: 17, minutes: 40),
+    end: Duration(hours: 17, minutes: 40),
+  ),
+  (
+    title: '24時間止まらないFlutterアプリの作り方',
+    url:
+        'https://fortee.jp/flutterkaigi-2025/proposal/2c06a71e-6da9-41ac-9467-a719ce69345a',
+    place: Place.roomB,
+    start: Duration(hours: 17, minutes: 30),
+    end: Duration(hours: 17, minutes: 30),
+  ),
+  (
+    title: 'FlutterにおけるFigma Dev Mode MCP活用Tips 5選',
+    url:
+        'https://fortee.jp/flutterkaigi-2025/proposal/bc9dab5d-fd34-42c4-b391-34994c12eef2',
+    place: Place.roomB,
+    start: Duration(hours: 17, minutes: 50),
+    end: Duration(hours: 17, minutes: 50),
+  ),
+  (
+    title: 'Flutter ネイティブ連携手法 2025',
+    url:
+        'https://fortee.jp/flutterkaigi-2025/proposal/8bd545cf-a3eb-4238-aeb1-e78d0528fe4e',
+    place: Place.roomA,
+    start: Duration(hours: 13, minutes: 45),
+    end: Duration(hours: 13, minutes: 45),
+  ),
+  (
+    title: 'BuildContextの正体とInheritedWidgetの仕組み',
+    url:
+        'https://fortee.jp/flutterkaigi-2025/proposal/4ffff5d6-8a7d-4029-8925-d05e6fdb8d97',
+    place: Place.roomA,
+    start: Duration(hours: 13, minutes: 30),
+    end: Duration(hours: 13, minutes: 30),
+  ),
+  (
+    title: 'モバイル端末で動くLLMはどこまで実用的なのか',
+    url:
+        'https://fortee.jp/flutterkaigi-2025/proposal/25d7e97e-e253-4b45-93d7-fe3ca97c7698',
+    place: Place.roomA,
+    start: Duration(hours: 16, minutes: 45),
+    end: Duration(hours: 17, minutes: 10),
+  ),
+  (
+    title: 'アクセシビリティ、まだ完璧じゃないけど──"今から"できること',
+    url:
+        'https://fortee.jp/flutterkaigi-2025/proposal/8d6b31bd-95b6-4705-953f-de5da9ab18f5',
+    place: Place.roomB,
+    start: Duration(hours: 16, minutes: 45),
+    end: Duration(hours: 17, minutes: 10),
+  ),
+  (
+    title: 'そのローカルDB、プロジェクトに合ってますか? 明日から変える最適なDB',
+    url:
+        'https://fortee.jp/flutterkaigi-2025/proposal/93f95cb5-1cd2-4355-b754-9efe8e5c389b',
+    place: Place.roomB,
+    start: Duration(hours: 17, minutes: 45),
+    end: Duration(hours: 17, minutes: 45),
+  ),
+];
 
 typedef SponsorInfo = ({
   String name,

@@ -14,6 +14,23 @@ enum Language { ja, en }
 /// - `en` 英語
 typedef Content = ({String ja, String? en});
 
+/// 会場
+enum Place {
+  hallA,
+  hallB,
+  roomA,
+  roomB,
+}
+
+extension PlaceEx on Place {
+  Content get name => switch (this) {
+    Place.hallA => (ja: 'Hall A', en: null),
+    Place.hallB => (ja: 'Hall B', en: null),
+    Place.roomA => (ja: 'Room A', en: null),
+    Place.roomB => (ja: 'Room B', en: null),
+  };
+}
+
 const contents = (
   lang: (ja: 'JA', en: 'EN'),
   dateLabel: (ja: '開催日', en: 'Date'),
@@ -37,6 +54,7 @@ const contents = (
     ja: '全てのお知らせを見る',
     en: 'See all news',
   ),
+  breakz: (ja: '休憩', en: 'Break'),
 );
 
 String formatDate(
