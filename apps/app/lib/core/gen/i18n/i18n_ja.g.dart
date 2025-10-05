@@ -44,6 +44,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final TranslationsCommonJa common = TranslationsCommonJa.internal(_root);
 	late final TranslationsEventJa event = TranslationsEventJa.internal(_root);
 	late final TranslationsNewsJa news = TranslationsNewsJa.internal(_root);
+	late final TranslationsSessionJa session = TranslationsSessionJa.internal(_root);
 	late final TranslationsSponsorJa sponsor = TranslationsSponsorJa.internal(_root);
 	late final TranslationsTicketJa ticket = TranslationsTicketJa.internal(_root);
 }
@@ -157,6 +158,23 @@ class TranslationsNewsJa {
 	late final TranslationsNewsTileJa tile = TranslationsNewsTileJa.internal(_root);
 	late final TranslationsNewsScreenJa screen = TranslationsNewsScreenJa.internal(_root);
 	late final TranslationsNewsEmptyJa empty = TranslationsNewsEmptyJa.internal(_root);
+}
+
+// Path: session
+class TranslationsSessionJa {
+	TranslationsSessionJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'タイムテーブル'
+	String get title => 'タイムテーブル';
+
+	late final TranslationsSessionDetailJa detail = TranslationsSessionDetailJa.internal(_root);
+	late final TranslationsSessionBookmarkedJa bookmarked = TranslationsSessionBookmarkedJa.internal(_root);
+	late final TranslationsSessionEmptyJa empty = TranslationsSessionEmptyJa.internal(_root);
+	late final TranslationsSessionFeedbackJa feedback = TranslationsSessionFeedbackJa.internal(_root);
 }
 
 // Path: sponsor
@@ -376,6 +394,9 @@ class TranslationsCommonNavigationJa {
 	/// ja: 'スポンサー'
 	String get sponsor => 'スポンサー';
 
+	/// ja: 'セッション'
+	String get session => 'セッション';
+
 	/// ja: 'チケット'
 	String get ticket => 'チケット';
 
@@ -450,6 +471,57 @@ class TranslationsNewsEmptyJa {
 
 	/// ja: '現在、新しいお知らせはありません。'
 	String get message => '現在、新しいお知らせはありません。';
+}
+
+// Path: session.detail
+class TranslationsSessionDetailJa {
+	TranslationsSessionDetailJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'ブックマーク'
+	String get bookmark => 'ブックマーク';
+}
+
+// Path: session.bookmarked
+class TranslationsSessionBookmarkedJa {
+	TranslationsSessionBookmarkedJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'お気に入りセッション'
+	String get title => 'お気に入りセッション';
+}
+
+// Path: session.empty
+class TranslationsSessionEmptyJa {
+	TranslationsSessionEmptyJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '現在、表示可能なセッションがありません。'
+	String get message => '現在、表示可能なセッションがありません。';
+}
+
+// Path: session.feedback
+class TranslationsSessionFeedbackJa {
+	TranslationsSessionFeedbackJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'フィードバック'
+	String get title => 'フィードバック';
+
+	/// ja: 'フィードバックを送る'
+	String get send => 'フィードバックを送る';
 }
 
 // Path: ticket.status
@@ -906,6 +978,7 @@ extension on Translations {
 			case 'common.error.general.occurred': return 'エラーが発生しました';
 			case 'common.navigation.event': return 'イベント';
 			case 'common.navigation.sponsor': return 'スポンサー';
+			case 'common.navigation.session': return 'セッション';
 			case 'common.navigation.ticket': return 'チケット';
 			case 'common.navigation.account': return 'アカウント';
 			case 'common.debug.title': return 'Debug';
@@ -924,6 +997,12 @@ extension on Translations {
 			case 'news.tile.subtitle': return '最新のお知らせをご確認ください';
 			case 'news.screen.title': return 'お知らせ';
 			case 'news.empty.message': return '現在、新しいお知らせはありません。';
+			case 'session.title': return 'タイムテーブル';
+			case 'session.detail.bookmark': return 'ブックマーク';
+			case 'session.bookmarked.title': return 'お気に入りセッション';
+			case 'session.empty.message': return '現在、表示可能なセッションがありません。';
+			case 'session.feedback.title': return 'フィードバック';
+			case 'session.feedback.send': return 'フィードバックを送る';
 			case 'sponsor.prText': return 'PR 文章';
 			case 'sponsor.enthusiasm': return '意気込み';
 			case 'sponsor.company': return '企業スポンサー';
