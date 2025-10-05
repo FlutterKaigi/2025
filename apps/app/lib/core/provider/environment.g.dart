@@ -19,6 +19,10 @@ _Environment _$EnvironmentFromJson(Map<String, dynamic> json) => $checkedCreate(
       supabaseUrl: $checkedConvert('supabase_url', (v) => v as String),
       supabaseKey: $checkedConvert('supabase_key', (v) => v as String),
       bffBaseUrl: $checkedConvert('bff_base_url', (v) => v as String),
+      withdrawalFormUrl: $checkedConvert(
+        'withdrawal_form_url',
+        (v) => v as String,
+      ),
     );
     return val;
   },
@@ -28,6 +32,7 @@ _Environment _$EnvironmentFromJson(Map<String, dynamic> json) => $checkedCreate(
     'supabaseUrl': 'supabase_url',
     'supabaseKey': 'supabase_key',
     'bffBaseUrl': 'bff_base_url',
+    'withdrawalFormUrl': 'withdrawal_form_url',
   },
 );
 
@@ -39,6 +44,7 @@ Map<String, dynamic> _$EnvironmentToJson(_Environment instance) =>
       'supabase_url': instance.supabaseUrl,
       'supabase_key': instance.supabaseKey,
       'bff_base_url': instance.bffBaseUrl,
+      'withdrawal_form_url': instance.withdrawalFormUrl,
     };
 
 // **************************************************************************

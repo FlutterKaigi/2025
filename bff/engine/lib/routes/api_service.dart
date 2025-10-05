@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:bff_client/bff_client.dart';
+import 'package:db_client/db_client.dart';
 import 'package:engine/main.dart';
 import 'package:engine/provider/db_client_provider.dart';
+import 'package:engine/provider/environments_provider.dart';
 import 'package:engine/routes/app_version_api_service.dart';
 import 'package:engine/routes/files_api_service.dart';
 import 'package:engine/routes/news_api_service.dart';
@@ -24,19 +26,20 @@ class ApiService {
         dbClientProvider.future,
       );
       if (!database.isOpen) {
-        throw ErrorResponse.errorCode(
-          code: ErrorCode.internalServerError,
-          detail: 'データベースが接続できませんでした',
-        );
+        throw DatabaseClosedException();
       }
+
+      final environment = container.read(environmentsProvider);
 
       return {
         'status': 'ok',
         'database': 'ok',
         'container': {
-          'id': Platform.environment['CF_VERSION_METADATA_ID'],
-          'started_at': Platform.environment['CF_VERSION_METADATA_TIMESTAMP'],
-          'operating_system': Platform.operatingSystem,
+          'id': environment.cfVersionMetadataId,
+          'tag': environment.cfVersionMetadataTag,
+          'build_timestamp': environment.cfVersionMetadataTimestamp,
+          'operating_system':
+              '${Platform.operatingSystem} ${Platform.operatingSystemVersion}',
           'dart_version': Platform.version,
         },
       };

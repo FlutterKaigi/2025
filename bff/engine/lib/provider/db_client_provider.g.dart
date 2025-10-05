@@ -40,7 +40,7 @@ final class DbClientProvider
   }
 }
 
-String _$dbClientHash() => r'5fa3e8de48b5e51bf033ecc5343b5f69d712e5d1';
+String _$dbClientHash() => r'872002107b4b0bff5e1986a7c415cfa58ef25621';
 
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

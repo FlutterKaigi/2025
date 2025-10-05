@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:db_client/db_client.dart';
 import 'package:engine/provider/environments_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -15,7 +17,18 @@ Future<DbClient> dbClient(Ref ref) async {
     disableSsl: env.isLocal,
   );
 
+  // 1秒おきにデータベースが接続できているか確認
+  final timer = Timer.periodic(
+    const Duration(seconds: 1),
+    (timer) async {
+      if (!db.isOpen) {
+        ref.invalidateSelf();
+      }
+    },
+  );
+
   ref.onDispose(() async {
+    timer.cancel();
     await db.dispose();
   });
 

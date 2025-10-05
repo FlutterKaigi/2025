@@ -1,4 +1,5 @@
 base_locale: ja
+fallback_strategy: base_locale
 input_directory: res/i18n
 input_file_pattern: .i18n.yaml
 output_directory: lib/core/gen/i18n

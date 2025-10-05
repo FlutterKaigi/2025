@@ -39,19 +39,19 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	Translations $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => Translations(meta: meta ?? this.$meta);
 
 	// Translations
-	late final TranslationsAccountJa account = TranslationsAccountJa._(_root);
-	late final TranslationsAuthJa auth = TranslationsAuthJa._(_root);
-	late final TranslationsCommonJa common = TranslationsCommonJa._(_root);
-	late final TranslationsEventJa event = TranslationsEventJa._(_root);
-	late final TranslationsNewsJa news = TranslationsNewsJa._(_root);
-	late final TranslationsSessionJa session = TranslationsSessionJa._(_root);
-	late final TranslationsSponsorJa sponsor = TranslationsSponsorJa._(_root);
-	late final TranslationsTicketJa ticket = TranslationsTicketJa._(_root);
+	late final TranslationsAccountJa account = TranslationsAccountJa.internal(_root);
+	late final TranslationsAuthJa auth = TranslationsAuthJa.internal(_root);
+	late final TranslationsCommonJa common = TranslationsCommonJa.internal(_root);
+	late final TranslationsEventJa event = TranslationsEventJa.internal(_root);
+	late final TranslationsNewsJa news = TranslationsNewsJa.internal(_root);
+	late final TranslationsSessionJa session = TranslationsSessionJa.internal(_root);
+	late final TranslationsSponsorJa sponsor = TranslationsSponsorJa.internal(_root);
+	late final TranslationsTicketJa ticket = TranslationsTicketJa.internal(_root);
 }
 
 // Path: account
 class TranslationsAccountJa {
-	TranslationsAccountJa._(this._root);
+	TranslationsAccountJa.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -87,43 +87,46 @@ class TranslationsAccountJa {
 	/// ja: 'OSS Licenses'
 	String get ossLicenses => 'OSS Licenses';
 
+	/// ja: '退会申請'
+	String get withdrawal => '退会申請';
+
 	/// ja: 'ログアウト'
 	String get logout => 'ログアウト';
 
 	/// ja: 'アカウント設定'
 	String get settings => 'アカウント設定';
 
-	late final TranslationsAccountProfileJa profile = TranslationsAccountProfileJa._(_root);
+	late final TranslationsAccountProfileJa profile = TranslationsAccountProfileJa.internal(_root);
 }
 
 // Path: auth
 class TranslationsAuthJa {
-	TranslationsAuthJa._(this._root);
+	TranslationsAuthJa.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	late final TranslationsAuthGuestJa guest = TranslationsAuthGuestJa._(_root);
-	late final TranslationsAuthErrorJa error = TranslationsAuthErrorJa._(_root);
+	late final TranslationsAuthGuestJa guest = TranslationsAuthGuestJa.internal(_root);
+	late final TranslationsAuthErrorJa error = TranslationsAuthErrorJa.internal(_root);
 }
 
 // Path: common
 class TranslationsCommonJa {
-	TranslationsCommonJa._(this._root);
+	TranslationsCommonJa.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	late final TranslationsCommonAppJa app = TranslationsCommonAppJa._(_root);
-	late final TranslationsCommonForceUpdateJa forceUpdate = TranslationsCommonForceUpdateJa._(_root);
-	late final TranslationsCommonErrorJa error = TranslationsCommonErrorJa._(_root);
-	late final TranslationsCommonNavigationJa navigation = TranslationsCommonNavigationJa._(_root);
-	late final TranslationsCommonDebugJa debug = TranslationsCommonDebugJa._(_root);
+	late final TranslationsCommonAppJa app = TranslationsCommonAppJa.internal(_root);
+	late final TranslationsCommonForceUpdateJa forceUpdate = TranslationsCommonForceUpdateJa.internal(_root);
+	late final TranslationsCommonErrorJa error = TranslationsCommonErrorJa.internal(_root);
+	late final TranslationsCommonNavigationJa navigation = TranslationsCommonNavigationJa.internal(_root);
+	late final TranslationsCommonDebugJa debug = TranslationsCommonDebugJa.internal(_root);
 }
 
 // Path: event
 class TranslationsEventJa {
-	TranslationsEventJa._(this._root);
+	TranslationsEventJa.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -147,19 +150,19 @@ class TranslationsEventJa {
 
 // Path: news
 class TranslationsNewsJa {
-	TranslationsNewsJa._(this._root);
+	TranslationsNewsJa.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	late final TranslationsNewsTileJa tile = TranslationsNewsTileJa._(_root);
-	late final TranslationsNewsScreenJa screen = TranslationsNewsScreenJa._(_root);
-	late final TranslationsNewsEmptyJa empty = TranslationsNewsEmptyJa._(_root);
+	late final TranslationsNewsTileJa tile = TranslationsNewsTileJa.internal(_root);
+	late final TranslationsNewsScreenJa screen = TranslationsNewsScreenJa.internal(_root);
+	late final TranslationsNewsEmptyJa empty = TranslationsNewsEmptyJa.internal(_root);
 }
 
 // Path: session
 class TranslationsSessionJa {
-	TranslationsSessionJa._(this._root);
+	TranslationsSessionJa.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -168,14 +171,15 @@ class TranslationsSessionJa {
 	/// ja: 'タイムテーブル'
 	String get title => 'タイムテーブル';
 
-	late final TranslationsSessionDetailJa detail = TranslationsSessionDetailJa._(_root);
-	late final TranslationsSessionBookmarkedJa bookmarked = TranslationsSessionBookmarkedJa._(_root);
-	late final TranslationsSessionEmptyJa empty = TranslationsSessionEmptyJa._(_root);
+	late final TranslationsSessionDetailJa detail = TranslationsSessionDetailJa.internal(_root);
+	late final TranslationsSessionBookmarkedJa bookmarked = TranslationsSessionBookmarkedJa.internal(_root);
+	late final TranslationsSessionEmptyJa empty = TranslationsSessionEmptyJa.internal(_root);
+	late final TranslationsSessionFeedbackJa feedback = TranslationsSessionFeedbackJa.internal(_root);
 }
 
 // Path: sponsor
 class TranslationsSponsorJa {
-	TranslationsSponsorJa._(this._root);
+	TranslationsSponsorJa.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -211,12 +215,12 @@ class TranslationsSponsorJa {
 
 // Path: ticket
 class TranslationsTicketJa {
-	TranslationsTicketJa._(this._root);
+	TranslationsTicketJa.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	late final TranslationsTicketStatusJa status = TranslationsTicketStatusJa._(_root);
+	late final TranslationsTicketStatusJa status = TranslationsTicketStatusJa.internal(_root);
 
 	/// ja: 'オプション:'
 	String get options => 'オプション:';
@@ -233,15 +237,15 @@ class TranslationsTicketJa {
 	/// ja: 'チケット一覧'
 	String get list => 'チケット一覧';
 
-	late final TranslationsTicketLoginRequiredJa loginRequired = TranslationsTicketLoginRequiredJa._(_root);
-	late final TranslationsTicketNoticeJa notice = TranslationsTicketNoticeJa._(_root);
-	late final TranslationsTicketStudentRefundJa studentRefund = TranslationsTicketStudentRefundJa._(_root);
-	late final TranslationsTicketPurchaseJa purchase = TranslationsTicketPurchaseJa._(_root);
+	late final TranslationsTicketLoginRequiredJa loginRequired = TranslationsTicketLoginRequiredJa.internal(_root);
+	late final TranslationsTicketNoticeJa notice = TranslationsTicketNoticeJa.internal(_root);
+	late final TranslationsTicketStudentRefundJa studentRefund = TranslationsTicketStudentRefundJa.internal(_root);
+	late final TranslationsTicketPurchaseJa purchase = TranslationsTicketPurchaseJa.internal(_root);
 }
 
 // Path: account.profile
 class TranslationsAccountProfileJa {
-	TranslationsAccountProfileJa._(this._root);
+	TranslationsAccountProfileJa.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -301,14 +305,14 @@ class TranslationsAccountProfileJa {
 	/// ja: '追加'
 	String get add => '追加';
 
-	late final TranslationsAccountProfileAvatarJa avatar = TranslationsAccountProfileAvatarJa._(_root);
-	late final TranslationsAccountProfileSnsJa sns = TranslationsAccountProfileSnsJa._(_root);
-	late final TranslationsAccountProfileImageJa image = TranslationsAccountProfileImageJa._(_root);
+	late final TranslationsAccountProfileAvatarJa avatar = TranslationsAccountProfileAvatarJa.internal(_root);
+	late final TranslationsAccountProfileSnsJa sns = TranslationsAccountProfileSnsJa.internal(_root);
+	late final TranslationsAccountProfileImageJa image = TranslationsAccountProfileImageJa.internal(_root);
 }
 
 // Path: auth.guest
 class TranslationsAuthGuestJa {
-	TranslationsAuthGuestJa._(this._root);
+	TranslationsAuthGuestJa.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -323,7 +327,7 @@ class TranslationsAuthGuestJa {
 
 // Path: auth.error
 class TranslationsAuthErrorJa {
-	TranslationsAuthErrorJa._(this._root);
+	TranslationsAuthErrorJa.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -335,7 +339,7 @@ class TranslationsAuthErrorJa {
 
 // Path: common.app
 class TranslationsCommonAppJa {
-	TranslationsCommonAppJa._(this._root);
+	TranslationsCommonAppJa.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -347,7 +351,7 @@ class TranslationsCommonAppJa {
 
 // Path: common.forceUpdate
 class TranslationsCommonForceUpdateJa {
-	TranslationsCommonForceUpdateJa._(this._root);
+	TranslationsCommonForceUpdateJa.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -365,20 +369,20 @@ class TranslationsCommonForceUpdateJa {
 
 // Path: common.error
 class TranslationsCommonErrorJa {
-	TranslationsCommonErrorJa._(this._root);
+	TranslationsCommonErrorJa.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	late final TranslationsCommonErrorNotFoundJa notFound = TranslationsCommonErrorNotFoundJa._(_root);
-	late final TranslationsCommonErrorServerJa server = TranslationsCommonErrorServerJa._(_root);
-	late final TranslationsCommonErrorWidgetJa widget = TranslationsCommonErrorWidgetJa._(_root);
-	late final TranslationsCommonErrorGeneralJa general = TranslationsCommonErrorGeneralJa._(_root);
+	late final TranslationsCommonErrorNotFoundJa notFound = TranslationsCommonErrorNotFoundJa.internal(_root);
+	late final TranslationsCommonErrorServerJa server = TranslationsCommonErrorServerJa.internal(_root);
+	late final TranslationsCommonErrorWidgetJa widget = TranslationsCommonErrorWidgetJa.internal(_root);
+	late final TranslationsCommonErrorGeneralJa general = TranslationsCommonErrorGeneralJa.internal(_root);
 }
 
 // Path: common.navigation
 class TranslationsCommonNavigationJa {
-	TranslationsCommonNavigationJa._(this._root);
+	TranslationsCommonNavigationJa.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -402,7 +406,7 @@ class TranslationsCommonNavigationJa {
 
 // Path: common.debug
 class TranslationsCommonDebugJa {
-	TranslationsCommonDebugJa._(this._root);
+	TranslationsCommonDebugJa.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -432,7 +436,7 @@ class TranslationsCommonDebugJa {
 
 // Path: news.tile
 class TranslationsNewsTileJa {
-	TranslationsNewsTileJa._(this._root);
+	TranslationsNewsTileJa.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -447,7 +451,7 @@ class TranslationsNewsTileJa {
 
 // Path: news.screen
 class TranslationsNewsScreenJa {
-	TranslationsNewsScreenJa._(this._root);
+	TranslationsNewsScreenJa.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -459,7 +463,7 @@ class TranslationsNewsScreenJa {
 
 // Path: news.empty
 class TranslationsNewsEmptyJa {
-	TranslationsNewsEmptyJa._(this._root);
+	TranslationsNewsEmptyJa.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -471,7 +475,7 @@ class TranslationsNewsEmptyJa {
 
 // Path: session.detail
 class TranslationsSessionDetailJa {
-	TranslationsSessionDetailJa._(this._root);
+	TranslationsSessionDetailJa.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -483,7 +487,7 @@ class TranslationsSessionDetailJa {
 
 // Path: session.bookmarked
 class TranslationsSessionBookmarkedJa {
-	TranslationsSessionBookmarkedJa._(this._root);
+	TranslationsSessionBookmarkedJa.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -495,7 +499,7 @@ class TranslationsSessionBookmarkedJa {
 
 // Path: session.empty
 class TranslationsSessionEmptyJa {
-	TranslationsSessionEmptyJa._(this._root);
+	TranslationsSessionEmptyJa.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -505,9 +509,24 @@ class TranslationsSessionEmptyJa {
 	String get message => '現在、表示可能なセッションがありません。';
 }
 
+// Path: session.feedback
+class TranslationsSessionFeedbackJa {
+	TranslationsSessionFeedbackJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'フィードバック'
+	String get title => 'フィードバック';
+
+	/// ja: 'フィードバックを送る'
+	String get send => 'フィードバックを送る';
+}
+
 // Path: ticket.status
 class TranslationsTicketStatusJa {
-	TranslationsTicketStatusJa._(this._root);
+	TranslationsTicketStatusJa.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -522,7 +541,7 @@ class TranslationsTicketStatusJa {
 
 // Path: ticket.loginRequired
 class TranslationsTicketLoginRequiredJa {
-	TranslationsTicketLoginRequiredJa._(this._root);
+	TranslationsTicketLoginRequiredJa.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -540,7 +559,7 @@ class TranslationsTicketLoginRequiredJa {
 
 // Path: ticket.notice
 class TranslationsTicketNoticeJa {
-	TranslationsTicketNoticeJa._(this._root);
+	TranslationsTicketNoticeJa.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -555,7 +574,7 @@ class TranslationsTicketNoticeJa {
 
 // Path: ticket.studentRefund
 class TranslationsTicketStudentRefundJa {
-	TranslationsTicketStudentRefundJa._(this._root);
+	TranslationsTicketStudentRefundJa.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -576,7 +595,7 @@ class TranslationsTicketStudentRefundJa {
 
 // Path: ticket.purchase
 class TranslationsTicketPurchaseJa {
-	TranslationsTicketPurchaseJa._(this._root);
+	TranslationsTicketPurchaseJa.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -660,7 +679,7 @@ class TranslationsTicketPurchaseJa {
 
 // Path: account.profile.avatar
 class TranslationsAccountProfileAvatarJa {
-	TranslationsAccountProfileAvatarJa._(this._root);
+	TranslationsAccountProfileAvatarJa.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -678,7 +697,7 @@ class TranslationsAccountProfileAvatarJa {
 
 // Path: account.profile.sns
 class TranslationsAccountProfileSnsJa {
-	TranslationsAccountProfileSnsJa._(this._root);
+	TranslationsAccountProfileSnsJa.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -708,13 +727,13 @@ class TranslationsAccountProfileSnsJa {
 	/// ja: '英数字、アンダースコア、ハイフンのみ使用可能です'
 	String get alphanumericOnly => '英数字、アンダースコア、ハイフンのみ使用可能です';
 
-	late final TranslationsAccountProfileSnsExamplesJa examples = TranslationsAccountProfileSnsExamplesJa._(_root);
-	late final TranslationsAccountProfileSnsDisplayNamesJa displayNames = TranslationsAccountProfileSnsDisplayNamesJa._(_root);
+	late final TranslationsAccountProfileSnsExamplesJa examples = TranslationsAccountProfileSnsExamplesJa.internal(_root);
+	late final TranslationsAccountProfileSnsDisplayNamesJa displayNames = TranslationsAccountProfileSnsDisplayNamesJa.internal(_root);
 }
 
 // Path: account.profile.image
 class TranslationsAccountProfileImageJa {
-	TranslationsAccountProfileImageJa._(this._root);
+	TranslationsAccountProfileImageJa.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -747,7 +766,7 @@ class TranslationsAccountProfileImageJa {
 
 // Path: common.error.notFound
 class TranslationsCommonErrorNotFoundJa {
-	TranslationsCommonErrorNotFoundJa._(this._root);
+	TranslationsCommonErrorNotFoundJa.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -765,7 +784,7 @@ class TranslationsCommonErrorNotFoundJa {
 
 // Path: common.error.server
 class TranslationsCommonErrorServerJa {
-	TranslationsCommonErrorServerJa._(this._root);
+	TranslationsCommonErrorServerJa.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -783,7 +802,7 @@ class TranslationsCommonErrorServerJa {
 
 // Path: common.error.widget
 class TranslationsCommonErrorWidgetJa {
-	TranslationsCommonErrorWidgetJa._(this._root);
+	TranslationsCommonErrorWidgetJa.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -801,7 +820,7 @@ class TranslationsCommonErrorWidgetJa {
 
 // Path: common.error.general
 class TranslationsCommonErrorGeneralJa {
-	TranslationsCommonErrorGeneralJa._(this._root);
+	TranslationsCommonErrorGeneralJa.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -813,7 +832,7 @@ class TranslationsCommonErrorGeneralJa {
 
 // Path: account.profile.sns.examples
 class TranslationsAccountProfileSnsExamplesJa {
-	TranslationsAccountProfileSnsExamplesJa._(this._root);
+	TranslationsAccountProfileSnsExamplesJa.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -843,7 +862,7 @@ class TranslationsAccountProfileSnsExamplesJa {
 
 // Path: account.profile.sns.displayNames
 class TranslationsAccountProfileSnsDisplayNamesJa {
-	TranslationsAccountProfileSnsDisplayNamesJa._(this._root);
+	TranslationsAccountProfileSnsDisplayNamesJa.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -886,6 +905,7 @@ extension on Translations {
 			case 'account.contact': return 'お問い合わせ';
 			case 'account.contactUrl': return 'https://docs.google.com/forms/d/e/1FAIpQLSemYPFEWpP8594MWI4k3Nz45RJzMS7pz1ufwtnX4t3V7z2TOw/viewform';
 			case 'account.ossLicenses': return 'OSS Licenses';
+			case 'account.withdrawal': return '退会申請';
 			case 'account.logout': return 'ログアウト';
 			case 'account.settings': return 'アカウント設定';
 			case 'account.profile.title': return 'プロファイル';
@@ -981,6 +1001,8 @@ extension on Translations {
 			case 'session.detail.bookmark': return 'ブックマーク';
 			case 'session.bookmarked.title': return 'お気に入りセッション';
 			case 'session.empty.message': return '現在、表示可能なセッションがありません。';
+			case 'session.feedback.title': return 'フィードバック';
+			case 'session.feedback.send': return 'フィードバックを送る';
 			case 'sponsor.prText': return 'PR 文章';
 			case 'sponsor.enthusiasm': return '意気込み';
 			case 'sponsor.company': return '企業スポンサー';

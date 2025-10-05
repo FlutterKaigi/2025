@@ -45,7 +45,7 @@ final class SessionsProvider
   }
 }
 
-String _$sessionsHash() => r'526f35bb71790284fe98133512b2114a00681bb9';
+String _$sessionsHash() => r'4795c0381f2cd3d09a5e6b383b47561a2d279e69';
 
 @ProviderFor(sessionVenues)
 const sessionVenuesProvider = SessionVenuesProvider._();

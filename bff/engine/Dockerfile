@@ -1,7 +1,10 @@
-FROM ubuntu:25.10 AS build
+FROM ubuntu:24.04 AS build
 
 RUN apt-get update && apt-get install -y \
-    sudo curl git ca-certificates unzip jq bash sed wget xz-utils
+    sudo curl git ca-certificates unzip jq bash sed wget xz-utils && \
+	apt-get upgrade -y && \
+    apt-get clean && \
+	rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
@@ -25,7 +28,6 @@ RUN wget -q -O flutter.tar.xz https://storage.googleapis.com/flutter_infra_relea
 # Set the path to the flutter binary
 ENV PATH="~/.local/flutter/bin:$PATH"
 
-
 COPY --chown=builder:builder . .
 
 RUN dart pub get
@@ -36,12 +38,14 @@ RUN cd bff/engine && \
     dart compile exe lib/main.dart -o build/main
 
 # Use a minimal base image for the final stage.
-FROM debian:bookworm-slim
+# Debian 13: https://www.debian.org/releases/stable/
+FROM debian:trixie-slim
 
 # Install required dependencies for runtime
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    ca-certificates \
-    && rm -rf /var/lib/apt/lists/*
+    ca-certificates && \
+    apt-get clean && \
+	rm -rf /var/lib/apt/lists/*
 
 # Create directory for the application
 WORKDIR /app

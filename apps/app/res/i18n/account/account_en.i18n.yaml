@@ -1,0 +1,70 @@
+profileEdit: Edit Profile
+guestUserLabel: Guest Mode
+others: Others
+codeOfConduct: Code of Conduct
+codeOfConductUrl: https://docs.flutterkaigi.jp/Code-of-Conduct
+privacyPolicy: Privacy Policy
+privacyPolicyUrl: https://docs.flutterkaigi.jp/Privacy-Policy
+contact: Contact Us
+contactUrl: https://docs.google.com/forms/d/e/1FAIpQLSemYPFEWpP8594MWI4k3Nz45RJzMS7pz1ufwtnX4t3V7z2TOw/viewform
+ossLicenses: OSS Licenses
+withdrawal: Withdrawal Request
+logout: Sign Out
+settings: Account Settings
+profile:
+  title: Profile
+  editTitle: Edit Profile
+  createInfo: Please create profile information
+  edit: Edit Profile
+  notFound: Profile not found
+  saving: Saving...
+  save: Save
+  saveSuccess: Profile saved
+  saveFailed: Failed to save
+  errorOccurred: An error occurred
+  ageOver20: 20 or older
+  ageUnder20: Under 20
+  nameLabel: Name *
+  nameRequired: Please enter your name
+  upload: Upload
+  delete: Delete
+  snsLinks: Social Links
+  add: Add
+  avatar:
+    deleteSuccess: Avatar removed successfully
+    changeFailed: Could not update avatar
+    changeSuccess: Avatar updated successfully
+  sns:
+    notLinked: No social links registered
+    type: Platform
+    urlOrUserId: URL/User ID
+    urlOrUserIdRequired: Please enter URL/User ID
+    other: Other
+    fullUrlRequired: Please enter full URL
+    userIdOnly: User ID only
+    alphanumericOnly: Only letters, numbers, underscore and hyphen allowed
+    examples:
+      github: "e.g. octocat"
+      x: "e.g. twitter"
+      discord: "e.g. 123456789012345678 (User ID)"
+      medium: "e.g. username"
+      qiita: "e.g. username"
+      zenn: "e.g. username"
+      note: "e.g. username"
+    displayNames:
+      github: GitHub
+      x: X (Twitter)
+      discord: Discord
+      medium: Medium
+      qiita: Qiita
+      zenn: Zenn
+      note: note
+  image:
+    selectTitle: Select Image
+    selectMessage: Please select an image
+    selectButton: Select Image
+    useGooglePhoto: Use Google Account Photo
+    cropTitle: Crop Image
+    complete: Complete
+    crop: Crop
+    reset: Reset
