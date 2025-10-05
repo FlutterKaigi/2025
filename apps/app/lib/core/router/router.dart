@@ -100,31 +100,37 @@ GoRouter router(Ref ref) {
         return const LoginRoute().location;
       }
 
+      final queryParameters = state.uri.queryParameters;
+
+      // ゲストユーザーが Google アカウントと紐づけられている場合エラーメッセージを表示
+      // ログインコールバックより先にチェック
+      if (queryParameters['error_code'] == 'identity_already_exists') {
+        // エラーメッセージを表示してからゲストユーザーをログアウト
+        _handleIdentityAlreadyExistsError(context, ref);
+        // ログイン画面へ遷移し、エラーメッセージを表示
+        return Uri(
+          path: const LoginRoute().location,
+          queryParameters: {'identity_already_exists': 'true'},
+        ).toString();
+      }
+
       // 既にログイン済み（ゲストまたはGoogle）でログイン画面にいる場合はイベント画面へ
+      // ただし、identity_already_existsエラー表示中は除外
       if (isAuthorized &&
           !isGoogleSessionExpired &&
+          queryParameters['identity_already_exists'] != 'true' &&
           (state.fullPath?.startsWith(const LoginRoute().location) ?? false)) {
         return const EventInfoRoute().location;
       }
 
       // ログインコールバック
-      final queryParameters = state.uri.queryParameters;
-      if (isAuthorized &&
-          (state.uri.host == 'login-callback' ||
-              (kIsWeb && queryParameters.containsKey('code')))) {
+      if (state.uri.host == 'login-callback' ||
+          (kIsWeb && queryParameters.containsKey('code'))) {
+        // OAuth認証後のコールバック処理
+        // セッションを更新してGoogleユーザー情報を取得
         unawaited(
           ref.read(authServiceProvider).refreshSession(),
         );
-        return const AccountInfoRoute().location;
-      }
-
-      // ゲストユーザーが Google アカウントと紐づけられている場合エラーメッセージを表示
-      if (queryParameters['error_code'] == 'identity_already_exists') {
-        // エラーメッセージを表示してからゲストユーザーをログアウト
-        // ログアウト完了後、AuthNotifierの監視により自動的にログイン画面へ遷移
-        _handleIdentityAlreadyExistsError(context, ref);
-        // 一旦アカウント画面に戻し、ログアウト完了後にisAuthorizedがfalseになることで
-        // ログイン画面へ自動遷移する
         return const AccountInfoRoute().location;
       }
       return null;

@@ -22,8 +22,6 @@ class AuthNotifier extends _$AuthNotifier {
     } else {
       yield currentUser;
     }
-
-    ref.listen(_authStateChangeStreamProvider, (_, _) => ref.invalidateSelf());
   }
 
   Future<User?> signInWithGoogle() async {
@@ -50,7 +48,8 @@ class AuthNotifier extends _$AuthNotifier {
     _isExplicitSignOut = true;
     await ref.read(authServiceProvider).signOut();
     // 明示的なログアウト状態をリセット（次回の初期化で自動ログインできるように）
-    Future.delayed(const Duration(milliseconds: 100), () {
+    // ログイン画面でユーザーが操作するまで待つため、少し長めの遅延
+    Future.delayed(const Duration(seconds: 1), () {
       _isExplicitSignOut = false;
     });
   }
@@ -89,7 +88,8 @@ class AuthNotifier extends _$AuthNotifier {
     final session = authService.currentSession;
 
     // Googleユーザーでセッションが切れている場合
-    if (currentUser != null && !currentUser.isAnonymous &&
+    if (currentUser != null &&
+        !currentUser.isAnonymous &&
         (session == null || session.isExpired)) {
       return true;
     }
