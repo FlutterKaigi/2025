@@ -93,7 +93,12 @@ class _DraggableButtonState extends State<_DraggableButton>
   void didChangeMetrics() {
     super.didChangeMetrics();
     WidgetsBinding.instance.addPostFrameCallback(
-      (_) => _updatePosition(context),
+      (_) {
+        if (!mounted) {
+          return;
+        }
+        _updatePosition(context);
+      },
     );
   }
 

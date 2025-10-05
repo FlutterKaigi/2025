@@ -19,8 +19,19 @@ class AuthNotifier extends _$AuthNotifier {
     if (currentUser == null && !_isExplicitSignOut) {
       final user = await authService.signInAnonymously();
       yield user;
+    } else if (_isExplicitSignOut) {
+      yield null;
     } else {
       yield currentUser;
+    }
+
+    // Supabaseの認証状態変更を継続的に監視
+    await for (final event in authService.authStateChangeStream()) {
+      if (_isExplicitSignOut && event != AuthStateEvent.signedOut) {
+        // 明示的ログアウト状態の場合は、ログアウトイベント以外は無視
+        continue;
+      }
+      yield authService.currentUser;
     }
   }
 
@@ -104,10 +115,4 @@ class AuthNotifier extends _$AuthNotifier {
     // モバイルプラットフォームの場合は従来のカスタムスキームを使用
     return 'jp.flutterkaigi.conf2025${environment.appIdSuffix}://login-callback';
   }
-}
-
-@Riverpod(keepAlive: true)
-Stream<AuthStateEvent> _authStateChangeStream(Ref ref) {
-  final authService = ref.watch(authServiceProvider);
-  return authService.authStateChangeStream();
 }

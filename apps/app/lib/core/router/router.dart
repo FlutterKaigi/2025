@@ -106,7 +106,12 @@ GoRouter router(Ref ref) {
       // ログインコールバックより先にチェック
       if (queryParameters['error_code'] == 'identity_already_exists') {
         // エラーメッセージを表示してからゲストユーザーをログアウト
-        _handleIdentityAlreadyExistsError(context, ref);
+        WidgetsBinding.instance.addPostFrameCallback((_) async {
+          if (context.mounted) {
+            // ログアウト完了後、AuthNotifierの監視により自動的にログイン画面へ遷移
+            await ref.read(authNotifierProvider.notifier).signOut();
+          }
+        });
         // ログイン画面へ遷移し、エラーメッセージを表示
         return Uri(
           path: const LoginRoute().location,
@@ -136,33 +141,6 @@ GoRouter router(Ref ref) {
       return null;
     },
   );
-}
-
-/// Googleアカウントが既に別のユーザーと紐づけられている場合、
-/// エラーメッセージを表示してゲストユーザーをログアウトする
-void _handleIdentityAlreadyExistsError(
-  BuildContext context,
-  Ref ref,
-) {
-  // 現在のフレームの描画が完了した後にエラーメッセージを表示してログアウト
-  WidgetsBinding.instance.addPostFrameCallback((_) async {
-    if (context.mounted) {
-      // エラーメッセージを表示
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            Translations.of(context).auth.error.identityAlreadyExists,
-          ),
-          behavior: SnackBarBehavior.floating,
-          duration: const Duration(seconds: 5),
-        ),
-      );
-
-      // メッセージ表示後にゲストユーザーをログアウト
-      // ログアウト完了後、AuthNotifierの監視により自動的にログイン画面へ遷移
-      await ref.read(authNotifierProvider.notifier).signOut();
-    }
-  });
 }
 
 @TypedGoRoute<LoginRoute>(path: '/login')
