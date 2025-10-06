@@ -34,7 +34,11 @@ class Home extends StatelessComponent {
       ),
       [
         const _MainArticle(),
-        const SectionLayout(title: 'News', children: [News()]),
+        const SectionLayout(
+          id: 'news',
+          title: 'News',
+          children: [News()],
+        ),
         // const SectionLayout(
         //   title: 'Call for Proposal',
         //   children: [CallForProposal()],
@@ -47,14 +51,17 @@ class Home extends StatelessComponent {
         ),
         const Tagline(),
         const SectionLayout(
+          id: 'timeline',
           title: 'Timeline',
           children: [Timeline()],
         ),
         const SectionLayout(
+          id: 'sponsor',
           title: 'Sponsor',
           children: [Sponsors()],
         ),
         const SectionLayout(
+          id: 'staff',
           title: 'Staff',
           children: [Staff()],
         ),
