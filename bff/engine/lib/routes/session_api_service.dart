@@ -29,9 +29,7 @@ class SessionApiService {
       final venuesWithSessions = await database.session.getSessionsByVenue();
 
       return SessionWithVenueResponse(
-        venues: venuesWithSessions
-            .map((v) => v.toVenueWithSessions())
-            .toList(),
+        venues: venuesWithSessions.map((v) => v.toVenueWithSessions()).toList(),
       ).toJson();
     },
   );
@@ -51,37 +49,6 @@ class SessionApiService {
     },
   );
 
-  /// 特定セッションの詳細を取得
-  @Route.get('/sessions/<id>')
-  Future<Response> _getSessionById(Request request, String id) async =>
-      jsonResponse(
-    () async {
-      final database = await container.read(dbClientProvider.future);
-      final session = await database.session.getSessionById(id);
-
-      if (session == null) {
-        throw ErrorResponse.errorCode(
-          code: ErrorCode.notFound,
-          detail: 'Session not found',
-        );
-      }
-
-      return SessionDetailResponse(
-        id: session.id,
-        title: session.title,
-        description: session.description,
-        startsAt: session.startsAt,
-        endsAt: session.endsAt,
-        isLightningTalk: session.isLightningTalk,
-        isBeginnersLightningTalk: session.isBeginnersLightningTalk,
-        isHandsOn: session.isHandsOn,
-        speakers: session.speakers.map((sp) => sp.toSpeaker()).toList(),
-        videoUrl: session.videoUrl,
-        sponsor: session.sponsor?.toSponsor(),
-      ).toJson();
-    },
-  );
-
   /// タイムテーブル形式でセッション一覧を取得
   @Route.get('/sessions/schedule')
   Future<Response> _getSessionSchedule(Request request) async => jsonResponse(
@@ -93,14 +60,54 @@ class SessionApiService {
       final schedule = <String, List<ScheduleSession>>{};
       for (final venue in venuesWithSessions) {
         for (final session in venue.sessions) {
-          final timeSlot = '${session.startsAt.toIso8601String()}-'
+          final timeSlot =
+              '${session.startsAt.toIso8601String()}-'
               '${session.endsAt.toIso8601String()}';
           if (!schedule.containsKey(timeSlot)) {
             schedule[timeSlot] = <ScheduleSession>[];
           }
-          schedule[timeSlot]!.add(ScheduleSession(
-            venue: venue.name,
-            venueId: venue.id,
+          schedule[timeSlot]!.add(
+            ScheduleSession(
+              venue: venue.name,
+              venueId: venue.id,
+              id: session.id,
+              title: session.title,
+              description: session.description,
+              startsAt: session.startsAt,
+              endsAt: session.endsAt,
+              isLightningTalk: session.isLightningTalk,
+              isBeginnersLightningTalk: session.isBeginnersLightningTalk,
+              isHandsOn: session.isHandsOn,
+              speakers: session.speakers.map((sp) => sp.toSpeaker()).toList(),
+              videoUrl: session.videoUrl,
+              sponsor: session.sponsor?.toSponsor(),
+            ),
+          );
+        }
+      }
+
+      return SessionScheduleResponse(
+        schedule: schedule,
+      ).toJson();
+    },
+  );
+
+  /// 特定セッションの詳細を取得
+  @Route.get('/sessions/<id>')
+  Future<Response> _getSessionById(Request request, String id) async =>
+      jsonResponse(
+        () async {
+          final database = await container.read(dbClientProvider.future);
+          final session = await database.session.getSessionById(id);
+
+          if (session == null) {
+            throw ErrorResponse.errorCode(
+              code: ErrorCode.notFound,
+              detail: 'Session not found',
+            );
+          }
+
+          return SessionDetailResponse(
             id: session.id,
             title: session.title,
             description: session.description,
@@ -112,15 +119,9 @@ class SessionApiService {
             speakers: session.speakers.map((sp) => sp.toSpeaker()).toList(),
             videoUrl: session.videoUrl,
             sponsor: session.sponsor?.toSponsor(),
-          ));
-        }
-      }
-
-      return SessionScheduleResponse(
-        schedule: schedule,
-      ).toJson();
-    },
-  );
+          ).toJson();
+        },
+      );
 
   /// 全スピーカー一覧を取得
   @Route.get('/speakers')
@@ -139,20 +140,20 @@ class SessionApiService {
   @Route.get('/speakers/<id>')
   Future<Response> _getSpeakerById(Request request, String id) async =>
       jsonResponse(
-    () async {
-      final database = await container.read(dbClientProvider.future);
-      final speaker = await database.speaker.getSpeakerById(id);
+        () async {
+          final database = await container.read(dbClientProvider.future);
+          final speaker = await database.speaker.getSpeakerById(id);
 
-      if (speaker == null) {
-        throw ErrorResponse.errorCode(
-          code: ErrorCode.notFound,
-          detail: 'Speaker not found',
-        );
-      }
+          if (speaker == null) {
+            throw ErrorResponse.errorCode(
+              code: ErrorCode.notFound,
+              detail: 'Speaker not found',
+            );
+          }
 
-      return speaker.toSpeaker().toJson();
-    },
-  );
+          return speaker.toSpeaker().toJson();
+        },
+      );
 
   Router get router => _$SessionApiServiceRouter(this);
 }
