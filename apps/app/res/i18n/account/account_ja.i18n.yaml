@@ -26,6 +26,7 @@ profile:
   ageUnder20: 20歳未満
   nameLabel: 名前 *
   nameRequired: 名前を入力してください
+  nameTooLong: 名前は20文字以内で入力してください
   upload: アップロード
   delete: 削除
   snsLinks: SNSリンク

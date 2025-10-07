@@ -260,9 +260,13 @@ class ProfileEditScreen extends HookConsumerWidget {
                         labelText: t.account.profile.nameLabel,
                         border: const OutlineInputBorder(),
                       ),
+                      maxLength: 20,
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
                           return t.account.profile.nameRequired;
+                        }
+                        if (value.trim().length > 20) {
+                          return t.account.profile.nameTooLong;
                         }
                         return null;
                       },

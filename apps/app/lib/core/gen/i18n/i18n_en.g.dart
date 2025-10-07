@@ -85,6 +85,7 @@ class _TranslationsAccountProfileEn extends TranslationsAccountProfileJa {
 	@override String get ageUnder20 => 'Under 20';
 	@override String get nameLabel => 'Name *';
 	@override String get nameRequired => 'Please enter your name';
+	@override String get nameTooLong => 'Name must be 20 characters or less';
 	@override String get upload => 'Upload';
 	@override String get delete => 'Delete';
 	@override String get snsLinks => 'Social Links';
@@ -206,6 +207,7 @@ extension on TranslationsEn {
 			case 'account.profile.ageUnder20': return 'Under 20';
 			case 'account.profile.nameLabel': return 'Name *';
 			case 'account.profile.nameRequired': return 'Please enter your name';
+			case 'account.profile.nameTooLong': return 'Name must be 20 characters or less';
 			case 'account.profile.upload': return 'Upload';
 			case 'account.profile.delete': return 'Delete';
 			case 'account.profile.snsLinks': return 'Social Links';
