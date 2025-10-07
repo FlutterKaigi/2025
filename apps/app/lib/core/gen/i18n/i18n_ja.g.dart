@@ -293,6 +293,9 @@ class TranslationsAccountProfileJa {
 	/// ja: '名前を入力してください'
 	String get nameRequired => '名前を入力してください';
 
+	/// ja: '名前は20文字以内で入力してください'
+	String get nameTooLong => '名前は20文字以内で入力してください';
+
 	/// ja: 'アップロード'
 	String get upload => 'アップロード';
 
@@ -922,6 +925,7 @@ extension on Translations {
 			case 'account.profile.ageUnder20': return '20歳未満';
 			case 'account.profile.nameLabel': return '名前 *';
 			case 'account.profile.nameRequired': return '名前を入力してください';
+			case 'account.profile.nameTooLong': return '名前は20文字以内で入力してください';
 			case 'account.profile.upload': return 'アップロード';
 			case 'account.profile.delete': return '削除';
 			case 'account.profile.snsLinks': return 'SNSリンク';
