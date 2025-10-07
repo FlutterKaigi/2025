@@ -53,7 +53,6 @@ class ApiService {
   @Route.mount('/v1/profile')
   Router get _profileApiService => ProfileApiService().router;
 
-
   @Route.mount('/v1/files')
   Router get _filesApiService => FilesApiService().router;
 
