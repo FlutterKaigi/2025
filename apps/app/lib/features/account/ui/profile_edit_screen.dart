@@ -163,7 +163,11 @@ class ProfileEditScreen extends HookConsumerWidget {
           // プロファイルデータがロードされたらフォームに反映
           useEffect(() {
             if (profile != null && nameController.text.isEmpty) {
-              nameController.text = profile.profile.name;
+              var name = profile.profile.name;
+              if (name.length > 20) {
+                name = name.substring(0, 20);
+              }
+              nameController.text = name;
               isAdultState.value = profile.profile.isAdult;
               // 既存のSNSリンクがある場合は初期化
               if (profile.snsLinks.isNotEmpty) {
@@ -261,12 +265,10 @@ class ProfileEditScreen extends HookConsumerWidget {
                         border: const OutlineInputBorder(),
                       ),
                       maxLength: 20,
+                      autovalidateMode: AutovalidateMode.always,
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
                           return t.account.profile.nameRequired;
-                        }
-                        if (value.trim().length > 20) {
-                          return t.account.profile.nameTooLong;
                         }
                         return null;
                       },
