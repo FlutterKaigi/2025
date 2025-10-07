@@ -33,6 +33,10 @@ url = "https://github.com/dprint/dprint/releases/download/0.50.2/dprint-aarch64-
 version = "3.36.0-0.1.pre-beta"
 backend = "asdf:flutter"
 
+[[tools.gcloud]]
+version = "538.0.0"
+backend = "asdf:gcloud"
+
 [[tools.node]]
 version = "24.4.0"
 backend = "core:node"

@@ -32,6 +32,14 @@
 				<string>jp.flutterkaigi.conf2025${APP_ID_SUFFIX}</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.106402217021-ql2va8nvujbqigkdqmoiiu4v0sgjbf4u</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>

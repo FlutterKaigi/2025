@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:app/core/provider/environment.dart';
 import 'package:app/features/auth/data/provider/auth_service.dart';
 import 'package:auth_client/auth_client.dart';
@@ -20,7 +22,10 @@ class AuthNotifier extends _$AuthNotifier {
     final redirectTo = _getRedirectTo(environment);
     return ref
         .read(authServiceProvider)
-        .signInWithGoogle(redirectTo: redirectTo);
+        .signInWithGoogle(
+          redirectTo: redirectTo,
+          useNative: !kIsWeb && (Platform.isIOS || Platform.isAndroid),
+        );
   }
 
   Future<User?> signInAnonymously() async {
