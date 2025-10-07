@@ -7,10 +7,10 @@ module "container_registry" {
 }
 
 module "docker" {
-  source                          = "../../modules/docker"
-  docker_registry_address         = module.container_registry.container_registry_fqdn
-  docker_registry_username        = module.container_registry.container_registry_username
-  docker_registry_password        = local.container_registry_password
+  source                   = "../../modules/docker"
+  docker_registry_address  = module.container_registry.container_registry_fqdn
+  docker_registry_username = module.container_registry.container_registry_username
+  docker_registry_password = local.container_registry_password
 }
 
 
@@ -24,12 +24,12 @@ module "apprun" {
   container_image_id              = module.docker.docker_image_bff_sha256
   SAKURACLOUD_ACCESS_TOKEN        = var.SAKURACLOUD_ACCESS_TOKEN
   SAKURACLOUD_ACCESS_TOKEN_SECRET = var.SAKURACLOUD_ACCESS_TOKEN_SECRET
-  internal_api_url = "https://internal-api-proxy-production.flutter-kaigi.workers.dev"
-  X_API_KEY = var.X_API_KEY
-  logo_base_url = "https://2025-bucket.flutterkaigi.jp"
+  internal_api_url                = "https://internal-api-proxy-production.flutter-kaigi.workers.dev"
+  X_API_KEY                       = var.X_API_KEY
+  logo_base_url                   = "https://2025-bucket.flutterkaigi.jp"
   # MEMO(YumNumm): Supabase側のTerraformから取得するようにする
-  supabase_project_id = "sotendzncvqiyfaxpydk"
-  supabase_db_password = var.SUPABASE_DB_PASSWORD_PRODUCTION
+  supabase_project_id       = "sotendzncvqiyfaxpydk"
+  supabase_db_password      = var.SUPABASE_DB_PASSWORD_PRODUCTION
   supabase_service_role_key = var.SUPABASE_SERVICE_ROLE_KEY_PRODUCTION
 }
 
@@ -46,6 +46,6 @@ output "container_registry_username" {
 }
 
 output "container_registry_password" {
-  value = local.container_registry_password
+  value     = local.container_registry_password
   sensitive = true
 }
