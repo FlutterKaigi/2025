@@ -13,8 +13,8 @@ Router _$SessionApiServiceRouter(SessionApiService service) {
   router.add('GET', r'/sessions', service._getAllSessions);
   router.add('GET', r'/sessions/venues', service._getSessionsByVenue);
   router.add('GET', r'/sessions/sponsors', service._getSponsorSessions);
-  router.add('GET', r'/sessions/<id>', service._getSessionById);
   router.add('GET', r'/sessions/schedule', service._getSessionSchedule);
+  router.add('GET', r'/sessions/<id>', service._getSessionById);
   router.add('GET', r'/speakers', service._getAllSpeakers);
   router.add('GET', r'/speakers/<id>', service._getSpeakerById);
   return router;
