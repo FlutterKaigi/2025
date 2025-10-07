@@ -58,6 +58,7 @@ class _TranslationsAccountEn extends TranslationsAccountJa {
 	@override String get contact => 'Contact Us';
 	@override String get contactUrl => 'https://docs.google.com/forms/d/e/1FAIpQLSemYPFEWpP8594MWI4k3Nz45RJzMS7pz1ufwtnX4t3V7z2TOw/viewform';
 	@override String get ossLicenses => 'OSS Licenses';
+	@override String get withdrawal => 'Withdrawal Request';
 	@override String get logout => 'Sign Out';
 	@override String get settings => 'Account Settings';
 	@override late final _TranslationsAccountProfileEn profile = _TranslationsAccountProfileEn._(_root);
@@ -84,6 +85,7 @@ class _TranslationsAccountProfileEn extends TranslationsAccountProfileJa {
 	@override String get ageUnder20 => 'Under 20';
 	@override String get nameLabel => 'Name *';
 	@override String get nameRequired => 'Please enter your name';
+	@override String get nameTooLong => 'Name must be 20 characters or less';
 	@override String get upload => 'Upload';
 	@override String get delete => 'Delete';
 	@override String get snsLinks => 'Social Links';
@@ -188,6 +190,7 @@ extension on TranslationsEn {
 			case 'account.contact': return 'Contact Us';
 			case 'account.contactUrl': return 'https://docs.google.com/forms/d/e/1FAIpQLSemYPFEWpP8594MWI4k3Nz45RJzMS7pz1ufwtnX4t3V7z2TOw/viewform';
 			case 'account.ossLicenses': return 'OSS Licenses';
+			case 'account.withdrawal': return 'Withdrawal Request';
 			case 'account.logout': return 'Sign Out';
 			case 'account.settings': return 'Account Settings';
 			case 'account.profile.title': return 'Profile';
@@ -204,6 +207,7 @@ extension on TranslationsEn {
 			case 'account.profile.ageUnder20': return 'Under 20';
 			case 'account.profile.nameLabel': return 'Name *';
 			case 'account.profile.nameRequired': return 'Please enter your name';
+			case 'account.profile.nameTooLong': return 'Name must be 20 characters or less';
 			case 'account.profile.upload': return 'Upload';
 			case 'account.profile.delete': return 'Delete';
 			case 'account.profile.snsLinks': return 'Social Links';

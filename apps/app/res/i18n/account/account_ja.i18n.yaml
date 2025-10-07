@@ -8,6 +8,7 @@ privacyPolicyUrl: https://docs.flutterkaigi.jp/Privacy-Policy.ja
 contact: お問い合わせ
 contactUrl: https://docs.google.com/forms/d/e/1FAIpQLSemYPFEWpP8594MWI4k3Nz45RJzMS7pz1ufwtnX4t3V7z2TOw/viewform
 ossLicenses: OSS Licenses
+withdrawal: 退会申請
 logout: ログアウト
 settings: アカウント設定
 profile:
@@ -25,6 +26,7 @@ profile:
   ageUnder20: 20歳未満
   nameLabel: 名前 *
   nameRequired: 名前を入力してください
+  nameTooLong: 名前は20文字以内で入力してください
   upload: アップロード
   delete: 削除
   snsLinks: SNSリンク

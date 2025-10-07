@@ -124,6 +124,8 @@
     ".*.{yaml,yml}",
     // スキーマファイル
     "schema.ts",
+    // セッション実データが含まれ、それに反応してしまうため除外
+    "apps/app/lib/features/session/data/provider/session_provider.dart",
   ],
   "import": [
     "@cspell/dict-software-terms/cspell-ext.json",
