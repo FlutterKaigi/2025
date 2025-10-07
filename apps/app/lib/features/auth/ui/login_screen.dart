@@ -3,21 +3,61 @@ import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/features/auth/data/notifier/auth_notifier.dart';
 import 'package:app/features/force_update/force_update.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// ログイン画面
 ///
 /// 主な役割:
-/// - ユーザーのログイン認証を行う
-/// - Google認証や招待コード入力画面への遷移を提供する
+/// - Googleセッション切れ時の再ログインを行う
+/// - Google認証への遷移を提供する
 ///
 /// 参考:
 /// - [SCREENS.md](https://github.com/FlutterKaigi/2025/blob/main/docs/app/SCREENS.md)
-class LoginScreen extends ConsumerWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends ConsumerState<LoginScreen> {
+  @override
+  void initState() {
+    super.initState();
+    // セッション切れまたはidentity_already_existsエラーのクエリパラメータをチェックしてメッセージ表示
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final uri = GoRouterState.of(context).uri;
+      final queryParameters = uri.queryParameters;
+
+      if (mounted) {
+        if (queryParameters['session_expired'] == 'true') {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                Translations.of(context).auth.error.sessionExpired,
+              ),
+              behavior: SnackBarBehavior.floating,
+              duration: const Duration(seconds: 5),
+            ),
+          );
+        } else if (queryParameters['identity_already_exists'] == 'true') {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                Translations.of(context).auth.error.identityAlreadyExists,
+              ),
+              behavior: SnackBarBehavior.floating,
+              duration: const Duration(seconds: 5),
+            ),
+          );
+        }
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final t = Translations.of(context);
 
@@ -47,11 +87,6 @@ class LoginScreen extends ConsumerWidget {
                             .read(authNotifierProvider.notifier)
                             .signInWithGoogle(),
                       ),
-                      _GuestSignInButton(
-                        onPressed: () async => ref
-                            .read(authNotifierProvider.notifier)
-                            .signInAnonymously(),
-                      ),
                     ],
                   ),
                 ),
@@ -79,35 +114,6 @@ class _GoogleSignInButton extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(40),
         onTap: onPressed,
-      ),
-    );
-  }
-}
-
-class _GuestSignInButton extends StatelessWidget {
-  const _GuestSignInButton({required this.onPressed});
-
-  final VoidCallback onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final t = Translations.of(context);
-
-    return SizedBox(
-      width: 210,
-      height: 48,
-      child: OutlinedButton(
-        onPressed: onPressed,
-        style: OutlinedButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(40),
-          ),
-        ),
-        child: Text(
-          t.auth.guest.signInButton,
-          style: theme.textTheme.labelLarge,
-        ),
       ),
     );
   }
