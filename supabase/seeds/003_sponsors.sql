@@ -256,24 +256,25 @@ WHERE
     AND c.name IN ('株式会社ゆめみ');
 
 -- 弁当
--- WITH
---     timestamp AS (
---         SELECT
---             '2025-06-01 00:00:00'::timestamp AS ts
---     )
--- INSERT INTO
---     public.sponsor_company_options (sponsor_company_id, option_plan_type, created_at)
--- SELECT
---     sc.id,
---     'lunch'::public.option_plan_type,
---     ts
--- FROM
---     public.sponsor_companies sc
---     JOIN public.companies c ON sc.company_id = c.id
---     CROSS JOIN timestamp
--- WHERE
---     sc.sponsor_type = 'basic'
---     AND c.name IN ();
+WITH
+    timestamp AS (
+        SELECT
+            '2025-06-01 00:00:00'::timestamp AS ts
+    )
+INSERT INTO
+    public.sponsor_company_options (sponsor_company_id, option_plan_type, created_at)
+SELECT
+    sc.id,
+    'lunch'::public.option_plan_type,
+    ts
+FROM
+    public.sponsor_companies sc
+    JOIN public.companies c ON sc.company_id = c.id
+    CROSS JOIN timestamp
+WHERE
+    sc.sponsor_type = 'basic'
+    AND c.name IN ('株式会社TRUSTDOCK');
+
 -- スカラシップ
 WITH
     timestamp AS (
