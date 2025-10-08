@@ -1,4 +1,3 @@
-import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:app/core/designsystem/components/error_view.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/core/util/share_util.dart';
@@ -7,7 +6,6 @@ import 'package:app/features/session/data/provider/session_provider.dart';
 import 'package:app/features/session/ui/components/session_speaker_icon.dart';
 import 'package:app/features/session/ui/components/session_type_chip.dart';
 import 'package:app/features/session/ui/components/session_venue_chip.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -241,30 +239,9 @@ class _SessionDetailView extends ConsumerWidget with SessionScreenMixin {
 
   /// カレンダーにセッションを追加する
   Future<void> _addToCalendar(Session session) async {
-    if (defaultTargetPlatform == TargetPlatform.iOS) {
-      // iOS の場合は add_2_calendar パッケージを使用
-      final event = _createIosEvent(session);
-      await Add2Calendar.addEvent2Cal(event);
-    } else {
-      // その他のプラットフォーム（Android、Web等）ではGoogle Calendar URLを使用
-      final url = _createGoogleCalendarUrl(session);
-      await launchUrl(url, mode: LaunchMode.externalApplication);
-    }
-  }
-
-  /// iOS用のイベントオブジェクトを作成
-  Event _createIosEvent(Session session) {
-    return Event(
-      title: session.title,
-      description: session.description,
-      location: session.venue.name,
-      startDate: session.startsAt,
-      endDate: session.endsAt,
-      timeZone: 'Asia/Tokyo',
-      iosParams: const IOSParams(
-        reminder: Duration(minutes: 10),
-      ),
-    );
+    // すべてのプラットフォームでGoogle Calendar URLを使用
+    final url = _createGoogleCalendarUrl(session);
+    await launchUrl(url, mode: LaunchMode.externalApplication);
   }
 
   /// Google Calendar用のURLを作成
