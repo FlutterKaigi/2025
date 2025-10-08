@@ -20,8 +20,6 @@ class SessionSpeakerIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return GestureDetector(
       onTap: () {
         if (speaker.xUrl != null) {
@@ -33,19 +31,9 @@ class SessionSpeakerIcon extends StatelessWidget {
           );
         }
       },
-      child: CircleAvatar(
-        radius: size / 2,
-        backgroundColor: theme.colorScheme.surfaceContainerHighest,
-        backgroundImage: speaker.avatarUrl != null
-            ? NetworkImage(speaker.avatarUrl.toString())
-            : null,
-        child: speaker.avatarUrl == null
-            ? Icon(
-                Icons.person,
-                size: size * 0.6,
-                color: theme.colorScheme.onSurfaceVariant,
-              )
-            : null,
+      child: _SpeakerAvatar(
+        speaker: speaker,
+        size: size,
       ),
     );
   }
@@ -55,5 +43,59 @@ class SessionSpeakerIcon extends StatelessWidget {
     super.debugFillProperties(properties);
     properties.add(DiagnosticsProperty<Speaker>('speaker', speaker));
     properties.add(DoubleProperty('size', size));
+  }
+}
+
+class _SpeakerAvatar extends StatelessWidget {
+  const _SpeakerAvatar({
+    required this.speaker,
+    required this.size,
+  });
+
+  final Speaker speaker;
+  final double size;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final avatarUrl = speaker.avatarUrl;
+
+    if (kIsWeb && avatarUrl != null) {
+      return ClipOval(
+        child: Image.network(
+          avatarUrl.toString(),
+          width: size,
+          height: size,
+          fit: BoxFit.cover,
+          webHtmlElementStrategy: WebHtmlElementStrategy.prefer,
+          errorBuilder: (context, error, stackTrace) {
+            return CircleAvatar(
+              radius: size / 2,
+              backgroundColor: theme.colorScheme.surfaceContainerHighest,
+              child: Icon(
+                Icons.person,
+                size: size * 0.6,
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+            );
+          },
+        ),
+      );
+    }
+
+    return CircleAvatar(
+      radius: size / 2,
+      backgroundColor: theme.colorScheme.surfaceContainerHighest,
+      backgroundImage: avatarUrl != null
+          ? NetworkImage(avatarUrl.toString())
+          : null,
+      child: avatarUrl == null
+          ? Icon(
+              Icons.person,
+              size: size * 0.6,
+              color: theme.colorScheme.onSurfaceVariant,
+            )
+          : null,
+    );
   }
 }

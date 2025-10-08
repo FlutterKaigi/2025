@@ -5,6 +5,7 @@ import 'package:app/features/session/data/model/session.dart';
 import 'package:app/features/session/data/model/session_room.dart';
 import 'package:app/features/session/data/model/timeline_item.dart';
 import 'package:app/features/session/data/provider/session_timeline_provider.dart';
+import 'package:app/features/session/ui/components/session_speaker_icon.dart';
 import 'package:app/features/session/ui/components/session_type_chip.dart';
 import 'package:app/features/session/ui/components/timeline_item_view.dart';
 import 'package:flutter/material.dart';
@@ -272,37 +273,27 @@ class _SessionCard extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 8),
-            if (session.speakers.isNotEmpty) ...[
-              Row(
-                children: [
-                  CircleAvatar(
-                    radius: 20,
-                    backgroundColor: theme.colorScheme.surfaceContainerHighest,
-                    backgroundImage: session.speakers.first.avatarUrl != null
-                        ? NetworkImage(
-                            session.speakers.first.avatarUrl.toString(),
-                          )
-                        : null,
-                    child: session.speakers.first.avatarUrl == null
-                        ? Icon(
-                            Icons.person,
-                            size: 20,
-                            color: theme.colorScheme.onSurfaceVariant,
-                          )
-                        : null,
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      session.speakers.first.name,
-                      style: theme.textTheme.labelMedium,
-                      overflow: TextOverflow.ellipsis,
+            ...session.speakers.map(
+              (speaker) => Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: Row(
+                  children: [
+                    SessionSpeakerIcon(
+                      speaker: speaker,
+                      size: 40,
                     ),
-                  ),
-                ],
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        speaker.name,
+                        style: theme.textTheme.labelMedium,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              const SizedBox(height: 8),
-            ],
+            ),
             Row(
               children: [
                 SessionTypeChip(session: session),

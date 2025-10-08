@@ -80,31 +80,27 @@ class SessionCard extends ConsumerWidget {
                 ],
               ),
               const SizedBox(height: 12),
-              Row(
-                children: [
-                  for (
-                    int i = 0;
-                    i < session.speakers.length && i < 3;
-                    i++
-                  ) ...[
-                    if (i > 0) const SizedBox(width: 8),
-                    SessionSpeakerIcon(
-                      speaker: session.speakers[i],
-                      size: 32,
-                    ),
-                  ],
-                  if (session.speakers.isNotEmpty) ...[
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: Text(
-                        session.speakers.map((s) => s.name).join(', '),
-                        style: theme.textTheme.bodyMedium,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
+              ...session.speakers.map(
+                (speaker) => Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: Row(
+                    children: [
+                      SessionSpeakerIcon(
+                        speaker: speaker,
+                        size: 32,
                       ),
-                    ),
-                  ],
-                ],
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          speaker.name,
+                          style: theme.textTheme.bodyMedium,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
               const SizedBox(height: 8),
               Text(
