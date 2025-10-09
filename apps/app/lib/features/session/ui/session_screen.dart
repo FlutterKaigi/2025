@@ -1,7 +1,6 @@
 import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:app/core/designsystem/components/error_view.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
-import 'package:app/core/util/share_util.dart';
 import 'package:app/features/session/data/model/session.dart';
 import 'package:app/features/session/data/provider/session_provider.dart';
 import 'package:app/features/session/ui/components/session_speaker_icon.dart';
@@ -126,23 +125,24 @@ class _SessionDetailView extends ConsumerWidget with SessionScreenMixin {
               context: context,
             ),
             title: Text(session.title),
-            actions: [
-              IconButton(
-                tooltip: 'Xでシェア',
-                padding: const EdgeInsets.all(12),
-                onPressed: () async {
-                  final sessionUrl =
-                      'https://2025-app.flutterkaigi.jp/sessions/${session.id}';
-                  await ShareUtil.shareToX(
-                    text: session.title,
-                    url: sessionUrl,
-                    hashtags: 'FlutterKaigi2025',
-                    via: 'FlutterKaigi',
-                  );
-                },
-                icon: const Icon(Icons.share),
-              ),
-            ],
+            // TODO: シェア機能は一時的に無効化（API連携後に再有効化）
+            // actions: [
+            //   IconButton(
+            //     tooltip: 'Xでシェア',
+            //     padding: const EdgeInsets.all(12),
+            //     onPressed: () async {
+            //       final sessionUrl =
+            //           'https://2025-app.flutterkaigi.jp/sessions/${session.id}';
+            //       await ShareUtil.shareToX(
+            //         text: session.title,
+            //         url: sessionUrl,
+            //         hashtags: 'FlutterKaigi2025',
+            //         via: 'FlutterKaigi',
+            //       );
+            //     },
+            //     icon: const Icon(Icons.share),
+            //   ),
+            // ],
           ),
           SliverList.list(
             children: [
