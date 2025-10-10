@@ -4,7 +4,7 @@ import 'package:app/features/account/data/notifier/profile_notifier.dart';
 import 'package:app/features/account/ui/component/account_circle_image.dart';
 import 'package:app/features/account/ui/component/account_scaffold.dart';
 import 'package:app/features/auth/data/notifier/auth_notifier.dart';
-import 'package:auth_client/auth_client.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -208,8 +208,7 @@ class _UserInfoCard extends ConsumerWidget {
 
 extension on User {
   String? get avatarUrl {
-    return userMetadata?['avatar_url']?.toString() ??
-        identities?.firstOrNull?.identityData?['avatar_url']?.toString();
+    return photoURL;
   }
 }
 

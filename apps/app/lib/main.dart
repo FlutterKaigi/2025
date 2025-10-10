@@ -9,6 +9,7 @@ import 'package:app/core/ui/main/widget_build_error_screen.dart';
 import 'package:app/core/util/setup_web_environment.dart';
 import 'package:app/features/auth/data/notifier/auth_notifier.dart';
 import 'package:app/features/auth/data/provider/auth_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

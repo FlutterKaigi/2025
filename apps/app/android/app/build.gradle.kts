@@ -27,12 +27,12 @@ if (project.hasProperty("dart-defines")) {
 val environment = dartDefines["ENVIRONMENT"]
 if (environment == "production") {
   copy {
-    from "environments/android/production.json"
+    from "../environments/android/production.json"
     into "app"
   }
 } else if (environment == "staging" || environment == "development") {
   copy {
-    from "environments/android/staging.json"
+    from "../environments/android/staging.json"
     into "app"
   }
 } else {
