@@ -1,4 +1,6 @@
 import java.util.Base64
+import java.util.Properties
+import java.io.FileInputStream
 
 plugins {
     id("com.android.application")
@@ -21,9 +23,9 @@ if (project.hasProperty("dart-defines")) {
 }
 
 val keystorePropertiesFile = rootProject.file("key.properties")
-val keystoreProperties = java.util.Properties()
+val keystoreProperties = Properties()
 if (keystorePropertiesFile.exists()) {
-    keystoreProperties.load(java.io.FileInputStream(keystorePropertiesFile))
+    keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 }
 
 
@@ -43,6 +45,9 @@ android {
 
     defaultConfig {
         applicationId = "jp.flutterkaigi.conf2025"
+        dartDefines["appIdSuffix"]?.let {
+            applicationIdSuffix = it
+        }
         manifestPlaceholders["appLabel"] = dartDefines["APP_NAME"] ?: "FlutterKaigi 2025"
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion

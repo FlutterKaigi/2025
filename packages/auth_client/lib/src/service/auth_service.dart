@@ -68,8 +68,8 @@ class AuthService {
     const iosClientId =
         // ignore: lines_longer_than_80_chars
         '106402217021-ql2va8nvujbqigkdqmoiiu4v0sgjbf4u.apps.googleusercontent.com';
-    // ignore: lines_longer_than_80_chars
     const androidClientId =
+        // ignore: lines_longer_than_80_chars
         '106402217021-8b4egl8ss9v3jroesh8qbp7ttb6nhuin.apps.googleusercontent.com';
     final scopes = ['email', 'profile'];
     final googleSignIn = GoogleSignIn.instance;
