@@ -53,5 +53,6 @@
   "SQL-Formatter-VSCode.identifierCase": "lower",
   "debug.javascript.defaultRuntimeExecutable": {
     "pwa-node": "${workspaceFolder}/.vscode/mise-tools/node"
-  }
+  },
+  "deno.path": "/Users/r_onoue/.local/share/mise/shims/deno"
 }

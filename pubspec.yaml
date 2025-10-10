@@ -13,8 +13,6 @@ dependency_overrides:
   custom_lint_builder: ^0.8.0
   source_gen: ^3.0.0
   build: ^3.0.0
-  # https://github.com/supabase/supabase-flutter/pull/1196 を含む安定版リリース待ち
-  supabase_flutter: 2.9.0
 
 workspace:
   # apps

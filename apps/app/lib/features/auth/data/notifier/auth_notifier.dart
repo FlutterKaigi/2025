@@ -1,7 +1,7 @@
-import 'package:app/core/provider/environment.dart';
 import 'package:app/features/auth/data/provider/auth_service.dart';
 import 'package:auth_client/auth_client.dart';
-import 'package:flutter/foundation.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'auth_notifier.g.dart';
@@ -11,19 +11,16 @@ class AuthNotifier extends _$AuthNotifier {
   bool _isExplicitSignOut = false;
 
   @override
-  Stream<User?> build() async* {
+  Stream<firebase_auth.User?> build() async* {
     final authService = ref.watch(authServiceProvider);
 
     // 初期化時に未認証の場合で、明示的なログアウト状態でなければ自動的にゲストログインを実行
     final currentUser = authService.currentUser;
     if (currentUser == null && !_isExplicitSignOut) {
-      final user = await authService.signInAnonymously();
-      yield user;
+      await authService.signInAnonymously();
     } else if (_isExplicitSignOut) {
       yield null;
-    } else {
-      yield currentUser;
-    }
+    } else {}
 
     // Supabaseの認証状態変更を継続的に監視
     await for (final event in authService.authStateChangeStream()) {
@@ -31,28 +28,19 @@ class AuthNotifier extends _$AuthNotifier {
         // 明示的ログアウト状態の場合は、ログアウトイベント以外は無視
         continue;
       }
-      yield authService.currentUser;
     }
   }
 
-  Future<User?> signInWithGoogle() async {
-    final environment = ref.read(environmentProvider);
-    final redirectTo = _getRedirectTo(environment);
-    return ref
-        .read(authServiceProvider)
-        .signInWithGoogle(redirectTo: redirectTo);
+  Future<UserCredential> signInWithGoogle() async {
+    return ref.read(authServiceProvider).signInWithGoogle();
   }
 
-  Future<User?> signInAnonymously() async {
+  Future<void> signInAnonymously() async {
     return ref.read(authServiceProvider).signInAnonymously();
   }
 
   Future<void> linkAnonymousUserWithGoogle() async {
-    final environment = ref.read(environmentProvider);
-    final redirectTo = _getRedirectTo(environment);
-    await ref
-        .read(authServiceProvider)
-        .linkAnonymousUserWithGoogle(redirectTo: redirectTo);
+    await ref.read(authServiceProvider).linkAnonymousUserWithGoogle();
   }
 
   Future<void> signOut() async {
@@ -66,53 +54,19 @@ class AuthNotifier extends _$AuthNotifier {
   }
 
   Future<String?> getAccessToken() async {
-    final authService = ref.read(authServiceProvider);
-    final session = authService.currentSession;
-    if (session == null) {
-      // セッションがない場合は自動的にゲストログイン
-      final user = await authService.signInAnonymously();
-      if (user != null) {
-        // ゲストログイン後、セッションを取得
-        final newSession = authService.currentSession;
-        return newSession?.accessToken;
-      }
-      return null;
-    }
-    final isExpired = session.isExpired;
-    if (isExpired) {
-      final currentUser = authService.currentUser;
-      // Google認証のセッション切れの場合
-      if (currentUser != null && !currentUser.isAnonymous) {
-        // セッション切れエラーとしてnullを返す（後続処理でログイン画面へ遷移）
-        return null;
-      }
-      // ゲストユーザーのセッション切れの場合はリフレッシュ
-      final response = await authService.refreshSession();
-      return response.session?.accessToken;
-    }
-    return session.accessToken;
+    return FirebaseAuth.instance.currentUser?.getIdToken();
   }
 
   bool isGoogleSessionExpired() {
     final authService = ref.read(authServiceProvider);
     final currentUser = authService.currentUser;
-    final session = authService.currentSession;
 
     // Googleユーザーでセッションが切れている場合
     if (currentUser != null &&
         !currentUser.isAnonymous &&
-        (session == null || session.isExpired)) {
+        currentUser.isAnonymous) {
       return true;
     }
     return false;
-  }
-
-  String _getRedirectTo(Environment environment) {
-    // Webプラットフォームの場合は `scheme://host:port` を使用
-    if (kIsWeb) {
-      return Uri.base.origin;
-    }
-    // モバイルプラットフォームの場合は従来のカスタムスキームを使用
-    return 'jp.flutterkaigi.conf2025${environment.appIdSuffix}://login-callback';
   }
 }

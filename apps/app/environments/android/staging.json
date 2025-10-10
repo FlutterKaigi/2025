@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1024337697305",
+    "project_id": "flutterkaigi2025-stg-8f66",
+    "storage_bucket": "flutterkaigi2025-stg-8f66.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1024337697305:android:165ac1937f5e4ac094a888",
+        "android_client_info": {
+          "package_name": "jp.flutterkaigi.conf2025.stg"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1024337697305-e8l5fp5jj6v2hh784a8eto2bv1h6uhjp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKssbiiRCxIgCD2SchUbYq0MFcYgWpo3o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1024337697305-e8l5fp5jj6v2hh784a8eto2bv1h6uhjp.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1024337697305-cqc7jr1pirg7ms557vhkn2sordnsllld.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "jp.flutterkaigi.conf2025.stg"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

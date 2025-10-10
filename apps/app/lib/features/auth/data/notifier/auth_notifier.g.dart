@@ -12,7 +12,7 @@ part of 'auth_notifier.dart';
 const authNotifierProvider = AuthNotifierProvider._();
 
 final class AuthNotifierProvider
-    extends $StreamNotifierProvider<AuthNotifier, User?> {
+    extends $StreamNotifierProvider<AuthNotifier, firebase_auth.User?> {
   const AuthNotifierProvider._()
     : super(
         from: null,
@@ -32,20 +32,21 @@ final class AuthNotifierProvider
   AuthNotifier create() => AuthNotifier();
 }
 
-String _$authNotifierHash() => r'476f4f0c8537fadf63f688d6275fe3764f592772';
+String _$authNotifierHash() => r'94bf8791f150857aff64bab95c388576ce9c5774';
 
-abstract class _$AuthNotifier extends $StreamNotifier<User?> {
-  Stream<User?> build();
+abstract class _$AuthNotifier extends $StreamNotifier<firebase_auth.User?> {
+  Stream<firebase_auth.User?> build();
   @$mustCallSuper
   @override
   void runBuild() {
     final created = build();
-    final ref = this.ref as $Ref<AsyncValue<User?>, User?>;
+    final ref =
+        this.ref as $Ref<AsyncValue<firebase_auth.User?>, firebase_auth.User?>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<AsyncValue<User?>, User?>,
-              AsyncValue<User?>,
+              AnyNotifier<AsyncValue<firebase_auth.User?>, firebase_auth.User?>,
+              AsyncValue<firebase_auth.User?>,
               Object?,
               Object?
             >;
