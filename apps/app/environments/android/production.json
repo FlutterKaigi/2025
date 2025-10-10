@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "56595340575",
+    "project_id": "flutterkaigi2025-prod-8f66",
+    "storage_bucket": "flutterkaigi2025-prod-8f66.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:56595340575:android:c6c9c0c319b4f2f7d8642a",
+        "android_client_info": {
+          "package_name": "jp.flutterkaigi.conf2025"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBk74vR2MlODwXYkXCRP61woGfuWMpdndw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
