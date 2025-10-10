@@ -118,23 +118,33 @@ Content-Type: application/json
 ```
 
 **Request Body:**
+
+#### Live Activity を開始する場合 (start イベント):
 ```json
 {
   "updates": [
     {
       "deviceToken": "live_activity_push_token_here",
+      "event": "start",
       "contentState": {
-        "status": "in_progress",
-        "value": "42"
+        "driverName": "田中太郎",
+        "estimatedDeliveryTime": 1696896000,
+        "status": "preparing"
       },
+      "attributes": {
+        "orderId": "ORDER-12345",
+        "restaurantName": "レストラン名"
+      },
+      "attributesType": "DeliveryActivityAttributes",
       "alert": {
-        "title": "更新通知",
-        "body": "Live Activity が更新されました",
+        "title": "配達が開始されました",
+        "body": "田中太郎さんが配達を開始しました",
         "sound": "default"
       },
-      "event": "update",
       "priority": 10,
       "timestamp": 1696896000,
+      "staleDate": 1696899600,
+      "relevanceScore": 0.9,
       "topic": "com.example.app.push-type.liveactivity"
     }
   ],
@@ -142,9 +152,82 @@ Content-Type: application/json
 }
 ```
 
+#### Live Activity を更新する場合 (update イベント):
+```json
+{
+  "updates": [
+    {
+      "deviceToken": "live_activity_push_token_here",
+      "event": "update",
+      "contentState": {
+        "driverName": "田中太郎",
+        "estimatedDeliveryTime": 1696896300,
+        "status": "on_the_way"
+      },
+      "alert": {
+        "title": "配達状況が更新されました",
+        "body": "あと5分で到着予定です",
+        "sound": "default"
+      },
+      "priority": 10,
+      "timestamp": 1696896200,
+      "staleDate": 1696899600,
+      "relevanceScore": 0.95,
+      "topic": "com.example.app.push-type.liveactivity"
+    }
+  ],
+  "validateOnly": false
+}
+```
+
+#### Live Activity を終了する場合 (end イベント):
+```json
+{
+  "updates": [
+    {
+      "deviceToken": "live_activity_push_token_here",
+      "event": "end",
+      "contentState": {
+        "driverName": "田中太郎",
+        "estimatedDeliveryTime": 1696896500,
+        "status": "delivered"
+      },
+      "alert": {
+        "title": "配達完了",
+        "body": "ご注文の商品が配達されました",
+        "sound": "default"
+      },
+      "priority": 10,
+      "timestamp": 1696896500,
+      "dismissalDate": 1696900100,
+      "topic": "com.example.app.push-type.liveactivity"
+    }
+  ],
+  "validateOnly": false
+}
+```
+
+**フィールド説明:**
+
+- `event`: イベントタイプ
+  - `start`: Live Activity を開始（初回のみ）
+  - `update`: Live Activity を更新
+  - `end`: Live Activity を終了
+- `contentState`: Live Activity の動的コンテンツ（任意の JSON オブジェクト）
+- `attributes`: Live Activity の静的属性（`start` イベントでのみ使用）
+- `attributesType`: 属性の型名（`start` イベントでのみ使用）
+- `timestamp`: イベントのタイムスタンプ（Unix エポックからの秒数）
+- `staleDate`: Live Activity が古くなる日時（Unix エポックからの秒数、オプション）
+- `dismissalDate`: Live Activity を削除する日時（`end` イベントでのみ使用、Unix エポックからの秒数、オプション）
+- `relevanceScore`: 関連性スコア（0.0 〜 1.0、オプション）
+- `alert`: 通知アラート（オプション）
+- `priority`: 優先度（10 = 即座、5 = 省電力）
+- `topic`: バンドル ID に `.push-type.liveactivity` を追加したもの
+
 **Live Activity イベントタイプ:**
+- `start`: Live Activity を開始（attributes と attributesType が必要）
 - `update`: Live Activity を更新
-- `end`: Live Activity を終了
+- `end`: Live Activity を終了（dismissalDate でいつ削除するかを指定可能）
 
 **Response:**
 ```json

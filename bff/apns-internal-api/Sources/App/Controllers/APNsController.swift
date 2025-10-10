@@ -134,17 +134,41 @@ struct APNsController: RouteCollection, Sendable {
         for update in request.updates {
             do {
                 // Live Activity ペイロードを構築
-                var payload: [String: Any] = [
-                    "aps": [
-                        "timestamp": update.timestamp ?? Int(Date().timeIntervalSince1970),
-                        "event": update.event.rawValue,
-                        "content-state": update.contentState
-                    ] as [String: Any]
+                var apsDict: [String: Any] = [
+                    "timestamp": update.timestamp ?? Int(Date().timeIntervalSince1970),
+                    "event": update.event.rawValue
                 ]
+                
+                // content-state を追加
+                apsDict["content-state"] = update.contentState.mapValues { $0.value }
+                
+                // start イベントの場合、attributes と attributes-type を追加
+                if update.event == .start {
+                    if let attributes = update.attributes {
+                        apsDict["attributes"] = attributes.mapValues { $0.value }
+                    }
+                    if let attributesType = update.attributesType {
+                        apsDict["attributes-type"] = attributesType
+                    }
+                }
+                
+                // stale-date を追加
+                if let staleDate = update.staleDate {
+                    apsDict["stale-date"] = staleDate
+                }
+                
+                // end イベントの場合、dismissal-date を追加
+                if update.event == .end, let dismissalDate = update.dismissalDate {
+                    apsDict["dismissal-date"] = dismissalDate
+                }
+                
+                // relevance-score を追加
+                if let relevanceScore = update.relevanceScore {
+                    apsDict["relevance-score"] = relevanceScore
+                }
                 
                 // アラートがある場合は追加
                 if let alert = update.alert {
-                    var apsDict = payload["aps"] as? [String: Any] ?? [:]
                     var alertDict: [String: String] = [:]
                     
                     if let title = alert.title {
@@ -160,15 +184,19 @@ struct APNsController: RouteCollection, Sendable {
                     if !alertDict.isEmpty {
                         apsDict["alert"] = alertDict
                     }
-                    
-                    payload["aps"] = apsDict
                 }
+                
+                let payload: [String: Any] = ["aps": apsDict]
                 
                 // JSON エンコード
                 let jsonData = try JSONSerialization.data(withJSONObject: payload)
                 guard let jsonString = String(data: jsonData, encoding: .utf8) else {
                     throw Abort(.internalServerError, reason: "Failed to encode JSON")
                 }
+                
+                req.logger.debug("Live Activity payload", metadata: [
+                    "payload": .string(jsonString)
+                ])
                 
                 // 検証のみモードでない場合は実際に送信
                 if !validateOnly {
