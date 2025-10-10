@@ -17,3 +17,10 @@ for line in "${define_items[@]}"; do
     echo "$decoded_line" >> "$OUTPUT_FILE"
   fi
 done
+
+# environmentに応じて、GoogleService-Info.plist をコピーする
+if [ "$ENVIRONMENT" = "production" ]; then
+  cp "${SRCROOT}/../environments/macos/production.plist" "${SRCROOT}/Runner/GoogleService-Info.plist"
+else
+  cp "${SRCROOT}/../environments/macos/staging.plist" "${SRCROOT}/Runner/GoogleService-Info.plist"
+fi
