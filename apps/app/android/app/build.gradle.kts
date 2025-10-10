@@ -24,17 +24,18 @@ if (project.hasProperty("dart-defines")) {
 }
 
 // environmentに応じて、google-services.json をコピーする
-if (dartDefines["ENVIRONMENT"] == "production") {
+val environment = dartDefines["ENVIRONMENT"]
+if (environment == "production") {
   copy {
     from "environments/android/production.json"
     into "app"
   }
-} else if (dartDefines["ENVIRONMENT"] == "staging") {
+} else if (environment == "staging" || environment == "development") {
   copy {
     from "environments/android/staging.json"
     into "app"
   }
-}else {
+} else {
   throw IllegalArgumentException("ENVIRONMENT is not set")
 }
 
