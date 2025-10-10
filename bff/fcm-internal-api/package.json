@@ -1,0 +1,22 @@
+{
+  "name": "@2025/fcm-internal-api",
+  "type": "module",
+  "scripts": {
+    "format": "biome check --write",
+    "check-types": "tsc --noEmit",
+    "dev": "bun run --watch src/index.ts",
+    "start": "bun run src/index.ts"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.14.0",
+    "@hono/valibot-validator": "^0.5.3",
+    "firebase-admin": "^13.0.2",
+    "hono": "^4.8.5",
+    "valibot": "^1.1.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.2.3",
+    "@types/bun": "^1.2.19",
+    "typescript": "^5.9.2"
+  }
+}
