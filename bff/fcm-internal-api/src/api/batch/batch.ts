@@ -1,6 +1,6 @@
 import { vValidator } from "@hono/valibot-validator";
 import { Hono } from "hono";
-import * as admin from "firebase-admin";
+import type * as admin from "firebase-admin";
 import { getMessaging } from "../../util/firebase";
 import { BatchSendRequestSchema } from "./schema";
 
@@ -12,55 +12,13 @@ export const batchApi = new Hono().post(
 		const messaging = getMessaging();
 
 		try {
-			// FCM メッセージを構築
-			const messages: admin.messaging.Message[] = request.messages.map((msg) => {
-				const message: admin.messaging.Message = {
-					token: msg.token,
-				};
-
-				if (msg.notification) {
-					message.notification = {
-						title: msg.notification.title,
-						body: msg.notification.body,
-						imageUrl: msg.notification.imageUrl,
-					};
-				}
-
-				if (msg.data) {
-					message.data = msg.data;
-				}
-
-				if (msg.android) {
-					message.android = {
-						priority: msg.android.priority,
-						notification: msg.android.notification
-							? {
-									sound: msg.android.notification.sound,
-									channelId: msg.android.notification.channelId,
-								}
-							: undefined,
-					};
-				}
-
-				if (msg.apns) {
-					message.apns = {
-						payload: msg.apns.payload
-							? {
-									aps: msg.apns.payload.aps
-										? {
-												sound: msg.apns.payload.aps.sound,
-											}
-										: undefined,
-								}
-							: undefined,
-					};
-				}
-
-				return message;
-			});
+			// Valibot で検証済みのメッセージは Firebase Admin SDK の Message 型と互換性があるため、
+			// そのまま使用できます
+			const messages = request.messages as admin.messaging.Message[];
 
 			// バッチ送信を実行
-			const response = await messaging.sendEach(messages);
+			const validateOnly = request.validateOnly ?? false;
+			const response = await messaging.sendEach(messages, validateOnly);
 
 			// 結果をまとめる
 			const results = response.responses.map((res, index) => ({
@@ -73,6 +31,8 @@ export const batchApi = new Hono().post(
 						}
 					: undefined,
 				token: request.messages[index].token,
+				topic: request.messages[index].topic,
+				condition: request.messages[index].condition,
 			}));
 
 			return c.json({

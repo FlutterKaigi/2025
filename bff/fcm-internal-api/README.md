@@ -33,6 +33,9 @@ Content-Type: application/json
 ```
 
 **Request Body:**
+
+このエンドポイントは、Firebase Admin SDK の [Message](https://firebase.google.com/docs/reference/admin/node/firebase-admin.messaging.message) 型と完全に互換性のあるスキーマを使用します。
+
 ```json
 {
   "messages": [
@@ -50,21 +53,55 @@ Content-Type: application/json
       "android": {
         "priority": "high",
         "notification": {
+          "title": "Android 専用タイトル",
+          "body": "Android 専用本文",
+          "channelId": "default_channel",
           "sound": "default",
-          "channelId": "default_channel"
+          "color": "#FF0000",
+          "icon": "ic_notification"
         }
       },
       "apns": {
+        "headers": {
+          "apns-priority": "10"
+        },
         "payload": {
           "aps": {
-            "sound": "default"
+            "alert": {
+              "title": "iOS 専用タイトル",
+              "body": "iOS 専用本文"
+            },
+            "sound": "default",
+            "badge": 1
           }
         }
+      },
+      "webpush": {
+        "notification": {
+          "title": "Web 専用タイトル",
+          "body": "Web 専用本文",
+          "icon": "https://example.com/icon.png"
+        }
+      },
+      "fcmOptions": {
+        "analyticsLabel": "campaign_1"
       }
     }
-  ]
+  ],
+  "validateOnly": false
 }
 ```
+
+**サポートされるフィールド:**
+
+- `token`, `topic`, `condition`: ターゲット指定（いずれか1つ必須）
+- `notification`: 共通通知ペイロード
+- `data`: カスタムデータ（キー・バリュー形式）
+- `android`: Android 固有の設定（[AndroidConfig](https://firebase.google.com/docs/reference/admin/node/firebase-admin.messaging.androidconfig)）
+- `apns`: iOS 固有の設定（[ApnsConfig](https://firebase.google.com/docs/reference/admin/node/firebase-admin.messaging.apnsconfig)）
+- `webpush`: Web Push 固有の設定（[WebpushConfig](https://firebase.google.com/docs/reference/admin/node/firebase-admin.messaging.webpushconfig)）
+- `fcmOptions`: FCM オプション
+- `validateOnly`: true の場合、メッセージを送信せずに検証のみ行う
 
 **Response:**
 ```json
