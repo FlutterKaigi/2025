@@ -505,6 +505,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.9.3+4"
+  firebase_core:
+    dependency: transitive
+    description:
+      name: firebase_core
+      sha256: "4dd96f05015c0dcceaa47711394c32971aee70169625d5e2477e7676c01ce0ee"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.1.1"
+  firebase_core_platform_interface:
+    dependency: transitive
+    description:
+      name: firebase_core_platform_interface
+      sha256: "5873a370f0d232918e23a5a6137dbe4c2c47cf017301f4ea02d9d636e52f60f0"
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.0.1"
+  firebase_core_web:
+    dependency: transitive
+    description:
+      name: firebase_core_web
+      sha256: "61a51037312dac781f713308903bb7a1762a7f92f7bc286a3a0947fb2a713b82"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.1"
   fixnum:
     dependency: transitive
     description:
