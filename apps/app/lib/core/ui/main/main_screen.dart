@@ -33,11 +33,14 @@ class MainScreen extends StatelessWidget {
             icon: Icons.event,
             title: t.common.navigation.event,
           ),
-          // TODO: スポンサーの表示修正完了後に復活予定
-          // ResponsiveScaffoldDestination(
-          //   icon: Icons.business,
-          //   title: t.common.navigation.sponsor,
-          // ),
+          ResponsiveScaffoldDestination(
+            icon: Icons.calendar_month,
+            title: t.common.navigation.session,
+          ),
+          ResponsiveScaffoldDestination(
+            icon: Icons.business,
+            title: t.common.navigation.sponsor,
+          ),
           ResponsiveScaffoldDestination(
             icon: Icons.confirmation_number,
             title: t.common.navigation.ticket,

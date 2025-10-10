@@ -40,6 +40,7 @@ Widget accountInfoScreenUseCase(BuildContext context) {
           bffBaseUrl: '',
           supabaseUrl: '',
           supabaseKey: '',
+          withdrawalFormUrl: '',
         ),
       ),
     ],
@@ -49,6 +50,7 @@ Widget accountInfoScreenUseCase(BuildContext context) {
       onTapPrivacyPolicyTile: () {},
       onTapContactTile: () {},
       onTapOssLicensesTile: () {},
+      onTapWithdrawalTile: () {},
     ),
   );
 }

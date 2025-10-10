@@ -10,11 +10,31 @@ part 'auth_notifier.g.dart';
 
 @Riverpod(keepAlive: true)
 class AuthNotifier extends _$AuthNotifier {
+  bool _isExplicitSignOut = false;
+
   @override
   Stream<User?> build() async* {
     final authService = ref.watch(authServiceProvider);
-    yield authService.currentUser;
-    ref.listen(_authStateChangeStreamProvider, (_, _) => ref.invalidateSelf());
+
+    // 初期化時に未認証の場合で、明示的なログアウト状態でなければ自動的にゲストログインを実行
+    final currentUser = authService.currentUser;
+    if (currentUser == null && !_isExplicitSignOut) {
+      final user = await authService.signInAnonymously();
+      yield user;
+    } else if (_isExplicitSignOut) {
+      yield null;
+    } else {
+      yield currentUser;
+    }
+
+    // Supabaseの認証状態変更を継続的に監視
+    await for (final event in authService.authStateChangeStream()) {
+      if (_isExplicitSignOut && event != AuthStateEvent.signedOut) {
+        // 明示的ログアウト状態の場合は、ログアウトイベント以外は無視
+        continue;
+      }
+      yield authService.currentUser;
+    }
   }
 
   Future<User?> signInWithGoogle() async {
@@ -40,20 +60,56 @@ class AuthNotifier extends _$AuthNotifier {
         .linkAnonymousUserWithGoogle(redirectTo: redirectTo);
   }
 
-  Future<void> signOut() async => ref.read(authServiceProvider).signOut();
+  Future<void> signOut() async {
+    _isExplicitSignOut = true;
+    await ref.read(authServiceProvider).signOut();
+    // 明示的なログアウト状態をリセット（次回の初期化で自動ログインできるように）
+    // ログイン画面でユーザーが操作するまで待つため、少し長めの遅延
+    Future.delayed(const Duration(seconds: 1), () {
+      _isExplicitSignOut = false;
+    });
+  }
 
   Future<String?> getAccessToken() async {
     final authService = ref.read(authServiceProvider);
     final session = authService.currentSession;
     if (session == null) {
+      // セッションがない場合は自動的にゲストログイン
+      final user = await authService.signInAnonymously();
+      if (user != null) {
+        // ゲストログイン後、セッションを取得
+        final newSession = authService.currentSession;
+        return newSession?.accessToken;
+      }
       return null;
     }
     final isExpired = session.isExpired;
     if (isExpired) {
+      final currentUser = authService.currentUser;
+      // Google認証のセッション切れの場合
+      if (currentUser != null && !currentUser.isAnonymous) {
+        // セッション切れエラーとしてnullを返す（後続処理でログイン画面へ遷移）
+        return null;
+      }
+      // ゲストユーザーのセッション切れの場合はリフレッシュ
       final response = await authService.refreshSession();
       return response.session?.accessToken;
     }
     return session.accessToken;
+  }
+
+  bool isGoogleSessionExpired() {
+    final authService = ref.read(authServiceProvider);
+    final currentUser = authService.currentUser;
+    final session = authService.currentSession;
+
+    // Googleユーザーでセッションが切れている場合
+    if (currentUser != null &&
+        !currentUser.isAnonymous &&
+        (session == null || session.isExpired)) {
+      return true;
+    }
+    return false;
   }
 
   String _getRedirectTo(Environment environment) {
@@ -64,10 +120,4 @@ class AuthNotifier extends _$AuthNotifier {
     // モバイルプラットフォームの場合は従来のカスタムスキームを使用
     return 'jp.flutterkaigi.conf2025${environment.appIdSuffix}://login-callback';
   }
-}
-
-@Riverpod(keepAlive: true)
-Stream<AuthStateEvent> _authStateChangeStream(Ref ref) {
-  final authService = ref.watch(authServiceProvider);
-  return authService.authStateChangeStream();
 }

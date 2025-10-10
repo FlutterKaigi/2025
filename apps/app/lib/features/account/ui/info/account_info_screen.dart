@@ -25,18 +25,21 @@ final class AccountInfoScreen extends ConsumerWidget {
     required VoidCallback onTapPrivacyPolicyTile,
     required VoidCallback onTapContactTile,
     required VoidCallback onTapOssLicensesTile,
+    required VoidCallback onTapWithdrawalTile,
     super.key,
   }) : _onProfileEdit = onProfileEdit,
        _onTapCodeOfConductTile = onTapCodeOfConductTile,
        _onTapPrivacyPolicyTile = onTapPrivacyPolicyTile,
        _onTapContactTile = onTapContactTile,
-       _onTapOssLicensesTile = onTapOssLicensesTile;
+       _onTapOssLicensesTile = onTapOssLicensesTile,
+       _onTapWithdrawalTile = onTapWithdrawalTile;
 
   final VoidCallback _onProfileEdit;
   final VoidCallback _onTapCodeOfConductTile;
   final VoidCallback _onTapPrivacyPolicyTile;
   final VoidCallback _onTapContactTile;
   final VoidCallback _onTapOssLicensesTile;
+  final VoidCallback _onTapWithdrawalTile;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -89,6 +92,12 @@ final class AccountInfoScreen extends ConsumerWidget {
                 title: t.account.ossLicenses,
                 onTap: _onTapOssLicensesTile,
               ),
+              // ゲストユーザーの場合は退会申請リンクを非表示
+              if (user != null && !user.isAnonymous)
+                (
+                  title: t.account.withdrawal,
+                  onTap: _onTapWithdrawalTile,
+                ),
             ].map(
               (item) => _OtherListItem(
                 title: item.title,
@@ -148,8 +157,6 @@ class _UserInfoCard extends ConsumerWidget {
                     .linkAnonymousUserWithGoogle();
               },
             ),
-            const SizedBox(height: 8),
-            const _LogoutButton(isGuest: true),
           ]
         : [
             _ProfileImage(
@@ -208,11 +215,7 @@ extension on User {
 
 /// ログアウトボタン用のカスタムウィジェット
 class _LogoutButton extends ConsumerWidget {
-  const _LogoutButton({
-    this.isGuest = false,
-  });
-
-  final bool isGuest;
+  const _LogoutButton();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -220,8 +223,7 @@ class _LogoutButton extends ConsumerWidget {
     final colorScheme = Theme.of(context).colorScheme;
 
     return SizedBox(
-      width: isGuest ? 210 : double.infinity,
-      height: isGuest ? 48 : null,
+      width: double.infinity,
       child: OutlinedButton.icon(
         onPressed: () async {
           await ref.read(authNotifierProvider.notifier).signOut();
@@ -233,14 +235,7 @@ class _LogoutButton extends ConsumerWidget {
           side: BorderSide(
             color: colorScheme.error,
           ),
-          shape: isGuest
-              ? RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(40),
-                )
-              : null,
-          visualDensity: isGuest
-              ? VisualDensity.standard
-              : VisualDensity.comfortable,
+          visualDensity: VisualDensity.comfortable,
         ),
       ),
     );

@@ -32,7 +32,7 @@ final class AuthNotifierProvider
   AuthNotifier create() => AuthNotifier();
 }
 
-String _$authNotifierHash() => r'b6531032c4525d73b59e68c90ca42419af93cebe';
+String _$authNotifierHash() => r'476f4f0c8537fadf63f688d6275fe3764f592772';
 
 abstract class _$AuthNotifier extends $StreamNotifier<User?> {
   Stream<User?> build();
@@ -52,46 +52,6 @@ abstract class _$AuthNotifier extends $StreamNotifier<User?> {
     element.handleValue(ref, created);
   }
 }
-
-@ProviderFor(_authStateChangeStream)
-const _authStateChangeStreamProvider = _AuthStateChangeStreamProvider._();
-
-final class _AuthStateChangeStreamProvider
-    extends
-        $FunctionalProvider<
-          AsyncValue<AuthStateEvent>,
-          AuthStateEvent,
-          Stream<AuthStateEvent>
-        >
-    with $FutureModifier<AuthStateEvent>, $StreamProvider<AuthStateEvent> {
-  const _AuthStateChangeStreamProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'_authStateChangeStreamProvider',
-        isAutoDispose: false,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
-
-  @override
-  String debugGetCreateSourceHash() => _$_authStateChangeStreamHash();
-
-  @$internal
-  @override
-  $StreamProviderElement<AuthStateEvent> $createElement(
-    $ProviderPointer pointer,
-  ) => $StreamProviderElement(pointer);
-
-  @override
-  Stream<AuthStateEvent> create(Ref ref) {
-    return _authStateChangeStream(ref);
-  }
-}
-
-String _$_authStateChangeStreamHash() =>
-    r'1e3091507c1ddb2585f5f27a981ca3186392932b';
 
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

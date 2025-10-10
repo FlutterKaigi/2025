@@ -54,9 +54,19 @@ url = "https://github.com/rclone/rclone/releases/download/v1.71.0/rclone-v1.71.0
 version = "1.30.0"
 backend = "aqua:stripe/stripe-cli"
 
+[tools.stripe.platforms.macos-arm64]
+checksum = "sha256:22a72bbb0f463b41b63fd6fcbd2893838956d09fef6776c4a7671870a938ea43"
+size = 8112912
+url = "https://github.com/stripe/stripe-cli/releases/download/v1.30.0/stripe_1.30.0_mac-os_arm64.tar.gz"
+
 [[tools.terraform]]
 version = "1.13.3"
 backend = "aqua:hashicorp/terraform"
+
+[tools.terraform.platforms.macos-arm64]
+checksum = "sha256:8362e7284b38a1194884963deed83481696d468b42dab88052775f4280383584"
+size = 28926971
+url = "https://releases.hashicorp.com/terraform/1.13.3/terraform_1.13.3_darwin_arm64.zip"
 
 [[tools.tflint]]
 version = "0.59.1"
