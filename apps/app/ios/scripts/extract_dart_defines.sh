@@ -20,7 +20,7 @@ done
 
 # environmentに応じて、GoogleService-Info.plist をコピーする
 if [ "$ENVIRONMENT" = "production" ]; then
-  cp "${SRCROOT}/../environments/ios/production.plist" "${SRCROOT}/Runner/GoogleService-Info.plist"
+  cp "${SRCROOT}/../environments/apple/production.plist" "${SRCROOT}/Runner/GoogleService-Info.plist"
 else
-  cp "${SRCROOT}/../environments/ios/staging.plist" "${SRCROOT}/Runner/GoogleService-Info.plist"
+  cp "${SRCROOT}/../environments/apple/staging.plist" "${SRCROOT}/Runner/GoogleService-Info.plist"
 fi
