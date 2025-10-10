@@ -2,6 +2,9 @@ import java.util.Base64
 
 plugins {
     id("com.android.application")
+    // START: FlutterFire Configuration
+    id("com.google.gms.google-services")
+    // END: FlutterFire Configuration
     id("kotlin-android")
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
@@ -18,6 +21,21 @@ if (project.hasProperty("dart-defines")) {
       dartDefines[pair[0]] = pair[1]
     }
   }
+}
+
+// environmentに応じて、google-services.json をコピーする
+if (dartDefines["ENVIRONMENT"] == "production") {
+  copy {
+    from "environments/android/production.json"
+    into "app"
+  }
+} else if (dartDefines["ENVIRONMENT"] == "staging") {
+  copy {
+    from "environments/android/staging.json"
+    into "app"
+  }
+}else {
+  throw IllegalArgumentException("ENVIRONMENT is not set")
 }
 
 android {
