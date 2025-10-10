@@ -29,12 +29,14 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>jp.flutterkaigi.conf2025${APP_ID_SUFFIX}</string>
+				<string>app-1-1024337697305-ios-2e8758ea13b297da94a888</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>GIDClientID</key>
+	<string>1024337697305-cqc7jr1pirg7ms557vhkn2sordnsllld.apps.googleusercontent.com</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>twitter</string>

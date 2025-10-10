@@ -10,12 +10,12 @@ dependencies:
   db_types:
     path: ../db_types
   firebase_auth: ^6.1.0
+  flutter:
+    sdk: flutter
   freezed_annotation: ^3.0.0
   google_sign_in: ^7.2.0
   retrofit: ^4.4.2
   supabase_flutter: ^2.9.1
-  flutter:
-    sdk: flutter
 
 dev_dependencies:
   altive_lints: ^1.19.1
