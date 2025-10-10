@@ -1,5 +1,15 @@
 {
   "mcpServers": {
+    "dart": {
+      "command": "mise",
+      "args": [
+        "exec",
+        "--",
+        "dart",
+        "mcp-server",
+        "--force-roots-fallback"
+      ]
+    },
     "github": {
       "command": "docker",
       "args": [
