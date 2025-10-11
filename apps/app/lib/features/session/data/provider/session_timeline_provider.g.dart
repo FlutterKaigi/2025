@@ -47,7 +47,7 @@ final class SessionTimelineProvider
   }
 }
 
-String _$sessionTimelineHash() => r'eaf271501d230d824c6f795e3833d2fe73739717';
+String _$sessionTimelineHash() => r'b43e6b16432739c36775dffc404e69bb34d5ac0d';
 
 @ProviderFor(sessionTimelineForVenue)
 const sessionTimelineForVenueProvider = SessionTimelineForVenueFamily._();
@@ -108,7 +108,7 @@ final class SessionTimelineForVenueProvider
 }
 
 String _$sessionTimelineForVenueHash() =>
-    r'0645d4a1807af3afb79f0e9208e88b7c66f70313';
+    r'ce93e23adec669cb0b58b31fac9868d11ab2ba0b';
 
 final class SessionTimelineForVenueFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<List<TimelineItem>>, String> {
@@ -127,53 +127,6 @@ final class SessionTimelineForVenueFamily extends $Family
   @override
   String toString() => r'sessionTimelineForVenueProvider';
 }
-
-@ProviderFor(sessionEvents)
-const sessionEventsProvider = SessionEventsProvider._();
-
-final class SessionEventsProvider
-    extends
-        $FunctionalProvider<
-          List<TimelineEvent>,
-          List<TimelineEvent>,
-          List<TimelineEvent>
-        >
-    with $Provider<List<TimelineEvent>> {
-  const SessionEventsProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'sessionEventsProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
-
-  @override
-  String debugGetCreateSourceHash() => _$sessionEventsHash();
-
-  @$internal
-  @override
-  $ProviderElement<List<TimelineEvent>> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
-
-  @override
-  List<TimelineEvent> create(Ref ref) {
-    return sessionEvents(ref);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(List<TimelineEvent> value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<List<TimelineEvent>>(value),
-    );
-  }
-}
-
-String _$sessionEventsHash() => r'f8550d81605096b812bf33b81e384afe9b0caf36';
 
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
