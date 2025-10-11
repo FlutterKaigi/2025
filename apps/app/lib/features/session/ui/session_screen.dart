@@ -1,6 +1,8 @@
 import 'package:app/core/designsystem/components/error_view.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
-import 'package:app/features/session/data/model/session.dart';
+import 'package:app/core/util/share_util.dart';
+import 'package:app/features/session/data/model/session_models.dart';
+import 'package:app/features/session/data/provider/bookmarked_sessions_provider.dart';
 import 'package:app/features/session/data/provider/session_provider.dart';
 import 'package:app/features/session/ui/components/session_speaker_icon.dart';
 import 'package:app/features/session/ui/components/session_type_chip.dart';
@@ -34,60 +36,61 @@ class SessionScreen extends ConsumerWidget {
           AsyncData(:final value) => () {
             try {
               final foundSession = value.firstWhere((s) => s.id == sessionId);
-              return AsyncData<Session?>(foundSession);
+              return AsyncData<ScheduleSession?>(foundSession);
             } on Exception {
-              return const AsyncData<Session?>(null);
+              return const AsyncData<ScheduleSession?>(null);
             }
           }(),
-          AsyncLoading() => const AsyncLoading<Session?>(),
-          AsyncError(:final error, :final stackTrace) => AsyncError<Session?>(
-            error,
-            stackTrace,
-          ),
+          AsyncLoading() => const AsyncLoading<ScheduleSession?>(),
+          AsyncError(:final error, :final stackTrace) =>
+            AsyncError<ScheduleSession?>(
+              error,
+              stackTrace,
+            ),
         };
       }),
     );
 
     return switch (session) {
-      AsyncData<Session?>(value: final value) when value != null => Scaffold(
-        body: _SessionDetailView(session: value),
-        // TODO: お気に入り機能は一時的に無効化（API連携後に再有効化）
-        // floatingActionButton: FloatingActionButton(
-        //   onPressed: () async {
-        //     final bookmarkedSessions = await ref.read(
-        //       bookmarkedSessionsProvider.future,
-        //     );
-        //     final isBookmarked = bookmarkedSessions.contains(sessionId);
-        //     if (isBookmarked) {
-        //       await ref
-        //           .read(bookmarkedSessionsProvider.notifier)
-        //           .remove(sessionId);
-        //     } else {
-        //       await ref
-        //           .read(bookmarkedSessionsProvider.notifier)
-        //           .save(sessionId);
-        //     }
-        //   },
-        //   child: switch (ref.watch(bookmarkedSessionsProvider)) {
-        //     AsyncData(:final value) =>
-        //       value.contains(sessionId)
-        //           ? const Icon(Icons.bookmark)
-        //           : const Icon(Icons.bookmark_outline),
-        //     _ => const Icon(Icons.bookmark_outline),
-        //   },
-        // ),
-      ),
-      AsyncData<Session?>(value: null) => Scaffold(
+      AsyncData<ScheduleSession?>(value: final value) when value != null =>
+        Scaffold(
+          body: _SessionDetailView(session: value),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () async {
+              final bookmarkedSessions = await ref.read(
+                bookmarkedSessionsProvider.future,
+              );
+              final isBookmarked = bookmarkedSessions.contains(sessionId);
+              if (isBookmarked) {
+                await ref
+                    .read(bookmarkedSessionsProvider.notifier)
+                    .remove(sessionId);
+              } else {
+                await ref
+                    .read(bookmarkedSessionsProvider.notifier)
+                    .save(sessionId);
+              }
+            },
+            child: switch (ref.watch(bookmarkedSessionsProvider)) {
+              AsyncData(:final value) =>
+                value.contains(sessionId)
+                    ? const Icon(Icons.bookmark)
+                    : const Icon(Icons.bookmark_outline),
+              _ => const Icon(Icons.bookmark_outline),
+            },
+          ),
+        ),
+      AsyncData<ScheduleSession?>(value: null) => Scaffold(
         body: Center(
           child: Text(Translations.of(context).session.empty.message),
         ),
       ),
-      AsyncLoading<Session?>() => const Scaffold(
+      AsyncLoading<ScheduleSession?>() => const Scaffold(
         body: Center(
           child: CircularProgressIndicator.adaptive(),
         ),
       ),
-      AsyncError<Session?>(:final error) => Scaffold(
+      AsyncError<ScheduleSession?>(:final error) => Scaffold(
         body: ErrorView(
           error: error,
           onRetry: () => ref.invalidate(sessionsProvider),
@@ -107,7 +110,7 @@ final _googleCalendarDateFormatter = DateFormat("yyyyMMdd'T'HHmmss'Z'");
 class _SessionDetailView extends ConsumerWidget with SessionScreenMixin {
   _SessionDetailView({required this.session});
 
-  final Session session;
+  final ScheduleSession session;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -123,24 +126,23 @@ class _SessionDetailView extends ConsumerWidget with SessionScreenMixin {
               context: context,
             ),
             title: Text(session.title),
-            // TODO: シェア機能は一時的に無効化（API連携後に再有効化）
-            // actions: [
-            //   IconButton(
-            //     tooltip: 'Xでシェア',
-            //     padding: const EdgeInsets.all(12),
-            //     onPressed: () async {
-            //       final sessionUrl =
-            //           'https://2025-app.flutterkaigi.jp/sessions/${session.id}';
-            //       await ShareUtil.shareToX(
-            //         text: session.title,
-            //         url: sessionUrl,
-            //         hashtags: 'FlutterKaigi2025',
-            //         via: 'FlutterKaigi',
-            //       );
-            //     },
-            //     icon: const Icon(Icons.share),
-            //   ),
-            // ],
+            actions: [
+              IconButton(
+                tooltip: 'Xでシェア',
+                padding: const EdgeInsets.all(12),
+                onPressed: () async {
+                  final sessionUrl =
+                      'https://2025-app.flutterkaigi.jp/sessions/${session.id}';
+                  await ShareUtil.shareToX(
+                    text: session.title,
+                    url: sessionUrl,
+                    hashtags: 'FlutterKaigi2025',
+                    via: 'FlutterKaigi',
+                  );
+                },
+                icon: const Icon(Icons.share),
+              ),
+            ],
           ),
           SliverList.list(
             children: [
@@ -168,7 +170,7 @@ class _SessionDetailView extends ConsumerWidget with SessionScreenMixin {
                   children: [
                     IntrinsicWidth(
                       child: SessionVenueChip(
-                        venueName: session.venue.name,
+                        venueName: session.venue,
                       ),
                     ),
                     IntrinsicWidth(
@@ -238,14 +240,14 @@ class _SessionDetailView extends ConsumerWidget with SessionScreenMixin {
   }
 
   /// カレンダーにセッションを追加する
-  Future<void> _addToCalendar(Session session) async {
+  Future<void> _addToCalendar(ScheduleSession session) async {
     // すべてのプラットフォームでGoogle Calendar URLを使用
     final url = _createGoogleCalendarUrl(session);
     await launchUrl(url, mode: LaunchMode.externalApplication);
   }
 
   /// Google Calendar用のURLを作成
-  Uri _createGoogleCalendarUrl(Session session) {
+  Uri _createGoogleCalendarUrl(ScheduleSession session) {
     return Uri.https(
       'www.google.com',
       'calendar/render',
@@ -253,7 +255,7 @@ class _SessionDetailView extends ConsumerWidget with SessionScreenMixin {
         'action': 'TEMPLATE',
         'text': 'FlutterKaigi 2025: ${session.title}',
         'details': session.description,
-        'location': session.venue.name,
+        'location': session.venue,
         'dates':
             '${_googleCalendarDateFormatter.format(session.startsAt.toUtc())}/${_googleCalendarDateFormatter.format(session.endsAt.toUtc())}',
       },
@@ -263,7 +265,7 @@ class _SessionDetailView extends ConsumerWidget with SessionScreenMixin {
 
 mixin SessionScreenMixin {
   final appBarSize = kToolbarHeight;
-  final padding = 16;
+  final padding = 32;
 
   /// title の長さに応じて、SliverAppBar の expandedHeight を計算します
   double getExpandedHeight({
