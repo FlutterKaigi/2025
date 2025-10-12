@@ -183,7 +183,6 @@ class _UnifiedSponsorCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     final logoSize = _getLogoSize(tier);
     return Card(
       margin: const EdgeInsets.all(4),
@@ -192,57 +191,31 @@ class _UnifiedSponsorCard extends StatelessWidget {
           SponsorDetailRoute(slug: sponsor.slug).go(context);
         },
         borderRadius: BorderRadius.circular(12),
-        child: Column(
-          children: [
-            Expanded(
-              child: Container(
-                padding: const EdgeInsets.all(12),
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
+        child: Container(
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: _getTierColor(tier),
+              width: 2,
+            ),
+          ),
+          child: sponsor.logoUrl.toString().isEmpty
+              ? Icon(
+                  tier == 'Individual' ? Icons.person : Icons.business,
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
+                  size: logoSize * 0.5,
+                )
+              : Image.network(
+                  sponsor.logoUrl.toString(),
+                  fit: BoxFit.contain,
+                  errorBuilder: (context, error, stackTrace) => Icon(
+                    tier == 'Individual' ? Icons.person : Icons.business,
+                    color: Colors.white,
+                    size: logoSize * 0.5,
+                  ),
                 ),
-                child: sponsor.logoUrl.toString().isEmpty
-                    ? Icon(
-                        tier == 'Individual' ? Icons.person : Icons.business,
-                        color: Colors.white,
-                        size: logoSize * 0.5,
-                      )
-                    : Image.network(
-                        sponsor.logoUrl.toString(),
-                        fit: BoxFit.contain,
-                        errorBuilder: (context, error, stackTrace) => Icon(
-                          tier == 'Individual' ? Icons.person : Icons.business,
-                          color: Colors.white,
-                          size: logoSize * 0.5,
-                        ),
-                      ),
-              ),
-            ),
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-              decoration: BoxDecoration(
-                color: theme.colorScheme.surfaceContainerHighest.withAlpha(51),
-                borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(12),
-                  bottomRight: Radius.circular(12),
-                ),
-              ),
-              child: Text(
-                sponsor.name,
-                textAlign: TextAlign.center,
-                style: theme.textTheme.bodySmall?.copyWith(
-                  fontWeight: tier == 'Platinum'
-                      ? FontWeight.bold
-                      : FontWeight.w500,
-                  fontSize: _getTextSize(tier),
-                ),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-          ],
         ),
       ),
     );
@@ -319,21 +292,5 @@ double _getLogoSize(String tier) {
       return 64;
     default:
       return 64;
-  }
-}
-
-double _getTextSize(String tier) {
-  switch (tier) {
-    case 'Platinum':
-      return 14;
-    case 'Gold':
-      return 12;
-    case 'Silver':
-    case 'Bronze':
-      return 11;
-    case 'Individual':
-      return 10;
-    default:
-      return 10;
   }
 }
