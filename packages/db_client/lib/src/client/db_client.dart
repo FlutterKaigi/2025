@@ -9,6 +9,7 @@ import 'package:db_client/src/client/ticket/ticket_checkout_db_client.dart';
 import 'package:db_client/src/client/ticket/ticket_option_db_client.dart';
 import 'package:db_client/src/client/ticket/ticket_purchase_db_client.dart';
 import 'package:db_client/src/client/ticket/ticket_type_db_client.dart';
+import 'package:db_client/src/client/timeline_event/timeline_event_db_client.dart';
 import 'package:db_client/src/client/user/user_db_client.dart';
 import 'package:postgres/postgres.dart';
 
@@ -65,6 +66,8 @@ class DbClient {
       TicketPurchaseDbClient(executor: _executor);
   TicketCheckoutDbClient get ticketCheckout =>
       TicketCheckoutDbClient(executor: _executor);
+  TimelineEventDbClient get timelineEvent =>
+      TimelineEventDbClient(executor: _executor);
 
   Future<void> dispose() async {
     await _executor.close();

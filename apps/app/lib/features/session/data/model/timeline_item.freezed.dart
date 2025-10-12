@@ -151,7 +151,7 @@ return session(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( DateTime startsAt,  DateTime endsAt,  String title,  String? venue)?  event,TResult Function( DateTime startsAt,  DateTime endsAt,  ScheduleSession session)?  session,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( DateTime startsAt,  DateTime endsAt,  String title,  Venue? venue)?  event,TResult Function( DateTime startsAt,  DateTime endsAt,  ScheduleSession session)?  session,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case TimelineItemEvent() when event != null:
 return event(_that.startsAt,_that.endsAt,_that.title,_that.venue);case TimelineItemSession() when session != null:
@@ -173,7 +173,7 @@ return session(_that.startsAt,_that.endsAt,_that.session);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( DateTime startsAt,  DateTime endsAt,  String title,  String? venue)  event,required TResult Function( DateTime startsAt,  DateTime endsAt,  ScheduleSession session)  session,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( DateTime startsAt,  DateTime endsAt,  String title,  Venue? venue)  event,required TResult Function( DateTime startsAt,  DateTime endsAt,  ScheduleSession session)  session,}) {final _that = this;
 switch (_that) {
 case TimelineItemEvent():
 return event(_that.startsAt,_that.endsAt,_that.title,_that.venue);case TimelineItemSession():
@@ -191,7 +191,7 @@ return session(_that.startsAt,_that.endsAt,_that.session);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( DateTime startsAt,  DateTime endsAt,  String title,  String? venue)?  event,TResult? Function( DateTime startsAt,  DateTime endsAt,  ScheduleSession session)?  session,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( DateTime startsAt,  DateTime endsAt,  String title,  Venue? venue)?  event,TResult? Function( DateTime startsAt,  DateTime endsAt,  ScheduleSession session)?  session,}) {final _that = this;
 switch (_that) {
 case TimelineItemEvent() when event != null:
 return event(_that.startsAt,_that.endsAt,_that.title,_that.venue);case TimelineItemSession() when session != null:
@@ -213,7 +213,7 @@ class TimelineItemEvent implements TimelineItem {
 @override final  DateTime startsAt;
 @override final  DateTime endsAt;
  final  String title;
- final  String? venue;
+ final  Venue? venue;
 
 /// Create a copy of TimelineItem
 /// with the given fields replaced by the non-null parameter values.
@@ -245,11 +245,11 @@ abstract mixin class $TimelineItemEventCopyWith<$Res> implements $TimelineItemCo
   factory $TimelineItemEventCopyWith(TimelineItemEvent value, $Res Function(TimelineItemEvent) _then) = _$TimelineItemEventCopyWithImpl;
 @override @useResult
 $Res call({
- DateTime startsAt, DateTime endsAt, String title, String? venue
+ DateTime startsAt, DateTime endsAt, String title, Venue? venue
 });
 
 
-
+$VenueCopyWith<$Res>? get venue;
 
 }
 /// @nodoc
@@ -268,11 +268,23 @@ startsAt: null == startsAt ? _self.startsAt : startsAt // ignore: cast_nullable_
 as DateTime,endsAt: null == endsAt ? _self.endsAt : endsAt // ignore: cast_nullable_to_non_nullable
 as DateTime,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,venue: freezed == venue ? _self.venue : venue // ignore: cast_nullable_to_non_nullable
-as String?,
+as Venue?,
   ));
 }
 
+/// Create a copy of TimelineItem
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$VenueCopyWith<$Res>? get venue {
+    if (_self.venue == null) {
+    return null;
+  }
 
+  return $VenueCopyWith<$Res>(_self.venue!, (value) {
+    return _then(_self.copyWith(venue: value));
+  });
+}
 }
 
 /// @nodoc

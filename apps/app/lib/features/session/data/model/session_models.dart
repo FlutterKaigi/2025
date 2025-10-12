@@ -5,4 +5,11 @@
 library;
 
 export 'package:bff_client/bff_client.dart'
-    show ScheduleSession, SessionScheduleResponse, Speaker, Sponsor, Venue;
+    show
+        ScheduleSession,
+        SessionScheduleResponse,
+        SessionWithSpeakers,
+        Speaker,
+        Sponsor,
+        Venue,
+        VenueWithSessions;

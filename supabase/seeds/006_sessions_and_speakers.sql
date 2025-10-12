@@ -1,9 +1,9 @@
 -- Insert session venues based on example data
 INSERT INTO session_venues (id, name) VALUES
-    ('e1a11efe-b1eb-43e1-ae60-9d2233e5dfe7', 'Room A'),
-    ('0505c447-b699-4803-aab9-9cbdf9452c1b', 'Room B'),
-    ('6426cd21-f1fe-4d84-b74b-ff459cc0d3e2', 'Room C'),
-    ('98807fe6-b381-40a7-8c33-30a024b9ca4f', 'Room D');
+    ('e1a11efe-b1eb-43e1-ae60-9d2233e5dfe7', 'Hall A'),
+    ('0505c447-b699-4803-aab9-9cbdf9452c1b', 'Hall B'),
+    ('6426cd21-f1fe-4d84-b74b-ff459cc0d3e2', 'Room A'),
+    ('98807fe6-b381-40a7-8c33-30a024b9ca4f', 'Room B');
 
 -- Insert speakers based on example data
 INSERT INTO speakers (id, name, avatar_url, x_id) VALUES
@@ -65,7 +65,7 @@ INSERT INTO sessions (id, title, description, starts_at, ends_at, venue_id, spon
 
     ('1f46ce6d-44f1-45ee-9738-17da3ebafa8b', 'Flutterビルドキャッシュの内部構造とテスト高速化への応用',
      E'## 概要\r\nFlutter開発では、アプリケーションの実行や配布のたびにビルドが発生します。\r\n通常、ビルドキャッシュは意識せずとも自動で働きますが、その仕組みを理解することで開発効率をさらに高められます。\r\n本セッションでは、Flutter SDKの内部実装に触れながら、ビルドキャッシュの構造と動作を詳しく解説します。\r\nまた、キャッシュが有効・無効になる条件を理解し、 `flutter test` 実行時の不要な再ビルドを回避することで、テスト実行を高速化できる実践的なアプローチも紹介します。\r\n\r\n## 想定視聴者\r\n- Flutterビルドキャッシュの仕組みを体系的に理解したい方\r\n- テスト実行時のビルド高速化に関心のある方\r\n- `build/` ディレクトリや `.dill` ファイルなど、ビルド成果物の正体を知りたい方',
-     '2025-11-21 13:15:00+09', '2025-11-21 13:45:00+09', '98807fe6-b381-40a7-8c33-30a024b9ca4f', NULL, false, false, false, NULL),
+     '2025-11-21 13:15:00+09', '2025-11-21 13:45:00+09', '0505c447-b699-4803-aab9-9cbdf9452c1b', NULL, false, false, false, NULL),
 
     ('4b65280a-17bb-4024-917f-c085c175a442', 'BuildContextの正体とInheritedWidgetの仕組み',
      E'# 概要\r\nFlutter開発で頻繁に利用されるBuildContext。しかし、その役割の曖昧な理解は、パフォーマンス低下や予期せぬエラーの要因となります。 \r\n\r\n本LTでは、UIツリーでのBuildContextの位置と役割、そしてInheritedWidgetがデータ伝達と再構築にどう影響するかを解説します。\r\n\r\n「Widgetのどこでcontextを使えばいいのか」が腑に落ちて、状態管理や画面遷移でつまずかないための最初の理解の壁を突破できることを目指します。\r\n\r\n# 想定視聴者\r\n- contextの扱い方に自信がない方\r\n- Widgetのどこでcontextを使うべきか迷うことがある方\r\n- 状態管理や画面遷移で「なぜか動かない問題」に直面した経験がある方',

@@ -9,7 +9,7 @@ sealed class TimelineItem with _$TimelineItem {
     required DateTime startsAt,
     required DateTime endsAt,
     required String title,
-    String? venue,
+    Venue? venue,
   }) = TimelineItemEvent;
 
   const factory TimelineItem.session({

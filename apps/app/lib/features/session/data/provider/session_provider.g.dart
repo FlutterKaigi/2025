@@ -90,44 +90,47 @@ final class SessionsProvider
 
 String _$sessionsHash() => r'95e37753f9db9c92f138ecfe70432d712a36219b';
 
-@ProviderFor(sessionVenues)
-const sessionVenuesProvider = SessionVenuesProvider._();
+@ProviderFor(venuesWithSessions)
+const venuesWithSessionsProvider = VenuesWithSessionsProvider._();
 
-final class SessionVenuesProvider
+final class VenuesWithSessionsProvider
     extends
         $FunctionalProvider<
-          AsyncValue<List<Venue>>,
-          List<Venue>,
-          FutureOr<List<Venue>>
+          AsyncValue<List<VenueWithSessions>>,
+          List<VenueWithSessions>,
+          FutureOr<List<VenueWithSessions>>
         >
-    with $FutureModifier<List<Venue>>, $FutureProvider<List<Venue>> {
-  const SessionVenuesProvider._()
+    with
+        $FutureModifier<List<VenueWithSessions>>,
+        $FutureProvider<List<VenueWithSessions>> {
+  const VenuesWithSessionsProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'sessionVenuesProvider',
+        name: r'venuesWithSessionsProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$sessionVenuesHash();
+  String debugGetCreateSourceHash() => _$venuesWithSessionsHash();
 
   @$internal
   @override
-  $FutureProviderElement<List<Venue>> $createElement(
+  $FutureProviderElement<List<VenueWithSessions>> $createElement(
     $ProviderPointer pointer,
   ) => $FutureProviderElement(pointer);
 
   @override
-  FutureOr<List<Venue>> create(Ref ref) {
-    return sessionVenues(ref);
+  FutureOr<List<VenueWithSessions>> create(Ref ref) {
+    return venuesWithSessions(ref);
   }
 }
 
-String _$sessionVenuesHash() => r'9990a919ffcb716b80a8eb4db220b063f55ced3e';
+String _$venuesWithSessionsHash() =>
+    r'0581909a27d164e1fbf53c7664ecdff685b758ae';
 
 @ProviderFor(sessionEvents)
 const sessionEventsProvider = SessionEventsProvider._();
@@ -135,11 +138,13 @@ const sessionEventsProvider = SessionEventsProvider._();
 final class SessionEventsProvider
     extends
         $FunctionalProvider<
+          AsyncValue<List<TimelineEvent>>,
           List<TimelineEvent>,
-          List<TimelineEvent>,
-          List<TimelineEvent>
+          FutureOr<List<TimelineEvent>>
         >
-    with $Provider<List<TimelineEvent>> {
+    with
+        $FutureModifier<List<TimelineEvent>>,
+        $FutureProvider<List<TimelineEvent>> {
   const SessionEventsProvider._()
     : super(
         from: null,
@@ -156,25 +161,17 @@ final class SessionEventsProvider
 
   @$internal
   @override
-  $ProviderElement<List<TimelineEvent>> $createElement(
+  $FutureProviderElement<List<TimelineEvent>> $createElement(
     $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
+  ) => $FutureProviderElement(pointer);
 
   @override
-  List<TimelineEvent> create(Ref ref) {
+  FutureOr<List<TimelineEvent>> create(Ref ref) {
     return sessionEvents(ref);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(List<TimelineEvent> value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<List<TimelineEvent>>(value),
-    );
   }
 }
 
-String _$sessionEventsHash() => r'bc35e55f084de78dbdc55e8421b8ef195eba6703';
+String _$sessionEventsHash() => r'3ecf6b07b3667530ab6965b248028334f0f72300';
 
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

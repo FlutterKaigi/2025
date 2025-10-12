@@ -29,4 +29,8 @@ abstract class SessionApiClient {
   Future<HttpResponse<SessionDetailResponse>> getSessionById({
     @Path() required String id,
   });
+
+  /// 全タイムラインイベント一覧を取得
+  @GET('/timeline-events')
+  Future<HttpResponse<TimelineEventListResponse>> getTimelineEvents();
 }

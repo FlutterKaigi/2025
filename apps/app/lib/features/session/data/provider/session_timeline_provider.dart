@@ -7,7 +7,7 @@ part 'session_timeline_provider.g.dart';
 @riverpod
 Future<List<TimelineItem>> sessionTimeline(Ref ref) async {
   final sessions = await ref.watch(sessionsProvider.future);
-  final events = ref.watch(sessionEventsProvider);
+  final events = await ref.watch(sessionEventsProvider.future);
 
   final timelineItems = <TimelineItem>[];
 
@@ -29,7 +29,7 @@ Future<List<TimelineItem>> sessionTimeline(Ref ref) async {
         startsAt: event.startsAt,
         endsAt: event.endsAt ?? event.startsAt,
         title: event.title,
-        venue: event.venueId,
+        venue: event.venue,
       ),
     );
   }
@@ -51,7 +51,7 @@ Future<List<TimelineItem>> sessionTimelineForVenue(
     if (item is TimelineItemSession) {
       return item.session.venueId == venueId;
     } else if (item is TimelineItemEvent) {
-      return item.venue == venueId || item.venue == null;
+      return item.venue?.id == venueId || item.venue == null;
     }
     return false;
   }).toList();

@@ -86,9 +86,7 @@ class _SpeakerAvatar extends StatelessWidget {
     return CircleAvatar(
       radius: size / 2,
       backgroundColor: theme.colorScheme.surfaceContainerHighest,
-      backgroundImage: avatarUrl != null
-          ? NetworkImage(avatarUrl)
-          : null,
+      backgroundImage: avatarUrl != null ? NetworkImage(avatarUrl) : null,
       child: avatarUrl == null
           ? Icon(
               Icons.person,

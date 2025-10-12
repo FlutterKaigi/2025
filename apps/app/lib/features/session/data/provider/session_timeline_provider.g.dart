@@ -47,7 +47,7 @@ final class SessionTimelineProvider
   }
 }
 
-String _$sessionTimelineHash() => r'b43e6b16432739c36775dffc404e69bb34d5ac0d';
+String _$sessionTimelineHash() => r'4d60f18b12e1914c209a5549286e3d55ac879007';
 
 @ProviderFor(sessionTimelineForVenue)
 const sessionTimelineForVenueProvider = SessionTimelineForVenueFamily._();
@@ -108,7 +108,7 @@ final class SessionTimelineForVenueProvider
 }
 
 String _$sessionTimelineForVenueHash() =>
-    r'ce93e23adec669cb0b58b31fac9868d11ab2ba0b';
+    r'8cd183fbe7140aac930bd51ee8e1619e31f56774';
 
 final class SessionTimelineForVenueFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<List<TimelineItem>>, String> {
