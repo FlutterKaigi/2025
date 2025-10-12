@@ -68,6 +68,8 @@ class _SponsorFlexibleSpaceBackground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
     final settings = context
         .dependOnInheritedWidgetOfExactType<FlexibleSpaceBarSettings>()!;
     final deltaExtent = settings.deltaExtent;
@@ -141,9 +143,11 @@ class _SponsorFlexibleSpaceBackground extends StatelessWidget {
               ),
 
             // 黒半透明オーバーレイ
-            const Positioned.fill(
+            Positioned.fill(
               child: ColoredBox(
-                color: Colors.black38,
+                color: colorScheme.surfaceContainer.withAlpha(
+                  (t * 255).truncate(),
+                ),
               ),
             ),
           ],
@@ -172,7 +176,10 @@ class _SponsorFlexibleSpaceCover extends HookWidget {
     final sponsorNameText = Text(
       key: sponsorNameTextKey,
       sponsor.name,
-      style: theme.textTheme.titleLarge,
+      style: theme.textTheme.titleLarge?.copyWith(
+        color: t < 0.6 ? colorScheme.onInverseSurface : colorScheme.onSurface,
+        fontWeight: FontWeight.bold,
+      ),
       maxLines: 2,
       overflow: TextOverflow.ellipsis,
     );
