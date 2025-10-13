@@ -84,10 +84,9 @@ jobs:
 
       # https://github.com/jdx/mise-action
       - name: Install Mise dependencies
-        uses: jdx/mise-action@5083fe46898c414b2475087cc79da59e7da859e8 # v2.1.11
+        uses: jdx/mise-action@5083fe46898c414b2475087cc79da59e7da859e8 # v3.1.1
         with:
           install_args: "flutter xcbeautify"
-
       - name: Resolve dependencies
         working-directory: app
         run: dart pub get --enforce-lockfile
