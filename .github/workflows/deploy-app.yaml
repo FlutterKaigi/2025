@@ -110,15 +110,6 @@ jobs:
       - name: Archive
         working-directory: apps/app
         run: |
-          xcodebuild -workspace ios/Runner.xcworkspace \
-            -scheme Runner \
-            -sdk iphoneos \
-            -configuration Release archive \
-            -archivePath build/ios/Runner.xcarchive \
-            CODE_SIGN_IDENTITY="Apple Distribution" \
-            CODE_SIGNING_REQUIRED=YES \
-            CODE_SIGNING_ALLOWED=YES | xcbeautify
-
           xcodebuild -exportArchive \
             -archivePath build/ios/Runner.xcarchive \
             -exportOptionsPlist ios/ExportOptions.plist \
