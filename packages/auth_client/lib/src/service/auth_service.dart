@@ -26,7 +26,7 @@ class AuthService {
   }) async {
     // platform != .web の時は、platformClientIdが必須
     assert(
-      platform != AuthenticationPlatform.web && platformClientId != null,
+      platform == AuthenticationPlatform.web || platformClientId != null,
       'platformClientId is required when platform is not web',
     );
     if (platform == AuthenticationPlatform.web) {
