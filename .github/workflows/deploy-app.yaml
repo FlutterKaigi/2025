@@ -107,6 +107,34 @@ jobs:
             > AuthKey_$APP_STORE_CONNECT_API_KEY_ID.p8
           ls -l AuthKey_$APP_STORE_CONNECT_API_KEY_ID.p8
 
+      - name: Build iOS
+        working-directory: apps/app/ios
+        run: |
+            flutter build ios \
+            --release \
+            --no-codesign \
+            --dart-define-from-file=environments/.env.prod
+
+      - name: Archive
+        working-directory: apps/app/ios
+        run: |
+          xcodebuild archive \
+            -workspace ios/Runner.xcworkspace \
+            -scheme Runner \
+            -configuration Release \
+            -sdk iphoneos \
+            -archivePath build/ios/Runner.xcarchive \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO | xcbeautify
+
+      - name: Embbed entitlements
+        working-directory: apps/app
+        run: |
+          codesign \
+            --entitlements ios/Runner/Runner.entitlements \
+            --force \
+            --sign "-" build/ios/Runner.xcarchive/Products/Applications/Runner.app
+
       - name: Archive
         working-directory: apps/app
         run: |
