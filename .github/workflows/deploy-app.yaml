@@ -1,7 +1,4 @@
 name: Deploy App
-concurrency:
-  group: ${{ github.workflow }}
-  cancel-in-progress: false
 
 on:
   push:
@@ -68,6 +65,9 @@ jobs:
     if: ${{ needs.define-matrix.outputs.deploy-ios }}
     runs-on: macos-latest
     timeout-minutes: 30
+    concurrency:
+      group: ${{ github.workflow }}-ios
+      cancel-in-progress: false
     env:
       MISE_ENV: ci
     steps:
@@ -165,6 +165,9 @@ jobs:
     needs: build-ios
     runs-on: macos-latest
     timeout-minutes: 10
+    concurrency:
+      group: ${{ github.workflow }}-ios
+      cancel-in-progress: false
     steps:
       # https://github.com/actions/checkout
       - name: Checkout
@@ -221,6 +224,9 @@ jobs:
     if: ${{ needs.define-matrix.outputs.deploy-android }}
     runs-on: ubuntu-24.04
     timeout-minutes: 30
+    concurrency:
+      group: ${{ github.workflow }}-android
+      cancel-in-progress: false
     steps:
       - name: Checkout
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
@@ -296,6 +302,9 @@ jobs:
     needs: build-android
     runs-on: ubuntu-24.04
     timeout-minutes: 10
+    concurrency:
+      group: ${{ github.workflow }}-android
+      cancel-in-progress: false
     steps:
       - name: Download artifact aab
         uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
