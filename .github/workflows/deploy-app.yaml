@@ -270,12 +270,9 @@ jobs:
 
       - name: Extract keystore
         run: |
-          echo '$ANDROID_SIGNING_KEYSTORE_BASE64' | base64 -d > apps/app/android/app/key.jks
-          echo '$ANDROID_KEY_PROPERTIES_BASE64' | base64 -d  > apps/app/android/key.properties
-
-      - name: Install Codemagic CLI Tools
-        run: |
-          pip3 install codemagic-cli-tools
+          echo "$ANDROID_SIGNING_KEYSTORE_BASE64" | sha256sum
+          echo "$ANDROID_SIGNING_KEYSTORE_BASE64" | base64 -d > apps/app/android/app/release.jks
+          echo "$ANDROID_KEY_PROPERTIES_BASE64" | base64 -d  > apps/app/android/key.properties
 
       - name: Fetch latest build number from Google Play Store
         id: fetch-latest-build-number
