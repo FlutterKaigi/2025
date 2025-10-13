@@ -23,20 +23,26 @@ if (project.hasProperty("dart-defines")) {
   }
 }
 
-// environmentに応じて、google-services.json をコピーする
-val environment = dartDefines["ENVIRONMENT"]
-if (environment == "production") {
-  copy {
-    from "environments/android/production.json"
-    into "app"
-  }
-} else if (environment == "staging" || environment == "development") {
-  copy {
-    from "environments/android/staging.json"
-    into "app"
-  }
-} else {
-  throw IllegalArgumentException("ENVIRONMENT is not set")
+// flavorに応じて、google-services.json をコピー
+val flavor = dartDefines["FLAVOR"]
+when (flavor) {
+    "prod" -> {
+        copy {
+            from("../../environments/android/production.json")
+            into(".")
+            rename { "google-services.json" }
+        }
+    }
+    "stg", "dev" -> {
+        copy {
+            from("../../environments/android/staging.json")
+            into(".")
+            rename { "google-services.json" }
+        }
+    }
+    else -> {
+        throw IllegalArgumentException("FLAVOR is not set: $flavor")
+    }
 }
 
 android {
@@ -55,6 +61,9 @@ android {
 
     defaultConfig {
         applicationId = "jp.flutterkaigi.conf2025"
+        dartDefines["APP_ID_SUFFIX"]?.let {
+            applicationIdSuffix = it
+        }
         manifestPlaceholders["appLabel"] = dartDefines["APP_NAME"] ?: "FlutterKaigi 2025"
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
