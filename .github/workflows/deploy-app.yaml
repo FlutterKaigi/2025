@@ -90,6 +90,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
+      - name: Enable Swift Package Manager
+        run: |
+          flutter config --enable-swift-package-manager
+
       - name: Resolve dependencies
         working-directory: apps/app
         run: dart pub get --enforce-lockfile
