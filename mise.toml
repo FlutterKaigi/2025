@@ -9,6 +9,7 @@ rclone = "latest"
 stripe = "latest"
 terraform = "latest"
 tflint = "latest"
+xcbeautify = "latest"
 
 [env.'_']
 file.path = "bff/engine/.env"

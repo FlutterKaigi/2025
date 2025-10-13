@@ -76,3 +76,7 @@ backend = "aqua:terraform-linters/tflint"
 checksum = "sha256:f9981304b30e2b6b9a6f40b9ca02dd23100bd23b0846ccd50f54044c0f24ff7e"
 size = 15598367
 url = "https://github.com/terraform-linters/tflint/releases/download/v0.59.1/tflint_darwin_arm64.zip"
+
+[[tools.xcbeautify]]
+version = "2.30.1"
+backend = "aqua:cpisciotta/xcbeautify"
