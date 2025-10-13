@@ -125,7 +125,7 @@ jobs:
             --dart-define-from-file=environments/.env.prod
 
       - name: Archive
-        working-directory: apps/app/ios
+        working-directory: apps/app
         run: |
           xcodebuild archive \
             -workspace ios/Runner.xcworkspace \
