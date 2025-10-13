@@ -91,24 +91,24 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
 
       - name: Resolve dependencies
-        working-directory: app
+        working-directory: apps/app
         run: dart pub get --enforce-lockfile
 
       - name: Configure iOS
-        working-directory: app
+        working-directory: apps/app
         run: |
           flutter build ios --config-only \
             --dart-define-from-file=environments/.env.prod
 
       - name: Extract App Store Connect API Key
-        working-directory: app/ios
+        working-directory: apps/app/ios
         run: |
           echo "$APP_STORE_CONNECT_API_KEY_BASE64" | base64 -d \
             > AuthKey_$APP_STORE_CONNECT_API_KEY_ID.p8
           ls -l AuthKey_$APP_STORE_CONNECT_API_KEY_ID.p8
 
       - name: Archive
-        working-directory: app
+        working-directory: apps/app
         run: |
           xcodebuild -workspace ios/Runner.xcworkspace \
             -scheme Runner \
@@ -131,15 +131,15 @@ jobs:
 
       - name: List files
         run: |
-          ls -lah app/
+          ls -lah apps/app/
           echo "---"
-          ls -lah app/build/
+          ls -lah apps/app/build/
 
       - name: Upload ipa as artifact
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: Runner.ipa
-          path: app/Runner.ipa
+          path: apps/app/Runner.ipa
           if-no-files-found: error
 
   deploy-ios:
@@ -165,7 +165,7 @@ jobs:
           install_args: "xcbeautify"
 
       - name: Extract App Store Connect API Key
-        working-directory: app/ios
+        working-directory: apps/app/ios
         run: |
           echo "$APP_STORE_CONNECT_API_KEY_BASE64" | base64 -d \
             > AuthKey_$APP_STORE_CONNECT_API_KEY_ID.p8
@@ -257,7 +257,7 @@ jobs:
   #         flutter pub get
 
   #     - name: Build Android (AAB)
-  #       working-directory: app
+  #       working-directory: apps/app
   #       env:
   #         BUILD_NUMBER: ${{ steps.fetch-latest-build-number.outputs.BUILD_NUMBER }}
   #       run: |
@@ -267,7 +267,7 @@ jobs:
   #           --dart-define-from-file=../environment/.env.prod
 
   #     - name: Build Android (APK)
-  #       working-directory: app
+  #       working-directory: apps/app
   #       env:
   #         BUILD_NUMBER: ${{ steps.fetch-latest-build-number.outputs.BUILD_NUMBER }}
   #       run: |
@@ -280,14 +280,14 @@ jobs:
   #       uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
   #       with:
   #         name: EQMonitor-android.aab
-  #         path: app/build/app/outputs/bundle/release/app-release.aab
+  #         path: apps/app/build/app/outputs/bundle/release/app-release.aab
   #         if-no-files-found: error
 
   #     - name: Upload apk as artifact
   #       uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
   #       with:
   #         name: EQMonitor-android.apk
-  #         path: app/build/app/outputs/flutter-apk/app-release.apk
+  #         path: apps/app/build/app/outputs/flutter-apk/app-release.apk
   #         if-no-files-found: error
 
   # deploy-android:
