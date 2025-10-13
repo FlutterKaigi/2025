@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Environment {
 
- String get appIdSuffix; String get appName; String get flavor; String get supabaseUrl; String get supabaseKey; String get bffBaseUrl; String get withdrawalFormUrl;
+ String get appIdSuffix; String get appName; Flavor get flavor; String get supabaseUrl; String get supabaseKey; String get bffBaseUrl; String get withdrawalFormUrl;
 /// Create a copy of Environment
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $EnvironmentCopyWith<$Res>  {
   factory $EnvironmentCopyWith(Environment value, $Res Function(Environment) _then) = _$EnvironmentCopyWithImpl;
 @useResult
 $Res call({
- String appIdSuffix, String appName, String flavor, String supabaseUrl, String supabaseKey, String bffBaseUrl, String withdrawalFormUrl
+ String appIdSuffix, String appName, Flavor flavor, String supabaseUrl, String supabaseKey, String bffBaseUrl, String withdrawalFormUrl
 });
 
 
@@ -70,7 +70,7 @@ class _$EnvironmentCopyWithImpl<$Res>
 appIdSuffix: null == appIdSuffix ? _self.appIdSuffix : appIdSuffix // ignore: cast_nullable_to_non_nullable
 as String,appName: null == appName ? _self.appName : appName // ignore: cast_nullable_to_non_nullable
 as String,flavor: null == flavor ? _self.flavor : flavor // ignore: cast_nullable_to_non_nullable
-as String,supabaseUrl: null == supabaseUrl ? _self.supabaseUrl : supabaseUrl // ignore: cast_nullable_to_non_nullable
+as Flavor,supabaseUrl: null == supabaseUrl ? _self.supabaseUrl : supabaseUrl // ignore: cast_nullable_to_non_nullable
 as String,supabaseKey: null == supabaseKey ? _self.supabaseKey : supabaseKey // ignore: cast_nullable_to_non_nullable
 as String,bffBaseUrl: null == bffBaseUrl ? _self.bffBaseUrl : bffBaseUrl // ignore: cast_nullable_to_non_nullable
 as String,withdrawalFormUrl: null == withdrawalFormUrl ? _self.withdrawalFormUrl : withdrawalFormUrl // ignore: cast_nullable_to_non_nullable
@@ -159,7 +159,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String appIdSuffix,  String appName,  String flavor,  String supabaseUrl,  String supabaseKey,  String bffBaseUrl,  String withdrawalFormUrl)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String appIdSuffix,  String appName,  Flavor flavor,  String supabaseUrl,  String supabaseKey,  String bffBaseUrl,  String withdrawalFormUrl)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Environment() when $default != null:
 return $default(_that.appIdSuffix,_that.appName,_that.flavor,_that.supabaseUrl,_that.supabaseKey,_that.bffBaseUrl,_that.withdrawalFormUrl);case _:
@@ -180,7 +180,7 @@ return $default(_that.appIdSuffix,_that.appName,_that.flavor,_that.supabaseUrl,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String appIdSuffix,  String appName,  String flavor,  String supabaseUrl,  String supabaseKey,  String bffBaseUrl,  String withdrawalFormUrl)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String appIdSuffix,  String appName,  Flavor flavor,  String supabaseUrl,  String supabaseKey,  String bffBaseUrl,  String withdrawalFormUrl)  $default,) {final _that = this;
 switch (_that) {
 case _Environment():
 return $default(_that.appIdSuffix,_that.appName,_that.flavor,_that.supabaseUrl,_that.supabaseKey,_that.bffBaseUrl,_that.withdrawalFormUrl);case _:
@@ -200,7 +200,7 @@ return $default(_that.appIdSuffix,_that.appName,_that.flavor,_that.supabaseUrl,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String appIdSuffix,  String appName,  String flavor,  String supabaseUrl,  String supabaseKey,  String bffBaseUrl,  String withdrawalFormUrl)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String appIdSuffix,  String appName,  Flavor flavor,  String supabaseUrl,  String supabaseKey,  String bffBaseUrl,  String withdrawalFormUrl)?  $default,) {final _that = this;
 switch (_that) {
 case _Environment() when $default != null:
 return $default(_that.appIdSuffix,_that.appName,_that.flavor,_that.supabaseUrl,_that.supabaseKey,_that.bffBaseUrl,_that.withdrawalFormUrl);case _:
@@ -220,7 +220,7 @@ class _Environment implements Environment {
 
 @override final  String appIdSuffix;
 @override final  String appName;
-@override final  String flavor;
+@override final  Flavor flavor;
 @override final  String supabaseUrl;
 @override final  String supabaseKey;
 @override final  String bffBaseUrl;
@@ -259,7 +259,7 @@ abstract mixin class _$EnvironmentCopyWith<$Res> implements $EnvironmentCopyWith
   factory _$EnvironmentCopyWith(_Environment value, $Res Function(_Environment) _then) = __$EnvironmentCopyWithImpl;
 @override @useResult
 $Res call({
- String appIdSuffix, String appName, String flavor, String supabaseUrl, String supabaseKey, String bffBaseUrl, String withdrawalFormUrl
+ String appIdSuffix, String appName, Flavor flavor, String supabaseUrl, String supabaseKey, String bffBaseUrl, String withdrawalFormUrl
 });
 
 
@@ -281,7 +281,7 @@ class __$EnvironmentCopyWithImpl<$Res>
 appIdSuffix: null == appIdSuffix ? _self.appIdSuffix : appIdSuffix // ignore: cast_nullable_to_non_nullable
 as String,appName: null == appName ? _self.appName : appName // ignore: cast_nullable_to_non_nullable
 as String,flavor: null == flavor ? _self.flavor : flavor // ignore: cast_nullable_to_non_nullable
-as String,supabaseUrl: null == supabaseUrl ? _self.supabaseUrl : supabaseUrl // ignore: cast_nullable_to_non_nullable
+as Flavor,supabaseUrl: null == supabaseUrl ? _self.supabaseUrl : supabaseUrl // ignore: cast_nullable_to_non_nullable
 as String,supabaseKey: null == supabaseKey ? _self.supabaseKey : supabaseKey // ignore: cast_nullable_to_non_nullable
 as String,bffBaseUrl: null == bffBaseUrl ? _self.bffBaseUrl : bffBaseUrl // ignore: cast_nullable_to_non_nullable
 as String,withdrawalFormUrl: null == withdrawalFormUrl ? _self.withdrawalFormUrl : withdrawalFormUrl // ignore: cast_nullable_to_non_nullable
