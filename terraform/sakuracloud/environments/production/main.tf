@@ -24,7 +24,7 @@ module "apprun" {
   container_image_id              = module.docker.docker_image_bff_sha256
   SAKURACLOUD_ACCESS_TOKEN        = var.SAKURACLOUD_ACCESS_TOKEN
   SAKURACLOUD_ACCESS_TOKEN_SECRET = var.SAKURACLOUD_ACCESS_TOKEN_SECRET
-  internal_api_url                = "https://internal-api-proxy-production.flutter-kaigi.workers.dev"
+  internal_api_url                = "https://internal-api-proxy-production.flutterkaigi.workers.dev"
   X_API_KEY                       = var.X_API_KEY
   logo_base_url                   = "https://2025-bucket.flutterkaigi.jp"
   # MEMO(YumNumm): Supabase側のTerraformから取得するようにする
