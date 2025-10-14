@@ -95,6 +95,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
+      - name: Check Environment Values
+        run: |
+          echo $APP_STORE_CONNECT_API_KEY_ISSUER_ID | sha256sum -
+          echo $APP_STORE_CONNECT_API_KEY_ID | sha256sum -
+          echo $APP_STORE_CONNECT_API_KEY_PATH | sha256sum -
+
       - name: Enable Swift Package Manager
         run: |
           flutter config --enable-swift-package-manager
@@ -174,6 +180,8 @@ jobs:
     needs: build-ios
     runs-on: macos-latest
     timeout-minutes: 10
+    env:
+      MISE_ENV: ci
     concurrency:
       group: ${{ github.workflow }}-ios
       cancel-in-progress: false
