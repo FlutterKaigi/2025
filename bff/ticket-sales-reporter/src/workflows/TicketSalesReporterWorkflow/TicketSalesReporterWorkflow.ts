@@ -127,7 +127,7 @@ export class TicketSalesReporterWorkflow extends WorkflowEntrypoint<
 
 				// メインのチケット情報
 				let text = `*${sale.ticketTypeName}*\n`;
-				if (sale.soldCount !== null) {
+				if (sale.soldCount !== null && maxCount > 0) {
 					text += getProgressBarText(soldCount, maxCount);
 				} else {
 					text += "販売データなし";
