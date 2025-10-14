@@ -483,8 +483,15 @@ jobs:
             -configuration Release \
             -sdk macosx \
             -archivePath build/macos/Runner.xcarchive \
-            CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGNING_ALLOWED=NO | xcbeautify
+            -allowProvisioningUpdates | xcbeautify
+
+      - name: Embbed entitlements
+        working-directory: apps/app
+        run: |
+          codesign \
+            --entitlements macos/Runner/Release.entitlements \
+            --force \
+            --sign "-" build/macos/Runner.xcarchive/Products/Applications/FlutterKaigi\ 2025.app
 
       - name: Export Archive
         working-directory: apps/app
