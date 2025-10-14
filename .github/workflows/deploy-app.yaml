@@ -559,11 +559,28 @@ jobs:
             GCC_GENERATE_DEBUGGING_SYMBOLS=NO \
             ONLY_ACTIVE_ARCH=YES \
             VALID_ARCHS=arm64 \
+            CODE_SIGN_ENTITLEMENTS="Runner/Release.entitlements" \
             | xcbeautify --renderer github-actions
 
       - name: Embbed entitlements
         working-directory: apps/app
         run: |
+          echo "Embedding entitlements for App Store distribution"
+
+          # Check that entitlements file exists and contains app sandbox
+          if [ ! -f "macos/Runner/Release.entitlements" ]; then
+            echo "Error: Release.entitlements file not found"
+            exit 1
+          fi
+
+          if ! grep -q "com.apple.security.app-sandbox" "macos/Runner/Release.entitlements"; then
+            echo "Error: app-sandbox entitlement not found in Release.entitlements"
+            exit 1
+          fi
+
+          echo "Entitlements file content:"
+          cat macos/Runner/Release.entitlements
+
           codesign \
             --entitlements macos/Runner/Release.entitlements \
             --verbose \
@@ -576,6 +593,7 @@ jobs:
           codesign \
             --force \
             --options runtime \
+            --entitlements macos/Runner/Release.entitlements \
             --sign "-" \
             "build/macos/Runner.xcarchive/Products/Applications/FlutterKaigi 2025.app/Contents/MacOS/FlutterKaigi 2025"
 
