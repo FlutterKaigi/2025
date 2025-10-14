@@ -570,14 +570,14 @@ jobs:
             --preserve-metadata=entitlements \
             --force \
             --sign "-" \
-            "build/macos/Runner.xcarchive/Products/Applications/FlutterKaigi 2025.app"
+            "build/macos/Runner.xcarchive/Products/Applications/FlutterKaigi 2025.app/Contents/MacOS/FlutterKaigi 2025"
 
           # Ref. https://iseebi.hatenablog.com/entry/2019/07/25/005311
           codesign \
             --force \
             --options runtime \
             --sign "-" \
-            "build/macos/Runner.xcarchive/Products/Applications/FlutterKaigi 2025.app"
+            "build/macos/Runner.xcarchive/Products/Applications/FlutterKaigi 2025.app/Contents/MacOS/FlutterKaigi 2025"
 
 
       - name: Export Archive
@@ -671,7 +671,7 @@ jobs:
             -f "build/FlutterKaigi 2025.pkg" \
             --type osx \
             --apiIssuer $APP_STORE_CONNECT_API_KEY_ISSUER_ID \
-            --apiKey $APP_STORE_CONNECT_API_KEY_ID 
+            --apiKey $APP_STORE_CONNECT_API_KEY_ID
 
   start-build-website:
     needs:
