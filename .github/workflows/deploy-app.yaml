@@ -53,7 +53,7 @@ jobs:
             fi
           elif [ "${{ github.event_name }}" = "push" ]; then
             # platforms+=("ios" "android" "macos")
-            platforms+=("macos")
+            platforms+=("macos" "android")
           else
             echo "Unknown event name: ${{ github.event_name }}"
             exit 1
@@ -341,7 +341,7 @@ jobs:
       - name: Upload aab as artifact
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
-          name: Runner-android.aab
+          name: FlutterKaigi 2025-android.aab
           path: apps/app/build/app/outputs/bundle/release/app-release.aab
           if-no-files-found: error
 
@@ -356,10 +356,15 @@ jobs:
       group: ${{ github.workflow }}-android-deploy
       cancel-in-progress: false
     steps:
+      - name: Checkout
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          fetch-depth: 0
+
       - name: Download artifact aab
         uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
         with:
-          name: Runner-android.aab
+          name: FlutterKaigi 2025-android.aab
           path: build
 
       - name: Extract SOPS secrets
@@ -371,7 +376,7 @@ jobs:
       - name: Install Mise dependencies
         uses: jdx/mise-action@5083fe46898c414b2475087cc79da59e7da859e8 # v3.1.1
         with:
-          install_args: "uv pipx:codemagic-cli-tools"
+          install_args: "flutter uv pipx:codemagic-cli-tools"
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
@@ -392,7 +397,7 @@ jobs:
         with:
           serviceAccountJson: service-account.json
           packageName: jp.flutterkaigi.conf2025
-          releaseFiles: build/app-release.aab
+          releaseFiles: "build/FlutterKaigi 2025-android.aab"
           track: internal
           status: completed
           changesNotSentForReview: false
@@ -516,7 +521,7 @@ jobs:
       - name: Upload pkg as artifact
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
-          name: FlutterKaigi 2025.pkg
+          name: FlutterKaigi 2025-macos.pkg
           path: apps/app/FlutterKaigi 2025.pkg
           if-no-files-found: error
 
@@ -565,7 +570,7 @@ jobs:
       - name: Download pkg
         uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
         with:
-          name: FlutterKaigi 2025.pkg
+          name: FlutterKaigi 2025-macos.pkg
           path: build
 
       - name: List files
