@@ -441,9 +441,9 @@ jobs:
 
           changelog = subprocess.check_output(["git", "log", "--pretty=format:- [%ad] %an: %s %h", f"{last_tag}..HEAD"]).decode("utf-8")
 
-          # Limit changelog to 1000 characters
-          if len(changelog) > 1000:
-            changelog = changelog[:997] + "..."
+          # Limit changelog to 500 characters
+          if len(changelog) > 500:
+            changelog = changelog[:497] + "..."
 
           with open("release-notes.json", "w") as f:
             json.dump([{"language": "ja-JP", "text": changelog}], f, indent=2)
@@ -561,8 +561,6 @@ jobs:
           ls -lah apps/app/build/
           echo "---"
           ls -lah apps/app/build/macos/
-          echo "---"
-          tree -L 2 apps/app/build/macos/Runner.xcarchive/
 
       - name: Embbed entitlements
         working-directory: apps/app
