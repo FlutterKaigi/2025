@@ -179,8 +179,8 @@ jobs:
       - name: Upload ipa as artifact
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
-          name: Runner.ipa
-          path: apps/app/Runner.ipa
+          name: FlutterKaigi 2025.ipa
+          path: apps/app/FlutterKaigi 2025.ipa
           if-no-files-found: error
 
   deploy-ios:
@@ -228,7 +228,7 @@ jobs:
       - name: Download ipa
         uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
         with:
-          name: Runner.ipa
+          name: FlutterKaigi 2025.ipa
           path: build
 
       - name: List files
@@ -245,7 +245,7 @@ jobs:
         run: |
           xcrun altool \
             --upload-app \
-            -f build/Runner.ipa \
+            -f "build/FlutterKaigi 2025.ipa" \
             --type ios \
             --apiIssuer $APP_STORE_CONNECT_API_KEY_ISSUER_ID \
             --apiKey $APP_STORE_CONNECT_API_KEY_ID \
