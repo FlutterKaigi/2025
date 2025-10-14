@@ -154,7 +154,7 @@ jobs:
             -allowProvisioningUpdates \
             -authenticationKeyIssuerID $APP_STORE_CONNECT_API_KEY_ISSUER_ID \
             -authenticationKeyID $APP_STORE_CONNECT_API_KEY_ID \
-            -authenticationKeyPath ${{ github.workspace }}/app/ios/AuthKey_$APP_STORE_CONNECT_API_KEY_ID.p8 \
+            -authenticationKeyPath ${{ github.workspace }}/apps/app/ios/AuthKey_$APP_STORE_CONNECT_API_KEY_ID.p8 \
           | xcbeautify
 
       - name: List files
