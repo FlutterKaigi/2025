@@ -190,7 +190,7 @@ jobs:
     env:
       MISE_ENV: ci
     concurrency:
-      group: ${{ github.workflow }}-ios
+      group: ${{ github.workflow }}-ios-deploy
       cancel-in-progress: false
     steps:
       # https://github.com/actions/checkout
@@ -209,6 +209,8 @@ jobs:
         uses: jdx/mise-action@5083fe46898c414b2475087cc79da59e7da859e8 # v2.1.11
         with:
           install_args: "xcbeautify"
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
 
       - name: Set environment variables
         run: |
@@ -342,7 +344,7 @@ jobs:
     env:
       MISE_ENV: ci
     concurrency:
-      group: ${{ github.workflow }}-android
+      group: ${{ github.workflow }}-android-deploy
       cancel-in-progress: false
     steps:
       - name: Download artifact aab
