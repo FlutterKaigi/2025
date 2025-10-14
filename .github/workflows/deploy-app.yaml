@@ -364,7 +364,7 @@ jobs:
         uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
         with:
           name: FlutterKaigi 2025-android.aab
-          path: build
+          path: build/android.aab
 
       - name: Extract SOPS secrets
         run: |
@@ -396,7 +396,7 @@ jobs:
         with:
           serviceAccountJson: service-account.json
           packageName: jp.flutterkaigi.conf2025
-          releaseFiles: "build/FlutterKaigi 2025-android.aab"
+          releaseFiles: build/android.aab
           track: internal
           status: completed
           changesNotSentForReview: false
@@ -496,7 +496,7 @@ jobs:
           codesign \
             --entitlements macos/Runner/Release.entitlements \
             --force \
-            --sign "-" build/macos/Build/Products/Release/FlutterKaigi 2025.app
+            --sign "-" build/macos/Runner.xcarchive/Products/Applications/FlutterKaigi 2025.app
 
       - name: Export Archive
         working-directory: apps/app
