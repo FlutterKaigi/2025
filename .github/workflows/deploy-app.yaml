@@ -552,51 +552,32 @@ jobs:
             -configuration Release \
             -sdk macosx \
             -archivePath build/macos/Runner.xcarchive \
-            CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGNING_ALLOWED=NO \
+            -allowProvisioningUpdates \
+            -authenticationKeyIssuerID $APP_STORE_CONNECT_API_KEY_ISSUER_ID \
+            -authenticationKeyID $APP_STORE_CONNECT_API_KEY_ID \
+            -authenticationKeyPath ${{ github.workspace }}/apps/app/macos/AuthKey_$APP_STORE_CONNECT_API_KEY_ID.p8 \
+            DEVELOPMENT_TEAM=6JT949BA2M \
+            CODE_SIGN_STYLE=Automatic \
+            CODE_SIGN_ENTITLEMENTS="Runner/Release.entitlements" \
             DEBUG_INFORMATION_FORMAT=dwarf \
             DEBUGGING_SYMBOLS=NO \
             GCC_GENERATE_DEBUGGING_SYMBOLS=NO \
             ONLY_ACTIVE_ARCH=YES \
             VALID_ARCHS=arm64 \
-            CODE_SIGN_ENTITLEMENTS="Runner/Release.entitlements" \
             | xcbeautify --renderer github-actions
 
-      - name: Embbed entitlements
+      - name: Verify entitlements before export
         working-directory: apps/app
         run: |
-          echo "Embedding entitlements for App Store distribution"
+          echo "=== Verifying entitlements in archived app ==="
 
-          # Check that entitlements file exists and contains app sandbox
-          if [ ! -f "macos/Runner/Release.entitlements" ]; then
-            echo "Error: Release.entitlements file not found"
-            exit 1
+          # Check entitlements of the archived app
+          if [ -f "build/macos/Runner.xcarchive/Products/Applications/FlutterKaigi 2025.app/Contents/MacOS/FlutterKaigi 2025" ]; then
+            echo "Current entitlements in archived app:"
+            codesign -d --entitlements - "build/macos/Runner.xcarchive/Products/Applications/FlutterKaigi 2025.app/Contents/MacOS/FlutterKaigi 2025" 2>/dev/null || echo "No entitlements found in archived app"
+          else
+            echo "Archived executable not found"
           fi
-
-          if ! grep -q "com.apple.security.app-sandbox" "macos/Runner/Release.entitlements"; then
-            echo "Error: app-sandbox entitlement not found in Release.entitlements"
-            exit 1
-          fi
-
-          echo "Entitlements file content:"
-          cat macos/Runner/Release.entitlements
-
-          codesign \
-            --entitlements macos/Runner/Release.entitlements \
-            --verbose \
-            --preserve-metadata=entitlements \
-            --force \
-            --sign "-" \
-            "build/macos/Runner.xcarchive/Products/Applications/FlutterKaigi 2025.app/Contents/MacOS/FlutterKaigi 2025"
-
-          # Ref. https://iseebi.hatenablog.com/entry/2019/07/25/005311
-          codesign \
-            --force \
-            --options runtime \
-            --entitlements macos/Runner/Release.entitlements \
-            --sign "-" \
-            "build/macos/Runner.xcarchive/Products/Applications/FlutterKaigi 2025.app/Contents/MacOS/FlutterKaigi 2025"
-
 
       - name: Export Archive
         working-directory: apps/app
@@ -610,6 +591,30 @@ jobs:
             -authenticationKeyID $APP_STORE_CONNECT_API_KEY_ID \
             -authenticationKeyPath ${{ github.workspace }}/apps/app/macos/AuthKey_$APP_STORE_CONNECT_API_KEY_ID.p8 \
           | xcbeautify --renderer github-actions
+
+      - name: Verify entitlements after export
+        working-directory: apps/app
+        run: |
+          echo "=== Verifying entitlements in exported app ==="
+
+          # Find the exported app
+          EXPORTED_APP=$(find . -name "*.app" -path "*/FlutterKaigi 2025*" -type d | head -1)
+          if [ -n "$EXPORTED_APP" ]; then
+            echo "Found exported app: $EXPORTED_APP"
+            EXECUTABLE="$EXPORTED_APP/Contents/MacOS/FlutterKaigi 2025"
+            if [ -f "$EXECUTABLE" ]; then
+              echo "Current entitlements in exported app:"
+              codesign -d --entitlements - "$EXECUTABLE" 2>/dev/null || echo "No entitlements found in exported app"
+            else
+              echo "Executable not found: $EXECUTABLE"
+            fi
+          else
+            echo "Exported app not found"
+          fi
+
+          # List all files to debug
+          echo "=== Directory listing ==="
+          find . -name "*.app" -o -name "*.pkg" -o -name "*.ipa" | head -10
 
       - name: List files
         run: |
