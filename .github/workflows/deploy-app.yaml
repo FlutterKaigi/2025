@@ -95,6 +95,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
+      - name: Set environment variables
+        run: |
+          for line in $(mise env --dotenv); do
+            echo $line >> "$GITHUB_ENV"
+            echo "::add-mask::${line#*=}"
+          done
+
       - name: Check Environment Values
         run: |
           echo $APP_STORE_CONNECT_API_KEY_ISSUER_ID | sha256sum -
@@ -203,6 +210,13 @@ jobs:
         with:
           install_args: "xcbeautify"
 
+      - name: Set environment variables
+        run: |
+          for line in $(mise env --dotenv); do
+            echo $line >> "$GITHUB_ENV"
+            echo "::add-mask::${line#*=}"
+          done
+
       - name: Extract App Store Connect API Key
         working-directory: apps/app/ios
         run: |
@@ -262,6 +276,13 @@ jobs:
           install_args: "flutter uv pipx:codemagic-cli-tools"
         env:
           GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Set environment variables
+        run: |
+          for line in $(mise env --dotenv); do
+            echo $line >> "$GITHUB_ENV"
+            echo "::add-mask::${line#*=}"
+          done
 
       - name: Resolve dependencies
         working-directory: apps/app
@@ -325,6 +346,26 @@ jobs:
         with:
           name: Runner-android.aab
           path: build
+
+      - name: Extract SOPS secrets
+        run: |
+          mkdir -p ~/.config/mise
+          echo "${{ secrets.SOPS_FILE }}" > ~/.config/mise/flutterkaigi.txt
+
+      # https://github.com/jdx/mise-action
+      - name: Install Mise dependencies
+        uses: jdx/mise-action@5083fe46898c414b2475087cc79da59e7da859e8 # v3.1.1
+        with:
+          install_args: "flutter uv pipx:codemagic-cli-tools"
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Set environment variables
+        run: |
+          for line in $(mise env --dotenv); do
+            echo $line >> "$GITHUB_ENV"
+            echo "::add-mask::${line#*=}"
+          done
 
       - name: Extract Google Play Service Account
         run: |
