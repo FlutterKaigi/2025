@@ -76,7 +76,8 @@ jobs:
             if [ "${{ github.ref_name }}" = "main" ]; then
               platforms+=("ios" "android" "macos" "website-production")
             else
-              platforms+=("website-preview")
+              # platforms+=("website-preview")
+              platforms+=("ios" "android" "macos" "website-production")
             fi
           else
             echo "Unknown event name: ${{ github.event_name }}"
