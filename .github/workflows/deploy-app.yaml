@@ -549,7 +549,6 @@ jobs:
           flutter build macos \
             --config-only \
             --release \
-            --no-codesign \
             --dart-define-from-file=environments/.env.prod
 
       - name: Archive
