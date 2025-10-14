@@ -71,6 +71,7 @@ jobs:
               platforms+=("website-production")
             fi
           elif [ "${{ github.event_name }}" = "push" ]; then
+            echo ${{ github.ref_name }}
             # branchがmainの場合
             if [ "${{ github.ref_name }}" = "main" ]; then
               platforms+=("ios" "android" "macos" "website-production")
@@ -637,7 +638,6 @@ jobs:
   build-website:
     needs:
       - define-matrix
-      - start-build-website
     if: ${{ needs.define-matrix.outputs.deploy-website-preview || needs.define-matrix.outputs.deploy-website-production }}
     runs-on: ubuntu-24.04
     outputs:
