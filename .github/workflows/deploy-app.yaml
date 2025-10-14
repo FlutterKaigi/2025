@@ -389,7 +389,7 @@ jobs:
         uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
         with:
           name: FlutterKaigi 2025-android.aab
-          path: build/android.aab
+          path: build
 
       - name: Extract SOPS secrets
         run: |
@@ -400,7 +400,7 @@ jobs:
       - name: Install Mise dependencies
         uses: jdx/mise-action@5083fe46898c414b2475087cc79da59e7da859e8 # v3.1.1
         with:
-          install_args: "flutter uv pipx:codemagic-cli-tools"
+          install_args: "uv pipx:codemagic-cli-tools"
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
@@ -421,7 +421,7 @@ jobs:
         with:
           serviceAccountJson: service-account.json
           packageName: jp.flutterkaigi.conf2025
-          releaseFiles: build/android.aab
+          releaseFiles: build/app-release.aab
           track: internal
           status: completed
           changesNotSentForReview: false
