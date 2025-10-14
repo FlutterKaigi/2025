@@ -428,25 +428,39 @@ jobs:
           import subprocess
 
           try:
-            # Get the latest tag
-            tags_output = subprocess.check_output(["git", "tag", "--sort=v:refname"]).decode("utf-8").strip()
-            if tags_output:
-              last_tag = tags_output.split("\n")[-1]
-            else:
+              # Get the latest tag
+              tags_output = (
+                  subprocess.check_output(["git", "tag", "--sort=v:refname"])
+                  .decode("utf-8")
+                  .strip()
+              )
+              if tags_output:
+                  last_tag = tags_output.split("\n")[-1]
+              else:
+                  # No tags found, use fallback commit
+                  last_tag = "a229e9a8cc8ef717319f68af6db7f15b1d962a9b"
+          except subprocess.CalledProcessError:
               # No tags found, use fallback commit
               last_tag = "a229e9a8cc8ef717319f68af6db7f15b1d962a9b"
-          except subprocess.CalledProcessError:
-            # No tags found, use fallback commit
-            last_tag = "a229e9a8cc8ef717319f68af6db7f15b1d962a9b"
 
-          changelog = subprocess.check_output(["git", "log", "--pretty=format:- [%ad] %an: %s %h", f"{last_tag}..HEAD"]).decode("utf-8")
+          changelog = subprocess.check_output(
+              [
+                  "git",
+                  "log",
+                  "--pretty=format:- [%ad] %an: %s %h",
+                  f"{last_tag}..HEAD",
+                  "--abbrev-commit",
+                  "--date=short",
+                  "--no-merges",
+              ]
+          ).decode("utf-8")
 
           # Limit changelog to 500 characters
           if len(changelog) > 500:
-            changelog = changelog[:497] + "..."
+              changelog = changelog[:497] + "..."
 
           with open("release-notes.json", "w") as f:
-            json.dump([{"language": "ja-JP", "text": changelog}], f, indent=2)
+              json.dump([{"language": "ja-JP", "text": changelog}], f, indent=2)
           EOF
           ls -l release-notes.json
 
@@ -457,7 +471,8 @@ jobs:
             --credentials="@file:service-account.json" \
             --bundle build/app-release.aab \
             --track "internal" \
-            --release-notes="@file:release-notes.json" --draft
+            --release-notes="@file:release-notes.json" \
+            --changes-not-sent-for-review
 
   build-macos:
     needs: define-matrix
@@ -554,19 +569,13 @@ jobs:
             VALID_ARCHS=arm64 \
             | xcbeautify
 
-      - name: List files
-        run: |
-          ls -lah apps/app/
-          echo "---"
-          ls -lah apps/app/build/
-          echo "---"
-          ls -lah apps/app/build/macos/
-
       - name: Embbed entitlements
         working-directory: apps/app
         run: |
           codesign \
             --entitlements macos/Runner/Release.entitlements \
+            --verbose \
+            --preserve-metadata=entitlements \
             --force \
             --sign "-" "build/macos/Runner.xcarchive/Products/Applications/FlutterKaigi 2025.app"
 
@@ -594,6 +603,13 @@ jobs:
         with:
           name: FlutterKaigi 2025-macos.pkg
           path: apps/app/FlutterKaigi 2025.pkg
+          if-no-files-found: error
+
+      - name: Upload dSYM as artifact
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: FlutterKaigi 2025-macos.dSYM
+          path: apps/app/build/macos/Runner.xcarchive/dSYMs/Runner.app.dSYM
           if-no-files-found: error
 
   deploy-macos:
