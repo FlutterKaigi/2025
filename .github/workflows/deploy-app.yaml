@@ -66,7 +66,7 @@ jobs:
   build-ios:
     needs: define-matrix
     if: ${{ needs.define-matrix.outputs.deploy-ios }}
-    runs-on: openci-runner-beta
+    runs-on: macos-latest
     timeout-minutes: 30
     concurrency:
       group: ${{ github.workflow }}-ios
@@ -263,7 +263,7 @@ jobs:
   build-android:
     needs: define-matrix
     if: ${{ needs.define-matrix.outputs.deploy-android }}
-    runs-on: openci-runner-beta
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
     env:
       MISE_ENV: ci
@@ -404,7 +404,7 @@ jobs:
   build-macos:
     needs: define-matrix
     if: ${{ needs.define-matrix.outputs.deploy-macos }}
-    runs-on: openci-runner-beta
+    runs-on: macos-latest
     timeout-minutes: 30
     concurrency:
       group: ${{ github.workflow }}-macos
