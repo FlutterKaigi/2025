@@ -154,7 +154,6 @@ jobs:
         run: |
           echo "$APP_STORE_CONNECT_API_KEY_BASE64" | base64 -d \
             > AuthKey_$APP_STORE_CONNECT_API_KEY_ID.p8
-          ls -l AuthKey_$APP_STORE_CONNECT_API_KEY_ID.p8
 
       - name: Build iOS
         working-directory: apps/app/ios
@@ -196,12 +195,6 @@ jobs:
             -authenticationKeyID $APP_STORE_CONNECT_API_KEY_ID \
             -authenticationKeyPath ${{ github.workspace }}/apps/app/ios/AuthKey_$APP_STORE_CONNECT_API_KEY_ID.p8 \
           | xcbeautify --renderer github-actions
-
-      - name: List files
-        run: |
-          ls -lah apps/app/
-          echo "---"
-          ls -lah apps/app/build/
 
       - name: Upload ipa as artifact
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
@@ -256,7 +249,6 @@ jobs:
         run: |
           echo "$APP_STORE_CONNECT_API_KEY_BASE64" | base64 -d \
             > AuthKey_$APP_STORE_CONNECT_API_KEY_ID.p8
-          ls -l AuthKey_$APP_STORE_CONNECT_API_KEY_ID.p8
 
       # https://github.com/actions/download-artifact
       - name: Download ipa
@@ -265,15 +257,11 @@ jobs:
           name: FlutterKaigi 2025.ipa
           path: build
 
-      - name: List files
-        run: ls -lah build/
-
       - name: Extract App Store Connect API Key
         run: |
           mkdir ~/.private_keys
           echo "$APP_STORE_CONNECT_API_KEY_BASE64" | base64 -d \
             > ~/.private_keys/AuthKey_$APP_STORE_CONNECT_API_KEY_ID.p8
-          ls -l ~/.private_keys/AuthKey_$APP_STORE_CONNECT_API_KEY_ID.p8
 
       - name: Upload Ipa to App Store Connect
         run: |
@@ -416,7 +404,6 @@ jobs:
       - name: Extract Google Play Service Account
         run: |
           echo "$GOOGLE_PLAY_SERVICE_ACCOUNT_BASE64" | base64 -d > service-account.json
-          ls -l service-account.json
 
       - name: Generate Release Notes
         run: |
@@ -460,7 +447,6 @@ jobs:
           with open("release-notes.json", "w") as f:
               json.dump([{"language": "ja-JP", "text": changelog}], f, indent=2)
           EOF
-          ls -l release-notes.json
 
 
       - name: Upload AAB to Google Play
@@ -533,7 +519,6 @@ jobs:
         run: |
           echo "$APP_STORE_CONNECT_API_KEY_BASE64" | base64 -d \
             > AuthKey_$APP_STORE_CONNECT_API_KEY_ID.p8
-          ls -l AuthKey_$APP_STORE_CONNECT_API_KEY_ID.p8
 
       - name: Build macOS
         working-directory: apps/app
@@ -566,19 +551,6 @@ jobs:
             VALID_ARCHS=arm64 \
             | xcbeautify --renderer github-actions
 
-      - name: Verify entitlements before export
-        working-directory: apps/app
-        run: |
-          echo "=== Verifying entitlements in archived app ==="
-
-          # Check entitlements of the archived app
-          if [ -f "build/macos/Runner.xcarchive/Products/Applications/FlutterKaigi 2025.app/Contents/MacOS/FlutterKaigi 2025" ]; then
-            echo "Current entitlements in archived app:"
-            codesign -d --entitlements - "build/macos/Runner.xcarchive/Products/Applications/FlutterKaigi 2025.app/Contents/MacOS/FlutterKaigi 2025" 2>/dev/null || echo "No entitlements found in archived app"
-          else
-            echo "Archived executable not found"
-          fi
-
       - name: Export Archive
         working-directory: apps/app
         run: |
@@ -591,36 +563,6 @@ jobs:
             -authenticationKeyID $APP_STORE_CONNECT_API_KEY_ID \
             -authenticationKeyPath ${{ github.workspace }}/apps/app/macos/AuthKey_$APP_STORE_CONNECT_API_KEY_ID.p8 \
           | xcbeautify --renderer github-actions
-
-      - name: Verify entitlements after export
-        working-directory: apps/app
-        run: |
-          echo "=== Verifying entitlements in exported app ==="
-
-          # Find the exported app
-          EXPORTED_APP=$(find . -name "*.app" -path "*/FlutterKaigi 2025*" -type d | head -1)
-          if [ -n "$EXPORTED_APP" ]; then
-            echo "Found exported app: $EXPORTED_APP"
-            EXECUTABLE="$EXPORTED_APP/Contents/MacOS/FlutterKaigi 2025"
-            if [ -f "$EXECUTABLE" ]; then
-              echo "Current entitlements in exported app:"
-              codesign -d --entitlements - "$EXECUTABLE" 2>/dev/null || echo "No entitlements found in exported app"
-            else
-              echo "Executable not found: $EXECUTABLE"
-            fi
-          else
-            echo "Exported app not found"
-          fi
-
-          # List all files to debug
-          echo "=== Directory listing ==="
-          find . -name "*.app" -o -name "*.pkg" -o -name "*.ipa" | head -10
-
-      - name: List files
-        run: |
-          ls -lah apps/app/
-          echo "---"
-          ls -lah apps/app/build/
 
       - name: Upload pkg as artifact
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
@@ -677,15 +619,11 @@ jobs:
           name: FlutterKaigi 2025-macos.pkg
           path: build
 
-      - name: List files
-        run: ls -lah build/
-
       - name: Extract App Store Connect API Key
         run: |
           mkdir ~/.private_keys
           echo "$APP_STORE_CONNECT_API_KEY_BASE64" | base64 -d \
             > ~/.private_keys/AuthKey_$APP_STORE_CONNECT_API_KEY_ID.p8
-          ls -l ~/.private_keys/AuthKey_$APP_STORE_CONNECT_API_KEY_ID.p8
 
       - name: Upload pkg to App Store Connect
         run: |
