@@ -135,12 +135,6 @@ jobs:
             echo "::add-mask::${line#*=}"
           done
 
-      - name: Check Environment Values
-        run: |
-          echo $APP_STORE_CONNECT_API_KEY_ISSUER_ID | sha256sum -
-          echo $APP_STORE_CONNECT_API_KEY_ID | sha256sum -
-          echo $APP_STORE_CONNECT_API_KEY_PATH | sha256sum -
-
       - name: Enable Swift Package Manager
         run: |
           flutter config --enable-swift-package-manager
@@ -338,8 +332,8 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Accept Android License
-        run: yes | flutter doctor --android-licenses
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@9fc6c4e9069bf8d3d10b2204b1fb8f6ef7065407 # v3.2.2\
 
       - name: Extract keystore
         run: |
@@ -519,12 +513,6 @@ jobs:
             echo $line >> "$GITHUB_ENV"
             echo "::add-mask::${line#*=}"
           done
-
-      - name: Check Environment Values
-        run: |
-          echo $APP_STORE_CONNECT_API_KEY_ISSUER_ID | sha256sum -
-          echo $APP_STORE_CONNECT_API_KEY_ID | sha256sum -
-          echo $APP_STORE_CONNECT_API_KEY_PATH | sha256sum -
 
       - name: Enable Swift Package Manager
         run: |
