@@ -606,13 +606,6 @@ jobs:
           path: apps/app/FlutterKaigi 2025.pkg
           if-no-files-found: error
 
-      - name: Upload dSYM as artifact
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
-        with:
-          name: FlutterKaigi 2025-macos.dSYM
-          path: apps/app/build/macos/Runner.xcarchive/dSYMs/Runner.app.dSYM
-          if-no-files-found: error
-
   deploy-macos:
     needs: build-macos
     runs-on: macos-latest
