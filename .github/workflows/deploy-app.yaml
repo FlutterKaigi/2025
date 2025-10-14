@@ -34,6 +34,10 @@ env:
   XCODE_VERSION: 26.0
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+defaults:
+  run:
+    shell: bash -euo pipefail {0}
+
 jobs:
   define-matrix:
     runs-on: ubuntu-24.04
@@ -197,7 +201,7 @@ jobs:
             -authenticationKeyIssuerID $APP_STORE_CONNECT_API_KEY_ISSUER_ID \
             -authenticationKeyID $APP_STORE_CONNECT_API_KEY_ID \
             -authenticationKeyPath ${{ github.workspace }}/apps/app/ios/AuthKey_$APP_STORE_CONNECT_API_KEY_ID.p8 \
-          | xcbeautify
+          | xcbeautify --renderer github-actions
 
       - name: List files
         run: |
@@ -567,7 +571,7 @@ jobs:
             GCC_GENERATE_DEBUGGING_SYMBOLS=NO \
             ONLY_ACTIVE_ARCH=YES \
             VALID_ARCHS=arm64 \
-            | xcbeautify
+            | xcbeautify --renderer github-actions
 
       - name: Embbed entitlements
         working-directory: apps/app
@@ -590,7 +594,7 @@ jobs:
             -authenticationKeyIssuerID $APP_STORE_CONNECT_API_KEY_ISSUER_ID \
             -authenticationKeyID $APP_STORE_CONNECT_API_KEY_ID \
             -authenticationKeyPath ${{ github.workspace }}/apps/app/macos/AuthKey_$APP_STORE_CONNECT_API_KEY_ID.p8 \
-          | xcbeautify
+          | xcbeautify --renderer github-actions
 
       - name: List files
         run: |
