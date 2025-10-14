@@ -1,0 +1,16 @@
+{
+  "name": "sponsor-inserter",
+  "scripts": {
+    "dev": "bun run --hot src/index.ts"
+  },
+  "dependencies": {
+    "hono": "^4.9.12",
+    "valibot": "^1.1.0",
+    "@2025/database": "workspace:*"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.2.3",
+    "@types/bun": "latest",
+    "ts-node": "^10.9.2"
+  }
+}
