@@ -483,7 +483,8 @@ jobs:
             -configuration Release \
             -sdk macosx \
             -archivePath build/macos/Runner.xcarchive \
-            -allowProvisioningUpdates | xcbeautify
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO | xcbeautify
 
       - name: Embbed entitlements
         working-directory: apps/app
