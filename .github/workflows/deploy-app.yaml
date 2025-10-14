@@ -19,9 +19,20 @@ on:
         required: false
         default: true
         type: boolean
+      website-preview:
+        description: "Build website preview"
+        required: false
+        default: true
+        type: boolean
+      website-production:
+        description: "Build website production"
+        required: false
+        default: true
+        type: boolean
 
 env:
   XCODE_VERSION: 26.0
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   define-matrix:
@@ -31,6 +42,8 @@ jobs:
       deploy-ios: ${{ steps.define-environment-matrix.outputs.deploy-ios }}
       deploy-android: ${{ steps.define-environment-matrix.outputs.deploy-android }}
       deploy-macos: ${{ steps.define-environment-matrix.outputs.deploy-macos }}
+      deploy-website-preview: ${{ steps.define-environment-matrix.outputs.deploy-website-preview }}
+      deploy-website-production: ${{ steps.define-environment-matrix.outputs.deploy-website-production }}
     steps:
       - name: Checkout
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
@@ -51,8 +64,19 @@ jobs:
             if [ "${{ inputs.macos }}" = "true" ]; then
               platforms+=("macos")
             fi
+            if [ "${{ inputs.website-preview }}" = "true" ]; then
+              platforms+=("website-preview")
+            fi
+            if [ "${{ inputs.website-production }}" = "true" ]; then
+              platforms+=("website-production")
+            fi
           elif [ "${{ github.event_name }}" = "push" ]; then
-            platforms+=("ios" "android" "macos")
+            # branchがmainの場合
+            if [ "${{ github.ref_name }}" = "main" ]; then
+              platforms+=("ios" "android" "macos" "website-production")
+            else
+              platforms+=("website-preview")
+            fi
           else
             echo "Unknown event name: ${{ github.event_name }}"
             exit 1
@@ -590,3 +614,224 @@ jobs:
             --type osx \
             --apiIssuer $APP_STORE_CONNECT_API_KEY_ISSUER_ID \
             --apiKey $APP_STORE_CONNECT_API_KEY_ID \
+
+  start-build-website:
+    needs:
+      - define-matrix
+    if: ${{ needs.define-matrix.outputs.deploy-website-production }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 1
+    outputs:
+      deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+    steps:
+      # https://github.com/bobheadxi/deployments
+      - name: Start deployment
+        uses: bobheadxi/deployments@648679e8e4915b27893bd7dbc35cb504dc915bc8 # v1.5.0
+        id: deployment
+        with:
+          step: start
+          token: ${{ secrets.GITHUB_TOKEN }}
+          env: app-website
+          ref: ${{ github.head_ref }}
+
+  build-website:
+    needs:
+      - define-matrix
+      - start-build-website
+    if: ${{ needs.define-matrix.outputs.deploy-website-preview || needs.define-matrix.outputs.deploy-website-production }}
+    runs-on: ubuntu-24.04
+    outputs:
+      build_log: ${{ steps.build.outputs.LOG }}
+    timeout-minutes: 5
+    steps:
+      # https://github.com/actions/checkout
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      # https://github.com/jdx/mise-action
+      - name: Install Mise dependencies
+        uses: jdx/mise-action@5083fe46898c414b2475087cc79da59e7da859e8 # v2.1.11
+        with:
+          install_args: "flutter"
+
+      - name: Resolve dependencies
+        working-directory: apps/app
+        run: |
+          dart pub get
+
+      - name: Build Flutter Web App
+        id: build
+        working-directory: apps/app
+        run: |
+          if [ "${{ needs.define-matrix.outputs.deploy-website-production }}" = "true" ]; then
+            environment_file="environments/.env.prod"
+          else
+            environment_file="environments/.env.stg"
+          fi
+          {
+            echo "LOG<<EOL"
+            flutter build web --wasm --dart-define-from-file=$environment_file 2>&1
+            echo "EOL"
+          } | tee -a $GITHUB_OUTPUT
+
+      - name: Upload Flutter app Artifacts
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: app-artifacts
+          path: apps/app/build/web/
+
+  deploy-website:
+    runs-on: ubuntu-24.04
+    needs:
+      - define-matrix
+      - build-website
+    if: ${{ needs.define-matrix.outputs.deploy-website-preview || needs.define-matrix.outputs.deploy-website-production }}
+    timeout-minutes: 5
+    env:
+      MISE_ENV: ci
+    outputs:
+      deployment_url: ${{ steps.extract-deployment-url.outputs.DEPLOYMENT_URL }}
+      logs: ${{ steps.extract-logs.outputs.LOG }}
+    steps:
+      # https://github.com/actions/checkout
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Download Flutter App Artifacts
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: website-artifacts
+          path: apps/app/build/web/
+
+      - name: Extract SOPS secrets
+        run: |
+          mkdir -p ~/.config/mise
+          echo "${{ secrets.SOPS_FILE }}" > ~/.config/mise/flutterkaigi.txt
+
+      # https://github.com/jdx/mise-action
+      - name: Install Mise dependencies
+        uses: jdx/mise-action@5083fe46898c414b2475087cc79da59e7da859e8 # v2.1.11
+        with:
+          install_args: "bun"
+
+      - name: Install dependencies
+        working-directory: apps/app
+        run: bun install --frozen-lockfile
+
+      - name: Deploy app (Preview)
+        if: ${{ needs.define-matrix.outputs.deploy-website-preview }}
+        id: deploy-preview
+        working-directory: apps/app
+        run: |
+          {
+            echo "LOG<<EOL"
+            bunx wrangler versions upload 2>&1
+            echo "EOL"
+          } | tee -a $GITHUB_OUTPUT
+
+      - name: Deploy app (Production)
+        if: ${{ needs.define-matrix.outputs.deploy-website-production }}
+        id: deploy-production
+        working-directory: apps/app
+        run: |
+          {
+            echo "LOG<<EOL"
+            bunx wrangler deploy 2>&1
+            echo "EOL"
+          } | tee -a $GITHUB_OUTPUT
+
+      - name: Extract deployment URL
+        id: extract-deployment-url
+        run: |
+          if [ -z "${{ steps.deploy-preview.outputs.LOG }}" ]; then
+            LOG="${{ steps.deploy-production.outputs.LOG }}"
+          else
+            LOG="${{ steps.deploy-preview.outputs.LOG }}"
+          fi
+
+          # `https://` を含む最初の行だけを抽出し、DEPLOYMENT_URLに格納
+          DEPLOYMENT_URL=$(echo "$LOG" | grep -o 'https://[^ ]*' | head -n 1)
+          echo "DEPLOYMENT_URL=$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
+
+      - name: Extract timestamp
+        id: extract-timestamp
+        env:
+          TZ: Asia/Tokyo
+        run: |
+          echo "timestamp=$(date -Iseconds )" >> $GITHUB_OUTPUT
+
+      - name: Extract logs
+        id: extract-logs
+        run: |
+          echo "LOG<<EOF" >> $GITHUB_OUTPUT
+          cat <<EOL | tee -a $GITHUB_OUTPUT
+          ## 📱 Flutter App Preview Deployment
+          🔗URL: ${{ steps.extract-deployment-url.outputs.DEPLOYMENT_URL }}
+
+          🔑Commit Hash: \`${{ github.sha }}\`
+          📅Timestamp: \`${{ steps.extract-timestamp.outputs.TIMESTAMP }}\`
+
+          <details>
+          <summary><h2>📦️ Build Logs</h2></summary>
+
+          \`\`\`log
+          ${{ needs.build-website.outputs.build_log }}
+          \`\`\`
+          </details>
+
+          <details>
+          <summary><h2>✈️ Deployment Logs</h2></summary>
+
+          \`\`\`log
+          ${{ steps.deploy-preview.outputs.LOG }}
+          \`\`\`
+          </details>
+          EOL
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      # https://github.com/thollander/actions-comment-pull-request
+      - name: Comment PR with execution number
+        uses: thollander/actions-comment-pull-request@24bffb9b452ba05a4f3f77933840a6a841d1b32b # v3.0.1
+        if: ${{ github.event_name == 'pull_request' }}
+        with:
+          message: |
+            ${{ steps.extract-logs.outputs.LOG }}
+          comment-tag: deploy-conference-app-web
+
+  update-deployment-status:
+    runs-on: ubuntu-24.04
+    needs:
+      - define-matrix
+      - deploy-website
+      - start-build-website
+    if: ${{ needs.define-matrix.outputs.deploy-website-production && !cancelled() }}
+    timeout-minutes: 1
+    steps:
+      - name: Get previous jobs status
+        id: get-previous-jobs-status
+        run: |
+          function echo-needs() {
+            echo '${{ toJSON(needs) }}'
+          }
+          echo-needs
+          did_failure=$(echo-needs | jq '[.[].result] | any(. != "success")')
+          if [ "$did_failure" = "true" ]; then
+            echo "status=failure" >> $GITHUB_OUTPUT
+          else
+            echo "status=success" >> $GITHUB_OUTPUT
+          fi
+
+      # https://github.com/bobheadxi/deployments
+      - name: Update deployment status
+        uses: bobheadxi/deployments@648679e8e4915b27893bd7dbc35cb504dc915bc8 # v1.5.0
+        id: deployment
+        if: ${{ !cancelled() }}
+        with:
+          step: finish
+          token: ${{ secrets.GITHUB_TOKEN }}
+          status: ${{ steps.get-previous-jobs-status.outputs.status || 'failure' }}
+          deployment_id: ${{ needs.start-build-website.outputs.deployment_id }}
+          env: app
+          env_url: ${{ needs.deploy-website.outputs.deployment_url }}
+          ref: ${{ github.head_ref }}
+          auto_inactive: true
