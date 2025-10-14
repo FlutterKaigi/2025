@@ -395,3 +395,184 @@ jobs:
           track: internal
           status: completed
           changesNotSentForReview: false
+
+  build-macos:
+    needs: define-matrix
+    if: ${{ needs.define-matrix.outputs.deploy-macos }}
+    runs-on: macos-latest
+    timeout-minutes: 30
+    concurrency:
+      group: ${{ github.workflow }}-macos
+      cancel-in-progress: false
+    env:
+      MISE_ENV: ci
+    steps:
+      # https://github.com/actions/checkout
+      - name: Checkout
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          fetch-depth: 0
+
+      # https://github.com/maxim-lobanov/setup-xcode
+      - uses: maxim-lobanov/setup-xcode@60606e260d2fc5762a71e64e74b2174e8ea3c8bd # v1.6.0
+        with:
+          xcode-version: ${{ env.XCODE_VERSION }}
+
+      - name: Extract SOPS secrets
+        run: |
+          mkdir -p ~/.config/mise
+          echo "${{ secrets.SOPS_FILE }}" > ~/.config/mise/flutterkaigi.txt
+
+      # https://github.com/jdx/mise-action
+      - name: Install Mise dependencies
+        uses: jdx/mise-action@5083fe46898c414b2475087cc79da59e7da859e8 # v3.1.1
+        with:
+          install_args: "flutter xcbeautify"
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Set environment variables
+        run: |
+          for line in $(mise env --dotenv); do
+            echo $line >> "$GITHUB_ENV"
+            echo "::add-mask::${line#*=}"
+          done
+
+      - name: Check Environment Values
+        run: |
+          echo $APP_STORE_CONNECT_API_KEY_ISSUER_ID | sha256sum -
+          echo $APP_STORE_CONNECT_API_KEY_ID | sha256sum -
+          echo $APP_STORE_CONNECT_API_KEY_PATH | sha256sum -
+
+      - name: Enable Swift Package Manager
+        run: |
+          flutter config --enable-swift-package-manager
+
+      - name: Resolve dependencies
+        working-directory: apps/app
+        run: dart pub get --enforce-lockfile
+
+      - name: Configure macOS
+        working-directory: apps/app
+        run: |
+          flutter build macos --config-only \
+            --dart-define-from-file=environments/.env.prod
+
+      - name: Extract App Store Connect API Key
+        working-directory: apps/app/macos
+        run: |
+          echo "$APP_STORE_CONNECT_API_KEY_BASE64" | base64 -d \
+            > AuthKey_$APP_STORE_CONNECT_API_KEY_ID.p8
+          ls -l AuthKey_$APP_STORE_CONNECT_API_KEY_ID.p8
+
+      - name: Build macOS
+        working-directory: apps/app
+        run: |
+          flutter build macos \
+            --release \
+            --dart-define-from-file=environments/.env.prod
+
+      - name: Archive
+        working-directory: apps/app
+        run: |
+          xcodebuild archive \
+            -workspace macos/Runner.xcworkspace \
+            -scheme Runner \
+            -configuration Release \
+            -sdk macosx \
+            -archivePath build/macos/Runner.xcarchive \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO | xcbeautify
+
+      - name: Export Archive
+        working-directory: apps/app
+        run: |
+          xcodebuild -exportArchive \
+            -archivePath build/macos/Runner.xcarchive \
+            -exportOptionsPlist macos/ExportOptions.plist \
+            -exportPath . \
+            -allowProvisioningUpdates \
+            -authenticationKeyIssuerID $APP_STORE_CONNECT_API_KEY_ISSUER_ID \
+            -authenticationKeyID $APP_STORE_CONNECT_API_KEY_ID \
+            -authenticationKeyPath ${{ github.workspace }}/apps/app/macos/AuthKey_$APP_STORE_CONNECT_API_KEY_ID.p8 \
+          | xcbeautify
+
+      - name: List files
+        run: |
+          ls -lah apps/app/
+          echo "---"
+          ls -lah apps/app/build/
+
+      - name: Upload pkg as artifact
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: FlutterKaigi 2025.pkg
+          path: apps/app/FlutterKaigi 2025.pkg
+          if-no-files-found: error
+
+  deploy-macos:
+    needs: build-macos
+    runs-on: macos-latest
+    timeout-minutes: 10
+    env:
+      MISE_ENV: ci
+    concurrency:
+      group: ${{ github.workflow }}-macos-deploy
+      cancel-in-progress: false
+    steps:
+      # https://github.com/actions/checkout
+      - name: Checkout
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          fetch-depth: 0
+
+      # https://github.com/maxim-lobanov/setup-xcode
+      - uses: maxim-lobanov/setup-xcode@60606e260d2fc5762a71e64e74b2174e8ea3c8bd # v1.6.0
+        with:
+          xcode-version: ${{ env.XCODE_VERSION }}
+
+      - name: Extract SOPS secrets
+        run: |
+          mkdir -p ~/.config/mise
+          echo "${{ secrets.SOPS_FILE }}" > ~/.config/mise/flutterkaigi.txt
+
+      # https://github.com/jdx/mise-action
+      - name: Install Mise dependencies
+        uses: jdx/mise-action@5083fe46898c414b2475087cc79da59e7da859e8 # v3.1.1
+        with:
+          install_args: "xcbeautify"
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Set environment variables
+        run: |
+          for line in $(mise env --dotenv); do
+            echo $line >> "$GITHUB_ENV"
+            echo "::add-mask::${line#*=}"
+          done
+
+      # https://github.com/actions/download-artifact
+      - name: Download pkg
+        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        with:
+          name: FlutterKaigi 2025.pkg
+          path: build
+
+      - name: List files
+        run: ls -lah build/
+
+      - name: Extract App Store Connect API Key
+        run: |
+          mkdir ~/.private_keys
+          echo "$APP_STORE_CONNECT_API_KEY_BASE64" | base64 -d \
+            > ~/.private_keys/AuthKey_$APP_STORE_CONNECT_API_KEY_ID.p8
+          ls -l ~/.private_keys/AuthKey_$APP_STORE_CONNECT_API_KEY_ID.p8
+
+      - name: Upload pkg to App Store Connect
+        run: |
+          xcrun altool \
+            --upload-app \
+            -f "build/FlutterKaigi 2025.pkg" \
+            --type osx \
+            --apiIssuer $APP_STORE_CONNECT_API_KEY_ISSUER_ID \
+            --apiKey $APP_STORE_CONNECT_API_KEY_ID \
