@@ -569,7 +569,16 @@ jobs:
             --verbose \
             --preserve-metadata=entitlements \
             --force \
-            --sign "-" "build/macos/Runner.xcarchive/Products/Applications/FlutterKaigi 2025.app"
+            --sign "-" \
+            "build/macos/Runner.xcarchive/Products/Applications/FlutterKaigi 2025.app"
+
+          # Ref. https://iseebi.hatenablog.com/entry/2019/07/25/005311
+          codesign \
+            --force \
+            --options runtime \
+            --sign "-" \
+            "build/macos/Runner.xcarchive/Products/Applications/FlutterKaigi 2025.app"
+
 
       - name: Export Archive
         working-directory: apps/app
