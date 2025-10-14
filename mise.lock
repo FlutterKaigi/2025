@@ -45,6 +45,10 @@ backend = "core:node"
 version = "0.61.1"
 backend = "pipx:codemagic-cli-tools"
 
+[[tools.python]]
+version = "3.14.0"
+backend = "core:python"
+
 [[tools.rclone]]
 version = "1.71.1"
 backend = "aqua:rclone/rclone"

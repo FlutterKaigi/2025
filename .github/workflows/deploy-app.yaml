@@ -404,7 +404,7 @@ jobs:
       - name: Install Mise dependencies
         uses: jdx/mise-action@5083fe46898c414b2475087cc79da59e7da859e8 # v3.1.1
         with:
-          install_args: "uv pipx:codemagic-cli-tools"
+          install_args: "uv pipx:codemagic-cli-tools python"
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
@@ -420,20 +420,44 @@ jobs:
           echo "$GOOGLE_PLAY_SERVICE_ACCOUNT_BASE64" | base64 -d > service-account.json
           ls -l service-account.json
 
+      - name: Generate Release Notes
+        run: |
+          python3 <<EOF
+          import json
+          import os
+          import subprocess
+
+          try:
+            # Get the latest tag
+            tags_output = subprocess.check_output(["git", "tag", "--sort=v:refname"]).decode("utf-8").strip()
+            if tags_output:
+              last_tag = tags_output.split("\n")[-1]
+            else:
+              # No tags found, use fallback commit
+              last_tag = "a229e9a8cc8ef717319f68af6db7f15b1d962a9b"
+          except subprocess.CalledProcessError:
+            # No tags found, use fallback commit
+            last_tag = "a229e9a8cc8ef717319f68af6db7f15b1d962a9b"
+
+          changelog = subprocess.check_output(["git", "log", "--pretty=format:- [%ad] %an: %s %h", f"{last_tag}..HEAD"]).decode("utf-8")
+
+          # Limit changelog to 1000 characters
+          if len(changelog) > 1000:
+            changelog = changelog[:997] + "..."
+
+          with open("release-notes.json", "w") as f:
+            json.dump([{"language": "ja-JP", "text": changelog}], f, indent=2)
+          EOF
+          ls -l release-notes.json
+
+
       - name: Upload AAB to Google Play
         run: |
-          google-play bundles upload \
+          google-play bundles publish \
             --credentials="@file:service-account.json" \
-            --bundle build/app-release.aab
-
-      - name: Set a new Release
-        run: |
-          google-play tracks set-release \
-            --credentials "@file:service-account.json" \
-            --track "internal"
-            --package-name "jp.flutterkaigi.conf2025" \
-            --version-code ${{ needs.build-android.outputs.BUILD_NUMBER }} \
-
+            --bundle build/app-release.aab \
+            --track "internal" \
+            --release-notes="@file:release-notes.json"
 
   build-macos:
     needs: define-matrix
@@ -529,6 +553,16 @@ jobs:
             ONLY_ACTIVE_ARCH=YES \
             VALID_ARCHS=arm64 \
             | xcbeautify
+
+      - name: List files
+        run: |
+          ls -lah apps/app/
+          echo "---"
+          ls -lah apps/app/build/
+          echo "---"
+          ls -lah apps/app/build/macos/
+          echo "---"
+          tree -L 2 apps/app/build/macos/Runner.xcarchive/
 
       - name: Embbed entitlements
         working-directory: apps/app

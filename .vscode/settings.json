@@ -54,5 +54,6 @@
   "debug.javascript.defaultRuntimeExecutable": {
     "pwa-node": "${workspaceFolder}/.vscode/mise-tools/node"
   },
-  "deno.path": "/Users/r_onoue/.local/share/mise/shims/deno"
+  "deno.path": "/Users/r_onoue/.local/share/mise/shims/deno",
+  "python.defaultInterpreterPath": "${workspaceFolder}/.vscode/mise-tools/python"
 }
