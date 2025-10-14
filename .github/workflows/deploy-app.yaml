@@ -52,8 +52,7 @@ jobs:
               platforms+=("macos")
             fi
           elif [ "${{ github.event_name }}" = "push" ]; then
-            # platforms+=("ios" "android" "macos")
-            platforms+=("macos" "android")
+            platforms+=("ios" "android" "macos")
           else
             echo "Unknown event name: ${{ github.event_name }}"
             exit 1
