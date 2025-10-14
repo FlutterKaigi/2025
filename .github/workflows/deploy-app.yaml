@@ -457,7 +457,7 @@ jobs:
             --credentials="@file:service-account.json" \
             --bundle build/app-release.aab \
             --track "internal" \
-            --release-notes="@file:release-notes.json"
+            --release-notes="@file:release-notes.json" --draft
 
   build-macos:
     needs: define-matrix
