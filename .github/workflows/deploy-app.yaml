@@ -255,6 +255,8 @@ jobs:
     if: ${{ needs.define-matrix.outputs.deploy-android }}
     runs-on: ubuntu-24.04
     timeout-minutes: 30
+    env:
+      MISE_ENV: ci
     concurrency:
       group: ${{ github.workflow }}-android
       cancel-in-progress: false
