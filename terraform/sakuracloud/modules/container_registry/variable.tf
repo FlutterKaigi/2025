@@ -3,6 +3,12 @@ variable "env" {
   description = "Environment"
 }
 
+variable "container_registry_name_suffix" {
+  type        = string
+  description = "Container Registry Name Suffix"
+  default     = ""
+}
+
 variable "container_registry_password" {
   type        = string
   description = "Container Registry Password"

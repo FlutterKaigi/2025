@@ -3,9 +3,9 @@ locals {
 }
 
 resource "sakuracloud_container_registry" "registry" {
-  name            = "flutterkaigi-2025-bff-${var.env}"
+  name            = "flutterkaigi-2025-${var.env}${var.container_registry_name_suffix}"
   access_level    = "none"
-  subdomain_label = "flutterkaigi-2025-bff-${var.env}"
+  subdomain_label = "flutterkaigi-2025-${var.env}${var.container_registry_name_suffix}"
   user {
     name       = local.container_registry_username
     password   = var.container_registry_password

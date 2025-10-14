@@ -4,6 +4,7 @@ module "container_registry" {
   container_registry_password     = module.random_password.container_registry_password
   SAKURACLOUD_ACCESS_TOKEN        = var.SAKURACLOUD_ACCESS_TOKEN
   SAKURACLOUD_ACCESS_TOKEN_SECRET = var.SAKURACLOUD_ACCESS_TOKEN_SECRET
+  container_registry_name_suffix = "hxu9"
 }
 
 module "docker" {
