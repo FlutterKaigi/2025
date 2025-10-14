@@ -65,7 +65,9 @@ class TicketTypeDbClient {
           LEFT JOIN ticket_options AS topt ON tt.id = topt.ticket_type_id
           LEFT JOIN v_ticket_option_counts vtoc ON topt.id = vtoc.ticket_option_id
         WHERE
-          tt.is_active = true
+          tt.is_active = true AND
+          tt.sale_starts_at <= now() AND
+          tt.sale_ends_at >= now()
         GROUP BY tt.id, tt.created_at, vtc.sold_count, vtc.reserved_count
         ORDER BY tt.created_at ASC
       ''',
