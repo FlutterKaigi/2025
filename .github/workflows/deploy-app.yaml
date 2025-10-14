@@ -514,7 +514,13 @@ jobs:
             -sdk macosx \
             -archivePath build/macos/Runner.xcarchive \
             CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGNING_ALLOWED=NO | xcbeautify
+            CODE_SIGNING_ALLOWED=NO \
+            DEBUG_INFORMATION_FORMAT=dwarf \
+            DEBUGGING_SYMBOLS=NO \
+            GCC_GENERATE_DEBUGGING_SYMBOLS=NO \
+            ONLY_ACTIVE_ARCH=YES \
+            VALID_ARCHS=arm64 \
+            | xcbeautify
 
       - name: Embbed entitlements
         working-directory: apps/app
