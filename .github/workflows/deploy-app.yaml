@@ -671,7 +671,7 @@ jobs:
             -f "build/FlutterKaigi 2025.pkg" \
             --type osx \
             --apiIssuer $APP_STORE_CONNECT_API_KEY_ISSUER_ID \
-            --apiKey $APP_STORE_CONNECT_API_KEY_ID \
+            --apiKey $APP_STORE_CONNECT_API_KEY_ID 
 
   start-build-website:
     needs:
