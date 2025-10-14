@@ -125,7 +125,7 @@ jobs:
             --dart-define-from-file=environments/.env.prod
 
       - name: Archive
-        working-directory: apps/app/ios
+        working-directory: apps/app
         run: |
           xcodebuild archive \
             -workspace ios/Runner.xcworkspace \
@@ -294,7 +294,7 @@ jobs:
           flutter build appbundle \
             --release \
             --build-number=${BUILD_NUMBER} \
-            --dart-define-from-file=environment/.env.prod
+            --dart-define-from-file=environments/.env.prod
 
       - name: Upload aab as artifact
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
