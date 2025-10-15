@@ -4,11 +4,8 @@ const _ticketRoutes = [
   TypedGoRoute<TicketRoute>(
     path: '/tickets',
     routes: [
-      TypedGoRoute<AvailableTicketListRoute>(
-        path: 'available',
-      ),
-      TypedGoRoute<TicketListRoute>(
-        path: 'list',
+      TypedGoRoute<TicketDetailRoute>(
+        path: ':ticketId',
       ),
     ],
   ),
@@ -29,19 +26,13 @@ class TicketRoute extends GoRouteData with $TicketRoute {
       const TicketListScreen();
 }
 
-class AvailableTicketListRoute extends GoRouteData
-    with $AvailableTicketListRoute {
-  const AvailableTicketListRoute();
+
+class TicketDetailRoute extends GoRouteData with $TicketDetailRoute {
+  const TicketDetailRoute({required this.ticketId});
+
+  final String ticketId;
 
   @override
   Widget build(BuildContext context, GoRouterState state) =>
-      const AvailableTicketListScreen();
-}
-
-class TicketListRoute extends GoRouteData with $TicketListRoute {
-  const TicketListRoute();
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      const TicketListScreen();
+      TicketDetailScreen(ticketId: ticketId);
 }

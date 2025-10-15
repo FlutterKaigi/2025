@@ -19,7 +19,7 @@ import 'package:app/features/session/ui/session_screen.dart';
 import 'package:app/features/session/ui/session_timeline_screen.dart';
 import 'package:app/features/sponsor/ui/sponsor_detail_screen.dart';
 import 'package:app/features/sponsor/ui/sponsor_list_screen.dart';
-import 'package:app/features/ticket/ui/components/available_ticket_list_screen.dart';
+import 'package:app/features/ticket/ui/ticket_detail_screen.dart';
 import 'package:app/features/ticket/ui/ticket_list_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -76,6 +76,7 @@ GoRouter router(Ref ref) {
     debugLogDiagnostics: kDebugMode,
     refreshListenable: isAuthorizedNotifier,
     initialLocation: const EventInfoRoute().location,
+
     redirect: (context, state) {
       final isAuthorized = isAuthorizedNotifier.value;
       final isGoogleSessionExpired = isGoogleSessionExpiredNotifier.value;
@@ -153,7 +154,10 @@ class LoginRoute extends GoRouteData with $LoginRoute {
     TypedStatefulShellBranch<EventBranch>(routes: _eventRoutes),
     TypedStatefulShellBranch<SessionBranch>(routes: _sessionRoutes),
     TypedStatefulShellBranch<SponsorBranch>(routes: _sponsorRoutes),
-    TypedStatefulShellBranch<TicketBranch>(routes: _ticketRoutes),
+    TypedStatefulShellBranch<TicketBranch>(
+      routes: _ticketRoutes,
+
+    ),
     TypedStatefulShellBranch<AccountBranch>(
       routes: _accountRoutes,
     ),

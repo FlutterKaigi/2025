@@ -1,3 +1,4 @@
+import 'package:app/core/designsystem/components/error_screen.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/core/router/router.dart';
 import 'package:app/features/sponsor/data/sponsor.dart';
@@ -115,14 +116,19 @@ class _SponsorList extends ConsumerWidget {
               ),
             ),
         ];
-        return SafeArea(
-          child: CustomScrollView(
+        return Scaffold(
+          body: CustomScrollView(
             slivers: slivers,
           ),
         );
       }(),
-      AsyncLoading() => const Center(child: CircularProgressIndicator()),
-      AsyncError(:final error) => Center(child: Text(error.toString())),
+      AsyncLoading() => const Center(
+        child: SafeArea(child: CircularProgressIndicator.adaptive()),
+      ),
+      AsyncError(:final error) => ErrorScreen(
+        error: error,
+        onRetry: () => ref.invalidate(sponsorsProvider),
+      ),
     };
   }
 }
