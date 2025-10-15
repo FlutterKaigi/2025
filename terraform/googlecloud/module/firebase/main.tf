@@ -20,7 +20,6 @@ resource "google_firebase_android_app" "android" {
   project      = var.project_id
   display_name = "FlutterKaigi 2025 ${var.env} Android App"
   package_name = local.package_name
-
 }
 
 resource "google_firebase_apple_app" "ios" {

@@ -29,7 +29,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>jp.flutterkaigi.conf2025${APP_ID_SUFFIX}</string>
+				<string>${GOOGLE_AUTH_REVERSED_CLIENT_ID_APPLE}</string>
 			</array>
 		</dict>
 	</array>

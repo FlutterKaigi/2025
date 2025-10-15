@@ -25,7 +25,7 @@ Future<void> main() async {
   final environment = container.read(environmentProvider);
   await Firebase.initializeApp(
     options: switch (environment.flavor) {
-      'production' =>
+      Flavor.production =>
         firebase_production.DefaultFirebaseOptions.currentPlatform,
       _ => firebase_staging.DefaultFirebaseOptions.currentPlatform,
     },
@@ -36,8 +36,6 @@ Future<void> main() async {
         supabaseUrl: environment.supabaseUrl,
         supabaseKey: environment.supabaseKey,
         isDebug: kDebugMode,
-        getAccessToken: () async =>
-            FirebaseAuth.instance.currentUser?.getIdToken(),
       );
   try {
     // `authNotifierProvider` のビルド時に中断されないようにするために監視しておく

@@ -36,7 +36,7 @@ Widget accountInfoScreenUseCase(BuildContext context) {
         const Environment(
           appIdSuffix: '.dev',
           appName: 'FlutterKaigi',
-          flavor: 'dev',
+          flavor: Flavor.develop,
           bffBaseUrl: '',
           supabaseUrl: '',
           supabaseKey: '',

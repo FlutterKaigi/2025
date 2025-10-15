@@ -10,6 +10,7 @@ dependencies:
   db_types:
     path: ../db_types
   freezed_annotation: ^3.0.0
+  google_sign_in: ^7.2.0
   retrofit: ^4.4.2
   # https://github.com/supabase/supabase-flutter/pull/1196 を含む安定版リリース待ち
   supabase_flutter: ^2.9.1

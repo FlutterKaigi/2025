@@ -143,13 +143,14 @@ class _UserInfoCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+    final translations = Translations.of(context);
     final children = user.isAnonymous
         ? [
             Text(
-              Translations.of(context).account.guestUserLabel,
-              style: Theme.of(context).textTheme.bodyLarge,
+              translations.account.guestUserLabel,
+              style: theme.textTheme.bodyLarge,
             ),
-            const SizedBox(height: 16),
             _GoogleSignInButton(
               onPressed: () async {
                 await ref
@@ -157,35 +158,29 @@ class _UserInfoCard extends ConsumerWidget {
                     .linkAnonymousUserWithGoogle();
               },
             ),
+            const _LogoutButton(),
           ]
         : [
             _ProfileImage(
               user: user,
             ),
-            const SizedBox(height: 16),
             Text(
               user.email ?? '',
               style: Theme.of(context).textTheme.bodyLarge,
             ),
-            const SizedBox(height: 16),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton.icon(
                 onPressed: onProfileEdit,
                 icon: const Icon(Icons.edit),
-                label: Text(Translations.of(context).account.profileEdit),
+                label: Text(translations.account.profileEdit),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Theme.of(
-                    context,
-                  ).colorScheme.secondary,
-                  foregroundColor: Theme.of(
-                    context,
-                  ).colorScheme.onSecondary,
+                  backgroundColor: theme.colorScheme.secondary,
+                  foregroundColor: theme.colorScheme.onSecondary,
                   visualDensity: VisualDensity.comfortable,
                 ),
               ),
             ),
-            const SizedBox(height: 8),
             const _LogoutButton(),
           ];
 
@@ -193,12 +188,13 @@ class _UserInfoCard extends ConsumerWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
         side: BorderSide(
-          color: Theme.of(context).colorScheme.outline,
+          color: theme.colorScheme.outline,
         ),
       ),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
+          spacing: 8,
           children: children,
         ),
       ),

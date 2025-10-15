@@ -15,7 +15,7 @@ _Environment _$EnvironmentFromJson(Map<String, dynamic> json) => $checkedCreate(
     final val = _Environment(
       appIdSuffix: $checkedConvert('app_id_suffix', (v) => v as String),
       appName: $checkedConvert('app_name', (v) => v as String),
-      flavor: $checkedConvert('flavor', (v) => v as String),
+      flavor: $checkedConvert('flavor', (v) => $enumDecode(_$FlavorEnumMap, v)),
       supabaseUrl: $checkedConvert('supabase_url', (v) => v as String),
       supabaseKey: $checkedConvert('supabase_key', (v) => v as String),
       bffBaseUrl: $checkedConvert('bff_base_url', (v) => v as String),
@@ -40,12 +40,18 @@ Map<String, dynamic> _$EnvironmentToJson(_Environment instance) =>
     <String, dynamic>{
       'app_id_suffix': instance.appIdSuffix,
       'app_name': instance.appName,
-      'flavor': instance.flavor,
+      'flavor': _$FlavorEnumMap[instance.flavor]!,
       'supabase_url': instance.supabaseUrl,
       'supabase_key': instance.supabaseKey,
       'bff_base_url': instance.bffBaseUrl,
       'withdrawal_form_url': instance.withdrawalFormUrl,
     };
+
+const _$FlavorEnumMap = {
+  Flavor.production: 'production',
+  Flavor.staging: 'staging',
+  Flavor.develop: 'develop',
+};
 
 // **************************************************************************
 // RiverpodGenerator
