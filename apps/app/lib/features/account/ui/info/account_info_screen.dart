@@ -1,11 +1,14 @@
+import 'package:app/core/designsystem/components/error_screen.dart';
 import 'package:app/core/gen/assets/assets.gen.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
+import 'package:app/core/provider/environment.dart';
 import 'package:app/features/account/data/notifier/profile_notifier.dart';
 import 'package:app/features/account/ui/component/account_circle_image.dart';
 import 'package:app/features/account/ui/component/account_scaffold.dart';
 import 'package:app/features/auth/data/notifier/auth_notifier.dart';
 import 'package:auth_client/auth_client.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -45,15 +48,19 @@ final class AccountInfoScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(authNotifierProvider);
     final t = Translations.of(context);
+    final theme = Theme.of(context);
     final textTheme = Theme.of(context).textTheme;
+
+    final commitInformation = ref.watch(environmentProvider).commitInformation;
 
     return AccountScaffold(
       body: state.when(
-        error: (error, stackTrace) => Center(
-          child: Text('Error: $error'),
+        error: (error, stackTrace) => ErrorScreen(
+          error: error,
+          onRetry: () => ref.invalidate(authNotifierProvider),
         ),
         loading: () => const Center(
-          child: CircularProgressIndicator(),
+          child: CircularProgressIndicator.adaptive(),
         ),
         data: (user) => ListView(
           padding: const EdgeInsets.symmetric(vertical: 16),
@@ -104,6 +111,23 @@ final class AccountInfoScreen extends ConsumerWidget {
                 onTap: item.onTap,
               ),
             )),
+            const SizedBox(
+              height: 8,
+            ),
+            // Flutter, Dart version
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Text(
+                  'Powered by Flutter ${FlutterVersion.version}\n'
+                  'Dart ${FlutterVersion.dartVersion}'
+                  '${commitInformation != null ? '\n$commitInformation' : ''}',
+                  style: textTheme.bodySmall!.copyWith(
+                    color: theme.colorScheme.onSurfaceVariant,
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),

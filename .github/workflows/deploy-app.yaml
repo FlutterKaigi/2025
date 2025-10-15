@@ -146,21 +146,14 @@ jobs:
         working-directory: apps/app
         run: |
           flutter build ios --config-only \
-            --dart-define-from-file=environments/.env.prod
+            --dart-define-from-file=environments/.env.prod \
+            --dart-define COMMIT_INFORMATION=${{ github.ref_name }}-${{ github.sha }}
 
       - name: Extract App Store Connect API Key
         working-directory: apps/app/ios
         run: |
           echo "$APP_STORE_CONNECT_API_KEY_BASE64" | base64 -d \
             > AuthKey_$APP_STORE_CONNECT_API_KEY_ID.p8
-
-      - name: Build iOS
-        working-directory: apps/app/ios
-        run: |
-          flutter build ios \
-          --release \
-          --no-codesign \
-          --dart-define-from-file=environments/.env.prod
 
       - name: Archive
         working-directory: apps/app
@@ -348,7 +341,8 @@ jobs:
           flutter build appbundle \
             --release \
             --build-number=${BUILD_NUMBER} \
-            --dart-define-from-file=environments/.env.prod
+            --dart-define-from-file=environments/.env.prod \
+            --dart-define COMMIT_INFORMATION=${{ github.ref_name }}-${{ github.sha }}
 
       - name: Upload aab as artifact
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
@@ -509,21 +503,14 @@ jobs:
         working-directory: apps/app
         run: |
           flutter build macos --config-only \
-            --dart-define-from-file=environments/.env.prod
+            --dart-define-from-file=environments/.env.prod \
+            --dart-define COMMIT_INFORMATION=${{ github.ref_name }}-${{ github.sha }}
 
       - name: Extract App Store Connect API Key
         working-directory: apps/app/macos
         run: |
           echo "$APP_STORE_CONNECT_API_KEY_BASE64" | base64 -d \
             > AuthKey_$APP_STORE_CONNECT_API_KEY_ID.p8
-
-      - name: Build macOS
-        working-directory: apps/app
-        run: |
-          flutter build macos \
-            --config-only \
-            --release \
-            --dart-define-from-file=environments/.env.prod
 
       - name: Archive
         working-directory: apps/app
@@ -690,7 +677,12 @@ jobs:
           fi
           {
             echo "LOG<<EOL"
-            flutter build web --wasm --dart-define-from-file=$environment_file 2>&1
+            flutter build web \
+              --wasm \
+              --release \
+              --dart-define-from-file=$environment_file \
+              --dart-define COMMIT_INFORMATION=${{ github.ref_name }}-${{ github.sha }} \
+                2>&1
             echo "EOL"
           } | tee -a $GITHUB_OUTPUT
 

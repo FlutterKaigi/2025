@@ -23,6 +23,10 @@ _Environment _$EnvironmentFromJson(Map<String, dynamic> json) => $checkedCreate(
         'withdrawal_form_url',
         (v) => v as String,
       ),
+      commitInformation: $checkedConvert(
+        'commit_information',
+        (v) => v as String?,
+      ),
     );
     return val;
   },
@@ -33,6 +37,7 @@ _Environment _$EnvironmentFromJson(Map<String, dynamic> json) => $checkedCreate(
     'supabaseKey': 'supabase_key',
     'bffBaseUrl': 'bff_base_url',
     'withdrawalFormUrl': 'withdrawal_form_url',
+    'commitInformation': 'commit_information',
   },
 );
 
@@ -45,6 +50,7 @@ Map<String, dynamic> _$EnvironmentToJson(_Environment instance) =>
       'supabase_key': instance.supabaseKey,
       'bff_base_url': instance.bffBaseUrl,
       'withdrawal_form_url': instance.withdrawalFormUrl,
+      'commit_information': instance.commitInformation,
     };
 
 const _$FlavorEnumMap = {
