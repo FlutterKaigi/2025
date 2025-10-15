@@ -19,7 +19,7 @@ class TicketListScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final t = Translations.of(context);
-    final ticketItemsStatus = ref.watch(ticketNotifierProvider);
+    final ticketItemsStatus = ref.watch(ticketProvider);
     final ticketTypesStatus = ref.watch(ticketTypesProvider);
 
     final key = useMemoized(UniqueKey.new, []);
@@ -33,7 +33,7 @@ class TicketListScreen extends HookConsumerWidget {
       loading: () => loading,
       error: (error, stackTrace) => ErrorScreen(
         error: error,
-        onRetry: () => ref.invalidate(ticketNotifierProvider),
+        onRetry: () => ref.invalidate(ticketProvider),
       ),
       data: (tickets) => ticketTypesStatus.when(
         loading: () => loading,
@@ -50,15 +50,15 @@ class TicketListScreen extends HookConsumerWidget {
             ticketTypes: ticketTypes,
             onRefresh: () async {
               await (
-                ref.refresh(ticketNotifierProvider.future),
+                ref.refresh(ticketProvider.future),
                 ref.refresh(ticketTypesProvider.future),
               ).wait;
             },
             isLoggedIn: ref.watch(
-              authNotifierProvider.select((v) => v.value != null),
+              authProvider.select((v) => v.value != null),
             ),
             isAnonymous: ref.watch(
-              authNotifierProvider.select((v) => v.value?.isAnonymous ?? false),
+              authProvider.select((v) => v.value?.isAnonymous ?? false),
             ),
           ),
         ),

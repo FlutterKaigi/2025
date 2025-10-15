@@ -45,18 +45,18 @@ final _rootObservers = [
 @Riverpod(keepAlive: true)
 GoRouter router(Ref ref) {
   final isAuthorizedNotifier = ValueNotifier<bool>(
-    ref.read(authNotifierProvider.select((v) => v.value != null)),
+    ref.read(authProvider.select((v) => v.value != null)),
   );
   final isGoogleSessionExpiredNotifier = ValueNotifier<bool>(false);
 
   ref
-    ..listen(authNotifierProvider, (_, __) {
+    ..listen(authProvider, (_, __) {
       isAuthorizedNotifier.value = ref.read(
-        authNotifierProvider.select((v) => v.value != null),
+        authProvider.select((v) => v.value != null),
       );
       // Googleセッション切れチェック
       isGoogleSessionExpiredNotifier.value = ref
-          .read(authNotifierProvider.notifier)
+          .read(authProvider.notifier)
           .isGoogleSessionExpired();
     })
     ..onDispose(() {
@@ -104,7 +104,7 @@ GoRouter router(Ref ref) {
         WidgetsBinding.instance.addPostFrameCallback((_) async {
           if (context.mounted) {
             // ログアウト完了後、AuthNotifierの監視により自動的にログイン画面へ遷移
-            await ref.read(authNotifierProvider.notifier).signOut();
+            await ref.read(authProvider.notifier).signOut();
           }
         });
         // ログイン画面へ遷移し、エラーメッセージを表示

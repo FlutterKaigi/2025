@@ -67,7 +67,7 @@ class ProfileEditScreen extends HookConsumerWidget {
           )
           .toList();
 
-      final avatarKey = ref.read(profileNotifierProvider).value?.avatarKey;
+      final avatarKey = ref.read(profileProvider).value?.avatarKey;
       final request = ProfileUpdateRequest(
         name: nameController.text.trim(),
         isAdult: isAdult,
@@ -76,7 +76,7 @@ class ProfileEditScreen extends HookConsumerWidget {
         avatarKey: avatarKey,
       );
 
-      final notifier = ref.read(profileNotifierProvider.notifier);
+      final notifier = ref.read(profileProvider.notifier);
       await notifier.updateProfile(request);
 
       if (context.mounted) {
@@ -130,7 +130,7 @@ class ProfileEditScreen extends HookConsumerWidget {
     final snsLinksState = useState<List<SnsLinkFormData>>([]);
     final isAdultState = useState(false);
 
-    final profileAsync = ref.watch(profileNotifierProvider);
+    final profileAsync = ref.watch(profileProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -157,7 +157,7 @@ class ProfileEditScreen extends HookConsumerWidget {
             children: [
               Text('${t.common.error.general.occurred}: $error'),
               ElevatedButton(
-                onPressed: () => ref.invalidate(profileNotifierProvider),
+                onPressed: () => ref.invalidate(profileProvider),
                 child: Text(t.common.error.server.retry),
               ),
             ],

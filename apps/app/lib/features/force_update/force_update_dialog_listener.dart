@@ -17,7 +17,7 @@ class ForceUpdateDialogListener extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.listen(forceUpdateStateNotifierProvider, (previous, state) {
+    ref.listen(forceUpdateStateProvider, (previous, state) {
       if (state.isUpdateRequired &&
           state.versionInfo != null &&
           state.platform != null) {
@@ -66,7 +66,7 @@ class ForceUpdateDialogListener extends ConsumerWidget {
     );
 
     // ダイアログ表示後に状態をリセット
-    ref.read(forceUpdateStateNotifierProvider.notifier).markDialogShown();
+    ref.read(forceUpdateStateProvider.notifier).markDialogShown();
   }
 
   Future<void> _openStore(String url) async {

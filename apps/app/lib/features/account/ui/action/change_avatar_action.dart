@@ -20,10 +20,10 @@ part 'change_avatar_action.g.dart';
 ChangeAvatarAction changeAvatarAction(Ref ref) => ChangeAvatarAction._(
   imagePicker: ref.watch(imagePickerProvider),
   userAndUserRolesFetcher: () async => ref.watch(
-    userNotifierProvider.future,
+    userProvider.future,
   ),
   imageUtils: ref.watch(imageUtilsProvider),
-  profileNotifier: ref.watch(profileNotifierProvider.notifier),
+  profileNotifier: ref.watch(profileProvider.notifier),
 );
 
 class ChangeAvatarAction {

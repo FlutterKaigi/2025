@@ -57,4 +57,4 @@ final class ChangeAvatarActionProvider
 }
 
 String _$changeAvatarActionHash() =>
-    r'04c02a57b40c650da65091ddad309ea4cf87b5be';
+    r'eea7bf3505237408a5f5c99b120002e0b4ef2ddc';

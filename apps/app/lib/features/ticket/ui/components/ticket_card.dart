@@ -251,7 +251,7 @@ class _TicketCheckoutButtons extends ConsumerWidget {
         children: [
           OutlinedButton.icon(
             onPressed: () => ref
-                .read(ticketNotifierProvider.notifier)
+                .read(ticketProvider.notifier)
                 .cancelCheckout(ticket.checkout.id),
             label: Text(t.ticket.purchase.cancel),
             icon: const Icon(Icons.cancel),
