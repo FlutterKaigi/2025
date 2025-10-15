@@ -13,6 +13,7 @@ abstract class TicketType with _$TicketType {
     required int price,
     required TicketStatus status,
     required String stripePriceId,
+    required bool isEntryAllowed,
     String? description,
   }) = _TicketType;
 

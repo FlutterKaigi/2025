@@ -8,21 +8,29 @@ part of 'ticket_type.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_TicketType _$TicketTypeFromJson(Map<String, dynamic> json) =>
-    $checkedCreate('_TicketType', json, ($checkedConvert) {
-      final val = _TicketType(
-        id: $checkedConvert('id', (v) => v as String),
-        name: $checkedConvert('name', (v) => v as String),
-        price: $checkedConvert('price', (v) => (v as num).toInt()),
-        status: $checkedConvert(
-          'status',
-          (v) => TicketStatus.fromJson(v as Map<String, dynamic>),
-        ),
-        stripePriceId: $checkedConvert('stripe_price_id', (v) => v as String),
-        description: $checkedConvert('description', (v) => v as String?),
-      );
-      return val;
-    }, fieldKeyMap: const {'stripePriceId': 'stripe_price_id'});
+_TicketType _$TicketTypeFromJson(Map<String, dynamic> json) => $checkedCreate(
+  '_TicketType',
+  json,
+  ($checkedConvert) {
+    final val = _TicketType(
+      id: $checkedConvert('id', (v) => v as String),
+      name: $checkedConvert('name', (v) => v as String),
+      price: $checkedConvert('price', (v) => (v as num).toInt()),
+      status: $checkedConvert(
+        'status',
+        (v) => TicketStatus.fromJson(v as Map<String, dynamic>),
+      ),
+      stripePriceId: $checkedConvert('stripe_price_id', (v) => v as String),
+      isEntryAllowed: $checkedConvert('is_entry_allowed', (v) => v as bool),
+      description: $checkedConvert('description', (v) => v as String?),
+    );
+    return val;
+  },
+  fieldKeyMap: const {
+    'stripePriceId': 'stripe_price_id',
+    'isEntryAllowed': 'is_entry_allowed',
+  },
+);
 
 Map<String, dynamic> _$TicketTypeToJson(_TicketType instance) =>
     <String, dynamic>{
@@ -31,6 +39,7 @@ Map<String, dynamic> _$TicketTypeToJson(_TicketType instance) =>
       'price': instance.price,
       'status': instance.status,
       'stripe_price_id': instance.stripePriceId,
+      'is_entry_allowed': instance.isEntryAllowed,
       'description': instance.description,
     };
 
