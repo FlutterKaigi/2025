@@ -174,7 +174,7 @@ jobs:
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO | xcbeautify
 
-      - name: Embbed entitlements
+      - name: Embed entitlements
         working-directory: apps/app
         run: |
           codesign \
