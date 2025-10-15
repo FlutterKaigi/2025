@@ -9,7 +9,8 @@ CREATE TABLE public.ticket_types (
   sale_ends_at TIMESTAMP WITH TIME ZONE,
   stripe_price_id TEXT NOT NULL,
   created_at timestamp DEFAULT now() NOT NULL,
-  updated_at timestamp DEFAULT now() NOT NULL
+  updated_at timestamp DEFAULT now() NOT NULL,
+  is_entry_allowed boolean DEFAULT TRUE NOT NULL
 );
 
 ALTER TABLE public.ticket_types enable ROW level security;

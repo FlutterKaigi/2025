@@ -18,6 +18,7 @@ abstract class TicketTypes with _$TicketTypes {
     required String stripePriceId,
     @RequiredDateTimeConverter() required DateTime createdAt,
     @RequiredDateTimeConverter() required DateTime updatedAt,
+    required bool isEntryAllowed,
   }) = _TicketTypes;
 
   factory TicketTypes.fromJson(Map<String, dynamic> json) =>
