@@ -1,7 +1,7 @@
 import 'dart:async';
 
+import 'package:app/core/designsystem/components/error_screen.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
-import 'package:app/core/ui/main/error_screen.dart';
 import 'package:app/core/ui/main/not_found_screen.dart';
 import 'package:app/features/sponsor/data/sponsor.dart';
 import 'package:app/features/sponsor/data/sponsor_provider.dart';
@@ -50,7 +50,8 @@ class SponsorDetailScreen extends ConsumerWidget {
       _Loading() => const Center(child: CircularProgressIndicator()),
       _Success(:final sponsor) => _SponsorDetail(sponsor: sponsor),
       _NotFound() => const NotFoundScreen(),
-      _Failure() => ErrorScreen(
+      _Failure(:final error) => ErrorScreen(
+        error: error,
         onRetry: () => ref.invalidate(sponsorsProvider, asReload: true),
       ),
     };

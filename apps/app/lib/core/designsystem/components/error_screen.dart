@@ -1,5 +1,7 @@
+import 'package:app/core/api/api_exception.dart';
 import 'package:app/core/gen/assets/assets.gen.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
+import 'package:bff_client/bff_client.dart';
 import 'package:flutter/material.dart';
 
 /// エラー表示画面
@@ -7,9 +9,12 @@ import 'package:flutter/material.dart';
 /// サーバーエラーなどが発生した際に表示されるページ
 class ErrorScreen extends StatelessWidget {
   const ErrorScreen({
+    required this.error,
     required this.onRetry,
     super.key,
   });
+
+  final Object error;
 
   /// リトライボタンが押された時のコールバック
   final VoidCallback onRetry;
@@ -19,6 +24,23 @@ class ErrorScreen extends StatelessWidget {
     final theme = Theme.of(context);
     final t = Translations.of(context);
 
+    final errorMessage = switch (error) {
+      DioException _ => t.common.error.server.message,
+      Object() => t.common.error.general.occurred,
+    };
+
+    final errorDetail = switch (error) {
+      ApiErrorResponseException(:final errorResponse) =>
+        '${errorResponse.code.name.toUpperCase()}: ${errorResponse.message}',
+      _ => () {
+        final text = error.toString();
+        if (text.length >= 200) {
+          return '${text.substring(0, 200)}...';
+        }
+        return text;
+      }(),
+    };
+
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -26,6 +48,7 @@ class ErrorScreen extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(24),
               child: Column(
+                spacing: 16,
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -38,13 +61,19 @@ class ErrorScreen extends StatelessWidget {
 
                   // エラーメッセージ
                   Text(
-                    t.common.error.server.title,
+                    errorMessage,
                     style: theme.textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 16),
+                  Text(
+                    errorDetail,
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: theme.colorScheme.onSurfaceVariant,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
 
                   Text(
                     t.common.error.server.message,
@@ -53,8 +82,6 @@ class ErrorScreen extends StatelessWidget {
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 32),
-
                   // リトライボタン
                   FilledButton.icon(
                     onPressed: onRetry,
@@ -75,4 +102,11 @@ class ErrorScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+extension ExceptionExtension on Exception {
+  String errorMessage(Translations t) => switch (this) {
+    ApiException _ => errorMessage(t),
+    Object() => t.common.error.general.occurred,
+  };
 }

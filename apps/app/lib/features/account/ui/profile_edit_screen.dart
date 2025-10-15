@@ -1,3 +1,4 @@
+import 'package:app/core/designsystem/components/error_screen.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/features/account/data/model/sns_link_form_data.dart';
 import 'package:app/features/account/data/notifier/profile_notifier.dart';
@@ -104,7 +105,10 @@ class ProfileEditScreen extends HookConsumerWidget {
                 const Icon(Icons.error, color: Colors.white),
                 const SizedBox(width: 8),
                 Expanded(
-                  child: Text('${t.account.profile.saveFailed}: $e'),
+                  child: Text(
+                    '${t.account.profile.saveFailed}: '
+                    '${e.errorMessage(t)}',
+                  ),
                 ),
               ],
             ),

@@ -1,7 +1,7 @@
 import 'dart:developer';
-import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:app/core/api/api_exception.dart';
 import 'package:app/core/provider/bff_client.dart';
 import 'package:app/core/provider/file_upload_dio.dart';
 import 'package:bff_client/bff_client.dart';
@@ -16,10 +16,12 @@ class ProfileNotifier extends _$ProfileNotifier {
   Future<ProfileResponse?> build() async {
     final client = ref.read(bffClientProvider);
     try {
-      final response = await client.v1.profile.getMyProfile();
+      final response = await ApiException.transform(
+        () => client.v1.profile.getMyProfile(),
+      );
       return response.data;
-    } on DioException catch (e) {
-      if (e.response?.statusCode == HttpStatus.notFound) {
+    } on ApiErrorResponseException catch (e) {
+      if (e.errorResponse.code == ErrorCode.notFound) {
         return null;
       }
       rethrow;
@@ -29,10 +31,11 @@ class ProfileNotifier extends _$ProfileNotifier {
   /// プロファイル情報を更新する
   Future<Profiles> updateProfile(ProfileUpdateRequest request) async {
     final client = ref.read(bffClientProvider);
-    final response = await client.v1.profile.updateMyProfile(request: request);
-    final data = response.data;
+    final response = await ApiException.transform(
+      () => client.v1.profile.updateMyProfile(request: request),
+    );
     ref.invalidateSelf(asReload: true);
-    return data;
+    return response.data;
   }
 
   /// アバターを削除する
@@ -42,7 +45,9 @@ class ProfileNotifier extends _$ProfileNotifier {
       throw StateError('Profile is not loaded');
     }
     final client = ref.read(bffClientProvider);
-    await client.v1.profile.deleteMyAvatar();
+    await ApiException.transform(
+      () => client.v1.profile.deleteMyAvatar(),
+    );
     state = AsyncData(
       currentValue.copyWith(
         profile: currentValue.profile.copyWith(avatarUrl: null),
@@ -55,10 +60,12 @@ class ProfileNotifier extends _$ProfileNotifier {
   }) async {
     final client = ref.read(bffClientProvider);
     // get presigned url
-    final presignedUrlResponse = await client.v1.files.getUploadUrl(
-      request: FilesUploadRequest(
-        variant: FileVariant.avatar,
-        contentLength: bytes.length,
+    final presignedUrlResponse = await ApiException.transform(
+      () => client.v1.files.getUploadUrl(
+        request: FilesUploadRequest(
+          variant: FileVariant.avatar,
+          contentLength: bytes.length,
+        ),
       ),
     );
     final preSignedUrl = presignedUrlResponse.data;

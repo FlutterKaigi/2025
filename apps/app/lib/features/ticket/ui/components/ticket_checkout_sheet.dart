@@ -1,3 +1,4 @@
+import 'package:app/core/designsystem/components/error_screen.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/core/provider/environment.dart';
 import 'package:app/core/router/router.dart';
@@ -117,7 +118,10 @@ class TicketCheckoutSheet extends HookConsumerWidget {
                 if (context.mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text('${t.common.error.general.occurred}: $e'),
+                      content: Text(
+                        '${t.common.error.general.occurred}: '
+                        '${e.errorMessage(t)}',
+                      ),
                       backgroundColor: colorScheme.error,
                     ),
                   );

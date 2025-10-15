@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:bff_client/bff_client.dart';
 import 'package:db_client/db_client.dart';
-import 'package:dio/dio.dart';
 import 'package:engine/main.dart';
 import 'package:engine/provider/db_client_provider.dart';
 import 'package:engine/provider/supabase_util.dart';

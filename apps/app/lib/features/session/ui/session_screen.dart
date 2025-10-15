@@ -1,4 +1,4 @@
-import 'package:app/core/designsystem/components/error_view.dart';
+import 'package:app/core/designsystem/components/error_screen.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/features/session/data/model/session.dart';
 import 'package:app/features/session/data/provider/session_provider.dart';
@@ -88,7 +88,7 @@ class SessionScreen extends ConsumerWidget {
         ),
       ),
       AsyncError<Session?>(:final error) => Scaffold(
-        body: ErrorView(
+        body: ErrorScreen(
           error: error,
           onRetry: () => ref.invalidate(sessionsProvider),
         ),
