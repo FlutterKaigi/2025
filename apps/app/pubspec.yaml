@@ -60,7 +60,7 @@ dev_dependencies:
   flutterkaigi_lints:
     path: ../../packages/flutterkaigi_lints
   freezed: ^3.0.6
-  go_router_builder: ^4.0.0
+  go_router_builder: ^4.1.0
   json_serializable: ^6.9.5
   riverpod_generator: ^3.0.0-dev.17
   riverpod_lint: ^3.0.0-dev.17
