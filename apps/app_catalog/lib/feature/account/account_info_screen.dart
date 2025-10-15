@@ -30,8 +30,8 @@ Widget accountInfoScreenUseCase(BuildContext context) {
 
   return ProviderScope(
     overrides: [
-      authNotifierProvider.overrideWith(() => mockAuthNotifier),
-      profileNotifierProvider.overrideWith(() => mockProfileNotifier),
+      authProvider.overrideWith(() => mockAuthNotifier),
+      profileProvider.overrideWith(() => mockProfileNotifier),
       environmentProvider.overrideWithValue(
         const Environment(
           appIdSuffix: '.dev',

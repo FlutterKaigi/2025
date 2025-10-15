@@ -17,7 +17,7 @@ class PickImageDialog extends ConsumerWidget {
     final t = Translations.of(context);
 
     final hasGoogleAvatarUrl = ref.watch(
-      userNotifierProvider.select(
+      userProvider.select(
         (v) => v.whenData((d) => d.authMetaData.avatarUrl != null),
       ),
     );

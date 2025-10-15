@@ -79,9 +79,8 @@ class LoginScreen extends HookConsumerWidget {
                         style: theme.textTheme.titleMedium,
                       ),
                       _GoogleSignInButton(
-                        onPressed: () async => ref
-                            .read(authNotifierProvider.notifier)
-                            .signInWithGoogle(),
+                        onPressed: () async =>
+                            ref.read(authProvider.notifier).signInWithGoogle(),
                       ),
                     ],
                   ),

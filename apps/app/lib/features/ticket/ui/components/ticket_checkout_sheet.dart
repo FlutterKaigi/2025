@@ -85,7 +85,7 @@ class TicketCheckoutSheet extends HookConsumerWidget {
               isLoading.value = true;
               try {
                 final notifier = ref.read(
-                  ticketNotifierProvider.notifier,
+                  ticketProvider.notifier,
                 );
                 final redirectUrl = _getRedirectUrl(ref);
 

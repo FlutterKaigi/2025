@@ -63,6 +63,9 @@ const _$FlavorEnumMap = {
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(environment)
 const environmentProvider = EnvironmentProvider._();
 
@@ -103,6 +106,3 @@ final class EnvironmentProvider
 }
 
 String _$environmentHash() => r'eaecc2d26f9e24d09890f13ed63c1edb0a92a7a9';
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

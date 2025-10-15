@@ -1,13 +1,13 @@
 {
   "dart.runPubGetOnPubspecChanges": "never",
-  // MEMO(YumNumm): miseの自動構成で`.vscode/mise-tools`配下にシンボリックリンクを作成し、それをツールのパスとして利用する機能を有効にします
-  // 2025/05/02検証時では、bunのみ正常に設定され、それ以外のツールでは絶対パスで設定されました
-  "mise.configureExtensionsUseSymLinks": true,
-  // MEMO(YumNumm): miseの自動構成では、以下の拡張に関するパスを絶対パスで設定するため無効化
-  "mise.configureExtensionsAutomaticallyIgnoreList": ["dart-code.flutter"],
+  "mise.configureExtensionsAutomatically": false,
   "dprint.path": "~/.local/share/mise/shims/dprint",
   "bun.runtime": "${workspaceFolder}/.vscode/mise-tools/bun",
-  "dart.flutterSdkPath": "~/.local/share/mise/installs/flutter/3.36.0-0.1.pre-beta",
+  "dart.flutterSdkPath": "~/.local/share/mise/installs/flutter/3.37.0-0.1.pre-beta",
+  "debug.javascript.defaultRuntimeExecutable": {
+    "pwa-node": "${workspaceFolder}/.vscode/mise-tools/node"
+  },
+  "python.defaultInterpreterPath": "${workspaceFolder}/.vscode/mise-tools/python",
   "search.exclude": {
     "**/node_modules": true
   },
@@ -51,9 +51,4 @@
   "SQL-Formatter-VSCode.dataTypeCase": "lower",
   "SQL-Formatter-VSCode.functionCase": "lower",
   "SQL-Formatter-VSCode.identifierCase": "lower",
-  "debug.javascript.defaultRuntimeExecutable": {
-    "pwa-node": "${workspaceFolder}/.vscode/mise-tools/node"
-  },
-  "deno.path": "/Users/r_onoue/.local/share/mise/shims/deno",
-  "python.defaultInterpreterPath": "${workspaceFolder}/.vscode/mise-tools/python"
 }

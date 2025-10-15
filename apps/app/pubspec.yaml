@@ -39,7 +39,7 @@ dependencies:
   image_picker: ^1.2.0
   intl: ^0.20.2
   json_annotation: ^4.9.0
-  package_info_plus: ^8.1.2
+  package_info_plus: ^9.0.0
   path: ^1.9.1
   pub_semver: ^2.1.4
   riverpod_annotation: ^3.0.0-dev.17
@@ -60,7 +60,7 @@ dev_dependencies:
   flutterkaigi_lints:
     path: ../../packages/flutterkaigi_lints
   freezed: ^3.0.6
-  go_router_builder: ^4.0.0
+  go_router_builder: ^4.1.0
   json_serializable: ^6.9.5
   riverpod_generator: ^3.0.0-dev.17
   riverpod_lint: ^3.0.0-dev.17

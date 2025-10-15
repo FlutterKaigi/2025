@@ -28,7 +28,7 @@ class DebugScreen extends StatelessWidget {
             const _LogoutArea(),
             Consumer(
               builder: (context, ref, child) {
-                final user = ref.watch(authNotifierProvider);
+                final user = ref.watch(authProvider);
                 final userId = user.value?.id;
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -202,7 +202,7 @@ class _LogoutArea extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final t = Translations.of(context);
-    final authNotifier = ref.watch(authNotifierProvider.notifier);
+    final authNotifier = ref.watch(authProvider.notifier);
     return FilledButton(
       onPressed: () async => authNotifier.signOut(),
       child: Text(t.account.logout),

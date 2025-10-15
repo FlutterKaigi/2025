@@ -8,6 +8,9 @@ part of 'image_utils.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(imageUtils)
 const imageUtilsProvider = ImageUtilsProvider._();
 
@@ -48,6 +51,3 @@ final class ImageUtilsProvider
 }
 
 String _$imageUtilsHash() => r'c8109b35567d7d1475ff05622dcff4c0b8dfa89c';
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

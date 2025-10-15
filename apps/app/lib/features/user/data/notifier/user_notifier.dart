@@ -14,7 +14,7 @@ class UserNotifier extends _$UserNotifier {
     final response = await ApiException.transform(
       () => client.v1.users.getUserMe(),
     );
-    ref.listen(authNotifierProvider, (_, _) => ref.invalidateSelf());
+    ref.listen(authProvider, (_, _) => ref.invalidateSelf());
     return response.data;
   }
 

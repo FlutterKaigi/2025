@@ -458,6 +458,9 @@ mixin $TalkerRoute on GoRouteData {
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(router)
 const routerProvider = RouterProvider._();
 
@@ -497,7 +500,4 @@ final class RouterProvider
   }
 }
 
-String _$routerHash() => r'd740cc90260c9df70cf1691fe7e535c4d491a01d';
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+String _$routerHash() => r'7f8dcd94895d26a0c5b6506dc158c228c08202d3';

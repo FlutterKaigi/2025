@@ -46,7 +46,7 @@ final class AccountInfoScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(authNotifierProvider);
+    final state = ref.watch(authProvider);
     final t = Translations.of(context);
     final theme = Theme.of(context);
     final textTheme = Theme.of(context).textTheme;
@@ -57,7 +57,7 @@ final class AccountInfoScreen extends ConsumerWidget {
       body: state.when(
         error: (error, stackTrace) => ErrorScreen(
           error: error,
-          onRetry: () => ref.invalidate(authNotifierProvider),
+          onRetry: () => ref.invalidate(authProvider),
         ),
         loading: () => const Center(
           child: CircularProgressIndicator.adaptive(),
@@ -178,7 +178,7 @@ class _UserInfoCard extends ConsumerWidget {
             _GoogleSignInButton(
               onPressed: () async {
                 await ref
-                    .read(authNotifierProvider.notifier)
+                    .read(authProvider.notifier)
                     .linkAnonymousUserWithGoogle();
               },
             ),
@@ -246,7 +246,7 @@ class _LogoutButton extends ConsumerWidget {
       width: double.infinity,
       child: OutlinedButton.icon(
         onPressed: () async {
-          await ref.read(authNotifierProvider.notifier).signOut();
+          await ref.read(authProvider.notifier).signOut();
         },
         icon: const Icon(Icons.logout),
         label: Text(t.account.logout),
@@ -306,7 +306,7 @@ class _ProfileImage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final profileAsync = ref.watch(profileNotifierProvider);
+    final profileAsync = ref.watch(profileProvider);
     return SizedBox.square(
       dimension: 100,
       child: switch (profileAsync) {

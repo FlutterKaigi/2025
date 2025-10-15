@@ -48,7 +48,7 @@ class App extends HookConsumerWidget {
     if (kIsWeb) {
       return;
     }
-    final notifier = ref.read(forceUpdateStateNotifierProvider.notifier);
+    final notifier = ref.read(forceUpdateStateProvider.notifier);
     await notifier.checkForUpdate();
   }
 }

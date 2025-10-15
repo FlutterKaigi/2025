@@ -11,7 +11,7 @@ class TicketNotifier extends _$TicketNotifier {
   @override
   Future<List<TicketItem>> build() async {
     final isAnonymousOrNull = ref.watch(
-      authNotifierProvider.select((v) => v.value?.isAnonymous),
+      authProvider.select((v) => v.value?.isAnonymous),
     );
 
     if (isAnonymousOrNull == null || isAnonymousOrNull) {
