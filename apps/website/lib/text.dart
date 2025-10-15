@@ -24,8 +24,8 @@ enum Place {
 
 extension PlaceEx on Place {
   Content get name => switch (this) {
-    Place.hallA => (ja: 'Hall A', en: null),
-    Place.hallB => (ja: 'Hall B', en: null),
+    Place.hallA => (ja: 'ASSIGN Hall', en: null),
+    Place.hallB => (ja: 'RevenueCat Hall', en: null),
     Place.roomA => (ja: 'Room A', en: null),
     Place.roomB => (ja: 'Room B', en: null),
   };
