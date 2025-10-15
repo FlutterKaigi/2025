@@ -19,6 +19,7 @@ abstract class Environment with _$Environment {
     required String supabaseKey,
     required String bffBaseUrl,
     required String withdrawalFormUrl,
+    String? commitInformation,
   }) = _Environment;
 
   factory Environment.fromEnvironment() => Environment(
@@ -31,6 +32,13 @@ abstract class Environment with _$Environment {
     supabaseKey: const String.fromEnvironment('SUPABASE_KEY'),
     bffBaseUrl: const String.fromEnvironment('BFF_BASE_URL'),
     withdrawalFormUrl: const String.fromEnvironment('WITHDRAWAL_FORM_URL'),
+    commitInformation: () {
+      const text = String.fromEnvironment('COMMIT_INFORMATION');
+      if (text.isEmpty) {
+        return null;
+      }
+      return text;
+    }(),
   );
 
   factory Environment.fromJson(Map<String, dynamic> json) =>

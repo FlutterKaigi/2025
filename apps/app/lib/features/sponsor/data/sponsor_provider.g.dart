@@ -45,7 +45,7 @@ final class SponsorsProvider
   }
 }
 
-String _$sponsorsHash() => r'536b56812947956cd17eac0cc3baf865f8f7e772';
+String _$sponsorsHash() => r'ddd7ee4e5054931b3190501cf317732ed3a6df65';
 
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
