@@ -19,7 +19,6 @@ import 'package:app/features/session/ui/session_screen.dart';
 import 'package:app/features/session/ui/session_timeline_screen.dart';
 import 'package:app/features/sponsor/ui/sponsor_detail_screen.dart';
 import 'package:app/features/sponsor/ui/sponsor_list_screen.dart';
-import 'package:app/features/ticket/ui/components/available_ticket_list_screen.dart';
 import 'package:app/features/ticket/ui/ticket_list_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

@@ -3,14 +3,6 @@ part of 'router.dart';
 const _ticketRoutes = [
   TypedGoRoute<TicketRoute>(
     path: '/tickets',
-    routes: [
-      TypedGoRoute<AvailableTicketListRoute>(
-        path: 'available',
-      ),
-      TypedGoRoute<TicketListRoute>(
-        path: 'list',
-      ),
-    ],
   ),
 ];
 
@@ -23,23 +15,6 @@ class TicketBranch extends StatefulShellBranchData {
 
 class TicketRoute extends GoRouteData with $TicketRoute {
   const TicketRoute();
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      const TicketListScreen();
-}
-
-class AvailableTicketListRoute extends GoRouteData
-    with $AvailableTicketListRoute {
-  const AvailableTicketListRoute();
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      const AvailableTicketListScreen();
-}
-
-class TicketListRoute extends GoRouteData with $TicketListRoute {
-  const TicketListRoute();
 
   @override
   Widget build(BuildContext context, GoRouterState state) =>
