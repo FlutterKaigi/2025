@@ -3,6 +3,7 @@ import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/features/auth/data/notifier/auth_notifier.dart';
 import 'package:app/features/force_update/force_update.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -14,53 +15,47 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 ///
 /// 参考:
 /// - [SCREENS.md](https://github.com/FlutterKaigi/2025/blob/main/docs/app/SCREENS.md)
-class LoginScreen extends ConsumerStatefulWidget {
+class LoginScreen extends HookConsumerWidget {
   const LoginScreen({super.key});
 
   @override
-  ConsumerState<LoginScreen> createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends ConsumerState<LoginScreen> {
-  @override
-  void initState() {
-    super.initState();
-    final t = Translations.of(context);
-    // セッション切れまたはidentity_already_existsエラーのクエリパラメータをチェックしてメッセージ表示
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final uri = GoRouterState.of(context).uri;
-      final queryParameters = uri.queryParameters;
-
-      if (mounted) {
-        if (queryParameters['session_expired'] == 'true') {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                t.auth.error.sessionExpired,
-              ),
-              behavior: SnackBarBehavior.floating,
-              duration: const Duration(seconds: 5),
-            ),
-          );
-        } else if (queryParameters['identity_already_exists'] == 'true') {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                t.auth.error.identityAlreadyExists,
-              ),
-              behavior: SnackBarBehavior.floating,
-              duration: const Duration(seconds: 5),
-            ),
-          );
-        }
-      }
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final t = Translations.of(context);
+
+    useEffect(() {
+      // セッション切れまたはidentity_already_existsエラーのクエリパラメータをチェックしてメッセージ表示
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        final uri = GoRouterState.of(context).uri;
+        final queryParameters = uri.queryParameters;
+        final t = Translations.of(context);
+
+        if (context.mounted) {
+          if (queryParameters['session_expired'] == 'true') {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  t.auth.error.sessionExpired,
+                ),
+                behavior: SnackBarBehavior.floating,
+                duration: const Duration(seconds: 5),
+              ),
+            );
+          } else if (queryParameters['identity_already_exists'] == 'true') {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  t.auth.error.identityAlreadyExists,
+                ),
+                behavior: SnackBarBehavior.floating,
+                duration: const Duration(seconds: 5),
+              ),
+            );
+          }
+        }
+      });
+      return null;
+    }, []);
 
     return ForceUpdateDialogListener(
       child: Scaffold(
