@@ -25,6 +25,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   @override
   void initState() {
     super.initState();
+    final t = Translations.of(context);
     // セッション切れまたはidentity_already_existsエラーのクエリパラメータをチェックしてメッセージ表示
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final uri = GoRouterState.of(context).uri;
@@ -35,7 +36,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
-                Translations.of(context).auth.error.sessionExpired,
+                t.auth.error.sessionExpired,
               ),
               behavior: SnackBarBehavior.floating,
               duration: const Duration(seconds: 5),
@@ -45,7 +46,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
-                Translations.of(context).auth.error.identityAlreadyExists,
+                t.auth.error.identityAlreadyExists,
               ),
               behavior: SnackBarBehavior.floating,
               duration: const Duration(seconds: 5),

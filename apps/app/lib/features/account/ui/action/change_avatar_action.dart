@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:app/core/designsystem/components/error_screen.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/core/provider/image_picker.dart';
 import 'package:app/features/account/data/notifier/profile_notifier.dart';
@@ -116,7 +117,10 @@ class ChangeAvatarAction {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('${t.account.profile.avatar.changeFailed}: $e'),
+            content: Text(
+              '${t.account.profile.avatar.changeFailed}: '
+              '${e.errorMessage(t)}',
+            ),
           ),
         );
         return;

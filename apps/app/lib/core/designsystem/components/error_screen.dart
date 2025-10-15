@@ -103,3 +103,10 @@ class ErrorScreen extends StatelessWidget {
     );
   }
 }
+
+extension ExceptionExtension on Exception {
+  String errorMessage(Translations t) => switch (this) {
+    ApiException _ => errorMessage(t),
+    Object() => t.common.error.general.occurred,
+  };
+}

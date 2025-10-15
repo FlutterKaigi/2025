@@ -1,3 +1,4 @@
+import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:bff_client/bff_client.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -61,6 +62,9 @@ class ApiNetworkException extends ApiException {
   }) : super._();
 
   final NetworkExceptionType type;
+
+  @override
+  String toString() => 'ApiNetworkException(type: $type)';
 }
 
 enum NetworkExceptionType {
@@ -77,6 +81,10 @@ class ApiErrorResponseException extends ApiException {
 
   final ErrorResponse errorResponse;
   final int statusCode;
+
+  @override
+  String toString() =>
+      '${errorResponse.code.name.toUpperCase()}: ${errorResponse.message}';
 }
 
 class ApiUnknownResponseException extends ApiException {
@@ -87,4 +95,17 @@ class ApiUnknownResponseException extends ApiException {
 
   final int? statusCode;
   final Object? data;
+
+  @override
+  String toString() =>
+      'ApiUnknownResponseException(statusCode: $statusCode, data: $data)';
+}
+
+extension ApiExceptionExtension on ApiException {
+  String errorMessage(Translations t) => switch (this) {
+    ApiNetworkException() => t.common.error.server.message,
+    ApiErrorResponseException(:final errorResponse) =>
+      '${errorResponse.code.name.toUpperCase()}: ${errorResponse.message}',
+    ApiUnknownResponseException() => t.common.error.general.occurred,
+  };
 }
