@@ -278,15 +278,21 @@ Future<UserTicketsResponse> _getUserTicketsResponse(String userId) async {
     database.ticketCheckout.getUserAllTicketsWithDetails(
       userId: userId,
     ),
-    database.ticketType.getActiveTicketTypesWithOptionsAndCounts(),
+    database.ticketType.getAllTicketTypesWithOptionsAndCounts(),
   ).wait;
   final ticketTypes = dbTicketTypes
       .map((e) => e.toTicketTypeWithOptionsItem())
       .toList();
   final tickets = response.map((item) {
-    final matchedTicketType = ticketTypes.firstWhere(
+    final matchedTicketType = ticketTypes.firstWhereOrNull(
       (e) => e.ticketType.id == item.ticketTypeId,
     );
+    if (matchedTicketType == null) {
+      throw ErrorResponse.errorCode(
+        code: ErrorCode.badRequest,
+        detail: 'チケット情報が見つかりません',
+      );
+    }
     final matchedOption = matchedTicketType.options
         .where((e) => item.options.any((o) => o.id == e.id))
         .toList();
