@@ -1,4 +1,4 @@
-import 'package:app/core/designsystem/components/error_view.dart';
+import 'package:app/core/designsystem/components/error_screen.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/core/router/router.dart';
 import 'package:app/features/session/data/provider/bookmarked_sessions_provider.dart';
@@ -50,7 +50,7 @@ class BookmarkedSessionsScreen extends ConsumerWidget {
               }(),
             (AsyncError(:final error), _) ||
             (_, AsyncError(:final error)) => SliverFillRemaining(
-              child: ErrorView(
+              child: ErrorScreen(
                 error: error,
                 onRetry: () {
                   ref.invalidate(sessionsProvider);

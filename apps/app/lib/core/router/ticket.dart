@@ -26,7 +26,7 @@ class TicketRoute extends GoRouteData with $TicketRoute {
 
   @override
   Widget build(BuildContext context, GoRouterState state) =>
-      const TicketScreen();
+      const TicketListScreen();
 }
 
 class AvailableTicketListRoute extends GoRouteData

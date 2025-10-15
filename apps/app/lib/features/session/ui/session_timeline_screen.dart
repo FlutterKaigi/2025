@@ -1,4 +1,4 @@
-import 'package:app/core/designsystem/components/error_view.dart';
+import 'package:app/core/designsystem/components/error_screen.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/core/router/router.dart';
 import 'package:app/features/session/data/model/session.dart';
@@ -99,7 +99,7 @@ class SessionTimelineScreen extends HookConsumerWidget {
                   AsyncLoading() => const Center(
                     child: CircularProgressIndicator.adaptive(),
                   ),
-                  AsyncError(:final error) => ErrorView(
+                  AsyncError(:final error) => ErrorScreen(
                     error: error,
                     onRetry: () => ref.invalidate(sessionTimelineProvider),
                   ),

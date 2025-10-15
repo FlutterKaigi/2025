@@ -1,3 +1,4 @@
+import 'package:app/core/api/api_exception.dart';
 import 'package:app/core/provider/bff_client.dart';
 import 'package:bff_client/bff_client.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -26,13 +27,17 @@ class TicketRepository {
   ///
   /// 匿名ユーザーでも利用可能
   Future<TicketTypesWithOptionsResponse> getTicketTypes() async =>
-      _ticketsApiClient.getTicketTypes();
+      ApiException.transform(
+        _ticketsApiClient.getTicketTypes,
+      );
 
   /// ユーザーのチケット情報を取得（購入済み + 進行中チェックアウト）
   ///
   /// 認証が必要
   Future<List<TicketItem>> getUserTickets() async {
-    final response = await _ticketsApiClient.getUserTickets();
+    final response = await ApiException.transform(
+      _ticketsApiClient.getUserTickets,
+    );
     return response.tickets;
   }
 
@@ -44,7 +49,9 @@ class TicketRepository {
   /// [request] チェックアウト要求（チケット種別ID + オプション）
   Future<TicketCheckoutSessionResponse> createCheckout(
     TicketCheckoutRequest request,
-  ) async => _ticketsApiClient.createCheckout(request);
+  ) async => ApiException.transform(
+    () => _ticketsApiClient.createCheckout(request),
+  );
 
   /// チケットチェックアウトキャンセル
   ///
@@ -53,5 +60,7 @@ class TicketRepository {
   /// [checkoutId] チェックアウトセッションID
   Future<TicketCheckoutSessionResponse> cancelCheckout(
     String checkoutId,
-  ) async => _ticketsApiClient.cancelCheckout(checkoutId);
+  ) async => ApiException.transform(
+    () => _ticketsApiClient.cancelCheckout(checkoutId),
+  );
 }

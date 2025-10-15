@@ -1,4 +1,4 @@
-import 'package:app/core/designsystem/components/error_view.dart';
+import 'package:app/core/designsystem/components/error_screen.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/features/auth/data/notifier/auth_notifier.dart';
 import 'package:app/features/ticket/data/notifier/ticket_notifier.dart';
@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class TicketListScreen extends ConsumerWidget {
+class TicketListScreen extends HookConsumerWidget {
   const TicketListScreen({super.key});
 
   @override
@@ -22,25 +22,24 @@ class TicketListScreen extends ConsumerWidget {
     final ticketItemsStatus = ref.watch(ticketNotifierProvider);
     final ticketTypesStatus = ref.watch(ticketTypesProvider);
 
-    const loading = Center(
-      child: CircularProgressIndicator.adaptive(),
+    final key = useMemoized(UniqueKey.new, []);
+
+    final loading = Center(
+      key: key,
+      child: const CircularProgressIndicator.adaptive(),
     );
 
     return ticketItemsStatus.when(
       loading: () => loading,
-      error: (error, stackTrace) => ErrorView(
+      error: (error, stackTrace) => ErrorScreen(
         error: error,
         onRetry: () => ref.invalidate(ticketNotifierProvider),
-        isRetrying: ref.watch(
-          ticketNotifierProvider.select((v) => v.isLoading),
-        ),
       ),
       data: (tickets) => ticketTypesStatus.when(
         loading: () => loading,
-        error: (error, stackTrace) => ErrorView(
+        error: (error, stackTrace) => ErrorScreen(
           error: error,
           onRetry: () => ref.invalidate(ticketTypesProvider),
-          isRetrying: ref.watch(ticketTypesProvider.select((v) => v.isLoading)),
         ),
         data: (ticketTypes) => Scaffold(
           appBar: AppBar(

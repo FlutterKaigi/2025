@@ -1,4 +1,4 @@
-import 'package:app/core/designsystem/components/error_view.dart';
+import 'package:app/core/designsystem/components/error_screen.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/features/ticket/data/provider/ticket_types_provider.dart';
 import 'package:app/features/ticket/ui/components/ticket_checkout_sheet.dart';
@@ -23,10 +23,9 @@ class AvailableTicketListScreen extends ConsumerWidget {
         loading: () => const Center(
           child: CircularProgressIndicator.adaptive(),
         ),
-        error: (error, stackTrace) => ErrorView(
+        error: (error, stackTrace) => ErrorScreen(
           error: error,
           onRetry: () => ref.invalidate(ticketTypesProvider),
-          isRetrying: ref.watch(ticketTypesProvider.select((v) => v.isLoading)),
         ),
         data: (ticketTypes) => _TicketListView(ticketTypes: ticketTypes),
       ),
