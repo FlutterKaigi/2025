@@ -31,7 +31,7 @@ const app = new Hono()
 						return "*";
 					}
 					case "staging": {
-						return origin.endsWith("flutter-kaigi.workers.dev")
+						return origin.endsWith("flutterkaigi.workers.dev")
 							? origin
 							: "http://localhost:3000";
 					}

@@ -4,6 +4,7 @@ module "container_registry" {
   container_registry_password     = module.random_password.container_registry_password
   SAKURACLOUD_ACCESS_TOKEN        = var.SAKURACLOUD_ACCESS_TOKEN
   SAKURACLOUD_ACCESS_TOKEN_SECRET = var.SAKURACLOUD_ACCESS_TOKEN_SECRET
+  container_registry_name_suffix = "hxu9"
 }
 
 module "docker" {
@@ -23,7 +24,7 @@ module "apprun" {
   container_image_id              = module.docker.docker_image_bff_sha256
   SAKURACLOUD_ACCESS_TOKEN        = var.SAKURACLOUD_ACCESS_TOKEN
   SAKURACLOUD_ACCESS_TOKEN_SECRET = var.SAKURACLOUD_ACCESS_TOKEN_SECRET
-  internal_api_url                = "https://internal-api-proxy-staging.flutter-kaigi.workers.dev"
+  internal_api_url                = "https://internal-api-proxy-staging.flutterkaigi.workers.dev"
   X_API_KEY                       = var.X_API_KEY
   logo_base_url                   = "https://pub-27ad8ed93aa141a0b45f128f849914ed.r2.dev"
   # MEMO(YumNumm): Supabase側のTerraformから取得するようにする
