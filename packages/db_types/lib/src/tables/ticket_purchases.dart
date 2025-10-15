@@ -17,6 +17,7 @@ abstract class TicketPurchases with _$TicketPurchases {
     required String ticketTypeId,
     required TicketPurchaseStatus status,
     String? stripePaymentIntentId,
+    String? nameplateId,
     @RequiredDateTimeConverter() required DateTime createdAt,
     @RequiredDateTimeConverter() required DateTime updatedAt,
   }) = _TicketPurchases;
