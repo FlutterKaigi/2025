@@ -6,15 +6,15 @@
   "compatibility_date": "2025-10-15",
   "observability": {
     "enabled": true,
-    "head_sampling_rate": 1
+    "head_sampling_rate": 1,
   },
   "rules": [
     {
       "type": "Data",
       "globs": ["**/*.png"],
-      "fallthrough": true
-    }
+      "fallthrough": true,
+    },
   ],
   "compatibility_flags": ["nodejs_compat"],
-  "preview_urls": true
+  "preview_urls": true,
 }
