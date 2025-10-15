@@ -75,6 +75,7 @@ GoRouter router(Ref ref) {
     debugLogDiagnostics: kDebugMode,
     refreshListenable: isAuthorizedNotifier,
     initialLocation: const EventInfoRoute().location,
+    
     redirect: (context, state) {
       final isAuthorized = isAuthorizedNotifier.value;
       final isGoogleSessionExpired = isGoogleSessionExpiredNotifier.value;
