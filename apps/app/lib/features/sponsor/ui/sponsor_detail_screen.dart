@@ -159,8 +159,7 @@ class _SponsorDetail extends HookConsumerWidget {
     );
 
     // スポンサー名のヘッダー高さ
-    final sponsorHeaderHeight = MediaQuery.of(context).textScaler.scale(40);
-    print(sponsorHeaderHeight);
+    final sponsorHeaderHeight = MediaQuery.textScalerOf(context).scale(40);
 
     // スポンサー名のセクション（領域ごと消える）
     final sponsorHeader = SliverToBoxAdapter(
