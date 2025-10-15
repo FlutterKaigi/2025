@@ -39,6 +39,7 @@ CREATE TABLE public.ticket_purchases (
   stripe_payment_intent_id text UNIQUE, -- Stripe決済ID
   created_at timestamp DEFAULT now() NOT NULL,
   updated_at timestamp DEFAULT now() NOT NULL,
+  nameplate_id VARCHAR(4), -- ネームプレートID(ticket_type_idがnormal以外の時のみ出現), A-01, B-01,..., D-01, A-02, B-02,..., D-02,...
   UNIQUE (user_id, ticket_type_id)
 );
 

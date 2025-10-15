@@ -25,6 +25,7 @@ _TicketPurchases _$TicketPurchasesFromJson(Map<String, dynamic> json) =>
             'stripe_payment_intent_id',
             (v) => v as String?,
           ),
+          nameplateId: $checkedConvert('nameplate_id', (v) => v as String?),
           createdAt: $checkedConvert(
             'created_at',
             (v) => const RequiredDateTimeConverter().fromJson(v),
@@ -40,6 +41,7 @@ _TicketPurchases _$TicketPurchasesFromJson(Map<String, dynamic> json) =>
         'userId': 'user_id',
         'ticketTypeId': 'ticket_type_id',
         'stripePaymentIntentId': 'stripe_payment_intent_id',
+        'nameplateId': 'nameplate_id',
         'createdAt': 'created_at',
         'updatedAt': 'updated_at',
       },
@@ -53,6 +55,7 @@ Map<String, dynamic> _$TicketPurchasesToJson(
   'ticket_type_id': instance.ticketTypeId,
   'status': _$TicketPurchaseStatusEnumMap[instance.status]!,
   'stripe_payment_intent_id': instance.stripePaymentIntentId,
+  'nameplate_id': instance.nameplateId,
   'created_at': const RequiredDateTimeConverter().toJson(instance.createdAt),
   'updated_at': const RequiredDateTimeConverter().toJson(instance.updatedAt),
 };

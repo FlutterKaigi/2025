@@ -19,3 +19,25 @@ BEGIN
   END IF;
 END;
 $$ language plpgsql;
+
+CREATE OR REPLACE FUNCTION public.upsert_user_roles (p_user_id uuid, roles role[]) returns users language plpgsql AS $function$
+DECLARE
+  result public.users;
+BEGIN
+  DELETE FROM public.user_roles AS ur WHERE ur.user_id = p_user_id;
+  INSERT INTO public.user_roles (user_id, role) VALUES
+    (p_user_id, unnest(roles));
+
+  SELECT
+    u.*,
+    json_agg(ur.role) AS roles
+  FROM
+    public.users AS u
+    LEFT JOIN public.user_roles AS ur ON u.id = ur.user_id
+  WHERE
+    u.id = $1
+  GROUP BY u.id
+  INTO result;
+  RETURN result;
+END;
+$function$;
