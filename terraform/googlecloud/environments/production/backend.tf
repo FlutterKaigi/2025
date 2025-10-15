@@ -2,7 +2,7 @@ terraform {
   required_version = "1.13.3"
   backend "s3" {
     bucket                      = "tf-state"
-    key                         = "flutterkaigi-2025-firebase-staging.tfstate"
+    key                         = "flutterkaigi-2025-googlecloud-production.tfstate"
     region                      = "auto"
     skip_credentials_validation = true
     skip_metadata_api_check     = true

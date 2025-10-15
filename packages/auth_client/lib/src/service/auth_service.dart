@@ -6,11 +6,13 @@ class AuthService {
   Future<Supabase> initialize({
     required String supabaseUrl,
     required String supabaseKey,
+    required Future<String?> Function()? getAccessToken,
     bool isDebug = false,
   }) async => Supabase.initialize(
     url: supabaseUrl,
     anonKey: supabaseKey,
     debug: isDebug,
+    accessToken: getAccessToken,
   );
 
   /// `initialize`を呼び出した後に使用できる。

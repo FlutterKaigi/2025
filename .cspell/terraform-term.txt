@@ -3,3 +3,6 @@ tflint
 shunsuke
 tfcmt
 sakuracloud
+googlecloud
+firebaseapp
+firebasestorage
