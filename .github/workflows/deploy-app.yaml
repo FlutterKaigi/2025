@@ -157,10 +157,10 @@ jobs:
       - name: Build iOS
         working-directory: apps/app/ios
         run: |
-            flutter build ios \
-            --release \
-            --no-codesign \
-            --dart-define-from-file=environments/.env.prod
+          flutter build ios \
+          --release \
+          --no-codesign \
+          --dart-define-from-file=environments/.env.prod
 
       - name: Archive
         working-directory: apps/app
@@ -174,7 +174,7 @@ jobs:
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO | xcbeautify
 
-      - name: Embbed entitlements
+      - name: Embed entitlements
         working-directory: apps/app
         run: |
           codesign \
@@ -316,8 +316,8 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00 # v4.7.1
         with:
-          distribution: 'temurin'
-          java-version: '17'
+          distribution: "temurin"
+          java-version: "17"
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@9fc6c4e9069bf8d3d10b2204b1fb8f6ef7065407 # v3.2.2\
@@ -356,7 +356,6 @@ jobs:
           name: FlutterKaigi 2025-android.aab
           path: apps/app/build/app/outputs/bundle/release/app-release.aab
           if-no-files-found: error
-
 
   deploy-android:
     needs:
@@ -446,7 +445,6 @@ jobs:
           with open("release-notes.json", "w") as f:
               json.dump([{"language": "ja-JP", "text": changelog}], f, indent=2)
           EOF
-
 
       - name: Upload AAB to Google Play
         run: |

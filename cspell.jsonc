@@ -126,6 +126,8 @@
     "schema.ts",
     // セッション実データが含まれ、それに反応してしまうため除外
     "apps/app/lib/features/session/data/provider/session_provider.dart",
+    // Google Client IDに反応するので除外
+    "apps/app/lib/features/auth/data/provider/google_auth_client_id.dart",
   ],
   "import": [
     "@cspell/dict-software-terms/cspell-ext.json",
