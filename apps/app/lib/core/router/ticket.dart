@@ -3,6 +3,11 @@ part of 'router.dart';
 const _ticketRoutes = [
   TypedGoRoute<TicketRoute>(
     path: '/tickets',
+    routes: [
+      TypedGoRoute<TicketDetailRoute>(
+        path: ':ticketId',
+      ),
+    ],
   ),
 ];
 
@@ -19,4 +24,15 @@ class TicketRoute extends GoRouteData with $TicketRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) =>
       const TicketListScreen();
+}
+
+
+class TicketDetailRoute extends GoRouteData with $TicketDetailRoute {
+  const TicketDetailRoute({required this.ticketId});
+
+  final String ticketId;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      TicketDetailScreen(ticketId: ticketId);
 }

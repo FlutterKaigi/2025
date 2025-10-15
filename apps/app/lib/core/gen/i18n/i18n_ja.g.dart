@@ -241,6 +241,8 @@ class TranslationsTicketJa {
 	late final TranslationsTicketNoticeJa notice = TranslationsTicketNoticeJa.internal(_root);
 	late final TranslationsTicketStudentRefundJa studentRefund = TranslationsTicketStudentRefundJa.internal(_root);
 	late final TranslationsTicketPurchaseJa purchase = TranslationsTicketPurchaseJa.internal(_root);
+	late final TranslationsTicketQrJa qr = TranslationsTicketQrJa.internal(_root);
+	late final TranslationsTicketEntryTicketJa entryTicket = TranslationsTicketEntryTicketJa.internal(_root);
 }
 
 // Path: account.profile
@@ -683,6 +685,39 @@ class TranslationsTicketPurchaseJa {
 	String get total => '合計';
 }
 
+// Path: ticket.qr
+class TranslationsTicketQrJa {
+	TranslationsTicketQrJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '入場時にかざしてください'
+	String get scanAtEntry => '入場時にかざしてください';
+
+	/// ja: 'チケット種別'
+	String get ticketType => 'チケット種別';
+
+	/// ja: 'ネームプレートID'
+	String get nameplateId => 'ネームプレートID';
+}
+
+// Path: ticket.entryTicket
+class TranslationsTicketEntryTicketJa {
+	TranslationsTicketEntryTicketJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '入場可能なチケット'
+	String get title => '入場可能なチケット';
+
+	/// ja: '${count: int}枚のチケットがあります'
+	String subtitle({required int count}) => '${count}枚のチケットがあります';
+}
+
 // Path: account.profile.avatar
 class TranslationsAccountProfileAvatarJa {
 	TranslationsAccountProfileAvatarJa.internal(this._root);
@@ -1061,6 +1096,11 @@ extension on Translations {
 			case 'ticket.purchase.ticket': return 'チケット';
 			case 'ticket.purchase.additionalOptions': return '追加オプション';
 			case 'ticket.purchase.total': return '合計';
+			case 'ticket.qr.scanAtEntry': return '入場時にかざしてください';
+			case 'ticket.qr.ticketType': return 'チケット種別';
+			case 'ticket.qr.nameplateId': return 'ネームプレートID';
+			case 'ticket.entryTicket.title': return '入場可能なチケット';
+			case 'ticket.entryTicket.subtitle': return ({required int count}) => '${count}枚のチケットがあります';
 			default: return null;
 		}
 	}

@@ -84,7 +84,16 @@ RouteBase get $mainRoute => StatefulShellRouteData.$route(
     StatefulShellBranchData.$branch(
       observers: TicketBranch.$observers,
       routes: [
-        GoRouteData.$route(path: '/tickets', factory: $TicketRoute._fromState),
+        GoRouteData.$route(
+          path: '/tickets',
+          factory: $TicketRoute._fromState,
+          routes: [
+            GoRouteData.$route(
+              path: ':ticketId',
+              factory: $TicketDetailRoute._fromState,
+            ),
+          ],
+        ),
       ],
     ),
     StatefulShellBranchData.$branch(
@@ -273,6 +282,30 @@ mixin $TicketRoute on GoRouteData {
 
   @override
   String get location => GoRouteData.$location('/tickets');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $TicketDetailRoute on GoRouteData {
+  static TicketDetailRoute _fromState(GoRouterState state) =>
+      TicketDetailRoute(ticketId: state.pathParameters['ticketId']!);
+
+  TicketDetailRoute get _self => this as TicketDetailRoute;
+
+  @override
+  String get location =>
+      GoRouteData.$location('/tickets/${Uri.encodeComponent(_self.ticketId)}');
 
   @override
   void go(BuildContext context) => context.go(location);
