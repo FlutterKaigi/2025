@@ -663,8 +663,7 @@ jobs:
 
       - name: Resolve dependencies
         working-directory: apps/app
-        run: |
-          dart pub get
+        run: dart pub get --enforce-lockfile
 
       - name: Build Flutter Web App
         id: build
