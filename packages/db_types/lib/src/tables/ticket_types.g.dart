@@ -36,6 +36,7 @@ _TicketTypes _$TicketTypesFromJson(Map<String, dynamic> json) => $checkedCreate(
         'updated_at',
         (v) => const RequiredDateTimeConverter().fromJson(v),
       ),
+      isEntryAllowed: $checkedConvert('is_entry_allowed', (v) => v as bool),
     );
     return val;
   },
@@ -47,6 +48,7 @@ _TicketTypes _$TicketTypesFromJson(Map<String, dynamic> json) => $checkedCreate(
     'stripePriceId': 'stripe_price_id',
     'createdAt': 'created_at',
     'updatedAt': 'updated_at',
+    'isEntryAllowed': 'is_entry_allowed',
   },
 );
 
@@ -64,4 +66,5 @@ Map<String, dynamic> _$TicketTypesToJson(
   'stripe_price_id': instance.stripePriceId,
   'created_at': const RequiredDateTimeConverter().toJson(instance.createdAt),
   'updated_at': const RequiredDateTimeConverter().toJson(instance.updatedAt),
+  'is_entry_allowed': instance.isEntryAllowed,
 };

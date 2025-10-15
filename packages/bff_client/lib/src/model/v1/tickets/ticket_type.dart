@@ -66,6 +66,7 @@ extension TicketTypeWithOptionsAndCountsExtension
       status: status,
       stripePriceId: ticketType.stripePriceId,
       description: ticketType.description,
+      isEntryAllowed: ticketType.isEntryAllowed,
     );
   }
 
