@@ -1,5 +1,4 @@
 import { eq, getDatabase } from "@2025/database";
-import { readData } from "./data/data";
 import * as v from "valibot";
 import {
   companies,
@@ -9,6 +8,7 @@ import {
   users,
   usersInAuth,
 } from "../../../bff/database/drizzle/schema";
+import { readData } from "./data/data";
 
 async function insertSponsorSessionTicketType(
   db: ReturnType<typeof getDatabase>
@@ -107,17 +107,22 @@ async function main() {
           userId: user.id,
         },
       ])
+      .onConflictDoNothing()
       .returning();
-  console.log(`Company member inserted: ${companyMembers}`);
+    console.log(`Company member inserted: ${companyMembers}`);
 
     // チケットを購入する
-    await db.insert(ticketPurchases).values([
-      {
-        userId: user.id,
-        ticketTypeId: entry.ticketType.id,
-        status: "completed",
-      },
-    ]).returning();
+    await db
+      .insert(ticketPurchases)
+      .values([
+        {
+          userId: user.id,
+          ticketTypeId: entry.ticketType.id,
+          status: "completed",
+        },
+      ])
+      .onConflictDoNothing()
+      .returning();
     console.log(`Ticket purchased: ${ticketPurchases}`);
   }
 }
