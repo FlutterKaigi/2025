@@ -2,17 +2,11 @@ name: flutterkaigi_2025
 publish_to: none
 
 environment:
-  sdk: ^3.10.0-75.1.beta
-  flutter: ^3.36.0-0.1.pre
+  sdk: ^3.10.0-162.1.beta
+  flutter: ^3.37.0-0.1.pre
 
 dev_dependencies:
-  melos: ^7.0.0
-
-dependency_overrides:
-  custom_lint: ^0.8.0
-  custom_lint_builder: ^0.8.0
-  source_gen: ^3.0.0
-  build: ^3.0.0
+  melos: ^7.2.0
 
 workspace:
   # apps

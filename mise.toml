@@ -3,7 +3,7 @@
 aws-cli = "latest"
 bun = "1.2.21"
 dprint = "latest"
-flutter = "3.36.0-0.1.pre-beta"
+flutter = "3.37.0-0.1.pre-beta"
 node = "24.4.0"
 rclone = "latest"
 stripe = "latest"

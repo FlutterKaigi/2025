@@ -8,6 +8,9 @@ part of 'google_auth_client_id.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(googleAuthClientId)
 const googleAuthClientIdProvider = GoogleAuthClientIdProvider._();
 
@@ -91,6 +94,3 @@ final class GoogleAuthWebClientIdProvider
 
 String _$googleAuthWebClientIdHash() =>
     r'abe0dbdaf4471f8c1fa9690f66e6ce7d6b27edc3';
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

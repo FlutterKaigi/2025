@@ -8,8 +8,11 @@ part of 'user_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(UserNotifier)
-const userNotifierProvider = UserNotifierProvider._();
+const userProvider = UserNotifierProvider._();
 
 final class UserNotifierProvider
     extends $AsyncNotifierProvider<UserNotifier, UserAndUserRoles> {
@@ -18,7 +21,7 @@ final class UserNotifierProvider
         from: null,
         argument: null,
         retry: null,
-        name: r'userNotifierProvider',
+        name: r'userProvider',
         isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
@@ -53,6 +56,3 @@ abstract class _$UserNotifier extends $AsyncNotifier<UserAndUserRoles> {
     element.handleValue(ref, created);
   }
 }
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

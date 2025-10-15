@@ -8,6 +8,9 @@ part of 'change_avatar_action.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(changeAvatarAction)
 const changeAvatarActionProvider = ChangeAvatarActionProvider._();
 
@@ -55,6 +58,3 @@ final class ChangeAvatarActionProvider
 
 String _$changeAvatarActionHash() =>
     r'04c02a57b40c650da65091ddad309ea4cf87b5be';
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
