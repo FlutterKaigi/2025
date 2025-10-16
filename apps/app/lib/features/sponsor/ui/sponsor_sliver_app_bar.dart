@@ -68,8 +68,6 @@ class _SponsorFlexibleSpaceBackground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
     final settings = context
         .dependOnInheritedWidgetOfExactType<FlexibleSpaceBarSettings>()!;
     final deltaExtent = settings.deltaExtent;
@@ -143,11 +141,9 @@ class _SponsorFlexibleSpaceBackground extends StatelessWidget {
               ),
 
             // 黒半透明オーバーレイ
-            Positioned.fill(
+            const Positioned.fill(
               child: ColoredBox(
-                color: colorScheme.surfaceContainer.withAlpha(
-                  (t * 255).truncate(),
-                ),
+                color: Colors.black38,
               ),
             ),
           ],
@@ -176,10 +172,7 @@ class _SponsorFlexibleSpaceCover extends HookWidget {
     final sponsorNameText = Text(
       key: sponsorNameTextKey,
       sponsor.name,
-      style: theme.textTheme.titleLarge?.copyWith(
-        color: t < 0.6 ? colorScheme.onInverseSurface : colorScheme.onSurface,
-        fontWeight: FontWeight.bold,
-      ),
+      style: theme.textTheme.titleLarge,
       maxLines: 2,
       overflow: TextOverflow.ellipsis,
     );
@@ -203,39 +196,107 @@ class _SponsorFlexibleSpaceCover extends HookWidget {
       ],
     );
 
+    // ベーシックプラン名
+    final basicPlanNameChipKey = GlobalObjectKey(sponsor.basicPlanName);
+    final basicPlanNameChip = Chip(
+      key: basicPlanNameChipKey,
+      label: Text(sponsor.basicPlanName),
+      side: BorderSide(color: colorScheme.outline),
+      backgroundColor: colorScheme.surfaceContainerLow,
+      labelStyle: theme.textTheme.labelMedium?.copyWith(
+        color: colorScheme.onSurface,
+      ),
+    );
+
+    final basicPlanNameChipHeight = useState<double>(0);
+    useEffect(
+      () {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          final chipRenderBox =
+              basicPlanNameChipKey.currentContext?.findRenderObject()
+                  as RenderBox?;
+          if (chipRenderBox != null) {
+            basicPlanNameChipHeight.value = chipRenderBox.size.height;
+          }
+        });
+        return null;
+      },
+      [
+        sponsor.basicPlanName,
+        theme.textTheme.labelMedium,
+      ],
+    );
+
     const contentHorizontalMargin = 16.0;
     const leadingWidth = 56.0;
+    const basicPlanNameChipBottomMargin = 16.0;
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        // スポンサー名の左位置（常にleadingWidthに固定）
-        const nameLeft = leadingWidth;
+        // ベーシックプラン名の透明度
+        final basicPlanNameChipOpacity = (1.0 - t).clamp(0.0, 1.0);
 
-        // スポンサー名の下位置（常にヘッダー中央に固定）
-        final nameBottom = (kToolbarHeight - sponsorNameTextHeight.value) / 2;
+        // スポンサー名のスケール
+        final scaleValue = Tween<double>(
+          begin: 1.2,
+          end: 1,
+        ).transform(t);
 
-        // スクロール完了が近づくにつれて表示
-        // t=0.0(展開)のとき透明、t=1.0(収縮)のとき不透明
-        final nameOpacity = sponsorNameTextHeight.value == 0
-            ? 0.0
-            : t.clamp(0.0, 1.0);
+        // スポンサー名の左位置
+        final nameLeft = Tween<double>(
+          begin: contentHorizontalMargin,
+          end: leadingWidth,
+        ).transform(t);
+
+        // スポンサー名の下位置
+        final nameBottomBegin =
+            basicPlanNameChipBottomMargin + basicPlanNameChipHeight.value + 8.0;
+        final nameBottomEnd =
+            (kToolbarHeight - sponsorNameTextHeight.value) / 2;
+
+        final nameBottom = Tween<double>(
+          begin: nameBottomBegin,
+          end: nameBottomEnd,
+        ).transform(t);
 
         return Stack(
           children: [
             Positioned(
+              left: contentHorizontalMargin,
+              bottom: basicPlanNameChipBottomMargin,
+              child: Opacity(
+                // 高さが取得できていない場合は位置がずれているため透明にする
+                opacity: basicPlanNameChipHeight.value == 0
+                    ? 0
+                    : basicPlanNameChipOpacity,
+                child: basicPlanNameChip,
+              ),
+            ),
+            Positioned(
               left: nameLeft,
               bottom: nameBottom,
-              child: SizedBox(
-                width:
-                    constraints.maxWidth - nameLeft - contentHorizontalMargin,
-                height: sponsorNameTextHeight.value > 0
-                    ? sponsorNameTextHeight.value
-                    : null,
-                child: Opacity(
-                  opacity: nameOpacity,
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: sponsorNameText,
+              child: Transform.scale(
+                scale: scaleValue,
+                alignment: Alignment.centerLeft,
+                child: SizedBox(
+                  // スケール値を考慮して幅を計算
+                  width:
+                      (constraints.maxWidth -
+                          nameLeft -
+                          contentHorizontalMargin) /
+                      scaleValue,
+                  // 高さを固定して中央配置を安定させる
+                  // 実際の高さが取得できていない場合は null で自動調整
+                  height: sponsorNameTextHeight.value > 0
+                      ? sponsorNameTextHeight.value
+                      : null,
+                  child: Opacity(
+                    // 高さが取得できていない場合は位置がずれているため透明にする
+                    opacity: sponsorNameTextHeight.value == 0 ? 0 : 1,
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: sponsorNameText,
+                    ),
                   ),
                 ),
               ),
@@ -245,6 +306,18 @@ class _SponsorFlexibleSpaceCover extends HookWidget {
       },
     );
   }
+}
+
+extension _BasicPlanName on Sponsor {
+  String get basicPlanName => switch (this) {
+    PlatinumSponsor() => 'Platinum',
+    GoldSponsor() => 'Gold',
+    SilverSponsor() => 'Silver',
+    BronzeSponsor() => 'Bronze',
+    ToolSponsor() => 'Tool',
+    OtherSponsor() => 'Other',
+    IndividualSponsor() => 'Individual',
+  };
 }
 
 extension _FlexibleSpaceBarSettingsX on FlexibleSpaceBarSettings {

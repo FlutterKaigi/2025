@@ -60,7 +60,7 @@ class _SponsorList extends ConsumerWidget {
                   tierColor: _getTierColor('Platinum'),
                 ),
               ),
-              sliver: _buildSponsorList('Platinum', platinum),
+              sliver: _buildSponsorGrid('Platinum', platinum),
             ),
           if (gold.isNotEmpty)
             SliverStickyHeader(
@@ -70,7 +70,7 @@ class _SponsorList extends ConsumerWidget {
                   tierColor: _getTierColor('Gold'),
                 ),
               ),
-              sliver: _buildSponsorList('Gold', gold),
+              sliver: _buildSponsorGrid('Gold', gold),
             ),
           if (silver.isNotEmpty)
             SliverStickyHeader(
@@ -80,7 +80,7 @@ class _SponsorList extends ConsumerWidget {
                   tierColor: _getTierColor('Silver'),
                 ),
               ),
-              sliver: _buildSponsorList('Silver', silver),
+              sliver: _buildSponsorGrid('Silver', silver),
             ),
           if (bronze.isNotEmpty)
             SliverStickyHeader(
@@ -90,7 +90,7 @@ class _SponsorList extends ConsumerWidget {
                   tierColor: _getTierColor('Bronze'),
                 ),
               ),
-              sliver: _buildSponsorList('Bronze', bronze),
+              sliver: _buildSponsorGrid('Bronze', bronze),
             ),
           if (individualSponsors.isNotEmpty)
             SliverStickyHeader(
@@ -100,7 +100,20 @@ class _SponsorList extends ConsumerWidget {
                   tierColor: _getTierColor('Individual'),
                 ),
               ),
-              sliver: _buildSponsorList('Individual', individualSponsors),
+              sliver: SliverGrid(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 5,
+                  crossAxisSpacing: 8,
+                  mainAxisSpacing: 8,
+                ),
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) => _UnifiedSponsorCard(
+                    sponsor: individualSponsors[index],
+                    tier: 'Individual',
+                  ),
+                  childCount: individualSponsors.length,
+                ),
+              ),
             ),
         ];
         return Scaffold(
@@ -176,7 +189,8 @@ class _UnifiedSponsorCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cardSize = _getCardSize(tier);
+    final theme = Theme.of(context);
+    final logoSize = _getLogoSize(tier);
     return Card(
       margin: const EdgeInsets.all(4),
       child: InkWell(
@@ -184,69 +198,101 @@ class _UnifiedSponsorCard extends StatelessWidget {
           SponsorDetailRoute(slug: sponsor.slug).go(context);
         },
         borderRadius: BorderRadius.circular(12),
-        child: Container(
-          width: cardSize,
-          height: cardSize,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: _getTierColor(tier),
-              width: 2,
+        child: Column(
+          children: [
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.all(12),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: sponsor.logoUrl.toString().isEmpty
+                    ? Icon(
+                        tier == 'Individual' ? Icons.person : Icons.business,
+                        color: Colors.white,
+                        size: logoSize * 0.5,
+                      )
+                    : Image.network(
+                        sponsor.logoUrl.toString(),
+                        fit: BoxFit.contain,
+                        errorBuilder: (context, error, stackTrace) => Icon(
+                          tier == 'Individual' ? Icons.person : Icons.business,
+                          color: Colors.white,
+                          size: logoSize * 0.5,
+                        ),
+                      ),
+              ),
             ),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(8),
-            child: sponsor.logoUrl.toString().isEmpty
-                ? Icon(
-                    tier == 'Individual' ? Icons.person : Icons.business,
-                    color: Colors.grey.shade400,
-                    size: cardSize * 0.4,
-                  )
-                : Image.network(
-                    sponsor.logoUrl.toString(),
-                    fit: BoxFit.contain,
-                    errorBuilder: (context, error, stackTrace) => Icon(
-                      tier == 'Individual' ? Icons.person : Icons.business,
-                      color: Colors.grey.shade400,
-                      size: cardSize * 0.4,
-                    ),
-                  ),
-          ),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+              decoration: BoxDecoration(
+                color: theme.colorScheme.surfaceContainerHighest.withAlpha(51),
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(12),
+                  bottomRight: Radius.circular(12),
+                ),
+              ),
+              child: Text(
+                sponsor.name,
+                textAlign: TextAlign.center,
+                style: theme.textTheme.bodySmall?.copyWith(
+                  fontWeight: tier == 'Platinum'
+                      ? FontWeight.bold
+                      : FontWeight.w500,
+                  fontSize: _getTextSize(tier),
+                ),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
 }
 
-SliverList _buildSponsorList(String tier, List<Sponsor> sponsors) {
-  return SliverList(
+SliverGrid _buildSponsorGrid(String tier, List<CompanySponsor> sponsors) {
+  final config = _gridConfigForTier(tier);
+  return SliverGrid(
+    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisCount: config.crossAxisCount,
+      childAspectRatio: config.childAspectRatio,
+      crossAxisSpacing: 8,
+      mainAxisSpacing: 8,
+    ),
     delegate: SliverChildBuilderDelegate(
-      (context, index) {
-        if (index > 0) {
-          return null;
-        }
-        return Padding(
-          padding: const EdgeInsets.all(8),
-          child: Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            alignment: WrapAlignment.center,
-            children: sponsors
-                .map(
-                  (sponsor) => _UnifiedSponsorCard(
-                    sponsor: sponsor,
-                    tier: tier,
-                  ),
-                )
-                .toList(),
-          ),
-        );
-      },
-      childCount: 1,
+      (context, index) => _UnifiedSponsorCard(
+        sponsor: sponsors[index],
+        tier: tier,
+      ),
+      childCount: sponsors.length,
     ),
   );
+}
+
+_GridConfig _gridConfigForTier(String tier) {
+  switch (tier) {
+    case 'Platinum':
+      return const _GridConfig(crossAxisCount: 2, childAspectRatio: 1.5);
+    case 'Gold':
+      return const _GridConfig(crossAxisCount: 3, childAspectRatio: 1.2);
+    default:
+      return const _GridConfig(crossAxisCount: 4, childAspectRatio: 1);
+  }
+}
+
+class _GridConfig {
+  const _GridConfig({
+    required this.crossAxisCount,
+    required this.childAspectRatio,
+  });
+
+  final int crossAxisCount;
+  final double childAspectRatio;
 }
 
 Color _getTierColor(String tier) {
@@ -266,17 +312,34 @@ Color _getTierColor(String tier) {
   }
 }
 
-double _getCardSize(String tier) {
+double _getLogoSize(String tier) {
   switch (tier) {
     case 'Platinum':
-      return 320;
+      return 128;
     case 'Gold':
-      return 200;
+      return 104;
     case 'Silver':
     case 'Bronze':
+      return 80;
     case 'Individual':
-      return 120;
+      return 64;
     default:
-      return 180;
+      return 64;
+  }
+}
+
+double _getTextSize(String tier) {
+  switch (tier) {
+    case 'Platinum':
+      return 14;
+    case 'Gold':
+      return 12;
+    case 'Silver':
+    case 'Bronze':
+      return 11;
+    case 'Individual':
+      return 10;
+    default:
+      return 10;
   }
 }
