@@ -4,17 +4,12 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'devices.freezed.dart';
 part 'devices.g.dart';
 
-/// デバイスの種類
 enum DeviceType {
-  @JsonValue('ios')
   ios,
-  @JsonValue('android')
   android,
-  @JsonValue('web')
   web,
 }
 
-/// デバイス
 @freezed
 abstract class Devices with _$Devices {
   const factory Devices({
@@ -29,4 +24,3 @@ abstract class Devices with _$Devices {
   factory Devices.fromJson(Map<String, dynamic> json) =>
       _$DevicesFromJson(json);
 }
-

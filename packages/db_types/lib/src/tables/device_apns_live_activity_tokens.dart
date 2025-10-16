@@ -4,15 +4,11 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'device_apns_live_activity_tokens.freezed.dart';
 part 'device_apns_live_activity_tokens.g.dart';
 
-/// APNSライブアクティビティトークンの種類
 enum ApnsLiveActivityTokenType {
-  @JsonValue('start')
   start,
-  @JsonValue('update')
   update,
 }
 
-/// APNSライブアクティビティトークン
 @freezed
 abstract class DeviceApnsLiveActivityTokens
     with _$DeviceApnsLiveActivityTokens {

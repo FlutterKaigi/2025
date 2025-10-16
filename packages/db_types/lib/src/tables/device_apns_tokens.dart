@@ -4,7 +4,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'device_apns_tokens.freezed.dart';
 part 'device_apns_tokens.g.dart';
 
-/// APNSトークン
 @freezed
 abstract class DeviceApnsTokens with _$DeviceApnsTokens {
   const factory DeviceApnsTokens({
@@ -18,4 +17,3 @@ abstract class DeviceApnsTokens with _$DeviceApnsTokens {
   factory DeviceApnsTokens.fromJson(Map<String, dynamic> json) =>
       _$DeviceApnsTokensFromJson(json);
 }
-
