@@ -6,6 +6,10 @@ import {
   companyDrafts,
   companyInvitation,
   companyMembers,
+  deviceApnsLiveActivityTokens,
+  deviceApnsTokens,
+  deviceFcmTokens,
+  devices,
   flowStateInAuth,
   identitiesInAuth,
   individualDraftApprovals,
@@ -23,7 +27,11 @@ import {
   refreshTokensInAuth,
   samlProvidersInAuth,
   samlRelayStatesInAuth,
+  sessionSpeakers,
+  sessions,
   sessionsInAuth,
+  sessionVenues,
+  speakers,
   sponsorCompanies,
   sponsorCompanyOptions,
   sponsorIndividuals,
@@ -40,43 +48,6 @@ import {
   users,
   usersInAuth,
 } from "./schema";
-
-export const sessionsInAuthRelations = relations(
-  sessionsInAuth,
-  ({ one, many }) => ({
-    oauthClientsInAuth: one(oauthClientsInAuth, {
-      fields: [sessionsInAuth.oauthClientId],
-      references: [oauthClientsInAuth.id],
-    }),
-    usersInAuth: one(usersInAuth, {
-      fields: [sessionsInAuth.userId],
-      references: [usersInAuth.id],
-    }),
-    refreshTokensInAuths: many(refreshTokensInAuth),
-    mfaAmrClaimsInAuths: many(mfaAmrClaimsInAuth),
-  })
-);
-
-export const oauthClientsInAuthRelations = relations(
-  oauthClientsInAuth,
-  ({ many }) => ({
-    sessionsInAuths: many(sessionsInAuth),
-    oauthAuthorizationsInAuths: many(oauthAuthorizationsInAuth),
-    oauthConsentsInAuths: many(oauthConsentsInAuth),
-  })
-);
-
-export const usersInAuthRelations = relations(usersInAuth, ({ many }) => ({
-  sessionsInAuths: many(sessionsInAuth),
-  identitiesInAuths: many(identitiesInAuth),
-  oneTimeTokensInAuths: many(oneTimeTokensInAuth),
-  mfaFactorsInAuths: many(mfaFactorsInAuth),
-  users: many(users),
-  oauthAuthorizationsInAuths: many(oauthAuthorizationsInAuth),
-  oauthConsentsInAuths: many(oauthConsentsInAuth),
-  profiles: many(profiles),
-  userSnsLinks: many(userSnsLinks),
-}));
 
 export const ssoDomainsInAuthRelations = relations(
   ssoDomainsInAuth,
@@ -96,6 +67,59 @@ export const ssoProvidersInAuthRelations = relations(
     samlProvidersInAuths: many(samlProvidersInAuth),
   })
 );
+
+export const mfaAmrClaimsInAuthRelations = relations(
+  mfaAmrClaimsInAuth,
+  ({ one }) => ({
+    sessionsInAuth: one(sessionsInAuth, {
+      fields: [mfaAmrClaimsInAuth.sessionId],
+      references: [sessionsInAuth.id],
+    }),
+  })
+);
+
+export const sessionsInAuthRelations = relations(
+  sessionsInAuth,
+  ({ one, many }) => ({
+    mfaAmrClaimsInAuths: many(mfaAmrClaimsInAuth),
+    refreshTokensInAuths: many(refreshTokensInAuth),
+    oauthClientsInAuth: one(oauthClientsInAuth, {
+      fields: [sessionsInAuth.oauthClientId],
+      references: [oauthClientsInAuth.id],
+    }),
+    usersInAuth: one(usersInAuth, {
+      fields: [sessionsInAuth.userId],
+      references: [usersInAuth.id],
+    }),
+  })
+);
+
+export const usersRelations = relations(users, ({ one, many }) => ({
+  usersInAuth: one(usersInAuth, {
+    fields: [users.id],
+    references: [usersInAuth.id],
+  }),
+  ticketPurchases: many(ticketPurchases),
+  individuals: many(individuals),
+  companyDraftApprovals: many(companyDraftApprovals),
+  ticketCheckoutSessions: many(ticketCheckoutSessions),
+  individualDraftApprovals: many(individualDraftApprovals),
+  userRoles: many(userRoles),
+  companyMembers: many(companyMembers),
+}));
+
+export const usersInAuthRelations = relations(usersInAuth, ({ many }) => ({
+  users: many(users),
+  identitiesInAuths: many(identitiesInAuth),
+  oneTimeTokensInAuths: many(oneTimeTokensInAuth),
+  mfaFactorsInAuths: many(mfaFactorsInAuth),
+  sessionsInAuths: many(sessionsInAuth),
+  profiles: many(profiles),
+  devices: many(devices),
+  userSnsLinks: many(userSnsLinks),
+  oauthAuthorizationsInAuths: many(oauthAuthorizationsInAuth),
+  oauthConsentsInAuths: many(oauthConsentsInAuth),
+}));
 
 export const samlRelayStatesInAuthRelations = relations(
   samlRelayStatesInAuth,
@@ -123,16 +147,6 @@ export const refreshTokensInAuthRelations = relations(
   ({ one }) => ({
     sessionsInAuth: one(sessionsInAuth, {
       fields: [refreshTokensInAuth.sessionId],
-      references: [sessionsInAuth.id],
-    }),
-  })
-);
-
-export const mfaAmrClaimsInAuthRelations = relations(
-  mfaAmrClaimsInAuth,
-  ({ one }) => ({
-    sessionsInAuth: one(sessionsInAuth, {
-      fields: [mfaAmrClaimsInAuth.sessionId],
       references: [sessionsInAuth.id],
     }),
   })
@@ -189,28 +203,14 @@ export const mfaChallengesInAuthRelations = relations(
   })
 );
 
-export const usersRelations = relations(users, ({ one, many }) => ({
-  usersInAuth: one(usersInAuth, {
-    fields: [users.id],
-    references: [usersInAuth.id],
-  }),
-  individuals: many(individuals),
-  ticketPurchases: many(ticketPurchases),
-  companyDraftApprovals: many(companyDraftApprovals),
-  ticketCheckoutSessions: many(ticketCheckoutSessions),
-  individualDraftApprovals: many(individualDraftApprovals),
-  userRoles: many(userRoles),
-  companyMembers: many(companyMembers),
-}));
-
-export const individualsRelations = relations(individuals, ({ one, many }) => ({
-  user: one(users, {
-    fields: [individuals.userId],
-    references: [users.id],
-  }),
-  individualDrafts: many(individualDrafts),
-  sponsorIndividuals: many(sponsorIndividuals),
-}));
+export const oauthClientsInAuthRelations = relations(
+  oauthClientsInAuth,
+  ({ many }) => ({
+    sessionsInAuths: many(sessionsInAuth),
+    oauthAuthorizationsInAuths: many(oauthAuthorizationsInAuth),
+    oauthConsentsInAuths: many(oauthConsentsInAuth),
+  })
+);
 
 export const ticketOptionsRelations = relations(
   ticketOptions,
@@ -259,6 +259,50 @@ export const ticketPurchasesRelations = relations(
   })
 );
 
+export const individualsRelations = relations(individuals, ({ one, many }) => ({
+  user: one(users, {
+    fields: [individuals.userId],
+    references: [users.id],
+  }),
+  individualDrafts: many(individualDrafts),
+  sponsorIndividuals: many(sponsorIndividuals),
+}));
+
+export const jobBoardsRelations = relations(jobBoards, ({ one }) => ({
+  company: one(companies, {
+    fields: [jobBoards.id],
+    references: [companies.id],
+  }),
+}));
+
+export const companiesRelations = relations(companies, ({ many }) => ({
+  jobBoards: many(jobBoards),
+  companyInvitations: many(companyInvitation),
+  sponsorCompanies: many(sponsorCompanies),
+  companyDrafts: many(companyDrafts),
+  companyMembers: many(companyMembers),
+}));
+
+export const deviceApnsLiveActivityTokensRelations = relations(
+  deviceApnsLiveActivityTokens,
+  ({ one }) => ({
+    device: one(devices, {
+      fields: [deviceApnsLiveActivityTokens.deviceId],
+      references: [devices.id],
+    }),
+  })
+);
+
+export const devicesRelations = relations(devices, ({ one, many }) => ({
+  deviceApnsLiveActivityTokens: many(deviceApnsLiveActivityTokens),
+  deviceApnsTokens: many(deviceApnsTokens),
+  deviceFcmTokens: many(deviceFcmTokens),
+  usersInAuth: one(usersInAuth, {
+    fields: [devices.userId],
+    references: [usersInAuth.id],
+  }),
+}));
+
 export const companyDraftApprovalsRelations = relations(
   companyDraftApprovals,
   ({ one }) => ({
@@ -284,6 +328,39 @@ export const companyDraftsRelations = relations(
   })
 );
 
+export const basicSponsorCompaniesRelations = relations(
+  basicSponsorCompanies,
+  ({ one }) => ({
+    sponsorCompany: one(sponsorCompanies, {
+      fields: [basicSponsorCompanies.sponsorCompanyId],
+      references: [sponsorCompanies.id],
+    }),
+  })
+);
+
+export const sponsorCompaniesRelations = relations(
+  sponsorCompanies,
+  ({ one, many }) => ({
+    basicSponsorCompanies: many(basicSponsorCompanies),
+    company: one(companies, {
+      fields: [sponsorCompanies.companyId],
+      references: [companies.id],
+    }),
+    sponsorCompanyOptions: many(sponsorCompanyOptions),
+    sessions: many(sessions),
+  })
+);
+
+export const deviceApnsTokensRelations = relations(
+  deviceApnsTokens,
+  ({ one }) => ({
+    device: one(devices, {
+      fields: [deviceApnsTokens.deviceId],
+      references: [devices.id],
+    }),
+  })
+);
+
 export const companyInvitationRelations = relations(
   companyInvitation,
   ({ one }) => ({
@@ -293,14 +370,6 @@ export const companyInvitationRelations = relations(
     }),
   })
 );
-
-export const companiesRelations = relations(companies, ({ many }) => ({
-  companyInvitations: many(companyInvitation),
-  companyDrafts: many(companyDrafts),
-  sponsorCompanies: many(sponsorCompanies),
-  jobBoards: many(jobBoards),
-  companyMembers: many(companyMembers),
-}));
 
 export const ticketCheckoutSessionsRelations = relations(
   ticketCheckoutSessions,
@@ -331,6 +400,33 @@ export const ticketCheckoutOptionsRelations = relations(
   })
 );
 
+export const sponsorCompanyOptionsRelations = relations(
+  sponsorCompanyOptions,
+  ({ one }) => ({
+    sponsorCompany: one(sponsorCompanies, {
+      fields: [sponsorCompanyOptions.sponsorCompanyId],
+      references: [sponsorCompanies.id],
+    }),
+  })
+);
+
+export const deviceFcmTokensRelations = relations(
+  deviceFcmTokens,
+  ({ one }) => ({
+    device: one(devices, {
+      fields: [deviceFcmTokens.deviceId],
+      references: [devices.id],
+    }),
+  })
+);
+
+export const profilesRelations = relations(profiles, ({ one }) => ({
+  usersInAuth: one(usersInAuth, {
+    fields: [profiles.id],
+    references: [usersInAuth.id],
+  }),
+}));
+
 export const individualDraftApprovalsRelations = relations(
   individualDraftApprovals,
   ({ one }) => ({
@@ -351,6 +447,39 @@ export const individualDraftsRelations = relations(
     individualDraftApprovals: many(individualDraftApprovals),
     individual: one(individuals, {
       fields: [individualDrafts.individualId],
+      references: [individuals.id],
+    }),
+  })
+);
+
+export const sessionsRelations = relations(sessions, ({ one, many }) => ({
+  sponsorCompany: one(sponsorCompanies, {
+    fields: [sessions.sponsorId],
+    references: [sponsorCompanies.id],
+  }),
+  sessionVenue: one(sessionVenues, {
+    fields: [sessions.venueId],
+    references: [sessionVenues.id],
+  }),
+  sessionSpeakers: many(sessionSpeakers),
+}));
+
+export const sessionVenuesRelations = relations(sessionVenues, ({ many }) => ({
+  sessions: many(sessions),
+}));
+
+export const userSnsLinksRelations = relations(userSnsLinks, ({ one }) => ({
+  usersInAuth: one(usersInAuth, {
+    fields: [userSnsLinks.userId],
+    references: [usersInAuth.id],
+  }),
+}));
+
+export const sponsorIndividualsRelations = relations(
+  sponsorIndividuals,
+  ({ one }) => ({
+    individual: one(individuals, {
+      fields: [sponsorIndividuals.individualId],
       references: [individuals.id],
     }),
   })
@@ -384,67 +513,22 @@ export const oauthConsentsInAuthRelations = relations(
   })
 );
 
-export const basicSponsorCompaniesRelations = relations(
-  basicSponsorCompanies,
+export const sessionSpeakersRelations = relations(
+  sessionSpeakers,
   ({ one }) => ({
-    sponsorCompany: one(sponsorCompanies, {
-      fields: [basicSponsorCompanies.sponsorCompanyId],
-      references: [sponsorCompanies.id],
+    session: one(sessions, {
+      fields: [sessionSpeakers.sessionId],
+      references: [sessions.id],
+    }),
+    speaker: one(speakers, {
+      fields: [sessionSpeakers.speakerId],
+      references: [speakers.id],
     }),
   })
 );
 
-export const sponsorCompaniesRelations = relations(
-  sponsorCompanies,
-  ({ one, many }) => ({
-    basicSponsorCompanies: many(basicSponsorCompanies),
-    company: one(companies, {
-      fields: [sponsorCompanies.companyId],
-      references: [companies.id],
-    }),
-    sponsorCompanyOptions: many(sponsorCompanyOptions),
-  })
-);
-
-export const sponsorIndividualsRelations = relations(
-  sponsorIndividuals,
-  ({ one }) => ({
-    individual: one(individuals, {
-      fields: [sponsorIndividuals.individualId],
-      references: [individuals.id],
-    }),
-  })
-);
-
-export const sponsorCompanyOptionsRelations = relations(
-  sponsorCompanyOptions,
-  ({ one }) => ({
-    sponsorCompany: one(sponsorCompanies, {
-      fields: [sponsorCompanyOptions.sponsorCompanyId],
-      references: [sponsorCompanies.id],
-    }),
-  })
-);
-
-export const jobBoardsRelations = relations(jobBoards, ({ one }) => ({
-  company: one(companies, {
-    fields: [jobBoards.id],
-    references: [companies.id],
-  }),
-}));
-
-export const profilesRelations = relations(profiles, ({ one }) => ({
-  usersInAuth: one(usersInAuth, {
-    fields: [profiles.id],
-    references: [usersInAuth.id],
-  }),
-}));
-
-export const userSnsLinksRelations = relations(userSnsLinks, ({ one }) => ({
-  usersInAuth: one(usersInAuth, {
-    fields: [userSnsLinks.userId],
-    references: [usersInAuth.id],
-  }),
+export const speakersRelations = relations(speakers, ({ many }) => ({
+  sessionSpeakers: many(sessionSpeakers),
 }));
 
 export const userRolesRelations = relations(userRoles, ({ one }) => ({
