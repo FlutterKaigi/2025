@@ -9,6 +9,7 @@ import 'package:app/features/sponsor/ui/sponsor_sliver_app_bar.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -89,7 +90,19 @@ final class _Failure extends _ScreenState {
   final Object error;
 }
 
-class _SponsorDetail extends ConsumerWidget {
+extension _BasicPlanName on Sponsor {
+  String get basicPlanName => switch (this) {
+    PlatinumSponsor() => 'Platinum',
+    GoldSponsor() => 'Gold',
+    SilverSponsor() => 'Silver',
+    BronzeSponsor() => 'Bronze',
+    ToolSponsor() => 'Tool',
+    OtherSponsor() => 'Other',
+    IndividualSponsor() => 'Individual',
+  };
+}
+
+class _SponsorDetail extends HookConsumerWidget {
   const _SponsorDetail({required this.sponsor});
 
   final Sponsor sponsor;
@@ -101,6 +114,22 @@ class _SponsorDetail extends ConsumerWidget {
     final colorScheme = theme.colorScheme;
 
     final t = Translations.of(context);
+
+    // スクロール位置を監視
+    final scrollController = useScrollController();
+    final scrollOffset = useState<double>(0);
+
+    useEffect(
+      () {
+        void listener() {
+          scrollOffset.value = scrollController.offset;
+        }
+
+        scrollController.addListener(listener);
+        return () => scrollController.removeListener(listener);
+      },
+      [scrollController],
+    );
 
     final header = SponsorSliverAppBar(
       sponsor: sponsor,
@@ -118,10 +147,60 @@ class _SponsorDetail extends ConsumerWidget {
       color: colorScheme.onSurface,
     );
 
+    // SliverAppBarの展開高さを考慮した透明度計算
+    const sliverAppBarExpandedHeight = 240.0;
+    const sliverAppBarCollapsedHeight = kToolbarHeight;
+    const maxScrollForAppBar =
+        sliverAppBarExpandedHeight - sliverAppBarCollapsedHeight;
+
+    // スクロール位置に応じた進捗（0.0 = 展開、1.0 = 収縮）
+    final scrollProgress = (scrollOffset.value / maxScrollForAppBar).clamp(
+      0.0,
+      1.0,
+    );
+
+    // スポンサー名のヘッダー高さ
+    final sponsorHeaderHeight = MediaQuery.textScalerOf(context).scale(40);
+
+    // スポンサー名のセクション（領域ごと消える）
+    final sponsorHeader = SliverToBoxAdapter(
+      child: Container(
+        height: sponsorHeaderHeight * (1.0 - scrollProgress),
+        alignment: Alignment.centerLeft,
+        margin: const EdgeInsets.symmetric(vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: ClipRect(
+          child: Transform.translate(
+            offset: Offset(0, -sponsorHeaderHeight * scrollProgress),
+            child: Text(
+              sponsor.name,
+              style: textTheme.headlineSmall?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: colorScheme.onSurface,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+
     final bodyContent = switch (sponsor) {
       final CompanySponsor company => [
+        // ティアチップ
+        Align(
+          alignment: Alignment.topLeft,
+          child: Chip(
+            label: Text(sponsor.basicPlanName),
+            side: BorderSide(color: colorScheme.outline),
+            backgroundColor: colorScheme.surfaceContainerLow,
+            labelStyle: textTheme.labelMedium?.copyWith(
+              color: colorScheme.onSurface,
+            ),
+          ),
+        ),
+        const SizedBox(height: 16),
+
         // PR 文章
-        const SizedBox(height: 8),
         Text(
           t.sponsor.prText,
           style: titleStyle,
@@ -159,9 +238,19 @@ class _SponsorDetail extends ConsumerWidget {
         ),
       ],
       final IndividualSponsor individual => [
+        // ティアチップ
+        Chip(
+          label: Text(sponsor.basicPlanName),
+          side: BorderSide(color: colorScheme.outline),
+          backgroundColor: colorScheme.surfaceContainerLow,
+          labelStyle: textTheme.labelMedium?.copyWith(
+            color: colorScheme.onSurface,
+          ),
+        ),
+        const SizedBox(height: 16),
+
         // 意気込み
         if (individual.enthusiasm != null) ...[
-          const SizedBox(height: 8),
           Text(
             t.sponsor.enthusiasm,
             style: titleStyle,
@@ -224,8 +313,10 @@ class _SponsorDetail extends ConsumerWidget {
 
     return Scaffold(
       body: CustomScrollView(
+        controller: scrollController,
         slivers: [
           header,
+          sponsorHeader,
           body,
           spacer,
         ],
