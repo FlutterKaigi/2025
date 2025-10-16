@@ -18,6 +18,7 @@ abstract class Environment with _$Environment {
     required String supabaseUrl,
     required String supabaseKey,
     required String bffBaseUrl,
+    required String ticketApiBaseUrl,
     required String withdrawalFormUrl,
     String? commitInformation,
   }) = _Environment;
@@ -31,6 +32,7 @@ abstract class Environment with _$Environment {
     supabaseUrl: const String.fromEnvironment('SUPABASE_URL'),
     supabaseKey: const String.fromEnvironment('SUPABASE_KEY'),
     bffBaseUrl: const String.fromEnvironment('BFF_BASE_URL'),
+    ticketApiBaseUrl: const String.fromEnvironment('TICKET_API_BASE_URL'),
     withdrawalFormUrl: const String.fromEnvironment('WITHDRAWAL_FORM_URL'),
     commitInformation: () {
       const text = String.fromEnvironment('COMMIT_INFORMATION');
@@ -48,7 +50,8 @@ abstract class Environment with _$Environment {
 enum Flavor {
   production('prod'),
   staging('stg'),
-  develop('dev');
+  develop('dev')
+  ;
 
   const Flavor(this.shortName);
   final String shortName;
