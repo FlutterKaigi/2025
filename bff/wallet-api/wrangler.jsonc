@@ -1,0 +1,20 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "wallet-api",
+  "account_id": "cdd8f59359fe226645e7b541cdc53b57",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-10-15",
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1,
+  },
+  "rules": [
+    {
+      "type": "Data",
+      "globs": ["**/*.png"],
+      "fallthrough": true,
+    },
+  ],
+  "compatibility_flags": ["nodejs_compat"],
+  "preview_urls": true,
+}

@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$TicketType {
 
- String get id; String get name; int get price; TicketStatus get status; String get stripePriceId; String? get description;
+ String get id; String get name; int get price; TicketStatus get status; String get stripePriceId; bool get isEntryAllowed; String? get description;
 /// Create a copy of TicketType
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $TicketTypeCopyWith<TicketType> get copyWith => _$TicketTypeCopyWithImpl<TicketT
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TicketType&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.price, price) || other.price == price)&&(identical(other.status, status) || other.status == status)&&(identical(other.stripePriceId, stripePriceId) || other.stripePriceId == stripePriceId)&&(identical(other.description, description) || other.description == description));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TicketType&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.price, price) || other.price == price)&&(identical(other.status, status) || other.status == status)&&(identical(other.stripePriceId, stripePriceId) || other.stripePriceId == stripePriceId)&&(identical(other.isEntryAllowed, isEntryAllowed) || other.isEntryAllowed == isEntryAllowed)&&(identical(other.description, description) || other.description == description));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,price,status,stripePriceId,description);
+int get hashCode => Object.hash(runtimeType,id,name,price,status,stripePriceId,isEntryAllowed,description);
 
 @override
 String toString() {
-  return 'TicketType(id: $id, name: $name, price: $price, status: $status, stripePriceId: $stripePriceId, description: $description)';
+  return 'TicketType(id: $id, name: $name, price: $price, status: $status, stripePriceId: $stripePriceId, isEntryAllowed: $isEntryAllowed, description: $description)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $TicketTypeCopyWith<$Res>  {
   factory $TicketTypeCopyWith(TicketType value, $Res Function(TicketType) _then) = _$TicketTypeCopyWithImpl;
 @useResult
 $Res call({
- String id, String name, int price, TicketStatus status, String stripePriceId, String? description
+ String id, String name, int price, TicketStatus status, String stripePriceId, bool isEntryAllowed, String? description
 });
 
 
@@ -65,14 +65,15 @@ class _$TicketTypeCopyWithImpl<$Res>
 
 /// Create a copy of TicketType
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? price = null,Object? status = null,Object? stripePriceId = null,Object? description = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? price = null,Object? status = null,Object? stripePriceId = null,Object? isEntryAllowed = null,Object? description = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,price: null == price ? _self.price : price // ignore: cast_nullable_to_non_nullable
 as int,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as TicketStatus,stripePriceId: null == stripePriceId ? _self.stripePriceId : stripePriceId // ignore: cast_nullable_to_non_nullable
-as String,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as String,isEntryAllowed: null == isEntryAllowed ? _self.isEntryAllowed : isEntryAllowed // ignore: cast_nullable_to_non_nullable
+as bool,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -167,10 +168,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  int price,  TicketStatus status,  String stripePriceId,  String? description)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  int price,  TicketStatus status,  String stripePriceId,  bool isEntryAllowed,  String? description)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _TicketType() when $default != null:
-return $default(_that.id,_that.name,_that.price,_that.status,_that.stripePriceId,_that.description);case _:
+return $default(_that.id,_that.name,_that.price,_that.status,_that.stripePriceId,_that.isEntryAllowed,_that.description);case _:
   return orElse();
 
 }
@@ -188,10 +189,10 @@ return $default(_that.id,_that.name,_that.price,_that.status,_that.stripePriceId
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  int price,  TicketStatus status,  String stripePriceId,  String? description)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  int price,  TicketStatus status,  String stripePriceId,  bool isEntryAllowed,  String? description)  $default,) {final _that = this;
 switch (_that) {
 case _TicketType():
-return $default(_that.id,_that.name,_that.price,_that.status,_that.stripePriceId,_that.description);case _:
+return $default(_that.id,_that.name,_that.price,_that.status,_that.stripePriceId,_that.isEntryAllowed,_that.description);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -208,10 +209,10 @@ return $default(_that.id,_that.name,_that.price,_that.status,_that.stripePriceId
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  int price,  TicketStatus status,  String stripePriceId,  String? description)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  int price,  TicketStatus status,  String stripePriceId,  bool isEntryAllowed,  String? description)?  $default,) {final _that = this;
 switch (_that) {
 case _TicketType() when $default != null:
-return $default(_that.id,_that.name,_that.price,_that.status,_that.stripePriceId,_that.description);case _:
+return $default(_that.id,_that.name,_that.price,_that.status,_that.stripePriceId,_that.isEntryAllowed,_that.description);case _:
   return null;
 
 }
@@ -223,7 +224,7 @@ return $default(_that.id,_that.name,_that.price,_that.status,_that.stripePriceId
 @JsonSerializable()
 
 class _TicketType implements TicketType {
-  const _TicketType({required this.id, required this.name, required this.price, required this.status, required this.stripePriceId, this.description});
+  const _TicketType({required this.id, required this.name, required this.price, required this.status, required this.stripePriceId, required this.isEntryAllowed, this.description});
   factory _TicketType.fromJson(Map<String, dynamic> json) => _$TicketTypeFromJson(json);
 
 @override final  String id;
@@ -231,6 +232,7 @@ class _TicketType implements TicketType {
 @override final  int price;
 @override final  TicketStatus status;
 @override final  String stripePriceId;
+@override final  bool isEntryAllowed;
 @override final  String? description;
 
 /// Create a copy of TicketType
@@ -246,16 +248,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TicketType&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.price, price) || other.price == price)&&(identical(other.status, status) || other.status == status)&&(identical(other.stripePriceId, stripePriceId) || other.stripePriceId == stripePriceId)&&(identical(other.description, description) || other.description == description));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TicketType&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.price, price) || other.price == price)&&(identical(other.status, status) || other.status == status)&&(identical(other.stripePriceId, stripePriceId) || other.stripePriceId == stripePriceId)&&(identical(other.isEntryAllowed, isEntryAllowed) || other.isEntryAllowed == isEntryAllowed)&&(identical(other.description, description) || other.description == description));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,price,status,stripePriceId,description);
+int get hashCode => Object.hash(runtimeType,id,name,price,status,stripePriceId,isEntryAllowed,description);
 
 @override
 String toString() {
-  return 'TicketType(id: $id, name: $name, price: $price, status: $status, stripePriceId: $stripePriceId, description: $description)';
+  return 'TicketType(id: $id, name: $name, price: $price, status: $status, stripePriceId: $stripePriceId, isEntryAllowed: $isEntryAllowed, description: $description)';
 }
 
 
@@ -266,7 +268,7 @@ abstract mixin class _$TicketTypeCopyWith<$Res> implements $TicketTypeCopyWith<$
   factory _$TicketTypeCopyWith(_TicketType value, $Res Function(_TicketType) _then) = __$TicketTypeCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String name, int price, TicketStatus status, String stripePriceId, String? description
+ String id, String name, int price, TicketStatus status, String stripePriceId, bool isEntryAllowed, String? description
 });
 
 
@@ -283,14 +285,15 @@ class __$TicketTypeCopyWithImpl<$Res>
 
 /// Create a copy of TicketType
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? price = null,Object? status = null,Object? stripePriceId = null,Object? description = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? price = null,Object? status = null,Object? stripePriceId = null,Object? isEntryAllowed = null,Object? description = freezed,}) {
   return _then(_TicketType(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,price: null == price ? _self.price : price // ignore: cast_nullable_to_non_nullable
 as int,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as TicketStatus,stripePriceId: null == stripePriceId ? _self.stripePriceId : stripePriceId // ignore: cast_nullable_to_non_nullable
-as String,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as String,isEntryAllowed: null == isEntryAllowed ? _self.isEntryAllowed : isEntryAllowed // ignore: cast_nullable_to_non_nullable
+as bool,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }

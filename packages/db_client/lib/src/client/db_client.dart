@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:db_client/src/client/news/news_db_client.dart';
+import 'package:db_client/src/client/ping/ping_db_client.dart';
 import 'package:db_client/src/client/profile/profile_db_client.dart';
 import 'package:db_client/src/client/session/session_db_client.dart';
 import 'package:db_client/src/client/speaker/speaker_db_client.dart';
@@ -68,6 +69,8 @@ class DbClient {
       TicketCheckoutDbClient(executor: _executor);
   TimelineEventDbClient get timelineEvent =>
       TimelineEventDbClient(executor: _executor);
+
+  PingDbClient get ping => PingDbClient(executor: _executor);
 
   Future<void> dispose() async {
     await _executor.close();

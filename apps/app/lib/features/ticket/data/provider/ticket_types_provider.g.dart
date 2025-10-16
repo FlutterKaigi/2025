@@ -8,6 +8,9 @@ part of 'ticket_types_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(ticketTypes)
 const ticketTypesProvider = TicketTypesProvider._();
 
@@ -48,6 +51,3 @@ final class TicketTypesProvider
 }
 
 String _$ticketTypesHash() => r'dcf0289d81a46ad42d1fb0527d7ed8d186efcc37';
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

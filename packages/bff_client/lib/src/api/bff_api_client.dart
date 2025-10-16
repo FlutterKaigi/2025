@@ -1,6 +1,8 @@
 import 'package:bff_client/bff_client.dart';
 import 'package:dio/dio.dart';
 
+export 'package:dio/dio.dart' show DioException, DioExceptionType;
+
 class BffApiClient {
   BffApiClient({required Dio dio}) : _dio = dio;
 

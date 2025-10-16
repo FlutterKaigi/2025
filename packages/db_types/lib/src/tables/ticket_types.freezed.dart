@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$TicketTypes {
 
- String get id; String get name; int get price; int? get maxQuantity; String? get description; bool get isActive;@DateTimeConverter() DateTime? get saleStartsAt;@DateTimeConverter() DateTime? get saleEndsAt; String get stripePriceId;@RequiredDateTimeConverter() DateTime get createdAt;@RequiredDateTimeConverter() DateTime get updatedAt;
+ String get id; String get name; int get price; int? get maxQuantity; String? get description; bool get isActive;@DateTimeConverter() DateTime? get saleStartsAt;@DateTimeConverter() DateTime? get saleEndsAt; String get stripePriceId;@RequiredDateTimeConverter() DateTime get createdAt;@RequiredDateTimeConverter() DateTime get updatedAt; bool get isEntryAllowed;
 /// Create a copy of TicketTypes
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $TicketTypesCopyWith<TicketTypes> get copyWith => _$TicketTypesCopyWithImpl<Tick
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TicketTypes&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.price, price) || other.price == price)&&(identical(other.maxQuantity, maxQuantity) || other.maxQuantity == maxQuantity)&&(identical(other.description, description) || other.description == description)&&(identical(other.isActive, isActive) || other.isActive == isActive)&&(identical(other.saleStartsAt, saleStartsAt) || other.saleStartsAt == saleStartsAt)&&(identical(other.saleEndsAt, saleEndsAt) || other.saleEndsAt == saleEndsAt)&&(identical(other.stripePriceId, stripePriceId) || other.stripePriceId == stripePriceId)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TicketTypes&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.price, price) || other.price == price)&&(identical(other.maxQuantity, maxQuantity) || other.maxQuantity == maxQuantity)&&(identical(other.description, description) || other.description == description)&&(identical(other.isActive, isActive) || other.isActive == isActive)&&(identical(other.saleStartsAt, saleStartsAt) || other.saleStartsAt == saleStartsAt)&&(identical(other.saleEndsAt, saleEndsAt) || other.saleEndsAt == saleEndsAt)&&(identical(other.stripePriceId, stripePriceId) || other.stripePriceId == stripePriceId)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.isEntryAllowed, isEntryAllowed) || other.isEntryAllowed == isEntryAllowed));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,price,maxQuantity,description,isActive,saleStartsAt,saleEndsAt,stripePriceId,createdAt,updatedAt);
+int get hashCode => Object.hash(runtimeType,id,name,price,maxQuantity,description,isActive,saleStartsAt,saleEndsAt,stripePriceId,createdAt,updatedAt,isEntryAllowed);
 
 @override
 String toString() {
-  return 'TicketTypes(id: $id, name: $name, price: $price, maxQuantity: $maxQuantity, description: $description, isActive: $isActive, saleStartsAt: $saleStartsAt, saleEndsAt: $saleEndsAt, stripePriceId: $stripePriceId, createdAt: $createdAt, updatedAt: $updatedAt)';
+  return 'TicketTypes(id: $id, name: $name, price: $price, maxQuantity: $maxQuantity, description: $description, isActive: $isActive, saleStartsAt: $saleStartsAt, saleEndsAt: $saleEndsAt, stripePriceId: $stripePriceId, createdAt: $createdAt, updatedAt: $updatedAt, isEntryAllowed: $isEntryAllowed)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $TicketTypesCopyWith<$Res>  {
   factory $TicketTypesCopyWith(TicketTypes value, $Res Function(TicketTypes) _then) = _$TicketTypesCopyWithImpl;
 @useResult
 $Res call({
- String id, String name, int price, int? maxQuantity, String? description, bool isActive,@DateTimeConverter() DateTime? saleStartsAt,@DateTimeConverter() DateTime? saleEndsAt, String stripePriceId,@RequiredDateTimeConverter() DateTime createdAt,@RequiredDateTimeConverter() DateTime updatedAt
+ String id, String name, int price, int? maxQuantity, String? description, bool isActive,@DateTimeConverter() DateTime? saleStartsAt,@DateTimeConverter() DateTime? saleEndsAt, String stripePriceId,@RequiredDateTimeConverter() DateTime createdAt,@RequiredDateTimeConverter() DateTime updatedAt, bool isEntryAllowed
 });
 
 
@@ -65,7 +65,7 @@ class _$TicketTypesCopyWithImpl<$Res>
 
 /// Create a copy of TicketTypes
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? price = null,Object? maxQuantity = freezed,Object? description = freezed,Object? isActive = null,Object? saleStartsAt = freezed,Object? saleEndsAt = freezed,Object? stripePriceId = null,Object? createdAt = null,Object? updatedAt = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? price = null,Object? maxQuantity = freezed,Object? description = freezed,Object? isActive = null,Object? saleStartsAt = freezed,Object? saleEndsAt = freezed,Object? stripePriceId = null,Object? createdAt = null,Object? updatedAt = null,Object? isEntryAllowed = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -78,7 +78,8 @@ as DateTime?,saleEndsAt: freezed == saleEndsAt ? _self.saleEndsAt : saleEndsAt /
 as DateTime?,stripePriceId: null == stripePriceId ? _self.stripePriceId : stripePriceId // ignore: cast_nullable_to_non_nullable
 as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
-as DateTime,
+as DateTime,isEntryAllowed: null == isEntryAllowed ? _self.isEntryAllowed : isEntryAllowed // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 
@@ -163,10 +164,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  int price,  int? maxQuantity,  String? description,  bool isActive, @DateTimeConverter()  DateTime? saleStartsAt, @DateTimeConverter()  DateTime? saleEndsAt,  String stripePriceId, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  int price,  int? maxQuantity,  String? description,  bool isActive, @DateTimeConverter()  DateTime? saleStartsAt, @DateTimeConverter()  DateTime? saleEndsAt,  String stripePriceId, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt,  bool isEntryAllowed)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _TicketTypes() when $default != null:
-return $default(_that.id,_that.name,_that.price,_that.maxQuantity,_that.description,_that.isActive,_that.saleStartsAt,_that.saleEndsAt,_that.stripePriceId,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.id,_that.name,_that.price,_that.maxQuantity,_that.description,_that.isActive,_that.saleStartsAt,_that.saleEndsAt,_that.stripePriceId,_that.createdAt,_that.updatedAt,_that.isEntryAllowed);case _:
   return orElse();
 
 }
@@ -184,10 +185,10 @@ return $default(_that.id,_that.name,_that.price,_that.maxQuantity,_that.descript
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  int price,  int? maxQuantity,  String? description,  bool isActive, @DateTimeConverter()  DateTime? saleStartsAt, @DateTimeConverter()  DateTime? saleEndsAt,  String stripePriceId, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  int price,  int? maxQuantity,  String? description,  bool isActive, @DateTimeConverter()  DateTime? saleStartsAt, @DateTimeConverter()  DateTime? saleEndsAt,  String stripePriceId, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt,  bool isEntryAllowed)  $default,) {final _that = this;
 switch (_that) {
 case _TicketTypes():
-return $default(_that.id,_that.name,_that.price,_that.maxQuantity,_that.description,_that.isActive,_that.saleStartsAt,_that.saleEndsAt,_that.stripePriceId,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.id,_that.name,_that.price,_that.maxQuantity,_that.description,_that.isActive,_that.saleStartsAt,_that.saleEndsAt,_that.stripePriceId,_that.createdAt,_that.updatedAt,_that.isEntryAllowed);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -204,10 +205,10 @@ return $default(_that.id,_that.name,_that.price,_that.maxQuantity,_that.descript
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  int price,  int? maxQuantity,  String? description,  bool isActive, @DateTimeConverter()  DateTime? saleStartsAt, @DateTimeConverter()  DateTime? saleEndsAt,  String stripePriceId, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  int price,  int? maxQuantity,  String? description,  bool isActive, @DateTimeConverter()  DateTime? saleStartsAt, @DateTimeConverter()  DateTime? saleEndsAt,  String stripePriceId, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt,  bool isEntryAllowed)?  $default,) {final _that = this;
 switch (_that) {
 case _TicketTypes() when $default != null:
-return $default(_that.id,_that.name,_that.price,_that.maxQuantity,_that.description,_that.isActive,_that.saleStartsAt,_that.saleEndsAt,_that.stripePriceId,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.id,_that.name,_that.price,_that.maxQuantity,_that.description,_that.isActive,_that.saleStartsAt,_that.saleEndsAt,_that.stripePriceId,_that.createdAt,_that.updatedAt,_that.isEntryAllowed);case _:
   return null;
 
 }
@@ -219,7 +220,7 @@ return $default(_that.id,_that.name,_that.price,_that.maxQuantity,_that.descript
 @JsonSerializable()
 
 class _TicketTypes implements TicketTypes {
-  const _TicketTypes({required this.id, required this.name, required this.price, this.maxQuantity, this.description, required this.isActive, @DateTimeConverter() this.saleStartsAt, @DateTimeConverter() this.saleEndsAt, required this.stripePriceId, @RequiredDateTimeConverter() required this.createdAt, @RequiredDateTimeConverter() required this.updatedAt});
+  const _TicketTypes({required this.id, required this.name, required this.price, this.maxQuantity, this.description, required this.isActive, @DateTimeConverter() this.saleStartsAt, @DateTimeConverter() this.saleEndsAt, required this.stripePriceId, @RequiredDateTimeConverter() required this.createdAt, @RequiredDateTimeConverter() required this.updatedAt, required this.isEntryAllowed});
   factory _TicketTypes.fromJson(Map<String, dynamic> json) => _$TicketTypesFromJson(json);
 
 @override final  String id;
@@ -233,6 +234,7 @@ class _TicketTypes implements TicketTypes {
 @override final  String stripePriceId;
 @override@RequiredDateTimeConverter() final  DateTime createdAt;
 @override@RequiredDateTimeConverter() final  DateTime updatedAt;
+@override final  bool isEntryAllowed;
 
 /// Create a copy of TicketTypes
 /// with the given fields replaced by the non-null parameter values.
@@ -247,16 +249,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TicketTypes&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.price, price) || other.price == price)&&(identical(other.maxQuantity, maxQuantity) || other.maxQuantity == maxQuantity)&&(identical(other.description, description) || other.description == description)&&(identical(other.isActive, isActive) || other.isActive == isActive)&&(identical(other.saleStartsAt, saleStartsAt) || other.saleStartsAt == saleStartsAt)&&(identical(other.saleEndsAt, saleEndsAt) || other.saleEndsAt == saleEndsAt)&&(identical(other.stripePriceId, stripePriceId) || other.stripePriceId == stripePriceId)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TicketTypes&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.price, price) || other.price == price)&&(identical(other.maxQuantity, maxQuantity) || other.maxQuantity == maxQuantity)&&(identical(other.description, description) || other.description == description)&&(identical(other.isActive, isActive) || other.isActive == isActive)&&(identical(other.saleStartsAt, saleStartsAt) || other.saleStartsAt == saleStartsAt)&&(identical(other.saleEndsAt, saleEndsAt) || other.saleEndsAt == saleEndsAt)&&(identical(other.stripePriceId, stripePriceId) || other.stripePriceId == stripePriceId)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.isEntryAllowed, isEntryAllowed) || other.isEntryAllowed == isEntryAllowed));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,price,maxQuantity,description,isActive,saleStartsAt,saleEndsAt,stripePriceId,createdAt,updatedAt);
+int get hashCode => Object.hash(runtimeType,id,name,price,maxQuantity,description,isActive,saleStartsAt,saleEndsAt,stripePriceId,createdAt,updatedAt,isEntryAllowed);
 
 @override
 String toString() {
-  return 'TicketTypes(id: $id, name: $name, price: $price, maxQuantity: $maxQuantity, description: $description, isActive: $isActive, saleStartsAt: $saleStartsAt, saleEndsAt: $saleEndsAt, stripePriceId: $stripePriceId, createdAt: $createdAt, updatedAt: $updatedAt)';
+  return 'TicketTypes(id: $id, name: $name, price: $price, maxQuantity: $maxQuantity, description: $description, isActive: $isActive, saleStartsAt: $saleStartsAt, saleEndsAt: $saleEndsAt, stripePriceId: $stripePriceId, createdAt: $createdAt, updatedAt: $updatedAt, isEntryAllowed: $isEntryAllowed)';
 }
 
 
@@ -267,7 +269,7 @@ abstract mixin class _$TicketTypesCopyWith<$Res> implements $TicketTypesCopyWith
   factory _$TicketTypesCopyWith(_TicketTypes value, $Res Function(_TicketTypes) _then) = __$TicketTypesCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String name, int price, int? maxQuantity, String? description, bool isActive,@DateTimeConverter() DateTime? saleStartsAt,@DateTimeConverter() DateTime? saleEndsAt, String stripePriceId,@RequiredDateTimeConverter() DateTime createdAt,@RequiredDateTimeConverter() DateTime updatedAt
+ String id, String name, int price, int? maxQuantity, String? description, bool isActive,@DateTimeConverter() DateTime? saleStartsAt,@DateTimeConverter() DateTime? saleEndsAt, String stripePriceId,@RequiredDateTimeConverter() DateTime createdAt,@RequiredDateTimeConverter() DateTime updatedAt, bool isEntryAllowed
 });
 
 
@@ -284,7 +286,7 @@ class __$TicketTypesCopyWithImpl<$Res>
 
 /// Create a copy of TicketTypes
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? price = null,Object? maxQuantity = freezed,Object? description = freezed,Object? isActive = null,Object? saleStartsAt = freezed,Object? saleEndsAt = freezed,Object? stripePriceId = null,Object? createdAt = null,Object? updatedAt = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? price = null,Object? maxQuantity = freezed,Object? description = freezed,Object? isActive = null,Object? saleStartsAt = freezed,Object? saleEndsAt = freezed,Object? stripePriceId = null,Object? createdAt = null,Object? updatedAt = null,Object? isEntryAllowed = null,}) {
   return _then(_TicketTypes(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -297,7 +299,8 @@ as DateTime?,saleEndsAt: freezed == saleEndsAt ? _self.saleEndsAt : saleEndsAt /
 as DateTime?,stripePriceId: null == stripePriceId ? _self.stripePriceId : stripePriceId // ignore: cast_nullable_to_non_nullable
 as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
-as DateTime,
+as DateTime,isEntryAllowed: null == isEntryAllowed ? _self.isEntryAllowed : isEntryAllowed // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 

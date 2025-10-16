@@ -12,6 +12,7 @@
   },
   "env": {
     "staging": {
+      "preview_urls": true,
       "vars": {
         "ENVIRONMENT": "staging",
       },

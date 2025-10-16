@@ -8,8 +8,11 @@ part of 'auth_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(AuthNotifier)
-const authNotifierProvider = AuthNotifierProvider._();
+const authProvider = AuthNotifierProvider._();
 
 final class AuthNotifierProvider
     extends $StreamNotifierProvider<AuthNotifier, User?> {
@@ -18,7 +21,7 @@ final class AuthNotifierProvider
         from: null,
         argument: null,
         retry: null,
-        name: r'authNotifierProvider',
+        name: r'authProvider',
         isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
@@ -32,7 +35,7 @@ final class AuthNotifierProvider
   AuthNotifier create() => AuthNotifier();
 }
 
-String _$authNotifierHash() => r'476f4f0c8537fadf63f688d6275fe3764f592772';
+String _$authNotifierHash() => r'3d4447261cb4f3de317bf169f69f432373a50bf1';
 
 abstract class _$AuthNotifier extends $StreamNotifier<User?> {
   Stream<User?> build();
@@ -52,6 +55,3 @@ abstract class _$AuthNotifier extends $StreamNotifier<User?> {
     element.handleValue(ref, created);
   }
 }
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

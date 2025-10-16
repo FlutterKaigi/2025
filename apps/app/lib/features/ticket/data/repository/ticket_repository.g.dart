@@ -8,15 +8,19 @@ part of 'ticket_repository.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 /// チケット関連のデータ操作を担当するRepository
 ///
 /// bff_clientのTicketsApiClientを使用してバックエンドAPIと通信する
+
 @ProviderFor(ticketRepository)
 const ticketRepositoryProvider = TicketRepositoryProvider._();
 
 /// チケット関連のデータ操作を担当するRepository
 ///
 /// bff_clientのTicketsApiClientを使用してバックエンドAPIと通信する
+
 final class TicketRepositoryProvider
     extends
         $FunctionalProvider<
@@ -62,6 +66,3 @@ final class TicketRepositoryProvider
 }
 
 String _$ticketRepositoryHash() => r'636aeb183427cdbe7d620e43e8d39d754af0f9ed';
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

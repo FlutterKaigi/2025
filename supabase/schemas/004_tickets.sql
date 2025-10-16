@@ -9,7 +9,8 @@ CREATE TABLE public.ticket_types (
   sale_ends_at TIMESTAMP WITH TIME ZONE,
   stripe_price_id TEXT NOT NULL,
   created_at timestamp DEFAULT now() NOT NULL,
-  updated_at timestamp DEFAULT now() NOT NULL
+  updated_at timestamp DEFAULT now() NOT NULL,
+  is_entry_allowed boolean DEFAULT TRUE NOT NULL
 );
 
 ALTER TABLE public.ticket_types enable ROW level security;
@@ -39,6 +40,7 @@ CREATE TABLE public.ticket_purchases (
   stripe_payment_intent_id text UNIQUE, -- Stripe決済ID
   created_at timestamp DEFAULT now() NOT NULL,
   updated_at timestamp DEFAULT now() NOT NULL,
+  nameplate_id VARCHAR(4), -- ネームプレートID(ticket_type_idがnormal以外の時のみ出現), A-01, B-01,..., D-01, A-02, B-02,..., D-02,...
   UNIQUE (user_id, ticket_type_id)
 );
 

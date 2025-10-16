@@ -1,11 +1,14 @@
+import 'package:app/core/designsystem/components/error_screen.dart';
 import 'package:app/core/gen/assets/assets.gen.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
+import 'package:app/core/provider/environment.dart';
 import 'package:app/features/account/data/notifier/profile_notifier.dart';
 import 'package:app/features/account/ui/component/account_circle_image.dart';
 import 'package:app/features/account/ui/component/account_scaffold.dart';
 import 'package:app/features/auth/data/notifier/auth_notifier.dart';
 import 'package:auth_client/auth_client.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -43,17 +46,21 @@ final class AccountInfoScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(authNotifierProvider);
+    final state = ref.watch(authProvider);
     final t = Translations.of(context);
+    final theme = Theme.of(context);
     final textTheme = Theme.of(context).textTheme;
+
+    final commitInformation = ref.watch(environmentProvider).commitInformation;
 
     return AccountScaffold(
       body: state.when(
-        error: (error, stackTrace) => Center(
-          child: Text('Error: $error'),
+        error: (error, stackTrace) => ErrorScreen(
+          error: error,
+          onRetry: () => ref.invalidate(authProvider),
         ),
         loading: () => const Center(
-          child: CircularProgressIndicator(),
+          child: CircularProgressIndicator.adaptive(),
         ),
         data: (user) => ListView(
           padding: const EdgeInsets.symmetric(vertical: 16),
@@ -104,6 +111,23 @@ final class AccountInfoScreen extends ConsumerWidget {
                 onTap: item.onTap,
               ),
             )),
+            const SizedBox(
+              height: 8,
+            ),
+            // Flutter, Dart version
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Text(
+                  'Powered by Flutter ${FlutterVersion.version}\n'
+                  'Dart ${FlutterVersion.dartVersion}'
+                  '${commitInformation != null ? '\n$commitInformation' : ''}',
+                  style: textTheme.bodySmall!.copyWith(
+                    color: theme.colorScheme.onSurfaceVariant,
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -143,49 +167,44 @@ class _UserInfoCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+    final translations = Translations.of(context);
     final children = user.isAnonymous
         ? [
             Text(
-              Translations.of(context).account.guestUserLabel,
-              style: Theme.of(context).textTheme.bodyLarge,
+              translations.account.guestUserLabel,
+              style: theme.textTheme.bodyLarge,
             ),
-            const SizedBox(height: 16),
             _GoogleSignInButton(
               onPressed: () async {
                 await ref
-                    .read(authNotifierProvider.notifier)
+                    .read(authProvider.notifier)
                     .linkAnonymousUserWithGoogle();
               },
             ),
+            const _LogoutButton(),
           ]
         : [
             _ProfileImage(
               user: user,
             ),
-            const SizedBox(height: 16),
             Text(
               user.email ?? '',
               style: Theme.of(context).textTheme.bodyLarge,
             ),
-            const SizedBox(height: 16),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton.icon(
                 onPressed: onProfileEdit,
                 icon: const Icon(Icons.edit),
-                label: Text(Translations.of(context).account.profileEdit),
+                label: Text(translations.account.profileEdit),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Theme.of(
-                    context,
-                  ).colorScheme.secondary,
-                  foregroundColor: Theme.of(
-                    context,
-                  ).colorScheme.onSecondary,
+                  backgroundColor: theme.colorScheme.secondary,
+                  foregroundColor: theme.colorScheme.onSecondary,
                   visualDensity: VisualDensity.comfortable,
                 ),
               ),
             ),
-            const SizedBox(height: 8),
             const _LogoutButton(),
           ];
 
@@ -193,12 +212,13 @@ class _UserInfoCard extends ConsumerWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
         side: BorderSide(
-          color: Theme.of(context).colorScheme.outline,
+          color: theme.colorScheme.outline,
         ),
       ),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
+          spacing: 8,
           children: children,
         ),
       ),
@@ -226,7 +246,7 @@ class _LogoutButton extends ConsumerWidget {
       width: double.infinity,
       child: OutlinedButton.icon(
         onPressed: () async {
-          await ref.read(authNotifierProvider.notifier).signOut();
+          await ref.read(authProvider.notifier).signOut();
         },
         icon: const Icon(Icons.logout),
         label: Text(t.account.logout),
@@ -286,7 +306,7 @@ class _ProfileImage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final profileAsync = ref.watch(profileNotifierProvider);
+    final profileAsync = ref.watch(profileProvider);
     return SizedBox.square(
       dimension: 100,
       child: switch (profileAsync) {

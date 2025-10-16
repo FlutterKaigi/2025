@@ -81,7 +81,7 @@ jobs:
       - name: Resolve dependencies
         working-directory: apps/website
         run: |
-          dart pub get
+          dart pub get --enforce-lockfile
           # NOTE: 不具合のワークアラウンド
           # https://github.com/dart-lang/sdk/issues/61373
           # https://github.com/schultek/jaspr/pull/531

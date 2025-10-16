@@ -1,3 +1,4 @@
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthService {
@@ -17,18 +18,90 @@ class AuthService {
   SupabaseClient get _client => Supabase.instance.client;
 
   /// Googleでログインする
-  /// [redirectTo] ログイン後にリダイレクトするURL Web以外のプラットフォームでは必須
-  /// [authScreenLaunchMode] 認証画面の起動モード
   Future<User?> signInWithGoogle({
+    required AuthenticationPlatform platform,
+    required String webClientId,
+    String? platformClientId,
     String? redirectTo,
-    LaunchMode authScreenLaunchMode = LaunchMode.externalApplication,
   }) async {
-    await _client.auth.signInWithOAuth(
-      OAuthProvider.google,
-      redirectTo: redirectTo,
-      authScreenLaunchMode: authScreenLaunchMode,
+    // platform != .web の時は、platformClientIdが必須
+    assert(
+      platform == AuthenticationPlatform.web || platformClientId != null,
+      'platformClientId is required when platform is not web',
     );
-    return currentUser;
+    if (platform == AuthenticationPlatform.web) {
+      await _client.auth.signInWithOAuth(
+        OAuthProvider.google,
+        redirectTo: redirectTo,
+        authScreenLaunchMode: LaunchMode.externalApplication,
+      );
+      return currentUser;
+    } else {
+      final (idToken, accessToken) = await _nativeGoogleSignIn(
+        platformClientId: platformClientId!,
+        webClientId: webClientId,
+      );
+
+      final result = await _client.auth.signInWithIdToken(
+        provider: OAuthProvider.google,
+        idToken: idToken,
+        accessToken: accessToken,
+      );
+      return result.user;
+    }
+  }
+
+  /// Googleでログインする
+  Future<User?> linkAnonymousUserWithGoogle({
+    required AuthenticationPlatform platform,
+    required String webClientId,
+    String? platformClientId,
+    String? redirectTo,
+  }) async {
+    if (platform == AuthenticationPlatform.web) {
+      await _client.auth.linkIdentity(
+        OAuthProvider.google,
+        redirectTo: redirectTo,
+        authScreenLaunchMode: LaunchMode.externalApplication,
+      );
+      return currentUser;
+    } else {
+      final (idToken, accessToken) = await _nativeGoogleSignIn(
+        platformClientId: platformClientId!,
+        webClientId: webClientId,
+      );
+
+      final result = await _client.auth.linkIdentityWithIdToken(
+        provider: OAuthProvider.google,
+        idToken: idToken,
+        accessToken: accessToken,
+      );
+      return result.user;
+    }
+  }
+
+  Future<(String idToken, String accessToken)> _nativeGoogleSignIn({
+    required String platformClientId,
+    required String webClientId,
+  }) async {
+    final scopes = ['email', 'profile'];
+    final googleSignIn = GoogleSignIn.instance;
+
+    await googleSignIn.initialize(
+      serverClientId: webClientId,
+      clientId: platformClientId,
+    );
+    final googleUser = await googleSignIn.authenticate(
+      scopeHint: scopes,
+    );
+    final authorization =
+        await googleUser.authorizationClient.authorizationForScopes(scopes) ??
+        await googleUser.authorizationClient.authorizeScopes(scopes);
+    final idToken = googleUser.authentication.idToken;
+    if (idToken == null) {
+      throw const AuthException('No ID Token found.');
+    }
+    return (idToken, authorization.accessToken);
   }
 
   /// 匿名でログインする
@@ -37,20 +110,9 @@ class AuthService {
     return currentUser;
   }
 
-  /// 匿名ユーザーをGoogleアカウントと紐づける
-  Future<void> linkAnonymousUserWithGoogle({
-    String? redirectTo,
-    LaunchMode authScreenLaunchMode = LaunchMode.externalApplication,
-  }) async {
-    await _client.auth.linkIdentity(
-      OAuthProvider.google,
-      redirectTo: redirectTo,
-      authScreenLaunchMode: authScreenLaunchMode,
-    );
-  }
-
   /// ログアウトする
-  Future<void> signOut() async => _client.auth.signOut();
+  Future<void> signOut() async =>
+      _client.auth.signOut(scope: SignOutScope.global);
 
   /// 現在のユーザーを取得する
   User? get currentUser => _client.auth.currentUser;
@@ -81,4 +143,11 @@ enum AuthStateEvent {
   signedOut,
   tokenRefreshed,
   userUpdated,
+}
+
+enum AuthenticationPlatform {
+  web,
+  ios,
+  android,
+  macos,
 }

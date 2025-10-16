@@ -2,6 +2,7 @@ import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/core/router/router.dart';
 import 'package:app/features/auth/data/notifier/auth_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -17,14 +18,33 @@ class DebugScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(t.common.debug.title),
       ),
-      body: const Padding(
-        padding: EdgeInsets.symmetric(vertical: 16),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16),
         child: Column(
           spacing: 16,
           children: [
-            _TransitionArea(),
-            _TalkerArea(),
-            _LogoutArea(),
+            const _TransitionArea(),
+            const _TalkerArea(),
+            const _LogoutArea(),
+            Consumer(
+              builder: (context, ref, child) {
+                final user = ref.watch(authProvider);
+                final userId = user.value?.id;
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  spacing: 8,
+                  children: [
+                    Text('UserID: ${userId ?? 'Not authenticated'}'),
+                    IconButton(
+                      icon: const Icon(Icons.copy),
+                      onPressed: () => Clipboard.setData(
+                        ClipboardData(text: userId ?? 'Not authenticated'),
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
           ],
         ),
       ),
@@ -182,7 +202,7 @@ class _LogoutArea extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final t = Translations.of(context);
-    final authNotifier = ref.watch(authNotifierProvider.notifier);
+    final authNotifier = ref.watch(authProvider.notifier);
     return FilledButton(
       onPressed: () async => authNotifier.signOut(),
       child: Text(t.account.logout),

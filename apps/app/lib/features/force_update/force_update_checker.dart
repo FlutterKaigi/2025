@@ -1,3 +1,4 @@
+import 'package:app/core/api/api_exception.dart';
 import 'package:bff_client/bff_client.dart';
 import 'package:flutter/material.dart';
 import 'package:pub_semver/pub_semver.dart';
@@ -9,7 +10,9 @@ class ForceUpdateChecker {
 
   Future<AppVersionResponse?> checkVersion() async {
     try {
-      final response = await _client.v1.appVersion.checkVersion();
+      final response = await ApiException.transform(
+        () => _client.v1.appVersion.checkVersion(),
+      );
       return response.data;
     } on Exception catch (e) {
       debugPrint('Version check failed: $e');

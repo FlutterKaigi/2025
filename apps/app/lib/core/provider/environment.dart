@@ -14,23 +14,42 @@ abstract class Environment with _$Environment {
   const factory Environment({
     required String appIdSuffix,
     required String appName,
-    required String flavor,
+    required Flavor flavor,
     required String supabaseUrl,
     required String supabaseKey,
     required String bffBaseUrl,
     required String withdrawalFormUrl,
+    String? commitInformation,
   }) = _Environment;
 
-  factory Environment.fromEnvironment() => const Environment(
-    appIdSuffix: String.fromEnvironment('APP_ID_SUFFIX'),
-    appName: String.fromEnvironment('APP_NAME'),
-    flavor: String.fromEnvironment('FLAVOR'),
-    supabaseUrl: String.fromEnvironment('SUPABASE_URL'),
-    supabaseKey: String.fromEnvironment('SUPABASE_KEY'),
-    bffBaseUrl: String.fromEnvironment('BFF_BASE_URL'),
-    withdrawalFormUrl: String.fromEnvironment('WITHDRAWAL_FORM_URL'),
+  factory Environment.fromEnvironment() => Environment(
+    appIdSuffix: const String.fromEnvironment('APP_ID_SUFFIX'),
+    appName: const String.fromEnvironment('APP_NAME'),
+    flavor: Flavor.values.firstWhere(
+      (e) => e.shortName == const String.fromEnvironment('FLAVOR'),
+    ),
+    supabaseUrl: const String.fromEnvironment('SUPABASE_URL'),
+    supabaseKey: const String.fromEnvironment('SUPABASE_KEY'),
+    bffBaseUrl: const String.fromEnvironment('BFF_BASE_URL'),
+    withdrawalFormUrl: const String.fromEnvironment('WITHDRAWAL_FORM_URL'),
+    commitInformation: () {
+      const text = String.fromEnvironment('COMMIT_INFORMATION');
+      if (text.isEmpty) {
+        return null;
+      }
+      return text;
+    }(),
   );
 
   factory Environment.fromJson(Map<String, dynamic> json) =>
       _$EnvironmentFromJson(json);
+}
+
+enum Flavor {
+  production('prod'),
+  staging('stg'),
+  develop('dev');
+
+  const Flavor(this.shortName);
+  final String shortName;
 }

@@ -11,7 +11,7 @@ part 'bff_authorization_header_interceptor.g.dart';
 BffAuthorizationHeaderInterceptor bffAuthorizationHeaderInterceptor(Ref ref) {
   return BffAuthorizationHeaderInterceptor(
     getAccessToken: () async =>
-        ref.read(authNotifierProvider.notifier).getAccessToken(),
+        ref.read(authProvider.notifier).getAccessToken(),
   );
 }
 

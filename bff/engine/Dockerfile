@@ -30,7 +30,7 @@ ENV PATH="~/.local/flutter/bin:$PATH"
 
 COPY --chown=builder:builder . .
 
-RUN dart pub get
+RUN dart pub get --enforce-lockfile
 
 # Build the application
 RUN cd bff/engine && \

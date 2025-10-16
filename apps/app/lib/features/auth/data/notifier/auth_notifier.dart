@@ -1,5 +1,6 @@
 import 'package:app/core/provider/environment.dart';
 import 'package:app/features/auth/data/provider/auth_service.dart';
+import 'package:app/features/auth/data/provider/google_auth_client_id.dart';
 import 'package:auth_client/auth_client.dart';
 import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -8,43 +9,39 @@ part 'auth_notifier.g.dart';
 
 @Riverpod(keepAlive: true)
 class AuthNotifier extends _$AuthNotifier {
-  bool _isExplicitSignOut = false;
-
   @override
   Stream<User?> build() async* {
     final authService = ref.watch(authServiceProvider);
-
-    // 初期化時に未認証の場合で、明示的なログアウト状態でなければ自動的にゲストログインを実行
-    final currentUser = authService.currentUser;
-    if (currentUser == null && !_isExplicitSignOut) {
-      final user = await authService.signInAnonymously();
-      yield user;
-    } else if (_isExplicitSignOut) {
-      yield null;
-    } else {
-      yield currentUser;
-    }
+    yield authService.currentUser;
 
     // Supabaseの認証状態変更を継続的に監視
-    await for (final event in authService.authStateChangeStream()) {
-      if (_isExplicitSignOut && event != AuthStateEvent.signedOut) {
-        // 明示的ログアウト状態の場合は、ログアウトイベント以外は無視
-        continue;
-      }
+    await for (final _ in authService.authStateChangeStream()) {
       yield authService.currentUser;
     }
   }
+
+  AuthenticationPlatform get platform => kIsWeb
+      ? AuthenticationPlatform.web
+      : switch (defaultTargetPlatform) {
+          TargetPlatform.android => AuthenticationPlatform.android,
+          TargetPlatform.iOS => AuthenticationPlatform.ios,
+          TargetPlatform.macOS => AuthenticationPlatform.ios,
+          _ => throw UnimplementedError(
+            'Unsupported platform: $defaultTargetPlatform',
+          ),
+        };
 
   Future<User?> signInWithGoogle() async {
     final environment = ref.read(environmentProvider);
     final redirectTo = _getRedirectTo(environment);
     return ref
         .read(authServiceProvider)
-        .signInWithGoogle(redirectTo: redirectTo);
-  }
-
-  Future<User?> signInAnonymously() async {
-    return ref.read(authServiceProvider).signInAnonymously();
+        .signInWithGoogle(
+          redirectTo: redirectTo,
+          platform: platform,
+          webClientId: ref.watch(googleAuthWebClientIdProvider),
+          platformClientId: ref.watch(googleAuthClientIdProvider),
+        );
   }
 
   Future<void> linkAnonymousUserWithGoogle() async {
@@ -52,35 +49,27 @@ class AuthNotifier extends _$AuthNotifier {
     final redirectTo = _getRedirectTo(environment);
     await ref
         .read(authServiceProvider)
-        .linkAnonymousUserWithGoogle(redirectTo: redirectTo);
+        .linkAnonymousUserWithGoogle(
+          platform: platform,
+          webClientId: ref.watch(googleAuthWebClientIdProvider),
+          platformClientId: ref.watch(googleAuthClientIdProvider),
+          redirectTo: redirectTo,
+        );
   }
 
   Future<void> signOut() async {
-    _isExplicitSignOut = true;
     await ref.read(authServiceProvider).signOut();
-    // 明示的なログアウト状態をリセット（次回の初期化で自動ログインできるように）
-    // ログイン画面でユーザーが操作するまで待つため、少し長めの遅延
-    Future.delayed(const Duration(seconds: 1), () {
-      _isExplicitSignOut = false;
-    });
   }
 
   Future<String?> getAccessToken() async {
     final authService = ref.read(authServiceProvider);
     final session = authService.currentSession;
     if (session == null) {
-      // セッションがない場合は自動的にゲストログイン
-      final user = await authService.signInAnonymously();
-      if (user != null) {
-        // ゲストログイン後、セッションを取得
-        final newSession = authService.currentSession;
-        return newSession?.accessToken;
-      }
       return null;
     }
+    final currentUser = authService.currentUser;
     final isExpired = session.isExpired;
     if (isExpired) {
-      final currentUser = authService.currentUser;
       // Google認証のセッション切れの場合
       if (currentUser != null && !currentUser.isAnonymous) {
         // セッション切れエラーとしてnullを返す（後続処理でログイン画面へ遷移）

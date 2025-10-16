@@ -8,6 +8,9 @@ part of 'bff_authorization_header_interceptor.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(bffAuthorizationHeaderInterceptor)
 const bffAuthorizationHeaderInterceptorProvider =
     BffAuthorizationHeaderInterceptorProvider._();
@@ -58,7 +61,4 @@ final class BffAuthorizationHeaderInterceptorProvider
 }
 
 String _$bffAuthorizationHeaderInterceptorHash() =>
-    r'7155669ed7f09d3c825a4fde445106f4669a9e33';
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+    r'5fd5013a9d480fb9e51f83ddf0e5dfb109e771df';

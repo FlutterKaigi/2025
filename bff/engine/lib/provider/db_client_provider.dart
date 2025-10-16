@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:db_client/db_client.dart';
 import 'package:engine/provider/environments_provider.dart';
@@ -17,11 +18,14 @@ Future<DbClient> dbClient(Ref ref) async {
     disableSsl: env.isLocal,
   );
 
-  // 1秒おきにデータベースが接続できているか確認
+  // 30秒おきにping
   final timer = Timer.periodic(
-    const Duration(seconds: 1),
+    const Duration(seconds: 30),
     (timer) async {
-      if (!db.isOpen) {
+      try {
+        await db.ping.ping();
+      } on Exception catch (e) {
+        log(e.toString());
         ref.invalidateSelf();
       }
     },

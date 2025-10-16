@@ -1,0 +1,21 @@
+{
+  "name": "wallet-api",
+  "type": "module",
+  "scripts": {
+    "format": "biome check --write .",
+    "check-types": "tsc --noEmit",
+    "deploy": "wrangler deploy --minify",
+    "dev": "wrangler dev",
+    "cf-typegen": "wrangler types --env-interface CloudflareBindings"
+  },
+  "dependencies": {
+    "@biomejs/biome": "^2.2.6",
+    "@hono/valibot-validator": "^0.5.3",
+    "hono": "^4.9.12",
+    "passkit-generator": "3.4.0",
+    "valibot": "^1.1.0"
+  },
+  "devDependencies": {
+    "wrangler": "^4.43.0"
+  }
+}

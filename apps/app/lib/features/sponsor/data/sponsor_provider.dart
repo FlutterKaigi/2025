@@ -1,3 +1,4 @@
+import 'package:app/core/api/api_exception.dart';
 import 'package:app/core/provider/bff_client.dart';
 import 'package:app/features/sponsor/data/sponsor.dart';
 import 'package:db_types/db_types.dart';
@@ -8,7 +9,9 @@ part 'sponsor_provider.g.dart';
 @riverpod
 Future<List<Sponsor>> sponsors(Ref ref) async {
   final bffClient = ref.watch(bffClientProvider);
-  final sponsorSummary = await bffClient.v1.sponsors.getSponsors();
+  final sponsorSummary = await ApiException.transform(
+    () => bffClient.v1.sponsors.getSponsors(),
+  );
 
   final sponsors = <Sponsor>[];
 

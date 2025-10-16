@@ -1,7 +1,12 @@
 import java.util.Base64
+import java.util.Properties
+import java.io.FileInputStream
 
 plugins {
     id("com.android.application")
+    // START: FlutterFire Configuration
+    id("com.google.gms.google-services")
+    // END: FlutterFire Configuration
     id("kotlin-android")
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
@@ -20,36 +25,79 @@ if (project.hasProperty("dart-defines")) {
   }
 }
 
+val keystorePropertiesFile = rootProject.file("key.properties")
+val keystoreProperties = Properties()
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+}
+
+// flavorに応じて、google-services.json をコピー
+val flavor = dartDefines["FLAVOR"]
+when (flavor) {
+    "prod" -> {
+        copy {
+            from("../../environments/android/production.json")
+            into(".")
+            rename { "google-services.json" }
+        }
+    }
+    "stg", "dev" -> {
+        copy {
+            from("../../environments/android/staging.json")
+            into(".")
+            rename { "google-services.json" }
+        }
+    }
+    else -> {
+        throw IllegalArgumentException("FLAVOR is not set: $flavor")
+    }
+}
+
 android {
     namespace = "jp.flutterkaigi.conf2025"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11.toString()
+        jvmTarget = "1.8"
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "jp.flutterkaigi.conf2025"
+        dartDefines["APP_ID_SUFFIX"]?.let {
+            applicationIdSuffix = it
+        }
         manifestPlaceholders["appLabel"] = dartDefines["APP_NAME"] ?: "FlutterKaigi 2025"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
     }
 
+    signingConfigs {
+        create("release") {
+            keyAlias = keystoreProperties["keyAlias"] as String?
+            keyPassword = keystoreProperties["keyPassword"] as String?
+            storeFile = (keystoreProperties["storeFile"] as String?)?.let { file(it) }
+            storePassword = keystoreProperties["storePassword"] as String?
+        }
+    }
+
+
     buildTypes {
-        release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
+        getByName("release") {
+            signingConfig = signingConfigs.getByName("release")
+            isMinifyEnabled = true
+            isShrinkResources = true
+            multiDexEnabled = true
+            resValue("string", "app_name", "EQMonitor")
+        }
+        getByName("debug") {
             signingConfig = signingConfigs.getByName("debug")
         }
     }

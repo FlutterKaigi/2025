@@ -1,5 +1,5 @@
 resource "sakuracloud_apprun_application" "flutterkaigi-2025-bff" {
-  name            = "flutterkaigi-2025-bff-${var.env}"
+  name            = "flutterkaigi-2025-${var.env}"
   timeout_seconds = 20
   port            = 8080
   max_scale       = var.app_run_max_scale
@@ -7,7 +7,7 @@ resource "sakuracloud_apprun_application" "flutterkaigi-2025-bff" {
   components {
     max_cpu    = "1"
     max_memory = "1Gi"
-    name       = "bff-${var.env}"
+    name       = "${var.env}"
     deploy_source {
       container_registry {
         image    = "${var.container_registry_fqdn}/bff:latest"
