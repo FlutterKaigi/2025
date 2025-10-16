@@ -63,9 +63,6 @@ app.get("/pass.pkpass", vValidator("query", PassQuerySchema), async (c) => {
   const profile = await db.query.profiles.findFirst({
     where: eq(profiles.id, user.id),
   });
-  if (profile === undefined) {
-    return c.json({ code: "NOT_FOUND", message: "Profile Not found" }, 404);
-  }
 
   const pass = new PKPass(
     {
@@ -144,7 +141,7 @@ app.get("/pass.pkpass", vValidator("query", PassQuerySchema), async (c) => {
     ...[
       {
         key: "name",
-        value: profile.name,
+        value: profile?.name ?? "N/A",
         label: "NAME",
       },
       {
