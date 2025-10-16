@@ -20,6 +20,7 @@ FlutterKaigi 2025アプリのプッシュ通知とLive Activity機能のため�
 **PRIMARY KEY**: `(user_id, id)`
 
 **注意点**:
+
 - デバイスIDはクライアント側で生成したユニークIDをSHA-256でハッシュ化して保存
 - 1ユーザーが複数デバイスを持つことを想定
 - デバイスタイプはenum型で管理し、型安全性を確保
@@ -39,11 +40,13 @@ iOS向けAPNs (Apple Push Notification service) トークンを管理。
 **PRIMARY KEY**: `(device_id, token_type)`
 
 **トークン種別**:
+
 - `push`: 通常のプッシュ通知用デバイストークン
 - `voip`: VoIP通知用トークン（将来的な拡張用）
 - `live_activity`: Live Activity更新用トークン
 
 **注意点**:
+
 - ActivityKitでは、Live Activityごとに一時的なpush tokenが発行される
 - 本設計では、アプリ全体で1つのLive Activity運用を想定し、デバイスごとに1つのLive Activityトークンを管理
 - 複数のLive Activityを同時運用する場合は、別途`live_activities`テーブルを作成して管理することを推奨
@@ -61,6 +64,7 @@ Android/Web向けFCM (Firebase Cloud Messaging) トークンを管理。
 | updated_at | TIMESTAMP | NOT NULL DEFAULT now() | 更新日時 |
 
 **注意点**:
+
 - FCMでは単一のトークンで全ての通知タイプに対応
 - `updated_at`はトークン更新時に自動更新
 - トークンは定期的に再発行される可能性があるため、更新処理が必要
