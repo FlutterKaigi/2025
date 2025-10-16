@@ -17,3 +17,6 @@ targets:
       flutter_gen_runner:
         options:
           output: lib/core/gen/assets/
+          integrations:
+            image: true
+            flutter_svg: true

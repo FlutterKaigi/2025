@@ -21,7 +21,7 @@ class SponsorListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: _SponsorList(),
+      body: SafeArea(child: _SponsorList()),
     );
   }
 }
@@ -103,10 +103,8 @@ class _SponsorList extends ConsumerWidget {
               sliver: _buildSponsorList('Individual', individualSponsors),
             ),
         ];
-        return Scaffold(
-          body: CustomScrollView(
-            slivers: slivers,
-          ),
+        return CustomScrollView(
+          slivers: slivers,
         );
       }(),
       AsyncLoading() => const Center(

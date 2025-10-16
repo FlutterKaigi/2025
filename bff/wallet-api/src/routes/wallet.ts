@@ -1,12 +1,72 @@
 import { env } from "cloudflare:workers";
+import { and, eq, getDatabase } from "@2025/database";
+import { vValidator } from "@hono/valibot-validator";
 import { Hono } from "hono";
 import { type Barcode, PKPass } from "passkit-generator";
+import * as v from "valibot";
+import {
+  profiles,
+  ticketPurchases,
+  usersInAuth,
+} from "../../../database/drizzle/schema";
 import background from "../../assets/background.png";
 import icon from "../../assets/icon.png";
 
 const app = new Hono();
 
-app.get("/pass.pkpass", async (c) => {
+const PassQuerySchema = v.object({
+  id: v.pipe(v.string(), v.uuid()),
+});
+
+app.get("/pass.pkpass", vValidator("query", PassQuerySchema), async (c) => {
+  const { id } = c.req.valid("query");
+
+  const connectingIp = c.req.header("cf-connecting-ip");
+  if (connectingIp === undefined) {
+    return c.json({ code: "UNAUTHORIZED", message: "Unauthorized" }, 401);
+  }
+  const { success: isAccepted } = await env.RATE_LIMITER.limit({
+    key: connectingIp,
+  });
+  if (!isAccepted) {
+    return c.json(
+      { code: "RATE_LIMIT_EXCEEDED", message: "Rate limit exceeded" },
+      429
+    );
+  }
+
+  const db = await getDatabase(env.HYPERDRIVE.connectionString);
+  const ticketPurchasesResponse = await db.query.ticketPurchases.findFirst({
+    where: eq(ticketPurchases.id, id),
+    with: {
+      ticketPurchaseOptions: true,
+      ticketType: true,
+      user: true,
+    },
+  });
+  if (
+    ticketPurchasesResponse === undefined ||
+    ticketPurchasesResponse.ticketType.isEntryAllowed === false
+  ) {
+    return c.json(
+      { code: "NOT_FOUND", message: "Ticket Purchase Not found" },
+      404
+    );
+  }
+
+  const user = await db.query.usersInAuth.findFirst({
+    where: eq(usersInAuth.id, ticketPurchasesResponse.userId),
+  });
+  if (user === undefined) {
+    return c.json({ code: "NOT_FOUND", message: "User Not found" }, 404);
+  }
+  const profile = await db.query.profiles.findFirst({
+    where: eq(profiles.id, user.id),
+  });
+  if (profile === undefined) {
+    return c.json({ code: "NOT_FOUND", message: "Profile Not found" }, 404);
+  }
+
   const pass = new PKPass(
     {
       "strip@3x.png": Buffer.from(background),
@@ -24,7 +84,7 @@ app.get("/pass.pkpass", async (c) => {
       organizationName: "FlutterKaigi 2025",
       passTypeIdentifier: "pass.jp.flutterkaigi.conf2025",
       teamIdentifier: "6JT949BA2M",
-      serialNumber: "asdf",
+      serialNumber: ticketPurchasesResponse.id,
       contactVenueWebsite: "https://flutterkaigi.jp",
       backgroundColor: "rgb(255,255,255)",
       foregroundColor: "rgb(0,0,0)",
@@ -59,13 +119,7 @@ app.get("/pass.pkpass", async (c) => {
     relevantText: "大手町プレイス ホール&カンファレンス",
   });
 
-  let type: string;
-  switch ("general") {
-    case "general": {
-      type = "ATTENDEE";
-      break;
-    }
-  }
+  const type: string = ticketPurchasesResponse.ticketTypeId.toUpperCase();
 
   pass.headerFields.push({
     key: "type",
@@ -90,12 +144,12 @@ app.get("/pass.pkpass", async (c) => {
     ...[
       {
         key: "name",
-        value: "Temporary Name",
+        value: profile.name,
         label: "NAME",
       },
       {
         key: "section",
-        value: "X-00",
+        value: ticketPurchasesResponse.nameplateId ?? "Z-00",
         label: "ネームプレート 区画ID",
       },
     ]
@@ -105,22 +159,25 @@ app.get("/pass.pkpass", async (c) => {
       {
         key: "section-id",
         label: "ネームプレート 区画ID",
-        value: "X-00",
+        value: ticketPurchasesResponse.nameplateId ?? "Z-00",
       },
       {
         key: "user-id",
         label: "ユーザID",
-        value: "UnknownUserID",
+        value: user.id,
       },
       {
         key: "ticket-id",
         label: "チケットID",
-        value: "UnknownTicketID",
+        value: ticketPurchasesResponse.id,
       },
       {
         key: "payment-id",
         label: "決済ID",
-        value: "UnknownPaymentID",
+        value:
+          ticketPurchasesResponse.stripePaymentIntentId === ""
+            ? "N/A"
+            : ticketPurchasesResponse.stripePaymentIntentId ?? "N/A",
       },
     ]
   );
@@ -130,8 +187,8 @@ app.get("/pass.pkpass", async (c) => {
       {
         format: "PKBarcodeFormatQR",
         // Ticket ID
-        message: "UnknownTicketID",
-        altText: `T-UnknownTicketID`,
+        message: ticketPurchasesResponse.id,
+        altText: `T-${ticketPurchasesResponse.id}`,
       } satisfies Barcode,
     ]
   );
