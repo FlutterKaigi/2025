@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Environment {
 
- String get appIdSuffix; String get appName; Flavor get flavor; String get supabaseUrl; String get supabaseKey; String get bffBaseUrl; String get withdrawalFormUrl; String? get commitInformation;
+ String get appIdSuffix; String get appName; Flavor get flavor; String get supabaseUrl; String get supabaseKey; String get bffBaseUrl; String get ticketApiBaseUrl; String get withdrawalFormUrl; String? get commitInformation;
 /// Create a copy of Environment
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $EnvironmentCopyWith<Environment> get copyWith => _$EnvironmentCopyWithImpl<Envi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Environment&&(identical(other.appIdSuffix, appIdSuffix) || other.appIdSuffix == appIdSuffix)&&(identical(other.appName, appName) || other.appName == appName)&&(identical(other.flavor, flavor) || other.flavor == flavor)&&(identical(other.supabaseUrl, supabaseUrl) || other.supabaseUrl == supabaseUrl)&&(identical(other.supabaseKey, supabaseKey) || other.supabaseKey == supabaseKey)&&(identical(other.bffBaseUrl, bffBaseUrl) || other.bffBaseUrl == bffBaseUrl)&&(identical(other.withdrawalFormUrl, withdrawalFormUrl) || other.withdrawalFormUrl == withdrawalFormUrl)&&(identical(other.commitInformation, commitInformation) || other.commitInformation == commitInformation));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Environment&&(identical(other.appIdSuffix, appIdSuffix) || other.appIdSuffix == appIdSuffix)&&(identical(other.appName, appName) || other.appName == appName)&&(identical(other.flavor, flavor) || other.flavor == flavor)&&(identical(other.supabaseUrl, supabaseUrl) || other.supabaseUrl == supabaseUrl)&&(identical(other.supabaseKey, supabaseKey) || other.supabaseKey == supabaseKey)&&(identical(other.bffBaseUrl, bffBaseUrl) || other.bffBaseUrl == bffBaseUrl)&&(identical(other.ticketApiBaseUrl, ticketApiBaseUrl) || other.ticketApiBaseUrl == ticketApiBaseUrl)&&(identical(other.withdrawalFormUrl, withdrawalFormUrl) || other.withdrawalFormUrl == withdrawalFormUrl)&&(identical(other.commitInformation, commitInformation) || other.commitInformation == commitInformation));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,appIdSuffix,appName,flavor,supabaseUrl,supabaseKey,bffBaseUrl,withdrawalFormUrl,commitInformation);
+int get hashCode => Object.hash(runtimeType,appIdSuffix,appName,flavor,supabaseUrl,supabaseKey,bffBaseUrl,ticketApiBaseUrl,withdrawalFormUrl,commitInformation);
 
 @override
 String toString() {
-  return 'Environment(appIdSuffix: $appIdSuffix, appName: $appName, flavor: $flavor, supabaseUrl: $supabaseUrl, supabaseKey: $supabaseKey, bffBaseUrl: $bffBaseUrl, withdrawalFormUrl: $withdrawalFormUrl, commitInformation: $commitInformation)';
+  return 'Environment(appIdSuffix: $appIdSuffix, appName: $appName, flavor: $flavor, supabaseUrl: $supabaseUrl, supabaseKey: $supabaseKey, bffBaseUrl: $bffBaseUrl, ticketApiBaseUrl: $ticketApiBaseUrl, withdrawalFormUrl: $withdrawalFormUrl, commitInformation: $commitInformation)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $EnvironmentCopyWith<$Res>  {
   factory $EnvironmentCopyWith(Environment value, $Res Function(Environment) _then) = _$EnvironmentCopyWithImpl;
 @useResult
 $Res call({
- String appIdSuffix, String appName, Flavor flavor, String supabaseUrl, String supabaseKey, String bffBaseUrl, String withdrawalFormUrl, String? commitInformation
+ String appIdSuffix, String appName, Flavor flavor, String supabaseUrl, String supabaseKey, String bffBaseUrl, String ticketApiBaseUrl, String withdrawalFormUrl, String? commitInformation
 });
 
 
@@ -65,7 +65,7 @@ class _$EnvironmentCopyWithImpl<$Res>
 
 /// Create a copy of Environment
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? appIdSuffix = null,Object? appName = null,Object? flavor = null,Object? supabaseUrl = null,Object? supabaseKey = null,Object? bffBaseUrl = null,Object? withdrawalFormUrl = null,Object? commitInformation = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? appIdSuffix = null,Object? appName = null,Object? flavor = null,Object? supabaseUrl = null,Object? supabaseKey = null,Object? bffBaseUrl = null,Object? ticketApiBaseUrl = null,Object? withdrawalFormUrl = null,Object? commitInformation = freezed,}) {
   return _then(_self.copyWith(
 appIdSuffix: null == appIdSuffix ? _self.appIdSuffix : appIdSuffix // ignore: cast_nullable_to_non_nullable
 as String,appName: null == appName ? _self.appName : appName // ignore: cast_nullable_to_non_nullable
@@ -73,6 +73,7 @@ as String,flavor: null == flavor ? _self.flavor : flavor // ignore: cast_nullabl
 as Flavor,supabaseUrl: null == supabaseUrl ? _self.supabaseUrl : supabaseUrl // ignore: cast_nullable_to_non_nullable
 as String,supabaseKey: null == supabaseKey ? _self.supabaseKey : supabaseKey // ignore: cast_nullable_to_non_nullable
 as String,bffBaseUrl: null == bffBaseUrl ? _self.bffBaseUrl : bffBaseUrl // ignore: cast_nullable_to_non_nullable
+as String,ticketApiBaseUrl: null == ticketApiBaseUrl ? _self.ticketApiBaseUrl : ticketApiBaseUrl // ignore: cast_nullable_to_non_nullable
 as String,withdrawalFormUrl: null == withdrawalFormUrl ? _self.withdrawalFormUrl : withdrawalFormUrl // ignore: cast_nullable_to_non_nullable
 as String,commitInformation: freezed == commitInformation ? _self.commitInformation : commitInformation // ignore: cast_nullable_to_non_nullable
 as String?,
@@ -160,10 +161,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String appIdSuffix,  String appName,  Flavor flavor,  String supabaseUrl,  String supabaseKey,  String bffBaseUrl,  String withdrawalFormUrl,  String? commitInformation)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String appIdSuffix,  String appName,  Flavor flavor,  String supabaseUrl,  String supabaseKey,  String bffBaseUrl,  String ticketApiBaseUrl,  String withdrawalFormUrl,  String? commitInformation)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Environment() when $default != null:
-return $default(_that.appIdSuffix,_that.appName,_that.flavor,_that.supabaseUrl,_that.supabaseKey,_that.bffBaseUrl,_that.withdrawalFormUrl,_that.commitInformation);case _:
+return $default(_that.appIdSuffix,_that.appName,_that.flavor,_that.supabaseUrl,_that.supabaseKey,_that.bffBaseUrl,_that.ticketApiBaseUrl,_that.withdrawalFormUrl,_that.commitInformation);case _:
   return orElse();
 
 }
@@ -181,10 +182,10 @@ return $default(_that.appIdSuffix,_that.appName,_that.flavor,_that.supabaseUrl,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String appIdSuffix,  String appName,  Flavor flavor,  String supabaseUrl,  String supabaseKey,  String bffBaseUrl,  String withdrawalFormUrl,  String? commitInformation)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String appIdSuffix,  String appName,  Flavor flavor,  String supabaseUrl,  String supabaseKey,  String bffBaseUrl,  String ticketApiBaseUrl,  String withdrawalFormUrl,  String? commitInformation)  $default,) {final _that = this;
 switch (_that) {
 case _Environment():
-return $default(_that.appIdSuffix,_that.appName,_that.flavor,_that.supabaseUrl,_that.supabaseKey,_that.bffBaseUrl,_that.withdrawalFormUrl,_that.commitInformation);case _:
+return $default(_that.appIdSuffix,_that.appName,_that.flavor,_that.supabaseUrl,_that.supabaseKey,_that.bffBaseUrl,_that.ticketApiBaseUrl,_that.withdrawalFormUrl,_that.commitInformation);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -201,10 +202,10 @@ return $default(_that.appIdSuffix,_that.appName,_that.flavor,_that.supabaseUrl,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String appIdSuffix,  String appName,  Flavor flavor,  String supabaseUrl,  String supabaseKey,  String bffBaseUrl,  String withdrawalFormUrl,  String? commitInformation)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String appIdSuffix,  String appName,  Flavor flavor,  String supabaseUrl,  String supabaseKey,  String bffBaseUrl,  String ticketApiBaseUrl,  String withdrawalFormUrl,  String? commitInformation)?  $default,) {final _that = this;
 switch (_that) {
 case _Environment() when $default != null:
-return $default(_that.appIdSuffix,_that.appName,_that.flavor,_that.supabaseUrl,_that.supabaseKey,_that.bffBaseUrl,_that.withdrawalFormUrl,_that.commitInformation);case _:
+return $default(_that.appIdSuffix,_that.appName,_that.flavor,_that.supabaseUrl,_that.supabaseKey,_that.bffBaseUrl,_that.ticketApiBaseUrl,_that.withdrawalFormUrl,_that.commitInformation);case _:
   return null;
 
 }
@@ -216,7 +217,7 @@ return $default(_that.appIdSuffix,_that.appName,_that.flavor,_that.supabaseUrl,_
 @JsonSerializable()
 
 class _Environment implements Environment {
-  const _Environment({required this.appIdSuffix, required this.appName, required this.flavor, required this.supabaseUrl, required this.supabaseKey, required this.bffBaseUrl, required this.withdrawalFormUrl, this.commitInformation});
+  const _Environment({required this.appIdSuffix, required this.appName, required this.flavor, required this.supabaseUrl, required this.supabaseKey, required this.bffBaseUrl, required this.ticketApiBaseUrl, required this.withdrawalFormUrl, this.commitInformation});
   factory _Environment.fromJson(Map<String, dynamic> json) => _$EnvironmentFromJson(json);
 
 @override final  String appIdSuffix;
@@ -225,6 +226,7 @@ class _Environment implements Environment {
 @override final  String supabaseUrl;
 @override final  String supabaseKey;
 @override final  String bffBaseUrl;
+@override final  String ticketApiBaseUrl;
 @override final  String withdrawalFormUrl;
 @override final  String? commitInformation;
 
@@ -241,16 +243,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Environment&&(identical(other.appIdSuffix, appIdSuffix) || other.appIdSuffix == appIdSuffix)&&(identical(other.appName, appName) || other.appName == appName)&&(identical(other.flavor, flavor) || other.flavor == flavor)&&(identical(other.supabaseUrl, supabaseUrl) || other.supabaseUrl == supabaseUrl)&&(identical(other.supabaseKey, supabaseKey) || other.supabaseKey == supabaseKey)&&(identical(other.bffBaseUrl, bffBaseUrl) || other.bffBaseUrl == bffBaseUrl)&&(identical(other.withdrawalFormUrl, withdrawalFormUrl) || other.withdrawalFormUrl == withdrawalFormUrl)&&(identical(other.commitInformation, commitInformation) || other.commitInformation == commitInformation));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Environment&&(identical(other.appIdSuffix, appIdSuffix) || other.appIdSuffix == appIdSuffix)&&(identical(other.appName, appName) || other.appName == appName)&&(identical(other.flavor, flavor) || other.flavor == flavor)&&(identical(other.supabaseUrl, supabaseUrl) || other.supabaseUrl == supabaseUrl)&&(identical(other.supabaseKey, supabaseKey) || other.supabaseKey == supabaseKey)&&(identical(other.bffBaseUrl, bffBaseUrl) || other.bffBaseUrl == bffBaseUrl)&&(identical(other.ticketApiBaseUrl, ticketApiBaseUrl) || other.ticketApiBaseUrl == ticketApiBaseUrl)&&(identical(other.withdrawalFormUrl, withdrawalFormUrl) || other.withdrawalFormUrl == withdrawalFormUrl)&&(identical(other.commitInformation, commitInformation) || other.commitInformation == commitInformation));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,appIdSuffix,appName,flavor,supabaseUrl,supabaseKey,bffBaseUrl,withdrawalFormUrl,commitInformation);
+int get hashCode => Object.hash(runtimeType,appIdSuffix,appName,flavor,supabaseUrl,supabaseKey,bffBaseUrl,ticketApiBaseUrl,withdrawalFormUrl,commitInformation);
 
 @override
 String toString() {
-  return 'Environment(appIdSuffix: $appIdSuffix, appName: $appName, flavor: $flavor, supabaseUrl: $supabaseUrl, supabaseKey: $supabaseKey, bffBaseUrl: $bffBaseUrl, withdrawalFormUrl: $withdrawalFormUrl, commitInformation: $commitInformation)';
+  return 'Environment(appIdSuffix: $appIdSuffix, appName: $appName, flavor: $flavor, supabaseUrl: $supabaseUrl, supabaseKey: $supabaseKey, bffBaseUrl: $bffBaseUrl, ticketApiBaseUrl: $ticketApiBaseUrl, withdrawalFormUrl: $withdrawalFormUrl, commitInformation: $commitInformation)';
 }
 
 
@@ -261,7 +263,7 @@ abstract mixin class _$EnvironmentCopyWith<$Res> implements $EnvironmentCopyWith
   factory _$EnvironmentCopyWith(_Environment value, $Res Function(_Environment) _then) = __$EnvironmentCopyWithImpl;
 @override @useResult
 $Res call({
- String appIdSuffix, String appName, Flavor flavor, String supabaseUrl, String supabaseKey, String bffBaseUrl, String withdrawalFormUrl, String? commitInformation
+ String appIdSuffix, String appName, Flavor flavor, String supabaseUrl, String supabaseKey, String bffBaseUrl, String ticketApiBaseUrl, String withdrawalFormUrl, String? commitInformation
 });
 
 
@@ -278,7 +280,7 @@ class __$EnvironmentCopyWithImpl<$Res>
 
 /// Create a copy of Environment
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? appIdSuffix = null,Object? appName = null,Object? flavor = null,Object? supabaseUrl = null,Object? supabaseKey = null,Object? bffBaseUrl = null,Object? withdrawalFormUrl = null,Object? commitInformation = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? appIdSuffix = null,Object? appName = null,Object? flavor = null,Object? supabaseUrl = null,Object? supabaseKey = null,Object? bffBaseUrl = null,Object? ticketApiBaseUrl = null,Object? withdrawalFormUrl = null,Object? commitInformation = freezed,}) {
   return _then(_Environment(
 appIdSuffix: null == appIdSuffix ? _self.appIdSuffix : appIdSuffix // ignore: cast_nullable_to_non_nullable
 as String,appName: null == appName ? _self.appName : appName // ignore: cast_nullable_to_non_nullable
@@ -286,6 +288,7 @@ as String,flavor: null == flavor ? _self.flavor : flavor // ignore: cast_nullabl
 as Flavor,supabaseUrl: null == supabaseUrl ? _self.supabaseUrl : supabaseUrl // ignore: cast_nullable_to_non_nullable
 as String,supabaseKey: null == supabaseKey ? _self.supabaseKey : supabaseKey // ignore: cast_nullable_to_non_nullable
 as String,bffBaseUrl: null == bffBaseUrl ? _self.bffBaseUrl : bffBaseUrl // ignore: cast_nullable_to_non_nullable
+as String,ticketApiBaseUrl: null == ticketApiBaseUrl ? _self.ticketApiBaseUrl : ticketApiBaseUrl // ignore: cast_nullable_to_non_nullable
 as String,withdrawalFormUrl: null == withdrawalFormUrl ? _self.withdrawalFormUrl : withdrawalFormUrl // ignore: cast_nullable_to_non_nullable
 as String,commitInformation: freezed == commitInformation ? _self.commitInformation : commitInformation // ignore: cast_nullable_to_non_nullable
 as String?,

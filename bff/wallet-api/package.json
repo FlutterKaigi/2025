@@ -13,7 +13,8 @@
     "@hono/valibot-validator": "^0.5.3",
     "hono": "^4.9.12",
     "passkit-generator": "3.4.0",
-    "valibot": "^1.1.0"
+    "valibot": "^1.1.0",
+    "@2025/database": "workspace:*"
   },
   "devDependencies": {
     "wrangler": "^4.43.0"
