@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:url_launcher/link.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class TicketQrCard extends HookConsumerWidget {
   const TicketQrCard({required this.item, super.key});
@@ -110,24 +109,27 @@ class _AddToWallet extends ConsumerWidget {
     final environment = ref.watch(environmentProvider);
     final url =
         '${environment.ticketApiBaseUrl}/wallet/pass.pkpass?id=$ticketId';
+    final Widget child;
 
     if (!kIsWeb && Platform.isAndroid) {
-      return InkWell(
-        child: Assets.res.assets.addToGoogleWallet.svg(
-          width: 210,
-        ),
-        onTap: () async =>
-            launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication),
+      child = Assets.res.assets.addToGoogleWallet.svg(
+        width: 210,
+      );
+    } else {
+      child = Assets.res.assets.addToAppleWallet.image(
+        width: 210,
+        fit: BoxFit.contain,
       );
     }
-    return Link(
-      uri: Uri.parse(url),
-      target: LinkTarget.blank,
-      builder: (context, attributes) =>
-          Assets.res.assets.addToAppleWallet.image(
-            width: 210,
-            fit: BoxFit.contain,
-          ),
+
+    return Center(
+      child: Link(
+        uri: Uri.parse(url),
+        builder: (context, open) => GestureDetector(
+          onTap: open,
+          child: child,
+        ),
+      ),
     );
   }
 }
