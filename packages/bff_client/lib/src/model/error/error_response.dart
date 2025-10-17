@@ -46,10 +46,12 @@ enum ErrorCode {
   badRequest('不正なリクエストです', HttpStatus.badRequest),
   proxyError('バックエンドサーバとの通信でエラーが発生しました', HttpStatus.internalServerError),
   rateLimitExceeded('レート制限を超えました', HttpStatus.tooManyRequests),
+  upgradeRequired('Upgrade header is required', HttpStatus.upgradeRequired),
 
   // WARNING(YumNumm): 未知のエラーコードが返ってきた時に利用されます
   // サーバ側からこのエラーコードが返ってくることはありません
-  unknownEnumField('不明なエラーです', -1);
+  unknownEnumField('不明なエラーです', -1)
+  ;
 
   const ErrorCode(this.message, this.statusCode);
 

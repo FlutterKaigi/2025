@@ -35,6 +35,7 @@
     "bff/payment-workflow-internal-api",
     "bff/ticket-sales-reporter",
     "bff/wallet-api",
+    "bff/websocket-api",
     "tools/sponsor-inserter"
   ],
   "trustedDependencies": [
