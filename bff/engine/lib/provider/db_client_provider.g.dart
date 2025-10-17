@@ -8,6 +8,9 @@ part of 'db_client_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(dbClient)
 const dbClientProvider = DbClientProvider._();
 
@@ -40,7 +43,4 @@ final class DbClientProvider
   }
 }
 
-String _$dbClientHash() => r'872002107b4b0bff5e1986a7c415cfa58ef25621';
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+String _$dbClientHash() => r'3bb4332abfce2645a61a6b72410faf8fc73dadb4';

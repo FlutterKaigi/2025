@@ -17,3 +17,16 @@ Future<Response> jsonResponse(
     headers: {HttpHeaders.contentTypeHeader: ContentType.json.value},
   );
 });
+
+Future<Response> jsonResponseList(
+  Future<List<Map<String, dynamic>>> Function() fn, [
+  int statusCode = HttpStatus.ok,
+]) async => exceptionHandler(() async {
+  final result = await fn();
+  return Response(
+    statusCode,
+    body: result,
+    encoding: Encoding.getByName('utf-8'),
+    headers: {HttpHeaders.contentTypeHeader: ContentType.json.value},
+  );
+});

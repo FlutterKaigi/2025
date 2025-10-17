@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:db_client/src/client/db_client.dart';
+import 'package:db_client/src/client/profile/share/profile_share_db_client.dart';
 import 'package:db_types/db_types.dart';
 import 'package:postgres/postgres.dart';
 
@@ -8,6 +9,8 @@ class ProfileDbClient {
   ProfileDbClient({required Executor executor}) : _executor = executor;
 
   final Executor _executor;
+
+  ProfileShareDbClient get share => ProfileShareDbClient(executor: _executor);
 
   /// プロファイル情報とSNSリンクを取得
   Future<ProfileWithSnsLinks?> getProfileWithSnsLinks(String userId) async {

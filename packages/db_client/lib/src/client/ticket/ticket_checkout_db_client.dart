@@ -66,6 +66,7 @@ class TicketCheckoutDbClient {
             'user_id', tp.user_id,
             'ticket_type_id', tp.ticket_type_id,
             'status', tp.status::text,
+            'nameplate_id', tp.nameplate_id,
             'stripe_payment_intent_id', tp.stripe_payment_intent_id,
             'created_at', tp.created_at,
             'updated_at', tp.updated_at

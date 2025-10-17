@@ -7,6 +7,7 @@ import 'package:engine/model/files/file_object_key.dart';
 import 'package:engine/provider/db_client_provider.dart';
 import 'package:engine/provider/internal_api_client_provider.dart';
 import 'package:engine/provider/supabase_util.dart';
+import 'package:engine/routes/profile/profile_share_api_service.dart';
 import 'package:engine/util/exception_handler.dart';
 import 'package:engine/util/json_response.dart';
 import 'package:internal_api_client/internal_api_client.dart';
@@ -16,6 +17,9 @@ import 'package:shelf_router/shelf_router.dart';
 part 'profile_api_service.g.dart';
 
 class ProfileApiService {
+  @Route.mount('/share')
+  Router get _profileShareApiService => ProfileShareApiService().router;
+
   @Route.get('/me')
   Future<Response> _getMyProfile(Request request) async => jsonResponse(
     () async {
