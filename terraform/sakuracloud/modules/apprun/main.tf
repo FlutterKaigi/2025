@@ -110,6 +110,10 @@ resource "sakuracloud_apprun_application" "fcm_internal_api" {
       key   = "NODE_ENV"
       value = "production"
     }
+    env {
+      key = "BUILD_TIMESTAMP"
+      value = timestamp()
+    }
   }
   lifecycle {
     prevent_destroy = true
@@ -171,6 +175,10 @@ resource "sakuracloud_apprun_application" "apns_internal_api" {
     env {
       key   = "LOG_LEVEL"
       value = "info"
+    }
+    env {
+      key = "BUILD_TIMESTAMP"
+      value = timestamp()
     }
   }
   lifecycle {
