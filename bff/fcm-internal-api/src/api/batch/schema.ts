@@ -203,3 +203,5 @@ export type AndroidNotification = v.InferOutput<typeof AndroidNotificationSchema
 export type ApnsConfig = v.InferOutput<typeof ApnsConfigSchema>;
 export type WebpushConfig = v.InferOutput<typeof WebpushConfigSchema>;
 export type FcmOptions = v.InferOutput<typeof FcmOptionsSchema>;
+
+

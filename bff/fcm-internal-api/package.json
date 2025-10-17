@@ -1,6 +1,8 @@
 {
   "name": "@2025/fcm-internal-api",
   "type": "module",
+  "main": "src/index.ts",
+  "exports": "./src/index.ts",
   "scripts": {
     "format": "biome check --write",
     "check-types": "tsc --noEmit",
@@ -8,15 +10,18 @@
     "start": "bun run src/index.ts"
   },
   "dependencies": {
-    "@hono/node-server": "^1.14.0",
+    "@hono/node-server": "^1.19.5",
+    "@hono/standard-validator": "^0.1.5",
     "@hono/valibot-validator": "^0.5.3",
-    "firebase-admin": "^13.0.2",
-    "hono": "^4.8.5",
+    "@scalar/hono-api-reference": "^0.9.22",
+    "firebase-admin": "^13.5.0",
+    "hono": "^4.10.0",
+    "hono-openapi": "^1.1.0",
     "valibot": "^1.1.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.2.3",
-    "@types/bun": "^1.2.19",
-    "typescript": "^5.9.2"
+    "@biomejs/biome": "2.2.6",
+    "@types/bun": "^1.3.0",
+    "typescript": "^5.9.3"
   }
 }

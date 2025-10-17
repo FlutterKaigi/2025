@@ -63,6 +63,10 @@ checksum = "sha256:b4d2b0635a889d40973ccea07bc148709fa51b8baad27d88dacdc9c88431a
 size = 8125487
 url = "https://github.com/stripe/stripe-cli/releases/download/v1.31.0/stripe_1.31.0_mac-os_arm64.tar.gz"
 
+[[tools.swift]]
+version = "6.2"
+backend = "core:swift"
+
 [[tools.terraform]]
 version = "1.13.3"
 backend = "aqua:hashicorp/terraform"

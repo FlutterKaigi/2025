@@ -1,4 +1,3 @@
-import { env } from "cloudflare:workers";
 import { Hono } from "hono";
 import wallet from "./routes/wallet";
 
