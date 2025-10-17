@@ -23,6 +23,7 @@ import {
   oauthClientsInAuth,
   oauthConsentsInAuth,
   oneTimeTokensInAuth,
+  profileShare,
   profiles,
   refreshTokensInAuth,
   samlProvidersInAuth,
@@ -283,26 +284,6 @@ export const companiesRelations = relations(companies, ({ many }) => ({
   companyMembers: many(companyMembers),
 }));
 
-export const deviceApnsLiveActivityTokensRelations = relations(
-  deviceApnsLiveActivityTokens,
-  ({ one }) => ({
-    device: one(devices, {
-      fields: [deviceApnsLiveActivityTokens.deviceId],
-      references: [devices.id],
-    }),
-  })
-);
-
-export const devicesRelations = relations(devices, ({ one, many }) => ({
-  deviceApnsLiveActivityTokens: many(deviceApnsLiveActivityTokens),
-  deviceApnsTokens: many(deviceApnsTokens),
-  deviceFcmTokens: many(deviceFcmTokens),
-  usersInAuth: one(usersInAuth, {
-    fields: [devices.userId],
-    references: [usersInAuth.id],
-  }),
-}));
-
 export const companyDraftApprovalsRelations = relations(
   companyDraftApprovals,
   ({ one }) => ({
@@ -360,6 +341,16 @@ export const deviceApnsTokensRelations = relations(
     }),
   })
 );
+
+export const devicesRelations = relations(devices, ({ one, many }) => ({
+  deviceApnsTokens: many(deviceApnsTokens),
+  deviceFcmTokens: many(deviceFcmTokens),
+  usersInAuth: one(usersInAuth, {
+    fields: [devices.userId],
+    references: [usersInAuth.id],
+  }),
+  deviceApnsLiveActivityTokens: many(deviceApnsLiveActivityTokens),
+}));
 
 export const companyInvitationRelations = relations(
   companyInvitation,
@@ -420,10 +411,16 @@ export const deviceFcmTokensRelations = relations(
   })
 );
 
-export const profilesRelations = relations(profiles, ({ one }) => ({
+export const profilesRelations = relations(profiles, ({ one, many }) => ({
   usersInAuth: one(usersInAuth, {
     fields: [profiles.id],
     references: [usersInAuth.id],
+  }),
+  profileShares_fromId: many(profileShare, {
+    relationName: "profileShare_fromId_profiles_id",
+  }),
+  profileShares_toId: many(profileShare, {
+    relationName: "profileShare_toId_profiles_id",
   }),
 }));
 
@@ -513,6 +510,19 @@ export const oauthConsentsInAuthRelations = relations(
   })
 );
 
+export const profileShareRelations = relations(profileShare, ({ one }) => ({
+  profile_fromId: one(profiles, {
+    fields: [profileShare.fromId],
+    references: [profiles.id],
+    relationName: "profileShare_fromId_profiles_id",
+  }),
+  profile_toId: one(profiles, {
+    fields: [profileShare.toId],
+    references: [profiles.id],
+    relationName: "profileShare_toId_profiles_id",
+  }),
+}));
+
 export const sessionSpeakersRelations = relations(
   sessionSpeakers,
   ({ one }) => ({
@@ -548,3 +558,13 @@ export const companyMembersRelations = relations(companyMembers, ({ one }) => ({
     references: [users.id],
   }),
 }));
+
+export const deviceApnsLiveActivityTokensRelations = relations(
+  deviceApnsLiveActivityTokens,
+  ({ one }) => ({
+    device: one(devices, {
+      fields: [deviceApnsLiveActivityTokens.deviceId],
+      references: [devices.id],
+    }),
+  })
+);
