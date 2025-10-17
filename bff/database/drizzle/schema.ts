@@ -257,18 +257,38 @@ export const usersInAuth = auth.table(
 			withTimezone: true,
 			mode: "string",
 		}),
-		phoneChange: text("phone_change").default(''),
-	phoneChangeToken: varchar("phone_change_token", { length: 255 }).default(''),
-	phoneChangeSentAt: timestamp("phone_change_sent_at", { withTimezone: true, mode: 'string' }),
-	confirmedAt: timestamp("confirmed_at", { withTimezone: true, mode: 'string' }).generatedAlwaysAs(sql`LEAST(email_confirmed_at, phone_confirmed_at)`),
-	emailChangeTokenCurrent: varchar("email_change_token_current", { length: 255 }).default(''),
-	emailChangeConfirmStatus: smallint("email_change_confirm_status").default(0),
-	bannedUntil: timestamp("banned_until", { withTimezone: true, mode: 'string' }),
-	reauthenticationToken: varchar("reauthentication_token", { length: 255 }).default(''),
-	reauthenticationSentAt: timestamp("reauthentication_sent_at", { withTimezone: true, mode: 'string' }),
-	isSsoUser: boolean("is_sso_user").default(false).notNull(),
-	deletedAt: timestamp("deleted_at", { withTimezone: true, mode: 'string' }),
-	isAnonymous: boolean("is_anonymous").default(false).notNull(),
+		phoneChange: text("phone_change").default(""),
+		phoneChangeToken: varchar("phone_change_token", { length: 255 }).default(
+			"",
+		),
+		phoneChangeSentAt: timestamp("phone_change_sent_at", {
+			withTimezone: true,
+			mode: "string",
+		}),
+		confirmedAt: timestamp("confirmed_at", {
+			withTimezone: true,
+			mode: "string",
+		}).generatedAlwaysAs(sql`LEAST(email_confirmed_at, phone_confirmed_at)`),
+		emailChangeTokenCurrent: varchar("email_change_token_current", {
+			length: 255,
+		}).default(""),
+		emailChangeConfirmStatus: smallint("email_change_confirm_status").default(
+			0,
+		),
+		bannedUntil: timestamp("banned_until", {
+			withTimezone: true,
+			mode: "string",
+		}),
+		reauthenticationToken: varchar("reauthentication_token", {
+			length: 255,
+		}).default(""),
+		reauthenticationSentAt: timestamp("reauthentication_sent_at", {
+			withTimezone: true,
+			mode: "string",
+		}),
+		isSsoUser: boolean("is_sso_user").default(false).notNull(),
+		deletedAt: timestamp("deleted_at", { withTimezone: true, mode: "string" }),
+		isAnonymous: boolean("is_anonymous").default(false).notNull(),
 	},
 	(table) => [
 		uniqueIndex("confirmation_token_idx")
@@ -325,7 +345,7 @@ export const auditLogEntriesInAuth = auth.table(
 		id: uuid().notNull(),
 		payload: json(),
 		createdAt: timestamp("created_at", { withTimezone: true, mode: "string" }),
-		ipAddress: varchar("ip_address", { length: 64 }).default('').notNull(),
+		ipAddress: varchar("ip_address", { length: 64 }).default("").notNull(),
 	},
 	(table) => [
 		index("audit_logs_instance_id_idx").using(
@@ -700,16 +720,14 @@ export const sessionsInAuth = auth.table(
 export const stripeWebhookLogs = pgTable(
 	"stripe_webhook_logs",
 	{
-		id: integer()
-			.primaryKey()
-			.generatedAlwaysAsIdentity({
-				name: "stripe_webhook_logs_id_seq",
-				startWith: 1,
-				increment: 1,
-				minValue: 1,
-				maxValue: 2147483647,
-				cache: 1,
-			}),
+		id: integer().primaryKey().generatedAlwaysAsIdentity({
+			name: "stripe_webhook_logs_id_seq",
+			startWith: 1,
+			increment: 1,
+			minValue: 1,
+			maxValue: 2147483647,
+			cache: 1,
+		}),
 		stripeEventId: text("stripe_event_id").notNull(),
 		eventType: text("event_type").notNull(),
 		paymentIntentId: text("payment_intent_id"),
@@ -736,16 +754,14 @@ export const stripeWebhookLogs = pgTable(
 export const companies = pgTable(
 	"companies",
 	{
-		id: smallint()
-			.primaryKey()
-			.generatedAlwaysAsIdentity({
-				name: "companies_id_seq",
-				startWith: 1,
-				increment: 1,
-				minValue: 1,
-				maxValue: 32767,
-				cache: 1,
-			}),
+		id: smallint().primaryKey().generatedAlwaysAsIdentity({
+			name: "companies_id_seq",
+			startWith: 1,
+			increment: 1,
+			minValue: 1,
+			maxValue: 32767,
+			cache: 1,
+		}),
 		createdAt: timestamp("created_at", { mode: "string" })
 			.defaultNow()
 			.notNull(),
@@ -755,7 +771,7 @@ export const companies = pgTable(
 		logoName: text("logo_name").notNull(),
 		name: text().notNull(),
 	},
-	(table) => [
+	() => [
 		check("companies_logo_name_check", sql`logo_name <> ''::text`),
 		check("companies_name_check", sql`name <> ''::text`),
 	],
@@ -916,16 +932,14 @@ export const ticketPurchases = pgTable(
 export const individuals = pgTable(
 	"individuals",
 	{
-		id: integer()
-			.primaryKey()
-			.generatedAlwaysAsIdentity({
-				name: "individuals_id_seq",
-				startWith: 1,
-				increment: 1,
-				minValue: 1,
-				maxValue: 2147483647,
-				cache: 1,
-			}),
+		id: integer().primaryKey().generatedAlwaysAsIdentity({
+			name: "individuals_id_seq",
+			startWith: 1,
+			increment: 1,
+			minValue: 1,
+			maxValue: 2147483647,
+			cache: 1,
+		}),
 		userId: uuid("user_id"),
 		createdAt: timestamp("created_at", { mode: "string" })
 			.defaultNow()
@@ -997,16 +1011,14 @@ export const ticketTypes = pgTable(
 export const companyDraftApprovals = pgTable(
 	"company_draft_approvals",
 	{
-		id: integer()
-			.primaryKey()
-			.generatedAlwaysAsIdentity({
-				name: "company_draft_approvals_id_seq",
-				startWith: 1,
-				increment: 1,
-				minValue: 1,
-				maxValue: 2147483647,
-				cache: 1,
-			}),
+		id: integer().primaryKey().generatedAlwaysAsIdentity({
+			name: "company_draft_approvals_id_seq",
+			startWith: 1,
+			increment: 1,
+			minValue: 1,
+			maxValue: 2147483647,
+			cache: 1,
+		}),
 		companyDraftId: smallint("company_draft_id"),
 		approvedBy: uuid("approved_by"),
 		createdAt: timestamp("created_at", { mode: "string" })
@@ -1030,16 +1042,14 @@ export const companyDraftApprovals = pgTable(
 export const basicSponsorCompanies = pgTable(
 	"basic_sponsor_companies",
 	{
-		id: smallint()
-			.primaryKey()
-			.generatedAlwaysAsIdentity({
-				name: "basic_sponsor_companies_id_seq",
-				startWith: 1,
-				increment: 1,
-				minValue: 1,
-				maxValue: 32767,
-				cache: 1,
-			}),
+		id: smallint().primaryKey().generatedAlwaysAsIdentity({
+			name: "basic_sponsor_companies_id_seq",
+			startWith: 1,
+			increment: 1,
+			minValue: 1,
+			maxValue: 32767,
+			cache: 1,
+		}),
 		sponsorCompanyId: smallint("sponsor_company_id"),
 		basicPlanType: basicPlanType("basic_plan_type").notNull(),
 		createdAt: timestamp("created_at", { mode: "string" })
@@ -1107,16 +1117,14 @@ export const companyInvitation = pgTable(
 );
 
 export const news = pgTable("news", {
-	id: integer()
-		.primaryKey()
-		.generatedAlwaysAsIdentity({
-			name: "news_id_seq",
-			startWith: 1,
-			increment: 1,
-			minValue: 1,
-			maxValue: 2147483647,
-			cache: 1,
-		}),
+	id: integer().primaryKey().generatedAlwaysAsIdentity({
+		name: "news_id_seq",
+		startWith: 1,
+		increment: 1,
+		minValue: 1,
+		maxValue: 2147483647,
+		cache: 1,
+	}),
 	title: text().notNull(),
 	url: text(),
 	startsAt: timestamp("starts_at", { mode: "string" }).notNull(),
@@ -1177,16 +1185,14 @@ export const ticketCheckoutSessions = pgTable(
 export const sponsorCompanies = pgTable(
 	"sponsor_companies",
 	{
-		id: smallint()
-			.primaryKey()
-			.generatedAlwaysAsIdentity({
-				name: "sponsor_companies_id_seq",
-				startWith: 1,
-				increment: 1,
-				minValue: 1,
-				maxValue: 32767,
-				cache: 1,
-			}),
+		id: smallint().primaryKey().generatedAlwaysAsIdentity({
+			name: "sponsor_companies_id_seq",
+			startWith: 1,
+			increment: 1,
+			minValue: 1,
+			maxValue: 32767,
+			cache: 1,
+		}),
 		companyId: smallint("company_id"),
 		sponsorType: companySponsorType("sponsor_type").notNull(),
 		createdAt: timestamp("created_at", { mode: "string" })
@@ -1240,16 +1246,14 @@ export const ticketCheckoutOptions = pgTable(
 export const companyDrafts = pgTable(
 	"company_drafts",
 	{
-		id: smallint()
-			.primaryKey()
-			.generatedAlwaysAsIdentity({
-				name: "company_drafts_id_seq",
-				startWith: 1,
-				increment: 1,
-				minValue: 1,
-				maxValue: 32767,
-				cache: 1,
-			}),
+		id: smallint().primaryKey().generatedAlwaysAsIdentity({
+			name: "company_drafts_id_seq",
+			startWith: 1,
+			increment: 1,
+			minValue: 1,
+			maxValue: 32767,
+			cache: 1,
+		}),
 		companyId: smallint("company_id"),
 		createdAt: timestamp("created_at", { mode: "string" })
 			.defaultNow()
@@ -1282,7 +1286,7 @@ export const sessionVenues = pgTable(
 		id: uuid().default(sql`uuid_generate_v4()`).primaryKey().notNull(),
 		name: text().notNull(),
 	},
-	(table) => [
+	() => [
 		pgPolicy("session_venues_admin_write", {
 			as: "permissive",
 			for: "all",
@@ -1302,16 +1306,14 @@ export const sessionVenues = pgTable(
 export const sponsorCompanyOptions = pgTable(
 	"sponsor_company_options",
 	{
-		id: smallint()
-			.primaryKey()
-			.generatedAlwaysAsIdentity({
-				name: "sponsor_company_options_id_seq",
-				startWith: 1,
-				increment: 1,
-				minValue: 1,
-				maxValue: 32767,
-				cache: 1,
-			}),
+		id: smallint().primaryKey().generatedAlwaysAsIdentity({
+			name: "sponsor_company_options_id_seq",
+			startWith: 1,
+			increment: 1,
+			minValue: 1,
+			maxValue: 32767,
+			cache: 1,
+		}),
 		sponsorCompanyId: smallint("sponsor_company_id"),
 		optionPlanType: optionPlanType("option_plan_type").notNull(),
 		createdAt: timestamp("created_at", { mode: "string" })
@@ -1360,7 +1362,7 @@ export const speakers = pgTable(
 		avatarUrl: text("avatar_url"),
 		xId: text("x_id"),
 	},
-	(table) => [
+	() => [
 		pgPolicy("speakers_admin_write", {
 			as: "permissive",
 			for: "all",
@@ -1405,16 +1407,14 @@ export const profiles = pgTable(
 export const individualDraftApprovals = pgTable(
 	"individual_draft_approvals",
 	{
-		id: integer()
-			.primaryKey()
-			.generatedAlwaysAsIdentity({
-				name: "individual_draft_approvals_id_seq",
-				startWith: 1,
-				increment: 1,
-				minValue: 1,
-				maxValue: 2147483647,
-				cache: 1,
-			}),
+		id: integer().primaryKey().generatedAlwaysAsIdentity({
+			name: "individual_draft_approvals_id_seq",
+			startWith: 1,
+			increment: 1,
+			minValue: 1,
+			maxValue: 2147483647,
+			cache: 1,
+		}),
 		individualDraftId: integer("individual_draft_id"),
 		approvedBy: uuid("approved_by"),
 		createdAt: timestamp("created_at", { mode: "string" })
@@ -1515,16 +1515,14 @@ export const sessions = pgTable(
 export const individualDrafts = pgTable(
 	"individual_drafts",
 	{
-		id: integer()
-			.primaryKey()
-			.generatedAlwaysAsIdentity({
-				name: "individual_drafts_id_seq",
-				startWith: 1,
-				increment: 1,
-				minValue: 1,
-				maxValue: 2147483647,
-				cache: 1,
-			}),
+		id: integer().primaryKey().generatedAlwaysAsIdentity({
+			name: "individual_drafts_id_seq",
+			startWith: 1,
+			increment: 1,
+			minValue: 1,
+			maxValue: 2147483647,
+			cache: 1,
+		}),
 		individualId: integer("individual_id"),
 		name: text().notNull(),
 		logoName: text("logo_name"),
@@ -1586,16 +1584,14 @@ export const userSnsLinks = pgTable(
 export const sponsorIndividuals = pgTable(
 	"sponsor_individuals",
 	{
-		id: smallint()
-			.primaryKey()
-			.generatedAlwaysAsIdentity({
-				name: "sponsor_individuals_id_seq",
-				startWith: 1,
-				increment: 1,
-				minValue: 1,
-				maxValue: 32767,
-				cache: 1,
-			}),
+		id: smallint().primaryKey().generatedAlwaysAsIdentity({
+			name: "sponsor_individuals_id_seq",
+			startWith: 1,
+			increment: 1,
+			minValue: 1,
+			maxValue: 32767,
+			cache: 1,
+		}),
 		individualId: smallint("individual_id"),
 		createdAt: timestamp("created_at", { mode: "string" })
 			.defaultNow()
