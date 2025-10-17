@@ -33,7 +33,7 @@ module "apprun" {
   supabase_service_role_key     = var.SUPABASE_SERVICE_ROLE_KEY_STAGING
   firebase_service_account_json = base64decode(var.FIREBASE_SERVICE_ACCOUNT_JSON_STAGING_BASE64)
   apns_key_id                   = var.APNS_KEY_ID_STAGING
-  apns_team_id                  = var.APNS_TEAM_ID_STAGING
+  apns_team_id                  = var.APNS_TEAM_ID
   apns_private_key              = base64decode(var.APNS_PRIVATE_KEY_STAGING_BASE64)
   apns_environment              = "sandbox"
 }

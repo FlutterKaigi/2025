@@ -46,7 +46,7 @@ variable "APNS_KEY_ID_STAGING" {
   sensitive   = true
 }
 
-variable "APNS_TEAM_ID_STAGING" {
+variable "APNS_TEAM_ID" {
   type        = string
   description = "Apple Team ID for Staging"
   sensitive   = true
