@@ -17,5 +17,6 @@ Router _$SessionApiServiceRouter(SessionApiService service) {
   router.add('GET', r'/sessions/<id>', service._getSessionById);
   router.add('GET', r'/speakers', service._getAllSpeakers);
   router.add('GET', r'/speakers/<id>', service._getSpeakerById);
+  router.add('GET', r'/timeline-events', service._getAllTimelineEvents);
   return router;
 }

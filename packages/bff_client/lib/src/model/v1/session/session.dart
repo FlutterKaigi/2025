@@ -1,5 +1,6 @@
 import 'package:bff_client/src/model/v1/session/session_with_venue_response.dart';
 import 'package:bff_client/src/model/v1/session/sponsor_session_response.dart';
+import 'package:bff_client/src/model/v1/session/timeline_event_list_response.dart';
 import 'package:db_types/db_types.dart' as db_types;
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -9,6 +10,7 @@ export 'session_schedule_response.dart';
 export 'session_with_venue_response.dart';
 export 'speaker_list_response.dart';
 export 'sponsor_session_response.dart';
+export 'timeline_event_list_response.dart';
 
 part 'session.freezed.dart';
 part 'session.g.dart';
@@ -185,5 +187,15 @@ extension SponsorWithSessionsExtension on db_types.SponsorWithSessions {
   SponsorWithSessions toSponsorWithSessions() => SponsorWithSessions(
     sponsor: sponsor.toSponsor(),
     sessions: sessions.map((s) => s.toSessionWithVenue()).toList(),
+  );
+}
+
+extension TimelineEventWithVenueExtension on db_types.TimelineEventWithVenue {
+  TimelineEvent toTimelineEvent() => TimelineEvent(
+    id: id,
+    title: title,
+    startsAt: startsAt,
+    endsAt: endsAt,
+    venue: venue?.toVenue(),
   );
 }
