@@ -9,3 +9,16 @@ dotenv
 
 # bash
 elif
+
+pipefail
+lobanov
+xcbeautify
+codesign
+iphoneos
+xcarchive
+xcrun
+altool
+pipx
+temurin
+appbundle
+ARCHS

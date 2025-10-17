@@ -16,12 +16,20 @@ class App extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    Future<void> checkForceUpdate() async {
+      if (kIsWeb) {
+        return;
+      }
+      final notifier = ref.read(forceUpdateStateProvider.notifier);
+      await notifier.checkForUpdate();
+    }
+
     final router = ref.watch(routerProvider);
 
     // 初回起動時にチェック
     useEffect(() {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        unawaited(_checkForceUpdate(ref));
+        unawaited(checkForceUpdate());
       });
       return null;
     }, []);
@@ -30,7 +38,7 @@ class App extends HookConsumerWidget {
     ref.listen(appLifecycleProvider, (previous, next) {
       if (next.value == AppLifecycleState.resumed) {
         // フォアグラウンド復帰時にチェック（強制）
-        unawaited(_checkForceUpdate(ref));
+        unawaited(checkForceUpdate());
       }
     });
 
@@ -42,13 +50,5 @@ class App extends HookConsumerWidget {
       supportedLocales: AppLocaleUtils.supportedLocales,
       localizationsDelegates: GlobalMaterialLocalizations.delegates,
     );
-  }
-
-  Future<void> _checkForceUpdate(WidgetRef ref) async {
-    if (kIsWeb) {
-      return;
-    }
-    final notifier = ref.read(forceUpdateStateNotifierProvider.notifier);
-    await notifier.checkForUpdate();
   }
 }

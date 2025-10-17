@@ -1,0 +1,848 @@
+name: Deploy App
+
+on:
+  push:
+  workflow_dispatch:
+    inputs:
+      ios:
+        description: "Build iOS app"
+        required: false
+        default: true
+        type: boolean
+      android:
+        description: "Build Android app"
+        required: false
+        default: true
+        type: boolean
+      macos:
+        description: "Build macOS app"
+        required: false
+        default: true
+        type: boolean
+      website-preview:
+        description: "Build website preview"
+        required: false
+        default: true
+        type: boolean
+      website-production:
+        description: "Build website production"
+        required: false
+        default: true
+        type: boolean
+
+env:
+  XCODE_VERSION: 26.0
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+defaults:
+  run:
+    shell: bash -euo pipefail {0}
+
+jobs:
+  define-matrix:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 1
+    outputs:
+      deploy-ios: ${{ steps.define-environment-matrix.outputs.deploy-ios }}
+      deploy-android: ${{ steps.define-environment-matrix.outputs.deploy-android }}
+      deploy-macos: ${{ steps.define-environment-matrix.outputs.deploy-macos }}
+      deploy-website-preview: ${{ steps.define-environment-matrix.outputs.deploy-website-preview }}
+      deploy-website-production: ${{ steps.define-environment-matrix.outputs.deploy-website-production }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          fetch-depth: 0
+
+      - name: Decide which app to deploy
+        id: define-environment-matrix
+        run: |
+          platforms=()
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            if [ "${{ inputs.ios }}" = "true" ]; then
+              platforms+=("ios")
+            fi
+            if [ "${{ inputs.android }}" = "true" ]; then
+              platforms+=("android")
+            fi
+            if [ "${{ inputs.macos }}" = "true" ]; then
+              platforms+=("macos")
+            fi
+            if [ "${{ inputs.website-preview }}" = "true" ]; then
+              platforms+=("website-preview")
+            fi
+            if [ "${{ inputs.website-production }}" = "true" ]; then
+              platforms+=("website-production")
+            fi
+          elif [ "${{ github.event_name }}" = "push" ]; then
+            echo ${{ github.ref_name }}
+            # branchがmainの場合
+            if [ "${{ github.ref_name }}" = "main" ]; then
+              platforms+=("ios" "android" "macos" "website-production")
+            else
+              platforms+=("website-preview")
+            fi
+          else
+            echo "Unknown event name: ${{ github.event_name }}"
+            exit 1
+          fi
+
+          echo "デプロイするプラットフォーム: ${platforms[@]}"
+          for platform in "${platforms[@]}"; do
+            echo "deploy-${platform}=true" >> $GITHUB_OUTPUT
+          done
+
+  build-ios:
+    needs: define-matrix
+    if: ${{ needs.define-matrix.outputs.deploy-ios }}
+    runs-on: macos-latest
+    timeout-minutes: 30
+    concurrency:
+      group: ${{ github.workflow }}-ios
+      cancel-in-progress: false
+    env:
+      MISE_ENV: ci
+    steps:
+      # https://github.com/actions/checkout
+      - name: Checkout
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          fetch-depth: 0
+
+      # https://github.com/maxim-lobanov/setup-xcode
+      - uses: maxim-lobanov/setup-xcode@60606e260d2fc5762a71e64e74b2174e8ea3c8bd # v1.6.0
+        with:
+          xcode-version: ${{ env.XCODE_VERSION }}
+
+      - name: Extract SOPS secrets
+        run: |
+          mkdir -p ~/.config/mise
+          echo "${{ secrets.SOPS_FILE }}" > ~/.config/mise/flutterkaigi.txt
+
+      # https://github.com/jdx/mise-action
+      - name: Install Mise dependencies
+        uses: jdx/mise-action@5083fe46898c414b2475087cc79da59e7da859e8 # v3.1.1
+        with:
+          install_args: "flutter xcbeautify"
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Set environment variables
+        run: |
+          for line in $(mise env --dotenv); do
+            echo $line >> "$GITHUB_ENV"
+            echo "::add-mask::${line#*=}"
+          done
+
+      - name: Enable Swift Package Manager
+        run: |
+          flutter config --enable-swift-package-manager
+
+      - name: Resolve dependencies
+        working-directory: apps/app
+        run: dart pub get --enforce-lockfile
+
+      - name: Configure iOS
+        working-directory: apps/app
+        run: |
+          flutter build ios --config-only \
+            --dart-define-from-file=environments/.env.prod \
+            --dart-define COMMIT_INFORMATION=${{ github.ref_name }}-${{ github.sha }}
+
+      - name: Extract App Store Connect API Key
+        working-directory: apps/app/ios
+        run: |
+          echo "$APP_STORE_CONNECT_API_KEY_BASE64" | base64 -d \
+            > AuthKey_$APP_STORE_CONNECT_API_KEY_ID.p8
+
+      - name: Archive
+        working-directory: apps/app
+        run: |
+          xcodebuild archive \
+            -workspace ios/Runner.xcworkspace \
+            -scheme Runner \
+            -configuration Release \
+            -sdk iphoneos \
+            -archivePath build/ios/Runner.xcarchive \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO | xcbeautify
+
+      - name: Embed entitlements
+        working-directory: apps/app
+        run: |
+          codesign \
+            --entitlements ios/Runner/Runner.entitlements \
+            --force \
+            --sign "-" build/ios/Runner.xcarchive/Products/Applications/Runner.app
+
+      - name: Archive
+        working-directory: apps/app
+        run: |
+          xcodebuild -exportArchive \
+            -archivePath build/ios/Runner.xcarchive \
+            -exportOptionsPlist ios/ExportOptions.plist \
+            -exportPath . \
+            -allowProvisioningUpdates \
+            -authenticationKeyIssuerID $APP_STORE_CONNECT_API_KEY_ISSUER_ID \
+            -authenticationKeyID $APP_STORE_CONNECT_API_KEY_ID \
+            -authenticationKeyPath ${{ github.workspace }}/apps/app/ios/AuthKey_$APP_STORE_CONNECT_API_KEY_ID.p8 \
+          | xcbeautify --renderer github-actions
+
+      - name: Upload ipa as artifact
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: FlutterKaigi 2025.ipa
+          path: apps/app/FlutterKaigi 2025.ipa
+          if-no-files-found: error
+
+  deploy-ios:
+    needs: build-ios
+    runs-on: macos-latest
+    timeout-minutes: 10
+    env:
+      MISE_ENV: ci
+    concurrency:
+      group: ${{ github.workflow }}-ios-deploy
+      cancel-in-progress: false
+    steps:
+      # https://github.com/actions/checkout
+      - name: Checkout
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          fetch-depth: 0
+
+      # https://github.com/maxim-lobanov/setup-xcode
+      - uses: maxim-lobanov/setup-xcode@60606e260d2fc5762a71e64e74b2174e8ea3c8bd # v1.6.0
+        with:
+          xcode-version: ${{ env.XCODE_VERSION }}
+
+      - name: Extract SOPS secrets
+        run: |
+          mkdir -p ~/.config/mise
+          echo "${{ secrets.SOPS_FILE }}" > ~/.config/mise/flutterkaigi.txt
+
+      # https://github.com/jdx/mise-action
+      - name: Install Mise dependencies
+        uses: jdx/mise-action@5083fe46898c414b2475087cc79da59e7da859e8 # v2.1.11
+        with:
+          install_args: "xcbeautify"
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Set environment variables
+        run: |
+          for line in $(mise env --dotenv); do
+            echo $line >> "$GITHUB_ENV"
+            echo "::add-mask::${line#*=}"
+          done
+
+      - name: Extract App Store Connect API Key
+        working-directory: apps/app/ios
+        run: |
+          echo "$APP_STORE_CONNECT_API_KEY_BASE64" | base64 -d \
+            > AuthKey_$APP_STORE_CONNECT_API_KEY_ID.p8
+
+      # https://github.com/actions/download-artifact
+      - name: Download ipa
+        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        with:
+          name: FlutterKaigi 2025.ipa
+          path: build
+
+      - name: Extract App Store Connect API Key
+        run: |
+          mkdir ~/.private_keys
+          echo "$APP_STORE_CONNECT_API_KEY_BASE64" | base64 -d \
+            > ~/.private_keys/AuthKey_$APP_STORE_CONNECT_API_KEY_ID.p8
+
+      - name: Upload Ipa to App Store Connect
+        run: |
+          xcrun altool \
+            --upload-app \
+            -f "build/FlutterKaigi 2025.ipa" \
+            --type ios \
+            --apiIssuer $APP_STORE_CONNECT_API_KEY_ISSUER_ID \
+            --apiKey $APP_STORE_CONNECT_API_KEY_ID \
+
+  build-android:
+    needs: define-matrix
+    if: ${{ needs.define-matrix.outputs.deploy-android }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      MISE_ENV: ci
+    concurrency:
+      group: ${{ github.workflow }}-android
+      cancel-in-progress: false
+    outputs:
+      BUILD_NUMBER: ${{ steps.fetch-latest-build-number.outputs.BUILD_NUMBER }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          fetch-depth: 0
+
+      - name: Extract SOPS secrets
+        run: |
+          mkdir -p ~/.config/mise
+          echo "${{ secrets.SOPS_FILE }}" > ~/.config/mise/flutterkaigi.txt
+
+      # https://github.com/jdx/mise-action
+      - name: Install Mise dependencies
+        uses: jdx/mise-action@5083fe46898c414b2475087cc79da59e7da859e8 # v3.1.1
+        with:
+          install_args: "flutter uv pipx:codemagic-cli-tools"
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Set environment variables
+        run: |
+          for line in $(mise env --dotenv); do
+            echo $line >> "$GITHUB_ENV"
+            echo "::add-mask::${line#*=}"
+          done
+
+      - name: Resolve dependencies
+        working-directory: apps/app
+        run: dart pub get --enforce-lockfile
+
+      - name: Setup Java
+        uses: actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00 # v4.7.1
+        with:
+          distribution: "temurin"
+          java-version: "17"
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@9fc6c4e9069bf8d3d10b2204b1fb8f6ef7065407 # v3.2.2\
+
+      - name: Extract keystore
+        run: |
+          echo "$ANDROID_SIGNING_KEYSTORE_BASE64" | sha256sum
+          echo "$ANDROID_SIGNING_KEYSTORE_BASE64" | base64 -d > apps/app/android/app/release.jks
+          echo "$ANDROID_KEY_PROPERTIES_BASE64" | base64 -d  > apps/app/android/key.properties
+
+      - name: Fetch latest build number from Google Play Store
+        id: fetch-latest-build-number
+        run: |
+          echo "$GOOGLE_PLAY_SERVICE_ACCOUNT_BASE64" | base64 -d > service-account.json
+          LATEST_BUILD_NUMBER=$(google-play get-latest-build-number \
+            --credentials="@file:service-account.json" \
+            --package-name="jp.flutterkaigi.conf2025" || echo "0")
+          BUILD_NUMBER=$((LATEST_BUILD_NUMBER + 1))
+          echo "BUILD_NUMBER=${BUILD_NUMBER}" >> $GITHUB_OUTPUT
+          echo "Build Number set to ${BUILD_NUMBER}."
+          rm service-account.json
+
+      - name: Build Android (AAB)
+        working-directory: apps/app
+        env:
+          BUILD_NUMBER: ${{ steps.fetch-latest-build-number.outputs.BUILD_NUMBER }}
+        run: |
+          flutter build appbundle \
+            --release \
+            --build-number=${BUILD_NUMBER} \
+            --dart-define-from-file=environments/.env.prod \
+            --dart-define COMMIT_INFORMATION=${{ github.ref_name }}-${{ github.sha }}
+
+      - name: Upload aab as artifact
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: FlutterKaigi 2025-android.aab
+          path: apps/app/build/app/outputs/bundle/release/app-release.aab
+          if-no-files-found: error
+
+  deploy-android:
+    needs:
+      - build-android
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      MISE_ENV: ci
+    concurrency:
+      group: ${{ github.workflow }}-android-deploy
+      cancel-in-progress: false
+    steps:
+      - name: Checkout
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          fetch-depth: 0
+
+      - name: Download artifact aab
+        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        with:
+          name: FlutterKaigi 2025-android.aab
+          path: build
+
+      - name: Extract SOPS secrets
+        run: |
+          mkdir -p ~/.config/mise
+          echo "${{ secrets.SOPS_FILE }}" > ~/.config/mise/flutterkaigi.txt
+
+      # https://github.com/jdx/mise-action
+      - name: Install Mise dependencies
+        uses: jdx/mise-action@5083fe46898c414b2475087cc79da59e7da859e8 # v3.1.1
+        with:
+          install_args: "uv pipx:codemagic-cli-tools python"
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Set environment variables
+        run: |
+          for line in $(mise env --dotenv); do
+            echo $line >> "$GITHUB_ENV"
+            echo "::add-mask::${line#*=}"
+          done
+
+      - name: Extract Google Play Service Account
+        run: |
+          echo "$GOOGLE_PLAY_SERVICE_ACCOUNT_BASE64" | base64 -d > service-account.json
+
+      - name: Generate Release Notes
+        run: |
+          python3 <<EOF
+          import json
+          import os
+          import subprocess
+
+          try:
+              # Get the latest tag
+              tags_output = (
+                  subprocess.check_output(["git", "tag", "--sort=v:refname"])
+                  .decode("utf-8")
+                  .strip()
+              )
+              if tags_output:
+                  last_tag = tags_output.split("\n")[-1]
+              else:
+                  # No tags found, use fallback commit
+                  last_tag = "a229e9a8cc8ef717319f68af6db7f15b1d962a9b"
+          except subprocess.CalledProcessError:
+              # No tags found, use fallback commit
+              last_tag = "a229e9a8cc8ef717319f68af6db7f15b1d962a9b"
+
+          changelog = subprocess.check_output(
+              [
+                  "git",
+                  "log",
+                  "--pretty=format:- [%ad] %an: %s %h",
+                  f"{last_tag}..HEAD",
+                  "--abbrev-commit",
+                  "--date=short",
+                  "--no-merges",
+              ]
+          ).decode("utf-8")
+
+          # Limit changelog to 500 characters
+          if len(changelog) > 500:
+              changelog = changelog[:497] + "..."
+
+          with open("release-notes.json", "w") as f:
+              json.dump([{"language": "ja-JP", "text": changelog}], f, indent=2)
+          EOF
+
+      - name: Upload AAB to Google Play
+        run: |
+          google-play bundles publish \
+            --credentials="@file:service-account.json" \
+            --bundle build/app-release.aab \
+            --track "internal" \
+            --release-notes="@file:release-notes.json" \
+            --changes-not-sent-for-review
+
+  build-macos:
+    needs: define-matrix
+    if: ${{ needs.define-matrix.outputs.deploy-macos }}
+    runs-on: macos-latest
+    timeout-minutes: 30
+    concurrency:
+      group: ${{ github.workflow }}-macos
+      cancel-in-progress: false
+    env:
+      MISE_ENV: ci
+    steps:
+      # https://github.com/actions/checkout
+      - name: Checkout
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          fetch-depth: 0
+
+      # https://github.com/maxim-lobanov/setup-xcode
+      - uses: maxim-lobanov/setup-xcode@60606e260d2fc5762a71e64e74b2174e8ea3c8bd # v1.6.0
+        with:
+          xcode-version: ${{ env.XCODE_VERSION }}
+
+      - name: Extract SOPS secrets
+        run: |
+          mkdir -p ~/.config/mise
+          echo "${{ secrets.SOPS_FILE }}" > ~/.config/mise/flutterkaigi.txt
+
+      # https://github.com/jdx/mise-action
+      - name: Install Mise dependencies
+        uses: jdx/mise-action@5083fe46898c414b2475087cc79da59e7da859e8 # v3.1.1
+        with:
+          install_args: "flutter xcbeautify"
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Set environment variables
+        run: |
+          for line in $(mise env --dotenv); do
+            echo $line >> "$GITHUB_ENV"
+            echo "::add-mask::${line#*=}"
+          done
+
+      - name: Enable Swift Package Manager
+        run: |
+          flutter config --enable-swift-package-manager
+
+      - name: Resolve dependencies
+        working-directory: apps/app
+        run: dart pub get --enforce-lockfile
+
+      - name: Configure macOS
+        working-directory: apps/app
+        run: |
+          flutter build macos --config-only \
+            --dart-define-from-file=environments/.env.prod \
+            --dart-define COMMIT_INFORMATION=${{ github.ref_name }}-${{ github.sha }}
+
+      - name: Extract App Store Connect API Key
+        working-directory: apps/app/macos
+        run: |
+          echo "$APP_STORE_CONNECT_API_KEY_BASE64" | base64 -d \
+            > AuthKey_$APP_STORE_CONNECT_API_KEY_ID.p8
+
+      - name: Archive
+        working-directory: apps/app
+        run: |
+          xcodebuild archive \
+            -workspace macos/Runner.xcworkspace \
+            -scheme Runner \
+            -configuration Release \
+            -sdk macosx \
+            -archivePath build/macos/Runner.xcarchive \
+            -allowProvisioningUpdates \
+            -authenticationKeyIssuerID $APP_STORE_CONNECT_API_KEY_ISSUER_ID \
+            -authenticationKeyID $APP_STORE_CONNECT_API_KEY_ID \
+            -authenticationKeyPath ${{ github.workspace }}/apps/app/macos/AuthKey_$APP_STORE_CONNECT_API_KEY_ID.p8 \
+            DEVELOPMENT_TEAM=6JT949BA2M \
+            CODE_SIGN_STYLE=Automatic \
+            CODE_SIGN_ENTITLEMENTS="Runner/Release.entitlements" \
+            DEBUG_INFORMATION_FORMAT=dwarf \
+            DEBUGGING_SYMBOLS=NO \
+            GCC_GENERATE_DEBUGGING_SYMBOLS=NO \
+            ONLY_ACTIVE_ARCH=YES \
+            VALID_ARCHS=arm64 \
+            | xcbeautify --renderer github-actions
+
+      - name: Export Archive
+        working-directory: apps/app
+        run: |
+          xcodebuild -exportArchive \
+            -archivePath build/macos/Runner.xcarchive \
+            -exportOptionsPlist macos/ExportOptions.plist \
+            -exportPath . \
+            -allowProvisioningUpdates \
+            -authenticationKeyIssuerID $APP_STORE_CONNECT_API_KEY_ISSUER_ID \
+            -authenticationKeyID $APP_STORE_CONNECT_API_KEY_ID \
+            -authenticationKeyPath ${{ github.workspace }}/apps/app/macos/AuthKey_$APP_STORE_CONNECT_API_KEY_ID.p8 \
+          | xcbeautify --renderer github-actions
+
+      - name: Upload pkg as artifact
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: FlutterKaigi 2025-macos.pkg
+          path: apps/app/FlutterKaigi 2025.pkg
+          if-no-files-found: error
+
+  deploy-macos:
+    needs: build-macos
+    runs-on: macos-latest
+    timeout-minutes: 10
+    env:
+      MISE_ENV: ci
+    concurrency:
+      group: ${{ github.workflow }}-macos-deploy
+      cancel-in-progress: false
+    steps:
+      # https://github.com/actions/checkout
+      - name: Checkout
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          fetch-depth: 0
+
+      # https://github.com/maxim-lobanov/setup-xcode
+      - uses: maxim-lobanov/setup-xcode@60606e260d2fc5762a71e64e74b2174e8ea3c8bd # v1.6.0
+        with:
+          xcode-version: ${{ env.XCODE_VERSION }}
+
+      - name: Extract SOPS secrets
+        run: |
+          mkdir -p ~/.config/mise
+          echo "${{ secrets.SOPS_FILE }}" > ~/.config/mise/flutterkaigi.txt
+
+      # https://github.com/jdx/mise-action
+      - name: Install Mise dependencies
+        uses: jdx/mise-action@5083fe46898c414b2475087cc79da59e7da859e8 # v3.1.1
+        with:
+          install_args: "xcbeautify"
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Set environment variables
+        run: |
+          for line in $(mise env --dotenv); do
+            echo $line >> "$GITHUB_ENV"
+            echo "::add-mask::${line#*=}"
+          done
+
+      # https://github.com/actions/download-artifact
+      - name: Download pkg
+        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        with:
+          name: FlutterKaigi 2025-macos.pkg
+          path: build
+
+      - name: Extract App Store Connect API Key
+        run: |
+          mkdir ~/.private_keys
+          echo "$APP_STORE_CONNECT_API_KEY_BASE64" | base64 -d \
+            > ~/.private_keys/AuthKey_$APP_STORE_CONNECT_API_KEY_ID.p8
+
+      - name: Upload pkg to App Store Connect
+        run: |
+          xcrun altool \
+            --upload-app \
+            -f "build/FlutterKaigi 2025.pkg" \
+            --type osx \
+            --apiIssuer $APP_STORE_CONNECT_API_KEY_ISSUER_ID \
+            --apiKey $APP_STORE_CONNECT_API_KEY_ID
+
+  start-build-website:
+    needs:
+      - define-matrix
+    if: ${{ needs.define-matrix.outputs.deploy-website-production }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 1
+    outputs:
+      deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+    steps:
+      # https://github.com/bobheadxi/deployments
+      - name: Start deployment
+        uses: bobheadxi/deployments@648679e8e4915b27893bd7dbc35cb504dc915bc8 # v1.5.0
+        id: deployment
+        with:
+          step: start
+          token: ${{ secrets.GITHUB_TOKEN }}
+          env: app-website
+          ref: ${{ github.head_ref }}
+
+  build-website:
+    needs:
+      - define-matrix
+    if: ${{ needs.define-matrix.outputs.deploy-website-preview || needs.define-matrix.outputs.deploy-website-production }}
+    runs-on: ubuntu-24.04
+    outputs:
+      build_log: ${{ steps.build.outputs.LOG }}
+    timeout-minutes: 5
+    steps:
+      # https://github.com/actions/checkout
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Extract SOPS secrets
+        run: |
+          mkdir -p ~/.config/mise
+          echo "${{ secrets.SOPS_FILE }}" > ~/.config/mise/flutterkaigi.txt
+
+      # https://github.com/jdx/mise-action
+      - name: Install Mise dependencies
+        uses: jdx/mise-action@5083fe46898c414b2475087cc79da59e7da859e8 # v2.1.11
+        with:
+          install_args: "flutter"
+
+      - name: Resolve dependencies
+        working-directory: apps/app
+        run: dart pub get --enforce-lockfile
+
+      - name: Build Flutter Web App
+        id: build
+        working-directory: apps/app
+        run: |
+          if [ "${{ needs.define-matrix.outputs.deploy-website-production }}" = "true" ]; then
+            environment_file="environments/.env.prod"
+          else
+            environment_file="environments/.env.stg"
+          fi
+          {
+            echo "LOG<<EOL"
+            flutter build web \
+              --wasm \
+              --release \
+              --dart-define-from-file=$environment_file \
+              --dart-define COMMIT_INFORMATION=${{ github.ref_name }}-${{ github.sha }} \
+                2>&1
+            echo "EOL"
+          } | tee -a $GITHUB_OUTPUT
+
+      - name: Upload Flutter app Artifacts
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: website-artifacts
+          path: apps/app/build/web/
+
+  deploy-website:
+    runs-on: ubuntu-24.04
+    needs:
+      - define-matrix
+      - build-website
+    if: ${{ needs.define-matrix.outputs.deploy-website-preview || needs.define-matrix.outputs.deploy-website-production }}
+    timeout-minutes: 5
+    env:
+      MISE_ENV: ci
+    outputs:
+      deployment_url: ${{ steps.extract-deployment-url.outputs.DEPLOYMENT_URL }}
+      logs: ${{ steps.extract-logs.outputs.LOG }}
+    steps:
+      # https://github.com/actions/checkout
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Download Flutter App Artifacts
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: website-artifacts
+          path: apps/app/build/web/
+
+      - name: Extract SOPS secrets
+        run: |
+          mkdir -p ~/.config/mise
+          echo "${{ secrets.SOPS_FILE }}" > ~/.config/mise/flutterkaigi.txt
+
+      # https://github.com/jdx/mise-action
+      - name: Install Mise dependencies
+        uses: jdx/mise-action@5083fe46898c414b2475087cc79da59e7da859e8 # v2.1.11
+        with:
+          install_args: "bun"
+
+      - name: Install dependencies
+        working-directory: apps/app
+        run: bun install --frozen-lockfile
+
+      - name: Deploy app (Preview)
+        if: ${{ needs.define-matrix.outputs.deploy-website-preview }}
+        id: deploy-preview
+        working-directory: apps/app
+        run: |
+          {
+            echo "LOG<<EOL"
+            bunx wrangler versions upload 2>&1
+            echo "EOL"
+          } | tee -a $GITHUB_OUTPUT
+
+      - name: Deploy app (Production)
+        if: ${{ needs.define-matrix.outputs.deploy-website-production }}
+        id: deploy-production
+        working-directory: apps/app
+        run: |
+          {
+            echo "LOG<<EOL"
+            bunx wrangler deploy 2>&1
+            echo "EOL"
+          } | tee -a $GITHUB_OUTPUT
+
+      - name: Extract deployment URL
+        id: extract-deployment-url
+        run: |
+          if [ -z "${{ steps.deploy-preview.outputs.LOG }}" ]; then
+            LOG="${{ steps.deploy-production.outputs.LOG }}"
+          else
+            LOG="${{ steps.deploy-preview.outputs.LOG }}"
+          fi
+
+          # `https://` を含む最初の行だけを抽出し、DEPLOYMENT_URLに格納
+          DEPLOYMENT_URL=$(echo "$LOG" | grep -o 'https://[^ ]*' | head -n 1)
+          echo "DEPLOYMENT_URL=$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
+
+      - name: Extract timestamp
+        id: extract-timestamp
+        env:
+          TZ: Asia/Tokyo
+        run: |
+          echo "timestamp=$(date -Iseconds )" >> $GITHUB_OUTPUT
+
+      - name: Extract logs
+        id: extract-logs
+        run: |
+          echo "LOG<<EOF" >> $GITHUB_OUTPUT
+          cat <<EOL | tee -a $GITHUB_OUTPUT
+          ## 📱 Flutter App Preview Deployment
+          🔗URL: ${{ steps.extract-deployment-url.outputs.DEPLOYMENT_URL }}
+
+          🔑Commit Hash: \`${{ github.sha }}\`
+          📅Timestamp: \`${{ steps.extract-timestamp.outputs.TIMESTAMP }}\`
+
+          <details>
+          <summary><h2>📦️ Build Logs</h2></summary>
+
+          \`\`\`log
+          ${{ needs.build-website.outputs.build_log }}
+          \`\`\`
+          </details>
+
+          <details>
+          <summary><h2>✈️ Deployment Logs</h2></summary>
+
+          \`\`\`log
+          ${{ steps.deploy-preview.outputs.LOG }}
+          \`\`\`
+          </details>
+          EOL
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      # https://github.com/thollander/actions-comment-pull-request
+      - name: Comment PR with execution number
+        uses: thollander/actions-comment-pull-request@24bffb9b452ba05a4f3f77933840a6a841d1b32b # v3.0.1
+        if: ${{ github.event_name == 'pull_request' }}
+        with:
+          message: |
+            ${{ steps.extract-logs.outputs.LOG }}
+          comment-tag: deploy-conference-app-web
+
+  update-deployment-status:
+    runs-on: ubuntu-24.04
+    needs:
+      - define-matrix
+      - deploy-website
+      - start-build-website
+    if: ${{ needs.define-matrix.outputs.deploy-website-production && !cancelled() }}
+    timeout-minutes: 1
+    steps:
+      - name: Get previous jobs status
+        id: get-previous-jobs-status
+        run: |
+          function echo-needs() {
+            echo '${{ toJSON(needs) }}'
+          }
+          echo-needs
+          did_failure=$(echo-needs | jq '[.[].result] | any(. != "success")')
+          if [ "$did_failure" = "true" ]; then
+            echo "status=failure" >> $GITHUB_OUTPUT
+          else
+            echo "status=success" >> $GITHUB_OUTPUT
+          fi
+
+      # https://github.com/bobheadxi/deployments
+      - name: Update deployment status
+        uses: bobheadxi/deployments@648679e8e4915b27893bd7dbc35cb504dc915bc8 # v1.5.0
+        id: deployment
+        if: ${{ !cancelled() }}
+        with:
+          step: finish
+          token: ${{ secrets.GITHUB_TOKEN }}
+          status: ${{ steps.get-previous-jobs-status.outputs.status || 'failure' }}
+          deployment_id: ${{ needs.start-build-website.outputs.deployment_id }}
+          env: app
+          env_url: ${{ needs.deploy-website.outputs.deployment_url }}
+          ref: ${{ github.head_ref }}
+          auto_inactive: true

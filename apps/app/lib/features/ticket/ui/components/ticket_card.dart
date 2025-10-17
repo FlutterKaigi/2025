@@ -1,4 +1,5 @@
 import 'package:app/core/gen/i18n/i18n.g.dart';
+import 'package:app/core/router/router.dart';
 import 'package:app/features/ticket/data/notifier/ticket_notifier.dart';
 import 'package:app/features/ticket/ui/components/ticket_card_description.dart';
 import 'package:bff_client/bff_client.dart';
@@ -38,18 +39,31 @@ class TicketCard extends StatelessWidget {
                   ticket.ticketType.name,
                   style: theme.textTheme.titleLarge,
                 ),
-                if (ticket.ticketType.description?.isNotEmpty ?? false)
+
+                if (ticket is TicketCheckoutItem &&
+                    (ticket.ticketType.description?.isNotEmpty ?? false))
                   TicketCardDescription(
                     description: ticket.ticketType.description!,
                     color: colorScheme.onSurface,
                   ),
               ],
             ),
-            if (ticket.options.isNotEmpty)
+            if (ticket is TicketPurchaseItem)
+              Align(
+                alignment: Alignment.centerRight,
+                child: FilledButton(
+                  onPressed: () => TicketDetailRoute(
+                    ticketId: (ticket as TicketPurchaseItem).purchase.id,
+                  ).go(context),
+                  child: const Text('詳細を確認する'),
+                ),
+              ),
+            if (ticket is TicketCheckoutItem && ticket.options.isNotEmpty)
               _TicketOptions(options: ticket.options),
-            _TicketDateInfo(ticket: ticket),
-            if (ticket case final TicketCheckoutItem checkout)
+            if (ticket case final TicketCheckoutItem checkout) ...[
+              _TicketDateInfo(ticket: ticket),
               _TicketCheckoutButtons(ticket: checkout),
+            ],
           ],
         ),
       ),
@@ -112,14 +126,6 @@ class _TicketHeader extends StatelessWidget {
                 ),
               ),
             ],
-          ),
-        ),
-        const Spacer(),
-        Text(
-          '¥${NumberFormat.decimalPattern().format(ticket.ticketType.price)}',
-          style: theme.textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.bold,
-            color: colorScheme.primary,
           ),
         ),
       ],
@@ -251,7 +257,7 @@ class _TicketCheckoutButtons extends ConsumerWidget {
         children: [
           OutlinedButton.icon(
             onPressed: () => ref
-                .read(ticketNotifierProvider.notifier)
+                .read(ticketProvider.notifier)
                 .cancelCheckout(ticket.checkout.id),
             label: Text(t.ticket.purchase.cancel),
             icon: const Icon(Icons.cancel),

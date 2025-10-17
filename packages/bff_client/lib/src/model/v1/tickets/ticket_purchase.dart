@@ -13,6 +13,7 @@ abstract class TicketPurchase with _$TicketPurchase {
     required DateTime createdAt,
     required DateTime updatedAt,
     String? stripePaymentIntentId,
+    String? nameplateId,
   }) = _TicketPurchase;
 
   factory TicketPurchase.fromJson(Map<String, dynamic> json) =>
@@ -35,5 +36,6 @@ extension TicketPurchaseExtension on db_types.TicketPurchases {
     createdAt: createdAt,
     updatedAt: updatedAt,
     stripePaymentIntentId: stripePaymentIntentId,
+    nameplateId: nameplateId,
   );
 }

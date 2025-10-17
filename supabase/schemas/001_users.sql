@@ -1,5 +1,5 @@
 CREATE TABLE public.users (
-  id uuid PRIMARY KEY REFERENCES auth.users (id) ON DELETE CASCADE, 
+  id uuid PRIMARY KEY REFERENCES auth.users (id) ON DELETE CASCADE,
   created_at timestamp DEFAULT now() NOT NULL,
   deleted_at timestamp DEFAULT NULL
 );

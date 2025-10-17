@@ -8,8 +8,11 @@ part of 'profile_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(ProfileNotifier)
-const profileNotifierProvider = ProfileNotifierProvider._();
+const profileProvider = ProfileNotifierProvider._();
 
 final class ProfileNotifierProvider
     extends $AsyncNotifierProvider<ProfileNotifier, ProfileResponse?> {
@@ -18,7 +21,7 @@ final class ProfileNotifierProvider
         from: null,
         argument: null,
         retry: null,
-        name: r'profileNotifierProvider',
+        name: r'profileProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
@@ -32,7 +35,7 @@ final class ProfileNotifierProvider
   ProfileNotifier create() => ProfileNotifier();
 }
 
-String _$profileNotifierHash() => r'32a249f57c2739d235653b9ee655c494e221dfb4';
+String _$profileNotifierHash() => r'43f566e1a41ed740939e27ffd6c1d78f37a61f4f';
 
 abstract class _$ProfileNotifier extends $AsyncNotifier<ProfileResponse?> {
   FutureOr<ProfileResponse?> build();
@@ -53,6 +56,3 @@ abstract class _$ProfileNotifier extends $AsyncNotifier<ProfileResponse?> {
     element.handleValue(ref, created);
   }
 }
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -8,8 +8,11 @@ part of 'ticket_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(TicketNotifier)
-const ticketNotifierProvider = TicketNotifierProvider._();
+const ticketProvider = TicketNotifierProvider._();
 
 final class TicketNotifierProvider
     extends $AsyncNotifierProvider<TicketNotifier, List<TicketItem>> {
@@ -18,7 +21,7 @@ final class TicketNotifierProvider
         from: null,
         argument: null,
         retry: null,
-        name: r'ticketNotifierProvider',
+        name: r'ticketProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
@@ -32,7 +35,7 @@ final class TicketNotifierProvider
   TicketNotifier create() => TicketNotifier();
 }
 
-String _$ticketNotifierHash() => r'ab0542e5702b0fbbb22e6e9f80fba2c2203be67d';
+String _$ticketNotifierHash() => r'16ac712d42ff6af11108d7811155546dd09199ba';
 
 abstract class _$TicketNotifier extends $AsyncNotifier<List<TicketItem>> {
   FutureOr<List<TicketItem>> build();
@@ -53,6 +56,3 @@ abstract class _$TicketNotifier extends $AsyncNotifier<List<TicketItem>> {
     element.handleValue(ref, created);
   }
 }
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

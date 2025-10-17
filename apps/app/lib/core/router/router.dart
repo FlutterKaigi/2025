@@ -19,9 +19,8 @@ import 'package:app/features/session/ui/session_screen.dart';
 import 'package:app/features/session/ui/session_timeline_screen.dart';
 import 'package:app/features/sponsor/ui/sponsor_detail_screen.dart';
 import 'package:app/features/sponsor/ui/sponsor_list_screen.dart';
-import 'package:app/features/ticket/ui/components/available_ticket_list_screen.dart';
-import 'package:app/features/ticket/ui/components/ticket_list_screen.dart';
-import 'package:app/features/ticket/ui/ticket_screen.dart';
+import 'package:app/features/ticket/ui/ticket_detail_screen.dart';
+import 'package:app/features/ticket/ui/ticket_list_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -46,18 +45,18 @@ final _rootObservers = [
 @Riverpod(keepAlive: true)
 GoRouter router(Ref ref) {
   final isAuthorizedNotifier = ValueNotifier<bool>(
-    ref.read(authNotifierProvider.select((v) => v.value != null)),
+    ref.read(authProvider.select((v) => v.value != null)),
   );
   final isGoogleSessionExpiredNotifier = ValueNotifier<bool>(false);
 
   ref
-    ..listen(authNotifierProvider, (_, __) {
+    ..listen(authProvider, (_, __) {
       isAuthorizedNotifier.value = ref.read(
-        authNotifierProvider.select((v) => v.value != null),
+        authProvider.select((v) => v.value != null),
       );
       // Googleセッション切れチェック
       isGoogleSessionExpiredNotifier.value = ref
-          .read(authNotifierProvider.notifier)
+          .read(authProvider.notifier)
           .isGoogleSessionExpired();
     })
     ..onDispose(() {
@@ -77,6 +76,7 @@ GoRouter router(Ref ref) {
     debugLogDiagnostics: kDebugMode,
     refreshListenable: isAuthorizedNotifier,
     initialLocation: const EventInfoRoute().location,
+
     redirect: (context, state) {
       final isAuthorized = isAuthorizedNotifier.value;
       final isGoogleSessionExpired = isGoogleSessionExpiredNotifier.value;
@@ -105,7 +105,7 @@ GoRouter router(Ref ref) {
         WidgetsBinding.instance.addPostFrameCallback((_) async {
           if (context.mounted) {
             // ログアウト完了後、AuthNotifierの監視により自動的にログイン画面へ遷移
-            await ref.read(authNotifierProvider.notifier).signOut();
+            await ref.read(authProvider.notifier).signOut();
           }
         });
         // ログイン画面へ遷移し、エラーメッセージを表示
@@ -154,7 +154,10 @@ class LoginRoute extends GoRouteData with $LoginRoute {
     TypedStatefulShellBranch<EventBranch>(routes: _eventRoutes),
     TypedStatefulShellBranch<SessionBranch>(routes: _sessionRoutes),
     TypedStatefulShellBranch<SponsorBranch>(routes: _sponsorRoutes),
-    TypedStatefulShellBranch<TicketBranch>(routes: _ticketRoutes),
+    TypedStatefulShellBranch<TicketBranch>(
+      routes: _ticketRoutes,
+
+    ),
     TypedStatefulShellBranch<AccountBranch>(
       routes: _accountRoutes,
     ),

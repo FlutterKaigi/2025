@@ -44,6 +44,8 @@ enum ErrorCode {
   internalServerError('サーバ内部で予期しないエラーが発生しました', HttpStatus.internalServerError),
   routeNotFound('ルーティングが見つかりませんでした', HttpStatus.notFound),
   badRequest('不正なリクエストです', HttpStatus.badRequest),
+  proxyError('バックエンドサーバとの通信でエラーが発生しました', HttpStatus.internalServerError),
+  rateLimitExceeded('レート制限を超えました', HttpStatus.tooManyRequests),
 
   // WARNING(YumNumm): 未知のエラーコードが返ってきた時に利用されます
   // サーバ側からこのエラーコードが返ってくることはありません

@@ -8,17 +8,21 @@ size = 4465943
 url = "https://github.com/suzuki-shunsuke/tfcmt/releases/download/v4.14.12/tfcmt_darwin_arm64.tar.gz"
 
 [[tools.aws-cli]]
-version = "2.30.6"
+version = "2.31.13"
 backend = "aqua:aws/aws-cli"
 
 [tools.aws-cli.platforms.macos-arm64]
-checksum = "blake3:1a803eda8563da088aa3d77ddb659b2d785ea450d0700992aa64007fc2b0a448"
-size = 48092931
-url = "https://awscli.amazonaws.com/AWSCLIV2-2.30.6.pkg"
+checksum = "blake3:41491553291509a575b513f44f5b4354d2b12dcc37eb62f70d09ee4f2918131c"
+size = 48185625
+url = "https://awscli.amazonaws.com/AWSCLIV2-2.31.13.pkg"
 
 [[tools.bun]]
 version = "1.2.21"
 backend = "core:bun"
+
+[tools.bun.platforms.macos-arm64]
+checksum = "blake3:b5824ab4bf0afba1d27d55d4cbec1696c3d1070f6982cbf6b4fa0489892ec931"
+size = 22056420
 
 [[tools.dprint]]
 version = "0.50.2"
@@ -30,30 +34,34 @@ size = 7875009
 url = "https://github.com/dprint/dprint/releases/download/0.50.2/dprint-aarch64-apple-darwin.zip"
 
 [[tools.flutter]]
-version = "3.36.0-0.1.pre-beta"
+version = "3.37.0-0.1.pre-beta"
 backend = "asdf:flutter"
 
 [[tools.node]]
 version = "24.4.0"
 backend = "core:node"
 
+[[tools."pipx:codemagic-cli-tools"]]
+version = "0.61.1"
+backend = "pipx:codemagic-cli-tools"
+
 [[tools.rclone]]
-version = "1.71.0"
+version = "1.71.1"
 backend = "aqua:rclone/rclone"
 
 [tools.rclone.platforms.macos-arm64]
-checksum = "sha256:ee9964d24f1aed3f0a2183f5a93eeec29526782240435d4b3f302b45f6f34b61"
-size = 26390517
-url = "https://github.com/rclone/rclone/releases/download/v1.71.0/rclone-v1.71.0-osx-arm64.zip"
+checksum = "sha256:8b7a2c57680d769e33d8616cabc214831d3bddcdb4da0d40a263ede63b15acce"
+size = 26406420
+url = "https://github.com/rclone/rclone/releases/download/v1.71.1/rclone-v1.71.1-osx-arm64.zip"
 
 [[tools.stripe]]
-version = "1.30.0"
+version = "1.31.0"
 backend = "aqua:stripe/stripe-cli"
 
 [tools.stripe.platforms.macos-arm64]
-checksum = "sha256:22a72bbb0f463b41b63fd6fcbd2893838956d09fef6776c4a7671870a938ea43"
-size = 8112912
-url = "https://github.com/stripe/stripe-cli/releases/download/v1.30.0/stripe_1.30.0_mac-os_arm64.tar.gz"
+checksum = "sha256:b4d2b0635a889d40973ccea07bc148709fa51b8baad27d88dacdc9c88431a9c3"
+size = 8125487
+url = "https://github.com/stripe/stripe-cli/releases/download/v1.31.0/stripe_1.31.0_mac-os_arm64.tar.gz"
 
 [[tools.terraform]]
 version = "1.13.3"
@@ -72,3 +80,7 @@ backend = "aqua:terraform-linters/tflint"
 checksum = "sha256:f9981304b30e2b6b9a6f40b9ca02dd23100bd23b0846ccd50f54044c0f24ff7e"
 size = 15598367
 url = "https://github.com/terraform-linters/tflint/releases/download/v0.59.1/tflint_darwin_arm64.zip"
+
+[[tools.uv]]
+version = "0.8.17"
+backend = "aqua:astral-sh/uv"

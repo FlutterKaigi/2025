@@ -8,6 +8,9 @@ part of 'force_update_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(forceUpdateChecker)
 const forceUpdateCheckerProvider = ForceUpdateCheckerProvider._();
 
@@ -57,7 +60,7 @@ String _$forceUpdateCheckerHash() =>
     r'70e85ade601c2169aa0808962dd354c46da2842d';
 
 @ProviderFor(ForceUpdateStateNotifier)
-const forceUpdateStateNotifierProvider = ForceUpdateStateNotifierProvider._();
+const forceUpdateStateProvider = ForceUpdateStateNotifierProvider._();
 
 final class ForceUpdateStateNotifierProvider
     extends $NotifierProvider<ForceUpdateStateNotifier, ForceUpdateState> {
@@ -66,7 +69,7 @@ final class ForceUpdateStateNotifierProvider
         from: null,
         argument: null,
         retry: null,
-        name: r'forceUpdateStateNotifierProvider',
+        name: r'forceUpdateStateProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
@@ -109,6 +112,3 @@ abstract class _$ForceUpdateStateNotifier extends $Notifier<ForceUpdateState> {
     element.handleValue(ref, created);
   }
 }
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

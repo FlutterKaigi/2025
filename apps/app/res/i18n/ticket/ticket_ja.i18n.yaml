@@ -44,3 +44,10 @@ purchase:
   ticket: チケット
   additionalOptions: 追加オプション
   total: 合計
+qr:
+  scanAtEntry: 入場時にかざしてください
+  ticketType: チケット種別
+  nameplateId: ネームプレートID
+entryTicket:
+  title: 入場可能なチケット
+  subtitle: "${count: int}枚のチケットがあります"

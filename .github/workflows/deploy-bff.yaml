@@ -115,7 +115,7 @@ jobs:
 
       - name: Resolve dependencies
         working-directory: bff/engine
-        run: dart pub get
+        run: dart pub get --enforce-lockfile
 
       - name: Build Dart Engine
         working-directory: bff/engine

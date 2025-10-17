@@ -89,12 +89,8 @@ RouteBase get $mainRoute => StatefulShellRouteData.$route(
           factory: $TicketRoute._fromState,
           routes: [
             GoRouteData.$route(
-              path: 'available',
-              factory: $AvailableTicketListRoute._fromState,
-            ),
-            GoRouteData.$route(
-              path: 'list',
-              factory: $TicketListRoute._fromState,
+              path: ':ticketId',
+              factory: $TicketDetailRoute._fromState,
             ),
           ],
         ),
@@ -301,33 +297,15 @@ mixin $TicketRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin $AvailableTicketListRoute on GoRouteData {
-  static AvailableTicketListRoute _fromState(GoRouterState state) =>
-      const AvailableTicketListRoute();
+mixin $TicketDetailRoute on GoRouteData {
+  static TicketDetailRoute _fromState(GoRouterState state) =>
+      TicketDetailRoute(ticketId: state.pathParameters['ticketId']!);
+
+  TicketDetailRoute get _self => this as TicketDetailRoute;
 
   @override
-  String get location => GoRouteData.$location('/tickets/available');
-
-  @override
-  void go(BuildContext context) => context.go(location);
-
-  @override
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  @override
-  void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
-
-  @override
-  void replace(BuildContext context) => context.replace(location);
-}
-
-mixin $TicketListRoute on GoRouteData {
-  static TicketListRoute _fromState(GoRouterState state) =>
-      const TicketListRoute();
-
-  @override
-  String get location => GoRouteData.$location('/tickets/list');
+  String get location =>
+      GoRouteData.$location('/tickets/${Uri.encodeComponent(_self.ticketId)}');
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -458,6 +436,9 @@ mixin $TalkerRoute on GoRouteData {
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(router)
 const routerProvider = RouterProvider._();
 
@@ -497,7 +478,4 @@ final class RouterProvider
   }
 }
 
-String _$routerHash() => r'724f7891d9e8165a7210e256dc0c5b7e1c50c5e9';
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+String _$routerHash() => r'7f8dcd94895d26a0c5b6506dc158c228c08202d3';

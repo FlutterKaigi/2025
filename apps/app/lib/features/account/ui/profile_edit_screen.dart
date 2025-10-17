@@ -1,3 +1,4 @@
+import 'package:app/core/designsystem/components/error_screen.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/features/account/data/model/sns_link_form_data.dart';
 import 'package:app/features/account/data/notifier/profile_notifier.dart';
@@ -66,7 +67,7 @@ class ProfileEditScreen extends HookConsumerWidget {
           )
           .toList();
 
-      final avatarKey = ref.read(profileNotifierProvider).value?.avatarKey;
+      final avatarKey = ref.read(profileProvider).value?.avatarKey;
       final request = ProfileUpdateRequest(
         name: nameController.text.trim(),
         isAdult: isAdult,
@@ -75,7 +76,7 @@ class ProfileEditScreen extends HookConsumerWidget {
         avatarKey: avatarKey,
       );
 
-      final notifier = ref.read(profileNotifierProvider.notifier);
+      final notifier = ref.read(profileProvider.notifier);
       await notifier.updateProfile(request);
 
       if (context.mounted) {
@@ -104,7 +105,10 @@ class ProfileEditScreen extends HookConsumerWidget {
                 const Icon(Icons.error, color: Colors.white),
                 const SizedBox(width: 8),
                 Expanded(
-                  child: Text('${t.account.profile.saveFailed}: $e'),
+                  child: Text(
+                    '${t.account.profile.saveFailed}: '
+                    '${e.errorMessage(t)}',
+                  ),
                 ),
               ],
             ),
@@ -126,7 +130,7 @@ class ProfileEditScreen extends HookConsumerWidget {
     final snsLinksState = useState<List<SnsLinkFormData>>([]);
     final isAdultState = useState(false);
 
-    final profileAsync = ref.watch(profileNotifierProvider);
+    final profileAsync = ref.watch(profileProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -153,7 +157,7 @@ class ProfileEditScreen extends HookConsumerWidget {
             children: [
               Text('${t.common.error.general.occurred}: $error'),
               ElevatedButton(
-                onPressed: () => ref.invalidate(profileNotifierProvider),
+                onPressed: () => ref.invalidate(profileProvider),
                 child: Text(t.common.error.server.retry),
               ),
             ],

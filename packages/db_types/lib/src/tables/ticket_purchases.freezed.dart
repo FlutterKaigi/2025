@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$TicketPurchases {
 
- String get id; String get userId; String get ticketTypeId; TicketPurchaseStatus get status; String? get stripePaymentIntentId;@RequiredDateTimeConverter() DateTime get createdAt;@RequiredDateTimeConverter() DateTime get updatedAt;
+ String get id; String get userId; String get ticketTypeId; TicketPurchaseStatus get status; String? get stripePaymentIntentId; String? get nameplateId;@RequiredDateTimeConverter() DateTime get createdAt;@RequiredDateTimeConverter() DateTime get updatedAt;
 /// Create a copy of TicketPurchases
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $TicketPurchasesCopyWith<TicketPurchases> get copyWith => _$TicketPurchasesCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TicketPurchases&&(identical(other.id, id) || other.id == id)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.ticketTypeId, ticketTypeId) || other.ticketTypeId == ticketTypeId)&&(identical(other.status, status) || other.status == status)&&(identical(other.stripePaymentIntentId, stripePaymentIntentId) || other.stripePaymentIntentId == stripePaymentIntentId)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TicketPurchases&&(identical(other.id, id) || other.id == id)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.ticketTypeId, ticketTypeId) || other.ticketTypeId == ticketTypeId)&&(identical(other.status, status) || other.status == status)&&(identical(other.stripePaymentIntentId, stripePaymentIntentId) || other.stripePaymentIntentId == stripePaymentIntentId)&&(identical(other.nameplateId, nameplateId) || other.nameplateId == nameplateId)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,userId,ticketTypeId,status,stripePaymentIntentId,createdAt,updatedAt);
+int get hashCode => Object.hash(runtimeType,id,userId,ticketTypeId,status,stripePaymentIntentId,nameplateId,createdAt,updatedAt);
 
 @override
 String toString() {
-  return 'TicketPurchases(id: $id, userId: $userId, ticketTypeId: $ticketTypeId, status: $status, stripePaymentIntentId: $stripePaymentIntentId, createdAt: $createdAt, updatedAt: $updatedAt)';
+  return 'TicketPurchases(id: $id, userId: $userId, ticketTypeId: $ticketTypeId, status: $status, stripePaymentIntentId: $stripePaymentIntentId, nameplateId: $nameplateId, createdAt: $createdAt, updatedAt: $updatedAt)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $TicketPurchasesCopyWith<$Res>  {
   factory $TicketPurchasesCopyWith(TicketPurchases value, $Res Function(TicketPurchases) _then) = _$TicketPurchasesCopyWithImpl;
 @useResult
 $Res call({
- String id, String userId, String ticketTypeId, TicketPurchaseStatus status, String? stripePaymentIntentId,@RequiredDateTimeConverter() DateTime createdAt,@RequiredDateTimeConverter() DateTime updatedAt
+ String id, String userId, String ticketTypeId, TicketPurchaseStatus status, String? stripePaymentIntentId, String? nameplateId,@RequiredDateTimeConverter() DateTime createdAt,@RequiredDateTimeConverter() DateTime updatedAt
 });
 
 
@@ -65,13 +65,14 @@ class _$TicketPurchasesCopyWithImpl<$Res>
 
 /// Create a copy of TicketPurchases
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? userId = null,Object? ticketTypeId = null,Object? status = null,Object? stripePaymentIntentId = freezed,Object? createdAt = null,Object? updatedAt = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? userId = null,Object? ticketTypeId = null,Object? status = null,Object? stripePaymentIntentId = freezed,Object? nameplateId = freezed,Object? createdAt = null,Object? updatedAt = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
 as String,ticketTypeId: null == ticketTypeId ? _self.ticketTypeId : ticketTypeId // ignore: cast_nullable_to_non_nullable
 as String,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as TicketPurchaseStatus,stripePaymentIntentId: freezed == stripePaymentIntentId ? _self.stripePaymentIntentId : stripePaymentIntentId // ignore: cast_nullable_to_non_nullable
+as String?,nameplateId: freezed == nameplateId ? _self.nameplateId : nameplateId // ignore: cast_nullable_to_non_nullable
 as String?,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,
@@ -159,10 +160,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String userId,  String ticketTypeId,  TicketPurchaseStatus status,  String? stripePaymentIntentId, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String userId,  String ticketTypeId,  TicketPurchaseStatus status,  String? stripePaymentIntentId,  String? nameplateId, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _TicketPurchases() when $default != null:
-return $default(_that.id,_that.userId,_that.ticketTypeId,_that.status,_that.stripePaymentIntentId,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.id,_that.userId,_that.ticketTypeId,_that.status,_that.stripePaymentIntentId,_that.nameplateId,_that.createdAt,_that.updatedAt);case _:
   return orElse();
 
 }
@@ -180,10 +181,10 @@ return $default(_that.id,_that.userId,_that.ticketTypeId,_that.status,_that.stri
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String userId,  String ticketTypeId,  TicketPurchaseStatus status,  String? stripePaymentIntentId, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String userId,  String ticketTypeId,  TicketPurchaseStatus status,  String? stripePaymentIntentId,  String? nameplateId, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)  $default,) {final _that = this;
 switch (_that) {
 case _TicketPurchases():
-return $default(_that.id,_that.userId,_that.ticketTypeId,_that.status,_that.stripePaymentIntentId,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.id,_that.userId,_that.ticketTypeId,_that.status,_that.stripePaymentIntentId,_that.nameplateId,_that.createdAt,_that.updatedAt);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -200,10 +201,10 @@ return $default(_that.id,_that.userId,_that.ticketTypeId,_that.status,_that.stri
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String userId,  String ticketTypeId,  TicketPurchaseStatus status,  String? stripePaymentIntentId, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String userId,  String ticketTypeId,  TicketPurchaseStatus status,  String? stripePaymentIntentId,  String? nameplateId, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)?  $default,) {final _that = this;
 switch (_that) {
 case _TicketPurchases() when $default != null:
-return $default(_that.id,_that.userId,_that.ticketTypeId,_that.status,_that.stripePaymentIntentId,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.id,_that.userId,_that.ticketTypeId,_that.status,_that.stripePaymentIntentId,_that.nameplateId,_that.createdAt,_that.updatedAt);case _:
   return null;
 
 }
@@ -215,7 +216,7 @@ return $default(_that.id,_that.userId,_that.ticketTypeId,_that.status,_that.stri
 @JsonSerializable()
 
 class _TicketPurchases implements TicketPurchases {
-  const _TicketPurchases({required this.id, required this.userId, required this.ticketTypeId, required this.status, this.stripePaymentIntentId, @RequiredDateTimeConverter() required this.createdAt, @RequiredDateTimeConverter() required this.updatedAt});
+  const _TicketPurchases({required this.id, required this.userId, required this.ticketTypeId, required this.status, this.stripePaymentIntentId, this.nameplateId, @RequiredDateTimeConverter() required this.createdAt, @RequiredDateTimeConverter() required this.updatedAt});
   factory _TicketPurchases.fromJson(Map<String, dynamic> json) => _$TicketPurchasesFromJson(json);
 
 @override final  String id;
@@ -223,6 +224,7 @@ class _TicketPurchases implements TicketPurchases {
 @override final  String ticketTypeId;
 @override final  TicketPurchaseStatus status;
 @override final  String? stripePaymentIntentId;
+@override final  String? nameplateId;
 @override@RequiredDateTimeConverter() final  DateTime createdAt;
 @override@RequiredDateTimeConverter() final  DateTime updatedAt;
 
@@ -239,16 +241,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TicketPurchases&&(identical(other.id, id) || other.id == id)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.ticketTypeId, ticketTypeId) || other.ticketTypeId == ticketTypeId)&&(identical(other.status, status) || other.status == status)&&(identical(other.stripePaymentIntentId, stripePaymentIntentId) || other.stripePaymentIntentId == stripePaymentIntentId)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TicketPurchases&&(identical(other.id, id) || other.id == id)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.ticketTypeId, ticketTypeId) || other.ticketTypeId == ticketTypeId)&&(identical(other.status, status) || other.status == status)&&(identical(other.stripePaymentIntentId, stripePaymentIntentId) || other.stripePaymentIntentId == stripePaymentIntentId)&&(identical(other.nameplateId, nameplateId) || other.nameplateId == nameplateId)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,userId,ticketTypeId,status,stripePaymentIntentId,createdAt,updatedAt);
+int get hashCode => Object.hash(runtimeType,id,userId,ticketTypeId,status,stripePaymentIntentId,nameplateId,createdAt,updatedAt);
 
 @override
 String toString() {
-  return 'TicketPurchases(id: $id, userId: $userId, ticketTypeId: $ticketTypeId, status: $status, stripePaymentIntentId: $stripePaymentIntentId, createdAt: $createdAt, updatedAt: $updatedAt)';
+  return 'TicketPurchases(id: $id, userId: $userId, ticketTypeId: $ticketTypeId, status: $status, stripePaymentIntentId: $stripePaymentIntentId, nameplateId: $nameplateId, createdAt: $createdAt, updatedAt: $updatedAt)';
 }
 
 
@@ -259,7 +261,7 @@ abstract mixin class _$TicketPurchasesCopyWith<$Res> implements $TicketPurchases
   factory _$TicketPurchasesCopyWith(_TicketPurchases value, $Res Function(_TicketPurchases) _then) = __$TicketPurchasesCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String userId, String ticketTypeId, TicketPurchaseStatus status, String? stripePaymentIntentId,@RequiredDateTimeConverter() DateTime createdAt,@RequiredDateTimeConverter() DateTime updatedAt
+ String id, String userId, String ticketTypeId, TicketPurchaseStatus status, String? stripePaymentIntentId, String? nameplateId,@RequiredDateTimeConverter() DateTime createdAt,@RequiredDateTimeConverter() DateTime updatedAt
 });
 
 
@@ -276,13 +278,14 @@ class __$TicketPurchasesCopyWithImpl<$Res>
 
 /// Create a copy of TicketPurchases
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? userId = null,Object? ticketTypeId = null,Object? status = null,Object? stripePaymentIntentId = freezed,Object? createdAt = null,Object? updatedAt = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? userId = null,Object? ticketTypeId = null,Object? status = null,Object? stripePaymentIntentId = freezed,Object? nameplateId = freezed,Object? createdAt = null,Object? updatedAt = null,}) {
   return _then(_TicketPurchases(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
 as String,ticketTypeId: null == ticketTypeId ? _self.ticketTypeId : ticketTypeId // ignore: cast_nullable_to_non_nullable
 as String,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as TicketPurchaseStatus,stripePaymentIntentId: freezed == stripePaymentIntentId ? _self.stripePaymentIntentId : stripePaymentIntentId // ignore: cast_nullable_to_non_nullable
+as String?,nameplateId: freezed == nameplateId ? _self.nameplateId : nameplateId // ignore: cast_nullable_to_non_nullable
 as String?,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,
