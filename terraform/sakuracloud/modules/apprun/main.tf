@@ -103,10 +103,6 @@ resource "sakuracloud_apprun_application" "fcm_internal_api" {
       value = var.firebase_service_account_json
     }
     env {
-      key   = "PORT"
-      value = "8080"
-    }
-    env {
       key   = "NODE_ENV"
       value = "production"
     }
@@ -167,10 +163,6 @@ resource "sakuracloud_apprun_application" "apns_internal_api" {
     env {
       key   = "APNS_ENVIRONMENT"
       value = var.apns_environment
-    }
-    env {
-      key   = "PORT"
-      value = "8080"
     }
     env {
       key   = "LOG_LEVEL"
