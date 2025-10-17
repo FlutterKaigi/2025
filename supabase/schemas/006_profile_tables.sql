@@ -44,3 +44,17 @@ EXECUTE function public.update_updated_at_column ();
 CREATE TRIGGER update_user_sns_links_updated_at before
 UPDATE ON public.user_sns_links FOR each ROW
 EXECUTE function public.update_updated_at_column ();
+
+
+CREATE TABLE public.profile_share(
+  id uuid PRIMARY KEY DEFAULT uuid_generate_v7 (),
+  from_id UUID NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
+  to_id UUID NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
+  created_at timestamp DEFAULT current_timestamp NOT NULL,
+  updated_at timestamp DEFAULT current_timestamp NOT NULL,
+  UNIQUE (from_id, to_id),
+  CHECK (from_id != to_id)
+);
+ALTER TABLE public.profile_share enable ROW level security;
+CREATE INDEX profile_share_from_id_index ON public.profile_share(from_id);
+CREATE INDEX profile_share_to_id_index ON public.profile_share(to_id);
