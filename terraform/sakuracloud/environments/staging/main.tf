@@ -32,6 +32,10 @@ module "apprun" {
   supabase_db_password          = var.SUPABASE_DB_PASSWORD_STAGING
   supabase_service_role_key     = var.SUPABASE_SERVICE_ROLE_KEY_STAGING
   firebase_service_account_json = base64decode(var.FIREBASE_SERVICE_ACCOUNT_JSON_STAGING_BASE64)
+  apns_key_id                   = var.APNS_KEY_ID_STAGING
+  apns_team_id                  = var.APNS_TEAM_ID_STAGING
+  apns_private_key              = base64decode(var.APNS_PRIVATE_KEY_STAGING_BASE64)
+  apns_environment              = "sandbox"
 }
 
 
@@ -54,4 +58,8 @@ output "container_registry_password" {
 
 output "fcm_internal_api_public_url" {
   value = module.apprun.apprun_fcm_public_url
+}
+
+output "apns_internal_api_public_url" {
+  value = module.apprun.apprun_apns_public_url
 }

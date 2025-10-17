@@ -1,17 +1,11 @@
-FROM oven/bun:1.2.19-alpine AS base
+FROM oven/bun:1.2.21-alpine AS base
 
 WORKDIR /app
 
 # Install dependencies
-FROM base AS install
-RUN mkdir -p /temp/dev
-COPY package.json bun.lock* /temp/dev/
-RUN cd /temp/dev && bun install --frozen-lockfile
-
-# Copy application code
 FROM base AS release
-COPY --from=install /temp/dev/node_modules node_modules
 COPY . .
+RUN bun install --frozen-lockfile
 
 # Set environment variables
 ENV NODE_ENV=production
@@ -25,4 +19,5 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
   CMD wget --no-verbose --tries=1 --spider http://localhost:8080/health || exit 1
 
 # Run the application
+WORKDIR /app/bff/fcm-internal-api
 CMD ["bun", "run", "src/index.ts"]

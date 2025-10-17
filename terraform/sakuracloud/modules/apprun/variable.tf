@@ -88,3 +88,27 @@ variable "firebase_service_account_json" {
   description = "Firebase Service Account JSON"
   sensitive   = true
 }
+
+variable "apns_key_id" {
+  type        = string
+  description = "APNs Key ID"
+  sensitive   = true
+}
+
+variable "apns_team_id" {
+  type        = string
+  description = "Apple Team ID"
+  sensitive   = true
+}
+
+variable "apns_private_key" {
+  type        = string
+  description = "APNs Private Key (PEM format)"
+  sensitive   = true
+}
+
+variable "apns_environment" {
+  type        = string
+  description = "APNs Environment (sandbox or production)"
+  default     = "sandbox"
+}

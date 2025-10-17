@@ -11,6 +11,8 @@ let package = Package(
         .package(url: "https://github.com/vapor/vapor.git", from: "4.106.3"),
         // 🍎 Apple Push Notification Service
         .package(url: "https://github.com/vapor/apns.git", from: "4.1.0"),
+        // 📖 OpenAPI specification generator
+        .package(url: "https://github.com/dankinsoid/VaporToOpenAPI.git", from: "4.8.1"),
     ],
     targets: [
         .executableTarget(
@@ -24,6 +26,7 @@ let package = Package(
             dependencies: [
                 .product(name: "Vapor", package: "vapor"),
                 .product(name: "APNS", package: "apns"),
+                .product(name: "VaporToOpenAPI", package: "VaporToOpenAPI"),
             ],
             swiftSettings: swiftSettings
         ),

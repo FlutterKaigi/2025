@@ -119,3 +119,65 @@ resource "sakuracloud_apprun_application" "fcm_internal_api" {
 output "apprun_fcm_public_url" {
   value = sakuracloud_apprun_application.fcm_internal_api.public_url
 }
+
+resource "sakuracloud_apprun_application" "apns_internal_api" {
+  name            = "apns-internal-api-${var.env}"
+  timeout_seconds = 20
+  port            = 8080
+  max_scale       = var.app_run_max_scale
+  min_scale       = 1
+  components {
+    max_cpu    = "1"
+    max_memory = "1Gi"
+    name       = var.env
+    deploy_source {
+      container_registry {
+        image    = "${var.container_registry_fqdn}/apns-internal-api:latest"
+        password = var.container_registry_password
+        server   = var.container_registry_fqdn
+        username = var.container_registry_username
+      }
+    }
+    probe {
+      http_get {
+        path = "/health"
+        port = 8080
+      }
+    }
+    env {
+      key   = "X_API_KEY"
+      value = var.X_API_KEY
+    }
+    env {
+      key   = "APNS_KEY_ID"
+      value = var.apns_key_id
+    }
+    env {
+      key   = "APNS_TEAM_ID"
+      value = var.apns_team_id
+    }
+    env {
+      key   = "APNS_PRIVATE_KEY"
+      value = var.apns_private_key
+    }
+    env {
+      key   = "APNS_ENVIRONMENT"
+      value = var.apns_environment
+    }
+    env {
+      key   = "PORT"
+      value = "8080"
+    }
+    env {
+      key   = "LOG_LEVEL"
+      value = "info"
+    }
+  }
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
+output "apprun_apns_public_url" {
+  value = sakuracloud_apprun_application.apns_internal_api.public_url
+}

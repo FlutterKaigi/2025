@@ -32,6 +32,10 @@ module "apprun" {
   supabase_db_password          = var.SUPABASE_DB_PASSWORD_PRODUCTION
   supabase_service_role_key     = var.SUPABASE_SERVICE_ROLE_KEY_PRODUCTION
   firebase_service_account_json = base64decode(var.FIREBASE_SERVICE_ACCOUNT_JSON_PRODUCTION_BASE64)
+  apns_key_id                   = var.APNS_KEY_ID_PRODUCTION
+  apns_team_id                  = var.APNS_TEAM_ID_PRODUCTION
+  apns_private_key              = base64decode(var.APNS_PRIVATE_KEY_PRODUCTION_BASE64)
+  apns_environment              = "production"
 }
 
 module "random_password" {
@@ -52,5 +56,9 @@ output "container_registry_password" {
 }
 
 output "fcm_internal_api_public_url" {
-  value = module.apprun_fcm.apprun_fcm_public_url
+  value = module.apprun.apprun_fcm_public_url
+}
+
+output "apns_internal_api_public_url" {
+  value = module.apprun.apprun_apns_public_url
 }
