@@ -41,6 +41,8 @@ Widget accountInfoScreenUseCase(BuildContext context) {
           supabaseUrl: '',
           supabaseKey: '',
           withdrawalFormUrl: '',
+          ticketApiBaseUrl: '',
+          commitInformation: '',
         ),
       ),
     ],
