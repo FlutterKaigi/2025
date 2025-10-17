@@ -28,9 +28,10 @@ module "apprun" {
   X_API_KEY                       = var.X_API_KEY
   logo_base_url                   = "https://2025-bucket.flutterkaigi.jp"
   # MEMO(YumNumm): Supabase側のTerraformから取得するようにする
-  supabase_project_id       = "sotendzncvqiyfaxpydk"
-  supabase_db_password      = var.SUPABASE_DB_PASSWORD_PRODUCTION
-  supabase_service_role_key = var.SUPABASE_SERVICE_ROLE_KEY_PRODUCTION
+  supabase_project_id           = "sotendzncvqiyfaxpydk"
+  supabase_db_password          = var.SUPABASE_DB_PASSWORD_PRODUCTION
+  supabase_service_role_key     = var.SUPABASE_SERVICE_ROLE_KEY_PRODUCTION
+  firebase_service_account_json = base64decode(var.FIREBASE_SERVICE_ACCOUNT_JSON_PRODUCTION_BASE64)
 }
 
 module "random_password" {
@@ -48,4 +49,8 @@ output "container_registry_username" {
 output "container_registry_password" {
   value     = local.container_registry_password
   sensitive = true
+}
+
+output "fcm_internal_api_public_url" {
+  value = module.apprun_fcm.apprun_fcm_public_url
 }

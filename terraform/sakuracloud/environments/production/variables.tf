@@ -33,3 +33,9 @@ variable "SUPABASE_SERVICE_ROLE_KEY_PRODUCTION" {
   description = "Supabase Service Role Key"
   sensitive   = true
 }
+
+variable "FIREBASE_SERVICE_ACCOUNT_JSON_PRODUCTION_BASE64" {
+  type        = string
+  description = "Firebase Service Account JSON for Production"
+  sensitive   = true
+}

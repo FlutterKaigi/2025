@@ -52,14 +52,12 @@ struct APNsController: RouteCollection, Sendable {
                     customData: notification.customData ?? [:]
                 )
                 
-                // 検証のみモードでない場合は実際に送信
-                if !validateOnly {
-                    try await req.apns.client.sendAlertNotification(
-                        alert,
-                        deviceToken: notification.deviceToken,
-                        deadline: .distantFuture
-                    )
-                }
+                try await req.apns.client.sendAlertNotification(
+                    alert,
+                    deviceToken: notification.deviceToken,
+                    deadline: .distantFuture
+                    validateOnly: validateOnly
+                )
                 
                 results.append(APNsResult(
                     success: true,

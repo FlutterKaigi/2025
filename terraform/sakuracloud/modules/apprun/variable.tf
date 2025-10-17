@@ -82,3 +82,9 @@ variable "deployment_timestamp" {
   description = "Deployment timestamp (static value to avoid plan inconsistencies)"
   default     = "2024-01-01T00:00:00Z"
 }
+
+variable "firebase_service_account_json" {
+  type        = string
+  description = "Firebase Service Account JSON"
+  sensitive   = true
+}
