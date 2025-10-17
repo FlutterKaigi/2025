@@ -1,0 +1,24 @@
+{
+  "notifications": [
+    {
+      "deviceToken": "your_device_token_here",
+      "notification": {
+        "title": "FlutterKaigi 2025",
+        "subtitle": "セッション開始のお知らせ",
+        "body": "あなたが登録したセッションが5分後に開始されます",
+        "badge": 1,
+        "sound": "default",
+        "category": "SESSION_REMINDER",
+        "threadId": "session-123"
+      },
+      "customData": {
+        "sessionId": "123",
+        "roomName": "Track A"
+      },
+      "priority": 10,
+      "topic": "com.flutterkaigi.conf2025",
+      "collapseId": "session-reminder"
+    }
+  ],
+  "validateOnly": false
+}

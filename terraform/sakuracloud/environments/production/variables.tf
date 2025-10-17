@@ -33,3 +33,27 @@ variable "SUPABASE_SERVICE_ROLE_KEY_PRODUCTION" {
   description = "Supabase Service Role Key"
   sensitive   = true
 }
+
+variable "FIREBASE_SERVICE_ACCOUNT_JSON_PRODUCTION_BASE64" {
+  type        = string
+  description = "Firebase Service Account JSON for Production"
+  sensitive   = true
+}
+
+variable "APNS_KEY_ID_PRODUCTION" {
+  type        = string
+  description = "APNs Key ID for Production"
+  sensitive   = true
+}
+
+variable "APNS_TEAM_ID" {
+  type        = string
+  description = "Apple Team ID for Production"
+  sensitive   = true
+}
+
+variable "APNS_PRIVATE_KEY_PRODUCTION_BASE64" {
+  type        = string
+  description = "APNs Private Key (PEM format, base64 encoded) for Production"
+  sensitive   = true
+}

@@ -33,3 +33,27 @@ variable "SUPABASE_SERVICE_ROLE_KEY_STAGING" {
   description = "Supabase Service Role Key"
   sensitive   = true
 }
+
+variable "FIREBASE_SERVICE_ACCOUNT_JSON_STAGING_BASE64" {
+  type        = string
+  description = "Firebase Service Account JSON for Staging"
+  sensitive   = true
+}
+
+variable "APNS_KEY_ID_STAGING" {
+  type        = string
+  description = "APNs Key ID for Staging"
+  sensitive   = true
+}
+
+variable "APNS_TEAM_ID" {
+  type        = string
+  description = "Apple Team ID for Staging"
+  sensitive   = true
+}
+
+variable "APNS_PRIVATE_KEY_STAGING_BASE64" {
+  type        = string
+  description = "APNs Private Key (PEM format, base64 encoded) for Staging"
+  sensitive   = true
+}

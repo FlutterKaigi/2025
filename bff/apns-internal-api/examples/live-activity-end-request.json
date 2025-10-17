@@ -1,0 +1,25 @@
+{
+  "updates": [
+    {
+      "deviceToken": "your_live_activity_push_token_here",
+      "event": "end",
+      "contentState": {
+        "sessionName": "FlutterのパフォーマンスTips",
+        "speakerName": "山田太郎",
+        "startTime": 1735603200,
+        "roomName": "Track A",
+        "status": "completed"
+      },
+      "alert": {
+        "title": "セッション終了",
+        "body": "FlutterのパフォーマンスTips が終了しました",
+        "sound": "default"
+      },
+      "priority": 10,
+      "timestamp": 1735606800,
+      "dismissalDate": 1735610400,
+      "topic": "com.flutterkaigi.conf2025.push-type.liveactivity"
+    }
+  ],
+  "validateOnly": false
+}
