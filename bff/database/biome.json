@@ -5,8 +5,7 @@
   "files": {
     "includes": [
       "*.ts",
-      "src/**/*.ts",
-      "!drizzle/**/*.ts"
+      "src/**/*.ts"
     ]
   }
 }
