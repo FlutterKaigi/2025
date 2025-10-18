@@ -4,7 +4,9 @@ resource "lxd_instance" "flutterkaigi-2025-monitoring" {
   ephemeral = false
 
   config = {
-    "cloud-init.user-data"   = file("${path.module}/cloud-init.yaml")
+    "cloud-init.user-data" = templatefile("${path.module}/cloud-init.yaml.tftpl", {
+      tunnel_token = var.CLOUDFLARE_TUNNEL_TOKEN
+    })
     "security.nesting" = "true"
     "raw.idmap"        = "both 1000 1000"
   }

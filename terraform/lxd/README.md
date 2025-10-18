@@ -11,6 +11,11 @@
 - **Tempo**: 分散トレースストレージとクエリエンジン
 - **Grafana**: メトリクス、ログ、トレースの統合可視化ダッシュボード
 
+### セキュアアクセス
+
+- **Cloudflare Tunnel**: インターネットからの安全なアクセス（ポート開放不要）
+- **Cloudflare Access**: ゼロトラストアクセス制御
+
 ### インフラストラクチャ
 
 - **プラットフォーム**: LXD Container
@@ -23,42 +28,77 @@
 1. LXDがインストール・設定済みであること
 2. Terraformがインストールされていること（推奨: v1.5+）
 3. LXDへのアクセストークンを持っていること
+4. Cloudflareアカウントを持っていること
+5. Cloudflare Zero Trustが有効になっていること（無料プランで利用可能）
+6. 管理対象のドメインがCloudflareに登録されていること
 
 ## セットアップ手順
 
-### 1. 環境変数の設定
+### 1. Cloudflare API トークンの作成
+
+1. [Cloudflare Dashboard](https://dash.cloudflare.com/profile/api-tokens) にアクセス
+2. "Create Token" をクリック
+3. 以下の権限を持つカスタムトークンを作成：
+   - **Account** > **Cloudflare Tunnel** > **Edit**
+   - **Account** > **Access: Apps and Policies** > **Edit**
+   - **Zone** > **DNS** > **Edit**
+4. トークンをコピーして保存
+
+### 2. 必要な情報を収集
+
+以下の情報を確認してください：
+
+- **Account ID**: [Cloudflare Dashboard](https://dash.cloudflare.com/) のアカウントページから確認
+- **Zone ID**: 対象ドメインのページから確認
+- **Zone**: 管理対象のドメイン名（例: `flutterkaigi.jp`）
+- **Email**: アクセス許可するメールアドレス
+
+### 3. 設定ファイルの作成
 
 ```bash
 cd terraform/lxd/environments/production
+cp terraform.tfvars.example terraform.tfvars
 ```
 
-`backend.tfbackend`ファイルにバックエンドの設定を記述します（必要に応じて）。
+`terraform.tfvars`を編集して、収集した情報を入力します：
 
-### 2. Terraform初期化
+```hcl
+LXD_TOKEN              = "your-lxd-token"
+CLOUDFLARE_API_TOKEN   = "your-cloudflare-api-token"
+CLOUDFLARE_ACCOUNT_ID  = "your-account-id"
+CLOUDFLARE_ZONE_ID     = "your-zone-id"
+CLOUDFLARE_ZONE        = "flutterkaigi.jp"
+CLOUDFLARE_EMAIL       = "your-email@example.com"
+```
+
+> ⚠️ **重要**: `terraform.tfvars`は機密情報を含むため、バージョン管理から除外してください！
+
+### 4. Terraform初期化
 
 ```bash
 terraform init -backend-config=backend.tfbackend
 ```
 
-### 3. LXDトークンの設定
-
-`main.tf`ファイルでLXDトークンを設定するか、環境変数で指定します：
-
-```bash
-export TF_VAR_LXD_TOKEN="your-lxd-token-here"
-```
-
-### 4. プランの確認
+### 5. プランの確認
 
 ```bash
 terraform plan
 ```
 
-### 5. 適用
+作成されるリソースを確認します：
+
+- LXDコンテナ
+- Cloudflare Tunnel
+- DNS レコード（monitoring.ZONE, alloy.ZONE）
+- Cloudflare Access アプリケーション
+
+### 6. 適用
 
 ```bash
 terraform apply
 ```
+
+> 💡 **Tip**: 初回適用には5-10分程度かかる場合があります。
 
 ## デプロイ後のアクセス
 

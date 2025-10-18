@@ -1,5 +1,5 @@
-variable "LXD_TOKEN" {
+variable "CLOUDFLARE_TUNNEL_TOKEN" {
   type        = string
-  description = "LXD Token"
+  description = "Cloudflare Tunnel Token"
   sensitive   = true
 }

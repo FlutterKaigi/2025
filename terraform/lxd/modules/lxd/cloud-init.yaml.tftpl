@@ -32,6 +32,9 @@ runcmd:
   - apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
   - systemctl enable docker
   - systemctl start docker
+  - chown -R monitoring:monitoring /opt/monitoring
+  - chmod -R 755 /opt/monitoring
+  - su - monitoring -c "cd /opt/monitoring && docker compose up -d"
 
 write_files:
   - path: /opt/monitoring/compose.yaml
@@ -127,6 +130,16 @@ write_files:
           depends_on:
             - loki
             - tempo
+
+        cloudflared:
+          image: cloudflare/cloudflared:latest
+          container_name: cloudflared
+          restart: unless-stopped
+          environment:
+            - TZ=Asia/Tokyo
+          command: tunnel run --token ${tunnel_token}
+          networks:
+            - monitoring
 
   - path: /opt/monitoring/alloy/config.alloy
     content: |
@@ -337,15 +350,6 @@ write_files:
       - OTLP HTTP: localhost:4318
       - Zipkin: localhost:9411
       - Jaeger: localhost:14268
-
-runcmd:
-  - systemctl enable docker
-  - systemctl start docker
-
-  - chown -R monitoring:monitoring /opt/monitoring
-  - chmod -R 755 /opt/monitoring
-
-  - su - monitoring -c "cd /opt/monitoring && docker compose up -d"
 
 final_message: |
   FlutterKaigi 2025 Monitoring Stack has been set up!
