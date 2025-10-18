@@ -1,48 +1,41 @@
-import { Scalar } from "@scalar/hono-api-reference";
+import { env } from "cloudflare:workers";
+import { otel } from "@hono/otel";
+import { createSampler, instrument } from "@microlabs/otel-cf-workers";
 import { Hono } from "hono";
 import { logger } from "hono/logger";
+import { requestId } from "hono/request-id";
 import { secureHeaders } from "hono/secure-headers";
-import { openAPISpecs } from "hono-openapi";
 import { internalApi } from "./api/internal";
 
 const app = new Hono<{
 	Bindings: Cloudflare.Env;
 }>()
 	.use("*", secureHeaders())
+	.use("*", requestId({ headerName: "Cf-Ray" }))
+	.use("*", otel())
 	.use("*", logger())
 	.route("/internal", internalApi)
-	.get("/scalar", Scalar({ url: "/openapi", title: "Stripe Internal API" }))
 	.onError((err, c) => {
 		console.error(err);
 		return c.json({ message: "Internal Server Error", error: err }, 500);
 	});
 
-app.get(
-	"/openapi",
-	openAPISpecs(app, {
-		documentation: {
-			info: {
-				title: "Stripe Internal API",
-				version: "1.0.0",
-				contact: {
-					name: "Ryotaro Onoue",
-					url: "https://github.com/YumNumm",
-				},
-				license: {
-					name: "MIT",
-				},
-			},
-
-			servers: [
-				{
-					url: "https://localhost:8787",
-					description: "Local Development",
-				},
-			],
-		},
-	}),
-);
-
 export type StripeWebhookAppType = typeof app;
 
-export default app;
+export default instrument(app, {
+	exporter: {
+		url: "https://otlp.flutterkaigi.jp/v1/traces",
+		headers: {
+			"x-flutterkaigi-service-name": "stripe-internal-api",
+		},
+	},
+	service: {
+		name: "stripe-internal-api",
+		namespace: `flutterkaigi-2025-${env.ENVIRONMENT}`,
+	},
+	sampling: {
+		headSampler: createSampler({
+			ratio: 1,
+		}),
+	},
+});

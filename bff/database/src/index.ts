@@ -6,16 +6,16 @@ export { drizzle } from "drizzle-orm/node-postgres";
 export * from "./function/createTicketCheckout";
 export * from "./function/getTicketCount";
 export * from "./function/getTicketOptionCount";
+
 import * as relations from "../drizzle/relations";
 import * as schema from "../drizzle/schema";
 
-
 export const databaseSchema = {
-  ...relations,
-  ...schema,
+	...relations,
+	...schema,
 };
 
 export function getDatabase(postgresUrl: string) {
-  const db = drizzle(postgresUrl, { schema: databaseSchema, logger: true });
-  return db;
+	const db = drizzle(postgresUrl, { schema: databaseSchema, logger: true });
+	return db;
 }

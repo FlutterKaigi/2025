@@ -13,7 +13,7 @@ const app = new Hono<{
 }>()
   .use("*", secureHeaders())
   .use("*", logger())
-  .use("*", requestId())
+  .use("*", requestId({ headerName: "Cf-Ray" }))
   .use("*", otel())
   .route("/internal", internalApi)
   .onError((err, c) => {

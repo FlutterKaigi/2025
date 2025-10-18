@@ -7,39 +7,39 @@ import { secureHeaders } from "hono/secure-headers";
 import wallet from "./routes/wallet";
 
 const app = new Hono()
-	.use("*", logger())
-	.use("*", secureHeaders())
-	.use("*", requestId())
-	.use("*", otel());
+  .use("*", logger())
+  .use("*", secureHeaders())
+  .use("*", requestId({ headerName: "Cf-Ray" }))
+  .use("*", otel());
 
 app.route("/wallet", wallet);
 
 app.onError((err, c) => {
-	console.error(err);
-	return c.json(
-		{
-			code: "INTERNAL_SERVER_ERROR",
-			message: "Internal Server Error",
-			detail: err.toString(),
-		},
-		500,
-	);
+  console.error(err);
+  return c.json(
+    {
+      code: "INTERNAL_SERVER_ERROR",
+      message: "Internal Server Error",
+      detail: err.toString(),
+    },
+    500
+  );
 });
 
 export default instrument(app, {
-	exporter: {
-		url: "https://otlp.flutterkaigi.jp/v1/traces",
-		headers: {
-			"x-flutterkaigi-service-name": "wallet-api",
-		},
-	},
-	service: {
-		name: "wallet-api",
-		namespace: `flutterkaigi-2025-production`,
-	},
-	sampling: {
-		headSampler: createSampler({
-			ratio: 1,
-		}),
-	},
+  exporter: {
+    url: "https://otlp.flutterkaigi.jp/v1/traces",
+    headers: {
+      "x-flutterkaigi-service-name": "wallet-api",
+    },
+  },
+  service: {
+    name: "wallet-api",
+    namespace: `flutterkaigi-2025-production`,
+  },
+  sampling: {
+    headSampler: createSampler({
+      ratio: 1,
+    }),
+  },
 });
