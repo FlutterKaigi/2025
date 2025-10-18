@@ -21,6 +21,7 @@ dependencies:
   internal_api_client:
     path: ../../packages/internal_api_client
   json_annotation: ^4.9.0
+  minio: ^3.5.8
   riverpod: ^3.0.0-dev.17
   riverpod_annotation: ^3.0.0-dev.17
   shelf: ^1.4.0

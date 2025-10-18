@@ -34,7 +34,9 @@
     "bff/internal-api-proxy",
     "bff/payment-workflow-internal-api",
     "bff/ticket-sales-reporter",
+    "bff/profile-share-internal-api",
     "bff/wallet-api",
+    "bff/websocket-api",
     "tools/sponsor-inserter"
   ],
   "trustedDependencies": [

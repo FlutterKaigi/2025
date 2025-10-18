@@ -33,12 +33,14 @@ class ProfileShareDbClient {
               ) ORDER BY usl.created_at
             ) FILTER (WHERE usl.id IS NOT NULL),
             '[]'::json
-          ) AS sns_links
+          ) AS sns_links,
+          au.raw_user_meta_data->>'avatar_url' AS avatar_url
         FROM profile_share ps
         INNER JOIN profiles p ON ps.from_id = p.id
+        INNER JOIN auth.users au on p.id = au.id
         LEFT JOIN user_sns_links usl ON p.id = usl.user_id
         WHERE ps.to_id = @user_id
-        GROUP BY p.id
+        GROUP BY p.id, au.raw_user_meta_data->>'avatar_url'
       ''',
       parameters: {'user_id': userId},
     );

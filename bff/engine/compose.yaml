@@ -11,4 +11,6 @@ services:
       - "8080:8080"
     env_file:
       - .env
+    environment:
+      - INTERNAL_API_URL=https://example.com
     restart: unless-stopped

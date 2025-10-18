@@ -33,3 +33,15 @@ variable "SUPABASE_SERVICE_ROLE_KEY_PRODUCTION" {
   description = "Supabase Service Role Key"
   sensitive   = true
 }
+
+variable "R2_ACCESS_KEY_ID" {
+  type        = string
+  description = "R2 Access Key ID"
+  sensitive   = true
+}
+
+variable "R2_SECRET_ACCESS_KEY" {
+  type        = string
+  description = "R2 Secret Access Key"
+  sensitive   = true
+}

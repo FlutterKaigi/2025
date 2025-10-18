@@ -8,51 +8,63 @@ part of 'environments.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_Environments _$EnvironmentsFromJson(Map<String, dynamic> json) =>
-    $checkedCreate(
-      '_Environments',
-      json,
-      ($checkedConvert) {
-        final val = _Environments(
-          supabaseUrl: $checkedConvert('SUPABASE_URL', (v) => v as String),
-          supabaseServiceRoleKey: $checkedConvert(
-            'SUPABASE_SERVICE_ROLE_KEY',
-            (v) => v as String,
-          ),
-          cfVersionMetadataId: $checkedConvert(
-            'CF_VERSION_METADATA_ID',
-            (v) => v as String?,
-          ),
-          cfVersionMetadataTag: $checkedConvert(
-            'CF_VERSION_METADATA_TAG',
-            (v) => v as String?,
-          ),
-          cfVersionMetadataTimestamp: $checkedConvert(
-            'CF_VERSION_METADATA_TIMESTAMP',
-            (v) => v as String?,
-          ),
-          postgresUrl: $checkedConvert('POSTGRES_URL', (v) => v as String),
-          internalApiUrl: $checkedConvert(
-            'INTERNAL_API_URL',
-            (v) => v as String,
-          ),
-          xApiKey: $checkedConvert('X_API_KEY', (v) => v as String),
-          logoBaseUrl: $checkedConvert('LOGO_BASE_URL', (v) => v as String),
-        );
-        return val;
-      },
-      fieldKeyMap: const {
-        'supabaseUrl': 'SUPABASE_URL',
-        'supabaseServiceRoleKey': 'SUPABASE_SERVICE_ROLE_KEY',
-        'cfVersionMetadataId': 'CF_VERSION_METADATA_ID',
-        'cfVersionMetadataTag': 'CF_VERSION_METADATA_TAG',
-        'cfVersionMetadataTimestamp': 'CF_VERSION_METADATA_TIMESTAMP',
-        'postgresUrl': 'POSTGRES_URL',
-        'internalApiUrl': 'INTERNAL_API_URL',
-        'xApiKey': 'X_API_KEY',
-        'logoBaseUrl': 'LOGO_BASE_URL',
-      },
+_Environments _$EnvironmentsFromJson(
+  Map<String, dynamic> json,
+) => $checkedCreate(
+  '_Environments',
+  json,
+  ($checkedConvert) {
+    final val = _Environments(
+      supabaseUrl: $checkedConvert('SUPABASE_URL', (v) => v as String),
+      supabaseServiceRoleKey: $checkedConvert(
+        'SUPABASE_SERVICE_ROLE_KEY',
+        (v) => v as String,
+      ),
+      cfVersionMetadataId: $checkedConvert(
+        'CF_VERSION_METADATA_ID',
+        (v) => v as String?,
+      ),
+      cfVersionMetadataTag: $checkedConvert(
+        'CF_VERSION_METADATA_TAG',
+        (v) => v as String?,
+      ),
+      cfVersionMetadataTimestamp: $checkedConvert(
+        'CF_VERSION_METADATA_TIMESTAMP',
+        (v) => v as String?,
+      ),
+      postgresUrl: $checkedConvert('POSTGRES_URL', (v) => v as String),
+      internalApiUrl: $checkedConvert('INTERNAL_API_URL', (v) => v as String),
+      xApiKey: $checkedConvert('X_API_KEY', (v) => v as String),
+      logoBaseUrl: $checkedConvert('LOGO_BASE_URL', (v) => v as String),
+      cloudflareAccountId: $checkedConvert(
+        'CLOUDFLARE_ACCOUNT_ID',
+        (v) => v as String,
+      ),
+      r2BucketName: $checkedConvert('R2_BUCKET_NAME', (v) => v as String),
+      r2AccessKeyId: $checkedConvert('R2_ACCESS_KEY_ID', (v) => v as String),
+      r2SecretAccessKey: $checkedConvert(
+        'R2_SECRET_ACCESS_KEY',
+        (v) => v as String,
+      ),
     );
+    return val;
+  },
+  fieldKeyMap: const {
+    'supabaseUrl': 'SUPABASE_URL',
+    'supabaseServiceRoleKey': 'SUPABASE_SERVICE_ROLE_KEY',
+    'cfVersionMetadataId': 'CF_VERSION_METADATA_ID',
+    'cfVersionMetadataTag': 'CF_VERSION_METADATA_TAG',
+    'cfVersionMetadataTimestamp': 'CF_VERSION_METADATA_TIMESTAMP',
+    'postgresUrl': 'POSTGRES_URL',
+    'internalApiUrl': 'INTERNAL_API_URL',
+    'xApiKey': 'X_API_KEY',
+    'logoBaseUrl': 'LOGO_BASE_URL',
+    'cloudflareAccountId': 'CLOUDFLARE_ACCOUNT_ID',
+    'r2BucketName': 'R2_BUCKET_NAME',
+    'r2AccessKeyId': 'R2_ACCESS_KEY_ID',
+    'r2SecretAccessKey': 'R2_SECRET_ACCESS_KEY',
+  },
+);
 
 Map<String, dynamic> _$EnvironmentsToJson(_Environments instance) =>
     <String, dynamic>{
@@ -65,4 +77,8 @@ Map<String, dynamic> _$EnvironmentsToJson(_Environments instance) =>
       'INTERNAL_API_URL': instance.internalApiUrl,
       'X_API_KEY': instance.xApiKey,
       'LOGO_BASE_URL': instance.logoBaseUrl,
+      'CLOUDFLARE_ACCOUNT_ID': instance.cloudflareAccountId,
+      'R2_BUCKET_NAME': instance.r2BucketName,
+      'R2_ACCESS_KEY_ID': instance.r2AccessKeyId,
+      'R2_SECRET_ACCESS_KEY': instance.r2SecretAccessKey,
     };
