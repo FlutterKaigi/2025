@@ -1,7 +1,7 @@
 import {
-  WorkflowEntrypoint,
-  type WorkflowEvent,
-  type WorkflowStep,
+	WorkflowEntrypoint,
+	type WorkflowEvent,
+	type WorkflowStep,
 } from "cloudflare:workers";
 import { and, databaseSchema, eq, getDatabase } from "@2025/database";
 import Stripe from "stripe";
@@ -9,91 +9,90 @@ import * as v from "valibot";
 import { TicketCheckoutWorkflowParam } from "./TicketCheckoutWorkflowParam";
 
 export class TicketCheckoutWorkflow extends WorkflowEntrypoint<
-  Cloudflare.Env,
-  TicketCheckoutWorkflowParam
+	Cloudflare.Env,
+	TicketCheckoutWorkflowParam
 > {
-  private readonly ticketCheckoutSessionTimeout = 1000 * 60 * 10; // 10 minutes
+	private readonly ticketCheckoutSessionTimeout = 1000 * 60 * 10; // 10 minutes
 
-  async run(
-    event: WorkflowEvent<TicketCheckoutWorkflowParam>,
-    step: WorkflowStep
-  ) {
-    const parameter = v.parse(TicketCheckoutWorkflowParam, event.payload);
+	async run(
+		event: WorkflowEvent<TicketCheckoutWorkflowParam>,
+		step: WorkflowStep,
+	) {
+		const parameter = v.parse(TicketCheckoutWorkflowParam, event.payload);
 
-    const ticketCheckout = await step.do("get_ticket_checkout", async () => {
-      const db = getDatabase(this.env.HYPERDRIVE.connectionString);
-      const ticketCheckout = await db.query.ticketCheckoutSessions.findFirst({
-        where: and(
-          eq(
-            databaseSchema.ticketCheckoutSessions.id,
-            parameter.ticketCheckoutSessionId
-          ),
-          eq(databaseSchema.ticketCheckoutSessions.status, "pending")
-        ),
-        with: {
-          ticketCheckoutOptions: true,
-        },
-      });
-      return ticketCheckout;
-    });
+		const ticketCheckout = await step.do("get_ticket_checkout", async () => {
+			const db = getDatabase(this.env.HYPERDRIVE.connectionString);
+			const ticketCheckout = await db.query.ticketCheckoutSessions.findFirst({
+				where: and(
+					eq(
+						databaseSchema.ticketCheckoutSessions.id,
+						parameter.ticketCheckoutSessionId,
+					),
+					eq(databaseSchema.ticketCheckoutSessions.status, "pending"),
+				),
+				with: {
+					ticketCheckoutOptions: true,
+				},
+			});
+			return ticketCheckout;
+		});
 
-    if (!ticketCheckout) {
-      throw new Error("Ticket checkout not found");
-    }
+		if (!ticketCheckout) {
+			throw new Error("Ticket checkout not found");
+		}
 
-    await step.sleep(
-      "wait_for_session_timeout",
-      this.ticketCheckoutSessionTimeout
-    );
+		await step.sleep(
+			"wait_for_session_timeout",
+			this.ticketCheckoutSessionTimeout,
+		);
 
-    // 購入が完了したかどうか確認
-    const ticketCheckoutAfterTimeout = await step.do(
-      "get_ticket_checkout_after_timeout",
-      async () => {
-        const db = getDatabase(this.env.HYPERDRIVE.connectionString);
-        const ticketCheckout = await db.query.ticketCheckoutSessions.findFirst({
-          where: and(
-            eq(
-              databaseSchema.ticketCheckoutSessions.id,
-              parameter.ticketCheckoutSessionId
-            ),
-            eq(databaseSchema.ticketCheckoutSessions.status, "completed")
-          ),
-        });
-        return ticketCheckout;
-      }
-    );
+		// 購入が完了したかどうか確認
+		const ticketCheckoutAfterTimeout = await step.do(
+			"get_ticket_checkout_after_timeout",
+			async () => {
+				const db = getDatabase(this.env.HYPERDRIVE.connectionString);
+				const ticketCheckout = await db.query.ticketCheckoutSessions.findFirst({
+					where: and(
+						eq(
+							databaseSchema.ticketCheckoutSessions.id,
+							parameter.ticketCheckoutSessionId,
+						),
+						eq(databaseSchema.ticketCheckoutSessions.status, "completed"),
+					),
+				});
+				return ticketCheckout;
+			},
+		);
 
-    if (ticketCheckoutAfterTimeout?.status === "completed") {
-      return;
-    }
+		if (ticketCheckoutAfterTimeout?.status === "completed") {
+			return;
+		}
 
-    await step.do("invalidate_checkout_session_if_opened", async () => {
-      const stripe = new Stripe(this.env.STRIPE_API_KEY);
-      const checkoutSessionId = ticketCheckout.stripeCheckoutSessionId;
-      const session = await stripe.checkout.sessions.retrieve(
-        checkoutSessionId
-      );
-      if (session.status === "open") {
-        await stripe.checkout.sessions.expire(checkoutSessionId);
-      }
-      return session;
-    });
+		await step.do("invalidate_checkout_session_if_opened", async () => {
+			const stripe = new Stripe(this.env.STRIPE_API_KEY);
+			const checkoutSessionId = ticketCheckout.stripeCheckoutSessionId;
+			const session =
+				await stripe.checkout.sessions.retrieve(checkoutSessionId);
+			if (session.status === "open") {
+				await stripe.checkout.sessions.expire(checkoutSessionId);
+			}
+			return session;
+		});
 
-    // TicketCheckoutを無効化済みとしてマーク
-    await step.do("mark_ticket_checkout_as_invalidated", async () => {
-      const db = getDatabase(this.env.HYPERDRIVE.connectionString);
-      await db
-        .update(databaseSchema.ticketCheckoutSessions)
-        .set({
-          status: "expired",
-        })
-        .where(
-          eq(
-            databaseSchema.ticketCheckoutSessions.id,
-            parameter.ticketCheckoutSessionId
-          )
-        );
-    });
-  }
+		// TicketCheckoutを無効化済みとしてマーク
+		await step.do("mark_ticket_checkout_as_invalidated", async () => {
+			const db = getDatabase(this.env.HYPERDRIVE.connectionString);
+			await db
+				.update(databaseSchema.ticketCheckoutSessions)
+				.set({
+					status: "expired",
+				})
+				.where(
+					eq(
+						databaseSchema.ticketCheckoutSessions.id,
+						parameter.ticketCheckoutSessionId,
+					),
+				);
+		});
+	}
 }
