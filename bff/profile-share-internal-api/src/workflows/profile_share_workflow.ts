@@ -1,13 +1,12 @@
-import { env, WorkflowEntrypoint } from "cloudflare:workers";
+import { WorkflowEntrypoint } from "cloudflare:workers";
 import { NonRetryableError } from "cloudflare:workflows";
-import {
-  databaseSchema,
-  eq,
-  getDatabase,
-  jaccardDistance,
-} from "@2025/database";
+import { databaseSchema, eq, getDatabase } from "@2025/database";
 import { R2InternalApiClient } from "@2025/r2-internal-api";
-import { WebsocketApiClient } from "@2025/websocket-api";
+import {
+  UserWebsocketObject,
+  UserWebsocketPayload,
+  WebsocketApiClient,
+} from "@2025/websocket-api";
 import * as v from "valibot";
 import { ProfileShareRequestSchema } from "..";
 
@@ -24,7 +23,7 @@ export class ProfileShareWorkflow extends WorkflowEntrypoint<Cloudflare.Env> {
     async function getUser(userId: string, env: Cloudflare.Env) {
       const user = await step.do("get_user", async () => {
         const response = await db.query.profiles.findFirst({
-          where: eq(databaseSchema.profiles.id, parameter.profile_id),
+          where: eq(databaseSchema.profiles.id, userId),
           with: {
             usersInAuth: true,
           },
@@ -59,22 +58,22 @@ export class ProfileShareWorkflow extends WorkflowEntrypoint<Cloudflare.Env> {
           "get_default_avatar_url",
           async () => {
             const response = await db.query.usersInAuth.findFirst({
-              where: eq(databaseSchema.usersInAuth.id, user.id),
+              where: eq(databaseSchema.usersInAuth.id, userId),
               columns: {
                 rawUserMetaData: true,
               },
             });
             const metadata = response?.rawUserMetaData as {
-              avatar_url: string | null;
+              avatar_url?: string | null;
             };
-            return metadata.avatar_url;
+            return metadata?.avatar_url ?? null;
           }
         );
         userAvatarUrl = defaultAvatarUrl;
       }
       const userSnsLinks = await step.do("get_user_sns_links", async () => {
         return await db.query.userSnsLinks.findMany({
-          where: eq(databaseSchema.userSnsLinks.userId, user.id),
+          where: eq(databaseSchema.userSnsLinks.userId, userId),
         });
       });
 
@@ -89,16 +88,46 @@ export class ProfileShareWorkflow extends WorkflowEntrypoint<Cloudflare.Env> {
 
     await step.do("create_profile_share", async () => {
       const db = getDatabase(this.env.HYPERDRIVE.connectionString);
-      await db.insert(databaseSchema.profileShare).values({
-        fromId: firstUser.user.id,
-        toId: anotherUser.user.id,
-      });
+      await db
+        .insert(databaseSchema.profileShare)
+        .values([
+          {
+            fromId: firstUser.user.id,
+            toId: anotherUser.user.id,
+          },
+          {
+            fromId: anotherUser.user.id,
+            toId: firstUser.user.id,
+          },
+        ])
+        .onConflictDoNothing();
     });
 
     await step.do("send_websocket_message", async () => {
       const websocketApiClient = WebsocketApiClient("https://localhost", {
         fetch: this.env.WEBSOCKET_API.fetch.bind(this.env.WEBSOCKET_API),
       });
+      const body = v.parse(UserWebsocketPayload, {
+        type: "PROFILE_SHARE",
+        profile_share: {
+          type: "ADD",
+          profile_with_sns: {
+            profile: {
+              id: anotherUser.user.id,
+              name: anotherUser.user.name,
+              comment: anotherUser.user.comment,
+              id_adult: anotherUser.user.isAdult,
+              created_at: anotherUser.user.createdAt,
+              updated_at: anotherUser.user.updatedAt,
+              avatar_url: anotherUser.userAvatarUrl ?? undefined,
+            },
+            sns_links: anotherUser.userSnsLinks.map((snsLink) => ({
+              sns_type: snsLink.snsType,
+              value: snsLink.value,
+            })),
+          },
+        },
+      } satisfies UserWebsocketPayload);
       const response = await websocketApiClient.internal.user[":sub"].$post({
         header: {
           "proxy-authentication": this.env.X_API_KEY,
@@ -106,31 +135,16 @@ export class ProfileShareWorkflow extends WorkflowEntrypoint<Cloudflare.Env> {
         param: {
           sub: firstUser.user.id,
         },
-        json: {
-          type: "PROFILE_SHARE",
-          profile_share: {
-            type: "ADD",
-            profile_with_sns: {
-              profile: {
-                id: anotherUser.user.id,
-                name: anotherUser.user.name,
-                comment: anotherUser.user.comment,
-                id_adult: anotherUser.user.isAdult,
-                created_at: anotherUser.user.createdAt,
-                updated_at: anotherUser.user.updatedAt,
-                avatar_url: anotherUser.userAvatarUrl ?? undefined,
-              },
-              sns_links: anotherUser.userSnsLinks.map((snsLink) => ({
-                sns_type: snsLink.snsType,
-                value: snsLink.value,
-              })),
-            },
-          },
-        },
+        json: body,
       });
 
+      const json = await response.json();
+      console.log(json);
+
       if (!response.ok) {
-        throw Error("Failed to send websocket message", { cause: response });
+        throw Error("Failed to send websocket message", {
+          cause: json,
+        });
       }
     });
 
@@ -138,6 +152,27 @@ export class ProfileShareWorkflow extends WorkflowEntrypoint<Cloudflare.Env> {
       const websocketApiClient = WebsocketApiClient("https://localhost", {
         fetch: this.env.WEBSOCKET_API.fetch.bind(this.env.WEBSOCKET_API),
       });
+      const body = v.parse(UserWebsocketPayload, {
+        type: "PROFILE_SHARE",
+        profile_share: {
+          type: "ADD",
+          profile_with_sns: {
+            profile: {
+              id: firstUser.user.id,
+              name: firstUser.user.name,
+              comment: firstUser.user.comment,
+              id_adult: firstUser.user.isAdult,
+              created_at: firstUser.user.createdAt,
+              updated_at: firstUser.user.updatedAt,
+              avatar_url: firstUser.userAvatarUrl ?? undefined,
+            },
+            sns_links: firstUser.userSnsLinks.map((snsLink) => ({
+              sns_type: snsLink.snsType,
+              value: snsLink.value,
+            })),
+          },
+        },
+      } satisfies UserWebsocketPayload);
       const response = await websocketApiClient.internal.user[":sub"].$post({
         header: {
           "proxy-authentication": this.env.X_API_KEY,
@@ -145,31 +180,15 @@ export class ProfileShareWorkflow extends WorkflowEntrypoint<Cloudflare.Env> {
         param: {
           sub: anotherUser.user.id,
         },
-        json: {
-          type: "PROFILE_SHARE",
-          profile_share: {
-            type: "ADD",
-            profile_with_sns: {
-              profile: {
-                id: firstUser.user.id,
-                name: firstUser.user.name,
-                comment: firstUser.user.comment,
-                id_adult: firstUser.user.isAdult,
-                created_at: firstUser.user.createdAt,
-                updated_at: firstUser.user.updatedAt,
-                avatar_url: firstUser.userAvatarUrl ?? undefined,
-              },
-              sns_links: firstUser.userSnsLinks.map((snsLink) => ({
-                sns_type: snsLink.snsType,
-                value: snsLink.value,
-              })),
-            },
-          },
-        },
+        json: body,
       });
+
+      const json = await response.json();
+      console.log(json);
+
       if (!response.ok) {
-        throw Error("Failed to send another websocket message", {
-          cause: response,
+        throw Error("Failed to send websocket message", {
+          cause: json,
         });
       }
     });

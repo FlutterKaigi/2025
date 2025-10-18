@@ -6,8 +6,8 @@ export const ProfileWithSnsSchema = v.object({
     name: v.string(),
     comment: v.string(),
     id_adult: v.boolean(),
-    created_at: v.pipe(v.string(), v.isoDateTime()),
-    updated_at: v.pipe(v.string(), v.isoDateTime()),
+    created_at: v.string(),
+    updated_at: v.string(),
     avatar_url: v.optional(v.pipe(v.string(), v.url())),
   }),
   sns_links: v.array(
@@ -48,3 +48,5 @@ export const UserWebsocketPayload = v.variant("type", [
     profile_share: ProfileShareWebsocketPayloadSchema,
   }),
 ]);
+
+export type UserWebsocketPayload = v.InferOutput<typeof UserWebsocketPayload>;

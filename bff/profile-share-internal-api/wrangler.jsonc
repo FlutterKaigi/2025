@@ -34,13 +34,13 @@
       "queues": {
         "producers": [
           {
-            "queue": "profile-share-queue-production",
+            "queue": "profile-share-queue-staging",
             "binding": "PROFILE_SHARE_QUEUE",
           }
         ],
         "consumers": [
           {
-            "queue": "profile-share-queue-production",
+            "queue": "profile-share-queue-staging",
           }
         ]
       },

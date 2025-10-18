@@ -16,6 +16,7 @@ export type ProfileShareRequestSchema = v.InferOutput<
 
 app.put("/shares", vValidator("json", ProfileShareRequestSchema), async (c) => {
   const body = c.req.valid("json");
+  console.log(body);
   await env.PROFILE_SHARE_QUEUE.send(body, {
     contentType: "json",
   });

@@ -1,5 +1,5 @@
 import { env } from "cloudflare:workers";
-import { and, eq, getDatabase } from "@2025/database";
+import { eq, getDatabase } from "@2025/database";
 import { vValidator } from "@hono/valibot-validator";
 import { Hono } from "hono";
 import { type Barcode, PKPass } from "passkit-generator";

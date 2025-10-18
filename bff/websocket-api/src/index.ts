@@ -4,6 +4,7 @@ import { Hono } from "hono";
 import { hc } from "hono/client";
 import { logger } from "hono/logger";
 import * as v from "valibot";
+import { UserWebsocketPayload } from "./durable_objects/user_websocket_object/payload/user_websocket_payload";
 import { UserWebsocketObject } from "./durable_objects/user_websocket_object/user_websocket_object";
 import internalApp from "./routes/internal";
 import { verifyTicket } from "./ticket/websocket_ticket";
@@ -59,7 +60,7 @@ export default class extends WorkerEntrypoint {
     return env.USER_WEBSOCKET_OBJECT.getByName(sub);
   }
 }
-export { UserWebsocketObject };
+export { UserWebsocketObject, UserWebsocketPayload };
 
 export type WebsocketApiClient = ReturnType<typeof hc<typeof app>>;
 export const WebsocketApiClient = (

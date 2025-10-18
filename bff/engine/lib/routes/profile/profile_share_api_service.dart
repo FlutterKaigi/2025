@@ -85,6 +85,13 @@ class ProfileShareApiService {
           final userResult = await supabaseUtil.extractUser(request);
           final (_, user, _) = userResult.unwrap;
 
+          if (user.id == profileId) {
+            throw ErrorResponse.errorCode(
+              code: ErrorCode.badRequest,
+              detail: '自己を共有することはできません',
+            );
+          }
+
           final internalApiClient = container.read(internalApiClientProvider);
           final profileShareResponse = await internalApiClient
               .profileShareInternalApi

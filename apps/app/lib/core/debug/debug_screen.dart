@@ -89,6 +89,45 @@ class DebugScreen extends StatelessWidget {
                         }
                       },
                     ),
+
+                    ListTile(
+                      title: const Text('Add Profile Share'),
+                      onTap: () async {
+                        try {
+                          await ApiException.transform(
+                            () async => ref
+                                .read(bffClientProvider)
+                                .v1
+                                .profileShare
+                                .putProfileShare(
+                                  profileId:
+                                      'e9ee7d4d-143b-425f-86dc-13342f0af3d1',
+                                ),
+                          );
+                          if (context.mounted) {
+                            return showDialog<void>(
+                              context: context,
+                              builder: (context) => const AlertDialog(
+                                title: Text('Profile Shares'),
+                                content: Text('Profile Share added'),
+                              ),
+                            );
+                          }
+                        } on ApiException catch (e) {
+                          if (context.mounted) {
+                            return showDialog<void>(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                title: const Text('Error'),
+                                content: Text(
+                                  e.errorMessage(Translations.of(context)),
+                                ),
+                              ),
+                            );
+                          }
+                        }
+                      },
+                    ),
                   ],
                 );
               },
