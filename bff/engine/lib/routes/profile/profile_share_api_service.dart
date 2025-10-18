@@ -2,7 +2,9 @@ import 'package:bff_client/bff_client.dart';
 import 'package:db_types/db_types.dart' as db;
 import 'package:engine/main.dart';
 import 'package:engine/provider/db_client_provider.dart';
+import 'package:engine/provider/environments_provider.dart';
 import 'package:engine/provider/internal_api_client_provider.dart';
+import 'package:engine/provider/minio_provider.dart';
 import 'package:engine/provider/supabase_util.dart';
 import 'package:engine/util/json_response.dart';
 import 'package:internal_api_client/internal_api_client.dart';
@@ -25,42 +27,53 @@ class ProfileShareApiService {
       final profileShareList = await database.profile.share.getSharedProfiles(
         userId: user.id,
       );
-      final response = profileShareList
-          .map(
-            (e) => ProfileWithSns(
-              profile: Profiles(
-                id: e.profile.id,
-                name: e.profile.name,
-                comment: e.profile.comment,
-                isAdult: e.profile.isAdult,
-                createdAt: e.profile.createdAt,
-                updatedAt: e.profile.updatedAt,
-                avatarUrl: e.avatarUrl != null ? Uri.parse(e.avatarUrl!) : null,
-              ),
-              snsLinks: e.snsLinks
-                  .map(
-                    (e) => SnsLink(
-                      snsType: switch (e.snsType) {
-                        db.SnsType.github => SnsType.github,
-                        db.SnsType.x => SnsType.x,
-                        db.SnsType.discord => SnsType.discord,
-                        db.SnsType.medium => SnsType.medium,
-                        db.SnsType.qiita => SnsType.qiita,
-                        db.SnsType.zenn => SnsType.zenn,
-                        db.SnsType.note => SnsType.note,
-                        db.SnsType.other => SnsType.other,
-                      },
-                      value: e.value,
-                    ),
-                  )
-                  .toList(),
+      final response = await profileShareList.map(
+        (e) async {
+          final avatarKey = e.profile.avatarKey;
+          final String? avatarUrl;
+          if (avatarKey != null) {
+            final environments = container.read(environmentsProvider);
+            final minio = container.read(minioProvider);
+            final signedUrl = await minio.presignedGetObject(
+              environments.r2BucketName,
+              avatarKey,
+              expires: const Duration(days: 1).inSeconds,
+            );
+            avatarUrl = signedUrl;
+          } else {
+            avatarUrl = e.avatarUrl;
+          }
+          return ProfileWithSns(
+            profile: Profiles(
+              id: e.profile.id,
+              name: e.profile.name,
+              comment: e.profile.comment,
+              isAdult: e.profile.isAdult,
+              createdAt: e.profile.createdAt,
+              updatedAt: e.profile.updatedAt,
+              avatarUrl: avatarUrl != null ? Uri.parse(avatarUrl) : null,
             ),
-          )
-          .map((e) => e.toJson())
-          .toList();
-
-      print(response);
-      return response;
+            snsLinks: e.snsLinks
+                .map(
+                  (e) => SnsLink(
+                    snsType: switch (e.snsType) {
+                      db.SnsType.github => SnsType.github,
+                      db.SnsType.x => SnsType.x,
+                      db.SnsType.discord => SnsType.discord,
+                      db.SnsType.medium => SnsType.medium,
+                      db.SnsType.qiita => SnsType.qiita,
+                      db.SnsType.zenn => SnsType.zenn,
+                      db.SnsType.note => SnsType.note,
+                      db.SnsType.other => SnsType.other,
+                    },
+                    value: e.value,
+                  ),
+                )
+                .toList(),
+          );
+        },
+      ).wait;
+      return response.map((e) => e.toJson()).toList();
     },
   );
 
