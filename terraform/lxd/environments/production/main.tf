@@ -11,6 +11,8 @@ module "cloudflare" {
 }
 
 module "lxd" {
-  source                  = "../../modules/lxd"
-  CLOUDFLARE_TUNNEL_TOKEN = module.cloudflare.cloudflare_tunnel_token
+  source                                           = "../../modules/lxd"
+  CLOUDFLARE_TUNNEL_TOKEN                          = module.cloudflare.cloudflare_tunnel_token
+  CLOUDFLARE_ZERO_TRUST_OAUTH_GOOGLE_CLIENT_ID     = var.CLOUDFLARE_ZERO_TRUST_OAUTH_GOOGLE_CLIENT_ID
+  CLOUDFLARE_ZERO_TRUST_OAUTH_GOOGLE_CLIENT_SECRET = var.CLOUDFLARE_ZERO_TRUST_OAUTH_GOOGLE_CLIENT_SECRET
 }

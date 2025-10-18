@@ -14,13 +14,15 @@ packages:
   - lsb-release
   - docker.io
   - docker-compose-v2
+  - micro
+  - fish
 
 users:
   - name: monitoring
     gecos: FlutterKaigi Monitoring User
     sudo: ['ALL=(ALL) NOPASSWD:ALL']
     groups: sudo, docker
-    shell: /bin/bash
+    shell: /usr/bin/fish
     lock_passwd: false
 
 runcmd:
@@ -34,6 +36,9 @@ runcmd:
   - systemctl start docker
   - chown -R monitoring:monitoring /opt/monitoring
   - chmod -R 755 /opt/monitoring
+  - chsh -s /usr/bin/fish monitoring
+  - mkdir -p /home/monitoring/.config/fish
+  - chown -R monitoring:monitoring /home/monitoring/.config
   - su - monitoring -c "cd /opt/monitoring && docker compose up -d"
 
 write_files:
@@ -47,6 +52,8 @@ write_files:
         grafana-data:
         loki-data:
         tempo-data:
+        prometheus-data:
+        pyroscope-data:
 
       services:
         alloy:
@@ -59,6 +66,7 @@ write_files:
             - "12345:12345"  # Alloy UI
             - "4317:4317"    # OTLP gRPC receiver
             - "4318:4318"    # OTLP HTTP receiver
+            - "4100:4100"    # Pyroscope HTTP receiver
             - "9411:9411"    # Zipkin receiver
             - "14268:14268"  # Jaeger HTTP receiver
           volumes:
@@ -107,6 +115,85 @@ write_files:
           environment:
             - TZ=Asia/Tokyo
 
+        prometheus:
+          image: prom/prometheus:latest
+          container_name: prometheus
+          restart: unless-stopped
+          networks:
+            - monitoring
+          ports:
+            - "9090:9090"
+          volumes:
+            - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+            - prometheus-data:/prometheus
+          command:
+            - '--config.file=/etc/prometheus/prometheus.yml'
+            - '--storage.tsdb.path=/prometheus'
+            - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+            - '--web.console.templates=/usr/share/prometheus/consoles'
+            - '--web.enable-lifecycle'
+            - '--web.enable-remote-write-receiver'
+            - '--enable-feature=native-histograms'
+            - '--enable-feature=exemplar-storage'
+          environment:
+            - TZ=Asia/Tokyo
+
+        pyroscope:
+          image: grafana/pyroscope:latest
+          container_name: pyroscope
+          restart: unless-stopped
+          networks:
+            - monitoring
+          ports:
+            - "4040:4040"   # Pyroscope HTTP
+          volumes:
+            - ./pyroscope/config.yaml:/etc/pyroscope/config.yaml
+            - pyroscope-data:/var/lib/pyroscope
+          command: -config.file=/etc/pyroscope/config.yaml
+          environment:
+            - TZ=Asia/Tokyo
+
+        cadvisor:
+          image: gcr.io/cadvisor/cadvisor:latest
+          container_name: cadvisor
+          restart: unless-stopped
+          networks:
+            - monitoring
+          ports:
+            - "8080:8080"
+          volumes:
+            - /:/rootfs:ro
+            - /var/run:/var/run:ro
+            - /sys:/sys:ro
+            - /var/lib/docker/:/var/lib/docker:ro
+            - /dev/disk/:/dev/disk:ro
+          privileged: true
+          devices:
+            - /dev/kmsg
+          command:
+            - '--housekeeping_interval=30s'
+            - '--docker_only=false'
+            - '--store_container_labels=false'
+
+        node-exporter:
+          image: prom/node-exporter:latest
+          container_name: node-exporter
+          restart: unless-stopped
+          networks:
+            - monitoring
+          ports:
+            - "9100:9100"
+          volumes:
+            - /proc:/host/proc:ro
+            - /sys:/host/sys:ro
+            - /:/rootfs:ro
+          command:
+            - '--path.procfs=/host/proc'
+            - '--path.sysfs=/host/sys'
+            - '--path.rootfs=/rootfs'
+            - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+          pid: host
+
         grafana:
           image: grafana/grafana:latest
           container_name: grafana
@@ -117,19 +204,17 @@ write_files:
             - "3000:3000"
           volumes:
             - grafana-data:/var/lib/grafana
+            - ./grafana/grafana.ini:/etc/grafana/grafana.ini
             - ./grafana/datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml
             - ./grafana/dashboards.yaml:/etc/grafana/provisioning/dashboards/dashboards.yaml
             - ./grafana/dashboards:/var/lib/grafana/dashboards
           environment:
-            - GF_SECURITY_ADMIN_USER=admin
-            - GF_SECURITY_ADMIN_PASSWORD=flutterkaigi2025
-            - GF_USERS_ALLOW_SIGN_UP=false
-            - GF_SERVER_ROOT_URL=http://localhost:3000
-            - GF_AUTH_ANONYMOUS_ENABLED=false
             - TZ=Asia/Tokyo
           depends_on:
             - loki
             - tempo
+            - prometheus
+            - pyroscope
 
         cloudflared:
           image: cloudflare/cloudflared:latest
@@ -143,6 +228,15 @@ write_files:
 
   - path: /opt/monitoring/alloy/config.alloy
     content: |
+      logging {
+        level  = "info"
+        format = "logfmt"
+      }
+
+      livedebugging {
+        enabled = true
+      }
+
       otelcol.receiver.otlp "default" {
         grpc {
           endpoint = "0.0.0.0:4317"
@@ -157,6 +251,15 @@ write_files:
           logs    = [otelcol.processor.batch.default.input]
           traces  = [otelcol.processor.batch.default.input]
         }
+      }
+
+      pyroscope.receive_http "default" {
+        http {
+          listen_address = "0.0.0.0"
+          listen_port = 4100
+        }
+
+        forward_to = [pyroscope.write.pyroscope.receiver]
       }
 
       otelcol.processor.batch "default" {
@@ -196,10 +299,16 @@ write_files:
         }
       }
 
+      pyroscope.write "pyroscope" {
+        endpoint {
+          url = "http://pyroscope:4040"
+        }
+      }
+
       loki.source.file "system_logs" {
         targets = [
-          {__path__ = "/var/log/syslog"},
-          {__path__ = "/var/log/auth.log"},
+          {__path__ = "/var/log/syslog", job = "system", service = "syslog"},
+          {__path__ = "/var/log/auth.log", job = "system", service = "auth"},
         ]
         forward_to = [loki.write.local.receiver]
       }
@@ -247,10 +356,60 @@ write_files:
       analytics:
         reporting_enabled: false
 
+  - path: /opt/monitoring/pyroscope/config.yaml
+    content: |
+      target: all
+
+      server:
+        http_listen_port: 4040
+
+      distributor:
+        ring:
+          kvstore:
+            store: memberlist
+
+      ingester:
+        lifecycler:
+          ring:
+            kvstore:
+              store: memberlist
+            replication_factor: 1
+          final_sleep: 0s
+
+      memberlist:
+        join_members:
+          - pyroscope:7946
+
+      storage:
+        backend: filesystem
+        filesystem:
+          path: /var/lib/pyroscope
+
+      querier:
+        max_concurrent: 10
+
+      query_frontend:
+        address: 0.0.0.0:4040
+
+      analytics:
+        reporting_enabled: false
+
   - path: /opt/monitoring/tempo/config.yaml
     content: |
       server:
         http_listen_port: 3200
+        http_server_read_timeout: 5m
+        http_server_write_timeout: 5m
+
+      query_frontend:
+        metrics:
+          concurrent_jobs: 8
+          target_bytes_per_job: 1.25e+09
+          max_duration: 6h
+
+      querier:
+        search:
+          query_timeout: 5m
 
       distributor:
         receivers:
@@ -268,6 +427,29 @@ write_files:
         compaction:
           block_retention: 1h
 
+      metrics_generator:
+        registry:
+          external_labels:
+            source: tempo
+            cluster: flutterkaigi-2025
+        storage:
+          path: /var/tempo/generator/wal
+          remote_write:
+            - url: http://prometheus:9090/api/v1/write
+              send_exemplars: true
+        traces_storage:
+          path: /var/tempo/generator/traces
+        processor:
+          service_graphs:
+            dimensions: []
+            histogram_buckets: [0.1, 0.2, 0.4, 0.8, 1.6, 3.2, 6.4, 12.8]
+          span_metrics:
+            dimensions: []
+            histogram_buckets: [0.002, 0.004, 0.008, 0.016, 0.032, 0.064, 0.128, 0.256, 0.512, 1.024, 2.048, 4.096, 8.192, 16.384]
+          local_blocks:
+            filter_server_spans: false
+            flush_to_storage: true
+
       storage:
         trace:
           backend: local
@@ -277,7 +459,112 @@ write_files:
             path: /var/tempo/blocks
 
       overrides:
-        metrics_generator_processors: [service-graphs, span-metrics]
+        defaults:
+          metrics_generator:
+            processors: [service-graphs, span-metrics, local-blocks]
+            generate_native_histograms: both
+
+  - path: /opt/monitoring/prometheus/prometheus.yml
+    content: |
+      global:
+        scrape_interval: 15s
+        evaluation_interval: 15s
+        external_labels:
+          cluster: 'flutterkaigi-2025'
+          environment: 'production'
+
+      scrape_configs:
+        - job_name: 'prometheus'
+          static_configs:
+            - targets: ['localhost:9090']
+
+        - job_name: 'alloy'
+          static_configs:
+            - targets: ['alloy:12345']
+
+        - job_name: 'loki'
+          static_configs:
+            - targets: ['loki:3100']
+
+        - job_name: 'tempo'
+          static_configs:
+            - targets: ['tempo:3200']
+
+        - job_name: 'grafana'
+          static_configs:
+            - targets: ['grafana:3000']
+
+        - job_name: 'pyroscope'
+          static_configs:
+            - targets: ['pyroscope:4040']
+
+        - job_name: 'cadvisor'
+          static_configs:
+            - targets: ['cadvisor:8080']
+
+        - job_name: 'node-exporter'
+          static_configs:
+            - targets: ['node-exporter:9100']
+
+  - path: /opt/monitoring/grafana/grafana.ini
+    content: |
+      ##################### Grafana Configuration #####################
+
+      [server]
+      protocol = http
+      http_port = 3000
+      domain = grafana.flutterkaigi.jp
+      root_url = https://grafana.flutterkaigi.jp
+      enforce_domain = true
+
+      [database]
+      type = sqlite3
+
+      [session]
+      provider = file
+
+      [security]
+      admin_user = admin
+      admin_password = flutterkaigi2025
+      disable_gravatar = true
+      cookie_secure = true
+      cookie_samesite = strict
+      csrf_always_check = true
+      csrf_additional_headers = X-Forwarded-Host
+
+      [users]
+      allow_sign_up = false
+      auto_assign_org = true
+      auto_assign_org_role = Viewer
+
+      [auth]
+      disable_login_form = false
+      oauth_auto_login = false
+      oauth_allow_insecure_email_lookup = false
+
+      [auth.anonymous]
+      enabled = false
+
+      [auth.google]
+      enabled = true
+      client_id = ${google_client_id}
+      client_secret = ${google_client_secret}
+      scopes = openid email profile
+      auth_url = https://accounts.google.com/o/oauth2/v2/auth
+      token_url = https://oauth2.googleapis.com/token
+      api_url = https://openidconnect.googleapis.com/v1/userinfo
+      allowed_domains =
+      allow_sign_up = true
+      role_attribute_path = contains(email, '@flutterkaigi.jp') && 'Admin' || 'Viewer'
+
+      [analytics]
+      reporting_enabled = false
+      check_for_updates = false
+      check_for_plugin_updates = false
+
+      [log]
+      mode = console
+      level = info
 
   - path: /opt/monitoring/grafana/datasources.yaml
     content: |
@@ -315,6 +602,15 @@ write_files:
           isDefault: true
           editable: true
 
+        - name: Pyroscope
+          type: grafana-pyroscope-datasource
+          access: proxy
+          url: http://pyroscope:4040
+          isDefault: false
+          editable: true
+          jsonData:
+            minStep: '15s'
+
   - path: /opt/monitoring/grafana/dashboards.yaml
     content: |
       apiVersion: 1
@@ -343,6 +639,10 @@ write_files:
       - Alloy UI: http://localhost:12345
       - Loki: http://localhost:3100
       - Tempo: http://localhost:3200
+      - Prometheus: http://localhost:9090
+      - Pyroscope: http://localhost:4040
+      - cAdvisor: http://localhost:8080
+      - Node Exporter: http://localhost:9100/metrics
 
       ## OpenTelemetry
 
@@ -350,6 +650,34 @@ write_files:
       - OTLP HTTP: localhost:4318
       - Zipkin: localhost:9411
       - Jaeger: localhost:14268
+
+      ## Profiling
+
+      - Pyroscope UI: localhost:4040
+      - Pyroscope Push: localhost:4100
+
+      ## System Metrics
+
+      - cAdvisor: localhost:8080 (コンテナメトリクス)
+      - Node Exporter: localhost:9100 (ホストシステムメトリクス)
+
+  - path: /home/monitoring/.config/fish/config.fish
+    owner: monitoring:monitoring
+    permissions: '0644'
+    content: |
+      # Docker Compose aliases
+      alias dc='docker compose'
+      alias dcu='docker compose up -d --remove-orphans'
+      alias dcl='docker compose logs -f -n 0'
+
+      # Change to monitoring directory on startup
+      if status is-interactive
+          cd /opt/monitoring
+      end
+
+      # Welcome message
+      echo "🐟 Welcome to FlutterKaigi 2025 Monitoring Stack"
+      echo "📁 Current directory: "(pwd)
 
 final_message: |
   FlutterKaigi 2025 Monitoring Stack has been set up!
@@ -359,3 +687,10 @@ final_message: |
   Password: flutterkaigi2025
 
   The cloud-init setup is complete after $UPTIME seconds.
+  System will reboot now.
+
+power_state:
+  mode: reboot
+  message: Rebooting after cloud-init completion
+  timeout: 0
+  condition: true

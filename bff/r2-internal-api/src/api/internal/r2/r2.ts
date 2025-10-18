@@ -6,6 +6,8 @@ import {
 } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { vValidator } from "@hono/valibot-validator";
+import { withNextSpan } from "@microlabs/otel-cf-workers";
+import { trace } from "@opentelemetry/api";
 import { Hono } from "hono";
 import * as v from "valibot";
 
@@ -44,6 +46,10 @@ export const r2Api = new Hono<{ Bindings: Cloudflare.Env }>()
       switch (request.type) {
         case "put":
           {
+            const span = trace.getActiveSpan();
+            span?.setAttribute("http.method", c.req.method);
+            span?.setAttribute("http.url", request.key);
+            withNextSpan({ destination: "r2.sign.put" });
             signedUrl = await getSignedUrl(
               s3Client,
               new PutObjectCommand({
@@ -59,6 +65,10 @@ export const r2Api = new Hono<{ Bindings: Cloudflare.Env }>()
           }
           break;
         case "get": {
+          const span = trace.getActiveSpan();
+          span?.setAttribute("http.method", c.req.method);
+          span?.setAttribute("http.url", request.key);
+          withNextSpan({ destination: "r2.sign.get" });
           signedUrl = await getSignedUrl(
             s3Client,
             new GetObjectCommand({
@@ -98,6 +108,10 @@ export const r2Api = new Hono<{ Bindings: Cloudflare.Env }>()
       console.log("Deleting object", { key });
 
       try {
+        const span = trace.getActiveSpan();
+        span?.setAttribute("http.method", c.req.method);
+        span?.setAttribute("http.url", key);
+        withNextSpan({ destination: "r2.delete.object" });
         // R2 Bucket bindingを使用してオブジェクトを削除
         await env.R2_BUCKET.delete(key);
 
