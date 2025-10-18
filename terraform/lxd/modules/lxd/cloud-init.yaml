@@ -1,0 +1,357 @@
+#cloud-config
+
+hostname: flutterkaigi-2025-monitoring
+locale: ja_JP.UTF-8
+timezone: Asia/Tokyo
+
+package_update: true
+package_upgrade: true
+packages:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - gnupg
+  - lsb-release
+  - docker.io
+  - docker-compose-v2
+
+users:
+  - name: monitoring
+    gecos: FlutterKaigi Monitoring User
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    groups: sudo, docker
+    shell: /bin/bash
+    lock_passwd: false
+
+runcmd:
+  - install -m 0755 -d /etc/apt/keyrings
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+  - chmod a+r /etc/apt/keyrings/docker.asc
+  - echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+  - apt-get update
+  - apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+  - systemctl enable docker
+  - systemctl start docker
+
+write_files:
+  - path: /opt/monitoring/compose.yaml
+    content: |
+      networks:
+        monitoring:
+          driver: bridge
+
+      volumes:
+        grafana-data:
+        loki-data:
+        tempo-data:
+
+      services:
+        alloy:
+          image: grafana/alloy:latest
+          container_name: alloy
+          restart: unless-stopped
+          networks:
+            - monitoring
+          ports:
+            - "12345:12345"  # Alloy UI
+            - "4317:4317"    # OTLP gRPC receiver
+            - "4318:4318"    # OTLP HTTP receiver
+            - "9411:9411"    # Zipkin receiver
+            - "14268:14268"  # Jaeger HTTP receiver
+          volumes:
+            - ./alloy/config.alloy:/etc/alloy/config.alloy
+            - /var/log:/var/log:ro
+          command:
+            - run
+            - --server.http.listen-addr=0.0.0.0:12345
+            - --storage.path=/var/lib/alloy/data
+            - /etc/alloy/config.alloy
+          environment:
+            - HOSTNAME=alloy
+          depends_on:
+            - loki
+            - tempo
+
+        loki:
+          image: grafana/loki:latest
+          container_name: loki
+          restart: unless-stopped
+          networks:
+            - monitoring
+          ports:
+            - "3100:3100"
+          volumes:
+            - ./loki/config.yaml:/etc/loki/config.yaml
+            - loki-data:/loki
+          command: -config.file=/etc/loki/config.yaml
+          environment:
+            - TZ=Asia/Tokyo
+
+        tempo:
+          image: grafana/tempo:latest
+          container_name: tempo
+          restart: unless-stopped
+          networks:
+            - monitoring
+          ports:
+            - "3200:3200"   # Tempo HTTP
+            - "9095:9095"   # Tempo gRPC
+            - "4319:4317"   # OTLP gRPC (内部用)
+          volumes:
+            - ./tempo/config.yaml:/etc/tempo/config.yaml
+            - tempo-data:/var/tempo
+          command: -config.file=/etc/tempo/config.yaml
+          environment:
+            - TZ=Asia/Tokyo
+
+        grafana:
+          image: grafana/grafana:latest
+          container_name: grafana
+          restart: unless-stopped
+          networks:
+            - monitoring
+          ports:
+            - "3000:3000"
+          volumes:
+            - grafana-data:/var/lib/grafana
+            - ./grafana/datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml
+            - ./grafana/dashboards.yaml:/etc/grafana/provisioning/dashboards/dashboards.yaml
+            - ./grafana/dashboards:/var/lib/grafana/dashboards
+          environment:
+            - GF_SECURITY_ADMIN_USER=admin
+            - GF_SECURITY_ADMIN_PASSWORD=flutterkaigi2025
+            - GF_USERS_ALLOW_SIGN_UP=false
+            - GF_SERVER_ROOT_URL=http://localhost:3000
+            - GF_AUTH_ANONYMOUS_ENABLED=false
+            - TZ=Asia/Tokyo
+          depends_on:
+            - loki
+            - tempo
+
+  - path: /opt/monitoring/alloy/config.alloy
+    content: |
+      otelcol.receiver.otlp "default" {
+        grpc {
+          endpoint = "0.0.0.0:4317"
+        }
+
+        http {
+          endpoint = "0.0.0.0:4318"
+        }
+
+        output {
+          metrics = [otelcol.processor.batch.default.input]
+          logs    = [otelcol.processor.batch.default.input]
+          traces  = [otelcol.processor.batch.default.input]
+        }
+      }
+
+      otelcol.processor.batch "default" {
+        output {
+          metrics = [otelcol.exporter.prometheus.default.input]
+          logs    = [otelcol.exporter.loki.default.input]
+          traces  = [otelcol.exporter.otlp.tempo.input]
+        }
+      }
+
+      otelcol.exporter.prometheus "default" {
+        forward_to = [prometheus.remote_write.local.receiver]
+      }
+
+      prometheus.remote_write "local" {
+        endpoint {
+          url = "http://localhost:9090/api/v1/write"
+        }
+      }
+
+      otelcol.exporter.loki "default" {
+        forward_to = [loki.write.local.receiver]
+      }
+
+      loki.write "local" {
+        endpoint {
+          url = "http://loki:3100/loki/api/v1/push"
+        }
+      }
+
+      otelcol.exporter.otlp "tempo" {
+        client {
+          endpoint = "tempo:4317"
+          tls {
+            insecure = true
+          }
+        }
+      }
+
+      loki.source.file "system_logs" {
+        targets = [
+          {__path__ = "/var/log/syslog"},
+          {__path__ = "/var/log/auth.log"},
+        ]
+        forward_to = [loki.write.local.receiver]
+      }
+
+  - path: /opt/monitoring/loki/config.yaml
+    content: |
+      auth_enabled: false
+
+      server:
+        http_listen_port: 3100
+        grpc_listen_port: 9096
+
+      common:
+        instance_addr: 127.0.0.1
+        path_prefix: /loki
+        storage:
+          filesystem:
+            chunks_directory: /loki/chunks
+            rules_directory: /loki/rules
+        replication_factor: 1
+        ring:
+          kvstore:
+            store: inmemory
+
+      query_range:
+        results_cache:
+          cache:
+            embedded_cache:
+              enabled: true
+              max_size_mb: 100
+
+      schema_config:
+        configs:
+          - from: 2024-01-01
+            store: tsdb
+            object_store: filesystem
+            schema: v13
+            index:
+              prefix: index_
+              period: 24h
+
+      ruler:
+        alertmanager_url: http://localhost:9093
+
+      analytics:
+        reporting_enabled: false
+
+  - path: /opt/monitoring/tempo/config.yaml
+    content: |
+      server:
+        http_listen_port: 3200
+
+      distributor:
+        receivers:
+          otlp:
+            protocols:
+              grpc:
+                endpoint: "0.0.0.0:4317"
+              http:
+                endpoint: "0.0.0.0:4318"
+
+      ingester:
+        max_block_duration: 5m
+
+      compactor:
+        compaction:
+          block_retention: 1h
+
+      storage:
+        trace:
+          backend: local
+          wal:
+            path: /var/tempo/wal
+          local:
+            path: /var/tempo/blocks
+
+      overrides:
+        metrics_generator_processors: [service-graphs, span-metrics]
+
+  - path: /opt/monitoring/grafana/datasources.yaml
+    content: |
+      apiVersion: 1
+
+      datasources:
+        - name: Loki
+          type: loki
+          access: proxy
+          url: http://loki:3100
+          isDefault: false
+          editable: true
+          jsonData:
+            maxLines: 1000
+
+        - name: Tempo
+          type: tempo
+          access: proxy
+          url: http://tempo:3200
+          isDefault: false
+          editable: true
+          jsonData:
+            httpMethod: GET
+            tracesToLogs:
+              datasourceUid: loki
+            tracesToMetrics:
+              datasourceUid: prometheus
+            serviceMap:
+              datasourceUid: prometheus
+
+        - name: Prometheus
+          type: prometheus
+          access: proxy
+          url: http://prometheus:9090
+          isDefault: true
+          editable: true
+
+  - path: /opt/monitoring/grafana/dashboards.yaml
+    content: |
+      apiVersion: 1
+
+      providers:
+        - name: 'FlutterKaigi Dashboards'
+          orgId: 1
+          folder: 'FlutterKaigi 2025'
+          type: file
+          disableDeletion: false
+          updateIntervalSeconds: 10
+          allowUiUpdates: true
+          options:
+            path: /var/lib/grafana/dashboards
+            foldersFromFilesStructure: true
+
+  - path: /opt/monitoring/README.md
+    content: |
+      # FlutterKaigi 2025 Monitoring Stack
+
+      ## URL
+
+      - Grafana: http://localhost:3000
+        - ユーザー名: admin
+        - パスワード: flutterkaigi2025
+      - Alloy UI: http://localhost:12345
+      - Loki: http://localhost:3100
+      - Tempo: http://localhost:3200
+
+      ## OpenTelemetry
+
+      - OTLP gRPC: localhost:4317
+      - OTLP HTTP: localhost:4318
+      - Zipkin: localhost:9411
+      - Jaeger: localhost:14268
+
+runcmd:
+  - systemctl enable docker
+  - systemctl start docker
+
+  - chown -R monitoring:monitoring /opt/monitoring
+  - chmod -R 755 /opt/monitoring
+
+  - su - monitoring -c "cd /opt/monitoring && docker compose up -d"
+
+final_message: |
+  FlutterKaigi 2025 Monitoring Stack has been set up!
+
+  Access Grafana at: http://YOUR_HOST_IP:3000
+  Username: admin
+  Password: flutterkaigi2025
+
+  The cloud-init setup is complete after $UPTIME seconds.
