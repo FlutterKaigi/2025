@@ -1,27 +1,12 @@
 import { env } from "cloudflare:workers";
 import { vValidator } from "@hono/valibot-validator";
 import { Hono } from "hono";
-import { describeRoute, resolver } from "hono-openapi";
 import * as v from "valibot";
 import type { TicketCheckoutWorkflowParam } from "../workflows/TicketCheckoutWorkflow/TicketCheckoutWorkflowParam";
 
 export const TicketCheckoutApi = new Hono()
 	.put(
 		"/:ticketCheckoutSessionId",
-		describeRoute({
-			description: "チケットチェックアウトワークフローを開始する",
-			tags: ["Ticket Checkout"],
-			responses: {
-				200: {
-					description: "Successful",
-					content: {
-						"application/json": {
-							schema: resolver(v.object({ id: v.string() })),
-						},
-					},
-				},
-			},
-		}),
 		vValidator(
 			"param",
 			v.object({
@@ -41,20 +26,6 @@ export const TicketCheckoutApi = new Hono()
 	)
 	.get(
 		"/:ticketCheckoutSessionId",
-		describeRoute({
-			description: "チケットチェックアウトワークフローのステータスを取得する",
-			tags: ["Ticket Checkout"],
-			responses: {
-				200: {
-					description: "Successful",
-					content: {
-						"application/json": {
-							schema: resolver(v.object({ id: v.string() })),
-						},
-					},
-				},
-			},
-		}),
 		vValidator(
 			"param",
 			v.object({

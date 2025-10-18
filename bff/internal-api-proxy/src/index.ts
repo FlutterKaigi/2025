@@ -1,8 +1,12 @@
 import { env } from "cloudflare:workers";
 import { otel } from "@hono/otel";
 import { vValidator } from "@hono/valibot-validator";
-import { createSampler, instrument } from "@microlabs/otel-cf-workers";
-import { Scalar } from "@scalar/hono-api-reference";
+import {
+  createSampler,
+  instrument,
+  withNextSpan,
+} from "@microlabs/otel-cf-workers";
+import { context, propagation, trace } from "@opentelemetry/api";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";
@@ -17,7 +21,10 @@ const app = new Hono<{
 }>()
   .onError((err, c) => {
     console.error(err);
-    return c.json({ error: "Error on Proxy", err }, 500);
+    return c.json(
+      { error: "Error on Internal API Proxy", err: err.toString() },
+      500
+    );
   })
   .use("*", secureHeaders())
   .use("*", logger())
@@ -52,12 +59,6 @@ const app = new Hono<{
       const path = c.req.param("path");
       const originalUrl = new URL(c.req.url);
 
-      const targetUrl = new URL(`/${path}`, originalUrl.origin);
-      console.log("targetUrl", targetUrl.toString());
-      // Query parametersを維持
-      targetUrl.search = originalUrl.search;
-      console.log("targetUrl", targetUrl.toString());
-
       let fetcher: Fetcher;
       switch (service) {
         case "payment-workflow-internal-api": {
@@ -81,20 +82,32 @@ const app = new Hono<{
           throw new Error(`Unknown service: ${_exhaustive}`);
         }
       }
-      console.log(`Proxying to: ${targetUrl.toString()}`);
+      const targetUrl = new URL(originalUrl.toString());
+      targetUrl.protocol = "https";
+      targetUrl.host = "localhost";
+      targetUrl.port = "443";
+      targetUrl.search = originalUrl.search;
+      targetUrl.pathname = path;
+      console.log("targetUrl", targetUrl.toString());
 
+      const span = trace.getActiveSpan();
+      span?.setAttribute("http.method", c.req.method);
+      span?.setAttribute("http.url", targetUrl.toString());
+      withNextSpan({ destination: "proxy" });
+
+      const headers = {
+        ...c.req.header(),
+        "X-Forwarded-Host": c.req.header("host"),
+      };
+      // propagation.inject(context.active(), headers);
       const response = await proxy(targetUrl.toString(), {
-        fetcher,
-        headers: {
-          ...c.req.header(),
-          "X-Forwarded-Host": c.req.header("host"),
-        },
+        fetcher: fetcher,
+        headers: headers,
+        ...c.req,
       });
-      console.log("response", response);
       return response;
     }
-  )
-  .get("/scalar", Scalar({ url: "/openapi", title: "Internal API Proxy" }));
+  );
 
 export type StripeWebhookAppType = typeof app;
 
