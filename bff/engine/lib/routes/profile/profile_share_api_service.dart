@@ -27,58 +27,53 @@ class ProfileShareApiService {
       final profileShareList = await database.profile.share.getSharedProfiles(
         userId: user.id,
       );
-      final response = profileShareList
-          .map(
-            (e) async {
-              final avatarKey = e.profile.avatarKey;
-              final String? avatarUrl;
-              if (avatarKey != null) {
-                final environments = container.read(environmentsProvider);
-                final minio = container.read(minioProvider);
-                final signedUrl = await minio.presignedGetObject(
-                  environments.r2BucketName,
-                  avatarKey,
-                  expires: const Duration(days: 1).inSeconds,
-                );
-                avatarUrl = signedUrl;
-              } else {
-                avatarUrl = e.avatarUrl;
-              }
-              return ProfileWithSns(
-                profile: Profiles(
-                  id: e.profile.id,
-                  name: e.profile.name,
-                  comment: e.profile.comment,
-                  isAdult: e.profile.isAdult,
-                  createdAt: e.profile.createdAt,
-                  updatedAt: e.profile.updatedAt,
-                  avatarUrl: avatarUrl != null ? Uri.parse(avatarUrl) : null,
-                ),
-                snsLinks: e.snsLinks
-                    .map(
-                      (e) => SnsLink(
-                        snsType: switch (e.snsType) {
-                          db.SnsType.github => SnsType.github,
-                          db.SnsType.x => SnsType.x,
-                          db.SnsType.discord => SnsType.discord,
-                          db.SnsType.medium => SnsType.medium,
-                          db.SnsType.qiita => SnsType.qiita,
-                          db.SnsType.zenn => SnsType.zenn,
-                          db.SnsType.note => SnsType.note,
-                          db.SnsType.other => SnsType.other,
-                        },
-                        value: e.value,
-                      ),
-                    )
-                    .toList(),
-              );
-            },
-          )
-          .map((e) => e.toJson())
-          .toList();
-
-      print(response);
-      return response;
+      final response = await profileShareList.map(
+        (e) async {
+          final avatarKey = e.profile.avatarKey;
+          final String? avatarUrl;
+          if (avatarKey != null) {
+            final environments = container.read(environmentsProvider);
+            final minio = container.read(minioProvider);
+            final signedUrl = await minio.presignedGetObject(
+              environments.r2BucketName,
+              avatarKey,
+              expires: const Duration(days: 1).inSeconds,
+            );
+            avatarUrl = signedUrl;
+          } else {
+            avatarUrl = e.avatarUrl;
+          }
+          return ProfileWithSns(
+            profile: Profiles(
+              id: e.profile.id,
+              name: e.profile.name,
+              comment: e.profile.comment,
+              isAdult: e.profile.isAdult,
+              createdAt: e.profile.createdAt,
+              updatedAt: e.profile.updatedAt,
+              avatarUrl: avatarUrl != null ? Uri.parse(avatarUrl) : null,
+            ),
+            snsLinks: e.snsLinks
+                .map(
+                  (e) => SnsLink(
+                    snsType: switch (e.snsType) {
+                      db.SnsType.github => SnsType.github,
+                      db.SnsType.x => SnsType.x,
+                      db.SnsType.discord => SnsType.discord,
+                      db.SnsType.medium => SnsType.medium,
+                      db.SnsType.qiita => SnsType.qiita,
+                      db.SnsType.zenn => SnsType.zenn,
+                      db.SnsType.note => SnsType.note,
+                      db.SnsType.other => SnsType.other,
+                    },
+                    value: e.value,
+                  ),
+                )
+                .toList(),
+          );
+        },
+      ).wait;
+      return response.map((e) => e.toJson()).toList();
     },
   );
 
