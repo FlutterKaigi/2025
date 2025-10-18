@@ -11,7 +11,7 @@ const app = new Hono<{
 	Bindings: Cloudflare.Env;
 }>()
 	.use("*", secureHeaders())
-	.use("*", requestId())
+	.use("*", requestId({ headerName: "Cf-Ray" }))
 	.use("*", otel())
 	.use("*", logger())
 	.route("/internal", internalApi)

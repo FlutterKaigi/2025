@@ -4,6 +4,7 @@ import 'package:app/core/firebase/production.dart' as firebase_production;
 import 'package:app/core/firebase/staging.dart' as firebase_staging;
 import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/core/provider/environment.dart';
+import 'package:app/core/provider/tracer_provider.dart';
 import 'package:app/core/ui/app.dart';
 import 'package:app/core/ui/main/widget_build_error_screen.dart';
 import 'package:app/core/util/setup_web_environment.dart';
@@ -14,25 +15,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:opentelemetry/api.dart';
-import 'package:opentelemetry/sdk.dart';
 
 Future<void> main() async {
-  final tracerProvider = TracerProviderBase(
-    processors: [
-      BatchSpanProcessor(
-        CollectorExporter(
-          Uri.parse('https://otlp.flutterkaigi.jp/v1/traces'),
-        ),
-      ),
-      SimpleSpanProcessor(
-        ConsoleExporter(),
-      ),
-    ],
-  );
-  registerGlobalTracerProvider(tracerProvider);
+  final container = ProviderContainer();
+  registerGlobalTracerProvider(container.read(tracerProvider));
+  final tracer = container.read(tracerProvider);
 
-  final tracer = tracerProvider.getTracer('app');
-  final mainSpan = tracer.startSpan('main');
+  final appTracer = tracer.getTracer('app');
+  final mainSpan = appTracer.startSpan('main');
 
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -41,7 +31,6 @@ Future<void> main() async {
   ErrorWidget.builder = (details) => WidgetBuildErrorScreen(details: details);
 
   setupWebEnvironment();
-  final container = ProviderContainer();
   final environment = container.read(environmentProvider);
   await Firebase.initializeApp(
     options: switch (environment.flavor) {
@@ -50,7 +39,7 @@ Future<void> main() async {
       _ => firebase_staging.DefaultFirebaseOptions.currentPlatform,
     },
   );
-  final authInitializeSpan = tracer.startSpan('authInitialize');
+  final authInitializeSpan = appTracer.startSpan('authInitialize');
   await container
       .read(authServiceProvider)
       .initialize(

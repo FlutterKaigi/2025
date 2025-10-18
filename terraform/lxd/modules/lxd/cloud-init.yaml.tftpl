@@ -244,6 +244,13 @@ write_files:
 
         http {
           endpoint = "0.0.0.0:4318"
+
+          cors {
+            allowed_origins = [
+              "https://2025-app.flutterkaigi.jp",
+              "https://*.flutterkaigi.pages.dev",
+            ]
+          }
         }
 
         output {
