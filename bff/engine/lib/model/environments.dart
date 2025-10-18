@@ -16,7 +16,7 @@ abstract class Environments with _$Environments {
     required String internalApiUrl,
     required String xApiKey,
     required String logoBaseUrl,
-    required String cloudlfareAccountId,
+    required String cloudflareAccountId,
     required String r2BucketName,
     required String r2AccessKeyId,
     required String r2SecretAccessKey,

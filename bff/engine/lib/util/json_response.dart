@@ -25,7 +25,7 @@ Future<Response> jsonResponseList(
   final result = await fn();
   return Response(
     statusCode,
-    body: result,
+    body: jsonEncode(result),
     encoding: Encoding.getByName('utf-8'),
     headers: {HttpHeaders.contentTypeHeader: ContentType.json.value},
   );

@@ -36,8 +36,8 @@ _Environments _$EnvironmentsFromJson(
       internalApiUrl: $checkedConvert('INTERNAL_API_URL', (v) => v as String),
       xApiKey: $checkedConvert('X_API_KEY', (v) => v as String),
       logoBaseUrl: $checkedConvert('LOGO_BASE_URL', (v) => v as String),
-      cloudlfareAccountId: $checkedConvert(
-        'CLOUDLFARE_ACCOUNT_ID',
+      cloudflareAccountId: $checkedConvert(
+        'CLOUDFLARE_ACCOUNT_ID',
         (v) => v as String,
       ),
       r2BucketName: $checkedConvert('R2_BUCKET_NAME', (v) => v as String),
@@ -59,7 +59,7 @@ _Environments _$EnvironmentsFromJson(
     'internalApiUrl': 'INTERNAL_API_URL',
     'xApiKey': 'X_API_KEY',
     'logoBaseUrl': 'LOGO_BASE_URL',
-    'cloudlfareAccountId': 'CLOUDLFARE_ACCOUNT_ID',
+    'cloudflareAccountId': 'CLOUDFLARE_ACCOUNT_ID',
     'r2BucketName': 'R2_BUCKET_NAME',
     'r2AccessKeyId': 'R2_ACCESS_KEY_ID',
     'r2SecretAccessKey': 'R2_SECRET_ACCESS_KEY',
@@ -77,7 +77,7 @@ Map<String, dynamic> _$EnvironmentsToJson(_Environments instance) =>
       'INTERNAL_API_URL': instance.internalApiUrl,
       'X_API_KEY': instance.xApiKey,
       'LOGO_BASE_URL': instance.logoBaseUrl,
-      'CLOUDLFARE_ACCOUNT_ID': instance.cloudlfareAccountId,
+      'CLOUDFLARE_ACCOUNT_ID': instance.cloudflareAccountId,
       'R2_BUCKET_NAME': instance.r2BucketName,
       'R2_ACCESS_KEY_ID': instance.r2AccessKeyId,
       'R2_SECRET_ACCESS_KEY': instance.r2SecretAccessKey,

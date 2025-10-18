@@ -1,4 +1,6 @@
+import 'package:app/core/api/api_exception.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
+import 'package:app/core/provider/bff_client.dart';
 import 'package:app/core/router/router.dart';
 import 'package:app/features/auth/data/notifier/auth_notifier.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +42,52 @@ class DebugScreen extends StatelessWidget {
                       onPressed: () => Clipboard.setData(
                         ClipboardData(text: userId ?? 'Not authenticated'),
                       ),
+                    ),
+                  ],
+                );
+              },
+            ),
+            Consumer(
+              builder: (context, ref, child) {
+                return Column(
+                  children: [
+                    ListTile(
+                      title: const Text('Check Profile Shares'),
+                      onTap: () async {
+                        try {
+                          final profileShareList = await ApiException.transform(
+                            () async => ref
+                                .read(bffClientProvider)
+                                .v1
+                                .profileShare
+                                .getMyProfileShareList(),
+                          );
+                          final response = profileShareList.data;
+                          if (context.mounted) {
+                            return showDialog<void>(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                title: const Text('Profile Shares'),
+                                content: Text(
+                                  response.map((e) => e.toJson()).join('\n'),
+                                ),
+                              ),
+                            );
+                          }
+                        } on ApiException catch (e) {
+                          if (context.mounted) {
+                            return showDialog<void>(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                title: const Text('Error'),
+                                content: Text(
+                                  e.errorMessage(Translations.of(context)),
+                                ),
+                              ),
+                            );
+                          }
+                        }
+                      },
                     ),
                   ],
                 );
