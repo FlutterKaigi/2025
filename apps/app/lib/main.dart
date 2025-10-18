@@ -13,9 +13,29 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:opentelemetry/api.dart';
+import 'package:opentelemetry/sdk.dart';
 
 Future<void> main() async {
+  final tracerProvider = TracerProviderBase(
+    processors: [
+      BatchSpanProcessor(
+        CollectorExporter(
+          Uri.parse('https://otlp.flutterkaigi.jp/v1/traces'),
+        ),
+      ),
+      SimpleSpanProcessor(
+        ConsoleExporter(),
+      ),
+    ],
+  );
+  registerGlobalTracerProvider(tracerProvider);
+
+  final tracer = tracerProvider.getTracer('app');
+  final mainSpan = tracer.startSpan('main');
+
   WidgetsFlutterBinding.ensureInitialized();
+
   await LocaleSettings.useDeviceLocale();
 
   ErrorWidget.builder = (details) => WidgetBuildErrorScreen(details: details);
@@ -30,6 +50,7 @@ Future<void> main() async {
       _ => firebase_staging.DefaultFirebaseOptions.currentPlatform,
     },
   );
+  final authInitializeSpan = tracer.startSpan('authInitialize');
   await container
       .read(authServiceProvider)
       .initialize(
@@ -37,6 +58,7 @@ Future<void> main() async {
         supabaseKey: environment.supabaseKey,
         isDebug: kDebugMode,
       );
+  authInitializeSpan.end();
   try {
     // `authProvider` のビルド時に中断されないようにするために監視しておく
     final authSubscription = container.listen(
@@ -56,4 +78,5 @@ Future<void> main() async {
       ),
     ),
   );
+  mainSpan.end();
 }

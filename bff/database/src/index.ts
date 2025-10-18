@@ -6,9 +6,9 @@ export { drizzle } from "drizzle-orm/node-postgres";
 export * from "./function/createTicketCheckout";
 export * from "./function/getTicketCount";
 export * from "./function/getTicketOptionCount";
-
 import * as relations from "../drizzle/relations";
 import * as schema from "../drizzle/schema";
+
 
 export const databaseSchema = {
   ...relations,

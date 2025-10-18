@@ -1,9 +1,13 @@
+import { env } from "cloudflare:workers";
+import { otel } from "@hono/otel";
 import { vValidator } from "@hono/valibot-validator";
+import { createSampler, instrument } from "@microlabs/otel-cf-workers";
 import { Scalar } from "@scalar/hono-api-reference";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";
 import { proxy } from "hono/proxy";
+import { requestId } from "hono/request-id";
 import { secureHeaders } from "hono/secure-headers";
 import { timingSafeEqual } from "hono/utils/buffer";
 import * as v from "valibot";
@@ -18,6 +22,8 @@ const app = new Hono<{
   .use("*", secureHeaders())
   .use("*", logger())
   .use("*", cors())
+  .use("*", requestId())
+  .use("*", otel())
   .use("*", async (c, next) => {
     const apiKey = c.req.header("x-api-key");
     if (apiKey === undefined) {
@@ -55,19 +61,19 @@ const app = new Hono<{
       let fetcher: Fetcher;
       switch (service) {
         case "payment-workflow-internal-api": {
-          fetcher = c.env.PAYMENT_WORKFLOW_INTERNAL_API;
+          fetcher = env.PAYMENT_WORKFLOW_INTERNAL_API;
           break;
         }
         case "stripe-internal-api": {
-          fetcher = c.env.STRIPE_INTERNAL_API;
+          fetcher = env.STRIPE_INTERNAL_API;
           break;
         }
         case "r2-internal-api": {
-          fetcher = c.env.R2_INTERNAL_API;
+          fetcher = env.R2_INTERNAL_API;
           break;
         }
         case "profile-share-internal-api": {
-          fetcher = c.env.PROFILE_SHARE_INTERNAL_API;
+          fetcher = env.PROFILE_SHARE_INTERNAL_API;
           break;
         }
         default: {
@@ -79,7 +85,6 @@ const app = new Hono<{
 
       const response = await proxy(targetUrl.toString(), {
         fetcher,
-        ...c.req, // optional, specify only when forwarding all the request data (including credentials) is necessary.
         headers: {
           ...c.req.header(),
           "X-Forwarded-Host": c.req.header("host"),
@@ -93,4 +98,20 @@ const app = new Hono<{
 
 export type StripeWebhookAppType = typeof app;
 
-export default app;
+export default instrument(app, {
+  exporter: {
+    url: "https://otlp.flutterkaigi.jp/v1/traces",
+    headers: {
+      "x-flutterkaigi-service-name": "internal-api-proxy",
+    },
+  },
+  service: {
+    name: "internal-api-proxy",
+    namespace: `flutterkaigi-2025-${env.ENVIRONMENT}`,
+  },
+  sampling: {
+    headSampler: createSampler({
+      ratio: 1,
+    }),
+  },
+});
