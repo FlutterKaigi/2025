@@ -1,0 +1,99 @@
+{
+  "$schema": "https://unpkg.com/wrangler@latest/config-schema.json",
+  "account_id": "cdd8f59359fe226645e7b541cdc53b57",
+  "name": "profile-share-internal-api",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-10-17",
+  "observability": {
+    "enabled": true,
+  },
+  "compatibility_flags": ["nodejs_compat"],
+  "env": {
+    "staging": {
+      "workers_dev": false,
+      "vars": {
+        "ENVIRONMENT": "staging",
+      },
+      "services": [
+        {
+          "service": "websocket-api-staging",
+          "binding": "WEBSOCKET_API",
+        },
+        {
+          "service": "r2-internal-api-staging",
+          "binding": "R2_INTERNAL_API",
+        }
+      ],
+      "hyperdrive": [
+        {
+          "id": "a5ad3285bc2146929cf7b6e5fab52aa8",
+          "binding": "HYPERDRIVE",
+          "localConnectionString": "postgresql://postgres:postgres@localhost:5432/postgres",
+        },
+      ],
+      "queues": {
+        "producers": [
+          {
+            "queue": "profile-share-queue-production",
+            "binding": "PROFILE_SHARE_QUEUE",
+          }
+        ],
+        "consumers": [
+          {
+            "queue": "profile-share-queue-production",
+          }
+        ]
+      },
+      "workflows": [
+        {
+          "name": "profile-share-workflow-staging",
+          "binding": "PROFILE_SHARE_WORKFLOW",
+          "class_name": "ProfileShareWorkflow",
+        }
+      ]
+    },
+    "production": {
+      "workers_dev": false,
+      "vars": {
+        "ENVIRONMENT": "production",
+      },
+      "services": [
+        {
+          "service": "websocket-api-production",
+          "binding": "WEBSOCKET_API",
+        },
+        {
+          "service": "r2-internal-api-staging",
+          "binding": "R2_INTERNAL_API",
+        }
+      ],
+      "hyperdrive": [
+        {
+          "id": "d1f50129a40a4edea82ac8c228a01de5",
+          "binding": "HYPERDRIVE",
+          "localConnectionString": "postgresql://postgres:postgres@localhost:5432/postgres",
+        },
+      ],
+      "queues": {
+        "producers": [
+          {
+            "queue": "profile-share-queue-production",
+            "binding": "PROFILE_SHARE_QUEUE",
+          }
+        ],
+        "consumers": [
+          {
+            "queue": "profile-share-queue-production",
+          }
+        ]
+      },
+      "workflows": [
+        {
+          "name": "profile-share-workflow-production",
+          "binding": "PROFILE_SHARE_WORKFLOW",
+          "class_name": "ProfileShareWorkflow",
+        }
+      ]
+    },
+  }
+}

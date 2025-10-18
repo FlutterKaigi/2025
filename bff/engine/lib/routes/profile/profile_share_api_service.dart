@@ -1,8 +1,10 @@
 import 'package:bff_client/bff_client.dart';
 import 'package:engine/main.dart';
 import 'package:engine/provider/db_client_provider.dart';
+import 'package:engine/provider/internal_api_client_provider.dart';
 import 'package:engine/provider/supabase_util.dart';
 import 'package:engine/util/json_response.dart';
+import 'package:internal_api_client/internal_api_client.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 
@@ -39,12 +41,28 @@ class ProfileShareApiService {
         },
       );
 
-  @Route.put('/me/{profileId}')
-  Future<Response> _putProfileShare(Request request) async => jsonResponse(
-    () async {
-      throw ErrorResponse.errorCode(code: ErrorCode.notImplemented);
-    },
-  );
+  @Route.put('/me/<profileId>')
+  Future<Response> _putProfileShare(Request request, String profileId) async =>
+      jsonResponse(
+        () async {
+          final supabaseUtil = container.read(supabaseUtilProvider);
+          final userResult = await supabaseUtil.extractUser(request);
+          final (_, user, _) = userResult.unwrap;
+
+          final internalApiClient = container.read(internalApiClientProvider);
+          final profileShareResponse = await internalApiClient
+              .profileShareInternalApi
+              .createProfileShare(
+                request: ProfileShareRequest(
+                  profileId: user.id,
+                  anotherProfileId: profileId,
+                ),
+              );
+          return ProfileShareResponse(
+            message: profileShareResponse.message,
+          ).toJson();
+        },
+      );
 
   @Route.delete('/me/{profileId}')
   Future<Response> _deleteProfileShare(Request request) async => jsonResponse(

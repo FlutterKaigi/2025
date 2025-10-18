@@ -27,6 +27,10 @@
           "binding": "R2_INTERNAL_API",
           "service": "r2-internal-api-staging",
         },
+        {
+          "binding": "PROFILE_SHARE_INTERNAL_API",
+          "service": "profile-share-internal-api-staging",
+        },
       ],
     },
     "production": {
@@ -45,6 +49,10 @@
         {
           "binding": "R2_INTERNAL_API",
           "service": "r2-internal-api-production",
+        },
+        {
+          "binding": "PROFILE_SHARE_INTERNAL_API",
+          "service": "profile-share-internal-api-production",
         },
       ],
     },

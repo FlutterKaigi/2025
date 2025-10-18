@@ -1,10 +1,12 @@
-import { env } from "cloudflare:workers";
+import { env, WorkerEntrypoint } from "cloudflare:workers";
 import { vValidator } from "@hono/valibot-validator";
 import { Hono } from "hono";
+import { hc } from "hono/client";
 import { logger } from "hono/logger";
 import * as v from "valibot";
 import { UserWebsocketObject } from "./durable_objects/user_websocket_object/user_websocket_object";
-import { generateTicket, verifyTicket } from "./ticket/websocket_ticket";
+import internalApp from "./routes/internal";
+import { verifyTicket } from "./ticket/websocket_ticket";
 
 const app = new Hono<{ Bindings: Cloudflare.Env }>()
   .use("*", logger())
@@ -40,12 +42,26 @@ const app = new Hono<{ Bindings: Cloudflare.Env }>()
 
       return stub.fetch(c.req.raw);
     }
-  );
+  )
+  .route("/internal", internalApp);
 
 app.onError((err, c) => {
   console.error(err);
   return c.json({ error: err }, 500);
 });
 
-export default app;
+export default class extends WorkerEntrypoint {
+  async fetch(request: Request) {
+    return app.fetch(request);
+  }
+
+  async getStub(sub: string) {
+    return env.USER_WEBSOCKET_OBJECT.getByName(sub);
+  }
+}
 export { UserWebsocketObject };
+
+export type WebsocketApiClient = ReturnType<typeof hc<typeof app>>;
+export const WebsocketApiClient = (
+  ...args: Parameters<typeof hc>
+): WebsocketApiClient => hc<typeof app>(...args);

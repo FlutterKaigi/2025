@@ -12,7 +12,7 @@ Router _$ProfileShareApiServiceRouter(ProfileShareApiService service) {
   final router = Router();
   router.add('GET', r'/me', service._getProfileShareList);
   router.add('GET', r'/count', service._getTotalSharedProfilesCount);
-  router.add('PUT', r'/me/{profileId}', service._putProfileShare);
+  router.add('PUT', r'/me/<profileId>', service._putProfileShare);
   router.add('DELETE', r'/me/{profileId}', service._deleteProfileShare);
   return router;
 }

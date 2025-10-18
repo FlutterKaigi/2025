@@ -8,7 +8,7 @@ export const ProfileWithSnsSchema = v.object({
     id_adult: v.boolean(),
     created_at: v.pipe(v.string(), v.isoDateTime()),
     updated_at: v.pipe(v.string(), v.isoDateTime()),
-    avatar_url: v.pipe(v.string(), v.url()),
+    avatar_url: v.optional(v.pipe(v.string(), v.url())),
   }),
   sns_links: v.array(
     v.object({

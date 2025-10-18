@@ -45,6 +45,11 @@ export class UserWebsocketObject extends DurableObject<typeof env> {
     for (const websocket of this.websockets) {
       websocket.send(jsonStr);
     }
+
+    return {
+      code: "OK",
+      count: this.websockets.size,
+    };
   }
 
   async webSocketMessage(
