@@ -21,22 +21,32 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  FlutterError.onError = (details) {
-    FlutterOTel.reportError(
-      'FlutterError.onError',
-      details.exception,
-      details.stack,
-    );
-  };
-
   await runZonedGuarded(
     () async {
+      FlutterError.onError = (details) {
+        FlutterOTel.reportError(
+          'FlutterError.onError',
+          details.exception,
+          details.stack,
+        );
+      };
+      final container = ProviderContainer();
+      final environment = container.read(environmentProvider);
+      final flavor = environment.flavor;
       await FlutterOTel.initialize(
         appName: 'app',
         tracerName: 'main',
+        endpoint: 'https://otlp.flutterkaigi.jp',
+        spanProcessor: BatchSpanProcessor(
+          OtlpHttpSpanExporter(
+            OtlpHttpExporterConfig(
+              endpoint: 'https://otlp.flutterkaigi.jp',
+            ),
+          ),
+        ),
         resourceAttributes: Attributes.of({
           'deployment.environment': 'production',
-          'service.namespace': 'flutterkaigi-2025-production',
+          'service.namespace': 'flutterkaigi-2025-${flavor.name}',
           'flutter.version': FlutterVersion.version ?? '',
           'dart.version': FlutterVersion.dartVersion ?? '',
           'os.type': defaultTargetPlatform.name,
@@ -46,19 +56,18 @@ Future<void> main() async {
           },
         }),
       );
-      await _run();
+      await _run(container);
     },
     (error, stack) => FlutterOTel.reportError('runZoneGuarded', error, stack),
   );
 }
 
-Future<void> _run() async {
+Future<void> _run(ProviderContainer container) async {
   await LocaleSettings.useDeviceLocale();
 
   ErrorWidget.builder = (details) => WidgetBuildErrorScreen(details: details);
 
   setupWebEnvironment();
-  final container = ProviderContainer();
   final environment = container.read(environmentProvider);
   await Firebase.initializeApp(
     options: switch (environment.flavor) {
