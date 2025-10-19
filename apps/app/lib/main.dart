@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:app/core/firebase/production.dart' as firebase_production;
 import 'package:app/core/firebase/staging.dart' as firebase_staging;
+import 'package:app/core/gen/assets/assets.gen.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/core/provider/environment.dart';
 import 'package:app/core/provider/tracer_provider.dart';
@@ -13,7 +14,7 @@ import 'package:app/features/auth/data/provider/auth_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:opentelemetry/api.dart';
 
@@ -27,9 +28,14 @@ Future<void> main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
 
-  await GoogleFonts.pendingFonts([
-    GoogleFonts.notoSansJp(),
-  ]);
+  LicenseRegistry.addLicense(() async* {
+    yield LicenseEntryWithLineBreaks([
+      'NotoSansJP',
+    ], await rootBundle.loadString(Assets.res.assets.fonts.notoSansJP.ofl));
+    yield LicenseEntryWithLineBreaks([
+      'NotoSansMono',
+    ], await rootBundle.loadString(Assets.res.assets.fonts.notoSansMono.ofl));
+  });
 
   await LocaleSettings.useDeviceLocale();
 

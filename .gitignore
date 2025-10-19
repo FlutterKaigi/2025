@@ -25,3 +25,5 @@ devtools_options.yaml
 
 # Turborepo
 .turbo
+
+/build
