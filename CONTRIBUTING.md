@@ -41,7 +41,7 @@ cd 2025
 以下、簡単な手順をご紹介します。
 
 ```bash
-# ツールと Riverpod 依存関係をインストール
+# 必要なツールと依存関係をインストール
 mise run bootstrap
 
 # Swift Package Manager を有効化（iOS 開発の場合、初回のみ）
