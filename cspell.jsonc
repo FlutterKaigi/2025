@@ -59,6 +59,12 @@
       "addWords": true,
     },
     {
+      "name": "open-ssl-term",
+      "description": "OpenSSL related terms",
+      "path": "./.cspell/open-ssl-term.txt",
+      "addWords": true,
+    },
+    {
       "name": "open-telemetry-term",
       "description": "OpenTelemetry related terms",
       "path": "./.cspell/open-telemetry-term.txt",
@@ -111,6 +117,7 @@
     "flutter-term",
     "github-action-term",
     "ios-term",
+    "open-ssl-term",
     "open-telemetry-term",
     "web-term",
     "project-term",
