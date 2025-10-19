@@ -55,6 +55,7 @@ dependencies:
   talker_dio_logger: ^5.0.0
   talker_flutter: ^5.0.0
   url_launcher: ^6.3.1
+  uuid: ^4.5.1
 
 dev_dependencies:
   altive_lints: ^1.19.1
