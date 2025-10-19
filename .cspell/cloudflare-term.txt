@@ -1,3 +1,4 @@
+cloudflarestorage
 Hyperdrive
 listremotes
 Rclone
