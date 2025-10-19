@@ -32,6 +32,7 @@ class OTelDioInterceptor implements Interceptor {
       }),
     );
     _spans[requestId] = span;
+    return handler.next(options);
   }
 
   @override
@@ -48,7 +49,7 @@ class OTelDioInterceptor implements Interceptor {
       }
       currentSpan.end();
     }
-    handler.next(response);
+    return handler.next(response);
   }
 
   @override
@@ -62,6 +63,6 @@ class OTelDioInterceptor implements Interceptor {
       );
       currentSpan.end();
     }
-    handler.next(err);
+    return handler.next(err);
   }
 }
