@@ -43,7 +43,7 @@ melos:
       dev_dependencies:
         altive_lints: ^1.19.1
         build_runner: ^2.4.15
-        go_router_builder: ^4.0.0
+        go_router_builder: ^4.1.0
         test: ^1.25.15
 
   scripts:
