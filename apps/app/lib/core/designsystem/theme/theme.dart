@@ -1,5 +1,6 @@
 import 'package:app/core/designsystem/theme/color_schemes.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 ThemeData darkTheme() =>
     ThemeData.dark(
@@ -14,4 +15,7 @@ ThemeData darkTheme() =>
         surfaceTintColor: Colors.transparent,
       ),
       splashFactory: NoSplash.splashFactory,
+      textTheme: GoogleFonts.notoSansJpTextTheme(
+        ThemeData.dark().textTheme,
+      ),
     );

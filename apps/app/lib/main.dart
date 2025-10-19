@@ -13,6 +13,7 @@ import 'package:app/features/auth/data/provider/auth_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:opentelemetry/api.dart';
 
@@ -25,6 +26,10 @@ Future<void> main() async {
   final mainSpan = appTracer.startSpan('main');
 
   WidgetsFlutterBinding.ensureInitialized();
+
+  await GoogleFonts.pendingFonts([
+    GoogleFonts.notoSansJp(),
+  ]);
 
   await LocaleSettings.useDeviceLocale();
 
