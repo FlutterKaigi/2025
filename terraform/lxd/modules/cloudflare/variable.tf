@@ -38,3 +38,9 @@ variable "CLOUDFLARE_ZERO_TRUST_OAUTH_GOOGLE_CLIENT_SECRET" {
   description = "Cloudflare Zero Trust OAuth Google Client Secret"
   sensitive   = true
 }
+
+variable "ALLOY_GRPC_CSR" {
+  type        = string
+  description = "Alloy gRPC Certificate Signing Request (CSR)"
+  sensitive   = true
+}

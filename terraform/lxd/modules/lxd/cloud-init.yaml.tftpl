@@ -42,6 +42,16 @@ runcmd:
   - su - monitoring -c "cd /opt/monitoring && docker compose up -d"
 
 write_files:
+  - path: /opt/monitoring/alloy/certs/cert.pem
+    content: ${base64encode(alloy_grpc_cert)}
+    encoding: b64
+    permissions: '0644'
+
+  - path: /opt/monitoring/alloy/certs/key.pem
+    content: ${base64encode(alloy_grpc_key)}
+    encoding: b64
+    permissions: '0600'
+
   - path: /opt/monitoring/compose.yaml
     content: |
       networks:
@@ -71,6 +81,7 @@ write_files:
             - "14268:14268"  # Jaeger HTTP receiver
           volumes:
             - ./alloy/config.alloy:/etc/alloy/config.alloy
+            - ./alloy/certs:/etc/alloy/certs:ro
             - /var/log:/var/log:ro
           command:
             - run
@@ -240,6 +251,11 @@ write_files:
       otelcol.receiver.otlp "default" {
         grpc {
           endpoint = "0.0.0.0:4317"
+
+          tls {
+            cert_file = "/etc/alloy/certs/cert.pem"
+            key_file  = "/etc/alloy/certs/key.pem"
+          }
         }
 
         http {
@@ -365,41 +381,11 @@ write_files:
 
   - path: /opt/monitoring/pyroscope/config.yaml
     content: |
-      target: all
-
-      server:
-        http_listen_port: 4040
-
-      distributor:
-        ring:
-          kvstore:
-            store: memberlist
-
-      ingester:
-        lifecycler:
-          ring:
-            kvstore:
-              store: memberlist
-            replication_factor: 1
-          final_sleep: 0s
-
-      memberlist:
-        join_members:
-          - pyroscope:7946
-
+      ---
       storage:
         backend: filesystem
         filesystem:
-          path: /var/lib/pyroscope
-
-      querier:
-        max_concurrent: 10
-
-      query_frontend:
-        address: 0.0.0.0:4040
-
-      analytics:
-        reporting_enabled: false
+          dir: /var/lib/pyroscope
 
   - path: /opt/monitoring/tempo/config.yaml
     content: |
