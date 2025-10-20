@@ -418,13 +418,14 @@ packages:
     source: hosted
     version: "3.1.1"
   dartastic_opentelemetry:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
-      name: dartastic_opentelemetry
-      sha256: "504a99e95881f70dd392e8afda44cd96dad0c088540f2b11883e063063fb045f"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.9.2"
+      path: "."
+      ref: b25992b72ca9c09558c8547bc75ef66a687b69a2
+      resolved-ref: b25992b72ca9c09558c8547bc75ef66a687b69a2
+      url: "https://github.com/YumNumm/dartastic_opentelemetry.git"
+    source: git
+    version: "0.9.1"
   dartastic_opentelemetry_api:
     dependency: transitive
     description:

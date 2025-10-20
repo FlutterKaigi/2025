@@ -5,6 +5,12 @@ environment:
   sdk: ^3.10.0-162.1.beta
   flutter: ^3.37.0-0.1.pre
 
+dependency_overrides:
+  dartastic_opentelemetry:
+    git:
+      url: https://github.com/YumNumm/dartastic_opentelemetry.git
+      ref: b25992b72ca9c09558c8547bc75ef66a687b69a2
+
 dev_dependencies:
   melos: ^7.2.0
 

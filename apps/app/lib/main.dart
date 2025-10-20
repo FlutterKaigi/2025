@@ -21,54 +21,55 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await runZonedGuarded(
-    () async {
-      FlutterError.onError = (details) {
-        FlutterOTel.reportError(
-          'FlutterError.onError',
-          details.exception,
-          details.stack,
-        );
-      };
-      final container = ProviderContainer();
-      final environment = container.read(environmentProvider);
-      final flavor = environment.flavor;
-      await FlutterOTel.initialize(
-        appName: 'app',
-        tracerName: 'main',
-        endpoint: 'https://otlp.flutterkaigi.jp',
-        spanProcessor: BatchSpanProcessor(
-          OtlpHttpSpanExporter(
-            OtlpHttpExporterConfig(
-              endpoint: 'https://otlp.flutterkaigi.jp',
-            ),
-          ),
-        ),
-        resourceAttributes: Attributes.of({
-          'deployment.environment': 'production',
-          'service.namespace': 'flutterkaigi-2025-${flavor.name}',
-          'flutter.version': FlutterVersion.version ?? '',
-          'dart.version': FlutterVersion.dartVersion ?? '',
-          'os.type': defaultTargetPlatform.name,
-          if (!kIsWeb) ...{
-            'os.version': Platform.operatingSystemVersion,
-            'os.platform': Platform.operatingSystem,
-          },
-        }),
-      );
-      await _run(container);
-    },
-    (error, stack) => FlutterOTel.reportError('runZoneGuarded', error, stack),
-  );
+  if (kIsWeb) {
+    await _run();
+  } else {
+    await runZonedGuarded(
+      () async => _run(),
+      (error, stack) => FlutterOTel.reportError('runZoneGuarded', error, stack),
+    );
+  }
 }
 
-Future<void> _run(ProviderContainer container) async {
+Future<void> _run() async {
+  FlutterError.onError = (details) {
+    FlutterOTel.reportError(
+      'FlutterError.onError',
+      details.exception,
+      details.stack,
+    );
+  };
+  final container = ProviderContainer();
+  final environment = container.read(environmentProvider);
+  final flavor = environment.flavor;
+  await FlutterOTel.initialize(
+    appName: 'app',
+    tracerName: 'main',
+    endpoint: 'https://otlp.flutterkaigi.jp',
+    spanProcessor: BatchSpanProcessor(
+      OtlpHttpSpanExporter(
+        OtlpHttpExporterConfig(
+          endpoint: 'https://otlp.flutterkaigi.jp',
+        ),
+      ),
+    ),
+    resourceAttributes: Attributes.of({
+      'deployment.environment': flavor.name,
+      'service.namespace': 'flutterkaigi-2025-${flavor.name}',
+      'flutter.version': FlutterVersion.version ?? '',
+      'dart.version': FlutterVersion.dartVersion ?? '',
+      'os.type': kIsWeb ? 'web' : defaultTargetPlatform.name,
+      if (!kIsWeb) ...{
+        'os.version': Platform.operatingSystemVersion,
+        'os.platform': Platform.operatingSystem,
+      },
+    }),
+  );
   await LocaleSettings.useDeviceLocale();
 
   ErrorWidget.builder = (details) => WidgetBuildErrorScreen(details: details);
 
   setupWebEnvironment();
-  final environment = container.read(environmentProvider);
   await Firebase.initializeApp(
     options: switch (environment.flavor) {
       Flavor.production =>
