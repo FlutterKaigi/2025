@@ -37,7 +37,8 @@
     "bff/profile-share-internal-api",
     "bff/wallet-api",
     "bff/websocket-api",
-    "tools/sponsor-inserter"
+    "tools/sponsor-inserter",
+    "tools/nameplate-exporter"
   ],
   "trustedDependencies": [
     "@biomejs/biome",
