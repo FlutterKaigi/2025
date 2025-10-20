@@ -1,5 +1,6 @@
 import 'package:app/core/designsystem/components/error_screen.dart';
 import 'package:app/core/gen/assets/assets.gen.dart';
+import 'package:app/core/gen/assets/fonts.gen.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/core/provider/environment.dart';
 import 'package:app/features/account/data/notifier/profile_notifier.dart';
@@ -118,13 +119,31 @@ final class AccountInfoScreen extends ConsumerWidget {
             Center(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Text(
-                  'Powered by Flutter ${FlutterVersion.version}\n'
-                  'Dart ${FlutterVersion.dartVersion}'
-                  '${commitInformation != null ? '\n$commitInformation' : ''}',
+                child: Text.rich(
+                  TextSpan(
+                    children: [
+                      const TextSpan(
+                        text: 'Powered by Flutter ${FlutterVersion.version}\n',
+                        style: TextStyle(
+                          fontVariations: [
+                            FontVariation('wght', 700),
+                            FontVariation('wdth', 125),
+                          ],
+                        ),
+                      ),
+                      const TextSpan(
+                        text: 'Dart ${FlutterVersion.dartVersion}',
+                      ),
+                      if (commitInformation != null)
+                        TextSpan(text: '\nCommit: $commitInformation'),
+                    ],
+                  ),
                   style: textTheme.bodySmall!.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,
+                    fontFamily: FontFamily.notoSansMono,
+                    height: 1.4,
                   ),
+                  textAlign: TextAlign.center,
                 ),
               ),
             ),

@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:app/core/firebase/production.dart' as firebase_production;
 import 'package:app/core/firebase/staging.dart' as firebase_staging;
+import 'package:app/core/gen/assets/assets.gen.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/core/provider/environment.dart';
 import 'package:app/core/ui/app.dart';
@@ -32,6 +33,15 @@ Future<void> main() async {
 }
 
 Future<void> _run() async {
+  LicenseRegistry.addLicense(() async* {
+    yield LicenseEntryWithLineBreaks([
+      'NotoSansJP',
+    ], await rootBundle.loadString(Assets.res.assets.fonts.notoSansJP.ofl));
+    yield LicenseEntryWithLineBreaks([
+      'NotoSansMono',
+    ], await rootBundle.loadString(Assets.res.assets.fonts.notoSansMono.ofl));
+  });
+
   FlutterError.onError = (details) {
     FlutterOTel.reportError(
       'FlutterError.onError',
