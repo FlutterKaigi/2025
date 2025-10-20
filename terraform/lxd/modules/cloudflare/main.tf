@@ -17,6 +17,15 @@ resource "cloudflare_dns_record" "otlp_http_record" {
   ttl     = 1
   proxied = true
 }
+resource "cloudflare_dns_record" "otlp_grpc_record" {
+  zone_id = var.CLOUDFLARE_ZONE_ID
+  name    = "otlp-grpc"
+  content = "${cloudflare_zero_trust_tunnel_cloudflared.monitoring_tunnel.id}.cfargotunnel.com"
+  type    = "CNAME"
+  ttl     = 1
+  proxied = true
+}
+
 
 resource "cloudflare_dns_record" "alloy_http_record" {
   zone_id = var.CLOUDFLARE_ZONE_ID
@@ -52,12 +61,19 @@ resource "cloudflare_zero_trust_access_identity_provider" "github" {
   }
 }
 
+resource "cloudflare_origin_ca_certificate" "alloy_grpc_certificate" {
+  csr                = var.ALLOY_GRPC_CSR
+  hostnames          = ["alloy-grpc.${var.CLOUDFLARE_ZONE}"]
+  request_type       = "origin-rsa"
+  requested_validity = 5475
+}
+
 resource "cloudflare_zero_trust_access_identity_provider" "google-workspace" {
-  name = "Google"
-  type = "google"
+  name    = "Google"
+  type    = "google"
   zone_id = var.CLOUDFLARE_ZONE_ID
   config = {
-    client_id = var.CLOUDFLARE_ZERO_TRUST_OAUTH_GOOGLE_CLIENT_ID
+    client_id     = var.CLOUDFLARE_ZERO_TRUST_OAUTH_GOOGLE_CLIENT_ID
     client_secret = var.CLOUDFLARE_ZERO_TRUST_OAUTH_GOOGLE_CLIENT_SECRET
   }
 }
@@ -77,6 +93,14 @@ resource "cloudflare_zero_trust_tunnel_cloudflared_config" "monitoring_tunnel_co
       {
         hostname = "otlp.${var.CLOUDFLARE_ZONE}"
         service  = "http://alloy:4318" # OTLP HTTP receiver
+      },
+      {
+        hostname = "otlp-grpc.${var.CLOUDFLARE_ZONE}"
+        service  = "https://alloy:4317" # OTLP gRPC receiver with TLS
+        origin_request = {
+          origin_server_name = "alloy-grpc.${var.CLOUDFLARE_ZONE}"
+          no_tls_verify      = false
+        }
       },
       {
         hostname = "alloy.${var.CLOUDFLARE_ZONE}"
@@ -154,5 +178,10 @@ resource "cloudflare_zero_trust_access_application" "grafana_application" {
 
 output "cloudflare_tunnel_token" {
   value     = data.cloudflare_zero_trust_tunnel_cloudflared_token.monitoring_tunnel_token.token
+  sensitive = true
+}
+
+output "alloy_grpc_certificate" {
+  value     = cloudflare_origin_ca_certificate.alloy_grpc_certificate.certificate
   sensitive = true
 }
