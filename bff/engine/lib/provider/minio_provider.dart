@@ -8,8 +8,7 @@ part 'minio_provider.g.dart';
 Minio minio(Ref ref) {
   final environments = ref.watch(environmentsProvider);
   return Minio(
-    endPoint:
-        'https://${environments.cloudflareAccountId}.r2.cloudflarestorage.com',
+    endPoint: '${environments.cloudflareAccountId}.r2.cloudflarestorage.com',
     region: 'auto',
     accessKey: environments.r2AccessKeyId,
     secretKey: environments.r2SecretAccessKey,

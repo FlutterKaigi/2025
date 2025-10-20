@@ -15,3 +15,15 @@ variable "CLOUDFLARE_ZERO_TRUST_OAUTH_GOOGLE_CLIENT_SECRET" {
   description = "Cloudflare Zero Trust OAuth Google Client Secret"
   sensitive   = true
 }
+
+variable "CLOUDFLARE_ALLY_GRPC_CERTIFICATE" {
+  type        = string
+  description = "Cloudflare Alloy gRPC Certificate"
+  sensitive   = true
+}
+
+variable "CLOUDFLARE_ALLOY_GRPC_PRIVATE_KEY" {
+  type        = string
+  description = "Cloudflare Alloy gRPC Private Key"
+  sensitive   = true
+}

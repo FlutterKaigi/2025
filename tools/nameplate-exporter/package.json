@@ -1,0 +1,14 @@
+{
+  "name": "nameplate-exporter",
+  "scripts": {
+    "dev": "bun run src/index.ts"
+  },
+  "dependencies": {
+    "@2025/database": "workspace:*",
+    "valibot": "^1.1.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.2.3",
+    "@types/bun": "latest"
+  }
+}
