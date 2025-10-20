@@ -62,6 +62,7 @@ class _TranslationsAccountEn extends TranslationsAccountJa {
 	@override String get logout => 'Sign Out';
 	@override String get settings => 'Account Settings';
 	@override late final _TranslationsAccountProfileEn profile = _TranslationsAccountProfileEn._(_root);
+	@override late final _TranslationsAccountProfileshareEn profileshare = _TranslationsAccountProfileshareEn._(_root);
 }
 
 // Path: account.profile
@@ -93,6 +94,22 @@ class _TranslationsAccountProfileEn extends TranslationsAccountProfileJa {
 	@override late final _TranslationsAccountProfileAvatarEn avatar = _TranslationsAccountProfileAvatarEn._(_root);
 	@override late final _TranslationsAccountProfileSnsEn sns = _TranslationsAccountProfileSnsEn._(_root);
 	@override late final _TranslationsAccountProfileImageEn image = _TranslationsAccountProfileImageEn._(_root);
+}
+
+// Path: account.profileshare
+class _TranslationsAccountProfileshareEn extends TranslationsAccountProfileshareJa {
+	_TranslationsAccountProfileshareEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Profile Exchange';
+	@override String get qrCode => 'Show QR Code';
+	@override String get qrCodeScan => 'Scan QR Code';
+	@override String get friendsList => 'Exchange History';
+	@override late final _TranslationsAccountProfileshareQrCodeDisplayEn qrCodeDisplay = _TranslationsAccountProfileshareQrCodeDisplayEn._(_root);
+	@override late final _TranslationsAccountProfileshareQrCodeScanScreenEn qrCodeScanScreen = _TranslationsAccountProfileshareQrCodeScanScreenEn._(_root);
+	@override late final _TranslationsAccountProfileshareFriendsListScreenEn friendsListScreen = _TranslationsAccountProfileshareFriendsListScreenEn._(_root);
 }
 
 // Path: account.profile.avatar
@@ -143,6 +160,57 @@ class _TranslationsAccountProfileImageEn extends TranslationsAccountProfileImage
 	@override String get reset => 'Reset';
 }
 
+// Path: account.profileshare.qrCodeDisplay
+class _TranslationsAccountProfileshareQrCodeDisplayEn extends TranslationsAccountProfileshareQrCodeDisplayJa {
+	_TranslationsAccountProfileshareQrCodeDisplayEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Show QR Code';
+	@override String get description => 'Display your QR code for others to scan';
+	@override String get instruction => 'Have others scan this QR code';
+}
+
+// Path: account.profileshare.qrCodeScanScreen
+class _TranslationsAccountProfileshareQrCodeScanScreenEn extends TranslationsAccountProfileshareQrCodeScanScreenJa {
+	_TranslationsAccountProfileshareQrCodeScanScreenEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Scan QR Code';
+	@override String get description => 'Scan others\' QR code to exchange profiles';
+	@override String get instruction => 'Scan the QR code with your camera';
+	@override String get loginRequired => 'Login required';
+	@override String get confirmTitle => 'Confirm Profile Share';
+	@override String get confirmMessage => 'Share your profile with this user?';
+	@override String get cancel => 'Cancel';
+	@override String get connect => 'Share';
+	@override String get successMessage => 'Profile shared successfully';
+	@override String get errorMessage => 'Failed to share profile';
+	@override String get scanSuccess => 'QR code scanned successfully';
+	@override String get exchangeSuccess => 'Profile exchanged successfully';
+	@override String get exchangeFailed => 'Failed to exchange profile';
+	@override String get alreadyFriends => 'Already exchanged profiles';
+	@override String get invalidQrCode => 'Invalid QR code';
+	@override String get cannotExchangeWithSelf => 'Cannot exchange with yourself';
+}
+
+// Path: account.profileshare.friendsListScreen
+class _TranslationsAccountProfileshareFriendsListScreenEn extends TranslationsAccountProfileshareFriendsListScreenJa {
+	_TranslationsAccountProfileshareFriendsListScreenEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Exchange History';
+	@override String get emptyMessage => 'No profile exchanges yet';
+	@override String get connectedAt => 'Connected at';
+	@override String get errorLoadingFriends => 'Failed to load friends list';
+	@override String get copiedToClipboard => 'Copied to clipboard';
+}
+
 // Path: account.profile.sns.examples
 class _TranslationsAccountProfileSnsExamplesEn extends TranslationsAccountProfileSnsExamplesJa {
 	_TranslationsAccountProfileSnsExamplesEn._(TranslationsEn root) : this._root = root, super.internal(root);
@@ -175,78 +243,116 @@ class _TranslationsAccountProfileSnsDisplayNamesEn extends TranslationsAccountPr
 	@override String get note => 'note';
 }
 
-/// Flat map(s) containing all translations.
+/// The flat map containing all translations for locale <en>.
 /// Only for edge cases! For simple maps, use the map function of this library.
+/// Note: We use a HashMap because Dart seems to be unable to compile large switch statements.
+Map<String, dynamic>? _map;
+
 extension on TranslationsEn {
 	dynamic _flatMapFunction(String path) {
-		switch (path) {
-			case 'account.profileEdit': return 'Edit Profile';
-			case 'account.guestUserLabel': return 'Guest Mode';
-			case 'account.others': return 'Others';
-			case 'account.codeOfConduct': return 'Code of Conduct';
-			case 'account.codeOfConductUrl': return 'https://docs.flutterkaigi.jp/Code-of-Conduct';
-			case 'account.privacyPolicy': return 'Privacy Policy';
-			case 'account.privacyPolicyUrl': return 'https://docs.flutterkaigi.jp/Privacy-Policy';
-			case 'account.contact': return 'Contact Us';
-			case 'account.contactUrl': return 'https://docs.google.com/forms/d/e/1FAIpQLSemYPFEWpP8594MWI4k3Nz45RJzMS7pz1ufwtnX4t3V7z2TOw/viewform';
-			case 'account.ossLicenses': return 'OSS Licenses';
-			case 'account.withdrawal': return 'Withdrawal Request';
-			case 'account.logout': return 'Sign Out';
-			case 'account.settings': return 'Account Settings';
-			case 'account.profile.title': return 'Profile';
-			case 'account.profile.editTitle': return 'Edit Profile';
-			case 'account.profile.createInfo': return 'Please create profile information';
-			case 'account.profile.edit': return 'Edit Profile';
-			case 'account.profile.notFound': return 'Profile not found';
-			case 'account.profile.saving': return 'Saving...';
-			case 'account.profile.save': return 'Save';
-			case 'account.profile.saveSuccess': return 'Profile saved';
-			case 'account.profile.saveFailed': return 'Failed to save';
-			case 'account.profile.errorOccurred': return 'An error occurred';
-			case 'account.profile.ageOver20': return '20 or older';
-			case 'account.profile.ageUnder20': return 'Under 20';
-			case 'account.profile.nameLabel': return 'Name *';
-			case 'account.profile.nameRequired': return 'Please enter your name';
-			case 'account.profile.nameTooLong': return 'Name must be 20 characters or less';
-			case 'account.profile.upload': return 'Upload';
-			case 'account.profile.delete': return 'Delete';
-			case 'account.profile.snsLinks': return 'Social Links';
-			case 'account.profile.add': return 'Add';
-			case 'account.profile.avatar.deleteSuccess': return 'Avatar removed successfully';
-			case 'account.profile.avatar.changeFailed': return 'Could not update avatar';
-			case 'account.profile.avatar.changeSuccess': return 'Avatar updated successfully';
-			case 'account.profile.sns.notLinked': return 'No social links registered';
-			case 'account.profile.sns.type': return 'Platform';
-			case 'account.profile.sns.urlOrUserId': return 'URL/User ID';
-			case 'account.profile.sns.urlOrUserIdRequired': return 'Please enter URL/User ID';
-			case 'account.profile.sns.other': return 'Other';
-			case 'account.profile.sns.fullUrlRequired': return 'Please enter full URL';
-			case 'account.profile.sns.userIdOnly': return 'User ID only';
-			case 'account.profile.sns.alphanumericOnly': return 'Only letters, numbers, underscore and hyphen allowed';
-			case 'account.profile.sns.examples.github': return 'e.g. octocat';
-			case 'account.profile.sns.examples.x': return 'e.g. twitter';
-			case 'account.profile.sns.examples.discord': return 'e.g. 123456789012345678 (User ID)';
-			case 'account.profile.sns.examples.medium': return 'e.g. username';
-			case 'account.profile.sns.examples.qiita': return 'e.g. username';
-			case 'account.profile.sns.examples.zenn': return 'e.g. username';
-			case 'account.profile.sns.examples.note': return 'e.g. username';
-			case 'account.profile.sns.displayNames.github': return 'GitHub';
-			case 'account.profile.sns.displayNames.x': return 'X (Twitter)';
-			case 'account.profile.sns.displayNames.discord': return 'Discord';
-			case 'account.profile.sns.displayNames.medium': return 'Medium';
-			case 'account.profile.sns.displayNames.qiita': return 'Qiita';
-			case 'account.profile.sns.displayNames.zenn': return 'Zenn';
-			case 'account.profile.sns.displayNames.note': return 'note';
-			case 'account.profile.image.selectTitle': return 'Select Image';
-			case 'account.profile.image.selectMessage': return 'Please select an image';
-			case 'account.profile.image.selectButton': return 'Select Image';
-			case 'account.profile.image.useGooglePhoto': return 'Use Google Account Photo';
-			case 'account.profile.image.cropTitle': return 'Crop Image';
-			case 'account.profile.image.complete': return 'Complete';
-			case 'account.profile.image.crop': return 'Crop';
-			case 'account.profile.image.reset': return 'Reset';
-			default: return null;
-		}
+		final map = _map ?? _initFlatMap();
+		return map[path];
+	}
+
+	/// Initializes the flat map and returns it.
+	Map<String, dynamic> _initFlatMap() {
+		final map = <String, dynamic>{};
+		map['account.profileEdit'] = 'Edit Profile';
+		map['account.guestUserLabel'] = 'Guest Mode';
+		map['account.others'] = 'Others';
+		map['account.codeOfConduct'] = 'Code of Conduct';
+		map['account.codeOfConductUrl'] = 'https://docs.flutterkaigi.jp/Code-of-Conduct';
+		map['account.privacyPolicy'] = 'Privacy Policy';
+		map['account.privacyPolicyUrl'] = 'https://docs.flutterkaigi.jp/Privacy-Policy';
+		map['account.contact'] = 'Contact Us';
+		map['account.contactUrl'] = 'https://docs.google.com/forms/d/e/1FAIpQLSemYPFEWpP8594MWI4k3Nz45RJzMS7pz1ufwtnX4t3V7z2TOw/viewform';
+		map['account.ossLicenses'] = 'OSS Licenses';
+		map['account.withdrawal'] = 'Withdrawal Request';
+		map['account.logout'] = 'Sign Out';
+		map['account.settings'] = 'Account Settings';
+		map['account.profile.title'] = 'Profile';
+		map['account.profile.editTitle'] = 'Edit Profile';
+		map['account.profile.createInfo'] = 'Please create profile information';
+		map['account.profile.edit'] = 'Edit Profile';
+		map['account.profile.notFound'] = 'Profile not found';
+		map['account.profile.saving'] = 'Saving...';
+		map['account.profile.save'] = 'Save';
+		map['account.profile.saveSuccess'] = 'Profile saved';
+		map['account.profile.saveFailed'] = 'Failed to save';
+		map['account.profile.errorOccurred'] = 'An error occurred';
+		map['account.profile.ageOver20'] = '20 or older';
+		map['account.profile.ageUnder20'] = 'Under 20';
+		map['account.profile.nameLabel'] = 'Name *';
+		map['account.profile.nameRequired'] = 'Please enter your name';
+		map['account.profile.nameTooLong'] = 'Name must be 20 characters or less';
+		map['account.profile.upload'] = 'Upload';
+		map['account.profile.delete'] = 'Delete';
+		map['account.profile.snsLinks'] = 'Social Links';
+		map['account.profile.add'] = 'Add';
+		map['account.profile.avatar.deleteSuccess'] = 'Avatar removed successfully';
+		map['account.profile.avatar.changeFailed'] = 'Could not update avatar';
+		map['account.profile.avatar.changeSuccess'] = 'Avatar updated successfully';
+		map['account.profile.sns.notLinked'] = 'No social links registered';
+		map['account.profile.sns.type'] = 'Platform';
+		map['account.profile.sns.urlOrUserId'] = 'URL/User ID';
+		map['account.profile.sns.urlOrUserIdRequired'] = 'Please enter URL/User ID';
+		map['account.profile.sns.other'] = 'Other';
+		map['account.profile.sns.fullUrlRequired'] = 'Please enter full URL';
+		map['account.profile.sns.userIdOnly'] = 'User ID only';
+		map['account.profile.sns.alphanumericOnly'] = 'Only letters, numbers, underscore and hyphen allowed';
+		map['account.profile.sns.examples.github'] = 'e.g. octocat';
+		map['account.profile.sns.examples.x'] = 'e.g. twitter';
+		map['account.profile.sns.examples.discord'] = 'e.g. 123456789012345678 (User ID)';
+		map['account.profile.sns.examples.medium'] = 'e.g. username';
+		map['account.profile.sns.examples.qiita'] = 'e.g. username';
+		map['account.profile.sns.examples.zenn'] = 'e.g. username';
+		map['account.profile.sns.examples.note'] = 'e.g. username';
+		map['account.profile.sns.displayNames.github'] = 'GitHub';
+		map['account.profile.sns.displayNames.x'] = 'X (Twitter)';
+		map['account.profile.sns.displayNames.discord'] = 'Discord';
+		map['account.profile.sns.displayNames.medium'] = 'Medium';
+		map['account.profile.sns.displayNames.qiita'] = 'Qiita';
+		map['account.profile.sns.displayNames.zenn'] = 'Zenn';
+		map['account.profile.sns.displayNames.note'] = 'note';
+		map['account.profile.image.selectTitle'] = 'Select Image';
+		map['account.profile.image.selectMessage'] = 'Please select an image';
+		map['account.profile.image.selectButton'] = 'Select Image';
+		map['account.profile.image.useGooglePhoto'] = 'Use Google Account Photo';
+		map['account.profile.image.cropTitle'] = 'Crop Image';
+		map['account.profile.image.complete'] = 'Complete';
+		map['account.profile.image.crop'] = 'Crop';
+		map['account.profile.image.reset'] = 'Reset';
+		map['account.profileshare.title'] = 'Profile Exchange';
+		map['account.profileshare.qrCode'] = 'Show QR Code';
+		map['account.profileshare.qrCodeScan'] = 'Scan QR Code';
+		map['account.profileshare.friendsList'] = 'Exchange History';
+		map['account.profileshare.qrCodeDisplay.title'] = 'Show QR Code';
+		map['account.profileshare.qrCodeDisplay.description'] = 'Display your QR code for others to scan';
+		map['account.profileshare.qrCodeDisplay.instruction'] = 'Have others scan this QR code';
+		map['account.profileshare.qrCodeScanScreen.title'] = 'Scan QR Code';
+		map['account.profileshare.qrCodeScanScreen.description'] = 'Scan others\' QR code to exchange profiles';
+		map['account.profileshare.qrCodeScanScreen.instruction'] = 'Scan the QR code with your camera';
+		map['account.profileshare.qrCodeScanScreen.loginRequired'] = 'Login required';
+		map['account.profileshare.qrCodeScanScreen.confirmTitle'] = 'Confirm Profile Share';
+		map['account.profileshare.qrCodeScanScreen.confirmMessage'] = 'Share your profile with this user?';
+		map['account.profileshare.qrCodeScanScreen.cancel'] = 'Cancel';
+		map['account.profileshare.qrCodeScanScreen.connect'] = 'Share';
+		map['account.profileshare.qrCodeScanScreen.successMessage'] = 'Profile shared successfully';
+		map['account.profileshare.qrCodeScanScreen.errorMessage'] = 'Failed to share profile';
+		map['account.profileshare.qrCodeScanScreen.scanSuccess'] = 'QR code scanned successfully';
+		map['account.profileshare.qrCodeScanScreen.exchangeSuccess'] = 'Profile exchanged successfully';
+		map['account.profileshare.qrCodeScanScreen.exchangeFailed'] = 'Failed to exchange profile';
+		map['account.profileshare.qrCodeScanScreen.alreadyFriends'] = 'Already exchanged profiles';
+		map['account.profileshare.qrCodeScanScreen.invalidQrCode'] = 'Invalid QR code';
+		map['account.profileshare.qrCodeScanScreen.cannotExchangeWithSelf'] = 'Cannot exchange with yourself';
+		map['account.profileshare.friendsListScreen.title'] = 'Exchange History';
+		map['account.profileshare.friendsListScreen.emptyMessage'] = 'No profile exchanges yet';
+		map['account.profileshare.friendsListScreen.connectedAt'] = 'Connected at';
+		map['account.profileshare.friendsListScreen.errorLoadingFriends'] = 'Failed to load friends list';
+		map['account.profileshare.friendsListScreen.copiedToClipboard'] = 'Copied to clipboard';
+
+		_map = map;
+		return map;
 	}
 }
 

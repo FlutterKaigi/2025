@@ -113,6 +113,22 @@ RouteBase get $mainRoute => StatefulShellRouteData.$route(
               parentNavigatorKey: WithdrawalRoute.$parentNavigatorKey,
               factory: $WithdrawalRoute._fromState,
             ),
+            GoRouteData.$route(
+              path: 'profile-share',
+              parentNavigatorKey: ProfileShareListRoute.$parentNavigatorKey,
+              factory: $ProfileShareListRoute._fromState,
+            ),
+            GoRouteData.$route(
+              path: 'profile-share/qr',
+              parentNavigatorKey:
+                  ProfileShareQrDisplayRoute.$parentNavigatorKey,
+              factory: $ProfileShareQrDisplayRoute._fromState,
+            ),
+            GoRouteData.$route(
+              path: 'profile-share/scan',
+              parentNavigatorKey: ProfileShareQrScanRoute.$parentNavigatorKey,
+              factory: $ProfileShareQrScanRoute._fromState,
+            ),
           ],
         ),
       ],
@@ -369,6 +385,69 @@ mixin $WithdrawalRoute on GoRouteData {
 
   @override
   String get location => GoRouteData.$location('/account/withdrawal');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $ProfileShareListRoute on GoRouteData {
+  static ProfileShareListRoute _fromState(GoRouterState state) =>
+      const ProfileShareListRoute();
+
+  @override
+  String get location => GoRouteData.$location('/account/profile-share');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $ProfileShareQrDisplayRoute on GoRouteData {
+  static ProfileShareQrDisplayRoute _fromState(GoRouterState state) =>
+      const ProfileShareQrDisplayRoute();
+
+  @override
+  String get location => GoRouteData.$location('/account/profile-share/qr');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $ProfileShareQrScanRoute on GoRouteData {
+  static ProfileShareQrScanRoute _fromState(GoRouterState state) =>
+      const ProfileShareQrScanRoute();
+
+  @override
+  String get location => GoRouteData.$location('/account/profile-share/scan');
 
   @override
   void go(BuildContext context) => context.go(location);

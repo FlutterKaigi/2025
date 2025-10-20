@@ -53,6 +53,9 @@ Widget accountInfoScreenUseCase(BuildContext context) {
       onTapContactTile: () {},
       onTapOssLicensesTile: () {},
       onTapWithdrawalTile: () {},
+      onTapQrCode: () {},
+      onTapQrCodeScan: () {},
+      onTapFriendsList: () {},
     ),
   );
 }

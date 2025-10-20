@@ -97,6 +97,7 @@ class TranslationsAccountJa {
 	String get settings => 'アカウント設定';
 
 	late final TranslationsAccountProfileJa profile = TranslationsAccountProfileJa.internal(_root);
+	late final TranslationsAccountProfileshareJa profileshare = TranslationsAccountProfileshareJa.internal(_root);
 }
 
 // Path: auth
@@ -108,6 +109,9 @@ class TranslationsAuthJa {
 	// Translations
 	late final TranslationsAuthGuestJa guest = TranslationsAuthGuestJa.internal(_root);
 	late final TranslationsAuthErrorJa error = TranslationsAuthErrorJa.internal(_root);
+
+	/// ja: 'ログインが必要です'
+	String get loginRequired => 'ログインが必要です';
 }
 
 // Path: common
@@ -315,6 +319,31 @@ class TranslationsAccountProfileJa {
 	late final TranslationsAccountProfileImageJa image = TranslationsAccountProfileImageJa.internal(_root);
 }
 
+// Path: account.profileshare
+class TranslationsAccountProfileshareJa {
+	TranslationsAccountProfileshareJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'プロフィール交換'
+	String get title => 'プロフィール交換';
+
+	/// ja: 'QRコード表示'
+	String get qrCode => 'QRコード表示';
+
+	/// ja: 'QRコード読み取り'
+	String get qrCodeScan => 'QRコード読み取り';
+
+	/// ja: '交換履歴'
+	String get friendsList => '交換履歴';
+
+	late final TranslationsAccountProfileshareQrCodeDisplayJa qrCodeDisplay = TranslationsAccountProfileshareQrCodeDisplayJa.internal(_root);
+	late final TranslationsAccountProfileshareQrCodeScanScreenJa qrCodeScanScreen = TranslationsAccountProfileshareQrCodeScanScreenJa.internal(_root);
+	late final TranslationsAccountProfileshareFriendsListScreenJa friendsListScreen = TranslationsAccountProfileshareFriendsListScreenJa.internal(_root);
+}
+
 // Path: auth.guest
 class TranslationsAuthGuestJa {
 	TranslationsAuthGuestJa.internal(this._root);
@@ -440,6 +469,8 @@ class TranslationsCommonDebugJa {
 
 	/// ja: 'GO'
 	String get go => 'GO';
+
+	late final TranslationsCommonDebugProfileShareJa profileShare = TranslationsCommonDebugProfileShareJa.internal(_root);
 }
 
 // Path: news.tile
@@ -805,6 +836,105 @@ class TranslationsAccountProfileImageJa {
 	String get reset => 'リセット';
 }
 
+// Path: account.profileshare.qrCodeDisplay
+class TranslationsAccountProfileshareQrCodeDisplayJa {
+	TranslationsAccountProfileshareQrCodeDisplayJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'QRコード表示'
+	String get title => 'QRコード表示';
+
+	/// ja: '自分のQRコードを表示して、相手に読み取ってもらいます'
+	String get description => '自分のQRコードを表示して、相手に読み取ってもらいます';
+
+	/// ja: 'このQRコードを相手に読み取ってもらってください'
+	String get instruction => 'このQRコードを相手に読み取ってもらってください';
+}
+
+// Path: account.profileshare.qrCodeScanScreen
+class TranslationsAccountProfileshareQrCodeScanScreenJa {
+	TranslationsAccountProfileshareQrCodeScanScreenJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'QRコード読み取り'
+	String get title => 'QRコード読み取り';
+
+	/// ja: '相手のQRコードを読み取って、プロフィール交換します'
+	String get description => '相手のQRコードを読み取って、プロフィール交換します';
+
+	/// ja: '相手のQRコードをカメラで読み取ってください'
+	String get instruction => '相手のQRコードをカメラで読み取ってください';
+
+	/// ja: 'ログインが必要です'
+	String get loginRequired => 'ログインが必要です';
+
+	/// ja: 'プロフィールシェア確認'
+	String get confirmTitle => 'プロフィールシェア確認';
+
+	/// ja: 'このユーザーとプロフィールをシェアしますか?'
+	String get confirmMessage => 'このユーザーとプロフィールをシェアしますか?';
+
+	/// ja: 'キャンセル'
+	String get cancel => 'キャンセル';
+
+	/// ja: 'シェアする'
+	String get connect => 'シェアする';
+
+	/// ja: 'プロフィールシェアしました'
+	String get successMessage => 'プロフィールシェアしました';
+
+	/// ja: 'プロフィールシェアに失敗しました'
+	String get errorMessage => 'プロフィールシェアに失敗しました';
+
+	/// ja: 'QRコードを読み取りました'
+	String get scanSuccess => 'QRコードを読み取りました';
+
+	/// ja: 'プロフィール交換しました'
+	String get exchangeSuccess => 'プロフィール交換しました';
+
+	/// ja: 'プロフィール交換に失敗しました'
+	String get exchangeFailed => 'プロフィール交換に失敗しました';
+
+	/// ja: 'すでにプロフィール交換済みです'
+	String get alreadyFriends => 'すでにプロフィール交換済みです';
+
+	/// ja: '無効なQRコードです'
+	String get invalidQrCode => '無効なQRコードです';
+
+	/// ja: '自分自身とプロフィール交換はできません'
+	String get cannotExchangeWithSelf => '自分自身とプロフィール交換はできません';
+}
+
+// Path: account.profileshare.friendsListScreen
+class TranslationsAccountProfileshareFriendsListScreenJa {
+	TranslationsAccountProfileshareFriendsListScreenJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '交換履歴'
+	String get title => '交換履歴';
+
+	/// ja: 'まだプロフィール交換していません'
+	String get emptyMessage => 'まだプロフィール交換していません';
+
+	/// ja: '交換日時'
+	String get connectedAt => '交換日時';
+
+	/// ja: '友達リストの読み込みに失敗しました'
+	String get errorLoadingFriends => '友達リストの読み込みに失敗しました';
+
+	/// ja: 'をコピーしました'
+	String get copiedToClipboard => 'をコピーしました';
+}
+
 // Path: common.error.notFound
 class TranslationsCommonErrorNotFoundJa {
 	TranslationsCommonErrorNotFoundJa.internal(this._root);
@@ -871,6 +1001,24 @@ class TranslationsCommonErrorGeneralJa {
 	String get occurred => 'エラーが発生しました';
 }
 
+// Path: common.debug.profileShare
+class TranslationsCommonDebugProfileShareJa {
+	TranslationsCommonDebugProfileShareJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'Debug'
+	String get title => 'Debug';
+
+	/// ja: 'ユーザーIDを入力してください'
+	String get userIdPlaceholder => 'ユーザーIDを入力してください';
+
+	/// ja: 'シェア'
+	String get share => 'シェア';
+}
+
 // Path: account.profile.sns.examples
 class TranslationsAccountProfileSnsExamplesJa {
 	TranslationsAccountProfileSnsExamplesJa.internal(this._root);
@@ -931,178 +1079,220 @@ class TranslationsAccountProfileSnsDisplayNamesJa {
 	String get note => 'note';
 }
 
-/// Flat map(s) containing all translations.
+/// The flat map containing all translations for locale <ja>.
 /// Only for edge cases! For simple maps, use the map function of this library.
+/// Note: We use a HashMap because Dart seems to be unable to compile large switch statements.
+Map<String, dynamic>? _map;
+
 extension on Translations {
 	dynamic _flatMapFunction(String path) {
-		switch (path) {
-			case 'account.profileEdit': return 'プロフィールを編集する';
-			case 'account.guestUserLabel': return 'ゲストでログイン中';
-			case 'account.others': return 'Others';
-			case 'account.codeOfConduct': return '行動規範';
-			case 'account.codeOfConductUrl': return 'https://docs.flutterkaigi.jp/Code-of-Conduct.ja';
-			case 'account.privacyPolicy': return 'プライバシーポリシー';
-			case 'account.privacyPolicyUrl': return 'https://docs.flutterkaigi.jp/Privacy-Policy.ja';
-			case 'account.contact': return 'お問い合わせ';
-			case 'account.contactUrl': return 'https://docs.google.com/forms/d/e/1FAIpQLSemYPFEWpP8594MWI4k3Nz45RJzMS7pz1ufwtnX4t3V7z2TOw/viewform';
-			case 'account.ossLicenses': return 'OSS Licenses';
-			case 'account.withdrawal': return '退会申請';
-			case 'account.logout': return 'ログアウト';
-			case 'account.settings': return 'アカウント設定';
-			case 'account.profile.title': return 'プロファイル';
-			case 'account.profile.editTitle': return 'プロフィール編集';
-			case 'account.profile.createInfo': return 'プロファイル情報を作成してください';
-			case 'account.profile.edit': return 'プロファイルを編集';
-			case 'account.profile.notFound': return 'プロファイルが見つかりません';
-			case 'account.profile.saving': return '保存中...';
-			case 'account.profile.save': return '保存';
-			case 'account.profile.saveSuccess': return 'プロファイルを保存しました';
-			case 'account.profile.saveFailed': return '保存に失敗しました';
-			case 'account.profile.errorOccurred': return 'エラーが発生しました';
-			case 'account.profile.ageOver20': return '20歳以上です';
-			case 'account.profile.ageUnder20': return '20歳未満';
-			case 'account.profile.nameLabel': return '名前 *';
-			case 'account.profile.nameRequired': return '名前を入力してください';
-			case 'account.profile.nameTooLong': return '名前は20文字以内で入力してください';
-			case 'account.profile.upload': return 'アップロード';
-			case 'account.profile.delete': return '削除';
-			case 'account.profile.snsLinks': return 'SNSリンク';
-			case 'account.profile.add': return '追加';
-			case 'account.profile.avatar.deleteSuccess': return 'アバターを削除しました';
-			case 'account.profile.avatar.changeFailed': return 'アバターを変更できませんでした';
-			case 'account.profile.avatar.changeSuccess': return 'アバターを変更しました';
-			case 'account.profile.sns.notLinked': return 'SNSリンクが登録されていません';
-			case 'account.profile.sns.type': return 'SNSタイプ';
-			case 'account.profile.sns.urlOrUserId': return 'URL/ユーザーID';
-			case 'account.profile.sns.urlOrUserIdRequired': return 'URL/ユーザーIDを入力してください';
-			case 'account.profile.sns.other': return 'その他';
-			case 'account.profile.sns.fullUrlRequired': return '完全なURLを入力してください';
-			case 'account.profile.sns.userIdOnly': return 'ユーザーIDのみを入力してください';
-			case 'account.profile.sns.alphanumericOnly': return '英数字、アンダースコア、ハイフンのみ使用可能です';
-			case 'account.profile.sns.examples.github': return '例: octocat';
-			case 'account.profile.sns.examples.x': return '例: twitter';
-			case 'account.profile.sns.examples.discord': return '例: 123456789012345678 (ユーザーID)';
-			case 'account.profile.sns.examples.medium': return '例: username';
-			case 'account.profile.sns.examples.qiita': return '例: username';
-			case 'account.profile.sns.examples.zenn': return '例: username';
-			case 'account.profile.sns.examples.note': return '例: username';
-			case 'account.profile.sns.displayNames.github': return 'GitHub';
-			case 'account.profile.sns.displayNames.x': return 'X (Twitter)';
-			case 'account.profile.sns.displayNames.discord': return 'Discord';
-			case 'account.profile.sns.displayNames.medium': return 'Medium';
-			case 'account.profile.sns.displayNames.qiita': return 'Qiita';
-			case 'account.profile.sns.displayNames.zenn': return 'Zenn';
-			case 'account.profile.sns.displayNames.note': return 'note';
-			case 'account.profile.image.selectTitle': return '画像を選択';
-			case 'account.profile.image.selectMessage': return '画像を選択してください';
-			case 'account.profile.image.selectButton': return '画像を選択';
-			case 'account.profile.image.useGooglePhoto': return 'Googleアカウントの写真を使用';
-			case 'account.profile.image.cropTitle': return '画像をクロップ';
-			case 'account.profile.image.complete': return '完了';
-			case 'account.profile.image.crop': return 'クロップ';
-			case 'account.profile.image.reset': return 'リセット';
-			case 'auth.guest.signInButton': return 'ゲストで利用する';
-			case 'auth.guest.userLabel': return 'ゲストでログイン中';
-			case 'auth.error.identityAlreadyExists': return 'このGoogleアカウントは既に別のユーザーと紐づけられています。ログアウトしてから再度ログインしてください。';
-			case 'auth.error.sessionExpired': return 'Googleアカウントへの再ログインが必要です。';
-			case 'common.app.name': return 'FlutterKaigi 2025';
-			case 'common.forceUpdate.title': return 'アップデートが必要です';
-			case 'common.forceUpdate.message': return '新しいバージョンのアプリが利用可能です。最新バージョンにアップデートしてください。';
-			case 'common.forceUpdate.updateButton': return 'アップデート';
-			case 'common.error.notFound.title': return 'ページが見つかりません';
-			case 'common.error.notFound.message': return 'お探しのページは存在しないか、\n移動された可能性があります。';
-			case 'common.error.notFound.backToTop': return 'トップに戻る';
-			case 'common.error.server.title': return 'サーバー側で問題が発生したようです。';
-			case 'common.error.server.message': return 'FlutterKaigi スタッフへお問い合わせください。';
-			case 'common.error.server.retry': return 'リトライ';
-			case 'common.error.widget.buildErrorTitle': return '予期しないエラーが発生しました';
-			case 'common.error.widget.buildErrorMessage': return '申し訳ございません。UI 構築中に予期しないエラーが発生しました。\n\nこの問題を解決するため、GitHub の Issue を作成していただけると大変助かります。';
-			case 'common.error.widget.buildErrorGitHubButton': return 'GitHub の Issue ページを開く';
-			case 'common.error.general.occurred': return 'エラーが発生しました';
-			case 'common.navigation.event': return 'イベント';
-			case 'common.navigation.sponsor': return 'スポンサー';
-			case 'common.navigation.session': return 'セッション';
-			case 'common.navigation.ticket': return 'チケット';
-			case 'common.navigation.account': return 'アカウント';
-			case 'common.debug.title': return 'Debug';
-			case 'common.debug.talkerScreen': return 'Talker 画面へ';
-			case 'common.debug.pathRequired': return 'パスを入力してください';
-			case 'common.debug.pathMustStartWithSlash': return 'パスは / で始めてください';
-			case 'common.debug.pathCannotContainDebugOrLogin': return 'パスに「debug」または「login」を含めることはできません';
-			case 'common.debug.invalidPath': return '無効なパスです';
-			case 'common.debug.go': return 'GO';
-			case 'event.description': return '2025年、日本国内で Flutter をメインに扱う技術カンファレンス。Flutter や Dart の深い知見を持つ開発者によるセッションを多数企画します。';
-			case 'event.date': return '2025年11月13日(木)';
-			case 'event.time': return '10:00 ~ 18:00';
-			case 'event.venue': return '大手町プレイス ホール＆カンファレンス';
-			case 'event.address': return '東京都千代田区大手町二丁目3番1号';
-			case 'news.tile.title': return '最新のお知らせ';
-			case 'news.tile.subtitle': return '最新のお知らせをご確認ください';
-			case 'news.screen.title': return 'お知らせ';
-			case 'news.empty.message': return '現在、新しいお知らせはありません。';
-			case 'session.title': return 'タイムテーブル';
-			case 'session.detail.bookmark': return 'ブックマーク';
-			case 'session.bookmarked.title': return 'お気に入りセッション';
-			case 'session.empty.message': return '現在、表示可能なセッションがありません。';
-			case 'session.feedback.title': return 'フィードバック';
-			case 'session.feedback.send': return 'フィードバックを送る';
-			case 'sponsor.prText': return 'PR 文章';
-			case 'sponsor.enthusiasm': return '意気込み';
-			case 'sponsor.company': return '企業スポンサー';
-			case 'sponsor.individual': return '個人スポンサー';
-			case 'sponsor.website': return 'ウェブサイト';
-			case 'sponsor.websiteNotSet': return '設定されていません';
-			case 'sponsor.xAccount': return 'X アカウント';
-			case 'sponsor.xAccountNotSet': return '設定されていません';
-			case 'sponsor.name': return 'スポンサー名';
-			case 'ticket.status.purchased': return '購入済み';
-			case 'ticket.status.pending': return '決済待ち';
-			case 'ticket.options': return 'オプション:';
-			case 'ticket.purchaseDate': return '購入日時';
-			case 'ticket.expiryDate': return '期限';
-			case 'ticket.noAvailableTickets': return '現在、購入可能なチケットはありません';
-			case 'ticket.list': return 'チケット一覧';
-			case 'ticket.loginRequired.title': return 'チケット購入前にGoogleアカウントでログインしてください';
-			case 'ticket.loginRequired.linkTitle': return 'チケット購入前にGoogleアカウントとリンクしてください';
-			case 'ticket.loginRequired.description': return 'チケットを購入するためには、Googleアカウントでログインしてください';
-			case 'ticket.notice.title': return 'ご注意';
-			case 'ticket.notice.message': return '「個人スポンサーチケット」のみでは、FlutterKaigi 2025本編（カンファレンス会場）へのご入場はできません。\n入場をご希望の方は、アーリーチケット（9月末まで販売予定）またはノーマルチケットを別途ご購入ください。\nなお、「個人スポンサーチケット」は、入場を目的とせず FlutterKaigi を応援したい方のご支援も大歓迎です！\n\n前夜祭への参加は「アーリーチケット」のみが対象です。\nノーマルチケットでは前夜祭に参加できませんのでご注意ください。';
-			case 'ticket.studentRefund.title': return '学生向け返金・費用補助について';
-			case 'ticket.studentRefund.description': return 'FlutterKaigi 2025では、学生支援スポンサー様のご協力により、アーリーチケット・ノーマルチケットをご購入の方を対象に返金・費用補助を実施いたします。';
-			case 'ticket.studentRefund.detailsButton': return '詳細を見る';
-			case 'ticket.studentRefund.dialogContent': return '🎓 学生向け返金・費用補助について\nFlutterKaigi 2025では、学生支援スポンサー様のご協力により、アーリーチケット・ノーマルチケットをご購入の方を対象に、以下の返金・費用補助を実施いたします。\n\n✅ 対象となる費用\n- チケット代金\n- 交通費（上限あり）\n- 宿泊費（上限あり）\n\n🧑‍🎓 対象となる「学生」の定義\n以下のいずれかに該当し、在学を証明できる方が対象です：\n- 日本国内外の教育機関（小学校・中学校・高等学校・高等専門学校・専門学校・大学・大学院など）に在籍中の方\n- 年齢や就業状況を問わず、学生証または在学証明書を提示できる方\n\n🎟 対象条件\n- FlutterKaigi 2025に実際に参加された方\n- 実際に学生支援スポンサーとの交流企画へ参加された方\n- 前当日の受付にて、有効な学生証や在学証明書をご提示いただいた方\n\n参加記録は運営側で確認いたします。事前申請は不要です。\n\n📩 返金手続きについて\nイベント終了後、対象の方へメールにて返金手続きの詳細をご案内いたします。\n\nその際、以下の情報をご提出いただきます：\n- チケット購入時の情報\n- 交通費・宿泊費の領収書または証明書類\n- 振込先の口座情報\n\n※ 学生証の写しなどの追加提出は不要です（当日提示済みの場合）\n※ 上限金額や詳細条件については、ご案内メールにて個別にご説明します。\n※ ご提出いただいた内容を確認のうえ、順次返金いたします。\n\n📌 ご提出いただく情報には個人情報が含まれます。返金・費用補助の確認および手続きの目的に限り使用し、手続き完了後は速やかに破棄いたします。お申し込みいただくにあたり、これらの取り扱いにご同意いただく必要がありますので、あらかじめご了承ください。\n\n📬 ご不明点がある場合は：staff@flutterkaigi.jp';
-			case 'ticket.purchase.title': return 'チケット購入';
-			case 'ticket.purchase.proceed': return '購入へ進む';
-			case 'ticket.purchase.confirmTitle': return 'チケット情報を確認';
-			case 'ticket.purchase.paymentTitle': return '決済を開始';
-			case 'ticket.purchase.back': return '戻る';
-			case 'ticket.purchase.next': return '次へ';
-			case 'ticket.purchase.startPayment': return '決済を開始';
-			case 'ticket.purchase.selected': return '選択済み';
-			case 'ticket.purchase.proceedToPayment': return '決済へ進む';
-			case 'ticket.purchase.paymentPageError': return '決済ページを開けませんでした';
-			case 'ticket.purchase.errorOccurred': return 'エラーが発生しました';
-			case 'ticket.purchase.addOption': return 'このオプションを追加する';
-			case 'ticket.purchase.optionNotSelling': return 'このオプションは販売終了しました';
-			case 'ticket.purchase.optionSoldOut': return 'このオプションは完売しました';
-			case 'ticket.purchase.fewRemaining': return '残りわずか';
-			case 'ticket.purchase.selling': return '販売中';
-			case 'ticket.purchase.soldOut': return '完売';
-			case 'ticket.purchase.notSelling': return '販売終了';
-			case 'ticket.purchase.optionsAvailable': return 'このチケットには以下のオプションがあります：';
-			case 'ticket.purchase.cancel': return 'キャンセル';
-			case 'ticket.purchase.unselected': return '未選択';
-			case 'ticket.purchase.price': return '価格';
-			case 'ticket.purchase.ticket': return 'チケット';
-			case 'ticket.purchase.additionalOptions': return '追加オプション';
-			case 'ticket.purchase.total': return '合計';
-			case 'ticket.qr.scanAtEntry': return '入場時にかざしてください';
-			case 'ticket.qr.ticketType': return 'チケット種別';
-			case 'ticket.qr.nameplateId': return 'ネームプレートID';
-			case 'ticket.entryTicket.title': return '入場可能なチケット';
-			case 'ticket.entryTicket.subtitle': return ({required int count}) => '${count}枚のチケットがあります';
-			default: return null;
-		}
+		final map = _map ?? _initFlatMap();
+		return map[path];
+	}
+
+	/// Initializes the flat map and returns it.
+	Map<String, dynamic> _initFlatMap() {
+		final map = <String, dynamic>{};
+		map['account.profileEdit'] = 'プロフィールを編集する';
+		map['account.guestUserLabel'] = 'ゲストでログイン中';
+		map['account.others'] = 'Others';
+		map['account.codeOfConduct'] = '行動規範';
+		map['account.codeOfConductUrl'] = 'https://docs.flutterkaigi.jp/Code-of-Conduct.ja';
+		map['account.privacyPolicy'] = 'プライバシーポリシー';
+		map['account.privacyPolicyUrl'] = 'https://docs.flutterkaigi.jp/Privacy-Policy.ja';
+		map['account.contact'] = 'お問い合わせ';
+		map['account.contactUrl'] = 'https://docs.google.com/forms/d/e/1FAIpQLSemYPFEWpP8594MWI4k3Nz45RJzMS7pz1ufwtnX4t3V7z2TOw/viewform';
+		map['account.ossLicenses'] = 'OSS Licenses';
+		map['account.withdrawal'] = '退会申請';
+		map['account.logout'] = 'ログアウト';
+		map['account.settings'] = 'アカウント設定';
+		map['account.profile.title'] = 'プロファイル';
+		map['account.profile.editTitle'] = 'プロフィール編集';
+		map['account.profile.createInfo'] = 'プロファイル情報を作成してください';
+		map['account.profile.edit'] = 'プロファイルを編集';
+		map['account.profile.notFound'] = 'プロファイルが見つかりません';
+		map['account.profile.saving'] = '保存中...';
+		map['account.profile.save'] = '保存';
+		map['account.profile.saveSuccess'] = 'プロファイルを保存しました';
+		map['account.profile.saveFailed'] = '保存に失敗しました';
+		map['account.profile.errorOccurred'] = 'エラーが発生しました';
+		map['account.profile.ageOver20'] = '20歳以上です';
+		map['account.profile.ageUnder20'] = '20歳未満';
+		map['account.profile.nameLabel'] = '名前 *';
+		map['account.profile.nameRequired'] = '名前を入力してください';
+		map['account.profile.nameTooLong'] = '名前は20文字以内で入力してください';
+		map['account.profile.upload'] = 'アップロード';
+		map['account.profile.delete'] = '削除';
+		map['account.profile.snsLinks'] = 'SNSリンク';
+		map['account.profile.add'] = '追加';
+		map['account.profile.avatar.deleteSuccess'] = 'アバターを削除しました';
+		map['account.profile.avatar.changeFailed'] = 'アバターを変更できませんでした';
+		map['account.profile.avatar.changeSuccess'] = 'アバターを変更しました';
+		map['account.profile.sns.notLinked'] = 'SNSリンクが登録されていません';
+		map['account.profile.sns.type'] = 'SNSタイプ';
+		map['account.profile.sns.urlOrUserId'] = 'URL/ユーザーID';
+		map['account.profile.sns.urlOrUserIdRequired'] = 'URL/ユーザーIDを入力してください';
+		map['account.profile.sns.other'] = 'その他';
+		map['account.profile.sns.fullUrlRequired'] = '完全なURLを入力してください';
+		map['account.profile.sns.userIdOnly'] = 'ユーザーIDのみを入力してください';
+		map['account.profile.sns.alphanumericOnly'] = '英数字、アンダースコア、ハイフンのみ使用可能です';
+		map['account.profile.sns.examples.github'] = '例: octocat';
+		map['account.profile.sns.examples.x'] = '例: twitter';
+		map['account.profile.sns.examples.discord'] = '例: 123456789012345678 (ユーザーID)';
+		map['account.profile.sns.examples.medium'] = '例: username';
+		map['account.profile.sns.examples.qiita'] = '例: username';
+		map['account.profile.sns.examples.zenn'] = '例: username';
+		map['account.profile.sns.examples.note'] = '例: username';
+		map['account.profile.sns.displayNames.github'] = 'GitHub';
+		map['account.profile.sns.displayNames.x'] = 'X (Twitter)';
+		map['account.profile.sns.displayNames.discord'] = 'Discord';
+		map['account.profile.sns.displayNames.medium'] = 'Medium';
+		map['account.profile.sns.displayNames.qiita'] = 'Qiita';
+		map['account.profile.sns.displayNames.zenn'] = 'Zenn';
+		map['account.profile.sns.displayNames.note'] = 'note';
+		map['account.profile.image.selectTitle'] = '画像を選択';
+		map['account.profile.image.selectMessage'] = '画像を選択してください';
+		map['account.profile.image.selectButton'] = '画像を選択';
+		map['account.profile.image.useGooglePhoto'] = 'Googleアカウントの写真を使用';
+		map['account.profile.image.cropTitle'] = '画像をクロップ';
+		map['account.profile.image.complete'] = '完了';
+		map['account.profile.image.crop'] = 'クロップ';
+		map['account.profile.image.reset'] = 'リセット';
+		map['account.profileshare.title'] = 'プロフィール交換';
+		map['account.profileshare.qrCode'] = 'QRコード表示';
+		map['account.profileshare.qrCodeScan'] = 'QRコード読み取り';
+		map['account.profileshare.friendsList'] = '交換履歴';
+		map['account.profileshare.qrCodeDisplay.title'] = 'QRコード表示';
+		map['account.profileshare.qrCodeDisplay.description'] = '自分のQRコードを表示して、相手に読み取ってもらいます';
+		map['account.profileshare.qrCodeDisplay.instruction'] = 'このQRコードを相手に読み取ってもらってください';
+		map['account.profileshare.qrCodeScanScreen.title'] = 'QRコード読み取り';
+		map['account.profileshare.qrCodeScanScreen.description'] = '相手のQRコードを読み取って、プロフィール交換します';
+		map['account.profileshare.qrCodeScanScreen.instruction'] = '相手のQRコードをカメラで読み取ってください';
+		map['account.profileshare.qrCodeScanScreen.loginRequired'] = 'ログインが必要です';
+		map['account.profileshare.qrCodeScanScreen.confirmTitle'] = 'プロフィールシェア確認';
+		map['account.profileshare.qrCodeScanScreen.confirmMessage'] = 'このユーザーとプロフィールをシェアしますか?';
+		map['account.profileshare.qrCodeScanScreen.cancel'] = 'キャンセル';
+		map['account.profileshare.qrCodeScanScreen.connect'] = 'シェアする';
+		map['account.profileshare.qrCodeScanScreen.successMessage'] = 'プロフィールシェアしました';
+		map['account.profileshare.qrCodeScanScreen.errorMessage'] = 'プロフィールシェアに失敗しました';
+		map['account.profileshare.qrCodeScanScreen.scanSuccess'] = 'QRコードを読み取りました';
+		map['account.profileshare.qrCodeScanScreen.exchangeSuccess'] = 'プロフィール交換しました';
+		map['account.profileshare.qrCodeScanScreen.exchangeFailed'] = 'プロフィール交換に失敗しました';
+		map['account.profileshare.qrCodeScanScreen.alreadyFriends'] = 'すでにプロフィール交換済みです';
+		map['account.profileshare.qrCodeScanScreen.invalidQrCode'] = '無効なQRコードです';
+		map['account.profileshare.qrCodeScanScreen.cannotExchangeWithSelf'] = '自分自身とプロフィール交換はできません';
+		map['account.profileshare.friendsListScreen.title'] = '交換履歴';
+		map['account.profileshare.friendsListScreen.emptyMessage'] = 'まだプロフィール交換していません';
+		map['account.profileshare.friendsListScreen.connectedAt'] = '交換日時';
+		map['account.profileshare.friendsListScreen.errorLoadingFriends'] = '友達リストの読み込みに失敗しました';
+		map['account.profileshare.friendsListScreen.copiedToClipboard'] = 'をコピーしました';
+		map['auth.guest.signInButton'] = 'ゲストで利用する';
+		map['auth.guest.userLabel'] = 'ゲストでログイン中';
+		map['auth.error.identityAlreadyExists'] = 'このGoogleアカウントは既に別のユーザーと紐づけられています。ログアウトしてから再度ログインしてください。';
+		map['auth.error.sessionExpired'] = 'Googleアカウントへの再ログインが必要です。';
+		map['auth.loginRequired'] = 'ログインが必要です';
+		map['common.app.name'] = 'FlutterKaigi 2025';
+		map['common.forceUpdate.title'] = 'アップデートが必要です';
+		map['common.forceUpdate.message'] = '新しいバージョンのアプリが利用可能です。最新バージョンにアップデートしてください。';
+		map['common.forceUpdate.updateButton'] = 'アップデート';
+		map['common.error.notFound.title'] = 'ページが見つかりません';
+		map['common.error.notFound.message'] = 'お探しのページは存在しないか、\n移動された可能性があります。';
+		map['common.error.notFound.backToTop'] = 'トップに戻る';
+		map['common.error.server.title'] = 'サーバー側で問題が発生したようです。';
+		map['common.error.server.message'] = 'FlutterKaigi スタッフへお問い合わせください。';
+		map['common.error.server.retry'] = 'リトライ';
+		map['common.error.widget.buildErrorTitle'] = '予期しないエラーが発生しました';
+		map['common.error.widget.buildErrorMessage'] = '申し訳ございません。UI 構築中に予期しないエラーが発生しました。\n\nこの問題を解決するため、GitHub の Issue を作成していただけると大変助かります。';
+		map['common.error.widget.buildErrorGitHubButton'] = 'GitHub の Issue ページを開く';
+		map['common.error.general.occurred'] = 'エラーが発生しました';
+		map['common.navigation.event'] = 'イベント';
+		map['common.navigation.sponsor'] = 'スポンサー';
+		map['common.navigation.session'] = 'セッション';
+		map['common.navigation.ticket'] = 'チケット';
+		map['common.navigation.account'] = 'アカウント';
+		map['common.debug.title'] = 'Debug';
+		map['common.debug.talkerScreen'] = 'Talker 画面へ';
+		map['common.debug.pathRequired'] = 'パスを入力してください';
+		map['common.debug.pathMustStartWithSlash'] = 'パスは / で始めてください';
+		map['common.debug.pathCannotContainDebugOrLogin'] = 'パスに「debug」または「login」を含めることはできません';
+		map['common.debug.invalidPath'] = '無効なパスです';
+		map['common.debug.go'] = 'GO';
+		map['common.debug.profileShare.title'] = 'Debug';
+		map['common.debug.profileShare.userIdPlaceholder'] = 'ユーザーIDを入力してください';
+		map['common.debug.profileShare.share'] = 'シェア';
+		map['event.description'] = '2025年、日本国内で Flutter をメインに扱う技術カンファレンス。Flutter や Dart の深い知見を持つ開発者によるセッションを多数企画します。';
+		map['event.date'] = '2025年11月13日(木)';
+		map['event.time'] = '10:00 ~ 18:00';
+		map['event.venue'] = '大手町プレイス ホール＆カンファレンス';
+		map['event.address'] = '東京都千代田区大手町二丁目3番1号';
+		map['news.tile.title'] = '最新のお知らせ';
+		map['news.tile.subtitle'] = '最新のお知らせをご確認ください';
+		map['news.screen.title'] = 'お知らせ';
+		map['news.empty.message'] = '現在、新しいお知らせはありません。';
+		map['session.title'] = 'タイムテーブル';
+		map['session.detail.bookmark'] = 'ブックマーク';
+		map['session.bookmarked.title'] = 'お気に入りセッション';
+		map['session.empty.message'] = '現在、表示可能なセッションがありません。';
+		map['session.feedback.title'] = 'フィードバック';
+		map['session.feedback.send'] = 'フィードバックを送る';
+		map['sponsor.prText'] = 'PR 文章';
+		map['sponsor.enthusiasm'] = '意気込み';
+		map['sponsor.company'] = '企業スポンサー';
+		map['sponsor.individual'] = '個人スポンサー';
+		map['sponsor.website'] = 'ウェブサイト';
+		map['sponsor.websiteNotSet'] = '設定されていません';
+		map['sponsor.xAccount'] = 'X アカウント';
+		map['sponsor.xAccountNotSet'] = '設定されていません';
+		map['sponsor.name'] = 'スポンサー名';
+		map['ticket.status.purchased'] = '購入済み';
+		map['ticket.status.pending'] = '決済待ち';
+		map['ticket.options'] = 'オプション:';
+		map['ticket.purchaseDate'] = '購入日時';
+		map['ticket.expiryDate'] = '期限';
+		map['ticket.noAvailableTickets'] = '現在、購入可能なチケットはありません';
+		map['ticket.list'] = 'チケット一覧';
+		map['ticket.loginRequired.title'] = 'チケット購入前にGoogleアカウントでログインしてください';
+		map['ticket.loginRequired.linkTitle'] = 'チケット購入前にGoogleアカウントとリンクしてください';
+		map['ticket.loginRequired.description'] = 'チケットを購入するためには、Googleアカウントでログインしてください';
+		map['ticket.notice.title'] = 'ご注意';
+		map['ticket.notice.message'] = '「個人スポンサーチケット」のみでは、FlutterKaigi 2025本編（カンファレンス会場）へのご入場はできません。\n入場をご希望の方は、アーリーチケット（9月末まで販売予定）またはノーマルチケットを別途ご購入ください。\nなお、「個人スポンサーチケット」は、入場を目的とせず FlutterKaigi を応援したい方のご支援も大歓迎です！\n\n前夜祭への参加は「アーリーチケット」のみが対象です。\nノーマルチケットでは前夜祭に参加できませんのでご注意ください。';
+		map['ticket.studentRefund.title'] = '学生向け返金・費用補助について';
+		map['ticket.studentRefund.description'] = 'FlutterKaigi 2025では、学生支援スポンサー様のご協力により、アーリーチケット・ノーマルチケットをご購入の方を対象に返金・費用補助を実施いたします。';
+		map['ticket.studentRefund.detailsButton'] = '詳細を見る';
+		map['ticket.studentRefund.dialogContent'] = '🎓 学生向け返金・費用補助について\nFlutterKaigi 2025では、学生支援スポンサー様のご協力により、アーリーチケット・ノーマルチケットをご購入の方を対象に、以下の返金・費用補助を実施いたします。\n\n✅ 対象となる費用\n- チケット代金\n- 交通費（上限あり）\n- 宿泊費（上限あり）\n\n🧑‍🎓 対象となる「学生」の定義\n以下のいずれかに該当し、在学を証明できる方が対象です：\n- 日本国内外の教育機関（小学校・中学校・高等学校・高等専門学校・専門学校・大学・大学院など）に在籍中の方\n- 年齢や就業状況を問わず、学生証または在学証明書を提示できる方\n\n🎟 対象条件\n- FlutterKaigi 2025に実際に参加された方\n- 実際に学生支援スポンサーとの交流企画へ参加された方\n- 前当日の受付にて、有効な学生証や在学証明書をご提示いただいた方\n\n参加記録は運営側で確認いたします。事前申請は不要です。\n\n📩 返金手続きについて\nイベント終了後、対象の方へメールにて返金手続きの詳細をご案内いたします。\n\nその際、以下の情報をご提出いただきます：\n- チケット購入時の情報\n- 交通費・宿泊費の領収書または証明書類\n- 振込先の口座情報\n\n※ 学生証の写しなどの追加提出は不要です（当日提示済みの場合）\n※ 上限金額や詳細条件については、ご案内メールにて個別にご説明します。\n※ ご提出いただいた内容を確認のうえ、順次返金いたします。\n\n📌 ご提出いただく情報には個人情報が含まれます。返金・費用補助の確認および手続きの目的に限り使用し、手続き完了後は速やかに破棄いたします。お申し込みいただくにあたり、これらの取り扱いにご同意いただく必要がありますので、あらかじめご了承ください。\n\n📬 ご不明点がある場合は：staff@flutterkaigi.jp';
+		map['ticket.purchase.title'] = 'チケット購入';
+		map['ticket.purchase.proceed'] = '購入へ進む';
+		map['ticket.purchase.confirmTitle'] = 'チケット情報を確認';
+		map['ticket.purchase.paymentTitle'] = '決済を開始';
+		map['ticket.purchase.back'] = '戻る';
+		map['ticket.purchase.next'] = '次へ';
+		map['ticket.purchase.startPayment'] = '決済を開始';
+		map['ticket.purchase.selected'] = '選択済み';
+		map['ticket.purchase.proceedToPayment'] = '決済へ進む';
+		map['ticket.purchase.paymentPageError'] = '決済ページを開けませんでした';
+		map['ticket.purchase.errorOccurred'] = 'エラーが発生しました';
+		map['ticket.purchase.addOption'] = 'このオプションを追加する';
+		map['ticket.purchase.optionNotSelling'] = 'このオプションは販売終了しました';
+		map['ticket.purchase.optionSoldOut'] = 'このオプションは完売しました';
+		map['ticket.purchase.fewRemaining'] = '残りわずか';
+		map['ticket.purchase.selling'] = '販売中';
+		map['ticket.purchase.soldOut'] = '完売';
+		map['ticket.purchase.notSelling'] = '販売終了';
+		map['ticket.purchase.optionsAvailable'] = 'このチケットには以下のオプションがあります：';
+		map['ticket.purchase.cancel'] = 'キャンセル';
+		map['ticket.purchase.unselected'] = '未選択';
+		map['ticket.purchase.price'] = '価格';
+		map['ticket.purchase.ticket'] = 'チケット';
+		map['ticket.purchase.additionalOptions'] = '追加オプション';
+		map['ticket.purchase.total'] = '合計';
+		map['ticket.qr.scanAtEntry'] = '入場時にかざしてください';
+		map['ticket.qr.ticketType'] = 'チケット種別';
+		map['ticket.qr.nameplateId'] = 'ネームプレートID';
+		map['ticket.entryTicket.title'] = '入場可能なチケット';
+		map['ticket.entryTicket.subtitle'] = ({required int count}) => '${count}枚のチケットがあります';
+
+		_map = map;
+		return map;
 	}
 }
 

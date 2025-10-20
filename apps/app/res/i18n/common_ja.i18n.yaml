@@ -37,3 +37,7 @@ debug:
   pathCannotContainDebugOrLogin: パスに「debug」または「login」を含めることはできません
   invalidPath: 無効なパスです
   go: GO
+  profileShare:
+    title: Debug
+    userIdPlaceholder: ユーザーIDを入力してください
+    share: シェア

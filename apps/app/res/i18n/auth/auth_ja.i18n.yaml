@@ -4,3 +4,5 @@ guest:
 error:
   identityAlreadyExists: このGoogleアカウントは既に別のユーザーと紐づけられています。ログアウトしてから再度ログインしてください。
   sessionExpired: Googleアカウントへの再ログインが必要です。
+
+loginRequired: ログインが必要です
