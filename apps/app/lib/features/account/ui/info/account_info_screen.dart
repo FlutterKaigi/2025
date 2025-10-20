@@ -24,6 +24,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 final class AccountInfoScreen extends ConsumerWidget {
   const AccountInfoScreen({
     required VoidCallback onProfileEdit,
+    required VoidCallback onTapQrCode,
+    required VoidCallback onTapQrCodeScan,
+    required VoidCallback onTapFriendsList,
     required VoidCallback onTapCodeOfConductTile,
     required VoidCallback onTapPrivacyPolicyTile,
     required VoidCallback onTapContactTile,
@@ -31,6 +34,9 @@ final class AccountInfoScreen extends ConsumerWidget {
     required VoidCallback onTapWithdrawalTile,
     super.key,
   }) : _onProfileEdit = onProfileEdit,
+       _onTapQrCode = onTapQrCode,
+       _onTapQrCodeScan = onTapQrCodeScan,
+       _onTapFriendsList = onTapFriendsList,
        _onTapCodeOfConductTile = onTapCodeOfConductTile,
        _onTapPrivacyPolicyTile = onTapPrivacyPolicyTile,
        _onTapContactTile = onTapContactTile,
@@ -38,6 +44,9 @@ final class AccountInfoScreen extends ConsumerWidget {
        _onTapWithdrawalTile = onTapWithdrawalTile;
 
   final VoidCallback _onProfileEdit;
+  final VoidCallback _onTapQrCode;
+  final VoidCallback _onTapQrCodeScan;
+  final VoidCallback _onTapFriendsList;
   final VoidCallback _onTapCodeOfConductTile;
   final VoidCallback _onTapPrivacyPolicyTile;
   final VoidCallback _onTapContactTile;
@@ -74,6 +83,29 @@ final class AccountInfoScreen extends ConsumerWidget {
                 ),
               ),
             const SizedBox(height: 16),
+            if (user != null && !user.isAnonymous) ...[
+              Padding(
+                padding: const EdgeInsetsDirectional.only(start: 16),
+                child: Text(
+                  t.account.profileshare.title,
+                  style: textTheme.titleLarge,
+                ),
+              ),
+              const SizedBox(height: 8),
+              _OtherListItem(
+                title: t.account.profileshare.qrCode,
+                onTap: _onTapQrCode,
+              ),
+              _OtherListItem(
+                title: t.account.profileshare.qrCodeScan,
+                onTap: _onTapQrCodeScan,
+              ),
+              _OtherListItem(
+                title: t.account.profileshare.friendsList,
+                onTap: _onTapFriendsList,
+              ),
+              const SizedBox(height: 16),
+            ],
             Padding(
               padding: const EdgeInsetsDirectional.only(start: 16),
               child: Text(

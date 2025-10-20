@@ -29,10 +29,6 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_markdown: ^0.7.7+1
-  opentelemetry:
-    git:
-      url: https://github.com/Workiva/opentelemetry-dart.git
-      ref: 0f79893efeda4d096a8f7f85b4cdbec6e7ea0179
   flutter_sticky_header: ^0.8.0
   flutter_svg: ^2.2.1
   flutter_web_plugins:
@@ -45,6 +41,11 @@ dependencies:
   image_picker: ^1.2.0
   intl: ^0.20.2
   json_annotation: ^4.9.0
+  mobile_scanner: ^7.1.2
+  opentelemetry:
+    git:
+      url: https://github.com/Workiva/opentelemetry-dart.git
+      ref: 0f79893efeda4d096a8f7f85b4cdbec6e7ea0179
   package_info_plus: ^9.0.0
   path: ^1.9.1
   pub_semver: ^2.1.4

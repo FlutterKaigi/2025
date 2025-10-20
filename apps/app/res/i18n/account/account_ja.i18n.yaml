@@ -69,3 +69,35 @@ profile:
     complete: 完了
     crop: クロップ
     reset: リセット
+profileshare:
+  title: プロフィール交換
+  qrCode: QRコード表示
+  qrCodeScan: QRコード読み取り
+  friendsList: 交換履歴
+  qrCodeDisplay:
+    title: QRコード表示
+    description: 自分のQRコードを表示して、相手に読み取ってもらいます
+    instruction: このQRコードを相手に読み取ってもらってください
+  qrCodeScanScreen:
+    title: QRコード読み取り
+    description: 相手のQRコードを読み取って、プロフィール交換します
+    instruction: 相手のQRコードをカメラで読み取ってください
+    loginRequired: ログインが必要です
+    confirmTitle: プロフィールシェア確認
+    confirmMessage: このユーザーとプロフィールをシェアしますか?
+    cancel: キャンセル
+    connect: シェアする
+    successMessage: プロフィールシェアしました
+    errorMessage: プロフィールシェアに失敗しました
+    scanSuccess: QRコードを読み取りました
+    exchangeSuccess: プロフィール交換しました
+    exchangeFailed: プロフィール交換に失敗しました
+    alreadyFriends: すでにプロフィール交換済みです
+    invalidQrCode: 無効なQRコードです
+    cannotExchangeWithSelf: 自分自身とプロフィール交換はできません
+  friendsListScreen:
+    title: 交換履歴
+    emptyMessage: まだプロフィール交換していません
+    connectedAt: 交換日時
+    errorLoadingFriends: 友達リストの読み込みに失敗しました
+    copiedToClipboard: をコピーしました

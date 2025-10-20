@@ -69,3 +69,35 @@ profile:
     complete: Complete
     crop: Crop
     reset: Reset
+profileshare:
+  title: Profile Exchange
+  qrCode: Show QR Code
+  qrCodeScan: Scan QR Code
+  friendsList: Exchange History
+  qrCodeDisplay:
+    title: Show QR Code
+    description: Display your QR code for others to scan
+    instruction: Have others scan this QR code
+  qrCodeScanScreen:
+    title: Scan QR Code
+    description: Scan others' QR code to exchange profiles
+    instruction: Scan the QR code with your camera
+    loginRequired: Login required
+    confirmTitle: Confirm Profile Share
+    confirmMessage: Share your profile with this user?
+    cancel: Cancel
+    connect: Share
+    successMessage: Profile shared successfully
+    errorMessage: Failed to share profile
+    scanSuccess: QR code scanned successfully
+    exchangeSuccess: Profile exchanged successfully
+    exchangeFailed: Failed to exchange profile
+    alreadyFriends: Already exchanged profiles
+    invalidQrCode: Invalid QR code
+    cannotExchangeWithSelf: Cannot exchange with yourself
+  friendsListScreen:
+    title: Exchange History
+    emptyMessage: No profile exchanges yet
+    connectedAt: Connected at
+    errorLoadingFriends: Failed to load friends list
+    copiedToClipboard: Copied to clipboard
