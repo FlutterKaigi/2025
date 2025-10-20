@@ -1,0 +1,6 @@
+node_modules/
+*.csv
+dist/
+output/
+error.log
+data/
