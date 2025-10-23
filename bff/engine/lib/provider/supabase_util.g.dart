@@ -8,6 +8,9 @@ part of 'supabase_util.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(supabaseUtil)
 const supabaseUtilProvider = SupabaseUtilProvider._();
 
@@ -48,6 +51,3 @@ final class SupabaseUtilProvider
 }
 
 String _$supabaseUtilHash() => r'6ea7bd55ed65e16c8fe71f901aba633385bb9933';
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

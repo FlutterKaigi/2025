@@ -1,12 +1,11 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.2.2/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.2.6/schema.json",
   "root": false,
   "extends": "//",
   "files": {
     "includes": [
       "*.ts",
-      "src/**/*.ts",
-      "!drizzle/**/*.ts"
+      "src/**/*.ts"
     ]
   }
 }

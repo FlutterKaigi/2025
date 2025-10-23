@@ -44,6 +44,9 @@ class $ResAssetsGen {
   AssetGenImage get dashumaruOverflow2 =>
       const AssetGenImage('res/assets/dashumaru_overflow_2.webp');
 
+  /// Directory path: res/assets/fonts
+  $ResAssetsFontsGen get fonts => const $ResAssetsFontsGen();
+
   /// File path: res/assets/google_sign_in_button.webp
   AssetGenImage get googleSignInButton =>
       const AssetGenImage('res/assets/google_sign_in_button.webp');
@@ -61,6 +64,46 @@ class $ResAssetsGen {
     googleSignInButton,
     logo,
   ];
+}
+
+class $ResAssetsFontsGen {
+  const $ResAssetsFontsGen();
+
+  /// Directory path: res/assets/fonts/NotoSansJP
+  $ResAssetsFontsNotoSansJPGen get notoSansJP =>
+      const $ResAssetsFontsNotoSansJPGen();
+
+  /// Directory path: res/assets/fonts/NotoSansMono
+  $ResAssetsFontsNotoSansMonoGen get notoSansMono =>
+      const $ResAssetsFontsNotoSansMonoGen();
+}
+
+class $ResAssetsFontsNotoSansJPGen {
+  const $ResAssetsFontsNotoSansJPGen();
+
+  /// File path: res/assets/fonts/NotoSansJP/NotoSansJP-VariableFont.ttf
+  String get notoSansJPVariableFont =>
+      'res/assets/fonts/NotoSansJP/NotoSansJP-VariableFont.ttf';
+
+  /// File path: res/assets/fonts/NotoSansJP/OFL.txt
+  String get ofl => 'res/assets/fonts/NotoSansJP/OFL.txt';
+
+  /// List of all assets
+  List<String> get values => [notoSansJPVariableFont, ofl];
+}
+
+class $ResAssetsFontsNotoSansMonoGen {
+  const $ResAssetsFontsNotoSansMonoGen();
+
+  /// File path: res/assets/fonts/NotoSansMono/NotoSansMono-VariableFont.ttf
+  String get notoSansMonoVariableFont =>
+      'res/assets/fonts/NotoSansMono/NotoSansMono-VariableFont.ttf';
+
+  /// File path: res/assets/fonts/NotoSansMono/OFL.txt
+  String get ofl => 'res/assets/fonts/NotoSansMono/OFL.txt';
+
+  /// List of all assets
+  List<String> get values => [notoSansMonoVariableFont, ofl];
 }
 
 class Assets {

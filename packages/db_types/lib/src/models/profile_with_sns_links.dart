@@ -10,6 +10,7 @@ abstract class ProfileWithSnsLinks with _$ProfileWithSnsLinks {
   const factory ProfileWithSnsLinks({
     required Profiles profile,
     required List<UserSnsLinks> snsLinks,
+    required String? avatarUrl,
   }) = _ProfileWithSnsLinks;
 
   factory ProfileWithSnsLinks.fromJson(Map<String, dynamic> json) =>

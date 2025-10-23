@@ -1,4 +1,5 @@
 import 'package:bff_client/bff_client.dart';
+import 'package:bff_client/src/api/v1/profile/profile_share_api_client.dart';
 import 'package:dio/dio.dart';
 
 export 'package:dio/dio.dart' show DioException, DioExceptionType;
@@ -20,6 +21,7 @@ class BffApiClientV1 {
   ProfileApiClient get profile => ProfileApiClient(_dio);
   SessionApiClient get session => SessionApiClient(_dio);
   SpeakerApiClient get speaker => SpeakerApiClient(_dio);
+  ProfileShareApiClient get profileShare => ProfileShareApiClient(_dio);
   SponsorsApiClient get sponsors => SponsorsApiClient(_dio);
   TicketsApiClient get tickets => TicketsApiClient(_dio);
   UsersApiClient get users => UsersApiClient(_dio);

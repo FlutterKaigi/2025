@@ -41,5 +41,7 @@ const _$ErrorCodeEnumMap = {
   ErrorCode.internalServerError: 'INTERNAL_SERVER_ERROR',
   ErrorCode.routeNotFound: 'ROUTE_NOT_FOUND',
   ErrorCode.badRequest: 'BAD_REQUEST',
+  ErrorCode.proxyError: 'PROXY_ERROR',
+  ErrorCode.rateLimitExceeded: 'RATE_LIMIT_EXCEEDED',
   ErrorCode.unknownEnumField: 'UNKNOWN_ENUM_FIELD',
 };

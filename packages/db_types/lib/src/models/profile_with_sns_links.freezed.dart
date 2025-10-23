@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ProfileWithSnsLinks {
 
- Profiles get profile; List<UserSnsLinks> get snsLinks;
+ Profiles get profile; List<UserSnsLinks> get snsLinks; String? get avatarUrl;
 /// Create a copy of ProfileWithSnsLinks
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $ProfileWithSnsLinksCopyWith<ProfileWithSnsLinks> get copyWith => _$ProfileWithS
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProfileWithSnsLinks&&(identical(other.profile, profile) || other.profile == profile)&&const DeepCollectionEquality().equals(other.snsLinks, snsLinks));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProfileWithSnsLinks&&(identical(other.profile, profile) || other.profile == profile)&&const DeepCollectionEquality().equals(other.snsLinks, snsLinks)&&(identical(other.avatarUrl, avatarUrl) || other.avatarUrl == avatarUrl));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,profile,const DeepCollectionEquality().hash(snsLinks));
+int get hashCode => Object.hash(runtimeType,profile,const DeepCollectionEquality().hash(snsLinks),avatarUrl);
 
 @override
 String toString() {
-  return 'ProfileWithSnsLinks(profile: $profile, snsLinks: $snsLinks)';
+  return 'ProfileWithSnsLinks(profile: $profile, snsLinks: $snsLinks, avatarUrl: $avatarUrl)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $ProfileWithSnsLinksCopyWith<$Res>  {
   factory $ProfileWithSnsLinksCopyWith(ProfileWithSnsLinks value, $Res Function(ProfileWithSnsLinks) _then) = _$ProfileWithSnsLinksCopyWithImpl;
 @useResult
 $Res call({
- Profiles profile, List<UserSnsLinks> snsLinks
+ Profiles profile, List<UserSnsLinks> snsLinks, String? avatarUrl
 });
 
 
@@ -65,11 +65,12 @@ class _$ProfileWithSnsLinksCopyWithImpl<$Res>
 
 /// Create a copy of ProfileWithSnsLinks
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? profile = null,Object? snsLinks = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? profile = null,Object? snsLinks = null,Object? avatarUrl = freezed,}) {
   return _then(_self.copyWith(
 profile: null == profile ? _self.profile : profile // ignore: cast_nullable_to_non_nullable
 as Profiles,snsLinks: null == snsLinks ? _self.snsLinks : snsLinks // ignore: cast_nullable_to_non_nullable
-as List<UserSnsLinks>,
+as List<UserSnsLinks>,avatarUrl: freezed == avatarUrl ? _self.avatarUrl : avatarUrl // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 /// Create a copy of ProfileWithSnsLinks
@@ -163,10 +164,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Profiles profile,  List<UserSnsLinks> snsLinks)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Profiles profile,  List<UserSnsLinks> snsLinks,  String? avatarUrl)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ProfileWithSnsLinks() when $default != null:
-return $default(_that.profile,_that.snsLinks);case _:
+return $default(_that.profile,_that.snsLinks,_that.avatarUrl);case _:
   return orElse();
 
 }
@@ -184,10 +185,10 @@ return $default(_that.profile,_that.snsLinks);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Profiles profile,  List<UserSnsLinks> snsLinks)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Profiles profile,  List<UserSnsLinks> snsLinks,  String? avatarUrl)  $default,) {final _that = this;
 switch (_that) {
 case _ProfileWithSnsLinks():
-return $default(_that.profile,_that.snsLinks);case _:
+return $default(_that.profile,_that.snsLinks,_that.avatarUrl);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -204,10 +205,10 @@ return $default(_that.profile,_that.snsLinks);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Profiles profile,  List<UserSnsLinks> snsLinks)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Profiles profile,  List<UserSnsLinks> snsLinks,  String? avatarUrl)?  $default,) {final _that = this;
 switch (_that) {
 case _ProfileWithSnsLinks() when $default != null:
-return $default(_that.profile,_that.snsLinks);case _:
+return $default(_that.profile,_that.snsLinks,_that.avatarUrl);case _:
   return null;
 
 }
@@ -219,7 +220,7 @@ return $default(_that.profile,_that.snsLinks);case _:
 @JsonSerializable()
 
 class _ProfileWithSnsLinks implements ProfileWithSnsLinks {
-  const _ProfileWithSnsLinks({required this.profile, required final  List<UserSnsLinks> snsLinks}): _snsLinks = snsLinks;
+  const _ProfileWithSnsLinks({required this.profile, required final  List<UserSnsLinks> snsLinks, required this.avatarUrl}): _snsLinks = snsLinks;
   factory _ProfileWithSnsLinks.fromJson(Map<String, dynamic> json) => _$ProfileWithSnsLinksFromJson(json);
 
 @override final  Profiles profile;
@@ -230,6 +231,7 @@ class _ProfileWithSnsLinks implements ProfileWithSnsLinks {
   return EqualUnmodifiableListView(_snsLinks);
 }
 
+@override final  String? avatarUrl;
 
 /// Create a copy of ProfileWithSnsLinks
 /// with the given fields replaced by the non-null parameter values.
@@ -244,16 +246,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProfileWithSnsLinks&&(identical(other.profile, profile) || other.profile == profile)&&const DeepCollectionEquality().equals(other._snsLinks, _snsLinks));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProfileWithSnsLinks&&(identical(other.profile, profile) || other.profile == profile)&&const DeepCollectionEquality().equals(other._snsLinks, _snsLinks)&&(identical(other.avatarUrl, avatarUrl) || other.avatarUrl == avatarUrl));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,profile,const DeepCollectionEquality().hash(_snsLinks));
+int get hashCode => Object.hash(runtimeType,profile,const DeepCollectionEquality().hash(_snsLinks),avatarUrl);
 
 @override
 String toString() {
-  return 'ProfileWithSnsLinks(profile: $profile, snsLinks: $snsLinks)';
+  return 'ProfileWithSnsLinks(profile: $profile, snsLinks: $snsLinks, avatarUrl: $avatarUrl)';
 }
 
 
@@ -264,7 +266,7 @@ abstract mixin class _$ProfileWithSnsLinksCopyWith<$Res> implements $ProfileWith
   factory _$ProfileWithSnsLinksCopyWith(_ProfileWithSnsLinks value, $Res Function(_ProfileWithSnsLinks) _then) = __$ProfileWithSnsLinksCopyWithImpl;
 @override @useResult
 $Res call({
- Profiles profile, List<UserSnsLinks> snsLinks
+ Profiles profile, List<UserSnsLinks> snsLinks, String? avatarUrl
 });
 
 
@@ -281,11 +283,12 @@ class __$ProfileWithSnsLinksCopyWithImpl<$Res>
 
 /// Create a copy of ProfileWithSnsLinks
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? profile = null,Object? snsLinks = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? profile = null,Object? snsLinks = null,Object? avatarUrl = freezed,}) {
   return _then(_ProfileWithSnsLinks(
 profile: null == profile ? _self.profile : profile // ignore: cast_nullable_to_non_nullable
 as Profiles,snsLinks: null == snsLinks ? _self._snsLinks : snsLinks // ignore: cast_nullable_to_non_nullable
-as List<UserSnsLinks>,
+as List<UserSnsLinks>,avatarUrl: freezed == avatarUrl ? _self.avatarUrl : avatarUrl // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 

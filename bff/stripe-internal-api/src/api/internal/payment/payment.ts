@@ -1,38 +1,15 @@
 import { env } from "cloudflare:workers";
 import { databaseSchema, eq, getDatabase } from "@2025/database";
+import { vValidator } from "@hono/valibot-validator";
 import { Hono } from "hono";
-import { describeRoute } from "hono-openapi";
-import { resolver, validator as vValidator } from "hono-openapi/valibot";
 import Stripe from "stripe";
 import * as v from "valibot";
 import { PutCheckoutSessionRequest } from "./model/PutCheckoutSessionRequest";
-import { PutCheckoutSessionResponse } from "./model/PutCheckoutSessionResponse";
+import type { PutCheckoutSessionResponse } from "./model/PutCheckoutSessionResponse";
 
 export const paymentApi = new Hono()
 	.put(
 		"/checkout-session",
-		describeRoute({
-			summary: "Create Checkout Session",
-			description: "Create Checkout Session",
-			responses: {
-				200: {
-					description: "Successful",
-					content: {
-						"application/json": {
-							schema: resolver(PutCheckoutSessionResponse),
-						},
-					},
-				},
-				400: {
-					description: "Bad Request",
-					content: {
-						"application/json": {
-							schema: resolver(v.object({ error: v.string() })),
-						},
-					},
-				},
-			},
-		}),
 		vValidator(
 			"header",
 			v.object({
@@ -177,19 +154,6 @@ export const paymentApi = new Hono()
 	)
 	.put(
 		"checkout-session/:checkoutSessionId",
-		describeRoute({
-			description: "Cancel Checkout Session",
-			responses: {
-				200: {
-					description: "Successful",
-					content: {
-						"application/json": {
-							schema: resolver(v.object({ message: v.string() })),
-						},
-					},
-				},
-			},
-		}),
 		vValidator(
 			"param",
 			v.object({

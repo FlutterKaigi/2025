@@ -8,7 +8,7 @@
 /.flutter-plugins
 /.flutter-plugins-dependencies
 custom_lint.log
-
+/build/
 
 # Node.js
 node_modules/
@@ -25,3 +25,5 @@ devtools_options.yaml
 
 # Turborepo
 .turbo
+
+/build

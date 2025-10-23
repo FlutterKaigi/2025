@@ -6,6 +6,8 @@ import {
 } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { vValidator } from "@hono/valibot-validator";
+import { withNextSpan } from "@microlabs/otel-cf-workers";
+import { trace } from "@opentelemetry/api";
 import { Hono } from "hono";
 import * as v from "valibot";
 
@@ -34,7 +36,8 @@ const s3Client = new S3Client({
 	},
 });
 
-export const r2Api = new Hono()
+export const r2Api = new Hono<{ Bindings: Cloudflare.Env }>()
+	// TODO(YumNumm): uploadではなくsign に変更する
 	.post("/upload", vValidator("json", SignedUrlRequestSchema), async (c) => {
 		const request = c.req.valid("json");
 		console.log("Generating signed URL", request);
@@ -43,6 +46,10 @@ export const r2Api = new Hono()
 			switch (request.type) {
 				case "put":
 					{
+						const span = trace.getActiveSpan();
+						span?.setAttribute("http.method", c.req.method);
+						span?.setAttribute("http.url", request.key);
+						withNextSpan({ destination: "r2.sign.put" });
 						signedUrl = await getSignedUrl(
 							s3Client,
 							new PutObjectCommand({
@@ -58,6 +65,10 @@ export const r2Api = new Hono()
 					}
 					break;
 				case "get": {
+					const span = trace.getActiveSpan();
+					span?.setAttribute("http.method", c.req.method);
+					span?.setAttribute("http.url", request.key);
+					withNextSpan({ destination: "r2.sign.get" });
 					signedUrl = await getSignedUrl(
 						s3Client,
 						new GetObjectCommand({
@@ -97,6 +108,10 @@ export const r2Api = new Hono()
 			console.log("Deleting object", { key });
 
 			try {
+				const span = trace.getActiveSpan();
+				span?.setAttribute("http.method", c.req.method);
+				span?.setAttribute("http.url", key);
+				withNextSpan({ destination: "r2.delete.object" });
 				// R2 Bucket bindingを使用してオブジェクトを削除
 				await env.R2_BUCKET.delete(key);
 

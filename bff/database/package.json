@@ -20,6 +20,8 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
+    "@opentelemetry/instrumentation-pg": "^0.59.0",
+    "@opentelemetry/sdk-trace-node": "^2.1.0",
     "biome": "^0.3.3",
     "drizzle-orm": "0.44.6",
     "pg": "8.16.3"

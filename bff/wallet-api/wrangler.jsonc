@@ -1,5 +1,5 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
+  "$schema": "https://unpkg.com/wrangler@latest/config-schema.json",
   "name": "wallet-api",
   "account_id": "cdd8f59359fe226645e7b541cdc53b57",
   "main": "src/index.ts",

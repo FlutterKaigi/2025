@@ -1,0 +1,27 @@
+{
+  "name": "@2025/profile-share-internal-api",
+  "type": "module",
+  "private": true,
+  "main": "src/index.ts",
+  "exports": "./src/index.ts",
+  "scripts": {
+    "format": "biome check --write",
+    "check-types": "tsc --noEmit",
+    "dev": "wrangler dev -e staging",
+    "deploy:staging": "wrangler deploy -e staging --minify",
+    "deploy:production": "wrangler deploy -e production --minify",
+    "cf-typegen": "wrangler types --env-interface CloudflareBindings -e staging -c wrangler.jsonc -c ../websocket-api/wrangler.jsonc"
+  },
+  "dependencies": {
+    "@hono/valibot-validator": "^0.5.3",
+    "hono": "^4.10.1",
+    "valibot": "^1.1.0",
+    "@2025/database": "workspace:*",
+    "@2025/websocket-api": "workspace:*",
+    "@2025/r2-internal-api": "workspace:*"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.2.6",
+    "wrangler": "^4.4.0"
+  }
+}

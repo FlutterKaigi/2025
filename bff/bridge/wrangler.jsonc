@@ -10,6 +10,7 @@
   "placement": {
     "mode": "smart",
   },
+  "compatibility_flags": ["nodejs_compat"],
   "env": {
     "staging": {
       "preview_urls": true,

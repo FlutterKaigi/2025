@@ -12,7 +12,7 @@ class TicketTypeDbClient {
       '''
         SELECT *
         FROM ticket_types
-        WHERE is_active = true
+        WHERE is_active = true AND sale_starts_at <= now() AND sale_ends_at >= now()
         ORDER BY created_at ASC
       ''',
     );
@@ -75,8 +75,6 @@ class TicketTypeDbClient {
         )
         .toList();
   }
-
-
 
   /// アクティブなチケットタイプとオプションを在庫数とともに一括取得
   Future<List<TicketTypeWithOptionsAndCounts>>

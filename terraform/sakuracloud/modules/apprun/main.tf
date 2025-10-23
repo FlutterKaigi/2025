@@ -7,7 +7,7 @@ resource "sakuracloud_apprun_application" "flutterkaigi-2025-bff" {
   components {
     max_cpu    = "1"
     max_memory = "1Gi"
-    name       = "${var.env}"
+    name       = var.env
     deploy_source {
       container_registry {
         image    = "${var.container_registry_fqdn}/bff:latest"
@@ -57,6 +57,22 @@ resource "sakuracloud_apprun_application" "flutterkaigi-2025-bff" {
     env {
       key   = "LOGO_BASE_URL"
       value = var.logo_base_url
+    }
+    env {
+      key   = "CLOUDFLARE_ACCOUNT_ID"
+      value = var.cloudflare_account_id
+    }
+    env {
+      key   = "R2_BUCKET_NAME"
+      value = var.r2_bucket_name
+    }
+    env {
+      key   = "R2_ACCESS_KEY_ID"
+      value = var.r2_access_key_id
+    }
+    env {
+      key   = "R2_SECRET_ACCESS_KEY"
+      value = var.r2_secret_access_key
     }
   }
   lifecycle {

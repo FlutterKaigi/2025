@@ -1,10 +1,15 @@
+locals {
+  cloudflare_account_id = "cdd8f59359fe226645e7b541cdc53b57"
+  r2_bucket_name        = "2025-staging"
+}
+
 module "container_registry" {
   source                          = "../../modules/container_registry"
   env                             = local.env
   container_registry_password     = module.random_password.container_registry_password
   SAKURACLOUD_ACCESS_TOKEN        = var.SAKURACLOUD_ACCESS_TOKEN
   SAKURACLOUD_ACCESS_TOKEN_SECRET = var.SAKURACLOUD_ACCESS_TOKEN_SECRET
-  container_registry_name_suffix = "hxu9"
+  container_registry_name_suffix  = "hxu9"
 }
 
 module "docker" {
@@ -31,6 +36,10 @@ module "apprun" {
   supabase_project_id       = "ikrzxakkbmajammujqao"
   supabase_db_password      = var.SUPABASE_DB_PASSWORD_STAGING
   supabase_service_role_key = var.SUPABASE_SERVICE_ROLE_KEY_STAGING
+  cloudflare_account_id     = local.cloudflare_account_id
+  r2_bucket_name            = local.r2_bucket_name
+  r2_access_key_id          = var.R2_ACCESS_KEY_ID
+  r2_secret_access_key      = var.R2_SECRET_ACCESS_KEY
 }
 
 module "random_password" {

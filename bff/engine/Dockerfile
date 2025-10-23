@@ -18,7 +18,7 @@ RUN useradd -m -s /bin/bash -G sudo builder && \
 USER builder
 
 # Install flutter
-ARG FLUTTER_VERSION=3.36.0-0.1.pre-beta
+ARG FLUTTER_VERSION=3.37.0-0.1.pre-beta
 RUN wget -q -O flutter.tar.xz https://storage.googleapis.com/flutter_infra_release/releases/beta/linux/flutter_linux_${FLUTTER_VERSION}.tar.xz && \
     tar -xf flutter.tar.xz && \
     rm flutter.tar.xz && \
