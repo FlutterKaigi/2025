@@ -16,6 +16,7 @@ Router _$ApiServiceRouter(ApiService service) {
   router.mount(r'/v1/files', service._filesApiService.call);
   router.mount(r'/v1', service._newsApiService.call);
   router.mount(r'/v1', service._sponsorApiService.call);
+  router.mount(r'/v1', service._staffMemberApiService.call);
   router.mount(r'/v1', service._sessionApiService.call);
   router.mount(r'/v1/tickets', service._ticketApiService.call);
   router.mount(r'/v1/app', service._appVersionApiService.call);
