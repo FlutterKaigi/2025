@@ -3,7 +3,7 @@
 aws-cli = "latest"
 bun = "1.2.21"
 dprint = "latest"
-flutter = "3.37.0-0.1.pre-beta"
+flutter = "3.38.0-0.1.pre-beta"
 node = "24.4.0"
 "pipx:codemagic-cli-tools" = "0.61.1"
 rclone = "latest"
@@ -12,6 +12,7 @@ swift = "latest"
 terraform = "latest"
 tflint = "latest"
 uv = "latest"
+websocat = "latest"
 
 [env]
 '_'.source = "scripts/export_sops_key_path.sh"

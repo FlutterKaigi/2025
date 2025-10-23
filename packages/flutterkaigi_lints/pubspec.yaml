@@ -4,7 +4,7 @@ publish_to: none
 resolution: workspace
 
 environment:
-  sdk: ^3.10.0-75.1.beta
+  sdk: ^3.10.0-209.1.beta
 
 dev_dependencies:
   altive_lints: ^1.19.1

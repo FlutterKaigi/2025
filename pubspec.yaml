@@ -2,8 +2,15 @@ name: flutterkaigi_2025
 publish_to: none
 
 environment:
-  sdk: ^3.10.0-162.1.beta
-  flutter: ^3.37.0-0.1.pre
+  sdk: ^3.10.0-209.1.beta
+  flutter: ^3.38.0-0.1.pre
+
+dependency_overrides:
+  dartastic_opentelemetry:
+    git:
+      url: https://github.com/YumNumm/dartastic_opentelemetry.git
+      ref: 6596cf67856b5b055f1165d5ba473c5ade0b4528
+  protobuf: ^4.2.0
 
 dev_dependencies:
   melos: ^7.2.0
@@ -32,8 +39,8 @@ melos:
   command:
     bootstrap:
       environment:
-        sdk: ^3.10.0-75.1.beta
-        flutter: ^3.36.0-0.1.pre
+        sdk: ^3.10.0-209.1.beta
+        flutter: ^3.38.0-0.1.pre
       dependencies:
         flutter_localizations:
           sdk: flutter
@@ -43,7 +50,7 @@ melos:
       dev_dependencies:
         altive_lints: ^1.19.1
         build_runner: ^2.4.15
-        go_router_builder: ^4.0.0
+        go_router_builder: ^4.1.0
         test: ^1.25.15
 
   scripts:

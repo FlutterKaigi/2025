@@ -1,7 +1,10 @@
+import 'dart:async';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:app/core/firebase/production.dart' as firebase_production;
 import 'package:app/core/firebase/staging.dart' as firebase_staging;
+import 'package:app/core/gen/assets/assets.gen.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/core/provider/environment.dart';
 import 'package:app/core/ui/app.dart';
@@ -12,17 +15,71 @@ import 'package:app/features/auth/data/provider/auth_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutterrific_opentelemetry/flutterrific_opentelemetry.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  if (kIsWeb) {
+    await _run();
+  } else {
+    await runZonedGuarded(
+      () async => _run(),
+      (error, stack) => FlutterOTel.reportError('runZoneGuarded', error, stack),
+    );
+  }
+}
+
+Future<void> _run() async {
+  LicenseRegistry.addLicense(() async* {
+    yield LicenseEntryWithLineBreaks([
+      'NotoSansJP',
+    ], await rootBundle.loadString(Assets.res.assets.fonts.notoSansJP.ofl));
+    yield LicenseEntryWithLineBreaks([
+      'NotoSansMono',
+    ], await rootBundle.loadString(Assets.res.assets.fonts.notoSansMono.ofl));
+  });
+
+  FlutterError.onError = (details) {
+    FlutterOTel.reportError(
+      'FlutterError.onError',
+      details.exception,
+      details.stack,
+    );
+  };
+  final container = ProviderContainer();
+  final environment = container.read(environmentProvider);
+  final flavor = environment.flavor;
+  await FlutterOTel.initialize(
+    appName: 'app',
+    tracerName: 'main',
+    endpoint: 'https://otlp.flutterkaigi.jp',
+    spanProcessor: BatchSpanProcessor(
+      OtlpHttpSpanExporter(
+        OtlpHttpExporterConfig(
+          endpoint: 'https://otlp.flutterkaigi.jp',
+        ),
+      ),
+    ),
+    resourceAttributes: Attributes.of({
+      'deployment.environment': flavor.name,
+      'service.namespace': 'flutterkaigi-2025-${flavor.name}',
+      'flutter.version': FlutterVersion.version ?? '',
+      'dart.version': FlutterVersion.dartVersion ?? '',
+      'os.type': kIsWeb ? 'web' : defaultTargetPlatform.name,
+      if (!kIsWeb) ...{
+        'os.version': Platform.operatingSystemVersion,
+        'os.platform': Platform.operatingSystem,
+      },
+    }),
+  );
   await LocaleSettings.useDeviceLocale();
 
   ErrorWidget.builder = (details) => WidgetBuildErrorScreen(details: details);
 
   setupWebEnvironment();
-  final container = ProviderContainer();
-  final environment = container.read(environmentProvider);
   await Firebase.initializeApp(
     options: switch (environment.flavor) {
       Flavor.production =>

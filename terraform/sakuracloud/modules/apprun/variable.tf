@@ -112,3 +112,25 @@ variable "apns_environment" {
   description = "APNs Environment (sandbox or production)"
   default     = "sandbox"
 }
+
+variable "cloudflare_account_id" {
+  type        = string
+  description = "Cloudflare Account ID"
+}
+
+variable "r2_bucket_name" {
+  type        = string
+  description = "R2 Bucket Name"
+}
+
+variable "r2_access_key_id" {
+  type        = string
+  description = "R2 Access Key ID"
+  sensitive   = true
+}
+
+variable "r2_secret_access_key" {
+  type        = string
+  description = "R2 Secret Access Key"
+  sensitive   = true
+}

@@ -1,0 +1,58 @@
+{
+  "$schema": "https://unpkg.com/wrangler@latest/config-schema.json",
+  "account_id": "cdd8f59359fe226645e7b541cdc53b57",
+  "name": "websocket-api",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-10-17",
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1,
+  },
+  "compatibility_flags": ["nodejs_compat"],
+  "env": {
+    "staging": {
+      "workers_dev": true,
+      "durable_objects": {
+        "bindings": [
+          {
+            "class_name": "UserWebsocketObject",
+            "name": "USER_WEBSOCKET_OBJECT",
+          },
+        ],
+      },
+      "migrations": [
+        {
+          "tag": "v1",
+          "new_sqlite_classes": [
+            "UserWebsocketObject",
+          ],
+        },
+      ],
+    },
+    "production": {
+      "workers_dev": false,
+      "routes": [
+        {
+          "pattern": "2025-websocket.flutterkaigi.jp",
+          "custom_domain": true,
+        },
+      ],
+      "durable_objects": {
+        "bindings": [
+          {
+            "class_name": "UserWebsocketObject",
+            "name": "USER_WEBSOCKET_OBJECT",
+          },
+        ],
+      },
+      "migrations": [
+        {
+          "tag": "v1",
+          "new_sqlite_classes": [
+            "UserWebsocketObject",
+          ],
+        },
+      ],
+    },
+  },
+}

@@ -105,7 +105,8 @@ extension ApiExceptionExtension on ApiException {
   String errorMessage(Translations t) => switch (this) {
     ApiNetworkException() => t.common.error.server.message,
     ApiErrorResponseException(:final errorResponse) =>
-      '${errorResponse.code.name.toUpperCase()}: ${errorResponse.message}',
+      '${errorResponse.code.name}: ${errorResponse.message} '
+          '${errorResponse.detail ?? ""}',
     ApiUnknownResponseException() => t.common.error.general.occurred,
   };
 }

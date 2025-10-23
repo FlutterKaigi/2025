@@ -1,3 +1,8 @@
+locals {
+  cloudflare_account_id = "cdd8f59359fe226645e7b541cdc53b57"
+  r2_bucket_name        = "2025-staging"
+}
+
 module "container_registry" {
   source                          = "../../modules/container_registry"
   env                             = local.env
@@ -36,6 +41,10 @@ module "apprun" {
   apns_team_id                  = var.APNS_TEAM_ID
   apns_private_key              = base64decode(var.APNS_PRIVATE_KEY_PRODUCTION_BASE64)
   apns_environment              = "production"
+  cloudflare_account_id         = local.cloudflare_account_id
+  r2_bucket_name                = local.r2_bucket_name
+  r2_access_key_id              = var.R2_ACCESS_KEY_ID
+  r2_secret_access_key          = var.R2_SECRET_ACCESS_KEY
 }
 
 module "random_password" {

@@ -1,7 +1,6 @@
 import { env } from "cloudflare:workers";
 import { vValidator } from "@hono/valibot-validator";
 import { Hono } from "hono";
-import { describeRoute, resolver } from "hono-openapi";
 import type Stripe from "stripe";
 import * as v from "valibot";
 import type { PaymentCompletionWorkflowParam } from "../workflows/PaymentCompletionWorkflow/PaymentCompletionWorkflowParam";
@@ -9,21 +8,6 @@ import type { PaymentCompletionWorkflowParam } from "../workflows/PaymentComplet
 export const PaymentCompletionApi = new Hono()
 	.put(
 		"/:ticketCheckoutId",
-
-		describeRoute({
-			description: "チケットチェックアウトワークフローを開始する",
-			tags: ["Payment Completion"],
-			responses: {
-				200: {
-					description: "Successful",
-					content: {
-						"application/json": {
-							schema: resolver(v.object({ id: v.string() })),
-						},
-					},
-				},
-			},
-		}),
 		vValidator(
 			"param",
 			v.object({
@@ -47,20 +31,6 @@ export const PaymentCompletionApi = new Hono()
 	)
 	.get(
 		"/:ticketCheckoutId",
-		describeRoute({
-			description: "チケットチェックアウトワークフローのステータスを取得する",
-			tags: ["Payment Completion"],
-			responses: {
-				200: {
-					description: "Successful",
-					content: {
-						"application/json": {
-							schema: resolver(v.object({ id: v.string() })),
-						},
-					},
-				},
-			},
-		}),
 		vValidator(
 			"param",
 			v.object({

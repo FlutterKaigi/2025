@@ -9,12 +9,15 @@
     "cf-typegen": "wrangler types --env-interface CloudflareBindings"
   },
   "dependencies": {
+    "@2025/database": "workspace:*",
     "@biomejs/biome": "^2.2.6",
+    "@hono/otel": "^0.6.0",
     "@hono/valibot-validator": "^0.5.3",
-    "hono": "^4.9.12",
+    "@microlabs/otel-cf-workers": "^1.0.0-rc.52",
+    "@opentelemetry/api": "^1.9.0",
+    "hono": "^4.10.1",
     "passkit-generator": "3.4.0",
-    "valibot": "^1.1.0",
-    "@2025/database": "workspace:*"
+    "valibot": "^1.1.0"
   },
   "devDependencies": {
     "wrangler": "^4.43.0"

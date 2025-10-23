@@ -10,6 +10,7 @@ part of 'profile_api_service.dart';
 
 Router _$ProfileApiServiceRouter(ProfileApiService service) {
   final router = Router();
+  router.mount(r'/share', service._profileShareApiService.call);
   router.add('GET', r'/me', service._getMyProfile);
   router.add('PUT', r'/me', service._updateMyProfile);
   router.add('DELETE', r'/me/avatar', service._deleteMyAvatar);

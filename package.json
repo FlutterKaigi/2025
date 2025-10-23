@@ -35,8 +35,11 @@
     "bff/payment-workflow-internal-api",
     "bff/ticket-sales-reporter",
     "bff/fcm-internal-api",
+    "bff/profile-share-internal-api",
     "bff/wallet-api",
-    "tools/sponsor-inserter"
+    "bff/websocket-api",
+    "tools/sponsor-inserter",
+    "tools/nameplate-exporter"
   ],
   "trustedDependencies": [
     "@biomejs/biome",

@@ -57,3 +57,15 @@ variable "APNS_PRIVATE_KEY_PRODUCTION_BASE64" {
   description = "APNs Private Key (PEM format, base64 encoded) for Production"
   sensitive   = true
 }
+
+variable "R2_ACCESS_KEY_ID" {
+  type        = string
+  description = "R2 Access Key ID"
+  sensitive   = true
+}
+
+variable "R2_SECRET_ACCESS_KEY" {
+  type        = string
+  description = "R2 Secret Access Key"
+  sensitive   = true
+}

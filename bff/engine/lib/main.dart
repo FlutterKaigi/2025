@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:engine/provider/environments_provider.dart';
@@ -11,6 +12,13 @@ import 'package:shelf_cors_headers/shelf_cors_headers.dart';
 final ProviderContainer container = ProviderContainer();
 
 Future<void> main() async {
+  await runZonedGuarded(run, (error, stackTrace) {
+    print(error);
+    print(stackTrace);
+  });
+}
+
+Future<void> run() async {
   print('Starting server...');
 
   final apiService = ApiService();
