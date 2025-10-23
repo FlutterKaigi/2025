@@ -91,3 +91,9 @@ Leafea
 tokyu
 MVVM
 breakz
+
+
+Noto
+Noto
+wght
+wdth
