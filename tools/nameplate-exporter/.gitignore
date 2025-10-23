@@ -4,3 +4,4 @@ dist/
 output/
 error.log
 data/
+/session-speakers-output
