@@ -157,6 +157,11 @@ final event = (
 
 const _news = [
   (
+    title: 'FlutterKaigi 2025 スカラシップ制度のお知らせ',
+    url:
+        'https://medium.com/flutterkaigi/flutterkaigi-2025-スカラシップ制度のお知らせ-672a6321bad8',
+  ),
+  (
     title: 'FlutterKaigi 2025 ハンズオンへの参加登録のご案内',
     url:
         'https://medium.com/flutterkaigi/flutterkaigi-2025-ハンズオンへの参加登録のご案内-6fe97a67b6eb',
