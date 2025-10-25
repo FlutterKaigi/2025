@@ -3,7 +3,7 @@
   "mise.configureExtensionsAutomatically": false,
   "dprint.path": "~/.local/share/mise/shims/dprint",
   "bun.runtime": "${workspaceFolder}/.vscode/mise-tools/bun",
-  "dart.flutterSdkPath": "~/.local/share/mise/installs/flutter/3.37.0-0.1.pre-beta",
+  "dart.flutterSdkPath": "~/.local/share/mise/installs/flutter/3.38.0-0.1.pre-beta",
   "debug.javascript.defaultRuntimeExecutable": {
     "pwa-node": "${workspaceFolder}/.vscode/mise-tools/node"
   },
