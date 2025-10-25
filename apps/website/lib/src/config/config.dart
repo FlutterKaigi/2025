@@ -484,6 +484,7 @@ const _timeline = [
 
 typedef SponsorInfo = ({
   String name,
+  String slug,
   String url,
   ({String? x}) sns,
   Content pr,
@@ -511,6 +512,7 @@ extension SponsorTypeExtension on SponsorType {
 const _sponsors = <SponsorInfo>[
   (
     name: '株式会社ゆめみ',
+    slug: 'yumemi',
     url: 'https://yumemi.co.jp/',
     sns: (x: 'yumemiinc'),
     pr: (
@@ -526,6 +528,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社出前館',
+    slug: 'demae-can',
     url: 'https://recruit.demae-can.co.jp/',
     sns: (x: null),
     pr: (
@@ -543,6 +546,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社アサイン',
+    slug: 'assign',
     url: 'https://assign-inc.com/',
     sns: (x: null),
     pr: (
@@ -562,6 +566,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: 'RevenueCat, Inc.',
+    slug: 'revenuecat',
     url: 'https://www.revenuecat.com/jp/',
     sns: (x: 'RevenueCat'),
     pr: (
@@ -578,6 +583,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '',
+    slug: '',
     url: '',
     sns: (x: null),
     pr: (ja: '', en: null),
@@ -587,6 +593,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社サイバーエージェント',
+    slug: 'cyberagent',
     url: 'https://www.cyberagent.co.jp/',
     sns: (x: 'ca_developers'),
     pr: (
@@ -602,6 +609,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社iiba',
+    slug: 'iiba',
     url: 'https://corporate.iiba.space/',
     sns: (x: 'nanaizw'),
     pr: (
@@ -618,6 +626,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: 'シンプレクス株式会社',
+    slug: 'simplex',
     url: 'https://www.simplex.inc/',
     sns: (x: 'SimplexHoldings'),
     pr: (
@@ -633,6 +642,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: 'Codemagic',
+    slug: 'codemagic',
     url: 'https://codemagic.io',
     sns: (x: 'codemagicio'),
     pr: (
@@ -650,6 +660,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社MagicPod',
+    slug: 'magic-pod',
     url: 'https://magicpod.com/',
     sns: (x: 'MagicPodJP'),
     pr: (
@@ -666,6 +677,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: 'ZOZO, Inc.',
+    slug: 'zozo',
     url: 'https://corp.zozo.com/',
     sns: (x: 'zozotech'),
     pr: (
@@ -681,6 +693,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社GENDA',
+    slug: 'genda',
     url: 'https://genda.jp/',
     sns: (x: 'GENDA_jp'),
     pr: (
@@ -696,6 +709,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: 'エムスリー株式会社',
+    slug: 'm3',
     url: 'https://jobs.m3.com/product/',
     sns: (x: 'm3_engineering'),
     pr: (
@@ -710,6 +724,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: "株式会社Linc'well",
+    slug: 'lincwell',
     url: 'https://linc-well.com/',
     sns: (x: 'lincwell_dev'),
     pr: (
@@ -725,6 +740,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社ディー・エヌ・エー',
+    slug: 'dena',
     url: 'https://dena.com/jp/',
     sns: (x: 'DeNAxTech'),
     pr: (
@@ -744,6 +760,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: 'CodeRabbit',
+    slug: 'coderabbit',
     url: 'https://www.coderabbit.ai',
     sns: (x: 'Coderabbitaija'),
     pr: (
@@ -759,6 +776,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社YOUTRUST',
+    slug: 'youtrust',
     url: 'https://youtrust.co.jp/',
     sns: (x: 'YOUTRUSTinc'),
     pr: (
@@ -773,6 +791,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: 'ソニー株式会社',
+    slug: 'sony',
     url: 'https://www.sony.co.jp/',
     sns: (x: null),
     pr: (
@@ -789,6 +808,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: 'チームラボ株式会社',
+    slug: 'team-lab',
     url: 'https://www.team-lab.com/',
     sns: (x: 'teamlab_recruit'),
     pr: (
@@ -804,6 +824,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: 'SODA inc.',
+    slug: 'soda-inc',
     url: 'https://soda-inc.jp/',
     sns: (x: null),
     pr: (
@@ -819,6 +840,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社hacomono',
+    slug: 'hacomono',
     url: 'https://www.hacomono.co.jp/',
     sns: (x: 'hacomono_Dev'),
     pr: (
@@ -835,6 +857,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社MIXI',
+    slug: 'mixi',
     url: 'https://mixi.co.jp/',
     sns: (x: 'mixi_engineers'),
     pr: (
@@ -849,6 +872,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: 'スタディプラス株式会社',
+    slug: 'studyplus',
     url: 'https://info.studyplus.co.jp/',
     sns: (x: 'studyplus_dev'),
     pr: (
@@ -864,6 +888,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社ギークニア',
+    slug: 'geekneer',
     url: 'https://geekneer.com/',
     sns: (x: 'geekneerjp'),
     pr: (
@@ -879,6 +904,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: 'Sentry',
+    slug: 'sentry',
     url: 'https://sentry.ichizoku.io/',
     sns: (x: 'SentryJapan'),
     pr: (
@@ -894,6 +920,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: 'パイオニア株式会社',
+    slug: 'pioneer',
     url: 'https://jpn.pioneer/ja/',
     sns: (x: 'Pioneer_PR'),
     pr: (
@@ -909,6 +936,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社メドレー',
+    slug: 'medley',
     url: 'https://www.medley.jp/',
     sns: (x: 'medley_dev'),
     pr: (
@@ -924,6 +952,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: 'Hamee株式会社',
+    slug: 'hamee',
     url: 'https://hamee.co.jp/recruit/love-odawara',
     sns: (x: null),
     pr: (
@@ -939,6 +968,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社アイビス',
+    slug: 'ibis',
     url: 'https://i-bis.jp/',
     sns: (x: 'Ibis_official_'),
     pr: (
@@ -953,6 +983,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社LayerX',
+    slug: 'layerx',
     url: 'https://layerx.co.jp',
     sns: (x: 'LayerX_Tech'),
     pr: (
@@ -968,6 +999,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: 'NTTレゾナントテクノロジー株式会社',
+    slug: 'ntt-resonant-tech',
     url: 'https://nttr-tech.co.jp/',
     sns: (x: 'nttr_tech'),
     pr: (
@@ -982,6 +1014,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社IBJ',
+    slug: 'ibj',
     url: 'https://www.ibjapan.jp/',
     sns: (x: 'IBJ_renmei'),
     pr: (
@@ -996,6 +1029,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社メンバーズ',
+    slug: 'members',
     url: 'https://www.members.co.jp/',
     sns: (x: 'Members_corp'),
     pr: (
@@ -1010,6 +1044,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社TRUSTDOCK',
+    slug: 'trustdock',
     url: 'https://biz.trustdock.io/company',
     sns: (x: null),
     pr: (
@@ -1024,6 +1059,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '',
+    slug: '',
     url: '',
     sns: (x: null),
     pr: (ja: '', en: null),
@@ -1033,6 +1069,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社Leafea',
+    slug: 'leafea',
     url: 'https://leafea.co.jp/',
     sns: (x: null),
     pr: (
@@ -1047,6 +1084,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '東急株式会社',
+    slug: 'tokyu',
     url: 'https://10q89s.jp/',
     sns: (x: 'urban_89s'),
     pr: (
@@ -1063,6 +1101,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社UPSIDER',
+    slug: 'upsider',
     url: 'https://corp.up-sider.com/',
     sns: (x: 'upsider_inc'),
     pr: (
