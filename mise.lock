@@ -1,0 +1,59 @@
+[[tools."aqua:suzuki-shunsuke/tfcmt"]]
+version = "4.14.12"
+backend = "aqua:suzuki-shunsuke/tfcmt"
+
+[[tools.aws-cli]]
+version = "2.31.13"
+backend = "aqua:aws/aws-cli"
+
+[[tools.bun]]
+version = "1.2.21"
+backend = "core:bun"
+
+[[tools.dprint]]
+version = "0.50.2"
+backend = "aqua:dprint/dprint"
+
+[[tools.flutter]]
+version = "3.38.0-0.1.pre-beta"
+backend = "asdf:flutter"
+
+[[tools.node]]
+version = "24.4.0"
+backend = "core:node"
+
+[[tools."pipx:codemagic-cli-tools"]]
+version = "0.61.1"
+backend = "pipx:codemagic-cli-tools"
+
+[[tools.rclone]]
+version = "1.71.1"
+backend = "aqua:rclone/rclone"
+
+[[tools.stripe]]
+version = "1.31.0"
+backend = "aqua:stripe/stripe-cli"
+
+[[tools.swift]]
+version = "6.2"
+backend = "core:swift"
+
+[tools.swift.platforms.macos-arm64]
+checksum = "blake3:d9e22fb7495996e43d1565e61b9bd3009d8e72de9cdf73cd07d93acfaeed5abe"
+size = 1726141935
+
+[[tools.terraform]]
+version = "1.13.3"
+backend = "aqua:hashicorp/terraform"
+
+[[tools.tflint]]
+version = "0.59.1"
+backend = "aqua:terraform-linters/tflint"
+
+[[tools.uv]]
+version = "0.8.17"
+backend = "aqua:astral-sh/uv"
+
+[[tools.websocat]]
+version = "1.14.0"
+backend = "aqua:vi/websocat"
