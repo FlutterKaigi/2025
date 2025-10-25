@@ -1,95 +1,66 @@
-[[tools."aqua:suzuki-shunsuke/tfcmt"]]
+[tools."aqua:suzuki-shunsuke/tfcmt"]
 version = "4.14.12"
 backend = "aqua:suzuki-shunsuke/tfcmt"
 
-[tools."aqua:suzuki-shunsuke/tfcmt".platforms.macos-arm64]
-checksum = "sha256:d38934a679da0e3a8c9b36f11edeb5728b6d60f2727bc58b5f88b930108fddd0"
-size = 4465943
-url = "https://github.com/suzuki-shunsuke/tfcmt/releases/download/v4.14.12/tfcmt_darwin_arm64.tar.gz"
-
-[[tools.aws-cli]]
+[tools.aws-cli]
 version = "2.31.13"
 backend = "aqua:aws/aws-cli"
 
-[tools.aws-cli.platforms.macos-arm64]
-checksum = "blake3:41491553291509a575b513f44f5b4354d2b12dcc37eb62f70d09ee4f2918131c"
-size = 48185625
-url = "https://awscli.amazonaws.com/AWSCLIV2-2.31.13.pkg"
+[tools.aws-cli.checksums]
+"AWSCLIV2-2.31.13.pkg" = "sha256:6e8e5bf2e46da861de22f0c27c67e9563f18d0eb2a70aa02e8275fbd138007a9"
 
-[[tools.bun]]
+[tools.bun]
 version = "1.2.21"
 backend = "core:bun"
 
-[tools.bun.platforms.macos-arm64]
-checksum = "blake3:b5824ab4bf0afba1d27d55d4cbec1696c3d1070f6982cbf6b4fa0489892ec931"
-size = 22056420
-
-[[tools.dprint]]
+[tools.dprint]
 version = "0.50.2"
 backend = "aqua:dprint/dprint"
 
-[tools.dprint.platforms.macos-arm64]
-checksum = "sha256:f534bcc054947ab2a42c069b5f6027914d252729bd15c1109812313b35a662a5"
-size = 7875009
-url = "https://github.com/dprint/dprint/releases/download/0.50.2/dprint-aarch64-apple-darwin.zip"
-
-[[tools.flutter]]
+[tools.flutter]
 version = "3.38.0-0.1.pre-beta"
 backend = "asdf:flutter"
 
-[[tools.node]]
+[tools.node]
 version = "24.4.0"
 backend = "core:node"
 
-[[tools."pipx:codemagic-cli-tools"]]
+[tools."pipx:codemagic-cli-tools"]
 version = "0.61.1"
 backend = "pipx:codemagic-cli-tools"
 
-[[tools.rclone]]
+[tools.rclone]
 version = "1.71.1"
 backend = "aqua:rclone/rclone"
 
-[tools.rclone.platforms.macos-arm64]
-checksum = "sha256:8b7a2c57680d769e33d8616cabc214831d3bddcdb4da0d40a263ede63b15acce"
-size = 26406420
-url = "https://github.com/rclone/rclone/releases/download/v1.71.1/rclone-v1.71.1-osx-arm64.zip"
+[tools.rclone.checksums]
+"rclone-v1.71.1-osx-arm64.zip" = "sha256:8b7a2c57680d769e33d8616cabc214831d3bddcdb4da0d40a263ede63b15acce"
 
-[[tools.stripe]]
+[tools.stripe]
 version = "1.31.0"
 backend = "aqua:stripe/stripe-cli"
 
-[tools.stripe.platforms.macos-arm64]
-checksum = "sha256:b4d2b0635a889d40973ccea07bc148709fa51b8baad27d88dacdc9c88431a9c3"
-size = 8125487
-url = "https://github.com/stripe/stripe-cli/releases/download/v1.31.0/stripe_1.31.0_mac-os_arm64.tar.gz"
+[tools.stripe.checksums]
+"stripe_1.31.0_mac-os_arm64.tar.gz" = "sha256:b4d2b0635a889d40973ccea07bc148709fa51b8baad27d88dacdc9c88431a9c3"
 
-[[tools.terraform]]
+[tools.terraform]
 version = "1.13.3"
 backend = "aqua:hashicorp/terraform"
 
-[tools.terraform.platforms.macos-arm64]
-checksum = "sha256:8362e7284b38a1194884963deed83481696d468b42dab88052775f4280383584"
-size = 28926971
-url = "https://releases.hashicorp.com/terraform/1.13.3/terraform_1.13.3_darwin_arm64.zip"
-
-[[tools.tflint]]
+[tools.tflint]
 version = "0.59.1"
 backend = "aqua:terraform-linters/tflint"
 
-[tools.tflint.platforms.macos-arm64]
-checksum = "sha256:f9981304b30e2b6b9a6f40b9ca02dd23100bd23b0846ccd50f54044c0f24ff7e"
-size = 15598367
-url = "https://github.com/terraform-linters/tflint/releases/download/v0.59.1/tflint_darwin_arm64.zip"
-
-[[tools.uv]]
+[tools.uv]
 version = "0.8.17"
 backend = "aqua:astral-sh/uv"
 
-[[tools.websocat]]
+[tools.uv.checksums]
+"uv-aarch64-apple-darwin.tar.gz" = "sha256:e4d4859d7726298daa4c12e114f269ff282b2cfc2b415dc0b2ca44ae2dbd358e"
+
+[tools.websocat]
 version = "1.14.0"
 backend = "aqua:vi/websocat"
 
-[tools.websocat.platforms.macos-arm64]
-checksum = "blake3:8385fa8b05bf17a5be880c8aaf2e80667973e58c0a80842e3c4fb7a7b936362c"
-size = 2836001
-url = "https://github.com/vi/websocat/releases/download/v1.14.0/websocat.x86_64-apple-darwin"
+[tools.websocat.checksums]
+"websocat.x86_64-apple-darwin" = "sha256:ef7d6e913dd38e2ae100cd12de6e0d93a7ed4e3155f839ae7be2d6bce774bc1d"
