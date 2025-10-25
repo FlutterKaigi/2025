@@ -10,6 +10,7 @@ environment:
 dependencies:
   bff_client:
     path: ../../packages/bff_client
+  clock: ^1.1.2
   collection: ^1.19.1
   dart_jsonwebtoken: ^3.3.1
   db_client:
