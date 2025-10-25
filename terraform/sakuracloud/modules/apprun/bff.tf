@@ -84,3 +84,4 @@ resource "sakuracloud_apprun_application" "flutterkaigi-2025-bff" {
 output "apprun_public_url" {
   value = sakuracloud_apprun_application.flutterkaigi-2025-bff.public_url
 }
+

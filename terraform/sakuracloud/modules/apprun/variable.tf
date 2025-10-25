@@ -83,35 +83,6 @@ variable "deployment_timestamp" {
   default     = "2024-01-01T00:00:00Z"
 }
 
-variable "firebase_service_account_json" {
-  type        = string
-  description = "Firebase Service Account JSON"
-  sensitive   = true
-}
-
-variable "apns_key_id" {
-  type        = string
-  description = "APNs Key ID"
-  sensitive   = true
-}
-
-variable "apns_team_id" {
-  type        = string
-  description = "Apple Team ID"
-  sensitive   = true
-}
-
-variable "apns_private_key" {
-  type        = string
-  description = "APNs Private Key (PEM format)"
-  sensitive   = true
-}
-
-variable "apns_environment" {
-  type        = string
-  description = "APNs Environment (sandbox or production)"
-  default     = "sandbox"
-}
 
 variable "cloudflare_account_id" {
   type        = string

@@ -5,7 +5,7 @@ resource "docker_image" "bff" {
   build {
     context    = local.source_root
     dockerfile = "${local.source_root}/bff/engine/Dockerfile"
-    platform = "linux/amd64"
+    platform   = "linux/amd64"
   }
   triggers = {
     timestamp = timestamp()
@@ -13,7 +13,7 @@ resource "docker_image" "bff" {
 }
 
 resource "docker_registry_image" "bff" {
-  name = "${var.docker_registry_address}/bff"
+  name          = "${var.docker_registry_address}/bff"
   keep_remotely = true
 
   triggers = {
