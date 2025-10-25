@@ -2,6 +2,8 @@ services:
   fcm-internal-api:
     build:
       dockerfile: Dockerfile
+      args:
+        FIREBASE_SERVICE_ACCOUNT_JSON: ${FIREBASE_SERVICE_ACCOUNT_JSON}
       platforms:
         - linux/amd64
     platform: linux/amd64

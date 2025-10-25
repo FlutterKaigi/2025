@@ -6,6 +6,12 @@ FlutterKaigi 2025 の FCM（Firebase Cloud Messaging）通知配信を行うた�
 
 この API は、Firebase Admin SDK を使用して、FCM 経由でプッシュ通知をバッチ送信するための内部サービスです。
 
+> [!WARNING]
+>
+> 本プロジェクトの`Dockerfile`により生成されるイメージには、Google CloudのService Accountが含まれています。
+> イメージは必ず公開しないようにしてください。
+> (App Runの制約により、実行時の環境変数にセットすることができないため、イメージに焼き付けています)
+
 ## 機能
 
 - **Batch API**: 複数の FCM メッセージを一括送信
