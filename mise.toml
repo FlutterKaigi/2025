@@ -20,9 +20,6 @@ websocat = "latest"
 
 SUPABASE_ACCESS_TOKEN = "{{ env.TF_VAR_SUPABASE_ACCESS_TOKEN }}"
 
-[settings.sops]
-age_key_file = "~/.config/mise/flutterkaigi.txt"
-
 [tasks.bootstrap]
 description = "Initialize the workspace."
 run = './scripts/bootstrap.sh'
@@ -38,3 +35,6 @@ run = [
 [settings]
 lockfile = true
 experimental = true
+
+[settings.sops]
+age_key_file = "~/.config/mise/flutterkaigi.txt"

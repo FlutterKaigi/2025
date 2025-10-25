@@ -1,25 +1,48 @@
+import fs from "node:fs";
+import path from "node:path";
 import { serve } from "@hono/node-server";
-import { Scalar } from "@scalar/hono-api-reference";
+import { httpInstrumentationMiddleware } from "@hono/otel";
+import { cert, initializeApp } from "firebase-admin/app";
 import { Hono } from "hono";
 import { hc } from "hono/client";
 import { logger } from "hono/logger";
-import { openAPIRouteHandler } from "hono-openapi";
 import batchApi from "./api/batch/batch";
-import { authMiddleware } from "./middleware/auth";
-import { initializeFirebase } from "./util/firebase";
+import { sdk } from "./instruments";
 
-// Firebase を初期化
-try {
-  initializeFirebase();
-  console.log("Firebase Admin SDK initialized successfully");
-} catch (error) {
-  console.error("Failed to initialize Firebase:", error);
-  process.exit(1);
+// tmpディレクトリを作成（存在しない場合）
+const tmpDir = path.join(process.cwd(), "tmp");
+if (!fs.existsSync(tmpDir)) {
+  fs.mkdirSync(tmpDir, { recursive: true });
 }
+
+// 環境変数から Firebase 認証情報を取得
+const firebaseServiceAccountJson = process.env.FIREBASE_SERVICE_ACCOUNT_JSON;
+if (!firebaseServiceAccountJson) {
+  throw new Error("FIREBASE_SERVICE_ACCOUNT_JSON is not set");
+}
+
+// JSON が有効かどうか確認
+try {
+  JSON.parse(firebaseServiceAccountJson);
+} catch (error) {
+  console.error("Invalid FIREBASE_SERVICE_ACCOUNT_JSON:", error);
+  throw new Error("FIREBASE_SERVICE_ACCOUNT_JSON must be a valid JSON string");
+}
+
+// ファイルに書き込み（JSON.stringify は不要 - 環境変数は既に JSON 文字列）
+const serviceAccountPath = path.join(tmpDir, "firebase-service-account.json");
+fs.writeFileSync(serviceAccountPath, firebaseServiceAccountJson);
+
+export const firebaseApp = initializeApp({
+  credential: cert(serviceAccountPath),
+});
+
+sdk.start();
 
 const app = new Hono()
   .use("*", logger())
-  .use("*", authMiddleware)
+  .use(httpInstrumentationMiddleware())
+  // .use("*", authMiddleware)
   .route("/batch", batchApi)
   .get("/health", (c) => {
     return c.json({ status: "ok", timestamp: new Date().toISOString() });
@@ -34,19 +57,6 @@ const app = new Hono()
       500
     );
   });
-app.get(
-  "openapi.json",
-  openAPIRouteHandler(app, {
-    documentation: {
-      info: {
-        title: "FCM Internal API",
-        version: "1.0.0",
-      },
-    },
-  })
-);
-app.get("/scalar", Scalar({ url: "/openapi.json", title: "FCM Internal API" }));
-
 const port = Number.parseInt(process.env.PORT || "8080", 10);
 
 console.log(`Starting FCM Internal API server on port ${port}`);

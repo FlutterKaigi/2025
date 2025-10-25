@@ -1,8 +1,7 @@
 services:
   fcm-internal-api:
     build:
-      context: ../../
-      dockerfile: bff/fcm-internal-api/Dockerfile
+      dockerfile: Dockerfile
       platforms:
         - linux/amd64
     platform: linux/amd64
