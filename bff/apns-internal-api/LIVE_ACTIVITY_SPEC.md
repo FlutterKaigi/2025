@@ -18,7 +18,7 @@
   "aps": {
     "timestamp": 1234567890,
     "event": "update",
-    "content-state": { /* 動的コンテンツ */ }
+    "content-state": {/* 動的コンテンツ */}
   }
 }
 ```
@@ -30,18 +30,21 @@
 Live Activity を開始する際に使用します。
 
 **必須フィールド:**
+
 - `event`: "start"
 - `content-state`: 初期状態の動的コンテンツ
 - `attributes`: Live Activity の静的属性
 - `attributes-type`: 属性の型名（ActivityAttributes プロトコルに準拠した型名）
 
 **オプションフィールド:**
+
 - `timestamp`: イベントのタイムスタンプ（デフォルト: 現在時刻）
 - `stale-date`: Live Activity が古くなる日時
 - `relevance-score`: 関連性スコア（0.0 〜 1.0）
 - `alert`: 通知アラート
 
 **例:**
+
 ```json
 {
   "aps": {
@@ -70,16 +73,19 @@ Live Activity を開始する際に使用します。
 既存の Live Activity を更新する際に使用します。
 
 **必須フィールド:**
+
 - `event`: "update"
 - `content-state`: 更新後の動的コンテンツ
 
 **オプションフィールド:**
+
 - `timestamp`: イベントのタイムスタンプ
 - `stale-date`: Live Activity が古くなる日時
 - `relevance-score`: 関連性スコア（0.0 〜 1.0）
 - `alert`: 通知アラート
 
 **例:**
+
 ```json
 {
   "aps": {
@@ -104,15 +110,18 @@ Live Activity を開始する際に使用します。
 Live Activity を終了する際に使用します。
 
 **必須フィールド:**
+
 - `event`: "end"
 - `content-state`: 最終状態の動的コンテンツ
 
 **オプションフィールド:**
+
 - `timestamp`: イベントのタイムスタンプ
 - `dismissal-date`: Live Activity を画面から削除する日時
 - `alert`: 通知アラート
 
 **例:**
+
 ```json
 {
   "aps": {
@@ -198,6 +207,7 @@ Live Activity の関連性スコアを指定します。
 - **説明**: Live Activity の更新時に通知バナーを表示する場合に使用します。サイレント更新の場合は省略します。
 
 **alert のフィールド:**
+
 - `title`: 通知のタイトル（文字列、オプション）
 - `body`: 通知の本文（文字列、オプション）
 - `sound`: 通知音（文字列、オプション、例: "default"）
