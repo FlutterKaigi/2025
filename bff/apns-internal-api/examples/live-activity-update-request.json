@@ -1,0 +1,27 @@
+{
+  "updates": [
+    {
+      "deviceToken": "your_live_activity_push_token_here",
+      "event": "update",
+      "contentState": {
+        "sessionName": "FlutterのパフォーマンスTips",
+        "speakerName": "山田太郎",
+        "startTime": 1735603200,
+        "roomName": "Track A",
+        "progress": 0.5,
+        "nextTopicTitle": "State Managementの最適化"
+      },
+      "alert": {
+        "title": "トピック更新",
+        "body": "次のトピック: State Managementの最適化",
+        "sound": "default"
+      },
+      "priority": 10,
+      "timestamp": 1735604400,
+      "staleDate": 1735606800,
+      "relevanceScore": 0.9,
+      "topic": "com.flutterkaigi.conf2025.push-type.liveactivity"
+    }
+  ],
+  "validateOnly": false
+}

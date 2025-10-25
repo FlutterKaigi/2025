@@ -1,0 +1,11 @@
+.build
+.swiftpm
+*.xcodeproj
+*.xcworkspace
+.DS_Store
+.env
+.env.*
+*.log
+README.md
+.git
+.gitignore

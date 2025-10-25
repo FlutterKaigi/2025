@@ -8,13 +8,17 @@ node = "24.4.0"
 "pipx:codemagic-cli-tools" = "0.61.1"
 rclone = "latest"
 stripe = "latest"
+swift = "latest"
 terraform = "latest"
 tflint = "latest"
 uv = "latest"
 websocat = "latest"
 
-[env.'_']
-file.path = "bff/engine/.env"
+[env]
+'_'.source = "scripts/export_sops_key_path.sh"
+'_'.file.path = ".env.json"
+
+SUPABASE_ACCESS_TOKEN = "{{ env.TF_VAR_SUPABASE_ACCESS_TOKEN }}"
 
 [tasks.bootstrap]
 description = "Initialize the workspace."
@@ -31,3 +35,6 @@ run = [
 [settings]
 lockfile = true
 experimental = true
+
+[settings.sops]
+age_key_file = "~/.config/mise/flutterkaigi.txt"
