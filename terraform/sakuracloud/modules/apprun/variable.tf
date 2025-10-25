@@ -105,3 +105,8 @@ variable "r2_secret_access_key" {
   description = "R2 Secret Access Key"
   sensitive   = true
 }
+
+variable "name_suffix" {
+  type        = string
+  description = "Name Suffix"
+}

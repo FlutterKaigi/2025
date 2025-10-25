@@ -1,5 +1,5 @@
 resource "sakuracloud_apprun_application" "flutterkaigi-2025-bff" {
-  name            = "flutterkaigi-2025-${var.env}"
+  name            = "flutterkaigi-2025-${var.env}${var.name_suffix}"
   timeout_seconds = 20
   port            = 8080
   max_scale       = var.app_run_max_scale

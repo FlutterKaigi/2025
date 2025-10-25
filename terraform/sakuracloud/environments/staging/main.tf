@@ -17,6 +17,8 @@ module "docker" {
   docker_registry_address  = module.container_registry.container_registry_fqdn
   docker_registry_username = module.container_registry.container_registry_username
   docker_registry_password = module.container_registry.container_registry_password
+  enable_fcm_internal_api = false
+  firebase_service_account_json = "{}" # MEMO(YumNumm): FCM Internal APIは使わないので空でセット
 }
 
 module "apprun" {
