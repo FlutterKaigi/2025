@@ -33,3 +33,4 @@ compose.yaml
 
 
 **/.terraform/
+*.pem
