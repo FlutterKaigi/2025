@@ -7,7 +7,7 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_router/jaspr_router.dart';
 
 String _makeGridArea(Place place, Duration start, [Duration? end]) {
-  end ??= start;
+  end = (end ?? start) - const Duration(minutes: 5);
   return '${place.id}-${start.inMinutes}'
       ' / ${place.id}-${start.inMinutes}'
       ' / ${place.id}-${end.inMinutes}'
@@ -95,7 +95,7 @@ class Timeline extends StatelessComponent {
       Component child, {
       required Place place,
       required Duration start,
-      required Duration end,
+      required Duration time,
       Styles? styles,
     }) => li(
       styles: Styles(
@@ -114,19 +114,19 @@ class Timeline extends StatelessComponent {
           blur: 0.5.rem,
           color: shadowColor(place),
         ),
-        minHeight: ((end.inMinutes - start.inMinutes) / 5 * 1.75).rem,
+        minHeight: (time.inMinutes / 5 * 1.75).rem,
         raw: {
           'grid-area': _makeGridArea(
             place,
             start,
-            end,
+            start + time,
           ),
         },
       ),
       [
         child,
         span(
-          [text('(${end.inMinutes - start.inMinutes + 5} min)')],
+          [text('(${time.inMinutes} min)')],
           styles: const Styles(
             fontSize: Unit.inherit,
             color: Colors.gray,
@@ -138,30 +138,33 @@ class Timeline extends StatelessComponent {
 
     Component breakItem({
       required Duration start,
-      required Duration end,
+      required Duration time,
       (Place, Place) place = (Place.hallA, Place.roomB),
-    }) => li(
-      styles: Styles(
-        backgroundColor: Colors.white,
-        margin: Spacing.only(left: 1.rem, top: 1.rem, bottom: 0.5.rem),
-        padding: Spacing.all(0.25.rem),
-        fontSize: Unit.inherit,
-        fontFamily: lexendFontFamily,
-        whiteSpace: WhiteSpace.inherit,
-        textOverflow: TextOverflow.ellipsis,
-        textAlign: TextAlign.center,
-        overflow: Overflow.hidden,
-        radius: BorderRadius.all(Radius.circular(1.rem)),
-        raw: {
-          'grid-area':
-              '${place.$1.id}-${start.inMinutes}'
-              ' / ${place.$1.id}-${start.inMinutes}'
-              ' / ${place.$2.id}-${end.inMinutes}'
-              ' / ${place.$2.id}-${end.inMinutes}',
-        },
-      ),
-      [contents.breakz.text(context).toComponent],
-    );
+    }) {
+      final end = start + time - const Duration(minutes: 5);
+      return li(
+        styles: Styles(
+          backgroundColor: Colors.white,
+          margin: Spacing.only(left: 1.rem, top: 1.rem, bottom: 0.5.rem),
+          padding: Spacing.all(0.25.rem),
+          fontSize: Unit.inherit,
+          fontFamily: lexendFontFamily,
+          whiteSpace: WhiteSpace.inherit,
+          textOverflow: TextOverflow.ellipsis,
+          textAlign: TextAlign.center,
+          overflow: Overflow.hidden,
+          radius: BorderRadius.all(Radius.circular(1.rem)),
+          raw: {
+            'grid-area':
+                '${place.$1.id}-${start.inMinutes}'
+                ' / ${place.$1.id}-${start.inMinutes}'
+                ' / ${place.$2.id}-${end.inMinutes}'
+                ' / ${place.$2.id}-${end.inMinutes}',
+          },
+        ),
+        [contents.breakz.text(context).toComponent],
+      );
+    }
 
     yield ul(
       styles: Styles(
@@ -192,84 +195,60 @@ class Timeline extends StatelessComponent {
         ..._timeline,
         breakItem(
           start: const Duration(hours: 10, minutes: 45),
-          end: const Duration(hours: 10, minutes: 55),
+          time: const Duration(minutes: 15),
         ),
         breakItem(
           start: const Duration(hours: 11, minutes: 30),
-          end: const Duration(hours: 11, minutes: 40),
+          time: const Duration(minutes: 15),
         ),
         breakItem(
           start: const Duration(hours: 12, minutes: 15),
-          end: const Duration(hours: 13, minutes: 25),
+          time: const Duration(hours: 1, minutes: 15),
         ),
         breakItem(
           start: const Duration(hours: 14),
-          end: const Duration(hours: 14, minutes: 10),
+          time: const Duration(minutes: 15),
           place: (Place.hallA, Place.roomA),
         ),
         breakItem(
           start: const Duration(hours: 14, minutes: 45),
-          end: const Duration(hours: 15, minutes: 10),
+          time: const Duration(minutes: 30),
           place: (Place.hallA, Place.roomA),
         ),
         breakItem(
           start: const Duration(hours: 15, minutes: 45),
-          end: const Duration(hours: 15, minutes: 55),
+          time: const Duration(minutes: 15),
+          place: (Place.hallA, Place.roomA),
         ),
         breakItem(
           start: const Duration(hours: 16, minutes: 30),
-          end: const Duration(hours: 16, minutes: 40),
+          time: const Duration(minutes: 15),
         ),
         breakItem(
           start: const Duration(hours: 17, minutes: 15),
-          end: const Duration(hours: 17, minutes: 25),
+          time: const Duration(minutes: 15),
         ),
-        item(
-          text('ハンズオン'),
-          place: Place.roomB,
-          start: const Duration(hours: 13, minutes: 30),
-          end: const Duration(hours: 15, minutes: 40),
-        ),
-        item(
-          text('キーノート'),
-          place: Place.hallA,
-          start: const Duration(hours: 10, minutes: 15),
-          end: const Duration(hours: 10, minutes: 40),
-        ),
-        item(
-          text('キーノート (サテライト)'),
-          place: Place.hallB,
-          start: const Duration(hours: 10, minutes: 15),
-          end: const Duration(hours: 10, minutes: 40),
-        ),
-        item(
-          text('挨拶'),
-          place: Place.hallA,
-          start: const Duration(hours: 10),
-          end: const Duration(hours: 10, minutes: 10),
-        ),
-        item(
-          text('挨拶 (サテライト)'),
-          place: Place.hallB,
-          start: const Duration(hours: 10),
-          end: const Duration(hours: 10, minutes: 10),
-        ),
-        ...event.timeline.map(
-          (entry) => item(
-            ExternalLink(
-              url: entry.url,
-              content: text(entry.title),
-              styles: const Styles(
-                color: Color.variable('--text-color'),
-                fontSize: Unit.inherit,
-                whiteSpace: WhiteSpace.inherit,
-              ),
-            ),
+        ...event.timeline.map((entry) {
+          final url = entry.url;
+          final content = url != null
+              ? ExternalLink(
+                  url: url,
+                  content: entry.title.text(context).toComponent,
+                  styles: const Styles(
+                    color: Color.variable('--text-color'),
+                    fontSize: Unit.inherit,
+                    whiteSpace: WhiteSpace.inherit,
+                  ),
+                )
+              : entry.title.text(context).toComponent;
+
+          return item(
+            content,
             place: entry.place,
             start: entry.start,
-            end: entry.end,
-          ),
-        ),
+            time: entry.time,
+          );
+        }),
       ],
     );
 
