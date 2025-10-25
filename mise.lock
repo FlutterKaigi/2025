@@ -38,10 +38,6 @@ backend = "aqua:stripe/stripe-cli"
 version = "6.2"
 backend = "core:swift"
 
-[tools.swift.platforms.macos-arm64]
-checksum = "blake3:d9e22fb7495996e43d1565e61b9bd3009d8e72de9cdf73cd07d93acfaeed5abe"
-size = 1726141935
-
 [[tools.terraform]]
 version = "1.13.3"
 backend = "aqua:hashicorp/terraform"
