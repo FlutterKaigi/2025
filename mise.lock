@@ -34,7 +34,7 @@ size = 7875009
 url = "https://github.com/dprint/dprint/releases/download/0.50.2/dprint-aarch64-apple-darwin.zip"
 
 [[tools.flutter]]
-version = "3.37.0-0.1.pre-beta"
+version = "3.38.0-0.1.pre-beta"
 backend = "asdf:flutter"
 
 [[tools.node]]

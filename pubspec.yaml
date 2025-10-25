@@ -2,8 +2,8 @@ name: flutterkaigi_2025
 publish_to: none
 
 environment:
-  sdk: ^3.10.0-162.1.beta
-  flutter: ^3.37.0-0.1.pre
+  sdk: ^3.10.0-209.1.beta
+  flutter: ^3.38.0-0.1.pre
 
 dependency_overrides:
   dartastic_opentelemetry:
@@ -39,8 +39,8 @@ melos:
   command:
     bootstrap:
       environment:
-        sdk: ^3.10.0-75.1.beta
-        flutter: ^3.36.0-0.1.pre
+        sdk: ^3.10.0-209.1.beta
+        flutter: ^3.38.0-0.1.pre
       dependencies:
         flutter_localizations:
           sdk: flutter
