@@ -1,6 +1,6 @@
 locals {
   cloudflare_account_id = "cdd8f59359fe226645e7b541cdc53b57"
-  r2_bucket_name        = "2025-staging"
+  r2_bucket_name        = "2025-production"
 }
 
 module "container_registry" {
