@@ -1,0 +1,9 @@
+bucket = "your-s3-bucket-name"
+key    = "terraform/lxd/staging/terraform.tfstate"
+region = "ap-northeast-1"
+
+# AWS credentials は環境変数または AWS CLI の設定を使用
+# AWS_ACCESS_KEY_ID
+# AWS_SECRET_ACCESS_KEY
+
+

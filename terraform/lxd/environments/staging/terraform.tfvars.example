@@ -1,0 +1,18 @@
+# LXD Configuration
+LXD_TOKEN = "your-lxd-token-here"
+
+# Docker Registry Configuration
+# GitHub Container Registry を使用する場合
+DOCKER_REGISTRY_ADDRESS  = "ghcr.io/flutterkaigi"
+DOCKER_REGISTRY_USERNAME = "your-github-username"
+DOCKER_REGISTRY_PASSWORD = "ghp_your_github_token"
+
+# Docker Hub を使用する場合
+# DOCKER_REGISTRY_ADDRESS  = "docker.io/flutterkaigi"
+# DOCKER_REGISTRY_USERNAME = "your-dockerhub-username"
+# DOCKER_REGISTRY_PASSWORD = "your-dockerhub-token"
+
+# Firebase Configuration
+FIREBASE_SERVICE_ACCOUNT_JSON_STAGING = "{\"type\":\"service_account\",\"project_id\":\"your-project\",\"private_key_id\":\"...\",\"private_key\":\"-----BEGIN PRIVATE KEY-----\\n...\\n-----END PRIVATE KEY-----\\n\",\"client_email\":\"...\",\"client_id\":\"...\",\"auth_uri\":\"https://accounts.google.com/o/oauth2/auth\",\"token_uri\":\"https://oauth2.googleapis.com/token\",\"auth_provider_x509_cert_url\":\"https://www.googleapis.com/oauth2/v1/certs\",\"client_x509_cert_url\":\"...\"}"
+
+
