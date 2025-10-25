@@ -4,13 +4,14 @@ publish_to: "none"
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.10.0-75.1.beta
-  flutter: ^3.36.0-0.1.pre
+  sdk: ^3.10.0-209.1.beta
+  flutter: ^3.38.0-0.1.pre
 
 resolution: workspace
 
 dependency_overrides:
   go_router: ^16.2.1
+  grpc: 4.2.0
 
 dependencies:
   auth_client:
@@ -71,7 +72,7 @@ dev_dependencies:
   flutterkaigi_lints:
     path: ../../packages/flutterkaigi_lints
   freezed: ^3.0.6
-  go_router_builder: ^4.0.0
+  go_router_builder: ^4.1.0
   json_serializable: ^6.9.5
   riverpod_generator: ^3.0.0-dev.17
   riverpod_lint: ^3.0.0-dev.17
