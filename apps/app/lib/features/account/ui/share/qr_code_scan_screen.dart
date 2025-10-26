@@ -23,6 +23,8 @@ class QrCodeScanScreen extends HookConsumerWidget {
     final authAsync = ref.watch(authProvider);
     final t = Translations.of(context);
     final debugInputController = useTextEditingController();
+    // QRコード検出の重複を防ぐためのフラグ
+    final isProcessing = useState(false);
 
     return Scaffold(
       appBar: AppBar(
@@ -73,11 +75,21 @@ class QrCodeScanScreen extends HookConsumerWidget {
           children: [
             MobileScanner(
               onDetect: (capture) async {
+                // 処理中の場合は無視
+                if (isProcessing.value) {
+                  return;
+                }
+
                 final barcodes = capture.barcodes;
                 for (final barcode in barcodes) {
                   final code = barcode.rawValue;
                   if (code != null && code != value.id) {
-                    await _showConnectionDialog(context, ref, code);
+                    isProcessing.value = true;
+                    try {
+                      await _executeConnection(context, ref, code);
+                    } finally {
+                      isProcessing.value = false;
+                    }
                   }
                 }
               },
@@ -175,13 +187,23 @@ class QrCodeScanScreen extends HookConsumerWidget {
                           const SizedBox(width: 8),
                           ElevatedButton(
                             onPressed: () async {
+                              // 処理中の場合は無視
+                              if (isProcessing.value) {
+                                return;
+                              }
+
                               final userId = debugInputController.text.trim();
                               if (userId.isNotEmpty && userId != value.id) {
-                                await _showConnectionDialog(
-                                  context,
-                                  ref,
-                                  userId,
-                                );
+                                isProcessing.value = true;
+                                try {
+                                  await _executeConnection(
+                                    context,
+                                    ref,
+                                    userId,
+                                  );
+                                } finally {
+                                  isProcessing.value = false;
+                                }
                               }
                             },
                             style: ElevatedButton.styleFrom(
@@ -211,36 +233,6 @@ class QrCodeScanScreen extends HookConsumerWidget {
     );
   }
 
-  Future<void> _showConnectionDialog(
-    BuildContext context,
-    WidgetRef ref,
-    String userId,
-  ) async {
-    final t = Translations.of(context);
-
-    final shouldConnect = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(t.account.profileshare.qrCodeScanScreen.confirmTitle),
-        content: Text(t.account.profileshare.qrCodeScanScreen.confirmMessage),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: Text(t.account.profileshare.qrCodeScanScreen.cancel),
-          ),
-          TextButton(
-            onPressed: () => Navigator.pop(context, true),
-            child: Text(t.account.profileshare.qrCodeScanScreen.connect),
-          ),
-        ],
-      ),
-    );
-
-    if ((shouldConnect ?? false) && context.mounted) {
-      await _executeConnection(context, ref, userId);
-    }
-  }
-
   Future<void> _executeConnection(
     BuildContext context,
     WidgetRef ref,
@@ -262,6 +254,9 @@ class QrCodeScanScreen extends HookConsumerWidget {
     try {
       final notifier = ref.read(profileShareProvider.notifier);
       await notifier.putProfileShare(userId);
+
+      // プロフィールシェアリストを更新
+      ref.invalidate(profileShareProvider);
 
       if (context.mounted) {
         Navigator.pop(context); // ローディング非表示

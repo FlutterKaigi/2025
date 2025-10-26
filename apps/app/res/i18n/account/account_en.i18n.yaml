@@ -83,10 +83,6 @@ profileshare:
     description: Scan others' QR code to exchange profiles
     instruction: Scan the QR code with your camera
     loginRequired: Login required
-    confirmTitle: Confirm Profile Share
-    confirmMessage: Share your profile with this user?
-    cancel: Cancel
-    connect: Share
     successMessage: Profile shared successfully
     errorMessage: Failed to share profile
     scanSuccess: QR code scanned successfully

@@ -83,10 +83,6 @@ profileshare:
     description: 相手のQRコードを読み取って、プロフィール交換します
     instruction: 相手のQRコードをカメラで読み取ってください
     loginRequired: ログインが必要です
-    confirmTitle: プロフィールシェア確認
-    confirmMessage: このユーザーとプロフィールをシェアしますか?
-    cancel: キャンセル
-    connect: シェアする
     successMessage: プロフィールシェアしました
     errorMessage: プロフィールシェアに失敗しました
     scanSuccess: QRコードを読み取りました
