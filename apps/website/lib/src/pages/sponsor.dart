@@ -24,7 +24,29 @@ class Sponsor extends StatelessComponent {
       [
         SectionLayout(
           id: sponsor.slug,
-          title: sponsor.name.toComponent,
+          title: span(
+            [sponsor.name.toComponent],
+            styles: Styles(
+              raw: {
+                'background': switch (sponsor.type) {
+                  SponsorType.platinum =>
+                    'linear-gradient(to bottom, #b7dce1, #6bb5c2)',
+                  SponsorType.gold =>
+                    'linear-gradient(to bottom, #ebd9a3, #daba58)',
+                  SponsorType.silver =>
+                    'linear-gradient(to bottom, #d6d7d7, #909c9e)',
+                  SponsorType.bronze =>
+                    'linear-gradient(to bottom, #bb967a, #946a4a)',
+                },
+                '-webkit-background-clip': 'text',
+                'background-clip': 'text',
+                'font-family': 'inherit',
+                'font-weight': 'inherit',
+                'font-size': 'inherit',
+                '-webkit-text-fill-color': 'transparent',
+              },
+            ),
+          ),
           children: [
             _SponsorIntro(sponsor),
           ],
@@ -50,6 +72,7 @@ class _SponsorIntro extends StatelessComponent {
         flexDirection: FlexDirection.column,
         alignItems: AlignItems.center,
         gap: Gap.all(1.rem),
+        backgroundColor: Colors.white,
       ),
       [
         img(
@@ -58,12 +81,6 @@ class _SponsorIntro extends StatelessComponent {
             width: 100.percent,
             maxWidth: 24.rem,
             backgroundColor: Colors.white,
-            shadow: BoxShadow(
-              offsetX: 2.px,
-              offsetY: 2.px,
-              blur: 4.px,
-              color: const Color.rgba(168, 168, 168, 0.25),
-            ),
           ),
         ),
         ul(
