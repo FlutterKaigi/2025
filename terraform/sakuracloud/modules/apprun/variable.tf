@@ -110,3 +110,8 @@ variable "name_suffix" {
   type        = string
   description = "Name Suffix"
 }
+
+variable "websocket_base_url" {
+  type        = string
+  description = "Websocket Base URL"
+}

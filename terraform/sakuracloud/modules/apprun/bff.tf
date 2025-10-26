@@ -74,6 +74,10 @@ resource "sakuracloud_apprun_application" "flutterkaigi-2025-bff" {
       key   = "R2_SECRET_ACCESS_KEY"
       value = var.r2_secret_access_key
     }
+    env {
+      key   = "WEBSOCKET_BASE_URL"
+      value = var.websocket_base_url
+    }
   }
   lifecycle {
     prevent_destroy = true

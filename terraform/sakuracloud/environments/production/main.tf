@@ -5,7 +5,7 @@ locals {
 
 module "container_registry" {
   source                          = "../../modules/container_registry"
-  container_registry_name_suffix = "2r4j"
+  container_registry_name_suffix  = "2r4j"
   env                             = local.env
   container_registry_password     = local.container_registry_password
   SAKURACLOUD_ACCESS_TOKEN        = var.SAKURACLOUD_ACCESS_TOKEN
@@ -24,7 +24,7 @@ module "docker" {
 
 module "apprun" {
   source                          = "../../modules/apprun"
-  name_suffix = "-2r4j"
+  name_suffix                     = "-2r4j"
   env                             = local.env
   app_run_max_scale               = 5
   container_registry_fqdn         = module.container_registry.container_registry_fqdn
@@ -34,8 +34,9 @@ module "apprun" {
   SAKURACLOUD_ACCESS_TOKEN        = var.SAKURACLOUD_ACCESS_TOKEN
   SAKURACLOUD_ACCESS_TOKEN_SECRET = var.SAKURACLOUD_ACCESS_TOKEN_SECRET
   internal_api_url                = "https://internal-api-proxy-production.flutterkaigi.workers.dev"
-  X_API_KEY                       = var.X_API_KEY
+  websocket_base_url              = "wss://2025-websocket.flutterkaigi.jp"
   logo_base_url                   = "https://2025-bucket.flutterkaigi.jp"
+  X_API_KEY                       = var.X_API_KEY
   # MEMO(YumNumm): Supabase側のTerraformから取得するようにする
   supabase_project_id       = "sotendzncvqiyfaxpydk"
   supabase_db_password      = var.SUPABASE_DB_PASSWORD_PRODUCTION
