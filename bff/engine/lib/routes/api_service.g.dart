@@ -19,6 +19,7 @@ Router _$ApiServiceRouter(ApiService service) {
   router.mount(r'/v1', service._sessionApiService.call);
   router.mount(r'/v1/tickets', service._ticketApiService.call);
   router.mount(r'/v1/app', service._appVersionApiService.call);
+  router.mount(r'/v1/websocket', service._websocketApiService.call);
   router.all(r'/<ignored|.*>', service._notFound);
   return router;
 }

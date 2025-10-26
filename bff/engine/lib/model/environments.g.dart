@@ -46,6 +46,10 @@ _Environments _$EnvironmentsFromJson(
         'R2_SECRET_ACCESS_KEY',
         (v) => v as String,
       ),
+      websocketBaseUrl: $checkedConvert(
+        'WEBSOCKET_BASE_URL',
+        (v) => v as String,
+      ),
       websocketJwtSecretBase64: $checkedConvert(
         'WEBSOCKET_JWT_SECRET_BASE64',
         (v) => v as String,
@@ -67,6 +71,7 @@ _Environments _$EnvironmentsFromJson(
     'r2BucketName': 'R2_BUCKET_NAME',
     'r2AccessKeyId': 'R2_ACCESS_KEY_ID',
     'r2SecretAccessKey': 'R2_SECRET_ACCESS_KEY',
+    'websocketBaseUrl': 'WEBSOCKET_BASE_URL',
     'websocketJwtSecretBase64': 'WEBSOCKET_JWT_SECRET_BASE64',
   },
 );
@@ -86,5 +91,6 @@ Map<String, dynamic> _$EnvironmentsToJson(_Environments instance) =>
       'R2_BUCKET_NAME': instance.r2BucketName,
       'R2_ACCESS_KEY_ID': instance.r2AccessKeyId,
       'R2_SECRET_ACCESS_KEY': instance.r2SecretAccessKey,
+      'WEBSOCKET_BASE_URL': instance.websocketBaseUrl,
       'WEBSOCKET_JWT_SECRET_BASE64': instance.websocketJwtSecretBase64,
     };
