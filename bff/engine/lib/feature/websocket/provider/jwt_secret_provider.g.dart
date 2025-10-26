@@ -2,7 +2,7 @@
 
 // ignore_for_file: type=lint, duplicate_ignore
 
-part of 'minio_provider.dart';
+part of 'jwt_secret_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -11,42 +11,43 @@ part of 'minio_provider.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(minio)
-const minioProvider = MinioProvider._();
+@ProviderFor(jwtSecret)
+const jwtSecretProvider = JwtSecretProvider._();
 
-final class MinioProvider extends $FunctionalProvider<Minio, Minio, Minio>
-    with $Provider<Minio> {
-  const MinioProvider._()
+final class JwtSecretProvider
+    extends $FunctionalProvider<JWTKey, JWTKey, JWTKey>
+    with $Provider<JWTKey> {
+  const JwtSecretProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'minioProvider',
+        name: r'jwtSecretProvider',
         isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$minioHash();
+  String debugGetCreateSourceHash() => _$jwtSecretHash();
 
   @$internal
   @override
-  $ProviderElement<Minio> $createElement($ProviderPointer pointer) =>
+  $ProviderElement<JWTKey> $createElement($ProviderPointer pointer) =>
       $ProviderElement(pointer);
 
   @override
-  Minio create(Ref ref) {
-    return minio(ref);
+  JWTKey create(Ref ref) {
+    return jwtSecret(ref);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(Minio value) {
+  Override overrideWithValue(JWTKey value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<Minio>(value),
+      providerOverride: $SyncValueProvider<JWTKey>(value),
     );
   }
 }
 
-String _$minioHash() => r'799da05251e6769d71e0c97a82876f6a0cde2491';
+String _$jwtSecretHash() => r'13955277aeb3aa5dd8b97e91b3b339be4dc645b9';
