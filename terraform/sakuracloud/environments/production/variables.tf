@@ -45,3 +45,9 @@ variable "R2_SECRET_ACCESS_KEY" {
   description = "R2 Secret Access Key"
   sensitive   = true
 }
+
+variable "FIREBASE_SERVICE_ACCOUNT_JSON_PRODUCTION_BASE64" {
+  type        = string
+  description = "Firebase Service Account JSON"
+  sensitive   = true
+}
