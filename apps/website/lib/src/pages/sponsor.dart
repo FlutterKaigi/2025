@@ -1,6 +1,7 @@
 import 'package:flutterkaigi_2025_website/src/components/external_link.dart';
 import 'package:flutterkaigi_2025_website/src/components/section_layout.dart';
 import 'package:flutterkaigi_2025_website/src/config/config.dart';
+import 'package:flutterkaigi_2025_website/src/constants/styles.dart';
 import 'package:flutterkaigi_2025_website/text.dart';
 import 'package:jaspr/jaspr.dart';
 
@@ -14,7 +15,10 @@ class Sponsor extends StatelessComponent {
       classes: 'main-background',
       styles: Styles(
         display: Display.flex,
-        padding: Padding.all(0.px),
+        position: const Position.relative(),
+        padding: Padding.symmetric(horizontal: 32.px),
+        boxSizing: BoxSizing.borderBox,
+        width: 100.percent,
         overflow: Overflow.hidden,
         flexDirection: FlexDirection.column,
         alignItems: AlignItems.center,
@@ -25,7 +29,7 @@ class Sponsor extends StatelessComponent {
         SectionLayout(
           id: sponsor.slug,
           title: span(
-            [sponsor.name.toComponent],
+            ['${sponsor.type.name} Sponsor'.toComponent],
             styles: Styles(
               raw: {
                 'background': switch (sponsor.type) {
@@ -65,7 +69,6 @@ class _SponsorIntro extends StatelessComponent {
     yield div(
       styles: Styles(
         display: Display.flex,
-        width: 100.percent,
         maxWidth: 960.px,
         padding: Spacing.all(1.rem),
         radius: BorderRadius.circular(1.rem),
@@ -82,6 +85,15 @@ class _SponsorIntro extends StatelessComponent {
             maxWidth: 24.rem,
             backgroundColor: Colors.white,
           ),
+        ),
+        h3(
+          styles: Styles(
+            width: 100.percent,
+            fontFamily: lexendFontFamily,
+            fontSize: 1.5.rem,
+            fontWeight: FontWeight.bold,
+          ),
+          [sponsor.name.toComponent],
         ),
         ul(
           styles: Styles(

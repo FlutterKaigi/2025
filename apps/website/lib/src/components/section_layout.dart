@@ -19,9 +19,9 @@ class SectionLayout extends StatelessComponent {
       id: id,
       styles: Styles(
         display: Display.flex,
-        width: const Unit.expression('calc(100% - 64px)'),
+        width: 100.percent,
         maxWidth: globalMaxWidth,
-        margin: Spacing.fromLTRB(32.px, 2.rem, 32.px, 0.px),
+        margin: Spacing.only(top: 2.rem),
         flexDirection: FlexDirection.column,
         justifyContent: JustifyContent.start,
       ),

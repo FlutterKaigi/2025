@@ -25,7 +25,7 @@ class Home extends StatelessComponent {
       classes: 'main-background',
       styles: Styles(
         display: Display.flex,
-        padding: Padding.all(0.px),
+        padding: Padding.symmetric(horizontal: 32.px),
         overflow: Overflow.hidden,
         flexDirection: FlexDirection.column,
         alignItems: AlignItems.center,
