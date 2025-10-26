@@ -45,6 +45,7 @@ module "apprun" {
   r2_bucket_name            = local.r2_bucket_name
   r2_access_key_id          = var.R2_ACCESS_KEY_ID
   r2_secret_access_key      = var.R2_SECRET_ACCESS_KEY
+  websocket_jwt_secret_base64 = var.WEBSOCKET_JWT_SECRET_BASE64
 }
 
 module "random_password" {

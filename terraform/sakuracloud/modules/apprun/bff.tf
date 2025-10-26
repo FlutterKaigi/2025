@@ -78,6 +78,10 @@ resource "sakuracloud_apprun_application" "flutterkaigi-2025-bff" {
       key   = "WEBSOCKET_BASE_URL"
       value = var.websocket_base_url
     }
+    env {
+      key = "WEBSOCKET_JWT_SECRET_BASE64"
+      value = var.websocket_jwt_secret_base64
+    }
   }
   lifecycle {
     prevent_destroy = true

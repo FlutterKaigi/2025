@@ -51,3 +51,9 @@ variable "FIREBASE_SERVICE_ACCOUNT_JSON_PRODUCTION_BASE64" {
   description = "Firebase Service Account JSON"
   sensitive   = true
 }
+
+variable "WEBSOCKET_JWT_SECRET_BASE64" {
+  type        = string
+  description = "Websocket JWT Secret Base64"
+  sensitive   = true
+}

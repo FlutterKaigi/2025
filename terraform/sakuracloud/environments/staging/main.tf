@@ -44,6 +44,7 @@ module "apprun" {
   r2_secret_access_key      = var.R2_SECRET_ACCESS_KEY
   websocket_base_url        = "wss://websocket-api-staging.flutterkaigi.workers.dev"
   name_suffix               = ""
+  websocket_jwt_secret_base64 = var.WEBSOCKET_JWT_SECRET_BASE64
 }
 
 module "random_password" {

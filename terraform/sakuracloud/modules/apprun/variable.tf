@@ -115,3 +115,9 @@ variable "websocket_base_url" {
   type        = string
   description = "Websocket Base URL"
 }
+
+variable "websocket_jwt_secret_base64" {
+  type        = string
+  description = "Websocket JWT Secret Base64"
+  sensitive   = true
+}
