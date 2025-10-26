@@ -49,4 +49,4 @@ final class MinioProvider extends $FunctionalProvider<Minio, Minio, Minio>
   }
 }
 
-String _$minioHash() => r'0013408d2a95ac18bd6e8c71e5517870b4d6c3ac';
+String _$minioHash() => r'799da05251e6769d71e0c97a82876f6a0cde2491';

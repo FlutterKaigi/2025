@@ -15,13 +15,13 @@
     "deploy:production": "turbo run deploy:production"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.2.6",
+    "@biomejs/biome": "^2.2.7",
     "@cspell/dict-dart": "^2.3.1",
     "@cspell/dict-flutter": "^1.1.1",
-    "@cspell/dict-software-terms": "^5.1.8",
+    "@cspell/dict-software-terms": "^5.1.9",
     "@cspell/dict-sql": "^2.2.1",
-    "cspell": "^9.2.1",
-    "supabase": "^2.51.0",
+    "cspell": "^9.2.2",
+    "supabase": "^2.53.6",
     "turbo": "^2.5.8"
   },
   "workspaces": [
@@ -34,6 +34,7 @@
     "bff/internal-api-proxy",
     "bff/payment-workflow-internal-api",
     "bff/ticket-sales-reporter",
+    "bff/fcm-internal-api",
     "bff/profile-share-internal-api",
     "bff/wallet-api",
     "bff/websocket-api",

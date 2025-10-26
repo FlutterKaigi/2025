@@ -45,3 +45,9 @@ variable "R2_SECRET_ACCESS_KEY" {
   description = "R2 Secret Access Key"
   sensitive   = true
 }
+
+variable "WEBSOCKET_JWT_SECRET_BASE64" {
+  type        = string
+  description = "Websocket JWT Secret Base64"
+  sensitive   = true
+}

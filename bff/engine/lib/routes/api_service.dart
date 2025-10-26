@@ -13,6 +13,7 @@ import 'package:engine/routes/session_api_service.dart';
 import 'package:engine/routes/sponsor_api_service.dart';
 import 'package:engine/routes/ticket_api_service.dart';
 import 'package:engine/routes/user_api_service.dart';
+import 'package:engine/routes/websocket_api_service.dart';
 import 'package:engine/util/json_response.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
@@ -70,6 +71,9 @@ class ApiService {
 
   @Route.mount('/v1/app')
   Router get _appVersionApiService => AppVersionApiService().router;
+
+  @Route.mount('/v1/websocket')
+  Router get _websocketApiService => WebsocketApiService().router;
 
   @Route.all('/<ignored|.*>')
   Future<Response> _notFound(Request request) async {

@@ -5,12 +5,14 @@ publish_to: none
 resolution: workspace
 
 environment:
-  sdk: ^3.10.0-75.1.beta
+  sdk: ^3.10.0-209.1.beta
 
 dependencies:
   bff_client:
     path: ../../packages/bff_client
+  clock: ^1.1.2
   collection: ^1.19.1
+  dart_jsonwebtoken: ^3.3.1
   db_client:
     path: ../../packages/db_client
   db_types:

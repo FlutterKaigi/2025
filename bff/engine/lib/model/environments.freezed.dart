@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Environments {
 
- String get supabaseUrl; String get supabaseServiceRoleKey; String? get cfVersionMetadataId; String? get cfVersionMetadataTag; String? get cfVersionMetadataTimestamp; String get postgresUrl; String get internalApiUrl; String get xApiKey; String get logoBaseUrl; String get cloudflareAccountId; String get r2BucketName; String get r2AccessKeyId; String get r2SecretAccessKey;
+ String get supabaseUrl; String get supabaseServiceRoleKey; String? get cfVersionMetadataId; String? get cfVersionMetadataTag; String? get cfVersionMetadataTimestamp; String get postgresUrl; String get internalApiUrl; String get xApiKey; String get logoBaseUrl; String get cloudflareAccountId; String get r2BucketName; String get r2AccessKeyId; String get r2SecretAccessKey; String get websocketBaseUrl; String get websocketJwtSecretBase64;
 /// Create a copy of Environments
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $EnvironmentsCopyWith<Environments> get copyWith => _$EnvironmentsCopyWithImpl<E
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Environments&&(identical(other.supabaseUrl, supabaseUrl) || other.supabaseUrl == supabaseUrl)&&(identical(other.supabaseServiceRoleKey, supabaseServiceRoleKey) || other.supabaseServiceRoleKey == supabaseServiceRoleKey)&&(identical(other.cfVersionMetadataId, cfVersionMetadataId) || other.cfVersionMetadataId == cfVersionMetadataId)&&(identical(other.cfVersionMetadataTag, cfVersionMetadataTag) || other.cfVersionMetadataTag == cfVersionMetadataTag)&&(identical(other.cfVersionMetadataTimestamp, cfVersionMetadataTimestamp) || other.cfVersionMetadataTimestamp == cfVersionMetadataTimestamp)&&(identical(other.postgresUrl, postgresUrl) || other.postgresUrl == postgresUrl)&&(identical(other.internalApiUrl, internalApiUrl) || other.internalApiUrl == internalApiUrl)&&(identical(other.xApiKey, xApiKey) || other.xApiKey == xApiKey)&&(identical(other.logoBaseUrl, logoBaseUrl) || other.logoBaseUrl == logoBaseUrl)&&(identical(other.cloudflareAccountId, cloudflareAccountId) || other.cloudflareAccountId == cloudflareAccountId)&&(identical(other.r2BucketName, r2BucketName) || other.r2BucketName == r2BucketName)&&(identical(other.r2AccessKeyId, r2AccessKeyId) || other.r2AccessKeyId == r2AccessKeyId)&&(identical(other.r2SecretAccessKey, r2SecretAccessKey) || other.r2SecretAccessKey == r2SecretAccessKey));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Environments&&(identical(other.supabaseUrl, supabaseUrl) || other.supabaseUrl == supabaseUrl)&&(identical(other.supabaseServiceRoleKey, supabaseServiceRoleKey) || other.supabaseServiceRoleKey == supabaseServiceRoleKey)&&(identical(other.cfVersionMetadataId, cfVersionMetadataId) || other.cfVersionMetadataId == cfVersionMetadataId)&&(identical(other.cfVersionMetadataTag, cfVersionMetadataTag) || other.cfVersionMetadataTag == cfVersionMetadataTag)&&(identical(other.cfVersionMetadataTimestamp, cfVersionMetadataTimestamp) || other.cfVersionMetadataTimestamp == cfVersionMetadataTimestamp)&&(identical(other.postgresUrl, postgresUrl) || other.postgresUrl == postgresUrl)&&(identical(other.internalApiUrl, internalApiUrl) || other.internalApiUrl == internalApiUrl)&&(identical(other.xApiKey, xApiKey) || other.xApiKey == xApiKey)&&(identical(other.logoBaseUrl, logoBaseUrl) || other.logoBaseUrl == logoBaseUrl)&&(identical(other.cloudflareAccountId, cloudflareAccountId) || other.cloudflareAccountId == cloudflareAccountId)&&(identical(other.r2BucketName, r2BucketName) || other.r2BucketName == r2BucketName)&&(identical(other.r2AccessKeyId, r2AccessKeyId) || other.r2AccessKeyId == r2AccessKeyId)&&(identical(other.r2SecretAccessKey, r2SecretAccessKey) || other.r2SecretAccessKey == r2SecretAccessKey)&&(identical(other.websocketBaseUrl, websocketBaseUrl) || other.websocketBaseUrl == websocketBaseUrl)&&(identical(other.websocketJwtSecretBase64, websocketJwtSecretBase64) || other.websocketJwtSecretBase64 == websocketJwtSecretBase64));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,supabaseUrl,supabaseServiceRoleKey,cfVersionMetadataId,cfVersionMetadataTag,cfVersionMetadataTimestamp,postgresUrl,internalApiUrl,xApiKey,logoBaseUrl,cloudflareAccountId,r2BucketName,r2AccessKeyId,r2SecretAccessKey);
+int get hashCode => Object.hash(runtimeType,supabaseUrl,supabaseServiceRoleKey,cfVersionMetadataId,cfVersionMetadataTag,cfVersionMetadataTimestamp,postgresUrl,internalApiUrl,xApiKey,logoBaseUrl,cloudflareAccountId,r2BucketName,r2AccessKeyId,r2SecretAccessKey,websocketBaseUrl,websocketJwtSecretBase64);
 
 @override
 String toString() {
-  return 'Environments(supabaseUrl: $supabaseUrl, supabaseServiceRoleKey: $supabaseServiceRoleKey, cfVersionMetadataId: $cfVersionMetadataId, cfVersionMetadataTag: $cfVersionMetadataTag, cfVersionMetadataTimestamp: $cfVersionMetadataTimestamp, postgresUrl: $postgresUrl, internalApiUrl: $internalApiUrl, xApiKey: $xApiKey, logoBaseUrl: $logoBaseUrl, cloudflareAccountId: $cloudflareAccountId, r2BucketName: $r2BucketName, r2AccessKeyId: $r2AccessKeyId, r2SecretAccessKey: $r2SecretAccessKey)';
+  return 'Environments(supabaseUrl: $supabaseUrl, supabaseServiceRoleKey: $supabaseServiceRoleKey, cfVersionMetadataId: $cfVersionMetadataId, cfVersionMetadataTag: $cfVersionMetadataTag, cfVersionMetadataTimestamp: $cfVersionMetadataTimestamp, postgresUrl: $postgresUrl, internalApiUrl: $internalApiUrl, xApiKey: $xApiKey, logoBaseUrl: $logoBaseUrl, cloudflareAccountId: $cloudflareAccountId, r2BucketName: $r2BucketName, r2AccessKeyId: $r2AccessKeyId, r2SecretAccessKey: $r2SecretAccessKey, websocketBaseUrl: $websocketBaseUrl, websocketJwtSecretBase64: $websocketJwtSecretBase64)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $EnvironmentsCopyWith<$Res>  {
   factory $EnvironmentsCopyWith(Environments value, $Res Function(Environments) _then) = _$EnvironmentsCopyWithImpl;
 @useResult
 $Res call({
- String supabaseUrl, String supabaseServiceRoleKey, String? cfVersionMetadataId, String? cfVersionMetadataTag, String? cfVersionMetadataTimestamp, String postgresUrl, String internalApiUrl, String xApiKey, String logoBaseUrl, String cloudflareAccountId, String r2BucketName, String r2AccessKeyId, String r2SecretAccessKey
+ String supabaseUrl, String supabaseServiceRoleKey, String? cfVersionMetadataId, String? cfVersionMetadataTag, String? cfVersionMetadataTimestamp, String postgresUrl, String internalApiUrl, String xApiKey, String logoBaseUrl, String cloudflareAccountId, String r2BucketName, String r2AccessKeyId, String r2SecretAccessKey, String websocketBaseUrl, String websocketJwtSecretBase64
 });
 
 
@@ -65,7 +65,7 @@ class _$EnvironmentsCopyWithImpl<$Res>
 
 /// Create a copy of Environments
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? supabaseUrl = null,Object? supabaseServiceRoleKey = null,Object? cfVersionMetadataId = freezed,Object? cfVersionMetadataTag = freezed,Object? cfVersionMetadataTimestamp = freezed,Object? postgresUrl = null,Object? internalApiUrl = null,Object? xApiKey = null,Object? logoBaseUrl = null,Object? cloudflareAccountId = null,Object? r2BucketName = null,Object? r2AccessKeyId = null,Object? r2SecretAccessKey = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? supabaseUrl = null,Object? supabaseServiceRoleKey = null,Object? cfVersionMetadataId = freezed,Object? cfVersionMetadataTag = freezed,Object? cfVersionMetadataTimestamp = freezed,Object? postgresUrl = null,Object? internalApiUrl = null,Object? xApiKey = null,Object? logoBaseUrl = null,Object? cloudflareAccountId = null,Object? r2BucketName = null,Object? r2AccessKeyId = null,Object? r2SecretAccessKey = null,Object? websocketBaseUrl = null,Object? websocketJwtSecretBase64 = null,}) {
   return _then(_self.copyWith(
 supabaseUrl: null == supabaseUrl ? _self.supabaseUrl : supabaseUrl // ignore: cast_nullable_to_non_nullable
 as String,supabaseServiceRoleKey: null == supabaseServiceRoleKey ? _self.supabaseServiceRoleKey : supabaseServiceRoleKey // ignore: cast_nullable_to_non_nullable
@@ -80,6 +80,8 @@ as String,cloudflareAccountId: null == cloudflareAccountId ? _self.cloudflareAcc
 as String,r2BucketName: null == r2BucketName ? _self.r2BucketName : r2BucketName // ignore: cast_nullable_to_non_nullable
 as String,r2AccessKeyId: null == r2AccessKeyId ? _self.r2AccessKeyId : r2AccessKeyId // ignore: cast_nullable_to_non_nullable
 as String,r2SecretAccessKey: null == r2SecretAccessKey ? _self.r2SecretAccessKey : r2SecretAccessKey // ignore: cast_nullable_to_non_nullable
+as String,websocketBaseUrl: null == websocketBaseUrl ? _self.websocketBaseUrl : websocketBaseUrl // ignore: cast_nullable_to_non_nullable
+as String,websocketJwtSecretBase64: null == websocketJwtSecretBase64 ? _self.websocketJwtSecretBase64 : websocketJwtSecretBase64 // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }
@@ -165,10 +167,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String supabaseUrl,  String supabaseServiceRoleKey,  String? cfVersionMetadataId,  String? cfVersionMetadataTag,  String? cfVersionMetadataTimestamp,  String postgresUrl,  String internalApiUrl,  String xApiKey,  String logoBaseUrl,  String cloudflareAccountId,  String r2BucketName,  String r2AccessKeyId,  String r2SecretAccessKey)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String supabaseUrl,  String supabaseServiceRoleKey,  String? cfVersionMetadataId,  String? cfVersionMetadataTag,  String? cfVersionMetadataTimestamp,  String postgresUrl,  String internalApiUrl,  String xApiKey,  String logoBaseUrl,  String cloudflareAccountId,  String r2BucketName,  String r2AccessKeyId,  String r2SecretAccessKey,  String websocketBaseUrl,  String websocketJwtSecretBase64)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Environments() when $default != null:
-return $default(_that.supabaseUrl,_that.supabaseServiceRoleKey,_that.cfVersionMetadataId,_that.cfVersionMetadataTag,_that.cfVersionMetadataTimestamp,_that.postgresUrl,_that.internalApiUrl,_that.xApiKey,_that.logoBaseUrl,_that.cloudflareAccountId,_that.r2BucketName,_that.r2AccessKeyId,_that.r2SecretAccessKey);case _:
+return $default(_that.supabaseUrl,_that.supabaseServiceRoleKey,_that.cfVersionMetadataId,_that.cfVersionMetadataTag,_that.cfVersionMetadataTimestamp,_that.postgresUrl,_that.internalApiUrl,_that.xApiKey,_that.logoBaseUrl,_that.cloudflareAccountId,_that.r2BucketName,_that.r2AccessKeyId,_that.r2SecretAccessKey,_that.websocketBaseUrl,_that.websocketJwtSecretBase64);case _:
   return orElse();
 
 }
@@ -186,10 +188,10 @@ return $default(_that.supabaseUrl,_that.supabaseServiceRoleKey,_that.cfVersionMe
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String supabaseUrl,  String supabaseServiceRoleKey,  String? cfVersionMetadataId,  String? cfVersionMetadataTag,  String? cfVersionMetadataTimestamp,  String postgresUrl,  String internalApiUrl,  String xApiKey,  String logoBaseUrl,  String cloudflareAccountId,  String r2BucketName,  String r2AccessKeyId,  String r2SecretAccessKey)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String supabaseUrl,  String supabaseServiceRoleKey,  String? cfVersionMetadataId,  String? cfVersionMetadataTag,  String? cfVersionMetadataTimestamp,  String postgresUrl,  String internalApiUrl,  String xApiKey,  String logoBaseUrl,  String cloudflareAccountId,  String r2BucketName,  String r2AccessKeyId,  String r2SecretAccessKey,  String websocketBaseUrl,  String websocketJwtSecretBase64)  $default,) {final _that = this;
 switch (_that) {
 case _Environments():
-return $default(_that.supabaseUrl,_that.supabaseServiceRoleKey,_that.cfVersionMetadataId,_that.cfVersionMetadataTag,_that.cfVersionMetadataTimestamp,_that.postgresUrl,_that.internalApiUrl,_that.xApiKey,_that.logoBaseUrl,_that.cloudflareAccountId,_that.r2BucketName,_that.r2AccessKeyId,_that.r2SecretAccessKey);case _:
+return $default(_that.supabaseUrl,_that.supabaseServiceRoleKey,_that.cfVersionMetadataId,_that.cfVersionMetadataTag,_that.cfVersionMetadataTimestamp,_that.postgresUrl,_that.internalApiUrl,_that.xApiKey,_that.logoBaseUrl,_that.cloudflareAccountId,_that.r2BucketName,_that.r2AccessKeyId,_that.r2SecretAccessKey,_that.websocketBaseUrl,_that.websocketJwtSecretBase64);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -206,10 +208,10 @@ return $default(_that.supabaseUrl,_that.supabaseServiceRoleKey,_that.cfVersionMe
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String supabaseUrl,  String supabaseServiceRoleKey,  String? cfVersionMetadataId,  String? cfVersionMetadataTag,  String? cfVersionMetadataTimestamp,  String postgresUrl,  String internalApiUrl,  String xApiKey,  String logoBaseUrl,  String cloudflareAccountId,  String r2BucketName,  String r2AccessKeyId,  String r2SecretAccessKey)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String supabaseUrl,  String supabaseServiceRoleKey,  String? cfVersionMetadataId,  String? cfVersionMetadataTag,  String? cfVersionMetadataTimestamp,  String postgresUrl,  String internalApiUrl,  String xApiKey,  String logoBaseUrl,  String cloudflareAccountId,  String r2BucketName,  String r2AccessKeyId,  String r2SecretAccessKey,  String websocketBaseUrl,  String websocketJwtSecretBase64)?  $default,) {final _that = this;
 switch (_that) {
 case _Environments() when $default != null:
-return $default(_that.supabaseUrl,_that.supabaseServiceRoleKey,_that.cfVersionMetadataId,_that.cfVersionMetadataTag,_that.cfVersionMetadataTimestamp,_that.postgresUrl,_that.internalApiUrl,_that.xApiKey,_that.logoBaseUrl,_that.cloudflareAccountId,_that.r2BucketName,_that.r2AccessKeyId,_that.r2SecretAccessKey);case _:
+return $default(_that.supabaseUrl,_that.supabaseServiceRoleKey,_that.cfVersionMetadataId,_that.cfVersionMetadataTag,_that.cfVersionMetadataTimestamp,_that.postgresUrl,_that.internalApiUrl,_that.xApiKey,_that.logoBaseUrl,_that.cloudflareAccountId,_that.r2BucketName,_that.r2AccessKeyId,_that.r2SecretAccessKey,_that.websocketBaseUrl,_that.websocketJwtSecretBase64);case _:
   return null;
 
 }
@@ -221,7 +223,7 @@ return $default(_that.supabaseUrl,_that.supabaseServiceRoleKey,_that.cfVersionMe
 
 @JsonSerializable(fieldRename: FieldRename.screamingSnake)
 class _Environments extends Environments {
-  const _Environments({required this.supabaseUrl, required this.supabaseServiceRoleKey, required this.cfVersionMetadataId, required this.cfVersionMetadataTag, required this.cfVersionMetadataTimestamp, required this.postgresUrl, required this.internalApiUrl, required this.xApiKey, required this.logoBaseUrl, required this.cloudflareAccountId, required this.r2BucketName, required this.r2AccessKeyId, required this.r2SecretAccessKey}): super._();
+  const _Environments({required this.supabaseUrl, required this.supabaseServiceRoleKey, required this.cfVersionMetadataId, required this.cfVersionMetadataTag, required this.cfVersionMetadataTimestamp, required this.postgresUrl, required this.internalApiUrl, required this.xApiKey, required this.logoBaseUrl, required this.cloudflareAccountId, required this.r2BucketName, required this.r2AccessKeyId, required this.r2SecretAccessKey, required this.websocketBaseUrl, required this.websocketJwtSecretBase64}): super._();
   factory _Environments.fromJson(Map<String, dynamic> json) => _$EnvironmentsFromJson(json);
 
 @override final  String supabaseUrl;
@@ -237,6 +239,8 @@ class _Environments extends Environments {
 @override final  String r2BucketName;
 @override final  String r2AccessKeyId;
 @override final  String r2SecretAccessKey;
+@override final  String websocketBaseUrl;
+@override final  String websocketJwtSecretBase64;
 
 /// Create a copy of Environments
 /// with the given fields replaced by the non-null parameter values.
@@ -251,16 +255,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Environments&&(identical(other.supabaseUrl, supabaseUrl) || other.supabaseUrl == supabaseUrl)&&(identical(other.supabaseServiceRoleKey, supabaseServiceRoleKey) || other.supabaseServiceRoleKey == supabaseServiceRoleKey)&&(identical(other.cfVersionMetadataId, cfVersionMetadataId) || other.cfVersionMetadataId == cfVersionMetadataId)&&(identical(other.cfVersionMetadataTag, cfVersionMetadataTag) || other.cfVersionMetadataTag == cfVersionMetadataTag)&&(identical(other.cfVersionMetadataTimestamp, cfVersionMetadataTimestamp) || other.cfVersionMetadataTimestamp == cfVersionMetadataTimestamp)&&(identical(other.postgresUrl, postgresUrl) || other.postgresUrl == postgresUrl)&&(identical(other.internalApiUrl, internalApiUrl) || other.internalApiUrl == internalApiUrl)&&(identical(other.xApiKey, xApiKey) || other.xApiKey == xApiKey)&&(identical(other.logoBaseUrl, logoBaseUrl) || other.logoBaseUrl == logoBaseUrl)&&(identical(other.cloudflareAccountId, cloudflareAccountId) || other.cloudflareAccountId == cloudflareAccountId)&&(identical(other.r2BucketName, r2BucketName) || other.r2BucketName == r2BucketName)&&(identical(other.r2AccessKeyId, r2AccessKeyId) || other.r2AccessKeyId == r2AccessKeyId)&&(identical(other.r2SecretAccessKey, r2SecretAccessKey) || other.r2SecretAccessKey == r2SecretAccessKey));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Environments&&(identical(other.supabaseUrl, supabaseUrl) || other.supabaseUrl == supabaseUrl)&&(identical(other.supabaseServiceRoleKey, supabaseServiceRoleKey) || other.supabaseServiceRoleKey == supabaseServiceRoleKey)&&(identical(other.cfVersionMetadataId, cfVersionMetadataId) || other.cfVersionMetadataId == cfVersionMetadataId)&&(identical(other.cfVersionMetadataTag, cfVersionMetadataTag) || other.cfVersionMetadataTag == cfVersionMetadataTag)&&(identical(other.cfVersionMetadataTimestamp, cfVersionMetadataTimestamp) || other.cfVersionMetadataTimestamp == cfVersionMetadataTimestamp)&&(identical(other.postgresUrl, postgresUrl) || other.postgresUrl == postgresUrl)&&(identical(other.internalApiUrl, internalApiUrl) || other.internalApiUrl == internalApiUrl)&&(identical(other.xApiKey, xApiKey) || other.xApiKey == xApiKey)&&(identical(other.logoBaseUrl, logoBaseUrl) || other.logoBaseUrl == logoBaseUrl)&&(identical(other.cloudflareAccountId, cloudflareAccountId) || other.cloudflareAccountId == cloudflareAccountId)&&(identical(other.r2BucketName, r2BucketName) || other.r2BucketName == r2BucketName)&&(identical(other.r2AccessKeyId, r2AccessKeyId) || other.r2AccessKeyId == r2AccessKeyId)&&(identical(other.r2SecretAccessKey, r2SecretAccessKey) || other.r2SecretAccessKey == r2SecretAccessKey)&&(identical(other.websocketBaseUrl, websocketBaseUrl) || other.websocketBaseUrl == websocketBaseUrl)&&(identical(other.websocketJwtSecretBase64, websocketJwtSecretBase64) || other.websocketJwtSecretBase64 == websocketJwtSecretBase64));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,supabaseUrl,supabaseServiceRoleKey,cfVersionMetadataId,cfVersionMetadataTag,cfVersionMetadataTimestamp,postgresUrl,internalApiUrl,xApiKey,logoBaseUrl,cloudflareAccountId,r2BucketName,r2AccessKeyId,r2SecretAccessKey);
+int get hashCode => Object.hash(runtimeType,supabaseUrl,supabaseServiceRoleKey,cfVersionMetadataId,cfVersionMetadataTag,cfVersionMetadataTimestamp,postgresUrl,internalApiUrl,xApiKey,logoBaseUrl,cloudflareAccountId,r2BucketName,r2AccessKeyId,r2SecretAccessKey,websocketBaseUrl,websocketJwtSecretBase64);
 
 @override
 String toString() {
-  return 'Environments(supabaseUrl: $supabaseUrl, supabaseServiceRoleKey: $supabaseServiceRoleKey, cfVersionMetadataId: $cfVersionMetadataId, cfVersionMetadataTag: $cfVersionMetadataTag, cfVersionMetadataTimestamp: $cfVersionMetadataTimestamp, postgresUrl: $postgresUrl, internalApiUrl: $internalApiUrl, xApiKey: $xApiKey, logoBaseUrl: $logoBaseUrl, cloudflareAccountId: $cloudflareAccountId, r2BucketName: $r2BucketName, r2AccessKeyId: $r2AccessKeyId, r2SecretAccessKey: $r2SecretAccessKey)';
+  return 'Environments(supabaseUrl: $supabaseUrl, supabaseServiceRoleKey: $supabaseServiceRoleKey, cfVersionMetadataId: $cfVersionMetadataId, cfVersionMetadataTag: $cfVersionMetadataTag, cfVersionMetadataTimestamp: $cfVersionMetadataTimestamp, postgresUrl: $postgresUrl, internalApiUrl: $internalApiUrl, xApiKey: $xApiKey, logoBaseUrl: $logoBaseUrl, cloudflareAccountId: $cloudflareAccountId, r2BucketName: $r2BucketName, r2AccessKeyId: $r2AccessKeyId, r2SecretAccessKey: $r2SecretAccessKey, websocketBaseUrl: $websocketBaseUrl, websocketJwtSecretBase64: $websocketJwtSecretBase64)';
 }
 
 
@@ -271,7 +275,7 @@ abstract mixin class _$EnvironmentsCopyWith<$Res> implements $EnvironmentsCopyWi
   factory _$EnvironmentsCopyWith(_Environments value, $Res Function(_Environments) _then) = __$EnvironmentsCopyWithImpl;
 @override @useResult
 $Res call({
- String supabaseUrl, String supabaseServiceRoleKey, String? cfVersionMetadataId, String? cfVersionMetadataTag, String? cfVersionMetadataTimestamp, String postgresUrl, String internalApiUrl, String xApiKey, String logoBaseUrl, String cloudflareAccountId, String r2BucketName, String r2AccessKeyId, String r2SecretAccessKey
+ String supabaseUrl, String supabaseServiceRoleKey, String? cfVersionMetadataId, String? cfVersionMetadataTag, String? cfVersionMetadataTimestamp, String postgresUrl, String internalApiUrl, String xApiKey, String logoBaseUrl, String cloudflareAccountId, String r2BucketName, String r2AccessKeyId, String r2SecretAccessKey, String websocketBaseUrl, String websocketJwtSecretBase64
 });
 
 
@@ -288,7 +292,7 @@ class __$EnvironmentsCopyWithImpl<$Res>
 
 /// Create a copy of Environments
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? supabaseUrl = null,Object? supabaseServiceRoleKey = null,Object? cfVersionMetadataId = freezed,Object? cfVersionMetadataTag = freezed,Object? cfVersionMetadataTimestamp = freezed,Object? postgresUrl = null,Object? internalApiUrl = null,Object? xApiKey = null,Object? logoBaseUrl = null,Object? cloudflareAccountId = null,Object? r2BucketName = null,Object? r2AccessKeyId = null,Object? r2SecretAccessKey = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? supabaseUrl = null,Object? supabaseServiceRoleKey = null,Object? cfVersionMetadataId = freezed,Object? cfVersionMetadataTag = freezed,Object? cfVersionMetadataTimestamp = freezed,Object? postgresUrl = null,Object? internalApiUrl = null,Object? xApiKey = null,Object? logoBaseUrl = null,Object? cloudflareAccountId = null,Object? r2BucketName = null,Object? r2AccessKeyId = null,Object? r2SecretAccessKey = null,Object? websocketBaseUrl = null,Object? websocketJwtSecretBase64 = null,}) {
   return _then(_Environments(
 supabaseUrl: null == supabaseUrl ? _self.supabaseUrl : supabaseUrl // ignore: cast_nullable_to_non_nullable
 as String,supabaseServiceRoleKey: null == supabaseServiceRoleKey ? _self.supabaseServiceRoleKey : supabaseServiceRoleKey // ignore: cast_nullable_to_non_nullable
@@ -303,6 +307,8 @@ as String,cloudflareAccountId: null == cloudflareAccountId ? _self.cloudflareAcc
 as String,r2BucketName: null == r2BucketName ? _self.r2BucketName : r2BucketName // ignore: cast_nullable_to_non_nullable
 as String,r2AccessKeyId: null == r2AccessKeyId ? _self.r2AccessKeyId : r2AccessKeyId // ignore: cast_nullable_to_non_nullable
 as String,r2SecretAccessKey: null == r2SecretAccessKey ? _self.r2SecretAccessKey : r2SecretAccessKey // ignore: cast_nullable_to_non_nullable
+as String,websocketBaseUrl: null == websocketBaseUrl ? _self.websocketBaseUrl : websocketBaseUrl // ignore: cast_nullable_to_non_nullable
+as String,websocketJwtSecretBase64: null == websocketJwtSecretBase64 ? _self.websocketJwtSecretBase64 : websocketJwtSecretBase64 // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }

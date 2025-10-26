@@ -15,7 +15,7 @@
   "dependencies": {
     "@2025/database": "workspace:*",
     "@hono/valibot-validator": "^0.5.3",
-    "hono": "4.10.1",
+    "hono": "4.10.3",
     "stripe": "^18.5.0",
     "valibot": "^1.1.0"
   },

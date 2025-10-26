@@ -1,5 +1,5 @@
 resource "sakuracloud_apprun_application" "flutterkaigi-2025-bff" {
-  name            = "flutterkaigi-2025-${var.env}"
+  name            = "flutterkaigi-2025-${var.env}${var.name_suffix}"
   timeout_seconds = 20
   port            = 8080
   max_scale       = var.app_run_max_scale
@@ -73,6 +73,14 @@ resource "sakuracloud_apprun_application" "flutterkaigi-2025-bff" {
     env {
       key   = "R2_SECRET_ACCESS_KEY"
       value = var.r2_secret_access_key
+    }
+    env {
+      key   = "WEBSOCKET_BASE_URL"
+      value = var.websocket_base_url
+    }
+    env {
+      key = "WEBSOCKET_JWT_SECRET_BASE64"
+      value = var.websocket_jwt_secret_base64
     }
   }
   lifecycle {

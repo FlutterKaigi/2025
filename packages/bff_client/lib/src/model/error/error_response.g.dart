@@ -43,5 +43,6 @@ const _$ErrorCodeEnumMap = {
   ErrorCode.badRequest: 'BAD_REQUEST',
   ErrorCode.proxyError: 'PROXY_ERROR',
   ErrorCode.rateLimitExceeded: 'RATE_LIMIT_EXCEEDED',
+  ErrorCode.upgradeRequired: 'UPGRADE_REQUIRED',
   ErrorCode.unknownEnumField: 'UNKNOWN_ENUM_FIELD',
 };
