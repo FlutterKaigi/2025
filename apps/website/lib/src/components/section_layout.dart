@@ -10,7 +10,7 @@ class SectionLayout extends StatelessComponent {
   });
 
   final String id;
-  final String title;
+  final Component title;
   final Iterable<Component> children;
 
   @override
@@ -33,7 +33,7 @@ class SectionLayout extends StatelessComponent {
             fontSize: 2.rem,
             fontWeight: FontWeight.w900,
           ),
-          [text(title)],
+          [title],
         ),
         ...children,
       ],

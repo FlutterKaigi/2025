@@ -24,7 +24,7 @@ class Sponsor extends StatelessComponent {
       [
         SectionLayout(
           id: sponsor.slug,
-          title: sponsor.name,
+          title: sponsor.name.toComponent,
           children: [
             _SponsorIntro(sponsor),
           ],
