@@ -6,6 +6,28 @@ class TicketPurchaseDbClient {
 
   final Executor _executor;
 
+  /// チケット購入情報を取得
+  Future<TicketPurchases?> getTicketPurchaseById(String ticketPurchaseId) async {
+    final result = await _executor.execute(
+      '''
+        SELECT *, status::text AS "status"
+        FROM ticket_purchases
+        WHERE id = @ticket_purchase_id
+        LIMIT 1
+      ''',
+      parameters: {
+        'ticket_purchase_id': ticketPurchaseId,
+      },
+    );
+
+    final row = result.firstOrNull;
+    if (row == null) {
+      return null;
+    }
+
+    return TicketPurchases.fromJson(row.toColumnMap());
+  }
+
   /// ユーザーの特定チケットタイプの購入情報をすべて取得
   /// 複数の購入記録がある場合はすべて返す（作成日時の降順）
   Future<List<TicketPurchases>> getUserTicketPurchase(

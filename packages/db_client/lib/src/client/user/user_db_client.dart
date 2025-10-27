@@ -6,6 +6,28 @@ class UserDbClient {
 
   final Executor _executor;
 
+  /// ユーザー情報を取得
+  Future<Users?> getUser(String userId) async {
+    final result = await _executor.execute(
+      '''
+        SELECT *
+        FROM public.users
+        WHERE id = @user_id AND deleted_at IS NULL
+        LIMIT 1
+      ''',
+      parameters: {
+        'user_id': userId,
+      },
+    );
+
+    final row = result.firstOrNull;
+    if (row == null) {
+      return null;
+    }
+
+    return Users.fromJson(row.toColumnMap());
+  }
+
   Future<UserAndUserRoles> getUserAndUserRoles(String userId) async {
     final result = await _executor.execute(
       '''
