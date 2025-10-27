@@ -13,10 +13,12 @@ module "container_registry" {
 }
 
 module "docker" {
-  source                   = "../../modules/docker"
-  docker_registry_address  = module.container_registry.container_registry_fqdn
-  docker_registry_username = module.container_registry.container_registry_username
-  docker_registry_password = module.container_registry.container_registry_password
+  source                        = "../../modules/docker"
+  docker_registry_address       = module.container_registry.container_registry_fqdn
+  docker_registry_username      = module.container_registry.container_registry_username
+  docker_registry_password      = module.container_registry.container_registry_password
+  enable_fcm_internal_api       = false
+  firebase_service_account_json = "{}" # MEMO(YumNumm): FCM Internal APIは使わないので空でセット
 }
 
 module "apprun" {
@@ -40,6 +42,9 @@ module "apprun" {
   r2_bucket_name            = local.r2_bucket_name
   r2_access_key_id          = var.R2_ACCESS_KEY_ID
   r2_secret_access_key      = var.R2_SECRET_ACCESS_KEY
+  websocket_base_url        = "wss://websocket-api-staging.flutterkaigi.workers.dev"
+  name_suffix               = ""
+  websocket_jwt_secret_base64 = var.WEBSOCKET_JWT_SECRET_BASE64
 }
 
 module "random_password" {

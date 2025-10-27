@@ -1,66 +1,55 @@
-[tools."aqua:suzuki-shunsuke/tfcmt"]
+[[tools."aqua:suzuki-shunsuke/tfcmt"]]
 version = "4.14.12"
 backend = "aqua:suzuki-shunsuke/tfcmt"
 
-[tools.aws-cli]
+[[tools.aws-cli]]
 version = "2.31.13"
 backend = "aqua:aws/aws-cli"
 
-[tools.aws-cli.checksums]
-"AWSCLIV2-2.31.13.pkg" = "sha256:6e8e5bf2e46da861de22f0c27c67e9563f18d0eb2a70aa02e8275fbd138007a9"
-
-[tools.bun]
+[[tools.bun]]
 version = "1.2.21"
 backend = "core:bun"
 
-[tools.dprint]
+[[tools.dprint]]
 version = "0.50.2"
 backend = "aqua:dprint/dprint"
 
-[tools.flutter]
+[[tools.flutter]]
 version = "3.38.0-0.1.pre-beta"
 backend = "asdf:flutter"
 
-[tools.node]
+[[tools.node]]
 version = "24.4.0"
 backend = "core:node"
 
-[tools."pipx:codemagic-cli-tools"]
+[[tools."pipx:codemagic-cli-tools"]]
 version = "0.61.1"
 backend = "pipx:codemagic-cli-tools"
 
-[tools.rclone]
+[[tools.rclone]]
 version = "1.71.1"
 backend = "aqua:rclone/rclone"
 
-[tools.rclone.checksums]
-"rclone-v1.71.1-osx-arm64.zip" = "sha256:8b7a2c57680d769e33d8616cabc214831d3bddcdb4da0d40a263ede63b15acce"
-
-[tools.stripe]
+[[tools.stripe]]
 version = "1.31.0"
 backend = "aqua:stripe/stripe-cli"
 
-[tools.stripe.checksums]
-"stripe_1.31.0_mac-os_arm64.tar.gz" = "sha256:b4d2b0635a889d40973ccea07bc148709fa51b8baad27d88dacdc9c88431a9c3"
+[[tools.swift]]
+version = "6.2"
+backend = "core:swift"
 
-[tools.terraform]
+[[tools.terraform]]
 version = "1.13.3"
 backend = "aqua:hashicorp/terraform"
 
-[tools.tflint]
+[[tools.tflint]]
 version = "0.59.1"
 backend = "aqua:terraform-linters/tflint"
 
-[tools.uv]
+[[tools.uv]]
 version = "0.8.17"
 backend = "aqua:astral-sh/uv"
 
-[tools.uv.checksums]
-"uv-aarch64-apple-darwin.tar.gz" = "sha256:e4d4859d7726298daa4c12e114f269ff282b2cfc2b415dc0b2ca44ae2dbd358e"
-
-[tools.websocat]
+[[tools.websocat]]
 version = "1.14.0"
 backend = "aqua:vi/websocat"
-
-[tools.websocat.checksums]
-"websocat.x86_64-apple-darwin" = "sha256:ef7d6e913dd38e2ae100cd12de6e0d93a7ed4e3155f839ae7be2d6bce774bc1d"

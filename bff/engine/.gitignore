@@ -4,3 +4,5 @@
 
 !/.env.example
 /.env*
+
+/*.pem
