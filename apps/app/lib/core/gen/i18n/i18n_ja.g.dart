@@ -97,6 +97,7 @@ class TranslationsAccountJa {
 	String get settings => 'アカウント設定';
 
 	late final TranslationsAccountProfileJa profile = TranslationsAccountProfileJa.internal(_root);
+	late final TranslationsAccountProfileshareJa profileshare = TranslationsAccountProfileshareJa.internal(_root);
 }
 
 // Path: auth
@@ -108,6 +109,9 @@ class TranslationsAuthJa {
 	// Translations
 	late final TranslationsAuthGuestJa guest = TranslationsAuthGuestJa.internal(_root);
 	late final TranslationsAuthErrorJa error = TranslationsAuthErrorJa.internal(_root);
+
+	/// ja: 'ログインが必要です'
+	String get loginRequired => 'ログインが必要です';
 }
 
 // Path: common
@@ -315,6 +319,31 @@ class TranslationsAccountProfileJa {
 	late final TranslationsAccountProfileImageJa image = TranslationsAccountProfileImageJa.internal(_root);
 }
 
+// Path: account.profileshare
+class TranslationsAccountProfileshareJa {
+	TranslationsAccountProfileshareJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'プロフィール交換'
+	String get title => 'プロフィール交換';
+
+	/// ja: 'QRコード表示'
+	String get qrCode => 'QRコード表示';
+
+	/// ja: 'QRコード読み取り'
+	String get qrCodeScan => 'QRコード読み取り';
+
+	/// ja: '交換履歴'
+	String get friendsList => '交換履歴';
+
+	late final TranslationsAccountProfileshareQrCodeDisplayJa qrCodeDisplay = TranslationsAccountProfileshareQrCodeDisplayJa.internal(_root);
+	late final TranslationsAccountProfileshareQrCodeScanScreenJa qrCodeScanScreen = TranslationsAccountProfileshareQrCodeScanScreenJa.internal(_root);
+	late final TranslationsAccountProfileshareFriendsListScreenJa friendsListScreen = TranslationsAccountProfileshareFriendsListScreenJa.internal(_root);
+}
+
 // Path: auth.guest
 class TranslationsAuthGuestJa {
 	TranslationsAuthGuestJa.internal(this._root);
@@ -440,6 +469,8 @@ class TranslationsCommonDebugJa {
 
 	/// ja: 'GO'
 	String get go => 'GO';
+
+	late final TranslationsCommonDebugProfileShareJa profileShare = TranslationsCommonDebugProfileShareJa.internal(_root);
 }
 
 // Path: news.tile
@@ -805,6 +836,93 @@ class TranslationsAccountProfileImageJa {
 	String get reset => 'リセット';
 }
 
+// Path: account.profileshare.qrCodeDisplay
+class TranslationsAccountProfileshareQrCodeDisplayJa {
+	TranslationsAccountProfileshareQrCodeDisplayJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'QRコード表示'
+	String get title => 'QRコード表示';
+
+	/// ja: '自分のQRコードを表示して、相手に読み取ってもらいます'
+	String get description => '自分のQRコードを表示して、相手に読み取ってもらいます';
+
+	/// ja: 'このQRコードを相手に読み取ってもらってください'
+	String get instruction => 'このQRコードを相手に読み取ってもらってください';
+}
+
+// Path: account.profileshare.qrCodeScanScreen
+class TranslationsAccountProfileshareQrCodeScanScreenJa {
+	TranslationsAccountProfileshareQrCodeScanScreenJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'QRコード読み取り'
+	String get title => 'QRコード読み取り';
+
+	/// ja: '相手のQRコードを読み取って、プロフィール交換します'
+	String get description => '相手のQRコードを読み取って、プロフィール交換します';
+
+	/// ja: '相手のQRコードをカメラで読み取ってください'
+	String get instruction => '相手のQRコードをカメラで読み取ってください';
+
+	/// ja: 'ログインが必要です'
+	String get loginRequired => 'ログインが必要です';
+
+	/// ja: 'プロフィールシェアしました'
+	String get successMessage => 'プロフィールシェアしました';
+
+	/// ja: 'プロフィールシェアに失敗しました'
+	String get errorMessage => 'プロフィールシェアに失敗しました';
+
+	/// ja: 'QRコードを読み取りました'
+	String get scanSuccess => 'QRコードを読み取りました';
+
+	/// ja: 'プロフィール交換しました'
+	String get exchangeSuccess => 'プロフィール交換しました';
+
+	/// ja: 'プロフィール交換に失敗しました'
+	String get exchangeFailed => 'プロフィール交換に失敗しました';
+
+	/// ja: 'すでにプロフィール交換済みです'
+	String get alreadyFriends => 'すでにプロフィール交換済みです';
+
+	/// ja: '無効なQRコードです'
+	String get invalidQrCode => '無効なQRコードです';
+
+	/// ja: '自分自身とプロフィール交換はできません'
+	String get cannotExchangeWithSelf => '自分自身とプロフィール交換はできません';
+}
+
+// Path: account.profileshare.friendsListScreen
+class TranslationsAccountProfileshareFriendsListScreenJa {
+	TranslationsAccountProfileshareFriendsListScreenJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '交換履歴'
+	String get title => '交換履歴';
+
+	/// ja: 'まだプロフィール交換していません'
+	String get emptyMessage => 'まだプロフィール交換していません';
+
+	/// ja: '交換日時'
+	String get connectedAt => '交換日時';
+
+	/// ja: '友達リストの読み込みに失敗しました'
+	String get errorLoadingFriends => '友達リストの読み込みに失敗しました';
+
+	/// ja: 'をコピーしました'
+	String get copiedToClipboard => 'をコピーしました';
+}
+
 // Path: common.error.notFound
 class TranslationsCommonErrorNotFoundJa {
 	TranslationsCommonErrorNotFoundJa.internal(this._root);
@@ -871,6 +989,24 @@ class TranslationsCommonErrorGeneralJa {
 	String get occurred => 'エラーが発生しました';
 }
 
+// Path: common.debug.profileShare
+class TranslationsCommonDebugProfileShareJa {
+	TranslationsCommonDebugProfileShareJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'Debug'
+	String get title => 'Debug';
+
+	/// ja: 'ユーザーIDを入力してください'
+	String get userIdPlaceholder => 'ユーザーIDを入力してください';
+
+	/// ja: 'シェア'
+	String get share => 'シェア';
+}
+
 // Path: account.profile.sns.examples
 class TranslationsAccountProfileSnsExamplesJa {
 	TranslationsAccountProfileSnsExamplesJa.internal(this._root);
@@ -931,10 +1067,17 @@ class TranslationsAccountProfileSnsDisplayNamesJa {
 	String get note => 'note';
 }
 
-/// Flat map(s) containing all translations.
+/// The flat map containing all translations for locale <ja>.
 /// Only for edge cases! For simple maps, use the map function of this library.
+///
+/// The Dart AOT compiler has issues with very large switch statements,
+/// so the map is split into smaller functions (512 entries each).
 extension on Translations {
 	dynamic _flatMapFunction(String path) {
+		return _flatMapFunction$0(path);
+	}
+
+	dynamic _flatMapFunction$0(String path) {
 		switch (path) {
 			case 'account.profileEdit': return 'プロフィールを編集する';
 			case 'account.guestUserLabel': return 'ゲストでログイン中';
@@ -1001,10 +1144,35 @@ extension on Translations {
 			case 'account.profile.image.complete': return '完了';
 			case 'account.profile.image.crop': return 'クロップ';
 			case 'account.profile.image.reset': return 'リセット';
+			case 'account.profileshare.title': return 'プロフィール交換';
+			case 'account.profileshare.qrCode': return 'QRコード表示';
+			case 'account.profileshare.qrCodeScan': return 'QRコード読み取り';
+			case 'account.profileshare.friendsList': return '交換履歴';
+			case 'account.profileshare.qrCodeDisplay.title': return 'QRコード表示';
+			case 'account.profileshare.qrCodeDisplay.description': return '自分のQRコードを表示して、相手に読み取ってもらいます';
+			case 'account.profileshare.qrCodeDisplay.instruction': return 'このQRコードを相手に読み取ってもらってください';
+			case 'account.profileshare.qrCodeScanScreen.title': return 'QRコード読み取り';
+			case 'account.profileshare.qrCodeScanScreen.description': return '相手のQRコードを読み取って、プロフィール交換します';
+			case 'account.profileshare.qrCodeScanScreen.instruction': return '相手のQRコードをカメラで読み取ってください';
+			case 'account.profileshare.qrCodeScanScreen.loginRequired': return 'ログインが必要です';
+			case 'account.profileshare.qrCodeScanScreen.successMessage': return 'プロフィールシェアしました';
+			case 'account.profileshare.qrCodeScanScreen.errorMessage': return 'プロフィールシェアに失敗しました';
+			case 'account.profileshare.qrCodeScanScreen.scanSuccess': return 'QRコードを読み取りました';
+			case 'account.profileshare.qrCodeScanScreen.exchangeSuccess': return 'プロフィール交換しました';
+			case 'account.profileshare.qrCodeScanScreen.exchangeFailed': return 'プロフィール交換に失敗しました';
+			case 'account.profileshare.qrCodeScanScreen.alreadyFriends': return 'すでにプロフィール交換済みです';
+			case 'account.profileshare.qrCodeScanScreen.invalidQrCode': return '無効なQRコードです';
+			case 'account.profileshare.qrCodeScanScreen.cannotExchangeWithSelf': return '自分自身とプロフィール交換はできません';
+			case 'account.profileshare.friendsListScreen.title': return '交換履歴';
+			case 'account.profileshare.friendsListScreen.emptyMessage': return 'まだプロフィール交換していません';
+			case 'account.profileshare.friendsListScreen.connectedAt': return '交換日時';
+			case 'account.profileshare.friendsListScreen.errorLoadingFriends': return '友達リストの読み込みに失敗しました';
+			case 'account.profileshare.friendsListScreen.copiedToClipboard': return 'をコピーしました';
 			case 'auth.guest.signInButton': return 'ゲストで利用する';
 			case 'auth.guest.userLabel': return 'ゲストでログイン中';
 			case 'auth.error.identityAlreadyExists': return 'このGoogleアカウントは既に別のユーザーと紐づけられています。ログアウトしてから再度ログインしてください。';
 			case 'auth.error.sessionExpired': return 'Googleアカウントへの再ログインが必要です。';
+			case 'auth.loginRequired': return 'ログインが必要です';
 			case 'common.app.name': return 'FlutterKaigi 2025';
 			case 'common.forceUpdate.title': return 'アップデートが必要です';
 			case 'common.forceUpdate.message': return '新しいバージョンのアプリが利用可能です。最新バージョンにアップデートしてください。';
@@ -1031,6 +1199,9 @@ extension on Translations {
 			case 'common.debug.pathCannotContainDebugOrLogin': return 'パスに「debug」または「login」を含めることはできません';
 			case 'common.debug.invalidPath': return '無効なパスです';
 			case 'common.debug.go': return 'GO';
+			case 'common.debug.profileShare.title': return 'Debug';
+			case 'common.debug.profileShare.userIdPlaceholder': return 'ユーザーIDを入力してください';
+			case 'common.debug.profileShare.share': return 'シェア';
 			case 'event.description': return '2025年、日本国内で Flutter をメインに扱う技術カンファレンス。Flutter や Dart の深い知見を持つ開発者によるセッションを多数企画します。';
 			case 'event.date': return '2025年11月13日(木)';
 			case 'event.time': return '10:00 ~ 18:00';

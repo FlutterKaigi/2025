@@ -62,6 +62,7 @@ class _TranslationsAccountEn extends TranslationsAccountJa {
 	@override String get logout => 'Sign Out';
 	@override String get settings => 'Account Settings';
 	@override late final _TranslationsAccountProfileEn profile = _TranslationsAccountProfileEn._(_root);
+	@override late final _TranslationsAccountProfileshareEn profileshare = _TranslationsAccountProfileshareEn._(_root);
 }
 
 // Path: account.profile
@@ -93,6 +94,22 @@ class _TranslationsAccountProfileEn extends TranslationsAccountProfileJa {
 	@override late final _TranslationsAccountProfileAvatarEn avatar = _TranslationsAccountProfileAvatarEn._(_root);
 	@override late final _TranslationsAccountProfileSnsEn sns = _TranslationsAccountProfileSnsEn._(_root);
 	@override late final _TranslationsAccountProfileImageEn image = _TranslationsAccountProfileImageEn._(_root);
+}
+
+// Path: account.profileshare
+class _TranslationsAccountProfileshareEn extends TranslationsAccountProfileshareJa {
+	_TranslationsAccountProfileshareEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Profile Exchange';
+	@override String get qrCode => 'Show QR Code';
+	@override String get qrCodeScan => 'Scan QR Code';
+	@override String get friendsList => 'Exchange History';
+	@override late final _TranslationsAccountProfileshareQrCodeDisplayEn qrCodeDisplay = _TranslationsAccountProfileshareQrCodeDisplayEn._(_root);
+	@override late final _TranslationsAccountProfileshareQrCodeScanScreenEn qrCodeScanScreen = _TranslationsAccountProfileshareQrCodeScanScreenEn._(_root);
+	@override late final _TranslationsAccountProfileshareFriendsListScreenEn friendsListScreen = _TranslationsAccountProfileshareFriendsListScreenEn._(_root);
 }
 
 // Path: account.profile.avatar
@@ -143,6 +160,53 @@ class _TranslationsAccountProfileImageEn extends TranslationsAccountProfileImage
 	@override String get reset => 'Reset';
 }
 
+// Path: account.profileshare.qrCodeDisplay
+class _TranslationsAccountProfileshareQrCodeDisplayEn extends TranslationsAccountProfileshareQrCodeDisplayJa {
+	_TranslationsAccountProfileshareQrCodeDisplayEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Show QR Code';
+	@override String get description => 'Display your QR code for others to scan';
+	@override String get instruction => 'Have others scan this QR code';
+}
+
+// Path: account.profileshare.qrCodeScanScreen
+class _TranslationsAccountProfileshareQrCodeScanScreenEn extends TranslationsAccountProfileshareQrCodeScanScreenJa {
+	_TranslationsAccountProfileshareQrCodeScanScreenEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Scan QR Code';
+	@override String get description => 'Scan others\' QR code to exchange profiles';
+	@override String get instruction => 'Scan the QR code with your camera';
+	@override String get loginRequired => 'Login required';
+	@override String get successMessage => 'Profile shared successfully';
+	@override String get errorMessage => 'Failed to share profile';
+	@override String get scanSuccess => 'QR code scanned successfully';
+	@override String get exchangeSuccess => 'Profile exchanged successfully';
+	@override String get exchangeFailed => 'Failed to exchange profile';
+	@override String get alreadyFriends => 'Already exchanged profiles';
+	@override String get invalidQrCode => 'Invalid QR code';
+	@override String get cannotExchangeWithSelf => 'Cannot exchange with yourself';
+}
+
+// Path: account.profileshare.friendsListScreen
+class _TranslationsAccountProfileshareFriendsListScreenEn extends TranslationsAccountProfileshareFriendsListScreenJa {
+	_TranslationsAccountProfileshareFriendsListScreenEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Exchange History';
+	@override String get emptyMessage => 'No profile exchanges yet';
+	@override String get connectedAt => 'Connected at';
+	@override String get errorLoadingFriends => 'Failed to load friends list';
+	@override String get copiedToClipboard => 'Copied to clipboard';
+}
+
 // Path: account.profile.sns.examples
 class _TranslationsAccountProfileSnsExamplesEn extends TranslationsAccountProfileSnsExamplesJa {
 	_TranslationsAccountProfileSnsExamplesEn._(TranslationsEn root) : this._root = root, super.internal(root);
@@ -175,10 +239,17 @@ class _TranslationsAccountProfileSnsDisplayNamesEn extends TranslationsAccountPr
 	@override String get note => 'note';
 }
 
-/// Flat map(s) containing all translations.
+/// The flat map containing all translations for locale <en>.
 /// Only for edge cases! For simple maps, use the map function of this library.
+///
+/// The Dart AOT compiler has issues with very large switch statements,
+/// so the map is split into smaller functions (512 entries each).
 extension on TranslationsEn {
 	dynamic _flatMapFunction(String path) {
+		return _flatMapFunction$0(path);
+	}
+
+	dynamic _flatMapFunction$0(String path) {
 		switch (path) {
 			case 'account.profileEdit': return 'Edit Profile';
 			case 'account.guestUserLabel': return 'Guest Mode';
@@ -245,6 +316,30 @@ extension on TranslationsEn {
 			case 'account.profile.image.complete': return 'Complete';
 			case 'account.profile.image.crop': return 'Crop';
 			case 'account.profile.image.reset': return 'Reset';
+			case 'account.profileshare.title': return 'Profile Exchange';
+			case 'account.profileshare.qrCode': return 'Show QR Code';
+			case 'account.profileshare.qrCodeScan': return 'Scan QR Code';
+			case 'account.profileshare.friendsList': return 'Exchange History';
+			case 'account.profileshare.qrCodeDisplay.title': return 'Show QR Code';
+			case 'account.profileshare.qrCodeDisplay.description': return 'Display your QR code for others to scan';
+			case 'account.profileshare.qrCodeDisplay.instruction': return 'Have others scan this QR code';
+			case 'account.profileshare.qrCodeScanScreen.title': return 'Scan QR Code';
+			case 'account.profileshare.qrCodeScanScreen.description': return 'Scan others\' QR code to exchange profiles';
+			case 'account.profileshare.qrCodeScanScreen.instruction': return 'Scan the QR code with your camera';
+			case 'account.profileshare.qrCodeScanScreen.loginRequired': return 'Login required';
+			case 'account.profileshare.qrCodeScanScreen.successMessage': return 'Profile shared successfully';
+			case 'account.profileshare.qrCodeScanScreen.errorMessage': return 'Failed to share profile';
+			case 'account.profileshare.qrCodeScanScreen.scanSuccess': return 'QR code scanned successfully';
+			case 'account.profileshare.qrCodeScanScreen.exchangeSuccess': return 'Profile exchanged successfully';
+			case 'account.profileshare.qrCodeScanScreen.exchangeFailed': return 'Failed to exchange profile';
+			case 'account.profileshare.qrCodeScanScreen.alreadyFriends': return 'Already exchanged profiles';
+			case 'account.profileshare.qrCodeScanScreen.invalidQrCode': return 'Invalid QR code';
+			case 'account.profileshare.qrCodeScanScreen.cannotExchangeWithSelf': return 'Cannot exchange with yourself';
+			case 'account.profileshare.friendsListScreen.title': return 'Exchange History';
+			case 'account.profileshare.friendsListScreen.emptyMessage': return 'No profile exchanges yet';
+			case 'account.profileshare.friendsListScreen.connectedAt': return 'Connected at';
+			case 'account.profileshare.friendsListScreen.errorLoadingFriends': return 'Failed to load friends list';
+			case 'account.profileshare.friendsListScreen.copiedToClipboard': return 'Copied to clipboard';
 			default: return null;
 		}
 	}
