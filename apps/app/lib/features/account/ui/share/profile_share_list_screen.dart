@@ -188,21 +188,17 @@ class _ProfileShareCard extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                               ),
                               const SizedBox(width: 8),
-                              Expanded(
-                                child: Text(
-                                  _formatSnsValue(link.snsType, link.value),
-                                  style: snsTextStyle,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
+                              Text(
+                                _formatSnsValue(link.snsType, link.value),
+                                style: snsTextStyle,
+                                overflow: TextOverflow.ellipsis,
                               ),
-                              if (!canLaunch) ...[
-                                const SizedBox(width: 4),
-                                Icon(
-                                  Icons.copy,
-                                  size: snsTextStyle?.fontSize,
-                                  color: Colors.grey,
-                                ),
-                              ],
+                              if (!canLaunch) const SizedBox(width: 4),
+                              Icon(
+                                Icons.copy,
+                                size: snsTextStyle?.fontSize,
+                                color: Colors.grey,
+                              ),
                             ],
                           ),
                         ),
