@@ -26,8 +26,8 @@ extension PlaceEx on Place {
   Content get name => switch (this) {
     Place.hallA => (ja: 'ASSIGN Hall', en: null),
     Place.hallB => (ja: 'RevenueCat Hall', en: null),
-    Place.roomA => (ja: 'Room A', en: null),
-    Place.roomB => (ja: 'Room B', en: null),
+    Place.roomA => (ja: 'Skia', en: null),
+    Place.roomB => (ja: 'Impeller', en: null),
   };
 }
 

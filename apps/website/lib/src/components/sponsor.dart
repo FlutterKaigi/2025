@@ -12,6 +12,7 @@ class Sponsor extends StatefulComponent {
     required this.width,
     required this.pr,
     required this.url,
+    required this.type,
     required this.snsX,
   });
   final String name;
@@ -19,6 +20,7 @@ class Sponsor extends StatefulComponent {
   final num width;
   final String pr;
   final String url;
+  final String type;
   final String? snsX;
 
   @override
@@ -192,6 +194,21 @@ class _TypedSponsors extends StatelessComponent {
             fontFamily: lexendFontFamily,
             fontSize: 1.5.rem,
             fontWeight: FontWeight.bold,
+            raw: {
+              'background': switch (type) {
+                SponsorType.platinum =>
+                  'linear-gradient(to bottom, #b7dce1, #6bb5c2)',
+                SponsorType.gold =>
+                  'linear-gradient(to bottom, #ebd9a3, #daba58)',
+                SponsorType.silver =>
+                  'linear-gradient(to bottom, #d6d7d7, #909c9e)',
+                SponsorType.bronze =>
+                  'linear-gradient(to bottom, #bb967a, #946a4a)',
+              },
+              '-webkit-background-clip': 'text',
+              'background-clip': 'text',
+              '-webkit-text-fill-color': 'transparent',
+            },
           ),
           [text(type.name)],
         ),
@@ -217,6 +234,7 @@ class _TypedSponsors extends StatelessComponent {
                       logo: info.logo,
                       url: info.url,
                       pr: info.pr.text(context),
+                      type: info.type.name,
                       snsX: info.sns.x,
                       width: switch (info.type) {
                         SponsorType.platinum => 16,

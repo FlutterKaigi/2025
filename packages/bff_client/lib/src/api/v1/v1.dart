@@ -1,6 +1,7 @@
 export 'app_version_api_client.dart';
 export 'files_api_client.dart';
 export 'news_api_client.dart';
+export 'profile/profile_share_api_client.dart';
 export 'profile_api_client.dart';
 export 'session_api_client.dart';
 export 'speaker_api_client.dart';

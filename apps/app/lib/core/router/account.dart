@@ -10,6 +10,15 @@ const _accountRoutes = [
       TypedGoRoute<WithdrawalRoute>(
         path: 'withdrawal',
       ),
+      TypedGoRoute<ProfileShareListRoute>(
+        path: 'profile-share',
+      ),
+      TypedGoRoute<ProfileShareQrDisplayRoute>(
+        path: 'profile-share/qr',
+      ),
+      TypedGoRoute<ProfileShareQrScanRoute>(
+        path: 'profile-share/scan',
+      ),
     ],
   ),
 ];
@@ -28,6 +37,9 @@ class AccountInfoRoute extends GoRouteData with $AccountInfoRoute {
   Widget build(BuildContext context, GoRouterState state) {
     return AccountInfoScreen(
       onProfileEdit: () => const ProfileEditRoute().go(context),
+      onTapQrCode: () => const ProfileShareQrDisplayRoute().go(context),
+      onTapQrCodeScan: () => const ProfileShareQrScanRoute().go(context),
+      onTapFriendsList: () => const ProfileShareListRoute().go(context),
       onTapCodeOfConductTile: () => _openUrl(
         urlString: Translations.of(context).account.codeOfConductUrl,
       ),
@@ -82,4 +94,39 @@ class WithdrawalRoute extends GoRouteData with $WithdrawalRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) =>
       const WithdrawalScreen();
+}
+
+class ProfileShareListRoute extends GoRouteData with $ProfileShareListRoute {
+  const ProfileShareListRoute();
+
+  static final GlobalKey<NavigatorState> $parentNavigatorKey =
+      _rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const ProfileShareListScreen();
+}
+
+class ProfileShareQrDisplayRoute extends GoRouteData
+    with $ProfileShareQrDisplayRoute {
+  const ProfileShareQrDisplayRoute();
+
+  static final GlobalKey<NavigatorState> $parentNavigatorKey =
+      _rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const QrCodeDisplayScreen();
+}
+
+class ProfileShareQrScanRoute extends GoRouteData
+    with $ProfileShareQrScanRoute {
+  const ProfileShareQrScanRoute();
+
+  static final GlobalKey<NavigatorState> $parentNavigatorKey =
+      _rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const QrCodeScanScreen();
 }
