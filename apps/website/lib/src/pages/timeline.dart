@@ -123,17 +123,7 @@ class Timeline extends StatelessComponent {
           ),
         },
       ),
-      [
-        child,
-        span(
-          [text('(${time.inMinutes} min)')],
-          styles: const Styles(
-            fontSize: Unit.inherit,
-            color: Colors.gray,
-            whiteSpace: WhiteSpace.noWrap,
-          ),
-        ),
-      ],
+      [child],
     );
 
     Component breakItem({
@@ -200,6 +190,7 @@ class Timeline extends StatelessComponent {
         breakItem(
           start: const Duration(hours: 11, minutes: 30),
           time: const Duration(minutes: 15),
+          place: (Place.hallA, Place.roomA),
         ),
         breakItem(
           start: const Duration(hours: 12, minutes: 15),
@@ -218,7 +209,6 @@ class Timeline extends StatelessComponent {
         breakItem(
           start: const Duration(hours: 15, minutes: 45),
           time: const Duration(minutes: 15),
-          place: (Place.hallA, Place.roomA),
         ),
         breakItem(
           start: const Duration(hours: 16, minutes: 30),
@@ -230,17 +220,43 @@ class Timeline extends StatelessComponent {
         ),
         ...event.timeline.map((entry) {
           final url = entry.url;
-          final content = url != null
-              ? ExternalLink(
-                  url: url,
-                  content: entry.title.text(context).toComponent,
+          final content = ul(
+            [
+              li([
+                if (url != null)
+                  ExternalLink(
+                    url: url,
+                    content: entry.title.text(context).toComponent,
+                    styles: const Styles(
+                      color: Color.variable('--text-color'),
+                      fontSize: Unit.inherit,
+                      whiteSpace: WhiteSpace.inherit,
+                    ),
+                  )
+                else
+                  entry.title.text(context).toComponent,
+                li(
+                  [
+                    '${entry.time.inMinutes} min'.toComponent,
+                    if (entry.satellite)
+                      (
+                        ja: ' / サテライト会場',
+                        en: ' / Satellite Venue',
+                      ).text(context).toComponent,
+                  ],
                   styles: const Styles(
-                    color: Color.variable('--text-color'),
                     fontSize: Unit.inherit,
-                    whiteSpace: WhiteSpace.inherit,
+                    color: Colors.gray,
+                    whiteSpace: WhiteSpace.noWrap,
                   ),
-                )
-              : entry.title.text(context).toComponent;
+                ),
+              ]),
+            ],
+            styles: const Styles(
+              display: Display.flex,
+              flexDirection: FlexDirection.column,
+            ),
+          );
 
           return item(
             content,

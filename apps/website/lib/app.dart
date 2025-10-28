@@ -1,12 +1,12 @@
 import 'package:flutterkaigi_2025_website/src/components/footer.dart';
 import 'package:flutterkaigi_2025_website/src/components/header.dart';
-import 'package:flutterkaigi_2025_website/src/config/config.dart'
-    show makeTitle;
+import 'package:flutterkaigi_2025_website/src/config/config.dart';
 import 'package:flutterkaigi_2025_website/src/pages/_404.dart';
 import 'package:flutterkaigi_2025_website/src/pages/call_for_proposal.dart';
 import 'package:flutterkaigi_2025_website/src/pages/dashsay.dart';
 import 'package:flutterkaigi_2025_website/src/pages/home.dart';
 import 'package:flutterkaigi_2025_website/src/pages/timeline.dart';
+import 'package:flutterkaigi_2025_website/src/pages/sponsor.dart';
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_router/jaspr_router.dart';
 
@@ -40,6 +40,16 @@ class App extends StatelessComponent {
               title: 'Timeline',
               builder: (context, state) => const Timeline(),
             ),
+            ...event.sponsors
+                .where((sponsor) => !sponsor.disable)
+                .map(
+                  (sponsor) => _createLanguageRoutes(
+                    path: '/sponsor/${sponsor.slug}',
+                    title: '${sponsor.name} | FlutterKaigi 2025',
+                    builder: (context, state) => Sponsor(sponsor),
+                  ),
+                )
+                .expand((routes) => routes),
             ..._createLanguageRoutes(
               path: '/dashsay',
               title: makeTitle('Dash say'),

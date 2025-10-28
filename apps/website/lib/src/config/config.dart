@@ -192,16 +192,27 @@ extension PlaceExtension on Place {
   };
 }
 
-const _timeline = [
+typedef TimelineEntry = ({
+  Content title,
+  String? url,
+  Place place,
+  bool satellite,
+  Duration start,
+  Duration time,
+});
+
+const _timeline = <TimelineEntry>[
   (
     title: (ja: '挨拶', en: 'Greetings'),
+    satellite: false,
     url: null,
     place: Place.hallA,
     start: Duration(hours: 10),
     time: Duration(minutes: 15),
   ),
   (
-    title: (ja: '挨拶 (サテライト)', en: 'Greetings (Satellite)'),
+    title: (ja: '挨拶', en: 'Greetings'),
+    satellite: true,
     url: null,
     place: Place.hallB,
     start: Duration(hours: 10),
@@ -212,6 +223,7 @@ const _timeline = [
       ja: 'The Flutter Effect (キーノート)',
       en: 'The Flutter Effect (Keynote)',
     ),
+    satellite: false,
     url: null,
     place: Place.hallA,
     start: Duration(hours: 10, minutes: 15),
@@ -219,23 +231,34 @@ const _timeline = [
   ),
   (
     title: (
-      ja: 'The Flutter Effect (キーノート / サテライト)',
-      en: 'The Flutter Effect (Keynote / Satellite)',
+      ja: 'The Flutter Effect (キーノート)',
+      en: 'The Flutter Effect (Keynote)',
     ),
+    satellite: true,
     url: null,
     place: Place.hallB,
     start: Duration(hours: 10, minutes: 15),
     time: Duration(minutes: 30),
   ),
   (
+    title: (ja: '学生支援', en: null),
+    satellite: false,
+    url: null,
+    place: Place.roomB,
+    start: Duration(hours: 11),
+    time: Duration(hours: 1, minutes: 15),
+  ),
+  (
     title: (ja: 'ハンズオン', en: 'Hands-on'),
+    satellite: false,
     url: null,
     place: Place.roomB,
     start: Duration(hours: 13, minutes: 30),
-    time: Duration(hours: 2, minutes: 30),
+    time: Duration(hours: 2, minutes: 15),
   ),
   (
     title: (ja: 'Impellerで何が変わったのか', en: null),
+    satellite: false,
     url:
         'https://fortee.jp/flutterkaigi-2025/proposal/81f95806-0cfa-403d-a6f1-0276e606b20a',
     place: Place.hallB,
@@ -244,6 +267,7 @@ const _timeline = [
   ),
   (
     title: (ja: 'RenderObject とは何か？animated_to に学ぶレイアウト計算と描画の仕組み', en: null),
+    satellite: false,
     url:
         'https://fortee.jp/flutterkaigi-2025/proposal/2bd516ee-f172-478d-a2cc-c7682fb66c07',
     place: Place.hallB,
@@ -255,6 +279,7 @@ const _timeline = [
       ja: 'あの日のHot reloadはなぜ動かなかったのか？ 〜OSセキュリティ(W^X)とJITコンパイラの攻防〜',
       en: null,
     ),
+    satellite: false,
     url:
         'https://fortee.jp/flutterkaigi-2025/proposal/912d7f78-375a-4d57-a1ef-3b5aa438396e',
     place: Place.hallB,
@@ -263,6 +288,7 @@ const _timeline = [
   ),
   (
     title: (ja: 'Flutterビルドキャッシュの内部構造とテスト高速化への応用', en: null),
+    satellite: false,
     url:
         'https://fortee.jp/flutterkaigi-2025/proposal/bc8d4449-b57f-4785-a62e-78a361d581f6',
     place: Place.hallB,
@@ -271,6 +297,7 @@ const _timeline = [
   ),
   (
     title: (ja: 'Add-to-appで真のLiquid Glass対応を目指してみた', en: null),
+    satellite: false,
     url:
         'https://fortee.jp/flutterkaigi-2025/proposal/9ddb5954-f5b7-4d60-8316-786e37cfdcf7',
     place: Place.roomA,
@@ -279,6 +306,7 @@ const _timeline = [
   ),
   (
     title: (ja: 'Flutterコントリビューションのススメ', en: null),
+    satellite: false,
     url:
         'https://fortee.jp/flutterkaigi-2025/proposal/d4ab93e7-c6f1-4d40-b7c2-11fb2bf36d1f',
     place: Place.hallA,
@@ -287,6 +315,7 @@ const _timeline = [
   ),
   (
     title: (ja: 'iOSのAssistive Accessって何？Flutterでも気をつけたいUIの話', en: null),
+    satellite: false,
     url:
         'https://fortee.jp/flutterkaigi-2025/proposal/ba663f5e-cab6-473f-b7c3-974d32791197',
     place: Place.roomA,
@@ -295,6 +324,7 @@ const _timeline = [
   ),
   (
     title: (ja: 'Flutter is NOT DEAD.', en: null),
+    satellite: false,
     url:
         'https://fortee.jp/flutterkaigi-2025/proposal/03595b88-1b15-4c6e-919c-93838724ca1e',
     place: Place.roomA,
@@ -303,6 +333,7 @@ const _timeline = [
   ),
   (
     title: (ja: 'それでは聞いてください「Impeller導入に失敗しました」', en: null),
+    satellite: false,
     url:
         'https://fortee.jp/flutterkaigi-2025/proposal/463de64f-8f1c-4ce4-880c-5d83c7998adb',
     place: Place.roomA,
@@ -311,6 +342,7 @@ const _timeline = [
   ),
   (
     title: (ja: 'Server-Driven UIでアプリを作る', en: null),
+    satellite: false,
     url:
         'https://fortee.jp/flutterkaigi-2025/proposal/8819bdad-2434-435d-976b-e4ad9142fe78',
     place: Place.roomA,
@@ -319,6 +351,7 @@ const _timeline = [
   ),
   (
     title: (ja: 'オフライン対応！Flutterアプリに全文検索エンジンを実装する', en: null),
+    satellite: false,
     url:
         'https://fortee.jp/flutterkaigi-2025/proposal/4b6fc7d8-b6a2-41f1-8bad-684231e60681',
     place: Place.roomA,
@@ -327,6 +360,7 @@ const _timeline = [
   ),
   (
     title: (ja: 'Flutterで挑む次世代認証：Flutter銀行アプリにおける導入実録とその教訓', en: null),
+    satellite: false,
     url:
         'https://fortee.jp/flutterkaigi-2025/proposal/ed60500d-d9f8-48fb-8dd9-a4eb2951cdec',
     place: Place.hallA,
@@ -335,6 +369,7 @@ const _timeline = [
   ),
   (
     title: (ja: 'DartASTとその活用', en: null),
+    satellite: false,
     url:
         'https://fortee.jp/flutterkaigi-2025/proposal/672313ae-bccf-4520-a862-1a88b887fc82',
     place: Place.hallA,
@@ -346,6 +381,7 @@ const _timeline = [
       ja: 'Mobile MCP × Dart VM  Service Extensionで実現するAI駆動E2Eテスト整備と自動操作',
       en: null,
     ),
+    satellite: false,
     url:
         'https://fortee.jp/flutterkaigi-2025/proposal/63d2ecdf-120c-4d92-bd5b-e20dad80357c',
     place: Place.roomA,
@@ -354,6 +390,7 @@ const _timeline = [
   ),
   (
     title: (ja: 'Flutter DevToolsで発見！本番アプリのパフォーマンス問題と改善の実践', en: null),
+    satellite: false,
     url:
         'https://fortee.jp/flutterkaigi-2025/proposal/16574c67-29bb-47a4-8c1e-2c54c352d327',
     place: Place.hallA,
@@ -362,6 +399,7 @@ const _timeline = [
   ),
   (
     title: (ja: 'Flutter Webの真価：SEOフレンドリーなPWAとデスクトップアプリケーションへの展開', en: null),
+    satellite: false,
     url:
         'https://fortee.jp/flutterkaigi-2025/proposal/572423bf-9210-480d-813d-c6d88d640833',
     place: Place.roomA,
@@ -370,6 +408,7 @@ const _timeline = [
   ),
   (
     title: (ja: 'Flutterアプリ運用の現場で役立った監視Tips 5選', en: null),
+    satellite: false,
     url:
         'https://fortee.jp/flutterkaigi-2025/proposal/de251e13-e939-4bcd-958c-2aea17ad20cb',
     place: Place.roomA,
@@ -378,6 +417,7 @@ const _timeline = [
   ),
   (
     title: (ja: 'MVVM から MVVM-C に変えてみた話 〜画面遷移どうしてる？〜', en: null),
+    satellite: false,
     url:
         'https://fortee.jp/flutterkaigi-2025/proposal/5ec3701f-5b04-4717-bb2c-08d63c67a24b',
     place: Place.roomA,
@@ -386,6 +426,7 @@ const _timeline = [
   ),
   (
     title: (ja: 'ユーザーのアクションを伴うWidgetのGoldenTest', en: null),
+    satellite: false,
     url:
         'https://fortee.jp/flutterkaigi-2025/proposal/1c87888d-a7cf-4088-9a15-83771227ec18',
     place: Place.roomA,
@@ -394,6 +435,7 @@ const _timeline = [
   ),
   (
     title: (ja: 'アプリバイナリに対する不正対策とセキュリティ向上', en: null),
+    satellite: false,
     url:
         'https://fortee.jp/flutterkaigi-2025/proposal/24388be1-bf63-4094-9e1f-9fbbd1a66547',
     place: Place.hallA,
@@ -402,6 +444,7 @@ const _timeline = [
   ),
   (
     title: (ja: 'カスタムジェスチャーの実装から学ぶGesture', en: null),
+    satellite: false,
     url:
         'https://fortee.jp/flutterkaigi-2025/proposal/215d2e8d-9ef7-4033-aaec-38e8ad75954f',
     place: Place.roomB,
@@ -410,6 +453,7 @@ const _timeline = [
   ),
   (
     title: (ja: 'ノリと勢いでFlutter専門サークルを創設したら3年目に突入した話', en: null),
+    satellite: false,
     url:
         'https://fortee.jp/flutterkaigi-2025/proposal/78f48783-ebf0-41ab-b447-83b8c8d1c9d8',
     place: Place.roomA,
@@ -418,6 +462,7 @@ const _timeline = [
   ),
   (
     title: (ja: 'Master of Widget Key ~ Widget 再利用とパフォーマンス最適化 ~', en: null),
+    satellite: false,
     url:
         'https://fortee.jp/flutterkaigi-2025/proposal/d448ffe9-c803-40b8-a38f-873be1ea9b82',
     place: Place.roomB,
@@ -426,6 +471,7 @@ const _timeline = [
   ),
   (
     title: (ja: '24時間止まらないFlutterアプリの作り方', en: null),
+    satellite: false,
     url:
         'https://fortee.jp/flutterkaigi-2025/proposal/2c06a71e-6da9-41ac-9467-a719ce69345a',
     place: Place.roomB,
@@ -434,6 +480,7 @@ const _timeline = [
   ),
   (
     title: (ja: 'FlutterにおけるFigma Dev Mode MCP活用Tips 5選', en: null),
+    satellite: false,
     url:
         'https://fortee.jp/flutterkaigi-2025/proposal/bc9dab5d-fd34-42c4-b391-34994c12eef2',
     place: Place.roomB,
@@ -442,6 +489,7 @@ const _timeline = [
   ),
   (
     title: (ja: 'Flutter ネイティブ連携手法 2025', en: null),
+    satellite: false,
     url:
         'https://fortee.jp/flutterkaigi-2025/proposal/8bd545cf-a3eb-4238-aeb1-e78d0528fe4e',
     place: Place.roomA,
@@ -450,6 +498,7 @@ const _timeline = [
   ),
   (
     title: (ja: 'BuildContextの正体とInheritedWidgetの仕組み', en: null),
+    satellite: false,
     url:
         'https://fortee.jp/flutterkaigi-2025/proposal/4ffff5d6-8a7d-4029-8925-d05e6fdb8d97',
     place: Place.roomA,
@@ -458,6 +507,7 @@ const _timeline = [
   ),
   (
     title: (ja: 'モバイル端末で動くLLMはどこまで実用的なのか', en: null),
+    satellite: false,
     url:
         'https://fortee.jp/flutterkaigi-2025/proposal/25d7e97e-e253-4b45-93d7-fe3ca97c7698',
     place: Place.roomA,
@@ -466,6 +516,7 @@ const _timeline = [
   ),
   (
     title: (ja: 'アクセシビリティ、まだ完璧じゃないけど──"今から"できること', en: null),
+    satellite: false,
     url:
         'https://fortee.jp/flutterkaigi-2025/proposal/8d6b31bd-95b6-4705-953f-de5da9ab18f5',
     place: Place.roomB,
@@ -474,6 +525,7 @@ const _timeline = [
   ),
   (
     title: (ja: 'そのローカルDB、プロジェクトに合ってますか? 明日から変える最適なDB', en: null),
+    satellite: false,
     url:
         'https://fortee.jp/flutterkaigi-2025/proposal/93f95cb5-1cd2-4355-b754-9efe8e5c389b',
     place: Place.roomB,
@@ -484,6 +536,7 @@ const _timeline = [
 
 typedef SponsorInfo = ({
   String name,
+  String slug,
   String url,
   ({String? x}) sns,
   Content pr,
@@ -511,6 +564,7 @@ extension SponsorTypeExtension on SponsorType {
 const _sponsors = <SponsorInfo>[
   (
     name: '株式会社ゆめみ',
+    slug: 'yumemi',
     url: 'https://yumemi.co.jp/',
     sns: (x: 'yumemiinc'),
     pr: (
@@ -526,6 +580,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社出前館',
+    slug: 'demae-can',
     url: 'https://recruit.demae-can.co.jp/',
     sns: (x: null),
     pr: (
@@ -543,6 +598,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社アサイン',
+    slug: 'assign',
     url: 'https://assign-inc.com/',
     sns: (x: null),
     pr: (
@@ -562,6 +618,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: 'RevenueCat, Inc.',
+    slug: 'revenuecat',
     url: 'https://www.revenuecat.com/jp/',
     sns: (x: 'RevenueCat'),
     pr: (
@@ -578,6 +635,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '',
+    slug: '',
     url: '',
     sns: (x: null),
     pr: (ja: '', en: null),
@@ -587,6 +645,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社サイバーエージェント',
+    slug: 'cyberagent',
     url: 'https://www.cyberagent.co.jp/',
     sns: (x: 'ca_developers'),
     pr: (
@@ -602,6 +661,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社iiba',
+    slug: 'iiba',
     url: 'https://corporate.iiba.space/',
     sns: (x: 'nanaizw'),
     pr: (
@@ -618,6 +678,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: 'シンプレクス株式会社',
+    slug: 'simplex',
     url: 'https://www.simplex.inc/',
     sns: (x: 'SimplexHoldings'),
     pr: (
@@ -633,6 +694,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: 'Codemagic',
+    slug: 'codemagic',
     url: 'https://codemagic.io',
     sns: (x: 'codemagicio'),
     pr: (
@@ -650,6 +712,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社MagicPod',
+    slug: 'magic-pod',
     url: 'https://magicpod.com/',
     sns: (x: 'MagicPodJP'),
     pr: (
@@ -666,6 +729,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: 'ZOZO, Inc.',
+    slug: 'zozo',
     url: 'https://corp.zozo.com/',
     sns: (x: 'zozotech'),
     pr: (
@@ -681,6 +745,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社GENDA',
+    slug: 'genda',
     url: 'https://genda.jp/',
     sns: (x: 'GENDA_jp'),
     pr: (
@@ -696,6 +761,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: 'エムスリー株式会社',
+    slug: 'm3',
     url: 'https://jobs.m3.com/product/',
     sns: (x: 'm3_engineering'),
     pr: (
@@ -710,6 +776,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: "株式会社Linc'well",
+    slug: 'lincwell',
     url: 'https://linc-well.com/',
     sns: (x: 'lincwell_dev'),
     pr: (
@@ -725,6 +792,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社ディー・エヌ・エー',
+    slug: 'dena',
     url: 'https://dena.com/jp/',
     sns: (x: 'DeNAxTech'),
     pr: (
@@ -744,6 +812,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: 'CodeRabbit',
+    slug: 'coderabbit',
     url: 'https://www.coderabbit.ai',
     sns: (x: 'Coderabbitaija'),
     pr: (
@@ -759,6 +828,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社YOUTRUST',
+    slug: 'youtrust',
     url: 'https://youtrust.co.jp/',
     sns: (x: 'YOUTRUSTinc'),
     pr: (
@@ -773,6 +843,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: 'ソニー株式会社',
+    slug: 'sony',
     url: 'https://www.sony.co.jp/',
     sns: (x: null),
     pr: (
@@ -789,6 +860,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: 'チームラボ株式会社',
+    slug: 'team-lab',
     url: 'https://www.team-lab.com/',
     sns: (x: 'teamlab_recruit'),
     pr: (
@@ -804,6 +876,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: 'SODA inc.',
+    slug: 'soda-inc',
     url: 'https://soda-inc.jp/',
     sns: (x: null),
     pr: (
@@ -819,6 +892,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社hacomono',
+    slug: 'hacomono',
     url: 'https://www.hacomono.co.jp/',
     sns: (x: 'hacomono_Dev'),
     pr: (
@@ -835,6 +909,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社MIXI',
+    slug: 'mixi',
     url: 'https://mixi.co.jp/',
     sns: (x: 'mixi_engineers'),
     pr: (
@@ -849,6 +924,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: 'スタディプラス株式会社',
+    slug: 'studyplus',
     url: 'https://info.studyplus.co.jp/',
     sns: (x: 'studyplus_dev'),
     pr: (
@@ -864,6 +940,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社ギークニア',
+    slug: 'geekneer',
     url: 'https://geekneer.com/',
     sns: (x: 'geekneerjp'),
     pr: (
@@ -879,6 +956,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: 'Sentry',
+    slug: 'sentry',
     url: 'https://sentry.ichizoku.io/',
     sns: (x: 'SentryJapan'),
     pr: (
@@ -894,6 +972,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: 'パイオニア株式会社',
+    slug: 'pioneer',
     url: 'https://jpn.pioneer/ja/',
     sns: (x: 'Pioneer_PR'),
     pr: (
@@ -909,6 +988,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社メドレー',
+    slug: 'medley',
     url: 'https://www.medley.jp/',
     sns: (x: 'medley_dev'),
     pr: (
@@ -924,6 +1004,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: 'Hamee株式会社',
+    slug: 'hamee',
     url: 'https://hamee.co.jp/recruit/love-odawara',
     sns: (x: null),
     pr: (
@@ -939,6 +1020,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社アイビス',
+    slug: 'ibis',
     url: 'https://i-bis.jp/',
     sns: (x: 'Ibis_official_'),
     pr: (
@@ -953,6 +1035,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社LayerX',
+    slug: 'layerx',
     url: 'https://layerx.co.jp',
     sns: (x: 'LayerX_Tech'),
     pr: (
@@ -968,6 +1051,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: 'NTTレゾナントテクノロジー株式会社',
+    slug: 'ntt-resonant-tech',
     url: 'https://nttr-tech.co.jp/',
     sns: (x: 'nttr_tech'),
     pr: (
@@ -982,6 +1066,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社IBJ',
+    slug: 'ibj',
     url: 'https://www.ibjapan.jp/',
     sns: (x: 'IBJ_renmei'),
     pr: (
@@ -996,6 +1081,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社メンバーズ',
+    slug: 'members',
     url: 'https://www.members.co.jp/',
     sns: (x: 'Members_corp'),
     pr: (
@@ -1010,6 +1096,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社TRUSTDOCK',
+    slug: 'trustdock',
     url: 'https://biz.trustdock.io/company',
     sns: (x: null),
     pr: (
@@ -1024,6 +1111,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '',
+    slug: '',
     url: '',
     sns: (x: null),
     pr: (ja: '', en: null),
@@ -1033,6 +1121,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社Leafea',
+    slug: 'leafea',
     url: 'https://leafea.co.jp/',
     sns: (x: null),
     pr: (
@@ -1047,6 +1136,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '東急株式会社',
+    slug: 'tokyu',
     url: 'https://10q89s.jp/',
     sns: (x: 'urban_89s'),
     pr: (
@@ -1063,6 +1153,7 @@ const _sponsors = <SponsorInfo>[
   ),
   (
     name: '株式会社UPSIDER',
+    slug: 'upsider',
     url: 'https://corp.up-sider.com/',
     sns: (x: 'upsider_inc'),
     pr: (
