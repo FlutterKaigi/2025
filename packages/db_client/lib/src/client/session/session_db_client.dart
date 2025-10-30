@@ -105,7 +105,7 @@ class SessionDbClient {
         FROM session_venues sv
         LEFT JOIN sessions s ON sv.id = s.venue_id
         GROUP BY sv.id, sv.name
-        ORDER BY sv.name
+        ORDER BY sv.display_order
       ''',
     );
 
