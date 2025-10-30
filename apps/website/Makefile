@@ -1,11 +1,32 @@
 .PHONY: build
-build:
+build: build-prod
+
+.PHONY: build-dev
+build-dev:
+	@export $$(cat environments/.env.dev | grep -v '^#' | grep -v '^$$' | xargs) && $(MAKE) _build
+
+.PHONY: build-stg
+build-stg:
+	@export $$(cat environments/.env.stg | grep -v '^#' | grep -v '^$$' | xargs) && $(MAKE) _build
+
+.PHONY: build-prod
+build-prod:
+	@export $$(cat environments/.env.prod | grep -v '^#' | grep -v '^$$' | xargs) && $(MAKE) _build
+
+.PHONY: _build
+_build: fetch-sessions
 	@jaspr build \
 		--verbose \
 		--optimize=4
 	@mkdir -p build/_404
 	@mv build/jaspr/ja/404 build/_404/ja
 	@mv build/jaspr/en/404 build/_404/en
+
+.PHONY: fetch-sessions
+fetch-sessions:
+	@echo "Fetching session data from BFF API..."
+	@echo "Using BFF_BASE_URL: $${BFF_BASE_URL:-https://2025-bff.flutterkaigi.jp/v1}"
+	@dart run tool/fetch_sessions.dart
 
 .PHONY: init
 init:
@@ -29,14 +50,29 @@ test:
 	dart test .
 
 .PHONY: run
-run: serve
+run: dev
 
 .PHONY: dev
-dev: serve
+dev: dev-prod
+
+.PHONY: dev-dev
+dev-dev:
+	@export $$(cat environments/.env.dev | grep -v '^#' | grep -v '^$$' | xargs) && $(MAKE) _dev
+
+.PHONY: dev-stg
+dev-stg:
+	@export $$(cat environments/.env.stg | grep -v '^#' | grep -v '^$$' | xargs) && $(MAKE) _dev
+
+.PHONY: dev-prod
+dev-prod:
+	@export $$(cat environments/.env.prod | grep -v '^#' | grep -v '^$$' | xargs) && $(MAKE) _dev
+
+.PHONY: _dev
+_dev: fetch-sessions serve
 
 .PHONY: serve
 serve:
-	jaspr serve
+	jaspr serve --port 8081
 
 .PHONY: start
 start:
