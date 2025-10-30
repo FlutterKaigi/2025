@@ -9,6 +9,7 @@ class StudentRefundDialog extends StatelessWidget {
     return showDialog<void>(
       context: context,
       fullscreenDialog: true,
+      useSafeArea: false,
       builder: (context) => const StudentRefundDialog(),
     );
   }
