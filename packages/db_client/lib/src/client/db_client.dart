@@ -7,6 +7,7 @@ import 'package:db_client/src/client/session/session_db_client.dart';
 import 'package:db_client/src/client/speaker/speaker_db_client.dart';
 import 'package:db_client/src/client/sponsor/sponsor_db_client.dart';
 import 'package:db_client/src/client/ticket/ticket_checkout_db_client.dart';
+import 'package:db_client/src/client/ticket/ticket_entry_history_db_client.dart';
 import 'package:db_client/src/client/ticket/ticket_option_db_client.dart';
 import 'package:db_client/src/client/ticket/ticket_purchase_db_client.dart';
 import 'package:db_client/src/client/ticket/ticket_type_db_client.dart';
@@ -66,6 +67,8 @@ class DbClient {
       TicketPurchaseDbClient(executor: _executor);
   TicketCheckoutDbClient get ticketCheckout =>
       TicketCheckoutDbClient(executor: _executor);
+  TicketEntryHistoryDbClient get ticketEntryHistory =>
+      TicketEntryHistoryDbClient(executor: _executor);
 
   PingDbClient get ping => PingDbClient(executor: _executor);
 

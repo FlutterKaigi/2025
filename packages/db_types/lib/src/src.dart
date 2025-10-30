@@ -29,6 +29,7 @@ export 'tables/speakers.dart';
 export 'tables/sponsors.dart';
 export 'tables/stripe_webhook_logs.dart';
 export 'tables/ticket_checkout_sessions.dart';
+export 'tables/ticket_entry_histories.dart';
 export 'tables/ticket_options.dart';
 export 'tables/ticket_purchases.dart';
 export 'tables/ticket_types.dart';

@@ -33,4 +33,10 @@ abstract class TicketsApiClient {
   Future<UserTicketsResponse> getUserTicketsByUserId(
     @Path('userId') String userId,
   );
+
+  /// チケット詳細情報を取得（チケット情報、ユーザ情報、入場履歴）
+  @GET('/tickets/{ticketId}/detail')
+  Future<TicketDetailResponse> getTicketDetail(
+    @Path('ticketId') String ticketId,
+  );
 }

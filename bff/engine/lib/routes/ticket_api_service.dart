@@ -269,6 +269,59 @@ class TicketApiService {
         },
       );
 
+  /// チケット詳細情報を取得（チケット情報、ユーザ情報、入場履歴）
+  @Route.get('/<ticketId>/detail')
+  Future<Response> _getTicketDetail(Request request, String ticketId) async =>
+      jsonResponse(
+        () async {
+          final supabaseUtil = container.read(supabaseUtilProvider);
+          final userResult = await supabaseUtil.extractUser(request);
+          final (_, requestUser, roles) = userResult.unwrap;
+
+          final database = await container.read(dbClientProvider.future);
+
+          // チケット購入情報を取得
+          final ticketPurchase =
+              await database.ticketPurchase.getTicketPurchaseById(ticketId);
+          if (ticketPurchase == null) {
+            throw ErrorResponse.errorCode(
+              code: ErrorCode.routeNotFound,
+              detail: 'チケットが見つかりません',
+            );
+          }
+
+          // 管理者権限 もしくは チケット所有者
+          if (!roles.contains(db_types.Role.admin) &&
+              ticketPurchase.userId != requestUser.id) {
+            throw ErrorResponse.errorCode(
+              code: ErrorCode.forbidden,
+              detail: 'このチケットの情報を閲覧する権限がありません',
+            );
+          }
+
+          // ユーザー情報を取得
+          final user = await database.user.getUser(ticketPurchase.userId);
+          if (user == null) {
+            throw ErrorResponse.errorCode(
+              code: ErrorCode.routeNotFound,
+              detail: 'ユーザーが見つかりません',
+            );
+          }
+
+          // 入場履歴を取得
+          final entryHistory = await database.ticketEntryHistory
+              .getEntryHistoryByTicketPurchaseId(ticketId);
+
+          final response = TicketDetailResponse(
+            ticketPurchase: ticketPurchase.toTicketPurchase(),
+            user: user.toUser(),
+            entryHistory: entryHistory?.toTicketEntryHistory(),
+          );
+
+          return response.toJson();
+        },
+      );
+
   Router get router => _$TicketApiServiceRouter(this);
 }
 
