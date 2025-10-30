@@ -237,7 +237,9 @@ class _RoomSwitcher extends HookConsumerWidget {
 
     final screenWidth = MediaQuery.of(context).size.width;
 
-    return Positioned(
+    return AnimatedPositioned(
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.ease,
       bottom: isShowing.value ? 16 : -80,
       left: 0,
       right: 0,
