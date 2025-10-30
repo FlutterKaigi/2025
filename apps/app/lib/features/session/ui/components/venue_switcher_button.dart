@@ -1,4 +1,4 @@
-import 'package:app/features/session/data/model/session.dart';
+import 'package:bff_client/bff_client.dart';
 import 'package:flutter/material.dart';
 
 /// 会場切り替えボタン
@@ -10,7 +10,7 @@ class VenueSwitcherButton extends StatelessWidget {
   });
 
   final String current;
-  final SessionVenue venue;
+  final Venue venue;
 
   @override
   Widget build(BuildContext context) {

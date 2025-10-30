@@ -155,5 +155,18 @@ class SessionApiService {
         },
       );
 
+  /// 全タイムラインイベント一覧を取得
+  @Route.get('/timeline-events')
+  Future<Response> _getAllTimelineEvents(Request request) async => jsonResponse(
+    () async {
+      final database = await container.read(dbClientProvider.future);
+      final timelineEvents = await database.timelineEvent.getAllTimelineEvents();
+
+      return TimelineEventListResponse(
+        events: timelineEvents.map((e) => e.toTimelineEvent()).toList(),
+      ).toJson();
+    },
+  );
+
   Router get router => _$SessionApiServiceRouter(this);
 }
