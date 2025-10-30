@@ -25,7 +25,7 @@ class Home extends StatelessComponent {
       classes: 'main-background',
       styles: Styles(
         display: Display.flex,
-        padding: Padding.all(0.px),
+        padding: Padding.symmetric(horizontal: 32.px),
         overflow: Overflow.hidden,
         flexDirection: FlexDirection.column,
         alignItems: AlignItems.center,
@@ -34,10 +34,10 @@ class Home extends StatelessComponent {
       ),
       [
         const _MainArticle(),
-        const SectionLayout(
+        SectionLayout(
           id: 'news',
-          title: 'News',
-          children: [News()],
+          title: 'News'.toComponent,
+          children: const [News()],
         ),
         // const SectionLayout(
         //   title: 'Call for Proposal',
@@ -50,20 +50,20 @@ class Home extends StatelessComponent {
           dashSize: 8.rem,
         ),
         const Tagline(),
-        const SectionLayout(
+        SectionLayout(
           id: 'timeline',
-          title: 'Timeline',
-          children: [Timeline()],
+          title: 'Timeline'.toComponent,
+          children: const [Timeline()],
         ),
-        const SectionLayout(
+        SectionLayout(
           id: 'sponsor',
-          title: 'Sponsor',
-          children: [Sponsors()],
+          title: 'Sponsor'.toComponent,
+          children: const [Sponsors()],
         ),
-        const SectionLayout(
+        SectionLayout(
           id: 'staff',
-          title: 'Staff',
-          children: [Staff()],
+          title: 'Staff'.toComponent,
+          children: const [Staff()],
         ),
         CountdownView(),
       ],
