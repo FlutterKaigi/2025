@@ -1,0 +1,7 @@
+tile:
+  title: Latest News
+  subtitle: Please check the latest news
+screen:
+  title: News
+empty:
+  message: No news at this time.

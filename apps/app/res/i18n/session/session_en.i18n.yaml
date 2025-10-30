@@ -1,0 +1,10 @@
+title: Timetable
+detail:
+  bookmark: Bookmark
+bookmarked:
+  title: Bookmarked Sessions
+empty:
+  message: There are no sessions to display.
+feedback:
+  title: Feedback
+  send: Send Feedback
