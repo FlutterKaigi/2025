@@ -1,4 +1,4 @@
-import 'package:app/features/session/data/model/session.dart';
+import 'package:app/features/session/data/model/session_models.dart';
 import 'package:flutter/material.dart';
 
 enum SessionType {
@@ -15,14 +15,14 @@ class SessionTypeChip extends StatelessWidget {
     super.key,
   });
 
-  final Session session;
+  final ScheduleSession session;
 
   SessionType get _sessionType {
     if (session.isBeginnersLightningTalk) {
       return SessionType.beginnersLightningTalk;
     } else if (session.isLightningTalk) {
       return SessionType.lightningTalk;
-    } else if (session.isSponsorTalk) {
+    } else if (session.sponsor != null) {
       return SessionType.sponsorTalk;
     } else if (session.isHandsOn) {
       return SessionType.handsOn;

@@ -1,4 +1,5 @@
-import 'package:app/features/session/data/model/session.dart';
+import 'package:app/features/session/data/model/session_models.dart';
+import 'package:app/features/session/data/provider/bookmarked_sessions_provider.dart';
 import 'package:app/features/session/ui/components/session_speaker_icon.dart';
 import 'package:app/features/session/ui/components/session_type_chip.dart';
 import 'package:app/features/session/ui/components/session_venue_chip.dart';
@@ -14,18 +15,17 @@ class SessionCard extends ConsumerWidget {
     super.key,
   });
 
-  final Session session;
+  final ScheduleSession session;
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    // TODO: お気に入り機能は一時的に無効化（API連携後に再有効化）
-    // final isBookmarked = switch (ref.watch(bookmarkedSessionsProvider)) {
-    //   AsyncData(:final value) => value.contains(session.id),
-    //   AsyncLoading() => false,
-    //   AsyncError() => false,
-    // };
+    final isBookmarked = switch (ref.watch(bookmarkedSessionsProvider)) {
+      AsyncData(:final value) => value.contains(session.id),
+      AsyncLoading() => false,
+      AsyncError() => false,
+    };
 
     return Card(
       elevation: 0,
@@ -50,24 +50,23 @@ class SessionCard extends ConsumerWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  // TODO: お気に入り機能は一時的に無効化（API連携後に再有効化）
-                  // IconButton(
-                  //   icon: Icon(
-                  //     isBookmarked ? Icons.bookmark : Icons.bookmark_outline,
-                  //     size: 20,
-                  //   ),
-                  //   onPressed: () async {
-                  //     if (isBookmarked) {
-                  //       await ref
-                  //           .read(bookmarkedSessionsProvider.notifier)
-                  //           .remove(session.id);
-                  //     } else {
-                  //       await ref
-                  //           .read(bookmarkedSessionsProvider.notifier)
-                  //           .save(session.id);
-                  //     }
-                  //   },
-                  // ),
+                  IconButton(
+                    icon: Icon(
+                      isBookmarked ? Icons.bookmark : Icons.bookmark_outline,
+                      size: 20,
+                    ),
+                    onPressed: () async {
+                      if (isBookmarked) {
+                        await ref
+                            .read(bookmarkedSessionsProvider.notifier)
+                            .remove(session.id);
+                      } else {
+                        await ref
+                            .read(bookmarkedSessionsProvider.notifier)
+                            .save(session.id);
+                      }
+                    },
+                  ),
                 ],
               ),
               const SizedBox(height: 8),
@@ -75,7 +74,7 @@ class SessionCard extends ConsumerWidget {
                 spacing: 8,
                 runSpacing: 8,
                 children: [
-                  SessionVenueChip(venueName: session.venue.name),
+                  SessionVenueChip(venueName: session.venue),
                   SessionTypeChip(session: session),
                 ],
               ),

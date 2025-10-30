@@ -1,9 +1,10 @@
 import 'package:app/core/designsystem/components/error_screen.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/core/router/router.dart';
-import 'package:app/features/session/data/model/session.dart';
-import 'package:app/features/session/data/model/session_room.dart';
+import 'package:app/features/session/data/model/session_models.dart';
 import 'package:app/features/session/data/model/timeline_item.dart';
+import 'package:app/features/session/data/provider/bookmarked_sessions_provider.dart';
+import 'package:app/features/session/data/provider/session_provider.dart';
 import 'package:app/features/session/data/provider/session_timeline_provider.dart';
 import 'package:app/features/session/ui/components/session_speaker_icon.dart';
 import 'package:app/features/session/ui/components/session_type_chip.dart';
@@ -25,30 +26,86 @@ class SessionTimelineScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final t = Translations.of(context);
-    final currentRoom = useState(SessionRoom.room1);
-    final room1ScrollController = useScrollController();
-    final room2ScrollController = useScrollController();
-    final room3ScrollController = useScrollController();
-    final room4ScrollController = useScrollController();
+    final venues = ref.watch(venuesWithSessionsProvider);
 
-    final scrollController = switch (currentRoom.value) {
-      SessionRoom.room1 => room1ScrollController,
-      SessionRoom.room2 => room2ScrollController,
-      SessionRoom.room3 => room3ScrollController,
-      SessionRoom.room4 => room4ScrollController,
+    return switch (venues) {
+      AsyncData(value: final venueList) when venueList.isNotEmpty =>
+        _SessionTimelineContent(
+          t: t,
+          venues: venueList,
+        ),
+      AsyncLoading() => const Scaffold(
+        body: Center(
+          child: CircularProgressIndicator.adaptive(),
+        ),
+      ),
+      AsyncError(:final error) => Scaffold(
+        body: ErrorScreen(
+          error: error,
+          onRetry: () => ref.invalidate(venuesWithSessionsProvider),
+        ),
+      ),
+      _ => const Scaffold(
+        body: Center(
+          child: CircularProgressIndicator.adaptive(),
+        ),
+      ),
     };
+  }
+}
 
-    final pageStorageKey = PageStorageKey(
-      switch (currentRoom.value) {
-        SessionRoom.room1 => 'room1',
-        SessionRoom.room2 => 'room2',
-        SessionRoom.room3 => 'room3',
-        SessionRoom.room4 => 'room4',
-      },
+class _SessionTimelineContent extends HookConsumerWidget {
+  const _SessionTimelineContent({
+    required this.t,
+    required this.venues,
+  });
+
+  final Translations t;
+  final List<VenueWithSessions> venues;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final currentVenueIndex = useState(0);
+
+    // venue一覧ごとにスクロールコントローラーを保持
+    final scrollControllers = useMemoized(
+      () => List.generate(venues.length, (_) => ScrollController()),
+      [venues.length],
     );
 
+    useEffect(
+      () => () {
+        for (final controller in scrollControllers) {
+          controller.dispose();
+        }
+      },
+      [scrollControllers],
+    );
+
+    return _buildContent(
+      context: context,
+      ref: ref,
+      t: t,
+      venues: venues,
+      currentVenueIndex: currentVenueIndex,
+      scrollControllers: scrollControllers,
+    );
+  }
+
+  Widget _buildContent({
+    required BuildContext context,
+    required WidgetRef ref,
+    required Translations t,
+    required List<VenueWithSessions> venues,
+    required ValueNotifier<int> currentVenueIndex,
+    required List<ScrollController> scrollControllers,
+  }) {
+    final currentVenue = venues[currentVenueIndex.value];
+    final scrollController = scrollControllers[currentVenueIndex.value];
+    final pageStorageKey = PageStorageKey('venue_${currentVenue.id}');
+
     final timeline = ref.watch(
-      sessionTimelineForVenueProvider(currentRoom.value.id),
+      sessionTimelineForVenueProvider(currentVenue.id),
     );
 
     return Scaffold(
@@ -58,16 +115,15 @@ class SessionTimelineScreen extends HookConsumerWidget {
             children: [
               AppBar(
                 title: Text(t.session.title),
-                // TODO: お気に入り機能は一時的に無効化（API連携後に再有効化）
-                // actions: [
-                //   IconButton(
-                //     tooltip: t.session.detail.bookmark,
-                //     onPressed: () {
-                //       const BookmarkedSessionsRoute().go(context);
-                //     },
-                //     icon: const Icon(Icons.bookmarks_outlined),
-                //   ),
-                // ],
+                actions: [
+                  IconButton(
+                    tooltip: t.session.detail.bookmark,
+                    onPressed: () {
+                      const BookmarkedSessionsRoute().go(context);
+                    },
+                    icon: const Icon(Icons.bookmarks_outlined),
+                  ),
+                ],
               ),
               Expanded(
                 child: switch (timeline) {
@@ -108,7 +164,8 @@ class SessionTimelineScreen extends HookConsumerWidget {
             ],
           ),
           _RoomSwitcher(
-            current: currentRoom,
+            venues: venues,
+            currentVenueIndex: currentVenueIndex,
             scrollController: scrollController,
           ),
         ],
@@ -119,18 +176,19 @@ class SessionTimelineScreen extends HookConsumerWidget {
 
 class _RoomSwitcher extends HookConsumerWidget {
   const _RoomSwitcher({
-    required this.current,
+    required this.venues,
+    required this.currentVenueIndex,
     required this.scrollController,
   });
 
-  final ValueNotifier<SessionRoom> current;
+  final List<VenueWithSessions> venues;
+  final ValueNotifier<int> currentVenueIndex;
   final ScrollController scrollController;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final isShowing = useState(true);
-    // SessionRoom enumを直接使用するため、プロバイダー不要
 
     useEffect(
       () {
@@ -149,7 +207,7 @@ class _RoomSwitcher extends HookConsumerWidget {
         scrollController.addListener(listener);
         return () => scrollController.removeListener(listener);
       },
-      [current.value],
+      [currentVenueIndex.value],
     );
 
     return AnimatedPositioned(
@@ -170,22 +228,22 @@ class _RoomSwitcher extends HookConsumerWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: () {
-                  final roomWidgets = <Widget>[];
-                  for (final room in SessionRoom.values) {
-                    if (room.index > 0) {
-                      roomWidgets.add(const SizedBox(width: 12));
+                  final venueWidgets = <Widget>[];
+                  for (var i = 0; i < venues.length; i++) {
+                    if (i > 0) {
+                      venueWidgets.add(const SizedBox(width: 12));
                     }
-                    roomWidgets.add(
+                    venueWidgets.add(
                       GestureDetector(
-                        onTap: () => current.value = room,
-                        child: _RoomSwitcherButton(
-                          isSelected: current.value == room,
-                          room: room,
+                        onTap: () => currentVenueIndex.value = i,
+                        child: _VenueSwitcherButton(
+                          isSelected: currentVenueIndex.value == i,
+                          venue: venues[i],
                         ),
                       ),
                     );
                   }
-                  return roomWidgets;
+                  return venueWidgets;
                 }(),
               ),
             ),
@@ -196,14 +254,14 @@ class _RoomSwitcher extends HookConsumerWidget {
   }
 }
 
-class _RoomSwitcherButton extends StatelessWidget {
-  const _RoomSwitcherButton({
+class _VenueSwitcherButton extends StatelessWidget {
+  const _VenueSwitcherButton({
     required this.isSelected,
-    required this.room,
+    required this.venue,
   });
 
   final bool isSelected;
-  final SessionRoom room;
+  final VenueWithSessions venue;
 
   @override
   Widget build(BuildContext context) {
@@ -216,7 +274,7 @@ class _RoomSwitcherButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
       ),
       child: Text(
-        room.name,
+        venue.name,
         style: TextStyle(
           color: isSelected
               ? theme.colorScheme.tertiary
@@ -234,18 +292,17 @@ class _SessionCard extends ConsumerWidget {
     this.onTap,
   });
 
-  final Session session;
+  final ScheduleSession session;
   final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    // TODO: お気に入り機能は一時的に無効化（API連携後に再有効化）
-    // final isBookmarked = switch (ref.watch(bookmarkedSessionsProvider)) {
-    //   AsyncData(:final value) => value.contains(session.id),
-    //   AsyncLoading() => false,
-    //   AsyncError() => false,
-    // };
+    final isBookmarked = switch (ref.watch(bookmarkedSessionsProvider)) {
+      AsyncData(:final value) => value.contains(session.id),
+      AsyncLoading() => false,
+      AsyncError() => false,
+    };
 
     return Card(
       elevation: 0,
@@ -298,26 +355,25 @@ class _SessionCard extends ConsumerWidget {
               children: [
                 SessionTypeChip(session: session),
                 const Spacer(),
-                // TODO: お気に入り機能は一時的に無効化（API連携後に再有効化）
-                // IconButton(
-                //   padding: EdgeInsets.zero,
-                //   constraints: const BoxConstraints(),
-                //   icon: Icon(
-                //     isBookmarked ? Icons.bookmark : Icons.bookmark_outline,
-                //     size: 20,
-                //   ),
-                //   onPressed: () async {
-                //     if (isBookmarked) {
-                //       await ref
-                //           .read(bookmarkedSessionsProvider.notifier)
-                //           .remove(session.id);
-                //     } else {
-                //       await ref
-                //           .read(bookmarkedSessionsProvider.notifier)
-                //           .save(session.id);
-                //     }
-                //   },
-                // ),
+                IconButton(
+                  padding: EdgeInsets.zero,
+                  constraints: const BoxConstraints(),
+                  icon: Icon(
+                    isBookmarked ? Icons.bookmark : Icons.bookmark_outline,
+                    size: 20,
+                  ),
+                  onPressed: () async {
+                    if (isBookmarked) {
+                      await ref
+                          .read(bookmarkedSessionsProvider.notifier)
+                          .remove(session.id);
+                    } else {
+                      await ref
+                          .read(bookmarkedSessionsProvider.notifier)
+                          .save(session.id);
+                    }
+                  },
+                ),
               ],
             ),
           ],

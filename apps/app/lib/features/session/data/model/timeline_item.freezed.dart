@@ -11,30 +11,6 @@ part of 'timeline_item.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
-TimelineItem _$TimelineItemFromJson(
-  Map<String, dynamic> json
-) {
-        switch (json['runtimeType']) {
-                  case 'event':
-          return TimelineItemEvent.fromJson(
-            json
-          );
-                case 'session':
-          return TimelineItemSession.fromJson(
-            json
-          );
-        
-          default:
-            throw CheckedFromJsonException(
-  json,
-  'runtimeType',
-  'TimelineItem',
-  'Invalid union type "${json['runtimeType']}"!'
-);
-        }
-      
-}
-
 /// @nodoc
 mixin _$TimelineItem {
 
@@ -45,8 +21,6 @@ mixin _$TimelineItem {
 @pragma('vm:prefer-inline')
 $TimelineItemCopyWith<TimelineItem> get copyWith => _$TimelineItemCopyWithImpl<TimelineItem>(this as TimelineItem, _$identity);
 
-  /// Serializes this TimelineItem to a JSON map.
-  Map<String, dynamic> toJson();
 
 
 @override
@@ -54,7 +28,7 @@ bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is TimelineItem&&(identical(other.startsAt, startsAt) || other.startsAt == startsAt)&&(identical(other.endsAt, endsAt) || other.endsAt == endsAt));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
 int get hashCode => Object.hash(runtimeType,startsAt,endsAt);
 
@@ -177,7 +151,7 @@ return session(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( DateTime startsAt,  DateTime endsAt,  String title,  SessionVenue? venue)?  event,TResult Function( DateTime startsAt,  DateTime endsAt,  Session session)?  session,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( DateTime startsAt,  DateTime endsAt,  String title,  Venue? venue)?  event,TResult Function( DateTime startsAt,  DateTime endsAt,  ScheduleSession session)?  session,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case TimelineItemEvent() when event != null:
 return event(_that.startsAt,_that.endsAt,_that.title,_that.venue);case TimelineItemSession() when session != null:
@@ -199,7 +173,7 @@ return session(_that.startsAt,_that.endsAt,_that.session);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( DateTime startsAt,  DateTime endsAt,  String title,  SessionVenue? venue)  event,required TResult Function( DateTime startsAt,  DateTime endsAt,  Session session)  session,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( DateTime startsAt,  DateTime endsAt,  String title,  Venue? venue)  event,required TResult Function( DateTime startsAt,  DateTime endsAt,  ScheduleSession session)  session,}) {final _that = this;
 switch (_that) {
 case TimelineItemEvent():
 return event(_that.startsAt,_that.endsAt,_that.title,_that.venue);case TimelineItemSession():
@@ -217,7 +191,7 @@ return session(_that.startsAt,_that.endsAt,_that.session);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( DateTime startsAt,  DateTime endsAt,  String title,  SessionVenue? venue)?  event,TResult? Function( DateTime startsAt,  DateTime endsAt,  Session session)?  session,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( DateTime startsAt,  DateTime endsAt,  String title,  Venue? venue)?  event,TResult? Function( DateTime startsAt,  DateTime endsAt,  ScheduleSession session)?  session,}) {final _that = this;
 switch (_that) {
 case TimelineItemEvent() when event != null:
 return event(_that.startsAt,_that.endsAt,_that.title,_that.venue);case TimelineItemSession() when session != null:
@@ -230,20 +204,16 @@ return session(_that.startsAt,_that.endsAt,_that.session);case _:
 }
 
 /// @nodoc
-@JsonSerializable()
+
 
 class TimelineItemEvent implements TimelineItem {
-  const TimelineItemEvent({required this.startsAt, required this.endsAt, required this.title, this.venue, final  String? $type}): $type = $type ?? 'event';
-  factory TimelineItemEvent.fromJson(Map<String, dynamic> json) => _$TimelineItemEventFromJson(json);
+  const TimelineItemEvent({required this.startsAt, required this.endsAt, required this.title, this.venue});
+  
 
 @override final  DateTime startsAt;
 @override final  DateTime endsAt;
  final  String title;
- final  SessionVenue? venue;
-
-@JsonKey(name: 'runtimeType')
-final String $type;
-
+ final  Venue? venue;
 
 /// Create a copy of TimelineItem
 /// with the given fields replaced by the non-null parameter values.
@@ -251,17 +221,14 @@ final String $type;
 @pragma('vm:prefer-inline')
 $TimelineItemEventCopyWith<TimelineItemEvent> get copyWith => _$TimelineItemEventCopyWithImpl<TimelineItemEvent>(this, _$identity);
 
-@override
-Map<String, dynamic> toJson() {
-  return _$TimelineItemEventToJson(this, );
-}
+
 
 @override
 bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is TimelineItemEvent&&(identical(other.startsAt, startsAt) || other.startsAt == startsAt)&&(identical(other.endsAt, endsAt) || other.endsAt == endsAt)&&(identical(other.title, title) || other.title == title)&&(identical(other.venue, venue) || other.venue == venue));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
 int get hashCode => Object.hash(runtimeType,startsAt,endsAt,title,venue);
 
@@ -278,11 +245,11 @@ abstract mixin class $TimelineItemEventCopyWith<$Res> implements $TimelineItemCo
   factory $TimelineItemEventCopyWith(TimelineItemEvent value, $Res Function(TimelineItemEvent) _then) = _$TimelineItemEventCopyWithImpl;
 @override @useResult
 $Res call({
- DateTime startsAt, DateTime endsAt, String title, SessionVenue? venue
+ DateTime startsAt, DateTime endsAt, String title, Venue? venue
 });
 
 
-$SessionVenueCopyWith<$Res>? get venue;
+$VenueCopyWith<$Res>? get venue;
 
 }
 /// @nodoc
@@ -301,7 +268,7 @@ startsAt: null == startsAt ? _self.startsAt : startsAt // ignore: cast_nullable_
 as DateTime,endsAt: null == endsAt ? _self.endsAt : endsAt // ignore: cast_nullable_to_non_nullable
 as DateTime,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,venue: freezed == venue ? _self.venue : venue // ignore: cast_nullable_to_non_nullable
-as SessionVenue?,
+as Venue?,
   ));
 }
 
@@ -309,31 +276,27 @@ as SessionVenue?,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$SessionVenueCopyWith<$Res>? get venue {
+$VenueCopyWith<$Res>? get venue {
     if (_self.venue == null) {
     return null;
   }
 
-  return $SessionVenueCopyWith<$Res>(_self.venue!, (value) {
+  return $VenueCopyWith<$Res>(_self.venue!, (value) {
     return _then(_self.copyWith(venue: value));
   });
 }
 }
 
 /// @nodoc
-@JsonSerializable()
+
 
 class TimelineItemSession implements TimelineItem {
-  const TimelineItemSession({required this.startsAt, required this.endsAt, required this.session, final  String? $type}): $type = $type ?? 'session';
-  factory TimelineItemSession.fromJson(Map<String, dynamic> json) => _$TimelineItemSessionFromJson(json);
+  const TimelineItemSession({required this.startsAt, required this.endsAt, required this.session});
+  
 
 @override final  DateTime startsAt;
 @override final  DateTime endsAt;
- final  Session session;
-
-@JsonKey(name: 'runtimeType')
-final String $type;
-
+ final  ScheduleSession session;
 
 /// Create a copy of TimelineItem
 /// with the given fields replaced by the non-null parameter values.
@@ -341,17 +304,14 @@ final String $type;
 @pragma('vm:prefer-inline')
 $TimelineItemSessionCopyWith<TimelineItemSession> get copyWith => _$TimelineItemSessionCopyWithImpl<TimelineItemSession>(this, _$identity);
 
-@override
-Map<String, dynamic> toJson() {
-  return _$TimelineItemSessionToJson(this, );
-}
+
 
 @override
 bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is TimelineItemSession&&(identical(other.startsAt, startsAt) || other.startsAt == startsAt)&&(identical(other.endsAt, endsAt) || other.endsAt == endsAt)&&(identical(other.session, session) || other.session == session));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
 int get hashCode => Object.hash(runtimeType,startsAt,endsAt,session);
 
@@ -368,11 +328,11 @@ abstract mixin class $TimelineItemSessionCopyWith<$Res> implements $TimelineItem
   factory $TimelineItemSessionCopyWith(TimelineItemSession value, $Res Function(TimelineItemSession) _then) = _$TimelineItemSessionCopyWithImpl;
 @override @useResult
 $Res call({
- DateTime startsAt, DateTime endsAt, Session session
+ DateTime startsAt, DateTime endsAt, ScheduleSession session
 });
 
 
-$SessionCopyWith<$Res> get session;
+$ScheduleSessionCopyWith<$Res> get session;
 
 }
 /// @nodoc
@@ -390,7 +350,7 @@ class _$TimelineItemSessionCopyWithImpl<$Res>
 startsAt: null == startsAt ? _self.startsAt : startsAt // ignore: cast_nullable_to_non_nullable
 as DateTime,endsAt: null == endsAt ? _self.endsAt : endsAt // ignore: cast_nullable_to_non_nullable
 as DateTime,session: null == session ? _self.session : session // ignore: cast_nullable_to_non_nullable
-as Session,
+as ScheduleSession,
   ));
 }
 
@@ -398,9 +358,9 @@ as Session,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$SessionCopyWith<$Res> get session {
+$ScheduleSessionCopyWith<$Res> get session {
   
-  return $SessionCopyWith<$Res>(_self.session, (value) {
+  return $ScheduleSessionCopyWith<$Res>(_self.session, (value) {
     return _then(_self.copyWith(session: value));
   });
 }

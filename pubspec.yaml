@@ -9,7 +9,7 @@ dependency_overrides:
   dartastic_opentelemetry:
     git:
       url: https://github.com/YumNumm/dartastic_opentelemetry.git
-      ref: 6596cf67856b5b055f1165d5ba473c5ade0b4528
+      ref: c74d9ff9b90546d071537ead242a79b7286949be
   protobuf: ^4.2.0
 
 dev_dependencies:

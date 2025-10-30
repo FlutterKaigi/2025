@@ -50,7 +50,7 @@ final class SessionTimelineProvider
   }
 }
 
-String _$sessionTimelineHash() => r'eaf271501d230d824c6f795e3833d2fe73739717';
+String _$sessionTimelineHash() => r'4d60f18b12e1914c209a5549286e3d55ac879007';
 
 @ProviderFor(sessionTimelineForVenue)
 const sessionTimelineForVenueProvider = SessionTimelineForVenueFamily._();
@@ -111,7 +111,7 @@ final class SessionTimelineForVenueProvider
 }
 
 String _$sessionTimelineForVenueHash() =>
-    r'0645d4a1807af3afb79f0e9208e88b7c66f70313';
+    r'8cd183fbe7140aac930bd51ee8e1619e31f56774';
 
 final class SessionTimelineForVenueFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<List<TimelineItem>>, String> {
@@ -130,50 +130,3 @@ final class SessionTimelineForVenueFamily extends $Family
   @override
   String toString() => r'sessionTimelineForVenueProvider';
 }
-
-@ProviderFor(sessionEvents)
-const sessionEventsProvider = SessionEventsProvider._();
-
-final class SessionEventsProvider
-    extends
-        $FunctionalProvider<
-          List<TimelineEvent>,
-          List<TimelineEvent>,
-          List<TimelineEvent>
-        >
-    with $Provider<List<TimelineEvent>> {
-  const SessionEventsProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'sessionEventsProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
-
-  @override
-  String debugGetCreateSourceHash() => _$sessionEventsHash();
-
-  @$internal
-  @override
-  $ProviderElement<List<TimelineEvent>> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
-
-  @override
-  List<TimelineEvent> create(Ref ref) {
-    return sessionEvents(ref);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(List<TimelineEvent> value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<List<TimelineEvent>>(value),
-    );
-  }
-}
-
-String _$sessionEventsHash() => r'f8550d81605096b812bf33b81e384afe9b0caf36';

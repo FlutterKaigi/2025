@@ -43,38 +43,43 @@ Future<void> _run() async {
   });
 
   FlutterError.onError = (details) {
-    FlutterOTel.reportError(
-      'FlutterError.onError',
-      details.exception,
-      details.stack,
-    );
+    if (!kIsWeb) {
+      FlutterOTel.reportError(
+        'FlutterError.onError',
+        details.exception,
+        details.stack,
+      );
+    }
   };
   final container = ProviderContainer();
   final environment = container.read(environmentProvider);
   final flavor = environment.flavor;
-  await FlutterOTel.initialize(
-    appName: 'app',
-    tracerName: 'main',
-    endpoint: 'https://otlp.flutterkaigi.jp',
-    spanProcessor: BatchSpanProcessor(
-      OtlpHttpSpanExporter(
-        OtlpHttpExporterConfig(
-          endpoint: 'https://otlp.flutterkaigi.jp',
+
+  // Web環境ではOpenTelemetryを無効化
+  // dartastic_opentelemetryがPlatform.environmentを使用するため
+  if (!kIsWeb) {
+    await FlutterOTel.initialize(
+      appName: 'app',
+      tracerName: 'main',
+      endpoint: 'https://otlp.flutterkaigi.jp',
+      spanProcessor: BatchSpanProcessor(
+        OtlpHttpSpanExporter(
+          OtlpHttpExporterConfig(
+            endpoint: 'https://otlp.flutterkaigi.jp',
+          ),
         ),
       ),
-    ),
-    resourceAttributes: Attributes.of({
-      'deployment.environment': flavor.name,
-      'service.namespace': 'flutterkaigi-2025-${flavor.name}',
-      'flutter.version': FlutterVersion.version ?? '',
-      'dart.version': FlutterVersion.dartVersion ?? '',
-      'os.type': kIsWeb ? 'web' : defaultTargetPlatform.name,
-      if (!kIsWeb) ...{
+      resourceAttributes: Attributes.of({
+        'deployment.environment': flavor.name,
+        'service.namespace': 'flutterkaigi-2025-${flavor.name}',
+        'flutter.version': FlutterVersion.version ?? '',
+        'dart.version': FlutterVersion.dartVersion ?? '',
+        'os.type': defaultTargetPlatform.name,
         'os.version': Platform.operatingSystemVersion,
         'os.platform': Platform.operatingSystem,
-      },
-    }),
-  );
+      }),
+    );
+  }
   await LocaleSettings.useDeviceLocale();
 
   ErrorWidget.builder = (details) => WidgetBuildErrorScreen(details: details);
