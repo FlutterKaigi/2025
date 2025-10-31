@@ -1,51 +1,85 @@
 import 'package:flutterkaigi_2025_website/src/components/external_link.dart';
 import 'package:flutterkaigi_2025_website/src/components/open_in_new.dart';
 import 'package:flutterkaigi_2025_website/src/config/config.dart';
+import 'package:flutterkaigi_2025_website/src/config/sessions_data.g.dart'
+    show venuesWithSessions;
+import 'package:flutterkaigi_2025_website/src/config/timeline_converter.dart';
 import 'package:flutterkaigi_2025_website/src/constants/styles.dart';
 import 'package:flutterkaigi_2025_website/text.dart';
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_router/jaspr_router.dart';
 
-String _makeGridArea(String venueId, Duration start, [Duration? end]) {
-  end = (end ?? start) - const Duration(minutes: 5);
-  return '$venueId-${start.inMinutes}'
-      ' / $venueId-${start.inMinutes}'
-      ' / $venueId-${end.inMinutes}'
-      ' / $venueId-${end.inMinutes}';
+// 行番号と列番号を計算してgrid配置を返す
+// row: 時間スロット（5分刻み）、column: 会場
+String _makeGridPlacement(
+  int venueIndex,
+  Duration start,
+  Duration time,
+  int minMinutes,
+) {
+  // 行番号: 時間スロット（5分刻み）+ 2（ヘッダー行分）
+  final startRow = (start.inMinutes ~/ 5) - (minMinutes ~/ 5) + 2;
+  final endRow = startRow + (time.inMinutes ~/ 5);
+
+  // 列番号: 会場インデックス + 2（時間列分）
+  final column = venueIndex + 2;
+
+  // grid-areaは row-start / col-start / row-end / col-end
+  // col-endは次のラインを指すので +1 が必要
+  return '$startRow / $column / $endRow / ${column + 1}';
 }
 
 String _makeTimeLabel(Duration time) {
-  final h = time.inHours;
-  final m = time.inMinutes % 60;
+  // イベント基準時刻 + 相対時間 = 実際の時刻
+  final actualTime = eventBaseTime.add(time);
+  final h = actualTime.hour;
+  final m = actualTime.minute;
   return '${h.toString().padLeft(2, '0')}:${m.toString().padLeft(2, '0')}';
 }
 
-/// タイムラインエントリから一意のvenue一覧を抽出
-Iterable<({String id, String name})> _extractVenues(
-  List<TimelineEntry> timeline,
-) {
-  final venueMap = <String, String>{};
-  for (final entry in timeline) {
-    venueMap[entry.venueId] = entry.venueName;
-  }
-  return venueMap.entries.map((e) => (id: e.key, name: e.value));
+/// 会場一覧を正しい表示順序で取得
+/// 順序: ASSIGN Hall, RevenueCat Hall, Skia, Impeller
+List<({String id, String name})> _getVenues() {
+  final venueMap = {
+    for (final v in venuesWithSessions) v.id: v.name,
+  };
+
+  // 正しい順序でvenueを並び替え
+  final orderedVenueIds = [
+    'e1a11efe-b1eb-43e1-ae60-9d2233e5dfe7', // ASSIGN Hall
+    '0505c447-b699-4803-aab9-9cbdf9452c1b', // RevenueCat Hall
+    '6426cd21-f1fe-4d84-b74b-ff459cc0d3e2', // Skia
+    '98807fe6-b381-40a7-8c33-30a024b9ca4f', // Impeller
+  ];
+
+  return orderedVenueIds
+      .where((id) => venueMap.containsKey(id))
+      .map((id) => (id: id, name: venueMap[id]!))
+      .toList();
 }
 
 Iterable<Component> _timelineRooms(
   BuildContext context,
-  List<TimelineEntry> timeline,
-) => _extractVenues(timeline).map(
-  (venue) => li(
-    styles: Styles(
-      padding: Spacing.only(left: 1.rem),
-      fontFamily: lexendFontFamily,
-      fontWeight: FontWeight.bold,
-      fontSize: 1.2.rem,
-      raw: {'grid-area': venue.id},
-    ),
-    [text(venue.name)],
-  ),
-);
+) {
+  final venues = _getVenues();
+  return venues.asMap().entries.map((entry) {
+    final index = entry.key;
+    final venue = entry.value;
+    return li(
+      styles: Styles(
+        padding: Spacing.only(left: 1.rem),
+        fontFamily: lexendFontFamily,
+        fontWeight: FontWeight.bold,
+        fontSize: 1.2.rem,
+        raw: {
+          'grid-row': '1',
+          'grid-column': '${index + 2}',
+        },
+      ),
+      [text(venue.name)],
+    );
+  });
+}
 
 /// 時間ラベルを動的に生成
 Iterable<Component> _generateTimeLabels(int minMinutes, int maxMinutes) {
@@ -53,6 +87,8 @@ Iterable<Component> _generateTimeLabels(int minMinutes, int maxMinutes) {
   for (var minutes = minMinutes; minutes <= maxMinutes; minutes += 5) {
     // 主要な時間（00分、15分、30分、45分）のみラベルを表示
     if (minutes % 15 == 0) {
+      // 行番号を計算: (分数 / 5) + 2（ヘッダー行分）
+      final rowIndex = (minutes ~/ 5) - (minMinutes ~/ 5) + 2;
       labels.add(
         li(
           styles: Styles(
@@ -60,7 +96,10 @@ Iterable<Component> _generateTimeLabels(int minMinutes, int maxMinutes) {
             fontSize: Unit.inherit,
             height: 1.em,
             whiteSpace: WhiteSpace.inherit,
-            raw: {'grid-area': 'time-$minutes'},
+            raw: {
+              'grid-row': '$rowIndex',
+              'grid-column': '1',
+            },
             radius: BorderRadius.all(Radius.circular(1.em)),
             backgroundColor: const Color.variable(
               '--background-color',
@@ -80,7 +119,7 @@ class Timeline extends StatelessComponent {
   @override
   Iterable<Component> build(BuildContext context) sync* {
     final timeline = event.timeline;
-    final venues = _extractVenues(timeline).toList();
+    final venues = _getVenues();
 
     // venueIndexに基づいて色を決定（偶数/奇数で区別）
     Color shadowColor(String venueId) {
@@ -90,54 +129,74 @@ class Timeline extends StatelessComponent {
           : const Color.variable('--secondary-color').withLightness(0.6);
     }
 
+    // minMinutesは後で定義されるので、クロージャで取得できる
     Component item(
       Component child, {
       required String venueId,
       required Duration start,
       required Duration time,
+      required int minMinutes,
       Styles? styles,
-    }) => li(
-      styles: Styles(
-        backgroundColor: const Color.variable('--background-color'),
-        margin: Spacing.only(left: 1.rem, top: 1.rem),
-        padding: Spacing.symmetric(horizontal: 1.rem, vertical: 0.5.rem),
-        fontSize: Unit.inherit,
-        whiteSpace: WhiteSpace.inherit,
-        minWidth: 12.em,
-        textOverflow: TextOverflow.ellipsis,
-        overflow: Overflow.hidden,
-        radius: BorderRadius.all(Radius.circular(1.rem)),
-        shadow: BoxShadow(
-          offsetX: 0.rem,
-          offsetY: 0.25.rem,
-          blur: 0.5.rem,
-          color: shadowColor(venueId),
-        ),
-        minHeight: (time.inMinutes / 5 * 1.75).rem,
-        raw: {
-          'grid-area': _makeGridArea(
-            venueId,
-            start,
-            start + time,
+    }) {
+      final venueIndex = venues.indexWhere((v) => v.id == venueId);
+      // LT（5分以下のセッション）の場合は文字サイズを小さくする
+      final isLT = time.inMinutes <= 5;
+      return li(
+        styles: Styles(
+          backgroundColor: const Color.variable('--background-color'),
+          margin: Spacing.only(left: 0.5.rem, right: 0.5.rem, bottom: 0.5.rem),
+          padding: Spacing.symmetric(horizontal: 1.rem, vertical: 0.75.rem),
+          fontSize: isLT ? 0.65.rem : Unit.inherit,
+          whiteSpace: WhiteSpace.inherit,
+          minWidth: 12.em,
+          textOverflow: TextOverflow.ellipsis,
+          overflow: Overflow.hidden,
+          radius: BorderRadius.all(Radius.circular(1.rem)),
+          shadow: BoxShadow(
+            offsetX: 0.rem,
+            offsetY: 0.25.rem,
+            blur: 0.5.rem,
+            color: shadowColor(venueId),
           ),
-        },
-      ),
-      [child],
-    );
+          minHeight: (time.inMinutes / 5 * 1.75).rem,
+          raw: {
+            'grid-area': _makeGridPlacement(
+              venueIndex,
+              start,
+              time,
+              minMinutes,
+            ),
+          },
+        ),
+        [child],
+      );
+    }
 
     Component breakItem({
       required Duration start,
       required Duration time,
+      required int minMinutes,
       String? startVenueId,
       String? endVenueId,
+      Content? title,
     }) {
       final firstVenueId = startVenueId ?? venues.first.id;
       final lastVenueId = endVenueId ?? venues.last.id;
-      final end = start + time - const Duration(minutes: 5);
+      final firstIndex = venues.indexWhere((v) => v.id == firstVenueId);
+      final lastIndex = venues.indexWhere((v) => v.id == lastVenueId);
+
+      // 行番号を計算（実際の時間分を占有）
+      final startRow = (start.inMinutes ~/ 5) - (minMinutes ~/ 5) + 2;
+      final endRow = startRow + (time.inMinutes ~/ 5);
+
+      // 列番号: 最初の会場から最後の会場まで
+      final startColumn = firstIndex + 2;
+      final endColumn = lastIndex + 2;
+
       return li(
         styles: Styles(
           backgroundColor: Colors.white,
-          margin: Spacing.only(left: 1.rem, top: 1.rem, bottom: 0.5.rem),
+          margin: Spacing.only(left: 0.5.rem, right: 0.5.rem, bottom: 0.5.rem),
           padding: Spacing.all(0.25.rem),
           fontSize: Unit.inherit,
           fontFamily: lexendFontFamily,
@@ -146,21 +205,20 @@ class Timeline extends StatelessComponent {
           textAlign: TextAlign.center,
           overflow: Overflow.hidden,
           radius: BorderRadius.all(Radius.circular(1.rem)),
+          height: 2.rem, // 休憩の高さを低く固定
           raw: {
             'grid-area':
-                '$firstVenueId-${start.inMinutes}'
-                ' / $firstVenueId-${start.inMinutes}'
-                ' / $lastVenueId-${end.inMinutes}'
-                ' / $lastVenueId-${end.inMinutes}',
+                '$startRow / $startColumn / $endRow / ${endColumn + 1}',
           },
         ),
-        [contents.breakz.text(context).toComponent],
+        [(title ?? contents.breakz).text(context).toComponent],
       );
     }
 
     // タイムラインから最小・最大時刻を取得
-    var minMinutes = 600; // 10:00 (デフォルト)
-    var maxMinutes = 1080; // 18:00 (デフォルト)
+    // 基準時刻: 9:00 (JST)
+    var minMinutes = 0; // 9:00 = 基準時刻 + 0分
+    var maxMinutes = 540; // 18:00 = 基準時刻 + 540分 (9時間)
 
     if (timeline.isNotEmpty) {
       minMinutes = timeline
@@ -175,18 +233,17 @@ class Timeline extends StatelessComponent {
       maxMinutes = ((maxMinutes + 4) ~/ 5) * 5;
     }
 
-    // 動的にGrid areasを生成
-    final venueIds = venues.map((v) => v.id).join(' ');
+    // 開場（9:00 = Duration.zero）を確実に表示するため、minMinutesを0にする
+    minMinutes = 0;
+
+    // Grid rows/columnsを生成
     final timeSlotCount = ((maxMinutes - minMinutes) ~/ 5) + 1;
 
-    final gridAreas = [
-      'time $venueIds',
-      ...List.generate(timeSlotCount, (i) {
-        final minutes = minMinutes + (i * 5);
-        final venueColumns = venues.map((v) => '${v.id}-$minutes').join(' ');
-        return 'time-$minutes $venueColumns';
-      }),
-    ];
+    // 各行: ヘッダー行 + 時間スロット行（autoで各要素の高さに応じて変化）
+    final gridRows = 'auto ${List.filled(timeSlotCount, 'auto').join(' ')}';
+
+    // 各列: 時間列 + 会場列
+    final gridColumns = 'auto ${List.filled(venues.length, '1fr').join(' ')}';
 
     yield ul(
       styles: Styles(
@@ -196,53 +253,74 @@ class Timeline extends StatelessComponent {
         raw: {
           'animation': 'scroll-shadow-inset linear',
           'animation-timeline': 'scroll(self x)',
+          'grid-template-rows': gridRows,
+          'grid-template-columns': gridColumns,
         },
         display: Display.grid,
-        gridTemplate: GridTemplate(
-          areas: GridAreas(gridAreas),
-        ),
         fontSize: 0.75.rem,
       ),
       [
-        ..._timelineRooms(context, timeline),
+        ..._timelineRooms(context),
         ..._generateTimeLabels(minMinutes, maxMinutes),
+        // 基準時刻: 9:00 (JST)
+        // 9:00 = 9:00 + 0:00 (開場)
         breakItem(
-          start: const Duration(hours: 10, minutes: 45),
-          time: const Duration(minutes: 15),
+          start: Duration.zero,
+          time: const Duration(hours: 1),
+          minMinutes: minMinutes,
+          title: (ja: '開場', en: 'Door Open'),
         ),
+        // 10:30 = 9:00 + 1:30
         breakItem(
-          start: const Duration(hours: 11, minutes: 30),
+          start: const Duration(hours: 1, minutes: 30),
           time: const Duration(minutes: 15),
-          startVenueId: venues.isNotEmpty ? venues.first.id : null,
-          endVenueId: venues.length >= 3 ? venues[2].id : venues.lastOrNull?.id,
+          minMinutes: minMinutes,
         ),
+        // 11:15 = 9:00 + 2:15 (全会場)
         breakItem(
-          start: const Duration(hours: 12, minutes: 15),
+          start: const Duration(hours: 2, minutes: 15),
+          time: const Duration(minutes: 15),
+          minMinutes: minMinutes,
+        ),
+        // 12:00 = 9:00 + 3:00 (ランチ)
+        breakItem(
+          start: const Duration(hours: 3),
           time: const Duration(hours: 1, minutes: 15),
+          minMinutes: minMinutes,
         ),
+        // 13:45 = 9:00 + 4:45
         breakItem(
-          start: const Duration(hours: 14),
+          start: const Duration(hours: 4, minutes: 45),
           time: const Duration(minutes: 15),
+          minMinutes: minMinutes,
           startVenueId: venues.isNotEmpty ? venues.first.id : null,
           endVenueId: venues.length >= 3 ? venues[2].id : venues.lastOrNull?.id,
         ),
+        // 14:30 = 9:00 + 5:30
         breakItem(
-          start: const Duration(hours: 14, minutes: 45),
+          start: const Duration(hours: 5, minutes: 30),
           time: const Duration(minutes: 30),
+          minMinutes: minMinutes,
           startVenueId: venues.isNotEmpty ? venues.first.id : null,
           endVenueId: venues.length >= 3 ? venues[2].id : venues.lastOrNull?.id,
         ),
+        // 15:30 = 9:00 + 6:30
         breakItem(
-          start: const Duration(hours: 15, minutes: 45),
-          time: const Duration(minutes: 15),
+          start: const Duration(hours: 6, minutes: 30),
+          time: const Duration(minutes: 30),
+          minMinutes: minMinutes,
         ),
+        // 16:30 = 9:00 + 7:30
         breakItem(
-          start: const Duration(hours: 16, minutes: 30),
+          start: const Duration(hours: 7, minutes: 30),
           time: const Duration(minutes: 15),
+          minMinutes: minMinutes,
         ),
+        // 17:15 = 9:00 + 8:15
         breakItem(
-          start: const Duration(hours: 17, minutes: 15),
+          start: const Duration(hours: 8, minutes: 15),
           time: const Duration(minutes: 15),
+          minMinutes: minMinutes,
         ),
         ...timeline.map((entry) {
           final url = entry.url;
@@ -289,6 +367,7 @@ class Timeline extends StatelessComponent {
             venueId: entry.venueId,
             start: entry.start,
             time: entry.time,
+            minMinutes: minMinutes,
           );
         }),
       ],

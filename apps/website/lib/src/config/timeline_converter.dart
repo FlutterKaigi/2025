@@ -1,25 +1,17 @@
 import 'package:bff_client/bff_client.dart';
 import 'package:flutterkaigi_2025_website/src/config/config.dart';
 
+/// イベントの基準時刻（タイムラインの開始時刻）
+/// 固定値: 2025-11-21 09:00 (JST)
+/// すべてのイベント（タイムラインイベント、セッション）が
+/// この基準時刻からの相対時間で計算される
+DateTime get eventBaseTime => DateTime(2025, 11, 21, 9);
+
 /// BFF APIから取得したセッション情報をTimelineEntry形式に変換
 List<TimelineEntry> convertSessionsToTimelineEntries(
   List<VenueWithSessions> venues,
 ) {
   final entries = <TimelineEntry>[];
-
-  // 最も早いセッションの開始時刻を基準にする
-  DateTime? eventStart;
-  for (final venue in venues) {
-    for (final session in venue.sessions) {
-      final localStartsAt = session.startsAt.toLocal();
-      if (eventStart == null || localStartsAt.isBefore(eventStart)) {
-        eventStart = localStartsAt;
-      }
-    }
-  }
-
-  // イベント基準時刻が見つからない場合はデフォルト値
-  eventStart ??= DateTime(2025, 11, 13, 10);
 
   for (final venue in venues) {
     for (final session in venue.sessions) {
@@ -27,8 +19,8 @@ List<TimelineEntry> convertSessionsToTimelineEntries(
       final localStartsAt = session.startsAt.toLocal();
       final localEndsAt = session.endsAt.toLocal();
 
-      // DateTimeからDurationに変換（イベント開始時刻を基準に）
-      final start = localStartsAt.difference(eventStart);
+      // DateTimeからDurationに変換（固定基準時刻から）
+      final start = localStartsAt.difference(eventBaseTime);
       final duration = localEndsAt.difference(localStartsAt);
 
       entries.add(
@@ -54,24 +46,12 @@ List<TimelineEntry> convertTimelineEventsToEntries(
 ) {
   final entries = <TimelineEntry>[];
 
-  // 最も早いイベントの開始時刻を基準にする
-  DateTime? eventStart;
-  for (final event in events) {
-    final localStartsAt = event.startsAt.toLocal();
-    if (eventStart == null || localStartsAt.isBefore(eventStart)) {
-      eventStart = localStartsAt;
-    }
-  }
-
-  // イベント基準時刻が見つからない場合はデフォルト値
-  eventStart ??= DateTime(2025, 11, 13, 10);
-
   for (final event in events) {
     final localStartsAt = event.startsAt.toLocal();
     final localEndsAt = event.endsAt?.toLocal();
 
-    // DateTimeからDurationに変換（イベント開始時刻を基準に）
-    final start = localStartsAt.difference(eventStart);
+    // DateTimeからDurationに変換（固定基準時刻から）
+    final start = localStartsAt.difference(eventBaseTime);
     final duration = localEndsAt != null
         ? localEndsAt.difference(localStartsAt)
         : const Duration(minutes: 30);
