@@ -51,4 +51,49 @@ class TicketPurchaseDbClient {
         .map((row) => TicketPurchases.fromJson(row.toColumnMap()))
         .toList();
   }
+
+  /// チケット購入情報をIDで取得
+  Future<TicketPurchases?> getTicketPurchaseById(
+    String ticketPurchaseId,
+  ) async {
+    final result = await _executor.execute(
+      '''
+        SELECT *, status::text AS "status"
+        FROM ticket_purchases
+        WHERE id = @ticketPurchaseId
+      ''',
+      parameters: {
+        'ticketPurchaseId': ticketPurchaseId,
+      },
+    );
+
+    if (result.isEmpty) {
+      return null;
+    }
+
+    return TicketPurchases.fromJson(result.first.toColumnMap());
+  }
+
+  /// チケット購入のステータスをrefundedに更新
+  Future<TicketPurchases> updateTicketPurchaseStatusToRefunded(
+    String ticketPurchaseId,
+  ) async {
+    final result = await _executor.execute(
+      '''
+        UPDATE ticket_purchases
+        SET status = 'refunded'::ticket_purchase_status, updated_at = NOW()
+        WHERE id = @ticketPurchaseId
+        RETURNING *, status::text AS "status"
+      ''',
+      parameters: {
+        'ticketPurchaseId': ticketPurchaseId,
+      },
+    );
+
+    if (result.isEmpty) {
+      throw Exception('Ticket purchase not found: $ticketPurchaseId');
+    }
+
+    return TicketPurchases.fromJson(result.first.toColumnMap());
+  }
 }

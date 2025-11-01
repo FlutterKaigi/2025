@@ -166,4 +166,67 @@ export const paymentApi = new Hono()
 			await stripe.checkout.sessions.expire(checkoutSessionId);
 			return c.json({ message: "Checkout session expired" }, 200);
 		},
+	)
+	.post(
+		"/refund",
+		vValidator(
+			"header",
+			v.object({
+				"x-api-key": v.string(),
+			}),
+		),
+		vValidator(
+			"json",
+			v.object({
+				payment_intent_id: v.string(),
+			}),
+		),
+		async (c) => {
+			c.req.valid("header");
+			const request = c.req.valid("json");
+
+			const stripe = new Stripe(env.STRIPE_API_KEY);
+
+			// PaymentIntentを取得して確認
+			const paymentIntent = await stripe.paymentIntents.retrieve(
+				request.payment_intent_id,
+			);
+
+			if (!paymentIntent) {
+				return c.json(
+					{
+						error: "PaymentIntent not found",
+					},
+					404,
+				);
+			}
+
+			// 既に返金済みかチェック
+			if (
+				paymentIntent.status === "canceled" ||
+				(paymentIntent.charges.data.length > 0 &&
+					paymentIntent.charges.data[0].refunded)
+			) {
+				return c.json(
+					{
+						message: "Already refunded",
+						refund: paymentIntent.charges.data[0]?.refunds?.data[0],
+					},
+					200,
+				);
+			}
+
+			// 返金処理を実行
+			const refund = await stripe.refunds.create({
+				payment_intent: request.payment_intent_id,
+			});
+
+			return c.json(
+				{
+					message: "Refund successful",
+					refund: refund,
+				},
+				200,
+			);
+		},
 	);

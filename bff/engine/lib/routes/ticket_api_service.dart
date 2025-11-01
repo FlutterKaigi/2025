@@ -269,6 +269,77 @@ class TicketApiService {
         },
       );
 
+  /// チケット購入の返金処理（Admin専用）
+  @Route.post('/purchase/<ticketPurchaseId>/refund')
+  Future<Response> _refundTicketPurchase(
+    Request request,
+    String ticketPurchaseId,
+  ) async =>
+      jsonResponse(
+        () async {
+          final supabaseUtil = container.read(supabaseUtilProvider);
+          final userResult = await supabaseUtil.extractUser(request);
+          final (_, user, roles) = userResult.unwrap;
+
+          // Admin権限チェック
+          if (!roles.contains(db_types.Role.admin)) {
+            throw ErrorResponse.errorCode(
+              code: ErrorCode.forbidden,
+              detail: '管理者権限が必要です',
+            );
+          }
+
+          final database = await container.read(dbClientProvider.future);
+
+          // チケット購入情報を取得
+          final ticketPurchase = await database.ticketPurchase
+              .getTicketPurchaseById(ticketPurchaseId);
+
+          if (ticketPurchase == null) {
+            throw ErrorResponse.errorCode(
+              code: ErrorCode.routeNotFound,
+              detail: 'チケット購入情報が見つかりません',
+            );
+          }
+
+          // 既にrefundedステータスの場合はエラーを返す（冪等性を考慮）
+          if (ticketPurchase.status == db_types.TicketPurchaseStatus.refunded) {
+            throw ErrorResponse.errorCode(
+              code: ErrorCode.conflict,
+              detail: 'このチケットは既に返金済みです',
+            );
+          }
+
+          // Refund Workflowを開始する
+          final internalApiClient = container.read(internalApiClientProvider);
+          final workflowStatusResponse = await internalApiClient
+              .paymentWorkflowInternalApi
+              .ticketRefund
+              .startTicketRefundWorkflow(
+                ticketPurchaseId: ticketPurchaseId,
+              );
+          final workflowStatus = workflowStatusResponse.data;
+          print('Refund workflow started: $workflowStatus');
+
+          // 更新後のチケット購入情報を取得して返す
+          final updatedTicketPurchase = await database.ticketPurchase
+              .getTicketPurchaseById(ticketPurchaseId);
+
+          if (updatedTicketPurchase == null) {
+            throw ErrorResponse.errorCode(
+              code: ErrorCode.routeNotFound,
+              detail: 'チケット購入情報の取得に失敗しました',
+            );
+          }
+
+          return {
+            'message': '返金処理を開始しました',
+            'ticketPurchase': updatedTicketPurchase.toJson(),
+            'workflowId': workflowStatus.id,
+          };
+        },
+      );
+
   Router get router => _$TicketApiServiceRouter(this);
 }
 

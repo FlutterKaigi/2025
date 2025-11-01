@@ -8,6 +8,7 @@ declare namespace Cloudflare {
 		HYPERDRIVE: Hyperdrive;
 		TICKET_CHECKOUT_WORKFLOW: Workflow;
 		PAYMENT_COMPLETION_WORKFLOW: Workflow;
+		TICKET_REFUND_WORKFLOW: Workflow;
 	}
 }
 interface CloudflareBindings extends Cloudflare.Env {}
