@@ -7,6 +7,7 @@ import 'package:engine/provider/db_client_provider.dart';
 import 'package:engine/provider/environments_provider.dart';
 import 'package:engine/routes/app_version_api_service.dart';
 import 'package:engine/routes/files_api_service.dart';
+import 'package:engine/routes/job_board_api_service.dart';
 import 'package:engine/routes/news_api_service.dart';
 import 'package:engine/routes/profile_api_service.dart';
 import 'package:engine/routes/session_api_service.dart';
@@ -62,6 +63,9 @@ class ApiService {
 
   @Route.mount('/v1')
   Router get _sponsorApiService => SponsorApiService().router;
+
+  @Route.mount('/v1')
+  Router get _jobBoardApiService => JobBoardApiService().router;
 
   @Route.mount('/v1')
   Router get _sessionApiService => SessionApiService().router;

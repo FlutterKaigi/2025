@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:db_client/src/client/job_board/job_board_db_client.dart';
 import 'package:db_client/src/client/news/news_db_client.dart';
 import 'package:db_client/src/client/ping/ping_db_client.dart';
 import 'package:db_client/src/client/profile/profile_db_client.dart';
@@ -57,6 +58,10 @@ class DbClient {
   SessionDbClient get session => SessionDbClient(executor: _executor);
   SpeakerDbClient get speaker => SpeakerDbClient(executor: _executor);
   SponsorDbClient get sponsor => SponsorDbClient(
+    executor: _executor,
+    logoBaseUrl: _logoBaseUrl,
+  );
+  JobBoardDbClient get jobBoard => JobBoardDbClient(
     executor: _executor,
     logoBaseUrl: _logoBaseUrl,
   );
