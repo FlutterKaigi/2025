@@ -21,6 +21,7 @@ export 'tables/device_fcm_tokens.dart';
 export 'tables/devices.dart';
 export 'tables/individual_drafts.dart';
 export 'tables/individuals.dart';
+export 'tables/job_boards.dart';
 export 'tables/news.dart';
 export 'tables/profiles.dart';
 export 'tables/session_speakers.dart';
