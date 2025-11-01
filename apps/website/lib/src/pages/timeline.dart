@@ -122,11 +122,18 @@ class Timeline extends StatelessComponent {
     final venues = _getVenues();
 
     // venueIndexに基づいて色を決定（偶数/奇数で区別）
-    Color shadowColor(String venueId) {
+    Color borderColor(String venueId) {
       final index = venues.indexWhere((v) => v.id == venueId);
       return index.isEven
-          ? const Color.variable('--primary-color').withLightness(0.7)
-          : const Color.variable('--secondary-color').withLightness(0.6);
+          ? const Color.value(0xF4CED6)
+          : const Color.value(0xCAE1FE);
+    }
+
+    Color backgroundColor(String venueId) {
+      final index = venues.indexWhere((v) => v.id == venueId);
+      return index.isEven
+          ? const Color.value(0xF7E3E9)
+          : const Color.value(0xE1EDFE);
     }
 
     // minMinutesは後で定義されるので、クロージャで取得できる
@@ -139,24 +146,19 @@ class Timeline extends StatelessComponent {
       Styles? styles,
     }) {
       final venueIndex = venues.indexWhere((v) => v.id == venueId);
-      // LT（5分以下のセッション）の場合は文字サイズを小さくする
-      final isLT = time.inMinutes <= 5;
       return li(
         styles: Styles(
-          backgroundColor: const Color.variable('--background-color'),
+          backgroundColor: backgroundColor(venueId),
           margin: Spacing.only(left: 0.5.rem, right: 0.5.rem, bottom: 0.5.rem),
           padding: Spacing.symmetric(horizontal: 1.rem, vertical: 0.75.rem),
-          fontSize: isLT ? 0.65.rem : Unit.inherit,
           whiteSpace: WhiteSpace.inherit,
           minWidth: 12.em,
           textOverflow: TextOverflow.ellipsis,
           overflow: Overflow.hidden,
-          radius: BorderRadius.all(Radius.circular(1.rem)),
-          shadow: BoxShadow(
-            offsetX: 0.rem,
-            offsetY: 0.25.rem,
-            blur: 0.5.rem,
-            color: shadowColor(venueId),
+          radius: BorderRadius.all(Radius.circular(0.5.rem)),
+          border: Border(
+            color: borderColor(venueId),
+            width: 2.px,
           ),
           minHeight: (time.inMinutes / 5 * 1.75).rem,
           raw: {
@@ -196,7 +198,10 @@ class Timeline extends StatelessComponent {
       return li(
         styles: Styles(
           backgroundColor: Colors.white,
-          margin: Spacing.only(left: 0.5.rem, right: 0.5.rem, bottom: 0.5.rem),
+          display: Display.flex,
+          alignItems: AlignItems.center,
+          justifyContent: JustifyContent.center,
+          margin: Spacing.only(left: 0.5.rem, right: 0.5.rem, bottom: 0.25.rem),
           padding: Spacing.all(0.25.rem),
           fontSize: Unit.inherit,
           fontFamily: lexendFontFamily,
@@ -204,8 +209,11 @@ class Timeline extends StatelessComponent {
           textOverflow: TextOverflow.ellipsis,
           textAlign: TextAlign.center,
           overflow: Overflow.hidden,
-          radius: BorderRadius.all(Radius.circular(1.rem)),
-          height: 2.rem, // 休憩の高さを低く固定
+          radius: BorderRadius.all(Radius.circular(0.5.rem)),
+          border: Border(
+            color: const Color.variable('--border-color'),
+            width: 2.px,
+          ),
           raw: {
             'grid-area':
                 '$startRow / $startColumn / $endRow / ${endColumn + 1}',
