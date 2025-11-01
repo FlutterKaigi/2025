@@ -1,6 +1,7 @@
 export 'converters/date_time_converter.dart';
 export 'models/checkout_option.dart';
 export 'models/device_tokens.dart';
+export 'models/job_board.dart';
 export 'models/profile_with_sns_links.dart';
 export 'models/sponsors.dart';
 export 'models/ticket_purchase_with_details.dart';
