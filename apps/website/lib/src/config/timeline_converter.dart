@@ -26,7 +26,7 @@ List<TimelineEntry> convertSessionsToTimelineEntries(
       entries.add(
         (
           title: (ja: session.title, en: null),
-          url: null, // セッション詳細ページのURLは後で追加可能
+          url: session.url,
           venueId: venue.id,
           venueName: venue.name,
           satellite: false,
