@@ -29,6 +29,7 @@ abstract class ScheduleSession with _$ScheduleSession {
     required bool isHandsOn,
     required List<Speaker> speakers,
     String? videoUrl,
+    String? url,
     Sponsor? sponsor,
   }) = _ScheduleSession;
 

@@ -30,6 +30,7 @@ abstract class SponsorSessionDetail with _$SponsorSessionDetail {
     @Default(false) bool isBeginnersLightningTalk,
     @Default(false) bool isHandsOn,
     String? videoUrl,
+    String? url,
     @Default([]) List<Speakers> speakers,
     SessionVenues? venue,
   }) = _SponsorSessionDetail;

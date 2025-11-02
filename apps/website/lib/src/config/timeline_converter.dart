@@ -2,10 +2,10 @@ import 'package:bff_client/bff_client.dart';
 import 'package:flutterkaigi_2025_website/src/config/config.dart';
 
 /// イベントの基準時刻（タイムラインの開始時刻）
-/// 固定値: 2025-11-21 09:00 (JST)
+/// 固定値: 2025-11-13 09:00 (JST)
 /// すべてのイベント（タイムラインイベント、セッション）が
 /// この基準時刻からの相対時間で計算される
-DateTime get eventBaseTime => DateTime(2025, 11, 21, 9);
+DateTime get eventBaseTime => DateTime(2025, 11, 13, 9);
 
 /// BFF APIから取得したセッション情報をTimelineEntry形式に変換
 List<TimelineEntry> convertSessionsToTimelineEntries(

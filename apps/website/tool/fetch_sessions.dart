@@ -9,8 +9,7 @@ import 'package:dio/dio.dart';
 Future<void> main() async {
   // 環境変数からBFF_BASE_URLを取得、なければデフォルト値（prod）を使用
   const defaultBffBaseUrl = 'https://2025-bff.flutterkaigi.jp/v1';
-  final bffBaseUrl =
-      Platform.environment['BFF_BASE_URL'] ?? defaultBffBaseUrl;
+  final bffBaseUrl = Platform.environment['BFF_BASE_URL'] ?? defaultBffBaseUrl;
 
   if (bffBaseUrl.isEmpty) {
     stderr.writeln('Error: BFF_BASE_URL is empty');
@@ -145,6 +144,9 @@ String _generateDartFile(
       buffer.writeln(
         "      videoUrl: ${session.videoUrl != null ? "'${_escapeString(session.videoUrl!)}'" : 'null'},",
       );
+      buffer.writeln(
+        "      url: ${session.url != null ? "'${_escapeString(session.url!)}'" : 'null'},",
+      );
       if (session.sponsor != null) {
         final sponsor = session.sponsor!;
         buffer.writeln('      sponsor: Sponsor(');
@@ -223,6 +225,9 @@ String _generateDartFile(
       buffer.writeln('        ],');
       buffer.writeln(
         "        videoUrl: ${session.videoUrl != null ? "'${_escapeString(session.videoUrl!)}'" : 'null'},",
+      );
+      buffer.writeln(
+        "        url: ${session.url != null ? "'${_escapeString(session.url!)}'" : 'null'},",
       );
       if (session.sponsor != null) {
         final sponsor = session.sponsor!;

@@ -61,6 +61,7 @@ _ScheduleSession _$ScheduleSessionFromJson(
             .toList(),
       ),
       videoUrl: $checkedConvert('video_url', (v) => v as String?),
+      url: $checkedConvert('url', (v) => v as String?),
       sponsor: $checkedConvert(
         'sponsor',
         (v) => v == null ? null : Sponsor.fromJson(v as Map<String, dynamic>),
@@ -93,5 +94,6 @@ Map<String, dynamic> _$ScheduleSessionToJson(_ScheduleSession instance) =>
       'is_hands_on': instance.isHandsOn,
       'speakers': instance.speakers,
       'video_url': instance.videoUrl,
+      'url': instance.url,
       'sponsor': instance.sponsor,
     };

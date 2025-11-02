@@ -28,6 +28,7 @@ abstract class Session with _$Session {
     required bool isHandsOn,
     required DateTime createdAt,
     String? videoUrl,
+    String? url,
   }) = _Session;
 
   factory Session.fromJson(Map<String, dynamic> json) =>
@@ -89,6 +90,7 @@ abstract class SessionWithSpeakers with _$SessionWithSpeakers {
     required bool isHandsOn,
     required List<Speaker> speakers,
     String? videoUrl,
+    String? url,
     Sponsor? sponsor,
   }) = _SessionWithSpeakers;
 
@@ -107,6 +109,7 @@ extension SessionsExtension on db_types.Sessions {
     isBeginnersLightningTalk: isBeginnersLightningTalk,
     isHandsOn: isHandsOn,
     videoUrl: videoUrl,
+    url: url,
     createdAt: createdAt,
   );
 }
@@ -154,6 +157,7 @@ extension SessionWithDetailsExtension on db_types.SessionWithDetails {
     isHandsOn: isHandsOn,
     speakers: speakers.map((s) => s.toSpeaker()).toList(),
     videoUrl: videoUrl,
+    url: url,
     sponsor: sponsor?.toSponsor(),
   );
 }
@@ -179,6 +183,7 @@ extension SponsorSessionDetailExtension on db_types.SponsorSessionDetail {
     isHandsOn: isHandsOn,
     speakers: speakers.map((s) => s.toSpeaker()).toList(),
     videoUrl: videoUrl,
+    url: url,
     venue: venue?.toVenue(),
   );
 }

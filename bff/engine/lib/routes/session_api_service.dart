@@ -80,6 +80,7 @@ class SessionApiService {
               isHandsOn: session.isHandsOn,
               speakers: session.speakers.map((sp) => sp.toSpeaker()).toList(),
               videoUrl: session.videoUrl,
+              url: session.url,
               sponsor: session.sponsor?.toSponsor(),
             ),
           );
@@ -118,6 +119,7 @@ class SessionApiService {
             isHandsOn: session.isHandsOn,
             speakers: session.speakers.map((sp) => sp.toSpeaker()).toList(),
             videoUrl: session.videoUrl,
+            url: session.url,
             sponsor: session.sponsor?.toSponsor(),
           ).toJson();
         },

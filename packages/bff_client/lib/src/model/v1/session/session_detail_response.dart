@@ -17,6 +17,7 @@ abstract class SessionDetailResponse with _$SessionDetailResponse {
     required bool isHandsOn,
     required List<Speaker> speakers,
     String? videoUrl,
+    String? url,
     Sponsor? sponsor,
   }) = _SessionDetailResponse;
 

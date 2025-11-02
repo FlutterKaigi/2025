@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SessionDetailResponse {
 
- String get id; String get title; String get description; DateTime get startsAt; DateTime get endsAt; bool get isLightningTalk; bool get isBeginnersLightningTalk; bool get isHandsOn; List<Speaker> get speakers; String? get videoUrl; Sponsor? get sponsor;
+ String get id; String get title; String get description; DateTime get startsAt; DateTime get endsAt; bool get isLightningTalk; bool get isBeginnersLightningTalk; bool get isHandsOn; List<Speaker> get speakers; String? get videoUrl; String? get url; Sponsor? get sponsor;
 /// Create a copy of SessionDetailResponse
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $SessionDetailResponseCopyWith<SessionDetailResponse> get copyWith => _$SessionD
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SessionDetailResponse&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.startsAt, startsAt) || other.startsAt == startsAt)&&(identical(other.endsAt, endsAt) || other.endsAt == endsAt)&&(identical(other.isLightningTalk, isLightningTalk) || other.isLightningTalk == isLightningTalk)&&(identical(other.isBeginnersLightningTalk, isBeginnersLightningTalk) || other.isBeginnersLightningTalk == isBeginnersLightningTalk)&&(identical(other.isHandsOn, isHandsOn) || other.isHandsOn == isHandsOn)&&const DeepCollectionEquality().equals(other.speakers, speakers)&&(identical(other.videoUrl, videoUrl) || other.videoUrl == videoUrl)&&(identical(other.sponsor, sponsor) || other.sponsor == sponsor));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SessionDetailResponse&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.startsAt, startsAt) || other.startsAt == startsAt)&&(identical(other.endsAt, endsAt) || other.endsAt == endsAt)&&(identical(other.isLightningTalk, isLightningTalk) || other.isLightningTalk == isLightningTalk)&&(identical(other.isBeginnersLightningTalk, isBeginnersLightningTalk) || other.isBeginnersLightningTalk == isBeginnersLightningTalk)&&(identical(other.isHandsOn, isHandsOn) || other.isHandsOn == isHandsOn)&&const DeepCollectionEquality().equals(other.speakers, speakers)&&(identical(other.videoUrl, videoUrl) || other.videoUrl == videoUrl)&&(identical(other.url, url) || other.url == url)&&(identical(other.sponsor, sponsor) || other.sponsor == sponsor));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,title,description,startsAt,endsAt,isLightningTalk,isBeginnersLightningTalk,isHandsOn,const DeepCollectionEquality().hash(speakers),videoUrl,sponsor);
+int get hashCode => Object.hash(runtimeType,id,title,description,startsAt,endsAt,isLightningTalk,isBeginnersLightningTalk,isHandsOn,const DeepCollectionEquality().hash(speakers),videoUrl,url,sponsor);
 
 @override
 String toString() {
-  return 'SessionDetailResponse(id: $id, title: $title, description: $description, startsAt: $startsAt, endsAt: $endsAt, isLightningTalk: $isLightningTalk, isBeginnersLightningTalk: $isBeginnersLightningTalk, isHandsOn: $isHandsOn, speakers: $speakers, videoUrl: $videoUrl, sponsor: $sponsor)';
+  return 'SessionDetailResponse(id: $id, title: $title, description: $description, startsAt: $startsAt, endsAt: $endsAt, isLightningTalk: $isLightningTalk, isBeginnersLightningTalk: $isBeginnersLightningTalk, isHandsOn: $isHandsOn, speakers: $speakers, videoUrl: $videoUrl, url: $url, sponsor: $sponsor)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $SessionDetailResponseCopyWith<$Res>  {
   factory $SessionDetailResponseCopyWith(SessionDetailResponse value, $Res Function(SessionDetailResponse) _then) = _$SessionDetailResponseCopyWithImpl;
 @useResult
 $Res call({
- String id, String title, String description, DateTime startsAt, DateTime endsAt, bool isLightningTalk, bool isBeginnersLightningTalk, bool isHandsOn, List<Speaker> speakers, String? videoUrl, Sponsor? sponsor
+ String id, String title, String description, DateTime startsAt, DateTime endsAt, bool isLightningTalk, bool isBeginnersLightningTalk, bool isHandsOn, List<Speaker> speakers, String? videoUrl, String? url, Sponsor? sponsor
 });
 
 
@@ -65,7 +65,7 @@ class _$SessionDetailResponseCopyWithImpl<$Res>
 
 /// Create a copy of SessionDetailResponse
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? description = null,Object? startsAt = null,Object? endsAt = null,Object? isLightningTalk = null,Object? isBeginnersLightningTalk = null,Object? isHandsOn = null,Object? speakers = null,Object? videoUrl = freezed,Object? sponsor = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? description = null,Object? startsAt = null,Object? endsAt = null,Object? isLightningTalk = null,Object? isBeginnersLightningTalk = null,Object? isHandsOn = null,Object? speakers = null,Object? videoUrl = freezed,Object? url = freezed,Object? sponsor = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
@@ -77,6 +77,7 @@ as bool,isBeginnersLightningTalk: null == isBeginnersLightningTalk ? _self.isBeg
 as bool,isHandsOn: null == isHandsOn ? _self.isHandsOn : isHandsOn // ignore: cast_nullable_to_non_nullable
 as bool,speakers: null == speakers ? _self.speakers : speakers // ignore: cast_nullable_to_non_nullable
 as List<Speaker>,videoUrl: freezed == videoUrl ? _self.videoUrl : videoUrl // ignore: cast_nullable_to_non_nullable
+as String?,url: freezed == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
 as String?,sponsor: freezed == sponsor ? _self.sponsor : sponsor // ignore: cast_nullable_to_non_nullable
 as Sponsor?,
   ));
@@ -175,10 +176,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String title,  String description,  DateTime startsAt,  DateTime endsAt,  bool isLightningTalk,  bool isBeginnersLightningTalk,  bool isHandsOn,  List<Speaker> speakers,  String? videoUrl,  Sponsor? sponsor)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String title,  String description,  DateTime startsAt,  DateTime endsAt,  bool isLightningTalk,  bool isBeginnersLightningTalk,  bool isHandsOn,  List<Speaker> speakers,  String? videoUrl,  String? url,  Sponsor? sponsor)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SessionDetailResponse() when $default != null:
-return $default(_that.id,_that.title,_that.description,_that.startsAt,_that.endsAt,_that.isLightningTalk,_that.isBeginnersLightningTalk,_that.isHandsOn,_that.speakers,_that.videoUrl,_that.sponsor);case _:
+return $default(_that.id,_that.title,_that.description,_that.startsAt,_that.endsAt,_that.isLightningTalk,_that.isBeginnersLightningTalk,_that.isHandsOn,_that.speakers,_that.videoUrl,_that.url,_that.sponsor);case _:
   return orElse();
 
 }
@@ -196,10 +197,10 @@ return $default(_that.id,_that.title,_that.description,_that.startsAt,_that.ends
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String title,  String description,  DateTime startsAt,  DateTime endsAt,  bool isLightningTalk,  bool isBeginnersLightningTalk,  bool isHandsOn,  List<Speaker> speakers,  String? videoUrl,  Sponsor? sponsor)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String title,  String description,  DateTime startsAt,  DateTime endsAt,  bool isLightningTalk,  bool isBeginnersLightningTalk,  bool isHandsOn,  List<Speaker> speakers,  String? videoUrl,  String? url,  Sponsor? sponsor)  $default,) {final _that = this;
 switch (_that) {
 case _SessionDetailResponse():
-return $default(_that.id,_that.title,_that.description,_that.startsAt,_that.endsAt,_that.isLightningTalk,_that.isBeginnersLightningTalk,_that.isHandsOn,_that.speakers,_that.videoUrl,_that.sponsor);case _:
+return $default(_that.id,_that.title,_that.description,_that.startsAt,_that.endsAt,_that.isLightningTalk,_that.isBeginnersLightningTalk,_that.isHandsOn,_that.speakers,_that.videoUrl,_that.url,_that.sponsor);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -216,10 +217,10 @@ return $default(_that.id,_that.title,_that.description,_that.startsAt,_that.ends
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String title,  String description,  DateTime startsAt,  DateTime endsAt,  bool isLightningTalk,  bool isBeginnersLightningTalk,  bool isHandsOn,  List<Speaker> speakers,  String? videoUrl,  Sponsor? sponsor)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String title,  String description,  DateTime startsAt,  DateTime endsAt,  bool isLightningTalk,  bool isBeginnersLightningTalk,  bool isHandsOn,  List<Speaker> speakers,  String? videoUrl,  String? url,  Sponsor? sponsor)?  $default,) {final _that = this;
 switch (_that) {
 case _SessionDetailResponse() when $default != null:
-return $default(_that.id,_that.title,_that.description,_that.startsAt,_that.endsAt,_that.isLightningTalk,_that.isBeginnersLightningTalk,_that.isHandsOn,_that.speakers,_that.videoUrl,_that.sponsor);case _:
+return $default(_that.id,_that.title,_that.description,_that.startsAt,_that.endsAt,_that.isLightningTalk,_that.isBeginnersLightningTalk,_that.isHandsOn,_that.speakers,_that.videoUrl,_that.url,_that.sponsor);case _:
   return null;
 
 }
@@ -231,7 +232,7 @@ return $default(_that.id,_that.title,_that.description,_that.startsAt,_that.ends
 @JsonSerializable()
 
 class _SessionDetailResponse implements SessionDetailResponse {
-  const _SessionDetailResponse({required this.id, required this.title, required this.description, required this.startsAt, required this.endsAt, required this.isLightningTalk, required this.isBeginnersLightningTalk, required this.isHandsOn, required final  List<Speaker> speakers, this.videoUrl, this.sponsor}): _speakers = speakers;
+  const _SessionDetailResponse({required this.id, required this.title, required this.description, required this.startsAt, required this.endsAt, required this.isLightningTalk, required this.isBeginnersLightningTalk, required this.isHandsOn, required final  List<Speaker> speakers, this.videoUrl, this.url, this.sponsor}): _speakers = speakers;
   factory _SessionDetailResponse.fromJson(Map<String, dynamic> json) => _$SessionDetailResponseFromJson(json);
 
 @override final  String id;
@@ -250,6 +251,7 @@ class _SessionDetailResponse implements SessionDetailResponse {
 }
 
 @override final  String? videoUrl;
+@override final  String? url;
 @override final  Sponsor? sponsor;
 
 /// Create a copy of SessionDetailResponse
@@ -265,16 +267,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SessionDetailResponse&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.startsAt, startsAt) || other.startsAt == startsAt)&&(identical(other.endsAt, endsAt) || other.endsAt == endsAt)&&(identical(other.isLightningTalk, isLightningTalk) || other.isLightningTalk == isLightningTalk)&&(identical(other.isBeginnersLightningTalk, isBeginnersLightningTalk) || other.isBeginnersLightningTalk == isBeginnersLightningTalk)&&(identical(other.isHandsOn, isHandsOn) || other.isHandsOn == isHandsOn)&&const DeepCollectionEquality().equals(other._speakers, _speakers)&&(identical(other.videoUrl, videoUrl) || other.videoUrl == videoUrl)&&(identical(other.sponsor, sponsor) || other.sponsor == sponsor));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SessionDetailResponse&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.startsAt, startsAt) || other.startsAt == startsAt)&&(identical(other.endsAt, endsAt) || other.endsAt == endsAt)&&(identical(other.isLightningTalk, isLightningTalk) || other.isLightningTalk == isLightningTalk)&&(identical(other.isBeginnersLightningTalk, isBeginnersLightningTalk) || other.isBeginnersLightningTalk == isBeginnersLightningTalk)&&(identical(other.isHandsOn, isHandsOn) || other.isHandsOn == isHandsOn)&&const DeepCollectionEquality().equals(other._speakers, _speakers)&&(identical(other.videoUrl, videoUrl) || other.videoUrl == videoUrl)&&(identical(other.url, url) || other.url == url)&&(identical(other.sponsor, sponsor) || other.sponsor == sponsor));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,title,description,startsAt,endsAt,isLightningTalk,isBeginnersLightningTalk,isHandsOn,const DeepCollectionEquality().hash(_speakers),videoUrl,sponsor);
+int get hashCode => Object.hash(runtimeType,id,title,description,startsAt,endsAt,isLightningTalk,isBeginnersLightningTalk,isHandsOn,const DeepCollectionEquality().hash(_speakers),videoUrl,url,sponsor);
 
 @override
 String toString() {
-  return 'SessionDetailResponse(id: $id, title: $title, description: $description, startsAt: $startsAt, endsAt: $endsAt, isLightningTalk: $isLightningTalk, isBeginnersLightningTalk: $isBeginnersLightningTalk, isHandsOn: $isHandsOn, speakers: $speakers, videoUrl: $videoUrl, sponsor: $sponsor)';
+  return 'SessionDetailResponse(id: $id, title: $title, description: $description, startsAt: $startsAt, endsAt: $endsAt, isLightningTalk: $isLightningTalk, isBeginnersLightningTalk: $isBeginnersLightningTalk, isHandsOn: $isHandsOn, speakers: $speakers, videoUrl: $videoUrl, url: $url, sponsor: $sponsor)';
 }
 
 
@@ -285,7 +287,7 @@ abstract mixin class _$SessionDetailResponseCopyWith<$Res> implements $SessionDe
   factory _$SessionDetailResponseCopyWith(_SessionDetailResponse value, $Res Function(_SessionDetailResponse) _then) = __$SessionDetailResponseCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String title, String description, DateTime startsAt, DateTime endsAt, bool isLightningTalk, bool isBeginnersLightningTalk, bool isHandsOn, List<Speaker> speakers, String? videoUrl, Sponsor? sponsor
+ String id, String title, String description, DateTime startsAt, DateTime endsAt, bool isLightningTalk, bool isBeginnersLightningTalk, bool isHandsOn, List<Speaker> speakers, String? videoUrl, String? url, Sponsor? sponsor
 });
 
 
@@ -302,7 +304,7 @@ class __$SessionDetailResponseCopyWithImpl<$Res>
 
 /// Create a copy of SessionDetailResponse
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? description = null,Object? startsAt = null,Object? endsAt = null,Object? isLightningTalk = null,Object? isBeginnersLightningTalk = null,Object? isHandsOn = null,Object? speakers = null,Object? videoUrl = freezed,Object? sponsor = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? description = null,Object? startsAt = null,Object? endsAt = null,Object? isLightningTalk = null,Object? isBeginnersLightningTalk = null,Object? isHandsOn = null,Object? speakers = null,Object? videoUrl = freezed,Object? url = freezed,Object? sponsor = freezed,}) {
   return _then(_SessionDetailResponse(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
@@ -314,6 +316,7 @@ as bool,isBeginnersLightningTalk: null == isBeginnersLightningTalk ? _self.isBeg
 as bool,isHandsOn: null == isHandsOn ? _self.isHandsOn : isHandsOn // ignore: cast_nullable_to_non_nullable
 as bool,speakers: null == speakers ? _self._speakers : speakers // ignore: cast_nullable_to_non_nullable
 as List<Speaker>,videoUrl: freezed == videoUrl ? _self.videoUrl : videoUrl // ignore: cast_nullable_to_non_nullable
+as String?,url: freezed == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
 as String?,sponsor: freezed == sponsor ? _self.sponsor : sponsor // ignore: cast_nullable_to_non_nullable
 as Sponsor?,
   ));
