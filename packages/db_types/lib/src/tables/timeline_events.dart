@@ -11,6 +11,7 @@ abstract class TimelineEvents with _$TimelineEvents {
     required DateTime startsAt,
     DateTime? endsAt,
     String? venueId,
+    String? url,
     required DateTime createdAt,
   }) = _TimelineEvents;
 

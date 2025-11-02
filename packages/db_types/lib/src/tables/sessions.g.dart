@@ -36,6 +36,7 @@ _Sessions _$SessionsFromJson(Map<String, dynamic> json) => $checkedCreate(
       ),
       isHandsOn: $checkedConvert('is_hands_on', (v) => v as bool? ?? false),
       videoUrl: $checkedConvert('video_url', (v) => v as String?),
+      url: $checkedConvert('url', (v) => v as String?),
       createdAt: $checkedConvert(
         'created_at',
         (v) => const RequiredDateTimeConverter().fromJson(v),
@@ -68,5 +69,6 @@ Map<String, dynamic> _$SessionsToJson(_Sessions instance) => <String, dynamic>{
   'is_beginners_lightning_talk': instance.isBeginnersLightningTalk,
   'is_hands_on': instance.isHandsOn,
   'video_url': instance.videoUrl,
+  'url': instance.url,
   'created_at': const RequiredDateTimeConverter().toJson(instance.createdAt),
 };

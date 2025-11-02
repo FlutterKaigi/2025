@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$TimelineEvents {
 
- String get id; String get title; DateTime get startsAt; DateTime? get endsAt; String? get venueId; DateTime get createdAt;
+ String get id; String get title; DateTime get startsAt; DateTime? get endsAt; String? get venueId; String? get url; DateTime get createdAt;
 /// Create a copy of TimelineEvents
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $TimelineEventsCopyWith<TimelineEvents> get copyWith => _$TimelineEventsCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TimelineEvents&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.startsAt, startsAt) || other.startsAt == startsAt)&&(identical(other.endsAt, endsAt) || other.endsAt == endsAt)&&(identical(other.venueId, venueId) || other.venueId == venueId)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TimelineEvents&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.startsAt, startsAt) || other.startsAt == startsAt)&&(identical(other.endsAt, endsAt) || other.endsAt == endsAt)&&(identical(other.venueId, venueId) || other.venueId == venueId)&&(identical(other.url, url) || other.url == url)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,title,startsAt,endsAt,venueId,createdAt);
+int get hashCode => Object.hash(runtimeType,id,title,startsAt,endsAt,venueId,url,createdAt);
 
 @override
 String toString() {
-  return 'TimelineEvents(id: $id, title: $title, startsAt: $startsAt, endsAt: $endsAt, venueId: $venueId, createdAt: $createdAt)';
+  return 'TimelineEvents(id: $id, title: $title, startsAt: $startsAt, endsAt: $endsAt, venueId: $venueId, url: $url, createdAt: $createdAt)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $TimelineEventsCopyWith<$Res>  {
   factory $TimelineEventsCopyWith(TimelineEvents value, $Res Function(TimelineEvents) _then) = _$TimelineEventsCopyWithImpl;
 @useResult
 $Res call({
- String id, String title, DateTime startsAt, DateTime? endsAt, String? venueId, DateTime createdAt
+ String id, String title, DateTime startsAt, DateTime? endsAt, String? venueId, String? url, DateTime createdAt
 });
 
 
@@ -65,13 +65,14 @@ class _$TimelineEventsCopyWithImpl<$Res>
 
 /// Create a copy of TimelineEvents
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? startsAt = null,Object? endsAt = freezed,Object? venueId = freezed,Object? createdAt = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? startsAt = null,Object? endsAt = freezed,Object? venueId = freezed,Object? url = freezed,Object? createdAt = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,startsAt: null == startsAt ? _self.startsAt : startsAt // ignore: cast_nullable_to_non_nullable
 as DateTime,endsAt: freezed == endsAt ? _self.endsAt : endsAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,venueId: freezed == venueId ? _self.venueId : venueId // ignore: cast_nullable_to_non_nullable
+as String?,url: freezed == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
 as String?,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,
   ));
@@ -158,10 +159,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String title,  DateTime startsAt,  DateTime? endsAt,  String? venueId,  DateTime createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String title,  DateTime startsAt,  DateTime? endsAt,  String? venueId,  String? url,  DateTime createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _TimelineEvents() when $default != null:
-return $default(_that.id,_that.title,_that.startsAt,_that.endsAt,_that.venueId,_that.createdAt);case _:
+return $default(_that.id,_that.title,_that.startsAt,_that.endsAt,_that.venueId,_that.url,_that.createdAt);case _:
   return orElse();
 
 }
@@ -179,10 +180,10 @@ return $default(_that.id,_that.title,_that.startsAt,_that.endsAt,_that.venueId,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String title,  DateTime startsAt,  DateTime? endsAt,  String? venueId,  DateTime createdAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String title,  DateTime startsAt,  DateTime? endsAt,  String? venueId,  String? url,  DateTime createdAt)  $default,) {final _that = this;
 switch (_that) {
 case _TimelineEvents():
-return $default(_that.id,_that.title,_that.startsAt,_that.endsAt,_that.venueId,_that.createdAt);case _:
+return $default(_that.id,_that.title,_that.startsAt,_that.endsAt,_that.venueId,_that.url,_that.createdAt);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -199,10 +200,10 @@ return $default(_that.id,_that.title,_that.startsAt,_that.endsAt,_that.venueId,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String title,  DateTime startsAt,  DateTime? endsAt,  String? venueId,  DateTime createdAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String title,  DateTime startsAt,  DateTime? endsAt,  String? venueId,  String? url,  DateTime createdAt)?  $default,) {final _that = this;
 switch (_that) {
 case _TimelineEvents() when $default != null:
-return $default(_that.id,_that.title,_that.startsAt,_that.endsAt,_that.venueId,_that.createdAt);case _:
+return $default(_that.id,_that.title,_that.startsAt,_that.endsAt,_that.venueId,_that.url,_that.createdAt);case _:
   return null;
 
 }
@@ -214,7 +215,7 @@ return $default(_that.id,_that.title,_that.startsAt,_that.endsAt,_that.venueId,_
 @JsonSerializable()
 
 class _TimelineEvents implements TimelineEvents {
-  const _TimelineEvents({required this.id, required this.title, required this.startsAt, this.endsAt, this.venueId, required this.createdAt});
+  const _TimelineEvents({required this.id, required this.title, required this.startsAt, this.endsAt, this.venueId, this.url, required this.createdAt});
   factory _TimelineEvents.fromJson(Map<String, dynamic> json) => _$TimelineEventsFromJson(json);
 
 @override final  String id;
@@ -222,6 +223,7 @@ class _TimelineEvents implements TimelineEvents {
 @override final  DateTime startsAt;
 @override final  DateTime? endsAt;
 @override final  String? venueId;
+@override final  String? url;
 @override final  DateTime createdAt;
 
 /// Create a copy of TimelineEvents
@@ -237,16 +239,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TimelineEvents&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.startsAt, startsAt) || other.startsAt == startsAt)&&(identical(other.endsAt, endsAt) || other.endsAt == endsAt)&&(identical(other.venueId, venueId) || other.venueId == venueId)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TimelineEvents&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.startsAt, startsAt) || other.startsAt == startsAt)&&(identical(other.endsAt, endsAt) || other.endsAt == endsAt)&&(identical(other.venueId, venueId) || other.venueId == venueId)&&(identical(other.url, url) || other.url == url)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,title,startsAt,endsAt,venueId,createdAt);
+int get hashCode => Object.hash(runtimeType,id,title,startsAt,endsAt,venueId,url,createdAt);
 
 @override
 String toString() {
-  return 'TimelineEvents(id: $id, title: $title, startsAt: $startsAt, endsAt: $endsAt, venueId: $venueId, createdAt: $createdAt)';
+  return 'TimelineEvents(id: $id, title: $title, startsAt: $startsAt, endsAt: $endsAt, venueId: $venueId, url: $url, createdAt: $createdAt)';
 }
 
 
@@ -257,7 +259,7 @@ abstract mixin class _$TimelineEventsCopyWith<$Res> implements $TimelineEventsCo
   factory _$TimelineEventsCopyWith(_TimelineEvents value, $Res Function(_TimelineEvents) _then) = __$TimelineEventsCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String title, DateTime startsAt, DateTime? endsAt, String? venueId, DateTime createdAt
+ String id, String title, DateTime startsAt, DateTime? endsAt, String? venueId, String? url, DateTime createdAt
 });
 
 
@@ -274,13 +276,14 @@ class __$TimelineEventsCopyWithImpl<$Res>
 
 /// Create a copy of TimelineEvents
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? startsAt = null,Object? endsAt = freezed,Object? venueId = freezed,Object? createdAt = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? startsAt = null,Object? endsAt = freezed,Object? venueId = freezed,Object? url = freezed,Object? createdAt = null,}) {
   return _then(_TimelineEvents(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,startsAt: null == startsAt ? _self.startsAt : startsAt // ignore: cast_nullable_to_non_nullable
 as DateTime,endsAt: freezed == endsAt ? _self.endsAt : endsAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,venueId: freezed == venueId ? _self.venueId : venueId // ignore: cast_nullable_to_non_nullable
+as String?,url: freezed == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
 as String?,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,
   ));

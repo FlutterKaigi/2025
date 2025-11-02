@@ -18,6 +18,7 @@ abstract class Sessions with _$Sessions {
     @Default(false) bool isBeginnersLightningTalk,
     @Default(false) bool isHandsOn,
     String? videoUrl,
+    String? url,
     @RequiredDateTimeConverter() required DateTime createdAt,
   }) = _Sessions;
 
