@@ -72,6 +72,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
+      - name: Extract SOPS secrets
+        run: |
+          mkdir -p ~/.config/mise
+          echo "${{ secrets.SOPS_FILE }}" > ~/.config/mise/flutterkaigi.txt
+
       # https://github.com/jdx/mise-action
       - name: Install Mise dependencies
         uses: jdx/mise-action@5083fe46898c414b2475087cc79da59e7da859e8 # v2.1.11
@@ -91,15 +96,40 @@ jobs:
             https://github.com/schultek/jaspr
           echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
 
-      - name: Build Dart WebAssembly
-        id: build
+      - name: Build Dart WebAssembly (Staging)
+        if: ${{ needs.define-environment.outputs.environment != 'production' }}
+        id: build-stg
         working-directory: apps/website
         run: |
           {
             echo "LOG<<EOL"
-            make build 2>&1
+            make build-stg 2>&1
             echo "EOL"
           } | tee -a $GITHUB_OUTPUT
+
+      - name: Build Dart WebAssembly (Production)
+        if: ${{ needs.define-environment.outputs.environment == 'production' }}
+        id: build-prod
+        working-directory: apps/website
+        run: |
+          {
+            echo "LOG<<EOL"
+            make build-prod 2>&1
+            echo "EOL"
+          } | tee -a $GITHUB_OUTPUT
+
+      - name: Set build log output
+        id: build
+        run: |
+          if [ -z "${{ steps.build-stg.outputs.LOG }}" ]; then
+            echo "LOG<<EOL" >> $GITHUB_OUTPUT
+            echo "${{ steps.build-prod.outputs.LOG }}" >> $GITHUB_OUTPUT
+            echo "EOL" >> $GITHUB_OUTPUT
+          else
+            echo "LOG<<EOL" >> $GITHUB_OUTPUT
+            echo "${{ steps.build-stg.outputs.LOG }}" >> $GITHUB_OUTPUT
+            echo "EOL" >> $GITHUB_OUTPUT
+          fi
 
       - name: Upload Dart website Artifacts
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
