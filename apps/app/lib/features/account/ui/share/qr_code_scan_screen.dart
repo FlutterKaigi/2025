@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:uuid/uuid.dart';
 
 /// QRコードスキャン画面
 ///
@@ -25,6 +26,8 @@ class QrCodeScanScreen extends HookConsumerWidget {
     final debugInputController = useTextEditingController();
     // QRコード検出の重複を防ぐためのフラグ
     final isProcessing = useState(false);
+
+    final scannedIds = useRef<Set<String>>({});
 
     return Scaffold(
       appBar: AppBar(
@@ -83,7 +86,22 @@ class QrCodeScanScreen extends HookConsumerWidget {
                 final barcodes = capture.barcodes;
                 for (final barcode in barcodes) {
                   final code = barcode.rawValue;
-                  if (code != null && code != value.id) {
+                  if (code == null) {
+                    continue;
+                  }
+                  final isValidUuid = Uuid.isValidUUID(
+                    fromString: code,
+                  );
+                  // UUID のみ通す
+                  if (!isValidUuid) {
+                    continue;
+                  }
+                  // 一回読み取ったものはスキップ
+                  if (scannedIds.value.contains(code)) {
+                    continue;
+                  }
+                  scannedIds.value.add(code);
+                  if (code != value.id) {
                     isProcessing.value = true;
                     try {
                       await _executeConnection(context, ref, code);

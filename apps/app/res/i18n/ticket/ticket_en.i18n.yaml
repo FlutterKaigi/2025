@@ -1,0 +1,94 @@
+status:
+  purchased: Purchased
+  pending: Pending Payment
+options: "Options:"
+purchaseDate: Purchase Date
+expiryDate: Expiration Date
+noAvailableTickets: No tickets are available for purchase at this time
+list: Ticket List
+loginRequired:
+  title: Please sign in with Google account before purchasing tickets
+  linkTitle: Please link your Google account before purchasing tickets
+  description: Please sign in with your Google account to purchase tickets
+notice:
+  title: Notice
+  message: |
+    The "Individual Sponsor Ticket" alone does not include admission to FlutterKaigi 2025 (conference venue).
+    If you wish to attend, please purchase an Early Bird Ticket (available until the end of September) or a Regular Ticket separately.
+    We also welcome support from those who want to sponsor FlutterKaigi without attending the event!
+
+    The pre-conference event is exclusive to Early Bird Ticket holders.
+    Regular Ticket holders cannot attend the pre-conference event.
+studentRefund:
+  title: Student Refund and Expense Support
+  description: Thanks to our Student Support Sponsors, FlutterKaigi 2025 offers refunds and financial support to students who purchase Early Bird or Regular Tickets.
+  detailsButton: View Details
+  dialogContent: |
+    🎓 Refund and Expense Support for Students
+    With the support of our Student Support Sponsors, FlutterKaigi 2025 offers refunds and expense support to students who purchase Early Bird or Regular Tickets.
+
+    ✅ Eligibility for Support
+    - Ticket price
+    - Travel expenses (with limit)
+    - Accommodation expenses (with limit)
+
+    🧑‍🎓 Definition of Eligible "Students"
+    Eligible students are those who can prove enrollment in one of the following:
+    - Currently enrolled in an educational institution in Japan or abroad (including elementary school, junior high school, high school, technical college, vocational school, university, graduate school, etc.)
+    - Able to present a valid student ID or enrollment certificate, regardless of age or employment status
+
+    🎟 Eligibility Requirements
+    - Attended FlutterKaigi 2025
+    - Participated in networking events with Student Support Sponsors
+    - Presented valid student ID or enrollment certificate at reception on the day of the event
+
+    Your attendance will be verified by organizers. No advance application is required.
+
+    📩 Refund Process
+    After the event, we will send eligible participants an email with detailed instructions for the refund process.
+
+    The following information will be required:
+    - Ticket purchase information
+    - Receipts or proof of transportation and accommodation expenses
+    - Bank account information for refund
+
+    ※ No need to submit a copy of your student ID (if already presented on the day of the event)
+    ※ Maximum amounts and detailed conditions will be explained individually in the notification email
+    ※ Refunds will be processed after reviewing submitted documents
+
+    📌 The information you submit will include personal data. This information will be used solely for verification and processing of refunds and expense support, and will be promptly deleted after the process is complete. By applying for this program, you agree to these terms.
+
+    📬 For questions: staff@flutterkaigi.jp
+purchase:
+  title: Ticket Purchase
+  proceed: Proceed to Purchase
+  confirmTitle: Confirm Ticket Information
+  paymentTitle: Start Payment
+  back: Back
+  next: Next
+  startPayment: Start Payment
+  selected: Selected
+  proceedToPayment: Proceed to Payment
+  paymentPageError: Could not open payment page
+  errorOccurred: An error occurred
+  addOption: Add this option
+  optionNotSelling: This option is no longer available
+  optionSoldOut: This option is sold out
+  fewRemaining: Limited availability
+  selling: On Sale
+  soldOut: Sold Out
+  notSelling: Sale Ended
+  optionsAvailable: "The following options are available for this ticket:"
+  cancel: Cancel
+  unselected: Not Selected
+  price: Price
+  ticket: Ticket
+  additionalOptions: Additional Options
+  total: Total
+qr:
+  scanAtEntry: Please scan at entry
+  ticketType: Ticket Type
+  nameplateId: Nameplate ID
+entryTicket:
+  title: Available Tickets
+  subtitle: "You have ${count: int} tickets"

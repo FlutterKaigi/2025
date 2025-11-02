@@ -1,0 +1,6 @@
+guest:
+  signInButton: Continue as Guest
+  userLabel: Guest Mode
+error:
+  identityAlreadyExists: This Google account is already linked to another user. Please sign out and try signing in again.
+  sessionExpired: Please sign in to your Google Account again.

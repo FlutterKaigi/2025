@@ -1,0 +1,43 @@
+app:
+  name: FlutterKaigi 2025
+
+forceUpdate:
+  title: Update Required
+  message: A new version of the app is available. Please update to the latest version.
+  updateButton: Update
+
+error:
+  notFound:
+    title: Page not found
+    message: The page you are looking for doesn't exist or may have been moved.
+    backToTop: Back to Top
+  server:
+    title: A server-side issue occurred.
+    message: Please contact FlutterKaigi staff.
+    retry: Retry
+  widget:
+    buildErrorTitle: An unexpected error occurred
+    buildErrorMessage: |
+      We apologize for the inconvenience.
+      An unexpected error occurred during UI construction.
+
+      To help us resolve this issue, we would greatly appreciate it if you could create a GitHub Issue.
+    buildErrorGitHubButton: Open GitHub Issue page
+  general:
+    occurred: An error occurred
+
+navigation:
+  event: Event
+  session: Session
+  sponsor: Sponsor
+  ticket: Ticket
+  account: Account
+
+debug:
+  title: Debug
+  talkerScreen: Go to Talker screen
+  pathRequired: Please enter a path
+  pathMustStartWithSlash: Path must start with /
+  pathCannotContainDebugOrLogin: Path cannot contain "debug" or "login"
+  invalidPath: Invalid path
+  go: GO
