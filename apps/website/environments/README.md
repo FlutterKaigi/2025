@@ -55,6 +55,7 @@ BFF_BASE_URL=http://localhost:8080/v1 make fetch-sessions
 ## 環境変数
 
 ### BFF_BASE_URL
+
 BFF APIのベースURL。セッション情報の取得に使用されます。
 
 - **dev**: `http://localhost:8080/v1`
