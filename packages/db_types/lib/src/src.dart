@@ -1,6 +1,7 @@
 export 'converters/date_time_converter.dart';
 export 'models/checkout_option.dart';
 export 'models/device_tokens.dart';
+export 'models/job_board.dart';
 export 'models/profile_with_sns_links.dart';
 export 'models/sponsors.dart';
 export 'models/ticket_purchase_with_details.dart';
@@ -21,6 +22,7 @@ export 'tables/device_fcm_tokens.dart';
 export 'tables/devices.dart';
 export 'tables/individual_drafts.dart';
 export 'tables/individuals.dart';
+export 'tables/job_boards.dart';
 export 'tables/news.dart';
 export 'tables/profiles.dart';
 export 'tables/session_speakers.dart';
