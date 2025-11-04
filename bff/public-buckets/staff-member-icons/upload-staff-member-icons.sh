@@ -1,20 +1,20 @@
 #!/bin/bash
 
 # =============================================================================
-# FlutterKaigi 2025 スタッフメンバーロゴ一括アップロードスクリプト
+# FlutterKaigi 2025 スタッフメンバーアイコン一括アップロードスクリプト
 # =============================================================================
 # 
-# 概要: logosディレクトリ内のスタッフメンバーロゴ画像を
+# 概要: iconsディレクトリ内のスタッフメンバーアイコン画像を
 #       Cloudflare R2 バケットに一括アップロード
 # 
 # 使用方法: 
-# - プロジェクトルートから: ./bff/public-buckets/staff-member-logos/upload-staff-member-logos.sh
-# - スクリプトディレクトリから: ./upload-staff-member-logos.sh
+# - プロジェクトルートから: ./bff/public-buckets/staff-member-icons/upload-staff-member-icons.sh
+# - スクリプトディレクトリから: ./upload-staff-member-icons.sh
 # 
 # 前提条件:
 # - rclone がインストール済み（miseで管理）
 # - Cloudflare R2 の認証が設定済み
-# - logos/ ディレクトリが存在
+# - icons/ ディレクトリが存在
 # =============================================================================
 
 # スクリプトの場所を取得（プロジェクトルートからの相対パス対応）
@@ -49,8 +49,8 @@ select_bucket() {
 }
 
 # 設定
-SOURCE_DIR="$PROJECT_ROOT/bff/public-buckets/staff-member-logos/logos"
-LOG_FILE="upload-staff-member-logos-$(date +%Y%m%d-%H%M%S).log"
+SOURCE_DIR="$PROJECT_ROOT/bff/public-buckets/staff-member-icons/icons"
+LOG_FILE="upload-staff-member-icons-$(date +%Y%m%d-%H%M%S).log"
 LOG_DIR="$PROJECT_ROOT/bff/public-buckets/logs"
 RCLONE_REMOTE="r2"  # rclone設定のリモート名
 
@@ -83,7 +83,7 @@ mkdir -p "$LOG_DIR"
 
 # ヘッダー表示
 echo "============================================================================="
-echo "🚀 FlutterKaigi 2025 スタッフメンバーロゴ一括アップロード"
+echo "🚀 FlutterKaigi 2025 スタッフメンバーアイコン一括アップロード"
 echo "============================================================================="
 print_info "プロジェクトルート: $PROJECT_ROOT"
 print_info "選択されたバケット: $BUCKET_NAME"
@@ -120,7 +120,7 @@ fi
 # ログファイルの初期化
 {
     echo "============================================================================="
-    echo "FlutterKaigi 2025 スタッフメンバーロゴ一括アップロードログ"
+    echo "FlutterKaigi 2025 スタッフメンバーアイコン一括アップロードログ"
     echo "============================================================================="
     echo "開始時刻: $(date '+%Y-%m-%d %H:%M:%S')"
     echo "プロジェクトルート: $PROJECT_ROOT"
@@ -152,18 +152,18 @@ START_TIME=$(date +%s)
 
 # rcloneでディレクトリ全体をアップロード
 print_progress "rclone copy でディレクトリ全体をアップロード中..."
-print_info "コマンド: rclone copy $SOURCE_DIR $RCLONE_REMOTE:$BUCKET_NAME/staff-member-logos/"
+print_info "コマンド: rclone copy $SOURCE_DIR $RCLONE_REMOTE:$BUCKET_NAME/staff-member-icons/"
 
 {
     echo "============================================================================="
     echo "アップロード処理開始"
     echo "時刻: $(date '+%Y-%m-%d %H:%M:%S')"
-    echo "コマンド: rclone copy $SOURCE_DIR $RCLONE_REMOTE:$BUCKET_NAME/staff-member-logos/"
+    echo "コマンド: rclone copy $SOURCE_DIR $RCLONE_REMOTE:$BUCKET_NAME/staff-member-icons/"
     echo "============================================================================="
 } >> "$LOG_DIR/$LOG_FILE"
 
 # rclone copyでディレクトリ全体をアップロード
-if rclone copy "$SOURCE_DIR" "$RCLONE_REMOTE:$BUCKET_NAME/staff-member-logos/" \
+if rclone copy "$SOURCE_DIR" "$RCLONE_REMOTE:$BUCKET_NAME/staff-member-icons/" \
     --progress \
     --stats 1s \
     --log-level INFO \
@@ -179,7 +179,7 @@ if rclone copy "$SOURCE_DIR" "$RCLONE_REMOTE:$BUCKET_NAME/staff-member-logos/" \
     TOTAL_TIME_SEC=$((TOTAL_TIME % 60))
     
     echo "============================================================================="
-    print_success "スタッフメンバーロゴ一括アップロード完了！"
+    print_success "スタッフメンバーアイコン一括アップロード完了！"
     echo "============================================================================="
     print_info "📊 合計: $TOTAL_FILES"
     print_info "⏱️ 所要時間: ${TOTAL_TIME_MIN}分${TOTAL_TIME_SEC}秒"
@@ -194,7 +194,7 @@ if rclone copy "$SOURCE_DIR" "$RCLONE_REMOTE:$BUCKET_NAME/staff-member-logos/" \
         echo "合計: $TOTAL_FILES"
         echo "所要時間: ${TOTAL_TIME_MIN}分${TOTAL_TIME_SEC}秒"
         echo ""
-        echo "🎉 全てのスタッフメンバーロゴが正常にアップロードされました！"
+        echo "🎉 全てのスタッフメンバーアイコンが正常にアップロードされました！"
         echo "============================================================================="
     } >> "$LOG_DIR/$LOG_FILE"
     
@@ -219,7 +219,7 @@ else
     TOTAL_TIME_SEC=$((TOTAL_TIME % 60))
     
     echo "============================================================================="
-    print_error "スタッフメンバーロゴ一括アップロード失敗"
+    print_error "スタッフメンバーアイコン一括アップロード失敗"
     echo "============================================================================="
     print_info "📊 合計: $TOTAL_FILES"
     print_info "⏱️ 所要時間: ${TOTAL_TIME_MIN}分${TOTAL_TIME_SEC}秒"

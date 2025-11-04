@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FlutterKaigi 2025 - スタッフメンバーロゴギャラリー</title>
+    <title>FlutterKaigi 2025 - スタッフメンバーアイコンギャラリー</title>
     <style>
         * {
             margin: 0;
@@ -374,9 +374,9 @@
     <div class="container">
         <div class="header">
             <h1>👥 FlutterKaigi 2025</h1>
-            <p>スタッフメンバーロゴギャラリー</p>
+            <p>スタッフメンバーアイコンギャラリー</p>
             <button id="select-directory-btn" class="directory-select-btn" onclick="selectDirectory()">
-                📁 ロゴファイルを含むディレクトリを選択
+                📁 アイコンファイルを含むディレクトリを選択
             </button>
         </div>
 
@@ -411,7 +411,7 @@
                 </div>
 
                 <div class="loading" id="staging-loading">
-                    🔄 スタッフメンバーロゴを読み込み中...<br>
+                    🔄 スタッフメンバーアイコンを読み込み中...<br>
                     <small>ステージング環境のR2バケットから画像を取得しています</small>
                 </div>
                 
@@ -419,13 +419,13 @@
                 
                 <div class="error" id="staging-error" style="display: none;">
                     <h4>❌ 画像読み込みエラー</h4>
-                    <p>一部のスタッフメンバーロゴの読み込みに失敗しました</p>
+                    <p>一部のスタッフメンバーアイコンの読み込みに失敗しました</p>
                     <div class="error-list" id="staging-error-list"></div>
                 </div>
 
                 <div class="success-message" id="staging-success-message" style="display: none;">
-                    <h4>✅ 全てのスタッフメンバーロゴが正常に読み込まれました</h4>
-                    <p>ステージング環境のスタッフメンバーロゴギャラリーが完成しました</p>
+                    <h4>✅ 全てのスタッフメンバーアイコンが正常に読み込まれました</h4>
+                    <p>ステージング環境のスタッフメンバーアイコンギャラリーが完成しました</p>
                 </div>
             </div>
 
@@ -454,7 +454,7 @@
                 </div>
 
                 <div class="loading" id="production-loading">
-                    🔄 スタッフメンバーロゴを読み込み中...<br>
+                    🔄 スタッフメンバーアイコンを読み込み中...<br>
                     <small>本番環境のR2バケットから画像を取得しています</small>
                 </div>
                 
@@ -462,13 +462,13 @@
                 
                 <div class="error" id="production-error" style="display: none;">
                     <h4>❌ 画像読み込みエラー</h4>
-                    <p>一部のスタッフメンバーロゴの読み込みに失敗しました</p>
+                    <p>一部のスタッフメンバーアイコンの読み込みに失敗しました</p>
                     <div class="error-list" id="production-error-list"></div>
                 </div>
 
                 <div class="success-message" id="production-success-message" style="display: none;">
-                    <h4>✅ 全てのスタッフメンバーロゴが正常に読み込まれました</h4>
-                    <p>本番環境のスタッフメンバーロゴギャラリーが完成しました</p>
+                    <h4>✅ 全てのスタッフメンバーアイコンが正常に読み込まれました</h4>
+                    <p>本番環境のスタッフメンバーアイコンギャラリーが完成しました</p>
                 </div>
             </div>
         </div>
@@ -489,7 +489,7 @@
             }
         };
 
-        // 画像ファイル一覧（logosディレクトリ内の全WebPファイルを動的に取得）
+        // 画像ファイル一覧（iconsディレクトリ内の全WebPファイルを動的に取得）
         let imageFiles = [];
         
         // ディレクトリ選択ボタンがクリックされたときの処理
@@ -504,12 +504,12 @@
             } catch (error) {
                 console.error('Error selecting directory:', error);
                 btn.disabled = false;
-                btn.textContent = '📁 ロゴディレクトリを選択';
+                btn.textContent = '📁 アイコンディレクトリを選択';
                 showFileLoadError(error.message);
             }
         }
         
-        // logosディレクトリ内の全WebPファイルを取得
+        // iconsディレクトリ内の全WebPファイルを取得
         async function loadImageFiles() {
             try {
                 // File System Access APIを使用してローカルディレクトリにアクセス
@@ -564,7 +564,7 @@
             errorDiv.className = 'file-load-error';
             errorDiv.innerHTML = `
                 <div class="error-header">ファイル読み込みエラー</div>
-                <div class="error-message">ロゴファイル一覧の取得に失敗しました: ${errorMessage}</div>
+                <div class="error-message">アイコンファイル一覧の取得に失敗しました: ${errorMessage}</div>
                 <div class="error-suggestion">ページをリロードするか、しばらく時間をおいてから再度お試しください。</div>
             `;
             
@@ -612,7 +612,7 @@
         // 画像カードを作成
         function createImageCard(imageFile, environment) {
             const baseUrl = ENVIRONMENTS[environment].baseUrl;
-            const imageUrl = `${baseUrl}/staff-member-logos/${imageFile}`;
+            const imageUrl = `${baseUrl}/staff-member-icons/${imageFile}`;
             
             const card = document.createElement('div');
             card.className = 'image-card';
@@ -620,7 +620,7 @@
             card.innerHTML = `
                 <div class="image-container">
                     <img src="${imageUrl}" 
-                         alt="スタッフメンバーロゴ: ${imageFile}" 
+                         alt="スタッフメンバーアイコン: ${imageFile}" 
                          loading="lazy"
                          onload="onImageLoad('${imageFile}', '${environment}')"
                          onerror="onImageError('${imageFile}', '${environment}')">
@@ -694,7 +694,7 @@
         // ページ読み込み完了時の処理
         document.addEventListener('DOMContentLoaded', () => {
             // 初期状態では何もしない（ユーザーがディレクトリ選択ボタンをクリックするまで待機）
-            console.log('ページが読み込まれました。ディレクトリ選択ボタンをクリックしてロゴファイルを選択してください。');
+            console.log('ページが読み込まれました。ディレクトリ選択ボタンをクリックしてアイコンファイルを選択してください。');
         });
     </script>
 </body>
