@@ -121,3 +121,8 @@ variable "websocket_jwt_secret_base64" {
   description = "Websocket JWT Secret Base64"
   sensitive   = true
 }
+
+variable "enable_fcm_internal_api" {
+  type        = bool
+  description = "Enable FCM Internal API"
+}
