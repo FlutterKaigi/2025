@@ -29,13 +29,3 @@ abstract class SnsLink with _$SnsLink {
   factory SnsLink.fromJson(Map<String, dynamic> json) =>
       _$SnsLinkFromJson(json);
 }
-
-@freezed
-abstract class StaffMemberListResponse with _$StaffMemberListResponse {
-  const factory StaffMemberListResponse({
-    required List<StaffMemberWithSnsLinks> staffMembers,
-  }) = _StaffMemberListResponse;
-
-  factory StaffMemberListResponse.fromJson(Map<String, dynamic> json) =>
-      _$StaffMemberListResponseFromJson(json);
-}

@@ -71,29 +71,3 @@ const _$SnsTypeEnumMap = {
   SnsType.note: 'note',
   SnsType.other: 'other',
 };
-
-_StaffMemberListResponse _$StaffMemberListResponseFromJson(
-  Map<String, dynamic> json,
-) => $checkedCreate(
-  '_StaffMemberListResponse',
-  json,
-  ($checkedConvert) {
-    final val = _StaffMemberListResponse(
-      staffMembers: $checkedConvert(
-        'staff_members',
-        (v) => (v as List<dynamic>)
-            .map(
-              (e) =>
-                  StaffMemberWithSnsLinks.fromJson(e as Map<String, dynamic>),
-            )
-            .toList(),
-      ),
-    );
-    return val;
-  },
-  fieldKeyMap: const {'staffMembers': 'staff_members'},
-);
-
-Map<String, dynamic> _$StaffMemberListResponseToJson(
-  _StaffMemberListResponse instance,
-) => <String, dynamic>{'staff_members': instance.staffMembers};
