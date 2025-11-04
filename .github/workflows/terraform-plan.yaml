@@ -101,7 +101,7 @@ jobs:
         run: terraform init -backend-config=backend.tfbackend
 
       - name: Terraform fmt
-        run: terraform fmt -check
+        run: terraform fmt -check -diff
 
       - name: TFLint
         run: tflint
@@ -155,7 +155,7 @@ jobs:
 
       - name: Terraform fmt
         id: fmt
-        run: terraform fmt -check
+        run: terraform fmt -check -diff
 
       - name: Terraform validate
         id: validate
