@@ -152,18 +152,18 @@ START_TIME=$(date +%s)
 
 # rcloneでディレクトリ全体をアップロード
 print_progress "rclone copy でディレクトリ全体をアップロード中..."
-print_info "コマンド: rclone copy $SOURCE_DIR $RCLONE_REMOTE:$BUCKET_NAME/staff-member-icons/"
+print_info "コマンド: rclone copy $SOURCE_DIR $RCLONE_REMOTE:$BUCKET_NAME/staff-members/"
 
 {
     echo "============================================================================="
     echo "アップロード処理開始"
     echo "時刻: $(date '+%Y-%m-%d %H:%M:%S')"
-    echo "コマンド: rclone copy $SOURCE_DIR $RCLONE_REMOTE:$BUCKET_NAME/staff-member-icons/"
+    echo "コマンド: rclone copy $SOURCE_DIR $RCLONE_REMOTE:$BUCKET_NAME/staff-members/"
     echo "============================================================================="
 } >> "$LOG_DIR/$LOG_FILE"
 
 # rclone copyでディレクトリ全体をアップロード
-if rclone copy "$SOURCE_DIR" "$RCLONE_REMOTE:$BUCKET_NAME/staff-member-icons/" \
+if rclone copy "$SOURCE_DIR" "$RCLONE_REMOTE:$BUCKET_NAME/staff-members/" \
     --progress \
     --stats 1s \
     --log-level INFO \
