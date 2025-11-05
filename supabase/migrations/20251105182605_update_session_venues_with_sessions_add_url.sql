@@ -1,73 +1,5 @@
--- Create session_venues table
-CREATE TABLE "public"."session_venues" ("id" uuid NOT NULL DEFAULT uuid_generate_v4 (), "name" text NOT NULL);
-
-ALTER TABLE "public"."session_venues" enable ROW level security;
-
-CREATE UNIQUE INDEX session_venues_pkey ON public.session_venues USING btree (id);
-
-ALTER TABLE "public"."session_venues"
-ADD CONSTRAINT "session_venues_pkey" PRIMARY KEY USING index "session_venues_pkey";
-
--- Create speakers table
-CREATE TABLE "public"."speakers" ("id" uuid NOT NULL DEFAULT uuid_generate_v4 (), "name" text NOT NULL, "avatar_url" text, "x_id" text);
-
-ALTER TABLE "public"."speakers" enable ROW level security;
-
-CREATE UNIQUE INDEX speakers_pkey ON public.speakers USING btree (id);
-
-ALTER TABLE "public"."speakers"
-ADD CONSTRAINT "speakers_pkey" PRIMARY KEY USING index "speakers_pkey";
-
--- Create sessions table
-CREATE TABLE "public"."sessions" (
-  "id" uuid NOT NULL DEFAULT uuid_generate_v4 (),
-  "title" text NOT NULL,
-  "description" text NOT NULL,
-  "starts_at" TIMESTAMP WITH TIME ZONE NOT NULL,
-  "ends_at" TIMESTAMP WITH TIME ZONE NOT NULL,
-  "venue_id" uuid NOT NULL,
-  "sponsor_id" smallint,
-  "is_lightning_talk" boolean NOT NULL DEFAULT FALSE,
-  "is_beginners_lightning_talk" boolean NOT NULL DEFAULT FALSE,
-  "is_hands_on" boolean NOT NULL DEFAULT FALSE,
-  "video_url" text,
-  "created_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
-);
-
-ALTER TABLE "public"."sessions" enable ROW level security;
-
-CREATE UNIQUE INDEX sessions_pkey ON public.sessions USING btree (id);
-
-ALTER TABLE "public"."sessions"
-ADD CONSTRAINT "sessions_pkey" PRIMARY KEY USING index "sessions_pkey";
-
-ALTER TABLE "public"."sessions"
-ADD CONSTRAINT "sessions_venue_id_fkey" FOREIGN key (venue_id) REFERENCES session_venues (id);
-
-ALTER TABLE "public"."sessions"
-ADD CONSTRAINT "sessions_sponsor_id_fkey" FOREIGN key (sponsor_id) REFERENCES sponsor_companies (id);
-
--- Create session_speakers table (N:N relationship)
-CREATE TABLE "public"."session_speakers" ("session_id" uuid NOT NULL, "speaker_id" uuid NOT NULL);
-
-ALTER TABLE "public"."session_speakers" enable ROW level security;
-
-CREATE UNIQUE INDEX session_speakers_pkey ON public.session_speakers USING btree (session_id, speaker_id);
-
-ALTER TABLE "public"."session_speakers"
-ADD CONSTRAINT "session_speakers_pkey" PRIMARY KEY USING index "session_speakers_pkey";
-
-ALTER TABLE "public"."session_speakers"
-ADD CONSTRAINT "session_speakers_session_id_fkey" FOREIGN key (session_id) REFERENCES sessions (id) ON DELETE CASCADE;
-
-ALTER TABLE "public"."session_speakers"
-ADD CONSTRAINT "session_speakers_speaker_id_fkey" FOREIGN key (speaker_id) REFERENCES speakers (id) ON DELETE CASCADE;
-
--- Create Storage bucket for speaker avatars
-INSERT INTO
-  storage.buckets (id, name, public)
-VALUES
-  ('speakers', 'speakers', TRUE);
+-- Update session_venues_with_sessions view to include url field
+DROP VIEW IF EXISTS session_venues_with_sessions;
 
 CREATE OR REPLACE VIEW session_venues_with_sessions AS
 SELECT
@@ -180,6 +112,9 @@ FROM
   session_venues sv
 ORDER BY
   sv.name;
+
+-- Update sponsor_with_sessions view to include url field
+DROP VIEW IF EXISTS sponsor_with_sessions;
 
 CREATE OR REPLACE VIEW sponsor_with_sessions AS
 SELECT
