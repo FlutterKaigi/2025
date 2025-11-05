@@ -45,6 +45,7 @@ module "apprun" {
   websocket_base_url          = "wss://websocket-api-staging.flutterkaigi.workers.dev"
   name_suffix                 = ""
   websocket_jwt_secret_base64 = var.WEBSOCKET_JWT_SECRET_BASE64
+  enable_fcm_internal_api     = false
 }
 
 module "random_password" {
