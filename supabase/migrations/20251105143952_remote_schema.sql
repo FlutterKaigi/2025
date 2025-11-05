@@ -1,1616 +1,3618 @@
-revoke delete on table "public"."basic_sponsor_companies" from "anon";
-
-revoke insert on table "public"."basic_sponsor_companies" from "anon";
-
-revoke references on table "public"."basic_sponsor_companies" from "anon";
-
-revoke select on table "public"."basic_sponsor_companies" from "anon";
-
-revoke trigger on table "public"."basic_sponsor_companies" from "anon";
-
-revoke truncate on table "public"."basic_sponsor_companies" from "anon";
-
-revoke update on table "public"."basic_sponsor_companies" from "anon";
-
-revoke delete on table "public"."basic_sponsor_companies" from "authenticated";
-
-revoke insert on table "public"."basic_sponsor_companies" from "authenticated";
-
-revoke references on table "public"."basic_sponsor_companies" from "authenticated";
-
-revoke select on table "public"."basic_sponsor_companies" from "authenticated";
-
-revoke trigger on table "public"."basic_sponsor_companies" from "authenticated";
-
-revoke truncate on table "public"."basic_sponsor_companies" from "authenticated";
-
-revoke update on table "public"."basic_sponsor_companies" from "authenticated";
-
-revoke delete on table "public"."basic_sponsor_companies" from "service_role";
-
-revoke insert on table "public"."basic_sponsor_companies" from "service_role";
-
-revoke references on table "public"."basic_sponsor_companies" from "service_role";
-
-revoke select on table "public"."basic_sponsor_companies" from "service_role";
-
-revoke trigger on table "public"."basic_sponsor_companies" from "service_role";
-
-revoke truncate on table "public"."basic_sponsor_companies" from "service_role";
-
-revoke update on table "public"."basic_sponsor_companies" from "service_role";
-
-revoke delete on table "public"."companies" from "anon";
-
-revoke insert on table "public"."companies" from "anon";
-
-revoke references on table "public"."companies" from "anon";
-
-revoke select on table "public"."companies" from "anon";
-
-revoke trigger on table "public"."companies" from "anon";
-
-revoke truncate on table "public"."companies" from "anon";
-
-revoke update on table "public"."companies" from "anon";
-
-revoke delete on table "public"."companies" from "authenticated";
-
-revoke insert on table "public"."companies" from "authenticated";
-
-revoke references on table "public"."companies" from "authenticated";
-
-revoke select on table "public"."companies" from "authenticated";
-
-revoke trigger on table "public"."companies" from "authenticated";
-
-revoke truncate on table "public"."companies" from "authenticated";
-
-revoke update on table "public"."companies" from "authenticated";
-
-revoke delete on table "public"."companies" from "service_role";
-
-revoke insert on table "public"."companies" from "service_role";
-
-revoke references on table "public"."companies" from "service_role";
-
-revoke select on table "public"."companies" from "service_role";
-
-revoke trigger on table "public"."companies" from "service_role";
-
-revoke truncate on table "public"."companies" from "service_role";
-
-revoke update on table "public"."companies" from "service_role";
-
-revoke delete on table "public"."company_draft_approvals" from "anon";
-
-revoke insert on table "public"."company_draft_approvals" from "anon";
-
-revoke references on table "public"."company_draft_approvals" from "anon";
-
-revoke select on table "public"."company_draft_approvals" from "anon";
-
-revoke trigger on table "public"."company_draft_approvals" from "anon";
-
-revoke truncate on table "public"."company_draft_approvals" from "anon";
-
-revoke update on table "public"."company_draft_approvals" from "anon";
-
-revoke delete on table "public"."company_draft_approvals" from "authenticated";
-
-revoke insert on table "public"."company_draft_approvals" from "authenticated";
-
-revoke references on table "public"."company_draft_approvals" from "authenticated";
-
-revoke select on table "public"."company_draft_approvals" from "authenticated";
-
-revoke trigger on table "public"."company_draft_approvals" from "authenticated";
-
-revoke truncate on table "public"."company_draft_approvals" from "authenticated";
-
-revoke update on table "public"."company_draft_approvals" from "authenticated";
-
-revoke delete on table "public"."company_draft_approvals" from "service_role";
-
-revoke insert on table "public"."company_draft_approvals" from "service_role";
-
-revoke references on table "public"."company_draft_approvals" from "service_role";
-
-revoke select on table "public"."company_draft_approvals" from "service_role";
-
-revoke trigger on table "public"."company_draft_approvals" from "service_role";
-
-revoke truncate on table "public"."company_draft_approvals" from "service_role";
-
-revoke update on table "public"."company_draft_approvals" from "service_role";
-
-revoke delete on table "public"."company_drafts" from "anon";
-
-revoke insert on table "public"."company_drafts" from "anon";
-
-revoke references on table "public"."company_drafts" from "anon";
-
-revoke select on table "public"."company_drafts" from "anon";
-
-revoke trigger on table "public"."company_drafts" from "anon";
-
-revoke truncate on table "public"."company_drafts" from "anon";
-
-revoke update on table "public"."company_drafts" from "anon";
-
-revoke delete on table "public"."company_drafts" from "authenticated";
-
-revoke insert on table "public"."company_drafts" from "authenticated";
-
-revoke references on table "public"."company_drafts" from "authenticated";
-
-revoke select on table "public"."company_drafts" from "authenticated";
-
-revoke trigger on table "public"."company_drafts" from "authenticated";
-
-revoke truncate on table "public"."company_drafts" from "authenticated";
-
-revoke update on table "public"."company_drafts" from "authenticated";
-
-revoke delete on table "public"."company_drafts" from "service_role";
-
-revoke insert on table "public"."company_drafts" from "service_role";
-
-revoke references on table "public"."company_drafts" from "service_role";
-
-revoke select on table "public"."company_drafts" from "service_role";
-
-revoke trigger on table "public"."company_drafts" from "service_role";
-
-revoke truncate on table "public"."company_drafts" from "service_role";
-
-revoke update on table "public"."company_drafts" from "service_role";
-
-revoke delete on table "public"."company_invitation" from "anon";
-
-revoke insert on table "public"."company_invitation" from "anon";
-
-revoke references on table "public"."company_invitation" from "anon";
-
-revoke select on table "public"."company_invitation" from "anon";
-
-revoke trigger on table "public"."company_invitation" from "anon";
-
-revoke truncate on table "public"."company_invitation" from "anon";
-
-revoke update on table "public"."company_invitation" from "anon";
-
-revoke delete on table "public"."company_invitation" from "authenticated";
-
-revoke insert on table "public"."company_invitation" from "authenticated";
-
-revoke references on table "public"."company_invitation" from "authenticated";
-
-revoke select on table "public"."company_invitation" from "authenticated";
-
-revoke trigger on table "public"."company_invitation" from "authenticated";
-
-revoke truncate on table "public"."company_invitation" from "authenticated";
-
-revoke update on table "public"."company_invitation" from "authenticated";
-
-revoke delete on table "public"."company_invitation" from "service_role";
-
-revoke insert on table "public"."company_invitation" from "service_role";
-
-revoke references on table "public"."company_invitation" from "service_role";
-
-revoke select on table "public"."company_invitation" from "service_role";
-
-revoke trigger on table "public"."company_invitation" from "service_role";
-
-revoke truncate on table "public"."company_invitation" from "service_role";
-
-revoke update on table "public"."company_invitation" from "service_role";
-
-revoke delete on table "public"."company_members" from "anon";
-
-revoke insert on table "public"."company_members" from "anon";
-
-revoke references on table "public"."company_members" from "anon";
-
-revoke select on table "public"."company_members" from "anon";
-
-revoke trigger on table "public"."company_members" from "anon";
-
-revoke truncate on table "public"."company_members" from "anon";
-
-revoke update on table "public"."company_members" from "anon";
-
-revoke delete on table "public"."company_members" from "authenticated";
-
-revoke insert on table "public"."company_members" from "authenticated";
-
-revoke references on table "public"."company_members" from "authenticated";
-
-revoke select on table "public"."company_members" from "authenticated";
-
-revoke trigger on table "public"."company_members" from "authenticated";
-
-revoke truncate on table "public"."company_members" from "authenticated";
-
-revoke update on table "public"."company_members" from "authenticated";
-
-revoke delete on table "public"."company_members" from "service_role";
-
-revoke insert on table "public"."company_members" from "service_role";
-
-revoke references on table "public"."company_members" from "service_role";
-
-revoke select on table "public"."company_members" from "service_role";
-
-revoke trigger on table "public"."company_members" from "service_role";
-
-revoke truncate on table "public"."company_members" from "service_role";
-
-revoke update on table "public"."company_members" from "service_role";
-
-revoke delete on table "public"."device_apns_live_activity_tokens" from "anon";
-
-revoke insert on table "public"."device_apns_live_activity_tokens" from "anon";
-
-revoke references on table "public"."device_apns_live_activity_tokens" from "anon";
-
-revoke select on table "public"."device_apns_live_activity_tokens" from "anon";
-
-revoke trigger on table "public"."device_apns_live_activity_tokens" from "anon";
-
-revoke truncate on table "public"."device_apns_live_activity_tokens" from "anon";
-
-revoke update on table "public"."device_apns_live_activity_tokens" from "anon";
-
-revoke delete on table "public"."device_apns_live_activity_tokens" from "authenticated";
-
-revoke insert on table "public"."device_apns_live_activity_tokens" from "authenticated";
-
-revoke references on table "public"."device_apns_live_activity_tokens" from "authenticated";
-
-revoke select on table "public"."device_apns_live_activity_tokens" from "authenticated";
-
-revoke trigger on table "public"."device_apns_live_activity_tokens" from "authenticated";
-
-revoke truncate on table "public"."device_apns_live_activity_tokens" from "authenticated";
-
-revoke update on table "public"."device_apns_live_activity_tokens" from "authenticated";
-
-revoke delete on table "public"."device_apns_live_activity_tokens" from "service_role";
-
-revoke insert on table "public"."device_apns_live_activity_tokens" from "service_role";
-
-revoke references on table "public"."device_apns_live_activity_tokens" from "service_role";
-
-revoke select on table "public"."device_apns_live_activity_tokens" from "service_role";
-
-revoke trigger on table "public"."device_apns_live_activity_tokens" from "service_role";
-
-revoke truncate on table "public"."device_apns_live_activity_tokens" from "service_role";
-
-revoke update on table "public"."device_apns_live_activity_tokens" from "service_role";
-
-revoke delete on table "public"."device_apns_tokens" from "anon";
-
-revoke insert on table "public"."device_apns_tokens" from "anon";
-
-revoke references on table "public"."device_apns_tokens" from "anon";
-
-revoke select on table "public"."device_apns_tokens" from "anon";
-
-revoke trigger on table "public"."device_apns_tokens" from "anon";
-
-revoke truncate on table "public"."device_apns_tokens" from "anon";
-
-revoke update on table "public"."device_apns_tokens" from "anon";
-
-revoke delete on table "public"."device_apns_tokens" from "authenticated";
-
-revoke insert on table "public"."device_apns_tokens" from "authenticated";
-
-revoke references on table "public"."device_apns_tokens" from "authenticated";
-
-revoke select on table "public"."device_apns_tokens" from "authenticated";
-
-revoke trigger on table "public"."device_apns_tokens" from "authenticated";
-
-revoke truncate on table "public"."device_apns_tokens" from "authenticated";
-
-revoke update on table "public"."device_apns_tokens" from "authenticated";
-
-revoke delete on table "public"."device_apns_tokens" from "service_role";
-
-revoke insert on table "public"."device_apns_tokens" from "service_role";
-
-revoke references on table "public"."device_apns_tokens" from "service_role";
-
-revoke select on table "public"."device_apns_tokens" from "service_role";
-
-revoke trigger on table "public"."device_apns_tokens" from "service_role";
-
-revoke truncate on table "public"."device_apns_tokens" from "service_role";
-
-revoke update on table "public"."device_apns_tokens" from "service_role";
-
-revoke delete on table "public"."device_fcm_tokens" from "anon";
-
-revoke insert on table "public"."device_fcm_tokens" from "anon";
-
-revoke references on table "public"."device_fcm_tokens" from "anon";
-
-revoke select on table "public"."device_fcm_tokens" from "anon";
-
-revoke trigger on table "public"."device_fcm_tokens" from "anon";
-
-revoke truncate on table "public"."device_fcm_tokens" from "anon";
-
-revoke update on table "public"."device_fcm_tokens" from "anon";
-
-revoke delete on table "public"."device_fcm_tokens" from "authenticated";
-
-revoke insert on table "public"."device_fcm_tokens" from "authenticated";
-
-revoke references on table "public"."device_fcm_tokens" from "authenticated";
-
-revoke select on table "public"."device_fcm_tokens" from "authenticated";
-
-revoke trigger on table "public"."device_fcm_tokens" from "authenticated";
-
-revoke truncate on table "public"."device_fcm_tokens" from "authenticated";
-
-revoke update on table "public"."device_fcm_tokens" from "authenticated";
-
-revoke delete on table "public"."device_fcm_tokens" from "service_role";
-
-revoke insert on table "public"."device_fcm_tokens" from "service_role";
-
-revoke references on table "public"."device_fcm_tokens" from "service_role";
-
-revoke select on table "public"."device_fcm_tokens" from "service_role";
-
-revoke trigger on table "public"."device_fcm_tokens" from "service_role";
-
-revoke truncate on table "public"."device_fcm_tokens" from "service_role";
-
-revoke update on table "public"."device_fcm_tokens" from "service_role";
-
-revoke delete on table "public"."devices" from "anon";
-
-revoke insert on table "public"."devices" from "anon";
-
-revoke references on table "public"."devices" from "anon";
-
-revoke select on table "public"."devices" from "anon";
-
-revoke trigger on table "public"."devices" from "anon";
-
-revoke truncate on table "public"."devices" from "anon";
-
-revoke update on table "public"."devices" from "anon";
-
-revoke delete on table "public"."devices" from "authenticated";
-
-revoke insert on table "public"."devices" from "authenticated";
-
-revoke references on table "public"."devices" from "authenticated";
-
-revoke select on table "public"."devices" from "authenticated";
-
-revoke trigger on table "public"."devices" from "authenticated";
-
-revoke truncate on table "public"."devices" from "authenticated";
-
-revoke update on table "public"."devices" from "authenticated";
-
-revoke delete on table "public"."devices" from "service_role";
-
-revoke insert on table "public"."devices" from "service_role";
-
-revoke references on table "public"."devices" from "service_role";
-
-revoke select on table "public"."devices" from "service_role";
-
-revoke trigger on table "public"."devices" from "service_role";
-
-revoke truncate on table "public"."devices" from "service_role";
-
-revoke update on table "public"."devices" from "service_role";
-
-revoke delete on table "public"."individual_draft_approvals" from "anon";
-
-revoke insert on table "public"."individual_draft_approvals" from "anon";
-
-revoke references on table "public"."individual_draft_approvals" from "anon";
-
-revoke select on table "public"."individual_draft_approvals" from "anon";
-
-revoke trigger on table "public"."individual_draft_approvals" from "anon";
-
-revoke truncate on table "public"."individual_draft_approvals" from "anon";
-
-revoke update on table "public"."individual_draft_approvals" from "anon";
-
-revoke delete on table "public"."individual_draft_approvals" from "authenticated";
-
-revoke insert on table "public"."individual_draft_approvals" from "authenticated";
-
-revoke references on table "public"."individual_draft_approvals" from "authenticated";
-
-revoke select on table "public"."individual_draft_approvals" from "authenticated";
-
-revoke trigger on table "public"."individual_draft_approvals" from "authenticated";
-
-revoke truncate on table "public"."individual_draft_approvals" from "authenticated";
-
-revoke update on table "public"."individual_draft_approvals" from "authenticated";
-
-revoke delete on table "public"."individual_draft_approvals" from "service_role";
-
-revoke insert on table "public"."individual_draft_approvals" from "service_role";
-
-revoke references on table "public"."individual_draft_approvals" from "service_role";
-
-revoke select on table "public"."individual_draft_approvals" from "service_role";
-
-revoke trigger on table "public"."individual_draft_approvals" from "service_role";
-
-revoke truncate on table "public"."individual_draft_approvals" from "service_role";
-
-revoke update on table "public"."individual_draft_approvals" from "service_role";
-
-revoke delete on table "public"."individual_drafts" from "anon";
-
-revoke insert on table "public"."individual_drafts" from "anon";
-
-revoke references on table "public"."individual_drafts" from "anon";
-
-revoke select on table "public"."individual_drafts" from "anon";
-
-revoke trigger on table "public"."individual_drafts" from "anon";
-
-revoke truncate on table "public"."individual_drafts" from "anon";
-
-revoke update on table "public"."individual_drafts" from "anon";
-
-revoke delete on table "public"."individual_drafts" from "authenticated";
-
-revoke insert on table "public"."individual_drafts" from "authenticated";
-
-revoke references on table "public"."individual_drafts" from "authenticated";
-
-revoke select on table "public"."individual_drafts" from "authenticated";
-
-revoke trigger on table "public"."individual_drafts" from "authenticated";
-
-revoke truncate on table "public"."individual_drafts" from "authenticated";
-
-revoke update on table "public"."individual_drafts" from "authenticated";
-
-revoke delete on table "public"."individual_drafts" from "service_role";
-
-revoke insert on table "public"."individual_drafts" from "service_role";
-
-revoke references on table "public"."individual_drafts" from "service_role";
-
-revoke select on table "public"."individual_drafts" from "service_role";
-
-revoke trigger on table "public"."individual_drafts" from "service_role";
-
-revoke truncate on table "public"."individual_drafts" from "service_role";
-
-revoke update on table "public"."individual_drafts" from "service_role";
-
-revoke delete on table "public"."individuals" from "anon";
-
-revoke insert on table "public"."individuals" from "anon";
-
-revoke references on table "public"."individuals" from "anon";
-
-revoke select on table "public"."individuals" from "anon";
-
-revoke trigger on table "public"."individuals" from "anon";
-
-revoke truncate on table "public"."individuals" from "anon";
-
-revoke update on table "public"."individuals" from "anon";
-
-revoke delete on table "public"."individuals" from "authenticated";
-
-revoke insert on table "public"."individuals" from "authenticated";
-
-revoke references on table "public"."individuals" from "authenticated";
-
-revoke select on table "public"."individuals" from "authenticated";
-
-revoke trigger on table "public"."individuals" from "authenticated";
-
-revoke truncate on table "public"."individuals" from "authenticated";
-
-revoke update on table "public"."individuals" from "authenticated";
-
-revoke delete on table "public"."individuals" from "service_role";
-
-revoke insert on table "public"."individuals" from "service_role";
-
-revoke references on table "public"."individuals" from "service_role";
-
-revoke select on table "public"."individuals" from "service_role";
-
-revoke trigger on table "public"."individuals" from "service_role";
-
-revoke truncate on table "public"."individuals" from "service_role";
-
-revoke update on table "public"."individuals" from "service_role";
-
-revoke delete on table "public"."job_boards" from "anon";
-
-revoke insert on table "public"."job_boards" from "anon";
-
-revoke references on table "public"."job_boards" from "anon";
-
-revoke select on table "public"."job_boards" from "anon";
-
-revoke trigger on table "public"."job_boards" from "anon";
-
-revoke truncate on table "public"."job_boards" from "anon";
-
-revoke update on table "public"."job_boards" from "anon";
-
-revoke delete on table "public"."job_boards" from "authenticated";
-
-revoke insert on table "public"."job_boards" from "authenticated";
-
-revoke references on table "public"."job_boards" from "authenticated";
-
-revoke select on table "public"."job_boards" from "authenticated";
-
-revoke trigger on table "public"."job_boards" from "authenticated";
-
-revoke truncate on table "public"."job_boards" from "authenticated";
-
-revoke update on table "public"."job_boards" from "authenticated";
-
-revoke delete on table "public"."job_boards" from "service_role";
-
-revoke insert on table "public"."job_boards" from "service_role";
-
-revoke references on table "public"."job_boards" from "service_role";
-
-revoke select on table "public"."job_boards" from "service_role";
-
-revoke trigger on table "public"."job_boards" from "service_role";
-
-revoke truncate on table "public"."job_boards" from "service_role";
-
-revoke update on table "public"."job_boards" from "service_role";
-
-revoke delete on table "public"."news" from "anon";
-
-revoke insert on table "public"."news" from "anon";
-
-revoke references on table "public"."news" from "anon";
-
-revoke select on table "public"."news" from "anon";
-
-revoke trigger on table "public"."news" from "anon";
-
-revoke truncate on table "public"."news" from "anon";
-
-revoke update on table "public"."news" from "anon";
-
-revoke delete on table "public"."news" from "authenticated";
-
-revoke insert on table "public"."news" from "authenticated";
-
-revoke references on table "public"."news" from "authenticated";
-
-revoke select on table "public"."news" from "authenticated";
-
-revoke trigger on table "public"."news" from "authenticated";
-
-revoke truncate on table "public"."news" from "authenticated";
-
-revoke update on table "public"."news" from "authenticated";
-
-revoke delete on table "public"."news" from "service_role";
-
-revoke insert on table "public"."news" from "service_role";
-
-revoke references on table "public"."news" from "service_role";
-
-revoke select on table "public"."news" from "service_role";
-
-revoke trigger on table "public"."news" from "service_role";
-
-revoke truncate on table "public"."news" from "service_role";
-
-revoke update on table "public"."news" from "service_role";
-
-revoke delete on table "public"."profile_share" from "anon";
-
-revoke insert on table "public"."profile_share" from "anon";
-
-revoke references on table "public"."profile_share" from "anon";
-
-revoke select on table "public"."profile_share" from "anon";
-
-revoke trigger on table "public"."profile_share" from "anon";
-
-revoke truncate on table "public"."profile_share" from "anon";
-
-revoke update on table "public"."profile_share" from "anon";
-
-revoke delete on table "public"."profile_share" from "authenticated";
-
-revoke insert on table "public"."profile_share" from "authenticated";
-
-revoke references on table "public"."profile_share" from "authenticated";
-
-revoke select on table "public"."profile_share" from "authenticated";
-
-revoke trigger on table "public"."profile_share" from "authenticated";
-
-revoke truncate on table "public"."profile_share" from "authenticated";
-
-revoke update on table "public"."profile_share" from "authenticated";
-
-revoke delete on table "public"."profile_share" from "service_role";
-
-revoke insert on table "public"."profile_share" from "service_role";
-
-revoke references on table "public"."profile_share" from "service_role";
-
-revoke select on table "public"."profile_share" from "service_role";
-
-revoke trigger on table "public"."profile_share" from "service_role";
-
-revoke truncate on table "public"."profile_share" from "service_role";
-
-revoke update on table "public"."profile_share" from "service_role";
-
-revoke delete on table "public"."profiles" from "anon";
-
-revoke insert on table "public"."profiles" from "anon";
-
-revoke references on table "public"."profiles" from "anon";
-
-revoke select on table "public"."profiles" from "anon";
-
-revoke trigger on table "public"."profiles" from "anon";
-
-revoke truncate on table "public"."profiles" from "anon";
-
-revoke update on table "public"."profiles" from "anon";
-
-revoke delete on table "public"."profiles" from "authenticated";
-
-revoke insert on table "public"."profiles" from "authenticated";
-
-revoke references on table "public"."profiles" from "authenticated";
-
-revoke select on table "public"."profiles" from "authenticated";
-
-revoke trigger on table "public"."profiles" from "authenticated";
-
-revoke truncate on table "public"."profiles" from "authenticated";
-
-revoke update on table "public"."profiles" from "authenticated";
-
-revoke delete on table "public"."profiles" from "service_role";
-
-revoke insert on table "public"."profiles" from "service_role";
-
-revoke references on table "public"."profiles" from "service_role";
-
-revoke select on table "public"."profiles" from "service_role";
-
-revoke trigger on table "public"."profiles" from "service_role";
-
-revoke truncate on table "public"."profiles" from "service_role";
-
-revoke update on table "public"."profiles" from "service_role";
-
-revoke delete on table "public"."session_speakers" from "anon";
-
-revoke insert on table "public"."session_speakers" from "anon";
-
-revoke references on table "public"."session_speakers" from "anon";
-
-revoke select on table "public"."session_speakers" from "anon";
-
-revoke trigger on table "public"."session_speakers" from "anon";
-
-revoke truncate on table "public"."session_speakers" from "anon";
-
-revoke update on table "public"."session_speakers" from "anon";
-
-revoke delete on table "public"."session_speakers" from "authenticated";
-
-revoke insert on table "public"."session_speakers" from "authenticated";
-
-revoke references on table "public"."session_speakers" from "authenticated";
-
-revoke select on table "public"."session_speakers" from "authenticated";
-
-revoke trigger on table "public"."session_speakers" from "authenticated";
-
-revoke truncate on table "public"."session_speakers" from "authenticated";
-
-revoke update on table "public"."session_speakers" from "authenticated";
-
-revoke delete on table "public"."session_speakers" from "service_role";
-
-revoke insert on table "public"."session_speakers" from "service_role";
-
-revoke references on table "public"."session_speakers" from "service_role";
-
-revoke select on table "public"."session_speakers" from "service_role";
-
-revoke trigger on table "public"."session_speakers" from "service_role";
-
-revoke truncate on table "public"."session_speakers" from "service_role";
-
-revoke update on table "public"."session_speakers" from "service_role";
-
-revoke delete on table "public"."session_venues" from "anon";
-
-revoke insert on table "public"."session_venues" from "anon";
-
-revoke references on table "public"."session_venues" from "anon";
-
-revoke select on table "public"."session_venues" from "anon";
-
-revoke trigger on table "public"."session_venues" from "anon";
-
-revoke truncate on table "public"."session_venues" from "anon";
-
-revoke update on table "public"."session_venues" from "anon";
-
-revoke delete on table "public"."session_venues" from "authenticated";
-
-revoke insert on table "public"."session_venues" from "authenticated";
-
-revoke references on table "public"."session_venues" from "authenticated";
-
-revoke select on table "public"."session_venues" from "authenticated";
-
-revoke trigger on table "public"."session_venues" from "authenticated";
-
-revoke truncate on table "public"."session_venues" from "authenticated";
-
-revoke update on table "public"."session_venues" from "authenticated";
-
-revoke delete on table "public"."session_venues" from "service_role";
-
-revoke insert on table "public"."session_venues" from "service_role";
-
-revoke references on table "public"."session_venues" from "service_role";
-
-revoke select on table "public"."session_venues" from "service_role";
-
-revoke trigger on table "public"."session_venues" from "service_role";
-
-revoke truncate on table "public"."session_venues" from "service_role";
-
-revoke update on table "public"."session_venues" from "service_role";
-
-revoke delete on table "public"."sessions" from "anon";
-
-revoke insert on table "public"."sessions" from "anon";
-
-revoke references on table "public"."sessions" from "anon";
-
-revoke select on table "public"."sessions" from "anon";
-
-revoke trigger on table "public"."sessions" from "anon";
-
-revoke truncate on table "public"."sessions" from "anon";
-
-revoke update on table "public"."sessions" from "anon";
-
-revoke delete on table "public"."sessions" from "authenticated";
-
-revoke insert on table "public"."sessions" from "authenticated";
-
-revoke references on table "public"."sessions" from "authenticated";
-
-revoke select on table "public"."sessions" from "authenticated";
-
-revoke trigger on table "public"."sessions" from "authenticated";
-
-revoke truncate on table "public"."sessions" from "authenticated";
-
-revoke update on table "public"."sessions" from "authenticated";
-
-revoke delete on table "public"."sessions" from "service_role";
-
-revoke insert on table "public"."sessions" from "service_role";
-
-revoke references on table "public"."sessions" from "service_role";
-
-revoke select on table "public"."sessions" from "service_role";
-
-revoke trigger on table "public"."sessions" from "service_role";
-
-revoke truncate on table "public"."sessions" from "service_role";
-
-revoke update on table "public"."sessions" from "service_role";
-
-revoke delete on table "public"."speakers" from "anon";
-
-revoke insert on table "public"."speakers" from "anon";
-
-revoke references on table "public"."speakers" from "anon";
-
-revoke select on table "public"."speakers" from "anon";
-
-revoke trigger on table "public"."speakers" from "anon";
-
-revoke truncate on table "public"."speakers" from "anon";
-
-revoke update on table "public"."speakers" from "anon";
-
-revoke delete on table "public"."speakers" from "authenticated";
-
-revoke insert on table "public"."speakers" from "authenticated";
-
-revoke references on table "public"."speakers" from "authenticated";
-
-revoke select on table "public"."speakers" from "authenticated";
-
-revoke trigger on table "public"."speakers" from "authenticated";
-
-revoke truncate on table "public"."speakers" from "authenticated";
-
-revoke update on table "public"."speakers" from "authenticated";
-
-revoke delete on table "public"."speakers" from "service_role";
-
-revoke insert on table "public"."speakers" from "service_role";
-
-revoke references on table "public"."speakers" from "service_role";
-
-revoke select on table "public"."speakers" from "service_role";
-
-revoke trigger on table "public"."speakers" from "service_role";
-
-revoke truncate on table "public"."speakers" from "service_role";
-
-revoke update on table "public"."speakers" from "service_role";
-
-revoke delete on table "public"."sponsor_companies" from "anon";
-
-revoke insert on table "public"."sponsor_companies" from "anon";
-
-revoke references on table "public"."sponsor_companies" from "anon";
-
-revoke select on table "public"."sponsor_companies" from "anon";
-
-revoke trigger on table "public"."sponsor_companies" from "anon";
-
-revoke truncate on table "public"."sponsor_companies" from "anon";
-
-revoke update on table "public"."sponsor_companies" from "anon";
-
-revoke delete on table "public"."sponsor_companies" from "authenticated";
-
-revoke insert on table "public"."sponsor_companies" from "authenticated";
-
-revoke references on table "public"."sponsor_companies" from "authenticated";
-
-revoke select on table "public"."sponsor_companies" from "authenticated";
-
-revoke trigger on table "public"."sponsor_companies" from "authenticated";
-
-revoke truncate on table "public"."sponsor_companies" from "authenticated";
-
-revoke update on table "public"."sponsor_companies" from "authenticated";
-
-revoke delete on table "public"."sponsor_companies" from "service_role";
-
-revoke insert on table "public"."sponsor_companies" from "service_role";
-
-revoke references on table "public"."sponsor_companies" from "service_role";
-
-revoke select on table "public"."sponsor_companies" from "service_role";
-
-revoke trigger on table "public"."sponsor_companies" from "service_role";
-
-revoke truncate on table "public"."sponsor_companies" from "service_role";
-
-revoke update on table "public"."sponsor_companies" from "service_role";
-
-revoke delete on table "public"."sponsor_company_options" from "anon";
-
-revoke insert on table "public"."sponsor_company_options" from "anon";
-
-revoke references on table "public"."sponsor_company_options" from "anon";
-
-revoke select on table "public"."sponsor_company_options" from "anon";
-
-revoke trigger on table "public"."sponsor_company_options" from "anon";
-
-revoke truncate on table "public"."sponsor_company_options" from "anon";
-
-revoke update on table "public"."sponsor_company_options" from "anon";
-
-revoke delete on table "public"."sponsor_company_options" from "authenticated";
-
-revoke insert on table "public"."sponsor_company_options" from "authenticated";
-
-revoke references on table "public"."sponsor_company_options" from "authenticated";
-
-revoke select on table "public"."sponsor_company_options" from "authenticated";
-
-revoke trigger on table "public"."sponsor_company_options" from "authenticated";
-
-revoke truncate on table "public"."sponsor_company_options" from "authenticated";
-
-revoke update on table "public"."sponsor_company_options" from "authenticated";
-
-revoke delete on table "public"."sponsor_company_options" from "service_role";
-
-revoke insert on table "public"."sponsor_company_options" from "service_role";
-
-revoke references on table "public"."sponsor_company_options" from "service_role";
-
-revoke select on table "public"."sponsor_company_options" from "service_role";
-
-revoke trigger on table "public"."sponsor_company_options" from "service_role";
-
-revoke truncate on table "public"."sponsor_company_options" from "service_role";
-
-revoke update on table "public"."sponsor_company_options" from "service_role";
-
-revoke delete on table "public"."sponsor_individuals" from "anon";
-
-revoke insert on table "public"."sponsor_individuals" from "anon";
-
-revoke references on table "public"."sponsor_individuals" from "anon";
-
-revoke select on table "public"."sponsor_individuals" from "anon";
-
-revoke trigger on table "public"."sponsor_individuals" from "anon";
-
-revoke truncate on table "public"."sponsor_individuals" from "anon";
-
-revoke update on table "public"."sponsor_individuals" from "anon";
-
-revoke delete on table "public"."sponsor_individuals" from "authenticated";
-
-revoke insert on table "public"."sponsor_individuals" from "authenticated";
-
-revoke references on table "public"."sponsor_individuals" from "authenticated";
-
-revoke select on table "public"."sponsor_individuals" from "authenticated";
-
-revoke trigger on table "public"."sponsor_individuals" from "authenticated";
-
-revoke truncate on table "public"."sponsor_individuals" from "authenticated";
-
-revoke update on table "public"."sponsor_individuals" from "authenticated";
-
-revoke delete on table "public"."sponsor_individuals" from "service_role";
-
-revoke insert on table "public"."sponsor_individuals" from "service_role";
-
-revoke references on table "public"."sponsor_individuals" from "service_role";
-
-revoke select on table "public"."sponsor_individuals" from "service_role";
-
-revoke trigger on table "public"."sponsor_individuals" from "service_role";
-
-revoke truncate on table "public"."sponsor_individuals" from "service_role";
-
-revoke update on table "public"."sponsor_individuals" from "service_role";
-
-revoke delete on table "public"."staff_member_sns_links" from "anon";
-
-revoke insert on table "public"."staff_member_sns_links" from "anon";
-
-revoke references on table "public"."staff_member_sns_links" from "anon";
-
-revoke select on table "public"."staff_member_sns_links" from "anon";
-
-revoke trigger on table "public"."staff_member_sns_links" from "anon";
-
-revoke truncate on table "public"."staff_member_sns_links" from "anon";
-
-revoke update on table "public"."staff_member_sns_links" from "anon";
-
-revoke delete on table "public"."staff_member_sns_links" from "authenticated";
-
-revoke insert on table "public"."staff_member_sns_links" from "authenticated";
-
-revoke references on table "public"."staff_member_sns_links" from "authenticated";
-
-revoke select on table "public"."staff_member_sns_links" from "authenticated";
-
-revoke trigger on table "public"."staff_member_sns_links" from "authenticated";
-
-revoke truncate on table "public"."staff_member_sns_links" from "authenticated";
-
-revoke update on table "public"."staff_member_sns_links" from "authenticated";
-
-revoke delete on table "public"."staff_member_sns_links" from "service_role";
-
-revoke insert on table "public"."staff_member_sns_links" from "service_role";
-
-revoke references on table "public"."staff_member_sns_links" from "service_role";
-
-revoke select on table "public"."staff_member_sns_links" from "service_role";
-
-revoke trigger on table "public"."staff_member_sns_links" from "service_role";
-
-revoke truncate on table "public"."staff_member_sns_links" from "service_role";
-
-revoke update on table "public"."staff_member_sns_links" from "service_role";
-
-revoke delete on table "public"."staff_members" from "anon";
-
-revoke insert on table "public"."staff_members" from "anon";
-
-revoke references on table "public"."staff_members" from "anon";
-
-revoke select on table "public"."staff_members" from "anon";
-
-revoke trigger on table "public"."staff_members" from "anon";
-
-revoke truncate on table "public"."staff_members" from "anon";
-
-revoke update on table "public"."staff_members" from "anon";
-
-revoke delete on table "public"."staff_members" from "authenticated";
-
-revoke insert on table "public"."staff_members" from "authenticated";
-
-revoke references on table "public"."staff_members" from "authenticated";
-
-revoke select on table "public"."staff_members" from "authenticated";
-
-revoke trigger on table "public"."staff_members" from "authenticated";
-
-revoke truncate on table "public"."staff_members" from "authenticated";
-
-revoke update on table "public"."staff_members" from "authenticated";
-
-revoke delete on table "public"."staff_members" from "service_role";
-
-revoke insert on table "public"."staff_members" from "service_role";
-
-revoke references on table "public"."staff_members" from "service_role";
-
-revoke select on table "public"."staff_members" from "service_role";
-
-revoke trigger on table "public"."staff_members" from "service_role";
-
-revoke truncate on table "public"."staff_members" from "service_role";
-
-revoke update on table "public"."staff_members" from "service_role";
-
-revoke delete on table "public"."stripe_webhook_logs" from "anon";
-
-revoke insert on table "public"."stripe_webhook_logs" from "anon";
-
-revoke references on table "public"."stripe_webhook_logs" from "anon";
-
-revoke select on table "public"."stripe_webhook_logs" from "anon";
-
-revoke trigger on table "public"."stripe_webhook_logs" from "anon";
-
-revoke truncate on table "public"."stripe_webhook_logs" from "anon";
-
-revoke update on table "public"."stripe_webhook_logs" from "anon";
-
-revoke delete on table "public"."stripe_webhook_logs" from "authenticated";
-
-revoke insert on table "public"."stripe_webhook_logs" from "authenticated";
-
-revoke references on table "public"."stripe_webhook_logs" from "authenticated";
-
-revoke select on table "public"."stripe_webhook_logs" from "authenticated";
-
-revoke trigger on table "public"."stripe_webhook_logs" from "authenticated";
-
-revoke truncate on table "public"."stripe_webhook_logs" from "authenticated";
-
-revoke update on table "public"."stripe_webhook_logs" from "authenticated";
-
-revoke delete on table "public"."stripe_webhook_logs" from "service_role";
-
-revoke insert on table "public"."stripe_webhook_logs" from "service_role";
-
-revoke references on table "public"."stripe_webhook_logs" from "service_role";
-
-revoke select on table "public"."stripe_webhook_logs" from "service_role";
-
-revoke trigger on table "public"."stripe_webhook_logs" from "service_role";
-
-revoke truncate on table "public"."stripe_webhook_logs" from "service_role";
-
-revoke update on table "public"."stripe_webhook_logs" from "service_role";
-
-revoke delete on table "public"."ticket_checkout_options" from "anon";
-
-revoke insert on table "public"."ticket_checkout_options" from "anon";
-
-revoke references on table "public"."ticket_checkout_options" from "anon";
-
-revoke select on table "public"."ticket_checkout_options" from "anon";
-
-revoke trigger on table "public"."ticket_checkout_options" from "anon";
-
-revoke truncate on table "public"."ticket_checkout_options" from "anon";
-
-revoke update on table "public"."ticket_checkout_options" from "anon";
-
-revoke delete on table "public"."ticket_checkout_options" from "authenticated";
-
-revoke insert on table "public"."ticket_checkout_options" from "authenticated";
-
-revoke references on table "public"."ticket_checkout_options" from "authenticated";
-
-revoke select on table "public"."ticket_checkout_options" from "authenticated";
-
-revoke trigger on table "public"."ticket_checkout_options" from "authenticated";
-
-revoke truncate on table "public"."ticket_checkout_options" from "authenticated";
-
-revoke update on table "public"."ticket_checkout_options" from "authenticated";
-
-revoke delete on table "public"."ticket_checkout_options" from "service_role";
-
-revoke insert on table "public"."ticket_checkout_options" from "service_role";
-
-revoke references on table "public"."ticket_checkout_options" from "service_role";
-
-revoke select on table "public"."ticket_checkout_options" from "service_role";
-
-revoke trigger on table "public"."ticket_checkout_options" from "service_role";
-
-revoke truncate on table "public"."ticket_checkout_options" from "service_role";
-
-revoke update on table "public"."ticket_checkout_options" from "service_role";
-
-revoke delete on table "public"."ticket_checkout_sessions" from "anon";
-
-revoke insert on table "public"."ticket_checkout_sessions" from "anon";
-
-revoke references on table "public"."ticket_checkout_sessions" from "anon";
-
-revoke select on table "public"."ticket_checkout_sessions" from "anon";
-
-revoke trigger on table "public"."ticket_checkout_sessions" from "anon";
-
-revoke truncate on table "public"."ticket_checkout_sessions" from "anon";
-
-revoke update on table "public"."ticket_checkout_sessions" from "anon";
-
-revoke delete on table "public"."ticket_checkout_sessions" from "authenticated";
-
-revoke insert on table "public"."ticket_checkout_sessions" from "authenticated";
-
-revoke references on table "public"."ticket_checkout_sessions" from "authenticated";
-
-revoke select on table "public"."ticket_checkout_sessions" from "authenticated";
-
-revoke trigger on table "public"."ticket_checkout_sessions" from "authenticated";
-
-revoke truncate on table "public"."ticket_checkout_sessions" from "authenticated";
-
-revoke update on table "public"."ticket_checkout_sessions" from "authenticated";
-
-revoke delete on table "public"."ticket_checkout_sessions" from "service_role";
-
-revoke insert on table "public"."ticket_checkout_sessions" from "service_role";
-
-revoke references on table "public"."ticket_checkout_sessions" from "service_role";
-
-revoke select on table "public"."ticket_checkout_sessions" from "service_role";
-
-revoke trigger on table "public"."ticket_checkout_sessions" from "service_role";
-
-revoke truncate on table "public"."ticket_checkout_sessions" from "service_role";
-
-revoke update on table "public"."ticket_checkout_sessions" from "service_role";
-
-revoke delete on table "public"."ticket_options" from "anon";
-
-revoke insert on table "public"."ticket_options" from "anon";
-
-revoke references on table "public"."ticket_options" from "anon";
-
-revoke select on table "public"."ticket_options" from "anon";
-
-revoke trigger on table "public"."ticket_options" from "anon";
-
-revoke truncate on table "public"."ticket_options" from "anon";
-
-revoke update on table "public"."ticket_options" from "anon";
-
-revoke delete on table "public"."ticket_options" from "authenticated";
-
-revoke insert on table "public"."ticket_options" from "authenticated";
-
-revoke references on table "public"."ticket_options" from "authenticated";
-
-revoke select on table "public"."ticket_options" from "authenticated";
-
-revoke trigger on table "public"."ticket_options" from "authenticated";
-
-revoke truncate on table "public"."ticket_options" from "authenticated";
-
-revoke update on table "public"."ticket_options" from "authenticated";
-
-revoke delete on table "public"."ticket_options" from "service_role";
-
-revoke insert on table "public"."ticket_options" from "service_role";
-
-revoke references on table "public"."ticket_options" from "service_role";
-
-revoke select on table "public"."ticket_options" from "service_role";
-
-revoke trigger on table "public"."ticket_options" from "service_role";
-
-revoke truncate on table "public"."ticket_options" from "service_role";
-
-revoke update on table "public"."ticket_options" from "service_role";
-
-revoke delete on table "public"."ticket_purchase_options" from "anon";
-
-revoke insert on table "public"."ticket_purchase_options" from "anon";
-
-revoke references on table "public"."ticket_purchase_options" from "anon";
-
-revoke select on table "public"."ticket_purchase_options" from "anon";
-
-revoke trigger on table "public"."ticket_purchase_options" from "anon";
-
-revoke truncate on table "public"."ticket_purchase_options" from "anon";
-
-revoke update on table "public"."ticket_purchase_options" from "anon";
-
-revoke delete on table "public"."ticket_purchase_options" from "authenticated";
-
-revoke insert on table "public"."ticket_purchase_options" from "authenticated";
-
-revoke references on table "public"."ticket_purchase_options" from "authenticated";
-
-revoke select on table "public"."ticket_purchase_options" from "authenticated";
-
-revoke trigger on table "public"."ticket_purchase_options" from "authenticated";
-
-revoke truncate on table "public"."ticket_purchase_options" from "authenticated";
-
-revoke update on table "public"."ticket_purchase_options" from "authenticated";
-
-revoke delete on table "public"."ticket_purchase_options" from "service_role";
-
-revoke insert on table "public"."ticket_purchase_options" from "service_role";
-
-revoke references on table "public"."ticket_purchase_options" from "service_role";
-
-revoke select on table "public"."ticket_purchase_options" from "service_role";
-
-revoke trigger on table "public"."ticket_purchase_options" from "service_role";
-
-revoke truncate on table "public"."ticket_purchase_options" from "service_role";
-
-revoke update on table "public"."ticket_purchase_options" from "service_role";
-
-revoke delete on table "public"."ticket_purchases" from "anon";
-
-revoke insert on table "public"."ticket_purchases" from "anon";
-
-revoke references on table "public"."ticket_purchases" from "anon";
-
-revoke select on table "public"."ticket_purchases" from "anon";
-
-revoke trigger on table "public"."ticket_purchases" from "anon";
-
-revoke truncate on table "public"."ticket_purchases" from "anon";
-
-revoke update on table "public"."ticket_purchases" from "anon";
-
-revoke delete on table "public"."ticket_purchases" from "authenticated";
-
-revoke insert on table "public"."ticket_purchases" from "authenticated";
-
-revoke references on table "public"."ticket_purchases" from "authenticated";
-
-revoke select on table "public"."ticket_purchases" from "authenticated";
-
-revoke trigger on table "public"."ticket_purchases" from "authenticated";
-
-revoke truncate on table "public"."ticket_purchases" from "authenticated";
-
-revoke update on table "public"."ticket_purchases" from "authenticated";
-
-revoke delete on table "public"."ticket_purchases" from "service_role";
-
-revoke insert on table "public"."ticket_purchases" from "service_role";
-
-revoke references on table "public"."ticket_purchases" from "service_role";
-
-revoke select on table "public"."ticket_purchases" from "service_role";
-
-revoke trigger on table "public"."ticket_purchases" from "service_role";
-
-revoke truncate on table "public"."ticket_purchases" from "service_role";
-
-revoke update on table "public"."ticket_purchases" from "service_role";
-
-revoke delete on table "public"."ticket_types" from "anon";
-
-revoke insert on table "public"."ticket_types" from "anon";
-
-revoke references on table "public"."ticket_types" from "anon";
-
-revoke select on table "public"."ticket_types" from "anon";
-
-revoke trigger on table "public"."ticket_types" from "anon";
-
-revoke truncate on table "public"."ticket_types" from "anon";
-
-revoke update on table "public"."ticket_types" from "anon";
-
-revoke delete on table "public"."ticket_types" from "authenticated";
-
-revoke insert on table "public"."ticket_types" from "authenticated";
-
-revoke references on table "public"."ticket_types" from "authenticated";
-
-revoke select on table "public"."ticket_types" from "authenticated";
-
-revoke trigger on table "public"."ticket_types" from "authenticated";
-
-revoke truncate on table "public"."ticket_types" from "authenticated";
-
-revoke update on table "public"."ticket_types" from "authenticated";
-
-revoke delete on table "public"."ticket_types" from "service_role";
-
-revoke insert on table "public"."ticket_types" from "service_role";
-
-revoke references on table "public"."ticket_types" from "service_role";
-
-revoke select on table "public"."ticket_types" from "service_role";
-
-revoke trigger on table "public"."ticket_types" from "service_role";
-
-revoke truncate on table "public"."ticket_types" from "service_role";
-
-revoke update on table "public"."ticket_types" from "service_role";
-
-revoke delete on table "public"."timeline_events" from "anon";
-
-revoke insert on table "public"."timeline_events" from "anon";
-
-revoke references on table "public"."timeline_events" from "anon";
-
-revoke select on table "public"."timeline_events" from "anon";
-
-revoke trigger on table "public"."timeline_events" from "anon";
-
-revoke truncate on table "public"."timeline_events" from "anon";
-
-revoke update on table "public"."timeline_events" from "anon";
-
-revoke delete on table "public"."timeline_events" from "authenticated";
-
-revoke insert on table "public"."timeline_events" from "authenticated";
-
-revoke references on table "public"."timeline_events" from "authenticated";
-
-revoke select on table "public"."timeline_events" from "authenticated";
-
-revoke trigger on table "public"."timeline_events" from "authenticated";
-
-revoke truncate on table "public"."timeline_events" from "authenticated";
-
-revoke update on table "public"."timeline_events" from "authenticated";
-
-revoke delete on table "public"."timeline_events" from "service_role";
-
-revoke insert on table "public"."timeline_events" from "service_role";
-
-revoke references on table "public"."timeline_events" from "service_role";
-
-revoke select on table "public"."timeline_events" from "service_role";
-
-revoke trigger on table "public"."timeline_events" from "service_role";
-
-revoke truncate on table "public"."timeline_events" from "service_role";
-
-revoke update on table "public"."timeline_events" from "service_role";
-
-revoke delete on table "public"."user_roles" from "anon";
-
-revoke insert on table "public"."user_roles" from "anon";
-
-revoke references on table "public"."user_roles" from "anon";
-
-revoke select on table "public"."user_roles" from "anon";
-
-revoke trigger on table "public"."user_roles" from "anon";
-
-revoke truncate on table "public"."user_roles" from "anon";
-
-revoke update on table "public"."user_roles" from "anon";
-
-revoke delete on table "public"."user_roles" from "authenticated";
-
-revoke insert on table "public"."user_roles" from "authenticated";
-
-revoke references on table "public"."user_roles" from "authenticated";
-
-revoke select on table "public"."user_roles" from "authenticated";
-
-revoke trigger on table "public"."user_roles" from "authenticated";
-
-revoke truncate on table "public"."user_roles" from "authenticated";
-
-revoke update on table "public"."user_roles" from "authenticated";
-
-revoke delete on table "public"."user_roles" from "service_role";
-
-revoke insert on table "public"."user_roles" from "service_role";
-
-revoke references on table "public"."user_roles" from "service_role";
-
-revoke select on table "public"."user_roles" from "service_role";
-
-revoke trigger on table "public"."user_roles" from "service_role";
-
-revoke truncate on table "public"."user_roles" from "service_role";
-
-revoke update on table "public"."user_roles" from "service_role";
-
-revoke delete on table "public"."user_sns_links" from "anon";
-
-revoke insert on table "public"."user_sns_links" from "anon";
-
-revoke references on table "public"."user_sns_links" from "anon";
-
-revoke select on table "public"."user_sns_links" from "anon";
-
-revoke trigger on table "public"."user_sns_links" from "anon";
-
-revoke truncate on table "public"."user_sns_links" from "anon";
-
-revoke update on table "public"."user_sns_links" from "anon";
-
-revoke delete on table "public"."user_sns_links" from "authenticated";
-
-revoke insert on table "public"."user_sns_links" from "authenticated";
-
-revoke references on table "public"."user_sns_links" from "authenticated";
-
-revoke select on table "public"."user_sns_links" from "authenticated";
-
-revoke trigger on table "public"."user_sns_links" from "authenticated";
-
-revoke truncate on table "public"."user_sns_links" from "authenticated";
-
-revoke update on table "public"."user_sns_links" from "authenticated";
-
-revoke delete on table "public"."user_sns_links" from "service_role";
-
-revoke insert on table "public"."user_sns_links" from "service_role";
-
-revoke references on table "public"."user_sns_links" from "service_role";
-
-revoke select on table "public"."user_sns_links" from "service_role";
-
-revoke trigger on table "public"."user_sns_links" from "service_role";
-
-revoke truncate on table "public"."user_sns_links" from "service_role";
-
-revoke update on table "public"."user_sns_links" from "service_role";
-
-revoke delete on table "public"."users" from "anon";
-
-revoke insert on table "public"."users" from "anon";
-
-revoke references on table "public"."users" from "anon";
-
-revoke select on table "public"."users" from "anon";
-
-revoke trigger on table "public"."users" from "anon";
-
-revoke truncate on table "public"."users" from "anon";
-
-revoke update on table "public"."users" from "anon";
-
-revoke delete on table "public"."users" from "authenticated";
-
-revoke insert on table "public"."users" from "authenticated";
-
-revoke references on table "public"."users" from "authenticated";
-
-revoke select on table "public"."users" from "authenticated";
-
-revoke trigger on table "public"."users" from "authenticated";
-
-revoke truncate on table "public"."users" from "authenticated";
-
-revoke update on table "public"."users" from "authenticated";
-
-revoke delete on table "public"."users" from "service_role";
-
-revoke insert on table "public"."users" from "service_role";
-
-revoke references on table "public"."users" from "service_role";
-
-revoke select on table "public"."users" from "service_role";
-
-revoke trigger on table "public"."users" from "service_role";
-
-revoke truncate on table "public"."users" from "service_role";
-
-revoke update on table "public"."users" from "service_role";
-
-drop view if exists "public"."session_venues_with_sessions";
-
-drop view if exists "public"."sponsor_with_sessions";
-
-drop view if exists "public"."v_ticket_counts";
-
-drop view if exists "public"."v_ticket_option_counts";
-
-alter table "public"."session_venues" alter column "id" set default extensions.uuid_generate_v4();
-
-alter table "public"."sessions" alter column "id" set default extensions.uuid_generate_v4();
-
-alter table "public"."speakers" alter column "id" set default extensions.uuid_generate_v4();
-
-alter table "public"."ticket_purchases" alter column "nameplate_id" set data type text using "nameplate_id"::text;
-
-alter table "public"."timeline_events" alter column "id" set default extensions.uuid_generate_v4();
-
-set check_function_bodies = off;
-
-CREATE OR REPLACE FUNCTION public.check_option_plan_availability(p_basic_plan_type basic_plan_type, p_option_plan_type option_plan_type)
- RETURNS boolean
- LANGUAGE plpgsql
-AS $function$
+REVOKE delete ON TABLE "public"."basic_sponsor_companies"
+FROM
+  "anon";
+
+REVOKE insert ON TABLE "public"."basic_sponsor_companies"
+FROM
+  "anon";
+
+REVOKE REFERENCES ON TABLE "public"."basic_sponsor_companies"
+FROM
+  "anon";
+
+REVOKE
+SELECT
+  ON TABLE "public"."basic_sponsor_companies"
+FROM
+  "anon";
+
+REVOKE trigger ON TABLE "public"."basic_sponsor_companies"
+FROM
+  "anon";
+
+REVOKE
+TRUNCATE ON TABLE "public"."basic_sponsor_companies"
+FROM
+  "anon";
+
+REVOKE
+UPDATE ON TABLE "public"."basic_sponsor_companies"
+FROM
+  "anon";
+
+REVOKE delete ON TABLE "public"."basic_sponsor_companies"
+FROM
+  "authenticated";
+
+REVOKE insert ON TABLE "public"."basic_sponsor_companies"
+FROM
+  "authenticated";
+
+REVOKE REFERENCES ON TABLE "public"."basic_sponsor_companies"
+FROM
+  "authenticated";
+
+REVOKE
+SELECT
+  ON TABLE "public"."basic_sponsor_companies"
+FROM
+  "authenticated";
+
+REVOKE trigger ON TABLE "public"."basic_sponsor_companies"
+FROM
+  "authenticated";
+
+REVOKE
+TRUNCATE ON TABLE "public"."basic_sponsor_companies"
+FROM
+  "authenticated";
+
+REVOKE
+UPDATE ON TABLE "public"."basic_sponsor_companies"
+FROM
+  "authenticated";
+
+REVOKE delete ON TABLE "public"."basic_sponsor_companies"
+FROM
+  "service_role";
+
+REVOKE insert ON TABLE "public"."basic_sponsor_companies"
+FROM
+  "service_role";
+
+REVOKE REFERENCES ON TABLE "public"."basic_sponsor_companies"
+FROM
+  "service_role";
+
+REVOKE
+SELECT
+  ON TABLE "public"."basic_sponsor_companies"
+FROM
+  "service_role";
+
+REVOKE trigger ON TABLE "public"."basic_sponsor_companies"
+FROM
+  "service_role";
+
+REVOKE
+TRUNCATE ON TABLE "public"."basic_sponsor_companies"
+FROM
+  "service_role";
+
+REVOKE
+UPDATE ON TABLE "public"."basic_sponsor_companies"
+FROM
+  "service_role";
+
+REVOKE delete ON TABLE "public"."companies"
+FROM
+  "anon";
+
+REVOKE insert ON TABLE "public"."companies"
+FROM
+  "anon";
+
+REVOKE REFERENCES ON TABLE "public"."companies"
+FROM
+  "anon";
+
+REVOKE
+SELECT
+  ON TABLE "public"."companies"
+FROM
+  "anon";
+
+REVOKE trigger ON TABLE "public"."companies"
+FROM
+  "anon";
+
+REVOKE
+TRUNCATE ON TABLE "public"."companies"
+FROM
+  "anon";
+
+REVOKE
+UPDATE ON TABLE "public"."companies"
+FROM
+  "anon";
+
+REVOKE delete ON TABLE "public"."companies"
+FROM
+  "authenticated";
+
+REVOKE insert ON TABLE "public"."companies"
+FROM
+  "authenticated";
+
+REVOKE REFERENCES ON TABLE "public"."companies"
+FROM
+  "authenticated";
+
+REVOKE
+SELECT
+  ON TABLE "public"."companies"
+FROM
+  "authenticated";
+
+REVOKE trigger ON TABLE "public"."companies"
+FROM
+  "authenticated";
+
+REVOKE
+TRUNCATE ON TABLE "public"."companies"
+FROM
+  "authenticated";
+
+REVOKE
+UPDATE ON TABLE "public"."companies"
+FROM
+  "authenticated";
+
+REVOKE delete ON TABLE "public"."companies"
+FROM
+  "service_role";
+
+REVOKE insert ON TABLE "public"."companies"
+FROM
+  "service_role";
+
+REVOKE REFERENCES ON TABLE "public"."companies"
+FROM
+  "service_role";
+
+REVOKE
+SELECT
+  ON TABLE "public"."companies"
+FROM
+  "service_role";
+
+REVOKE trigger ON TABLE "public"."companies"
+FROM
+  "service_role";
+
+REVOKE
+TRUNCATE ON TABLE "public"."companies"
+FROM
+  "service_role";
+
+REVOKE
+UPDATE ON TABLE "public"."companies"
+FROM
+  "service_role";
+
+REVOKE delete ON TABLE "public"."company_draft_approvals"
+FROM
+  "anon";
+
+REVOKE insert ON TABLE "public"."company_draft_approvals"
+FROM
+  "anon";
+
+REVOKE REFERENCES ON TABLE "public"."company_draft_approvals"
+FROM
+  "anon";
+
+REVOKE
+SELECT
+  ON TABLE "public"."company_draft_approvals"
+FROM
+  "anon";
+
+REVOKE trigger ON TABLE "public"."company_draft_approvals"
+FROM
+  "anon";
+
+REVOKE
+TRUNCATE ON TABLE "public"."company_draft_approvals"
+FROM
+  "anon";
+
+REVOKE
+UPDATE ON TABLE "public"."company_draft_approvals"
+FROM
+  "anon";
+
+REVOKE delete ON TABLE "public"."company_draft_approvals"
+FROM
+  "authenticated";
+
+REVOKE insert ON TABLE "public"."company_draft_approvals"
+FROM
+  "authenticated";
+
+REVOKE REFERENCES ON TABLE "public"."company_draft_approvals"
+FROM
+  "authenticated";
+
+REVOKE
+SELECT
+  ON TABLE "public"."company_draft_approvals"
+FROM
+  "authenticated";
+
+REVOKE trigger ON TABLE "public"."company_draft_approvals"
+FROM
+  "authenticated";
+
+REVOKE
+TRUNCATE ON TABLE "public"."company_draft_approvals"
+FROM
+  "authenticated";
+
+REVOKE
+UPDATE ON TABLE "public"."company_draft_approvals"
+FROM
+  "authenticated";
+
+REVOKE delete ON TABLE "public"."company_draft_approvals"
+FROM
+  "service_role";
+
+REVOKE insert ON TABLE "public"."company_draft_approvals"
+FROM
+  "service_role";
+
+REVOKE REFERENCES ON TABLE "public"."company_draft_approvals"
+FROM
+  "service_role";
+
+REVOKE
+SELECT
+  ON TABLE "public"."company_draft_approvals"
+FROM
+  "service_role";
+
+REVOKE trigger ON TABLE "public"."company_draft_approvals"
+FROM
+  "service_role";
+
+REVOKE
+TRUNCATE ON TABLE "public"."company_draft_approvals"
+FROM
+  "service_role";
+
+REVOKE
+UPDATE ON TABLE "public"."company_draft_approvals"
+FROM
+  "service_role";
+
+REVOKE delete ON TABLE "public"."company_drafts"
+FROM
+  "anon";
+
+REVOKE insert ON TABLE "public"."company_drafts"
+FROM
+  "anon";
+
+REVOKE REFERENCES ON TABLE "public"."company_drafts"
+FROM
+  "anon";
+
+REVOKE
+SELECT
+  ON TABLE "public"."company_drafts"
+FROM
+  "anon";
+
+REVOKE trigger ON TABLE "public"."company_drafts"
+FROM
+  "anon";
+
+REVOKE
+TRUNCATE ON TABLE "public"."company_drafts"
+FROM
+  "anon";
+
+REVOKE
+UPDATE ON TABLE "public"."company_drafts"
+FROM
+  "anon";
+
+REVOKE delete ON TABLE "public"."company_drafts"
+FROM
+  "authenticated";
+
+REVOKE insert ON TABLE "public"."company_drafts"
+FROM
+  "authenticated";
+
+REVOKE REFERENCES ON TABLE "public"."company_drafts"
+FROM
+  "authenticated";
+
+REVOKE
+SELECT
+  ON TABLE "public"."company_drafts"
+FROM
+  "authenticated";
+
+REVOKE trigger ON TABLE "public"."company_drafts"
+FROM
+  "authenticated";
+
+REVOKE
+TRUNCATE ON TABLE "public"."company_drafts"
+FROM
+  "authenticated";
+
+REVOKE
+UPDATE ON TABLE "public"."company_drafts"
+FROM
+  "authenticated";
+
+REVOKE delete ON TABLE "public"."company_drafts"
+FROM
+  "service_role";
+
+REVOKE insert ON TABLE "public"."company_drafts"
+FROM
+  "service_role";
+
+REVOKE REFERENCES ON TABLE "public"."company_drafts"
+FROM
+  "service_role";
+
+REVOKE
+SELECT
+  ON TABLE "public"."company_drafts"
+FROM
+  "service_role";
+
+REVOKE trigger ON TABLE "public"."company_drafts"
+FROM
+  "service_role";
+
+REVOKE
+TRUNCATE ON TABLE "public"."company_drafts"
+FROM
+  "service_role";
+
+REVOKE
+UPDATE ON TABLE "public"."company_drafts"
+FROM
+  "service_role";
+
+REVOKE delete ON TABLE "public"."company_invitation"
+FROM
+  "anon";
+
+REVOKE insert ON TABLE "public"."company_invitation"
+FROM
+  "anon";
+
+REVOKE REFERENCES ON TABLE "public"."company_invitation"
+FROM
+  "anon";
+
+REVOKE
+SELECT
+  ON TABLE "public"."company_invitation"
+FROM
+  "anon";
+
+REVOKE trigger ON TABLE "public"."company_invitation"
+FROM
+  "anon";
+
+REVOKE
+TRUNCATE ON TABLE "public"."company_invitation"
+FROM
+  "anon";
+
+REVOKE
+UPDATE ON TABLE "public"."company_invitation"
+FROM
+  "anon";
+
+REVOKE delete ON TABLE "public"."company_invitation"
+FROM
+  "authenticated";
+
+REVOKE insert ON TABLE "public"."company_invitation"
+FROM
+  "authenticated";
+
+REVOKE REFERENCES ON TABLE "public"."company_invitation"
+FROM
+  "authenticated";
+
+REVOKE
+SELECT
+  ON TABLE "public"."company_invitation"
+FROM
+  "authenticated";
+
+REVOKE trigger ON TABLE "public"."company_invitation"
+FROM
+  "authenticated";
+
+REVOKE
+TRUNCATE ON TABLE "public"."company_invitation"
+FROM
+  "authenticated";
+
+REVOKE
+UPDATE ON TABLE "public"."company_invitation"
+FROM
+  "authenticated";
+
+REVOKE delete ON TABLE "public"."company_invitation"
+FROM
+  "service_role";
+
+REVOKE insert ON TABLE "public"."company_invitation"
+FROM
+  "service_role";
+
+REVOKE REFERENCES ON TABLE "public"."company_invitation"
+FROM
+  "service_role";
+
+REVOKE
+SELECT
+  ON TABLE "public"."company_invitation"
+FROM
+  "service_role";
+
+REVOKE trigger ON TABLE "public"."company_invitation"
+FROM
+  "service_role";
+
+REVOKE
+TRUNCATE ON TABLE "public"."company_invitation"
+FROM
+  "service_role";
+
+REVOKE
+UPDATE ON TABLE "public"."company_invitation"
+FROM
+  "service_role";
+
+REVOKE delete ON TABLE "public"."company_members"
+FROM
+  "anon";
+
+REVOKE insert ON TABLE "public"."company_members"
+FROM
+  "anon";
+
+REVOKE REFERENCES ON TABLE "public"."company_members"
+FROM
+  "anon";
+
+REVOKE
+SELECT
+  ON TABLE "public"."company_members"
+FROM
+  "anon";
+
+REVOKE trigger ON TABLE "public"."company_members"
+FROM
+  "anon";
+
+REVOKE
+TRUNCATE ON TABLE "public"."company_members"
+FROM
+  "anon";
+
+REVOKE
+UPDATE ON TABLE "public"."company_members"
+FROM
+  "anon";
+
+REVOKE delete ON TABLE "public"."company_members"
+FROM
+  "authenticated";
+
+REVOKE insert ON TABLE "public"."company_members"
+FROM
+  "authenticated";
+
+REVOKE REFERENCES ON TABLE "public"."company_members"
+FROM
+  "authenticated";
+
+REVOKE
+SELECT
+  ON TABLE "public"."company_members"
+FROM
+  "authenticated";
+
+REVOKE trigger ON TABLE "public"."company_members"
+FROM
+  "authenticated";
+
+REVOKE
+TRUNCATE ON TABLE "public"."company_members"
+FROM
+  "authenticated";
+
+REVOKE
+UPDATE ON TABLE "public"."company_members"
+FROM
+  "authenticated";
+
+REVOKE delete ON TABLE "public"."company_members"
+FROM
+  "service_role";
+
+REVOKE insert ON TABLE "public"."company_members"
+FROM
+  "service_role";
+
+REVOKE REFERENCES ON TABLE "public"."company_members"
+FROM
+  "service_role";
+
+REVOKE
+SELECT
+  ON TABLE "public"."company_members"
+FROM
+  "service_role";
+
+REVOKE trigger ON TABLE "public"."company_members"
+FROM
+  "service_role";
+
+REVOKE
+TRUNCATE ON TABLE "public"."company_members"
+FROM
+  "service_role";
+
+REVOKE
+UPDATE ON TABLE "public"."company_members"
+FROM
+  "service_role";
+
+REVOKE delete ON TABLE "public"."device_apns_live_activity_tokens"
+FROM
+  "anon";
+
+REVOKE insert ON TABLE "public"."device_apns_live_activity_tokens"
+FROM
+  "anon";
+
+REVOKE REFERENCES ON TABLE "public"."device_apns_live_activity_tokens"
+FROM
+  "anon";
+
+REVOKE
+SELECT
+  ON TABLE "public"."device_apns_live_activity_tokens"
+FROM
+  "anon";
+
+REVOKE trigger ON TABLE "public"."device_apns_live_activity_tokens"
+FROM
+  "anon";
+
+REVOKE
+TRUNCATE ON TABLE "public"."device_apns_live_activity_tokens"
+FROM
+  "anon";
+
+REVOKE
+UPDATE ON TABLE "public"."device_apns_live_activity_tokens"
+FROM
+  "anon";
+
+REVOKE delete ON TABLE "public"."device_apns_live_activity_tokens"
+FROM
+  "authenticated";
+
+REVOKE insert ON TABLE "public"."device_apns_live_activity_tokens"
+FROM
+  "authenticated";
+
+REVOKE REFERENCES ON TABLE "public"."device_apns_live_activity_tokens"
+FROM
+  "authenticated";
+
+REVOKE
+SELECT
+  ON TABLE "public"."device_apns_live_activity_tokens"
+FROM
+  "authenticated";
+
+REVOKE trigger ON TABLE "public"."device_apns_live_activity_tokens"
+FROM
+  "authenticated";
+
+REVOKE
+TRUNCATE ON TABLE "public"."device_apns_live_activity_tokens"
+FROM
+  "authenticated";
+
+REVOKE
+UPDATE ON TABLE "public"."device_apns_live_activity_tokens"
+FROM
+  "authenticated";
+
+REVOKE delete ON TABLE "public"."device_apns_live_activity_tokens"
+FROM
+  "service_role";
+
+REVOKE insert ON TABLE "public"."device_apns_live_activity_tokens"
+FROM
+  "service_role";
+
+REVOKE REFERENCES ON TABLE "public"."device_apns_live_activity_tokens"
+FROM
+  "service_role";
+
+REVOKE
+SELECT
+  ON TABLE "public"."device_apns_live_activity_tokens"
+FROM
+  "service_role";
+
+REVOKE trigger ON TABLE "public"."device_apns_live_activity_tokens"
+FROM
+  "service_role";
+
+REVOKE
+TRUNCATE ON TABLE "public"."device_apns_live_activity_tokens"
+FROM
+  "service_role";
+
+REVOKE
+UPDATE ON TABLE "public"."device_apns_live_activity_tokens"
+FROM
+  "service_role";
+
+REVOKE delete ON TABLE "public"."device_apns_tokens"
+FROM
+  "anon";
+
+REVOKE insert ON TABLE "public"."device_apns_tokens"
+FROM
+  "anon";
+
+REVOKE REFERENCES ON TABLE "public"."device_apns_tokens"
+FROM
+  "anon";
+
+REVOKE
+SELECT
+  ON TABLE "public"."device_apns_tokens"
+FROM
+  "anon";
+
+REVOKE trigger ON TABLE "public"."device_apns_tokens"
+FROM
+  "anon";
+
+REVOKE
+TRUNCATE ON TABLE "public"."device_apns_tokens"
+FROM
+  "anon";
+
+REVOKE
+UPDATE ON TABLE "public"."device_apns_tokens"
+FROM
+  "anon";
+
+REVOKE delete ON TABLE "public"."device_apns_tokens"
+FROM
+  "authenticated";
+
+REVOKE insert ON TABLE "public"."device_apns_tokens"
+FROM
+  "authenticated";
+
+REVOKE REFERENCES ON TABLE "public"."device_apns_tokens"
+FROM
+  "authenticated";
+
+REVOKE
+SELECT
+  ON TABLE "public"."device_apns_tokens"
+FROM
+  "authenticated";
+
+REVOKE trigger ON TABLE "public"."device_apns_tokens"
+FROM
+  "authenticated";
+
+REVOKE
+TRUNCATE ON TABLE "public"."device_apns_tokens"
+FROM
+  "authenticated";
+
+REVOKE
+UPDATE ON TABLE "public"."device_apns_tokens"
+FROM
+  "authenticated";
+
+REVOKE delete ON TABLE "public"."device_apns_tokens"
+FROM
+  "service_role";
+
+REVOKE insert ON TABLE "public"."device_apns_tokens"
+FROM
+  "service_role";
+
+REVOKE REFERENCES ON TABLE "public"."device_apns_tokens"
+FROM
+  "service_role";
+
+REVOKE
+SELECT
+  ON TABLE "public"."device_apns_tokens"
+FROM
+  "service_role";
+
+REVOKE trigger ON TABLE "public"."device_apns_tokens"
+FROM
+  "service_role";
+
+REVOKE
+TRUNCATE ON TABLE "public"."device_apns_tokens"
+FROM
+  "service_role";
+
+REVOKE
+UPDATE ON TABLE "public"."device_apns_tokens"
+FROM
+  "service_role";
+
+REVOKE delete ON TABLE "public"."device_fcm_tokens"
+FROM
+  "anon";
+
+REVOKE insert ON TABLE "public"."device_fcm_tokens"
+FROM
+  "anon";
+
+REVOKE REFERENCES ON TABLE "public"."device_fcm_tokens"
+FROM
+  "anon";
+
+REVOKE
+SELECT
+  ON TABLE "public"."device_fcm_tokens"
+FROM
+  "anon";
+
+REVOKE trigger ON TABLE "public"."device_fcm_tokens"
+FROM
+  "anon";
+
+REVOKE
+TRUNCATE ON TABLE "public"."device_fcm_tokens"
+FROM
+  "anon";
+
+REVOKE
+UPDATE ON TABLE "public"."device_fcm_tokens"
+FROM
+  "anon";
+
+REVOKE delete ON TABLE "public"."device_fcm_tokens"
+FROM
+  "authenticated";
+
+REVOKE insert ON TABLE "public"."device_fcm_tokens"
+FROM
+  "authenticated";
+
+REVOKE REFERENCES ON TABLE "public"."device_fcm_tokens"
+FROM
+  "authenticated";
+
+REVOKE
+SELECT
+  ON TABLE "public"."device_fcm_tokens"
+FROM
+  "authenticated";
+
+REVOKE trigger ON TABLE "public"."device_fcm_tokens"
+FROM
+  "authenticated";
+
+REVOKE
+TRUNCATE ON TABLE "public"."device_fcm_tokens"
+FROM
+  "authenticated";
+
+REVOKE
+UPDATE ON TABLE "public"."device_fcm_tokens"
+FROM
+  "authenticated";
+
+REVOKE delete ON TABLE "public"."device_fcm_tokens"
+FROM
+  "service_role";
+
+REVOKE insert ON TABLE "public"."device_fcm_tokens"
+FROM
+  "service_role";
+
+REVOKE REFERENCES ON TABLE "public"."device_fcm_tokens"
+FROM
+  "service_role";
+
+REVOKE
+SELECT
+  ON TABLE "public"."device_fcm_tokens"
+FROM
+  "service_role";
+
+REVOKE trigger ON TABLE "public"."device_fcm_tokens"
+FROM
+  "service_role";
+
+REVOKE
+TRUNCATE ON TABLE "public"."device_fcm_tokens"
+FROM
+  "service_role";
+
+REVOKE
+UPDATE ON TABLE "public"."device_fcm_tokens"
+FROM
+  "service_role";
+
+REVOKE delete ON TABLE "public"."devices"
+FROM
+  "anon";
+
+REVOKE insert ON TABLE "public"."devices"
+FROM
+  "anon";
+
+REVOKE REFERENCES ON TABLE "public"."devices"
+FROM
+  "anon";
+
+REVOKE
+SELECT
+  ON TABLE "public"."devices"
+FROM
+  "anon";
+
+REVOKE trigger ON TABLE "public"."devices"
+FROM
+  "anon";
+
+REVOKE
+TRUNCATE ON TABLE "public"."devices"
+FROM
+  "anon";
+
+REVOKE
+UPDATE ON TABLE "public"."devices"
+FROM
+  "anon";
+
+REVOKE delete ON TABLE "public"."devices"
+FROM
+  "authenticated";
+
+REVOKE insert ON TABLE "public"."devices"
+FROM
+  "authenticated";
+
+REVOKE REFERENCES ON TABLE "public"."devices"
+FROM
+  "authenticated";
+
+REVOKE
+SELECT
+  ON TABLE "public"."devices"
+FROM
+  "authenticated";
+
+REVOKE trigger ON TABLE "public"."devices"
+FROM
+  "authenticated";
+
+REVOKE
+TRUNCATE ON TABLE "public"."devices"
+FROM
+  "authenticated";
+
+REVOKE
+UPDATE ON TABLE "public"."devices"
+FROM
+  "authenticated";
+
+REVOKE delete ON TABLE "public"."devices"
+FROM
+  "service_role";
+
+REVOKE insert ON TABLE "public"."devices"
+FROM
+  "service_role";
+
+REVOKE REFERENCES ON TABLE "public"."devices"
+FROM
+  "service_role";
+
+REVOKE
+SELECT
+  ON TABLE "public"."devices"
+FROM
+  "service_role";
+
+REVOKE trigger ON TABLE "public"."devices"
+FROM
+  "service_role";
+
+REVOKE
+TRUNCATE ON TABLE "public"."devices"
+FROM
+  "service_role";
+
+REVOKE
+UPDATE ON TABLE "public"."devices"
+FROM
+  "service_role";
+
+REVOKE delete ON TABLE "public"."individual_draft_approvals"
+FROM
+  "anon";
+
+REVOKE insert ON TABLE "public"."individual_draft_approvals"
+FROM
+  "anon";
+
+REVOKE REFERENCES ON TABLE "public"."individual_draft_approvals"
+FROM
+  "anon";
+
+REVOKE
+SELECT
+  ON TABLE "public"."individual_draft_approvals"
+FROM
+  "anon";
+
+REVOKE trigger ON TABLE "public"."individual_draft_approvals"
+FROM
+  "anon";
+
+REVOKE
+TRUNCATE ON TABLE "public"."individual_draft_approvals"
+FROM
+  "anon";
+
+REVOKE
+UPDATE ON TABLE "public"."individual_draft_approvals"
+FROM
+  "anon";
+
+REVOKE delete ON TABLE "public"."individual_draft_approvals"
+FROM
+  "authenticated";
+
+REVOKE insert ON TABLE "public"."individual_draft_approvals"
+FROM
+  "authenticated";
+
+REVOKE REFERENCES ON TABLE "public"."individual_draft_approvals"
+FROM
+  "authenticated";
+
+REVOKE
+SELECT
+  ON TABLE "public"."individual_draft_approvals"
+FROM
+  "authenticated";
+
+REVOKE trigger ON TABLE "public"."individual_draft_approvals"
+FROM
+  "authenticated";
+
+REVOKE
+TRUNCATE ON TABLE "public"."individual_draft_approvals"
+FROM
+  "authenticated";
+
+REVOKE
+UPDATE ON TABLE "public"."individual_draft_approvals"
+FROM
+  "authenticated";
+
+REVOKE delete ON TABLE "public"."individual_draft_approvals"
+FROM
+  "service_role";
+
+REVOKE insert ON TABLE "public"."individual_draft_approvals"
+FROM
+  "service_role";
+
+REVOKE REFERENCES ON TABLE "public"."individual_draft_approvals"
+FROM
+  "service_role";
+
+REVOKE
+SELECT
+  ON TABLE "public"."individual_draft_approvals"
+FROM
+  "service_role";
+
+REVOKE trigger ON TABLE "public"."individual_draft_approvals"
+FROM
+  "service_role";
+
+REVOKE
+TRUNCATE ON TABLE "public"."individual_draft_approvals"
+FROM
+  "service_role";
+
+REVOKE
+UPDATE ON TABLE "public"."individual_draft_approvals"
+FROM
+  "service_role";
+
+REVOKE delete ON TABLE "public"."individual_drafts"
+FROM
+  "anon";
+
+REVOKE insert ON TABLE "public"."individual_drafts"
+FROM
+  "anon";
+
+REVOKE REFERENCES ON TABLE "public"."individual_drafts"
+FROM
+  "anon";
+
+REVOKE
+SELECT
+  ON TABLE "public"."individual_drafts"
+FROM
+  "anon";
+
+REVOKE trigger ON TABLE "public"."individual_drafts"
+FROM
+  "anon";
+
+REVOKE
+TRUNCATE ON TABLE "public"."individual_drafts"
+FROM
+  "anon";
+
+REVOKE
+UPDATE ON TABLE "public"."individual_drafts"
+FROM
+  "anon";
+
+REVOKE delete ON TABLE "public"."individual_drafts"
+FROM
+  "authenticated";
+
+REVOKE insert ON TABLE "public"."individual_drafts"
+FROM
+  "authenticated";
+
+REVOKE REFERENCES ON TABLE "public"."individual_drafts"
+FROM
+  "authenticated";
+
+REVOKE
+SELECT
+  ON TABLE "public"."individual_drafts"
+FROM
+  "authenticated";
+
+REVOKE trigger ON TABLE "public"."individual_drafts"
+FROM
+  "authenticated";
+
+REVOKE
+TRUNCATE ON TABLE "public"."individual_drafts"
+FROM
+  "authenticated";
+
+REVOKE
+UPDATE ON TABLE "public"."individual_drafts"
+FROM
+  "authenticated";
+
+REVOKE delete ON TABLE "public"."individual_drafts"
+FROM
+  "service_role";
+
+REVOKE insert ON TABLE "public"."individual_drafts"
+FROM
+  "service_role";
+
+REVOKE REFERENCES ON TABLE "public"."individual_drafts"
+FROM
+  "service_role";
+
+REVOKE
+SELECT
+  ON TABLE "public"."individual_drafts"
+FROM
+  "service_role";
+
+REVOKE trigger ON TABLE "public"."individual_drafts"
+FROM
+  "service_role";
+
+REVOKE
+TRUNCATE ON TABLE "public"."individual_drafts"
+FROM
+  "service_role";
+
+REVOKE
+UPDATE ON TABLE "public"."individual_drafts"
+FROM
+  "service_role";
+
+REVOKE delete ON TABLE "public"."individuals"
+FROM
+  "anon";
+
+REVOKE insert ON TABLE "public"."individuals"
+FROM
+  "anon";
+
+REVOKE REFERENCES ON TABLE "public"."individuals"
+FROM
+  "anon";
+
+REVOKE
+SELECT
+  ON TABLE "public"."individuals"
+FROM
+  "anon";
+
+REVOKE trigger ON TABLE "public"."individuals"
+FROM
+  "anon";
+
+REVOKE
+TRUNCATE ON TABLE "public"."individuals"
+FROM
+  "anon";
+
+REVOKE
+UPDATE ON TABLE "public"."individuals"
+FROM
+  "anon";
+
+REVOKE delete ON TABLE "public"."individuals"
+FROM
+  "authenticated";
+
+REVOKE insert ON TABLE "public"."individuals"
+FROM
+  "authenticated";
+
+REVOKE REFERENCES ON TABLE "public"."individuals"
+FROM
+  "authenticated";
+
+REVOKE
+SELECT
+  ON TABLE "public"."individuals"
+FROM
+  "authenticated";
+
+REVOKE trigger ON TABLE "public"."individuals"
+FROM
+  "authenticated";
+
+REVOKE
+TRUNCATE ON TABLE "public"."individuals"
+FROM
+  "authenticated";
+
+REVOKE
+UPDATE ON TABLE "public"."individuals"
+FROM
+  "authenticated";
+
+REVOKE delete ON TABLE "public"."individuals"
+FROM
+  "service_role";
+
+REVOKE insert ON TABLE "public"."individuals"
+FROM
+  "service_role";
+
+REVOKE REFERENCES ON TABLE "public"."individuals"
+FROM
+  "service_role";
+
+REVOKE
+SELECT
+  ON TABLE "public"."individuals"
+FROM
+  "service_role";
+
+REVOKE trigger ON TABLE "public"."individuals"
+FROM
+  "service_role";
+
+REVOKE
+TRUNCATE ON TABLE "public"."individuals"
+FROM
+  "service_role";
+
+REVOKE
+UPDATE ON TABLE "public"."individuals"
+FROM
+  "service_role";
+
+REVOKE delete ON TABLE "public"."job_boards"
+FROM
+  "anon";
+
+REVOKE insert ON TABLE "public"."job_boards"
+FROM
+  "anon";
+
+REVOKE REFERENCES ON TABLE "public"."job_boards"
+FROM
+  "anon";
+
+REVOKE
+SELECT
+  ON TABLE "public"."job_boards"
+FROM
+  "anon";
+
+REVOKE trigger ON TABLE "public"."job_boards"
+FROM
+  "anon";
+
+REVOKE
+TRUNCATE ON TABLE "public"."job_boards"
+FROM
+  "anon";
+
+REVOKE
+UPDATE ON TABLE "public"."job_boards"
+FROM
+  "anon";
+
+REVOKE delete ON TABLE "public"."job_boards"
+FROM
+  "authenticated";
+
+REVOKE insert ON TABLE "public"."job_boards"
+FROM
+  "authenticated";
+
+REVOKE REFERENCES ON TABLE "public"."job_boards"
+FROM
+  "authenticated";
+
+REVOKE
+SELECT
+  ON TABLE "public"."job_boards"
+FROM
+  "authenticated";
+
+REVOKE trigger ON TABLE "public"."job_boards"
+FROM
+  "authenticated";
+
+REVOKE
+TRUNCATE ON TABLE "public"."job_boards"
+FROM
+  "authenticated";
+
+REVOKE
+UPDATE ON TABLE "public"."job_boards"
+FROM
+  "authenticated";
+
+REVOKE delete ON TABLE "public"."job_boards"
+FROM
+  "service_role";
+
+REVOKE insert ON TABLE "public"."job_boards"
+FROM
+  "service_role";
+
+REVOKE REFERENCES ON TABLE "public"."job_boards"
+FROM
+  "service_role";
+
+REVOKE
+SELECT
+  ON TABLE "public"."job_boards"
+FROM
+  "service_role";
+
+REVOKE trigger ON TABLE "public"."job_boards"
+FROM
+  "service_role";
+
+REVOKE
+TRUNCATE ON TABLE "public"."job_boards"
+FROM
+  "service_role";
+
+REVOKE
+UPDATE ON TABLE "public"."job_boards"
+FROM
+  "service_role";
+
+REVOKE delete ON TABLE "public"."news"
+FROM
+  "anon";
+
+REVOKE insert ON TABLE "public"."news"
+FROM
+  "anon";
+
+REVOKE REFERENCES ON TABLE "public"."news"
+FROM
+  "anon";
+
+REVOKE
+SELECT
+  ON TABLE "public"."news"
+FROM
+  "anon";
+
+REVOKE trigger ON TABLE "public"."news"
+FROM
+  "anon";
+
+REVOKE
+TRUNCATE ON TABLE "public"."news"
+FROM
+  "anon";
+
+REVOKE
+UPDATE ON TABLE "public"."news"
+FROM
+  "anon";
+
+REVOKE delete ON TABLE "public"."news"
+FROM
+  "authenticated";
+
+REVOKE insert ON TABLE "public"."news"
+FROM
+  "authenticated";
+
+REVOKE REFERENCES ON TABLE "public"."news"
+FROM
+  "authenticated";
+
+REVOKE
+SELECT
+  ON TABLE "public"."news"
+FROM
+  "authenticated";
+
+REVOKE trigger ON TABLE "public"."news"
+FROM
+  "authenticated";
+
+REVOKE
+TRUNCATE ON TABLE "public"."news"
+FROM
+  "authenticated";
+
+REVOKE
+UPDATE ON TABLE "public"."news"
+FROM
+  "authenticated";
+
+REVOKE delete ON TABLE "public"."news"
+FROM
+  "service_role";
+
+REVOKE insert ON TABLE "public"."news"
+FROM
+  "service_role";
+
+REVOKE REFERENCES ON TABLE "public"."news"
+FROM
+  "service_role";
+
+REVOKE
+SELECT
+  ON TABLE "public"."news"
+FROM
+  "service_role";
+
+REVOKE trigger ON TABLE "public"."news"
+FROM
+  "service_role";
+
+REVOKE
+TRUNCATE ON TABLE "public"."news"
+FROM
+  "service_role";
+
+REVOKE
+UPDATE ON TABLE "public"."news"
+FROM
+  "service_role";
+
+REVOKE delete ON TABLE "public"."profile_share"
+FROM
+  "anon";
+
+REVOKE insert ON TABLE "public"."profile_share"
+FROM
+  "anon";
+
+REVOKE REFERENCES ON TABLE "public"."profile_share"
+FROM
+  "anon";
+
+REVOKE
+SELECT
+  ON TABLE "public"."profile_share"
+FROM
+  "anon";
+
+REVOKE trigger ON TABLE "public"."profile_share"
+FROM
+  "anon";
+
+REVOKE
+TRUNCATE ON TABLE "public"."profile_share"
+FROM
+  "anon";
+
+REVOKE
+UPDATE ON TABLE "public"."profile_share"
+FROM
+  "anon";
+
+REVOKE delete ON TABLE "public"."profile_share"
+FROM
+  "authenticated";
+
+REVOKE insert ON TABLE "public"."profile_share"
+FROM
+  "authenticated";
+
+REVOKE REFERENCES ON TABLE "public"."profile_share"
+FROM
+  "authenticated";
+
+REVOKE
+SELECT
+  ON TABLE "public"."profile_share"
+FROM
+  "authenticated";
+
+REVOKE trigger ON TABLE "public"."profile_share"
+FROM
+  "authenticated";
+
+REVOKE
+TRUNCATE ON TABLE "public"."profile_share"
+FROM
+  "authenticated";
+
+REVOKE
+UPDATE ON TABLE "public"."profile_share"
+FROM
+  "authenticated";
+
+REVOKE delete ON TABLE "public"."profile_share"
+FROM
+  "service_role";
+
+REVOKE insert ON TABLE "public"."profile_share"
+FROM
+  "service_role";
+
+REVOKE REFERENCES ON TABLE "public"."profile_share"
+FROM
+  "service_role";
+
+REVOKE
+SELECT
+  ON TABLE "public"."profile_share"
+FROM
+  "service_role";
+
+REVOKE trigger ON TABLE "public"."profile_share"
+FROM
+  "service_role";
+
+REVOKE
+TRUNCATE ON TABLE "public"."profile_share"
+FROM
+  "service_role";
+
+REVOKE
+UPDATE ON TABLE "public"."profile_share"
+FROM
+  "service_role";
+
+REVOKE delete ON TABLE "public"."profiles"
+FROM
+  "anon";
+
+REVOKE insert ON TABLE "public"."profiles"
+FROM
+  "anon";
+
+REVOKE REFERENCES ON TABLE "public"."profiles"
+FROM
+  "anon";
+
+REVOKE
+SELECT
+  ON TABLE "public"."profiles"
+FROM
+  "anon";
+
+REVOKE trigger ON TABLE "public"."profiles"
+FROM
+  "anon";
+
+REVOKE
+TRUNCATE ON TABLE "public"."profiles"
+FROM
+  "anon";
+
+REVOKE
+UPDATE ON TABLE "public"."profiles"
+FROM
+  "anon";
+
+REVOKE delete ON TABLE "public"."profiles"
+FROM
+  "authenticated";
+
+REVOKE insert ON TABLE "public"."profiles"
+FROM
+  "authenticated";
+
+REVOKE REFERENCES ON TABLE "public"."profiles"
+FROM
+  "authenticated";
+
+REVOKE
+SELECT
+  ON TABLE "public"."profiles"
+FROM
+  "authenticated";
+
+REVOKE trigger ON TABLE "public"."profiles"
+FROM
+  "authenticated";
+
+REVOKE
+TRUNCATE ON TABLE "public"."profiles"
+FROM
+  "authenticated";
+
+REVOKE
+UPDATE ON TABLE "public"."profiles"
+FROM
+  "authenticated";
+
+REVOKE delete ON TABLE "public"."profiles"
+FROM
+  "service_role";
+
+REVOKE insert ON TABLE "public"."profiles"
+FROM
+  "service_role";
+
+REVOKE REFERENCES ON TABLE "public"."profiles"
+FROM
+  "service_role";
+
+REVOKE
+SELECT
+  ON TABLE "public"."profiles"
+FROM
+  "service_role";
+
+REVOKE trigger ON TABLE "public"."profiles"
+FROM
+  "service_role";
+
+REVOKE
+TRUNCATE ON TABLE "public"."profiles"
+FROM
+  "service_role";
+
+REVOKE
+UPDATE ON TABLE "public"."profiles"
+FROM
+  "service_role";
+
+REVOKE delete ON TABLE "public"."session_speakers"
+FROM
+  "anon";
+
+REVOKE insert ON TABLE "public"."session_speakers"
+FROM
+  "anon";
+
+REVOKE REFERENCES ON TABLE "public"."session_speakers"
+FROM
+  "anon";
+
+REVOKE
+SELECT
+  ON TABLE "public"."session_speakers"
+FROM
+  "anon";
+
+REVOKE trigger ON TABLE "public"."session_speakers"
+FROM
+  "anon";
+
+REVOKE
+TRUNCATE ON TABLE "public"."session_speakers"
+FROM
+  "anon";
+
+REVOKE
+UPDATE ON TABLE "public"."session_speakers"
+FROM
+  "anon";
+
+REVOKE delete ON TABLE "public"."session_speakers"
+FROM
+  "authenticated";
+
+REVOKE insert ON TABLE "public"."session_speakers"
+FROM
+  "authenticated";
+
+REVOKE REFERENCES ON TABLE "public"."session_speakers"
+FROM
+  "authenticated";
+
+REVOKE
+SELECT
+  ON TABLE "public"."session_speakers"
+FROM
+  "authenticated";
+
+REVOKE trigger ON TABLE "public"."session_speakers"
+FROM
+  "authenticated";
+
+REVOKE
+TRUNCATE ON TABLE "public"."session_speakers"
+FROM
+  "authenticated";
+
+REVOKE
+UPDATE ON TABLE "public"."session_speakers"
+FROM
+  "authenticated";
+
+REVOKE delete ON TABLE "public"."session_speakers"
+FROM
+  "service_role";
+
+REVOKE insert ON TABLE "public"."session_speakers"
+FROM
+  "service_role";
+
+REVOKE REFERENCES ON TABLE "public"."session_speakers"
+FROM
+  "service_role";
+
+REVOKE
+SELECT
+  ON TABLE "public"."session_speakers"
+FROM
+  "service_role";
+
+REVOKE trigger ON TABLE "public"."session_speakers"
+FROM
+  "service_role";
+
+REVOKE
+TRUNCATE ON TABLE "public"."session_speakers"
+FROM
+  "service_role";
+
+REVOKE
+UPDATE ON TABLE "public"."session_speakers"
+FROM
+  "service_role";
+
+REVOKE delete ON TABLE "public"."session_venues"
+FROM
+  "anon";
+
+REVOKE insert ON TABLE "public"."session_venues"
+FROM
+  "anon";
+
+REVOKE REFERENCES ON TABLE "public"."session_venues"
+FROM
+  "anon";
+
+REVOKE
+SELECT
+  ON TABLE "public"."session_venues"
+FROM
+  "anon";
+
+REVOKE trigger ON TABLE "public"."session_venues"
+FROM
+  "anon";
+
+REVOKE
+TRUNCATE ON TABLE "public"."session_venues"
+FROM
+  "anon";
+
+REVOKE
+UPDATE ON TABLE "public"."session_venues"
+FROM
+  "anon";
+
+REVOKE delete ON TABLE "public"."session_venues"
+FROM
+  "authenticated";
+
+REVOKE insert ON TABLE "public"."session_venues"
+FROM
+  "authenticated";
+
+REVOKE REFERENCES ON TABLE "public"."session_venues"
+FROM
+  "authenticated";
+
+REVOKE
+SELECT
+  ON TABLE "public"."session_venues"
+FROM
+  "authenticated";
+
+REVOKE trigger ON TABLE "public"."session_venues"
+FROM
+  "authenticated";
+
+REVOKE
+TRUNCATE ON TABLE "public"."session_venues"
+FROM
+  "authenticated";
+
+REVOKE
+UPDATE ON TABLE "public"."session_venues"
+FROM
+  "authenticated";
+
+REVOKE delete ON TABLE "public"."session_venues"
+FROM
+  "service_role";
+
+REVOKE insert ON TABLE "public"."session_venues"
+FROM
+  "service_role";
+
+REVOKE REFERENCES ON TABLE "public"."session_venues"
+FROM
+  "service_role";
+
+REVOKE
+SELECT
+  ON TABLE "public"."session_venues"
+FROM
+  "service_role";
+
+REVOKE trigger ON TABLE "public"."session_venues"
+FROM
+  "service_role";
+
+REVOKE
+TRUNCATE ON TABLE "public"."session_venues"
+FROM
+  "service_role";
+
+REVOKE
+UPDATE ON TABLE "public"."session_venues"
+FROM
+  "service_role";
+
+REVOKE delete ON TABLE "public"."sessions"
+FROM
+  "anon";
+
+REVOKE insert ON TABLE "public"."sessions"
+FROM
+  "anon";
+
+REVOKE REFERENCES ON TABLE "public"."sessions"
+FROM
+  "anon";
+
+REVOKE
+SELECT
+  ON TABLE "public"."sessions"
+FROM
+  "anon";
+
+REVOKE trigger ON TABLE "public"."sessions"
+FROM
+  "anon";
+
+REVOKE
+TRUNCATE ON TABLE "public"."sessions"
+FROM
+  "anon";
+
+REVOKE
+UPDATE ON TABLE "public"."sessions"
+FROM
+  "anon";
+
+REVOKE delete ON TABLE "public"."sessions"
+FROM
+  "authenticated";
+
+REVOKE insert ON TABLE "public"."sessions"
+FROM
+  "authenticated";
+
+REVOKE REFERENCES ON TABLE "public"."sessions"
+FROM
+  "authenticated";
+
+REVOKE
+SELECT
+  ON TABLE "public"."sessions"
+FROM
+  "authenticated";
+
+REVOKE trigger ON TABLE "public"."sessions"
+FROM
+  "authenticated";
+
+REVOKE
+TRUNCATE ON TABLE "public"."sessions"
+FROM
+  "authenticated";
+
+REVOKE
+UPDATE ON TABLE "public"."sessions"
+FROM
+  "authenticated";
+
+REVOKE delete ON TABLE "public"."sessions"
+FROM
+  "service_role";
+
+REVOKE insert ON TABLE "public"."sessions"
+FROM
+  "service_role";
+
+REVOKE REFERENCES ON TABLE "public"."sessions"
+FROM
+  "service_role";
+
+REVOKE
+SELECT
+  ON TABLE "public"."sessions"
+FROM
+  "service_role";
+
+REVOKE trigger ON TABLE "public"."sessions"
+FROM
+  "service_role";
+
+REVOKE
+TRUNCATE ON TABLE "public"."sessions"
+FROM
+  "service_role";
+
+REVOKE
+UPDATE ON TABLE "public"."sessions"
+FROM
+  "service_role";
+
+REVOKE delete ON TABLE "public"."speakers"
+FROM
+  "anon";
+
+REVOKE insert ON TABLE "public"."speakers"
+FROM
+  "anon";
+
+REVOKE REFERENCES ON TABLE "public"."speakers"
+FROM
+  "anon";
+
+REVOKE
+SELECT
+  ON TABLE "public"."speakers"
+FROM
+  "anon";
+
+REVOKE trigger ON TABLE "public"."speakers"
+FROM
+  "anon";
+
+REVOKE
+TRUNCATE ON TABLE "public"."speakers"
+FROM
+  "anon";
+
+REVOKE
+UPDATE ON TABLE "public"."speakers"
+FROM
+  "anon";
+
+REVOKE delete ON TABLE "public"."speakers"
+FROM
+  "authenticated";
+
+REVOKE insert ON TABLE "public"."speakers"
+FROM
+  "authenticated";
+
+REVOKE REFERENCES ON TABLE "public"."speakers"
+FROM
+  "authenticated";
+
+REVOKE
+SELECT
+  ON TABLE "public"."speakers"
+FROM
+  "authenticated";
+
+REVOKE trigger ON TABLE "public"."speakers"
+FROM
+  "authenticated";
+
+REVOKE
+TRUNCATE ON TABLE "public"."speakers"
+FROM
+  "authenticated";
+
+REVOKE
+UPDATE ON TABLE "public"."speakers"
+FROM
+  "authenticated";
+
+REVOKE delete ON TABLE "public"."speakers"
+FROM
+  "service_role";
+
+REVOKE insert ON TABLE "public"."speakers"
+FROM
+  "service_role";
+
+REVOKE REFERENCES ON TABLE "public"."speakers"
+FROM
+  "service_role";
+
+REVOKE
+SELECT
+  ON TABLE "public"."speakers"
+FROM
+  "service_role";
+
+REVOKE trigger ON TABLE "public"."speakers"
+FROM
+  "service_role";
+
+REVOKE
+TRUNCATE ON TABLE "public"."speakers"
+FROM
+  "service_role";
+
+REVOKE
+UPDATE ON TABLE "public"."speakers"
+FROM
+  "service_role";
+
+REVOKE delete ON TABLE "public"."sponsor_companies"
+FROM
+  "anon";
+
+REVOKE insert ON TABLE "public"."sponsor_companies"
+FROM
+  "anon";
+
+REVOKE REFERENCES ON TABLE "public"."sponsor_companies"
+FROM
+  "anon";
+
+REVOKE
+SELECT
+  ON TABLE "public"."sponsor_companies"
+FROM
+  "anon";
+
+REVOKE trigger ON TABLE "public"."sponsor_companies"
+FROM
+  "anon";
+
+REVOKE
+TRUNCATE ON TABLE "public"."sponsor_companies"
+FROM
+  "anon";
+
+REVOKE
+UPDATE ON TABLE "public"."sponsor_companies"
+FROM
+  "anon";
+
+REVOKE delete ON TABLE "public"."sponsor_companies"
+FROM
+  "authenticated";
+
+REVOKE insert ON TABLE "public"."sponsor_companies"
+FROM
+  "authenticated";
+
+REVOKE REFERENCES ON TABLE "public"."sponsor_companies"
+FROM
+  "authenticated";
+
+REVOKE
+SELECT
+  ON TABLE "public"."sponsor_companies"
+FROM
+  "authenticated";
+
+REVOKE trigger ON TABLE "public"."sponsor_companies"
+FROM
+  "authenticated";
+
+REVOKE
+TRUNCATE ON TABLE "public"."sponsor_companies"
+FROM
+  "authenticated";
+
+REVOKE
+UPDATE ON TABLE "public"."sponsor_companies"
+FROM
+  "authenticated";
+
+REVOKE delete ON TABLE "public"."sponsor_companies"
+FROM
+  "service_role";
+
+REVOKE insert ON TABLE "public"."sponsor_companies"
+FROM
+  "service_role";
+
+REVOKE REFERENCES ON TABLE "public"."sponsor_companies"
+FROM
+  "service_role";
+
+REVOKE
+SELECT
+  ON TABLE "public"."sponsor_companies"
+FROM
+  "service_role";
+
+REVOKE trigger ON TABLE "public"."sponsor_companies"
+FROM
+  "service_role";
+
+REVOKE
+TRUNCATE ON TABLE "public"."sponsor_companies"
+FROM
+  "service_role";
+
+REVOKE
+UPDATE ON TABLE "public"."sponsor_companies"
+FROM
+  "service_role";
+
+REVOKE delete ON TABLE "public"."sponsor_company_options"
+FROM
+  "anon";
+
+REVOKE insert ON TABLE "public"."sponsor_company_options"
+FROM
+  "anon";
+
+REVOKE REFERENCES ON TABLE "public"."sponsor_company_options"
+FROM
+  "anon";
+
+REVOKE
+SELECT
+  ON TABLE "public"."sponsor_company_options"
+FROM
+  "anon";
+
+REVOKE trigger ON TABLE "public"."sponsor_company_options"
+FROM
+  "anon";
+
+REVOKE
+TRUNCATE ON TABLE "public"."sponsor_company_options"
+FROM
+  "anon";
+
+REVOKE
+UPDATE ON TABLE "public"."sponsor_company_options"
+FROM
+  "anon";
+
+REVOKE delete ON TABLE "public"."sponsor_company_options"
+FROM
+  "authenticated";
+
+REVOKE insert ON TABLE "public"."sponsor_company_options"
+FROM
+  "authenticated";
+
+REVOKE REFERENCES ON TABLE "public"."sponsor_company_options"
+FROM
+  "authenticated";
+
+REVOKE
+SELECT
+  ON TABLE "public"."sponsor_company_options"
+FROM
+  "authenticated";
+
+REVOKE trigger ON TABLE "public"."sponsor_company_options"
+FROM
+  "authenticated";
+
+REVOKE
+TRUNCATE ON TABLE "public"."sponsor_company_options"
+FROM
+  "authenticated";
+
+REVOKE
+UPDATE ON TABLE "public"."sponsor_company_options"
+FROM
+  "authenticated";
+
+REVOKE delete ON TABLE "public"."sponsor_company_options"
+FROM
+  "service_role";
+
+REVOKE insert ON TABLE "public"."sponsor_company_options"
+FROM
+  "service_role";
+
+REVOKE REFERENCES ON TABLE "public"."sponsor_company_options"
+FROM
+  "service_role";
+
+REVOKE
+SELECT
+  ON TABLE "public"."sponsor_company_options"
+FROM
+  "service_role";
+
+REVOKE trigger ON TABLE "public"."sponsor_company_options"
+FROM
+  "service_role";
+
+REVOKE
+TRUNCATE ON TABLE "public"."sponsor_company_options"
+FROM
+  "service_role";
+
+REVOKE
+UPDATE ON TABLE "public"."sponsor_company_options"
+FROM
+  "service_role";
+
+REVOKE delete ON TABLE "public"."sponsor_individuals"
+FROM
+  "anon";
+
+REVOKE insert ON TABLE "public"."sponsor_individuals"
+FROM
+  "anon";
+
+REVOKE REFERENCES ON TABLE "public"."sponsor_individuals"
+FROM
+  "anon";
+
+REVOKE
+SELECT
+  ON TABLE "public"."sponsor_individuals"
+FROM
+  "anon";
+
+REVOKE trigger ON TABLE "public"."sponsor_individuals"
+FROM
+  "anon";
+
+REVOKE
+TRUNCATE ON TABLE "public"."sponsor_individuals"
+FROM
+  "anon";
+
+REVOKE
+UPDATE ON TABLE "public"."sponsor_individuals"
+FROM
+  "anon";
+
+REVOKE delete ON TABLE "public"."sponsor_individuals"
+FROM
+  "authenticated";
+
+REVOKE insert ON TABLE "public"."sponsor_individuals"
+FROM
+  "authenticated";
+
+REVOKE REFERENCES ON TABLE "public"."sponsor_individuals"
+FROM
+  "authenticated";
+
+REVOKE
+SELECT
+  ON TABLE "public"."sponsor_individuals"
+FROM
+  "authenticated";
+
+REVOKE trigger ON TABLE "public"."sponsor_individuals"
+FROM
+  "authenticated";
+
+REVOKE
+TRUNCATE ON TABLE "public"."sponsor_individuals"
+FROM
+  "authenticated";
+
+REVOKE
+UPDATE ON TABLE "public"."sponsor_individuals"
+FROM
+  "authenticated";
+
+REVOKE delete ON TABLE "public"."sponsor_individuals"
+FROM
+  "service_role";
+
+REVOKE insert ON TABLE "public"."sponsor_individuals"
+FROM
+  "service_role";
+
+REVOKE REFERENCES ON TABLE "public"."sponsor_individuals"
+FROM
+  "service_role";
+
+REVOKE
+SELECT
+  ON TABLE "public"."sponsor_individuals"
+FROM
+  "service_role";
+
+REVOKE trigger ON TABLE "public"."sponsor_individuals"
+FROM
+  "service_role";
+
+REVOKE
+TRUNCATE ON TABLE "public"."sponsor_individuals"
+FROM
+  "service_role";
+
+REVOKE
+UPDATE ON TABLE "public"."sponsor_individuals"
+FROM
+  "service_role";
+
+REVOKE delete ON TABLE "public"."staff_member_sns_links"
+FROM
+  "anon";
+
+REVOKE insert ON TABLE "public"."staff_member_sns_links"
+FROM
+  "anon";
+
+REVOKE REFERENCES ON TABLE "public"."staff_member_sns_links"
+FROM
+  "anon";
+
+REVOKE
+SELECT
+  ON TABLE "public"."staff_member_sns_links"
+FROM
+  "anon";
+
+REVOKE trigger ON TABLE "public"."staff_member_sns_links"
+FROM
+  "anon";
+
+REVOKE
+TRUNCATE ON TABLE "public"."staff_member_sns_links"
+FROM
+  "anon";
+
+REVOKE
+UPDATE ON TABLE "public"."staff_member_sns_links"
+FROM
+  "anon";
+
+REVOKE delete ON TABLE "public"."staff_member_sns_links"
+FROM
+  "authenticated";
+
+REVOKE insert ON TABLE "public"."staff_member_sns_links"
+FROM
+  "authenticated";
+
+REVOKE REFERENCES ON TABLE "public"."staff_member_sns_links"
+FROM
+  "authenticated";
+
+REVOKE
+SELECT
+  ON TABLE "public"."staff_member_sns_links"
+FROM
+  "authenticated";
+
+REVOKE trigger ON TABLE "public"."staff_member_sns_links"
+FROM
+  "authenticated";
+
+REVOKE
+TRUNCATE ON TABLE "public"."staff_member_sns_links"
+FROM
+  "authenticated";
+
+REVOKE
+UPDATE ON TABLE "public"."staff_member_sns_links"
+FROM
+  "authenticated";
+
+REVOKE delete ON TABLE "public"."staff_member_sns_links"
+FROM
+  "service_role";
+
+REVOKE insert ON TABLE "public"."staff_member_sns_links"
+FROM
+  "service_role";
+
+REVOKE REFERENCES ON TABLE "public"."staff_member_sns_links"
+FROM
+  "service_role";
+
+REVOKE
+SELECT
+  ON TABLE "public"."staff_member_sns_links"
+FROM
+  "service_role";
+
+REVOKE trigger ON TABLE "public"."staff_member_sns_links"
+FROM
+  "service_role";
+
+REVOKE
+TRUNCATE ON TABLE "public"."staff_member_sns_links"
+FROM
+  "service_role";
+
+REVOKE
+UPDATE ON TABLE "public"."staff_member_sns_links"
+FROM
+  "service_role";
+
+REVOKE delete ON TABLE "public"."staff_members"
+FROM
+  "anon";
+
+REVOKE insert ON TABLE "public"."staff_members"
+FROM
+  "anon";
+
+REVOKE REFERENCES ON TABLE "public"."staff_members"
+FROM
+  "anon";
+
+REVOKE
+SELECT
+  ON TABLE "public"."staff_members"
+FROM
+  "anon";
+
+REVOKE trigger ON TABLE "public"."staff_members"
+FROM
+  "anon";
+
+REVOKE
+TRUNCATE ON TABLE "public"."staff_members"
+FROM
+  "anon";
+
+REVOKE
+UPDATE ON TABLE "public"."staff_members"
+FROM
+  "anon";
+
+REVOKE delete ON TABLE "public"."staff_members"
+FROM
+  "authenticated";
+
+REVOKE insert ON TABLE "public"."staff_members"
+FROM
+  "authenticated";
+
+REVOKE REFERENCES ON TABLE "public"."staff_members"
+FROM
+  "authenticated";
+
+REVOKE
+SELECT
+  ON TABLE "public"."staff_members"
+FROM
+  "authenticated";
+
+REVOKE trigger ON TABLE "public"."staff_members"
+FROM
+  "authenticated";
+
+REVOKE
+TRUNCATE ON TABLE "public"."staff_members"
+FROM
+  "authenticated";
+
+REVOKE
+UPDATE ON TABLE "public"."staff_members"
+FROM
+  "authenticated";
+
+REVOKE delete ON TABLE "public"."staff_members"
+FROM
+  "service_role";
+
+REVOKE insert ON TABLE "public"."staff_members"
+FROM
+  "service_role";
+
+REVOKE REFERENCES ON TABLE "public"."staff_members"
+FROM
+  "service_role";
+
+REVOKE
+SELECT
+  ON TABLE "public"."staff_members"
+FROM
+  "service_role";
+
+REVOKE trigger ON TABLE "public"."staff_members"
+FROM
+  "service_role";
+
+REVOKE
+TRUNCATE ON TABLE "public"."staff_members"
+FROM
+  "service_role";
+
+REVOKE
+UPDATE ON TABLE "public"."staff_members"
+FROM
+  "service_role";
+
+REVOKE delete ON TABLE "public"."stripe_webhook_logs"
+FROM
+  "anon";
+
+REVOKE insert ON TABLE "public"."stripe_webhook_logs"
+FROM
+  "anon";
+
+REVOKE REFERENCES ON TABLE "public"."stripe_webhook_logs"
+FROM
+  "anon";
+
+REVOKE
+SELECT
+  ON TABLE "public"."stripe_webhook_logs"
+FROM
+  "anon";
+
+REVOKE trigger ON TABLE "public"."stripe_webhook_logs"
+FROM
+  "anon";
+
+REVOKE
+TRUNCATE ON TABLE "public"."stripe_webhook_logs"
+FROM
+  "anon";
+
+REVOKE
+UPDATE ON TABLE "public"."stripe_webhook_logs"
+FROM
+  "anon";
+
+REVOKE delete ON TABLE "public"."stripe_webhook_logs"
+FROM
+  "authenticated";
+
+REVOKE insert ON TABLE "public"."stripe_webhook_logs"
+FROM
+  "authenticated";
+
+REVOKE REFERENCES ON TABLE "public"."stripe_webhook_logs"
+FROM
+  "authenticated";
+
+REVOKE
+SELECT
+  ON TABLE "public"."stripe_webhook_logs"
+FROM
+  "authenticated";
+
+REVOKE trigger ON TABLE "public"."stripe_webhook_logs"
+FROM
+  "authenticated";
+
+REVOKE
+TRUNCATE ON TABLE "public"."stripe_webhook_logs"
+FROM
+  "authenticated";
+
+REVOKE
+UPDATE ON TABLE "public"."stripe_webhook_logs"
+FROM
+  "authenticated";
+
+REVOKE delete ON TABLE "public"."stripe_webhook_logs"
+FROM
+  "service_role";
+
+REVOKE insert ON TABLE "public"."stripe_webhook_logs"
+FROM
+  "service_role";
+
+REVOKE REFERENCES ON TABLE "public"."stripe_webhook_logs"
+FROM
+  "service_role";
+
+REVOKE
+SELECT
+  ON TABLE "public"."stripe_webhook_logs"
+FROM
+  "service_role";
+
+REVOKE trigger ON TABLE "public"."stripe_webhook_logs"
+FROM
+  "service_role";
+
+REVOKE
+TRUNCATE ON TABLE "public"."stripe_webhook_logs"
+FROM
+  "service_role";
+
+REVOKE
+UPDATE ON TABLE "public"."stripe_webhook_logs"
+FROM
+  "service_role";
+
+REVOKE delete ON TABLE "public"."ticket_checkout_options"
+FROM
+  "anon";
+
+REVOKE insert ON TABLE "public"."ticket_checkout_options"
+FROM
+  "anon";
+
+REVOKE REFERENCES ON TABLE "public"."ticket_checkout_options"
+FROM
+  "anon";
+
+REVOKE
+SELECT
+  ON TABLE "public"."ticket_checkout_options"
+FROM
+  "anon";
+
+REVOKE trigger ON TABLE "public"."ticket_checkout_options"
+FROM
+  "anon";
+
+REVOKE
+TRUNCATE ON TABLE "public"."ticket_checkout_options"
+FROM
+  "anon";
+
+REVOKE
+UPDATE ON TABLE "public"."ticket_checkout_options"
+FROM
+  "anon";
+
+REVOKE delete ON TABLE "public"."ticket_checkout_options"
+FROM
+  "authenticated";
+
+REVOKE insert ON TABLE "public"."ticket_checkout_options"
+FROM
+  "authenticated";
+
+REVOKE REFERENCES ON TABLE "public"."ticket_checkout_options"
+FROM
+  "authenticated";
+
+REVOKE
+SELECT
+  ON TABLE "public"."ticket_checkout_options"
+FROM
+  "authenticated";
+
+REVOKE trigger ON TABLE "public"."ticket_checkout_options"
+FROM
+  "authenticated";
+
+REVOKE
+TRUNCATE ON TABLE "public"."ticket_checkout_options"
+FROM
+  "authenticated";
+
+REVOKE
+UPDATE ON TABLE "public"."ticket_checkout_options"
+FROM
+  "authenticated";
+
+REVOKE delete ON TABLE "public"."ticket_checkout_options"
+FROM
+  "service_role";
+
+REVOKE insert ON TABLE "public"."ticket_checkout_options"
+FROM
+  "service_role";
+
+REVOKE REFERENCES ON TABLE "public"."ticket_checkout_options"
+FROM
+  "service_role";
+
+REVOKE
+SELECT
+  ON TABLE "public"."ticket_checkout_options"
+FROM
+  "service_role";
+
+REVOKE trigger ON TABLE "public"."ticket_checkout_options"
+FROM
+  "service_role";
+
+REVOKE
+TRUNCATE ON TABLE "public"."ticket_checkout_options"
+FROM
+  "service_role";
+
+REVOKE
+UPDATE ON TABLE "public"."ticket_checkout_options"
+FROM
+  "service_role";
+
+REVOKE delete ON TABLE "public"."ticket_checkout_sessions"
+FROM
+  "anon";
+
+REVOKE insert ON TABLE "public"."ticket_checkout_sessions"
+FROM
+  "anon";
+
+REVOKE REFERENCES ON TABLE "public"."ticket_checkout_sessions"
+FROM
+  "anon";
+
+REVOKE
+SELECT
+  ON TABLE "public"."ticket_checkout_sessions"
+FROM
+  "anon";
+
+REVOKE trigger ON TABLE "public"."ticket_checkout_sessions"
+FROM
+  "anon";
+
+REVOKE
+TRUNCATE ON TABLE "public"."ticket_checkout_sessions"
+FROM
+  "anon";
+
+REVOKE
+UPDATE ON TABLE "public"."ticket_checkout_sessions"
+FROM
+  "anon";
+
+REVOKE delete ON TABLE "public"."ticket_checkout_sessions"
+FROM
+  "authenticated";
+
+REVOKE insert ON TABLE "public"."ticket_checkout_sessions"
+FROM
+  "authenticated";
+
+REVOKE REFERENCES ON TABLE "public"."ticket_checkout_sessions"
+FROM
+  "authenticated";
+
+REVOKE
+SELECT
+  ON TABLE "public"."ticket_checkout_sessions"
+FROM
+  "authenticated";
+
+REVOKE trigger ON TABLE "public"."ticket_checkout_sessions"
+FROM
+  "authenticated";
+
+REVOKE
+TRUNCATE ON TABLE "public"."ticket_checkout_sessions"
+FROM
+  "authenticated";
+
+REVOKE
+UPDATE ON TABLE "public"."ticket_checkout_sessions"
+FROM
+  "authenticated";
+
+REVOKE delete ON TABLE "public"."ticket_checkout_sessions"
+FROM
+  "service_role";
+
+REVOKE insert ON TABLE "public"."ticket_checkout_sessions"
+FROM
+  "service_role";
+
+REVOKE REFERENCES ON TABLE "public"."ticket_checkout_sessions"
+FROM
+  "service_role";
+
+REVOKE
+SELECT
+  ON TABLE "public"."ticket_checkout_sessions"
+FROM
+  "service_role";
+
+REVOKE trigger ON TABLE "public"."ticket_checkout_sessions"
+FROM
+  "service_role";
+
+REVOKE
+TRUNCATE ON TABLE "public"."ticket_checkout_sessions"
+FROM
+  "service_role";
+
+REVOKE
+UPDATE ON TABLE "public"."ticket_checkout_sessions"
+FROM
+  "service_role";
+
+REVOKE delete ON TABLE "public"."ticket_options"
+FROM
+  "anon";
+
+REVOKE insert ON TABLE "public"."ticket_options"
+FROM
+  "anon";
+
+REVOKE REFERENCES ON TABLE "public"."ticket_options"
+FROM
+  "anon";
+
+REVOKE
+SELECT
+  ON TABLE "public"."ticket_options"
+FROM
+  "anon";
+
+REVOKE trigger ON TABLE "public"."ticket_options"
+FROM
+  "anon";
+
+REVOKE
+TRUNCATE ON TABLE "public"."ticket_options"
+FROM
+  "anon";
+
+REVOKE
+UPDATE ON TABLE "public"."ticket_options"
+FROM
+  "anon";
+
+REVOKE delete ON TABLE "public"."ticket_options"
+FROM
+  "authenticated";
+
+REVOKE insert ON TABLE "public"."ticket_options"
+FROM
+  "authenticated";
+
+REVOKE REFERENCES ON TABLE "public"."ticket_options"
+FROM
+  "authenticated";
+
+REVOKE
+SELECT
+  ON TABLE "public"."ticket_options"
+FROM
+  "authenticated";
+
+REVOKE trigger ON TABLE "public"."ticket_options"
+FROM
+  "authenticated";
+
+REVOKE
+TRUNCATE ON TABLE "public"."ticket_options"
+FROM
+  "authenticated";
+
+REVOKE
+UPDATE ON TABLE "public"."ticket_options"
+FROM
+  "authenticated";
+
+REVOKE delete ON TABLE "public"."ticket_options"
+FROM
+  "service_role";
+
+REVOKE insert ON TABLE "public"."ticket_options"
+FROM
+  "service_role";
+
+REVOKE REFERENCES ON TABLE "public"."ticket_options"
+FROM
+  "service_role";
+
+REVOKE
+SELECT
+  ON TABLE "public"."ticket_options"
+FROM
+  "service_role";
+
+REVOKE trigger ON TABLE "public"."ticket_options"
+FROM
+  "service_role";
+
+REVOKE
+TRUNCATE ON TABLE "public"."ticket_options"
+FROM
+  "service_role";
+
+REVOKE
+UPDATE ON TABLE "public"."ticket_options"
+FROM
+  "service_role";
+
+REVOKE delete ON TABLE "public"."ticket_purchase_options"
+FROM
+  "anon";
+
+REVOKE insert ON TABLE "public"."ticket_purchase_options"
+FROM
+  "anon";
+
+REVOKE REFERENCES ON TABLE "public"."ticket_purchase_options"
+FROM
+  "anon";
+
+REVOKE
+SELECT
+  ON TABLE "public"."ticket_purchase_options"
+FROM
+  "anon";
+
+REVOKE trigger ON TABLE "public"."ticket_purchase_options"
+FROM
+  "anon";
+
+REVOKE
+TRUNCATE ON TABLE "public"."ticket_purchase_options"
+FROM
+  "anon";
+
+REVOKE
+UPDATE ON TABLE "public"."ticket_purchase_options"
+FROM
+  "anon";
+
+REVOKE delete ON TABLE "public"."ticket_purchase_options"
+FROM
+  "authenticated";
+
+REVOKE insert ON TABLE "public"."ticket_purchase_options"
+FROM
+  "authenticated";
+
+REVOKE REFERENCES ON TABLE "public"."ticket_purchase_options"
+FROM
+  "authenticated";
+
+REVOKE
+SELECT
+  ON TABLE "public"."ticket_purchase_options"
+FROM
+  "authenticated";
+
+REVOKE trigger ON TABLE "public"."ticket_purchase_options"
+FROM
+  "authenticated";
+
+REVOKE
+TRUNCATE ON TABLE "public"."ticket_purchase_options"
+FROM
+  "authenticated";
+
+REVOKE
+UPDATE ON TABLE "public"."ticket_purchase_options"
+FROM
+  "authenticated";
+
+REVOKE delete ON TABLE "public"."ticket_purchase_options"
+FROM
+  "service_role";
+
+REVOKE insert ON TABLE "public"."ticket_purchase_options"
+FROM
+  "service_role";
+
+REVOKE REFERENCES ON TABLE "public"."ticket_purchase_options"
+FROM
+  "service_role";
+
+REVOKE
+SELECT
+  ON TABLE "public"."ticket_purchase_options"
+FROM
+  "service_role";
+
+REVOKE trigger ON TABLE "public"."ticket_purchase_options"
+FROM
+  "service_role";
+
+REVOKE
+TRUNCATE ON TABLE "public"."ticket_purchase_options"
+FROM
+  "service_role";
+
+REVOKE
+UPDATE ON TABLE "public"."ticket_purchase_options"
+FROM
+  "service_role";
+
+REVOKE delete ON TABLE "public"."ticket_purchases"
+FROM
+  "anon";
+
+REVOKE insert ON TABLE "public"."ticket_purchases"
+FROM
+  "anon";
+
+REVOKE REFERENCES ON TABLE "public"."ticket_purchases"
+FROM
+  "anon";
+
+REVOKE
+SELECT
+  ON TABLE "public"."ticket_purchases"
+FROM
+  "anon";
+
+REVOKE trigger ON TABLE "public"."ticket_purchases"
+FROM
+  "anon";
+
+REVOKE
+TRUNCATE ON TABLE "public"."ticket_purchases"
+FROM
+  "anon";
+
+REVOKE
+UPDATE ON TABLE "public"."ticket_purchases"
+FROM
+  "anon";
+
+REVOKE delete ON TABLE "public"."ticket_purchases"
+FROM
+  "authenticated";
+
+REVOKE insert ON TABLE "public"."ticket_purchases"
+FROM
+  "authenticated";
+
+REVOKE REFERENCES ON TABLE "public"."ticket_purchases"
+FROM
+  "authenticated";
+
+REVOKE
+SELECT
+  ON TABLE "public"."ticket_purchases"
+FROM
+  "authenticated";
+
+REVOKE trigger ON TABLE "public"."ticket_purchases"
+FROM
+  "authenticated";
+
+REVOKE
+TRUNCATE ON TABLE "public"."ticket_purchases"
+FROM
+  "authenticated";
+
+REVOKE
+UPDATE ON TABLE "public"."ticket_purchases"
+FROM
+  "authenticated";
+
+REVOKE delete ON TABLE "public"."ticket_purchases"
+FROM
+  "service_role";
+
+REVOKE insert ON TABLE "public"."ticket_purchases"
+FROM
+  "service_role";
+
+REVOKE REFERENCES ON TABLE "public"."ticket_purchases"
+FROM
+  "service_role";
+
+REVOKE
+SELECT
+  ON TABLE "public"."ticket_purchases"
+FROM
+  "service_role";
+
+REVOKE trigger ON TABLE "public"."ticket_purchases"
+FROM
+  "service_role";
+
+REVOKE
+TRUNCATE ON TABLE "public"."ticket_purchases"
+FROM
+  "service_role";
+
+REVOKE
+UPDATE ON TABLE "public"."ticket_purchases"
+FROM
+  "service_role";
+
+REVOKE delete ON TABLE "public"."ticket_types"
+FROM
+  "anon";
+
+REVOKE insert ON TABLE "public"."ticket_types"
+FROM
+  "anon";
+
+REVOKE REFERENCES ON TABLE "public"."ticket_types"
+FROM
+  "anon";
+
+REVOKE
+SELECT
+  ON TABLE "public"."ticket_types"
+FROM
+  "anon";
+
+REVOKE trigger ON TABLE "public"."ticket_types"
+FROM
+  "anon";
+
+REVOKE
+TRUNCATE ON TABLE "public"."ticket_types"
+FROM
+  "anon";
+
+REVOKE
+UPDATE ON TABLE "public"."ticket_types"
+FROM
+  "anon";
+
+REVOKE delete ON TABLE "public"."ticket_types"
+FROM
+  "authenticated";
+
+REVOKE insert ON TABLE "public"."ticket_types"
+FROM
+  "authenticated";
+
+REVOKE REFERENCES ON TABLE "public"."ticket_types"
+FROM
+  "authenticated";
+
+REVOKE
+SELECT
+  ON TABLE "public"."ticket_types"
+FROM
+  "authenticated";
+
+REVOKE trigger ON TABLE "public"."ticket_types"
+FROM
+  "authenticated";
+
+REVOKE
+TRUNCATE ON TABLE "public"."ticket_types"
+FROM
+  "authenticated";
+
+REVOKE
+UPDATE ON TABLE "public"."ticket_types"
+FROM
+  "authenticated";
+
+REVOKE delete ON TABLE "public"."ticket_types"
+FROM
+  "service_role";
+
+REVOKE insert ON TABLE "public"."ticket_types"
+FROM
+  "service_role";
+
+REVOKE REFERENCES ON TABLE "public"."ticket_types"
+FROM
+  "service_role";
+
+REVOKE
+SELECT
+  ON TABLE "public"."ticket_types"
+FROM
+  "service_role";
+
+REVOKE trigger ON TABLE "public"."ticket_types"
+FROM
+  "service_role";
+
+REVOKE
+TRUNCATE ON TABLE "public"."ticket_types"
+FROM
+  "service_role";
+
+REVOKE
+UPDATE ON TABLE "public"."ticket_types"
+FROM
+  "service_role";
+
+REVOKE delete ON TABLE "public"."timeline_events"
+FROM
+  "anon";
+
+REVOKE insert ON TABLE "public"."timeline_events"
+FROM
+  "anon";
+
+REVOKE REFERENCES ON TABLE "public"."timeline_events"
+FROM
+  "anon";
+
+REVOKE
+SELECT
+  ON TABLE "public"."timeline_events"
+FROM
+  "anon";
+
+REVOKE trigger ON TABLE "public"."timeline_events"
+FROM
+  "anon";
+
+REVOKE
+TRUNCATE ON TABLE "public"."timeline_events"
+FROM
+  "anon";
+
+REVOKE
+UPDATE ON TABLE "public"."timeline_events"
+FROM
+  "anon";
+
+REVOKE delete ON TABLE "public"."timeline_events"
+FROM
+  "authenticated";
+
+REVOKE insert ON TABLE "public"."timeline_events"
+FROM
+  "authenticated";
+
+REVOKE REFERENCES ON TABLE "public"."timeline_events"
+FROM
+  "authenticated";
+
+REVOKE
+SELECT
+  ON TABLE "public"."timeline_events"
+FROM
+  "authenticated";
+
+REVOKE trigger ON TABLE "public"."timeline_events"
+FROM
+  "authenticated";
+
+REVOKE
+TRUNCATE ON TABLE "public"."timeline_events"
+FROM
+  "authenticated";
+
+REVOKE
+UPDATE ON TABLE "public"."timeline_events"
+FROM
+  "authenticated";
+
+REVOKE delete ON TABLE "public"."timeline_events"
+FROM
+  "service_role";
+
+REVOKE insert ON TABLE "public"."timeline_events"
+FROM
+  "service_role";
+
+REVOKE REFERENCES ON TABLE "public"."timeline_events"
+FROM
+  "service_role";
+
+REVOKE
+SELECT
+  ON TABLE "public"."timeline_events"
+FROM
+  "service_role";
+
+REVOKE trigger ON TABLE "public"."timeline_events"
+FROM
+  "service_role";
+
+REVOKE
+TRUNCATE ON TABLE "public"."timeline_events"
+FROM
+  "service_role";
+
+REVOKE
+UPDATE ON TABLE "public"."timeline_events"
+FROM
+  "service_role";
+
+REVOKE delete ON TABLE "public"."user_roles"
+FROM
+  "anon";
+
+REVOKE insert ON TABLE "public"."user_roles"
+FROM
+  "anon";
+
+REVOKE REFERENCES ON TABLE "public"."user_roles"
+FROM
+  "anon";
+
+REVOKE
+SELECT
+  ON TABLE "public"."user_roles"
+FROM
+  "anon";
+
+REVOKE trigger ON TABLE "public"."user_roles"
+FROM
+  "anon";
+
+REVOKE
+TRUNCATE ON TABLE "public"."user_roles"
+FROM
+  "anon";
+
+REVOKE
+UPDATE ON TABLE "public"."user_roles"
+FROM
+  "anon";
+
+REVOKE delete ON TABLE "public"."user_roles"
+FROM
+  "authenticated";
+
+REVOKE insert ON TABLE "public"."user_roles"
+FROM
+  "authenticated";
+
+REVOKE REFERENCES ON TABLE "public"."user_roles"
+FROM
+  "authenticated";
+
+REVOKE
+SELECT
+  ON TABLE "public"."user_roles"
+FROM
+  "authenticated";
+
+REVOKE trigger ON TABLE "public"."user_roles"
+FROM
+  "authenticated";
+
+REVOKE
+TRUNCATE ON TABLE "public"."user_roles"
+FROM
+  "authenticated";
+
+REVOKE
+UPDATE ON TABLE "public"."user_roles"
+FROM
+  "authenticated";
+
+REVOKE delete ON TABLE "public"."user_roles"
+FROM
+  "service_role";
+
+REVOKE insert ON TABLE "public"."user_roles"
+FROM
+  "service_role";
+
+REVOKE REFERENCES ON TABLE "public"."user_roles"
+FROM
+  "service_role";
+
+REVOKE
+SELECT
+  ON TABLE "public"."user_roles"
+FROM
+  "service_role";
+
+REVOKE trigger ON TABLE "public"."user_roles"
+FROM
+  "service_role";
+
+REVOKE
+TRUNCATE ON TABLE "public"."user_roles"
+FROM
+  "service_role";
+
+REVOKE
+UPDATE ON TABLE "public"."user_roles"
+FROM
+  "service_role";
+
+REVOKE delete ON TABLE "public"."user_sns_links"
+FROM
+  "anon";
+
+REVOKE insert ON TABLE "public"."user_sns_links"
+FROM
+  "anon";
+
+REVOKE REFERENCES ON TABLE "public"."user_sns_links"
+FROM
+  "anon";
+
+REVOKE
+SELECT
+  ON TABLE "public"."user_sns_links"
+FROM
+  "anon";
+
+REVOKE trigger ON TABLE "public"."user_sns_links"
+FROM
+  "anon";
+
+REVOKE
+TRUNCATE ON TABLE "public"."user_sns_links"
+FROM
+  "anon";
+
+REVOKE
+UPDATE ON TABLE "public"."user_sns_links"
+FROM
+  "anon";
+
+REVOKE delete ON TABLE "public"."user_sns_links"
+FROM
+  "authenticated";
+
+REVOKE insert ON TABLE "public"."user_sns_links"
+FROM
+  "authenticated";
+
+REVOKE REFERENCES ON TABLE "public"."user_sns_links"
+FROM
+  "authenticated";
+
+REVOKE
+SELECT
+  ON TABLE "public"."user_sns_links"
+FROM
+  "authenticated";
+
+REVOKE trigger ON TABLE "public"."user_sns_links"
+FROM
+  "authenticated";
+
+REVOKE
+TRUNCATE ON TABLE "public"."user_sns_links"
+FROM
+  "authenticated";
+
+REVOKE
+UPDATE ON TABLE "public"."user_sns_links"
+FROM
+  "authenticated";
+
+REVOKE delete ON TABLE "public"."user_sns_links"
+FROM
+  "service_role";
+
+REVOKE insert ON TABLE "public"."user_sns_links"
+FROM
+  "service_role";
+
+REVOKE REFERENCES ON TABLE "public"."user_sns_links"
+FROM
+  "service_role";
+
+REVOKE
+SELECT
+  ON TABLE "public"."user_sns_links"
+FROM
+  "service_role";
+
+REVOKE trigger ON TABLE "public"."user_sns_links"
+FROM
+  "service_role";
+
+REVOKE
+TRUNCATE ON TABLE "public"."user_sns_links"
+FROM
+  "service_role";
+
+REVOKE
+UPDATE ON TABLE "public"."user_sns_links"
+FROM
+  "service_role";
+
+REVOKE delete ON TABLE "public"."users"
+FROM
+  "anon";
+
+REVOKE insert ON TABLE "public"."users"
+FROM
+  "anon";
+
+REVOKE REFERENCES ON TABLE "public"."users"
+FROM
+  "anon";
+
+REVOKE
+SELECT
+  ON TABLE "public"."users"
+FROM
+  "anon";
+
+REVOKE trigger ON TABLE "public"."users"
+FROM
+  "anon";
+
+REVOKE
+TRUNCATE ON TABLE "public"."users"
+FROM
+  "anon";
+
+REVOKE
+UPDATE ON TABLE "public"."users"
+FROM
+  "anon";
+
+REVOKE delete ON TABLE "public"."users"
+FROM
+  "authenticated";
+
+REVOKE insert ON TABLE "public"."users"
+FROM
+  "authenticated";
+
+REVOKE REFERENCES ON TABLE "public"."users"
+FROM
+  "authenticated";
+
+REVOKE
+SELECT
+  ON TABLE "public"."users"
+FROM
+  "authenticated";
+
+REVOKE trigger ON TABLE "public"."users"
+FROM
+  "authenticated";
+
+REVOKE
+TRUNCATE ON TABLE "public"."users"
+FROM
+  "authenticated";
+
+REVOKE
+UPDATE ON TABLE "public"."users"
+FROM
+  "authenticated";
+
+REVOKE delete ON TABLE "public"."users"
+FROM
+  "service_role";
+
+REVOKE insert ON TABLE "public"."users"
+FROM
+  "service_role";
+
+REVOKE REFERENCES ON TABLE "public"."users"
+FROM
+  "service_role";
+
+REVOKE
+SELECT
+  ON TABLE "public"."users"
+FROM
+  "service_role";
+
+REVOKE trigger ON TABLE "public"."users"
+FROM
+  "service_role";
+
+REVOKE
+TRUNCATE ON TABLE "public"."users"
+FROM
+  "service_role";
+
+REVOKE
+UPDATE ON TABLE "public"."users"
+FROM
+  "service_role";
+
+DROP VIEW if EXISTS "public"."session_venues_with_sessions";
+
+DROP VIEW if EXISTS "public"."sponsor_with_sessions";
+
+DROP VIEW if EXISTS "public"."v_ticket_counts";
+
+DROP VIEW if EXISTS "public"."v_ticket_option_counts";
+
+ALTER TABLE "public"."session_venues"
+ALTER COLUMN "id"
+SET DEFAULT extensions.uuid_generate_v4 ();
+
+ALTER TABLE "public"."sessions"
+ALTER COLUMN "id"
+SET DEFAULT extensions.uuid_generate_v4 ();
+
+ALTER TABLE "public"."speakers"
+ALTER COLUMN "id"
+SET DEFAULT extensions.uuid_generate_v4 ();
+
+ALTER TABLE "public"."ticket_purchases"
+ALTER COLUMN "nameplate_id"
+SET DATA TYPE text USING "nameplate_id"::text;
+
+ALTER TABLE "public"."timeline_events"
+ALTER COLUMN "id"
+SET DEFAULT extensions.uuid_generate_v4 ();
+
+SET
+  check_function_bodies = off;
+
+CREATE OR REPLACE FUNCTION public.check_option_plan_availability (p_basic_plan_type basic_plan_type, p_option_plan_type option_plan_type) returns boolean language plpgsql AS $function$
 BEGIN
   -- スカラシップは全プラン利用可能
   IF p_option_plan_type = 'scholarship' THEN
     RETURN TRUE;
   END IF;
-  
+
   -- ネーミングライツ（ホール）：silver以上限定
   IF p_option_plan_type = 'naming_rights_hall' THEN
     RETURN p_basic_plan_type IN ('platinum', 'gold', 'silver');
   END IF;
-  
+
   -- ネーミングライツ（ルーム）：silver以上限定
   IF p_option_plan_type = 'naming_rights_room' THEN
     RETURN p_basic_plan_type IN ('platinum', 'gold', 'silver');
   END IF;
-  
+
   -- ネームプレート：ブロンズ以上限定
   IF p_option_plan_type = 'nameplate' THEN
     RETURN p_basic_plan_type IN ('platinum', 'gold', 'silver', 'bronze');
   END IF;
-  
+
   -- 弁当：シルバー・ブロンズ限定
   IF p_option_plan_type = 'lunch' THEN
     RETURN p_basic_plan_type IN ('silver', 'bronze');
   END IF;
-  
+
   RETURN FALSE;
 END;
-$function$
-;
+$function$;
 
-CREATE OR REPLACE FUNCTION public.check_sponsor_option_constraint()
- RETURNS trigger
- LANGUAGE plpgsql
-AS $function$
+CREATE OR REPLACE FUNCTION public.check_sponsor_option_constraint () returns trigger language plpgsql AS $function$
 DECLARE
   v_basic_plan_type public.basic_plan_type;
   v_sponsor_type public.company_sponsor_type;
@@ -1640,13 +3642,9 @@ BEGIN
 
   RETURN NEW;
 END;
-$function$
-;
+$function$;
 
-CREATE OR REPLACE FUNCTION public.create_ticket_checkout(user_id uuid, ticket_type_id text, ticket_option_ids text[], stripe_checkout_session_id text, stripe_checkout_url text)
- RETURNS uuid
- LANGUAGE plpgsql
-AS $function$
+CREATE OR REPLACE FUNCTION public.create_ticket_checkout (user_id uuid, ticket_type_id text, ticket_option_ids TEXT[], stripe_checkout_session_id text, stripe_checkout_url text) returns uuid language plpgsql AS $function$
 DECLARE
   v_checkout_session_id uuid;
   v_ticket_type_record record;
@@ -1760,27 +3758,19 @@ BEGIN
 
   RETURN v_checkout_session_id;
 END;
-$function$
-;
+$function$;
 
-CREATE OR REPLACE FUNCTION public.handle_new_user()
- RETURNS trigger
- LANGUAGE plpgsql
- SECURITY DEFINER
- SET search_path TO 'public'
-AS $function$
+CREATE OR REPLACE FUNCTION public.handle_new_user () returns trigger language plpgsql security definer
+SET
+  search_path TO 'public' AS $function$
 begin
   insert into public.users (id)
   values (new.id);
   return new;
 end;
-$function$
-;
+$function$;
 
-CREATE OR REPLACE FUNCTION public.replace_user_roles(p_user_id uuid, p_roles role[])
- RETURNS void
- LANGUAGE plpgsql
-AS $function$
+CREATE OR REPLACE FUNCTION public.replace_user_roles (p_user_id uuid, p_roles role[]) returns void language plpgsql AS $function$
 BEGIN
   DELETE FROM public.user_roles WHERE user_id = p_user_id;
 
@@ -1789,13 +3779,9 @@ BEGIN
     SELECT p_user_id, unnest(p_roles);
   END IF;
 END;
-$function$
-;
+$function$;
 
-CREATE OR REPLACE FUNCTION public.replace_user_sns_links(user_id uuid, sns_accounts jsonb)
- RETURNS void
- LANGUAGE plpgsql
-AS $function$
+CREATE OR REPLACE FUNCTION public.replace_user_sns_links (user_id uuid, sns_accounts jsonb) returns void language plpgsql AS $function$
 BEGIN
   -- 既存のSNSアカウント情報を削除
   DELETE FROM public.user_sns_links WHERE user_sns_links.user_id = replace_user_sns_links.user_id;
@@ -1814,70 +3800,266 @@ BEGIN
     WHERE trim(j->>'value') != '';
   END IF;
 END;
-$function$
-;
+$function$;
 
-create or replace view "public"."session_venues_with_sessions" as  SELECT sv.id,
-    sv.name,
-    COALESCE(( SELECT json_agg(json_build_object('id', s.id, 'title', s.title, 'description', s.description, 'starts_at', s.starts_at, 'ends_at', s.ends_at, 'is_lightning_talk', s.is_lightning_talk, 'is_beginners_lightning_talk', s.is_beginners_lightning_talk, 'is_hands_on', s.is_hands_on, 'video_url', s.video_url, 'speakers', COALESCE(( SELECT json_agg(json_build_object('id', sp.id, 'name', sp.name, 'avatar_url', sp.avatar_url, 'x_id', sp.x_id)) AS json_agg
-                   FROM (session_speakers ss
-                     JOIN speakers sp ON ((ss.speaker_id = sp.id)))
-                  WHERE (ss.session_id = s.id)), '[]'::json), 'sponsor',
-                CASE
-                    WHEN (s.sponsor_id IS NOT NULL) THEN ( SELECT json_build_object('id', c.id, 'name', c.name, 'logo_url', c.logo_name, 'slug', cd.slug, 'pr_text', cd.pr_text, 'website_url', cd.website_url, 'sponsor_type', sc.sponsor_type, 'display_order', sc.display_order, 'basic_plan_type', bsc.basic_plan_type, 'option_plan_types', COALESCE(array_agg((sco.option_plan_type)::text) FILTER (WHERE (sco.option_plan_type IS NOT NULL)), ARRAY[]::text[])) AS json_build_object
-                       FROM (((((companies c
-                         JOIN sponsor_companies sc ON ((c.id = sc.company_id)))
-                         LEFT JOIN basic_sponsor_companies bsc ON ((sc.id = bsc.sponsor_company_id)))
-                         LEFT JOIN company_drafts cd ON ((c.id = cd.company_id)))
-                         LEFT JOIN company_draft_approvals cda ON ((cd.id = cda.company_draft_id)))
-                         LEFT JOIN sponsor_company_options sco ON ((sc.id = sco.sponsor_company_id)))
-                      WHERE (sc.id = s.sponsor_id)
-                      GROUP BY c.id, c.name, c.logo_name, cd.slug, cd.pr_text, cd.website_url, sc.sponsor_type, sc.display_order, bsc.basic_plan_type)
-                    ELSE NULL::json
-                END) ORDER BY s.starts_at) AS json_agg
-           FROM sessions s
-          WHERE (s.venue_id = sv.id)), '[]'::json) AS sessions
-   FROM session_venues sv
-  ORDER BY sv.name;
+CREATE OR REPLACE VIEW "public"."session_venues_with_sessions" AS
+SELECT
+  sv.id,
+  sv.name,
+  coalesce(
+    (
+      SELECT
+        json_agg(
+          json_build_object(
+            'id',
+            s.id,
+            'title',
+            s.title,
+            'description',
+            s.description,
+            'starts_at',
+            s.starts_at,
+            'ends_at',
+            s.ends_at,
+            'is_lightning_talk',
+            s.is_lightning_talk,
+            'is_beginners_lightning_talk',
+            s.is_beginners_lightning_talk,
+            'is_hands_on',
+            s.is_hands_on,
+            'video_url',
+            s.video_url,
+            'speakers',
+            coalesce(
+              (
+                SELECT
+                  json_agg(json_build_object('id', sp.id, 'name', sp.name, 'avatar_url', sp.avatar_url, 'x_id', sp.x_id)) AS json_agg
+                FROM
+                  (
+                    session_speakers ss
+                    JOIN speakers sp ON ((ss.speaker_id = sp.id))
+                  )
+                WHERE
+                  (ss.session_id = s.id)
+              ),
+              '[]'::json
+            ),
+            'sponsor',
+            CASE
+              WHEN (s.sponsor_id IS NOT NULL) THEN (
+                SELECT
+                  json_build_object(
+                    'id',
+                    c.id,
+                    'name',
+                    c.name,
+                    'logo_url',
+                    c.logo_name,
+                    'slug',
+                    cd.slug,
+                    'pr_text',
+                    cd.pr_text,
+                    'website_url',
+                    cd.website_url,
+                    'sponsor_type',
+                    sc.sponsor_type,
+                    'display_order',
+                    sc.display_order,
+                    'basic_plan_type',
+                    bsc.basic_plan_type,
+                    'option_plan_types',
+                    coalesce(
+                      array_agg((sco.option_plan_type)::text) FILTER (
+                        WHERE
+                          (sco.option_plan_type IS NOT NULL)
+                      ),
+                      ARRAY[]::TEXT[]
+                    )
+                  ) AS json_build_object
+                FROM
+                  (
+                    (
+                      (
+                        (
+                          (
+                            companies c
+                            JOIN sponsor_companies sc ON ((c.id = sc.company_id))
+                          )
+                          LEFT JOIN basic_sponsor_companies bsc ON ((sc.id = bsc.sponsor_company_id))
+                        )
+                        LEFT JOIN company_drafts cd ON ((c.id = cd.company_id))
+                      )
+                      LEFT JOIN company_draft_approvals cda ON ((cd.id = cda.company_draft_id))
+                    )
+                    LEFT JOIN sponsor_company_options sco ON ((sc.id = sco.sponsor_company_id))
+                  )
+                WHERE
+                  (sc.id = s.sponsor_id)
+                GROUP BY
+                  c.id,
+                  c.name,
+                  c.logo_name,
+                  cd.slug,
+                  cd.pr_text,
+                  cd.website_url,
+                  sc.sponsor_type,
+                  sc.display_order,
+                  bsc.basic_plan_type
+              )
+              ELSE NULL::json
+            END
+          )
+          ORDER BY
+            s.starts_at
+        ) AS json_agg
+      FROM
+        sessions s
+      WHERE
+        (s.venue_id = sv.id)
+    ),
+    '[]'::json
+  ) AS sessions
+FROM
+  session_venues sv
+ORDER BY
+  sv.name;
 
+CREATE OR REPLACE VIEW "public"."sponsor_with_sessions" AS
+SELECT
+  json_build_object(
+    'id',
+    c.id,
+    'name',
+    c.name,
+    'logo_url',
+    c.logo_name,
+    'slug',
+    cd.slug,
+    'pr_text',
+    cd.pr_text,
+    'website_url',
+    cd.website_url,
+    'sponsor_type',
+    sc.sponsor_type,
+    'display_order',
+    sc.display_order,
+    'basic_plan_type',
+    bsc.basic_plan_type,
+    'option_plan_types',
+    coalesce(
+      array_agg(DISTINCT (sco.option_plan_type)::text) FILTER (
+        WHERE
+          (sco.option_plan_type IS NOT NULL)
+      ),
+      ARRAY[]::TEXT[]
+    )
+  ) AS sponsor,
+  coalesce(
+    (
+      SELECT
+        json_agg(
+          json_build_object(
+            'id',
+            s.id,
+            'title',
+            s.title,
+            'description',
+            s.description,
+            'starts_at',
+            s.starts_at,
+            'ends_at',
+            s.ends_at,
+            'is_lightning_talk',
+            s.is_lightning_talk,
+            'is_beginners_lightning_talk',
+            s.is_beginners_lightning_talk,
+            'is_hands_on',
+            s.is_hands_on,
+            'video_url',
+            s.video_url,
+            'venue',
+            json_build_object('id', sv.id, 'name', sv.name),
+            'speakers',
+            coalesce(
+              (
+                SELECT
+                  json_agg(json_build_object('id', sp.id, 'name', sp.name, 'avatar_url', sp.avatar_url, 'x_id', sp.x_id)) AS json_agg
+                FROM
+                  (
+                    session_speakers ss
+                    JOIN speakers sp ON ((ss.speaker_id = sp.id))
+                  )
+                WHERE
+                  (ss.session_id = s.id)
+              ),
+              '[]'::json
+            )
+          )
+          ORDER BY
+            s.starts_at
+        ) AS json_agg
+      FROM
+        (
+          sessions s
+          JOIN session_venues sv ON ((s.venue_id = sv.id))
+        )
+      WHERE
+        (s.sponsor_id = sc.id)
+    ),
+    '[]'::json
+  ) AS sessions
+FROM
+  (
+    (
+      (
+        (
+          (
+            sponsor_companies sc
+            JOIN companies c ON ((sc.company_id = c.id))
+          )
+          LEFT JOIN basic_sponsor_companies bsc ON ((sc.id = bsc.sponsor_company_id))
+        )
+        LEFT JOIN company_drafts cd ON ((c.id = cd.company_id))
+      )
+      LEFT JOIN company_draft_approvals cda ON ((cd.id = cda.company_draft_id))
+    )
+    LEFT JOIN sponsor_company_options sco ON ((sc.id = sco.sponsor_company_id))
+  )
+WHERE
+  (cda.id IS NOT NULL)
+GROUP BY
+  c.id,
+  c.name,
+  c.logo_name,
+  cd.slug,
+  cd.pr_text,
+  cd.website_url,
+  sc.sponsor_type,
+  sc.display_order,
+  bsc.basic_plan_type,
+  sc.id
+HAVING
+  (
+    EXISTS (
+      SELECT
+        1
+      FROM
+        sessions s
+      WHERE
+        (s.sponsor_id = sc.id)
+    )
+  )
+ORDER BY
+  sc.display_order;
 
-create or replace view "public"."sponsor_with_sessions" as  SELECT json_build_object('id', c.id, 'name', c.name, 'logo_url', c.logo_name, 'slug', cd.slug, 'pr_text', cd.pr_text, 'website_url', cd.website_url, 'sponsor_type', sc.sponsor_type, 'display_order', sc.display_order, 'basic_plan_type', bsc.basic_plan_type, 'option_plan_types', COALESCE(array_agg(DISTINCT (sco.option_plan_type)::text) FILTER (WHERE (sco.option_plan_type IS NOT NULL)), ARRAY[]::text[])) AS sponsor,
-    COALESCE(( SELECT json_agg(json_build_object('id', s.id, 'title', s.title, 'description', s.description, 'starts_at', s.starts_at, 'ends_at', s.ends_at, 'is_lightning_talk', s.is_lightning_talk, 'is_beginners_lightning_talk', s.is_beginners_lightning_talk, 'is_hands_on', s.is_hands_on, 'video_url', s.video_url, 'venue', json_build_object('id', sv.id, 'name', sv.name), 'speakers', COALESCE(( SELECT json_agg(json_build_object('id', sp.id, 'name', sp.name, 'avatar_url', sp.avatar_url, 'x_id', sp.x_id)) AS json_agg
-                   FROM (session_speakers ss
-                     JOIN speakers sp ON ((ss.speaker_id = sp.id)))
-                  WHERE (ss.session_id = s.id)), '[]'::json)) ORDER BY s.starts_at) AS json_agg
-           FROM (sessions s
-             JOIN session_venues sv ON ((s.venue_id = sv.id)))
-          WHERE (s.sponsor_id = sc.id)), '[]'::json) AS sessions
-   FROM (((((sponsor_companies sc
-     JOIN companies c ON ((sc.company_id = c.id)))
-     LEFT JOIN basic_sponsor_companies bsc ON ((sc.id = bsc.sponsor_company_id)))
-     LEFT JOIN company_drafts cd ON ((c.id = cd.company_id)))
-     LEFT JOIN company_draft_approvals cda ON ((cd.id = cda.company_draft_id)))
-     LEFT JOIN sponsor_company_options sco ON ((sc.id = sco.sponsor_company_id)))
-  WHERE (cda.id IS NOT NULL)
-  GROUP BY c.id, c.name, c.logo_name, cd.slug, cd.pr_text, cd.website_url, sc.sponsor_type, sc.display_order, bsc.basic_plan_type, sc.id
- HAVING (EXISTS ( SELECT 1
-           FROM sessions s
-          WHERE (s.sponsor_id = sc.id)))
-  ORDER BY sc.display_order;
-
-
-CREATE OR REPLACE FUNCTION public.update_updated_at_column()
- RETURNS trigger
- LANGUAGE plpgsql
-AS $function$
+CREATE OR REPLACE FUNCTION public.update_updated_at_column () returns trigger language plpgsql AS $function$
 BEGIN
   NEW.updated_at = current_timestamp;
   RETURN NEW;
 END;
-$function$
-;
+$function$;
 
-CREATE OR REPLACE FUNCTION public.upsert_user_roles(p_user_id uuid, roles role[])
- RETURNS users
- LANGUAGE plpgsql
-AS $function$
+CREATE OR REPLACE FUNCTION public.upsert_user_roles (p_user_id uuid, roles role[]) returns users language plpgsql AS $function$
 DECLARE
   result public.users;
 BEGIN
@@ -1897,13 +4079,9 @@ BEGIN
   INTO result;
   RETURN result;
 END;
-$function$
-;
+$function$;
 
-CREATE OR REPLACE FUNCTION public.uuid_generate_v7()
- RETURNS uuid
- LANGUAGE plpgsql
-AS $function$
+CREATE OR REPLACE FUNCTION public.uuid_generate_v7 () returns uuid language plpgsql AS $function$
 BEGIN
     return encode(set_bit(set_bit(overlay(
         uuid_send(gen_random_uuid())
@@ -1911,113 +4089,81 @@ BEGIN
         from 1 for 6
     ), 52, 1), 53, 1), 'hex')::uuid;
 END
-$function$
-;
+$function$;
 
-create or replace view "public"."v_ticket_counts" as  SELECT tt.id AS ticket_type_id,
-    COALESCE(tp_counts.sold_count, 0) AS sold_count,
-    COALESCE(tcs_counts.reserved_count, 0) AS reserved_count
-   FROM ((ticket_types tt
-     LEFT JOIN ( SELECT tp.ticket_type_id,
-            (count(*))::integer AS sold_count
-           FROM ticket_purchases tp
-          GROUP BY tp.ticket_type_id) tp_counts ON ((tt.id = tp_counts.ticket_type_id)))
-     LEFT JOIN ( SELECT tcs.ticket_type_id,
-            (count(*))::integer AS reserved_count
-           FROM ticket_checkout_sessions tcs
-          WHERE ((tcs.status = 'pending'::ticket_checkout_status) AND (tcs.expires_at > now()))
-          GROUP BY tcs.ticket_type_id) tcs_counts ON ((tt.id = tcs_counts.ticket_type_id)));
+CREATE OR REPLACE VIEW "public"."v_ticket_counts" AS
+SELECT
+  tt.id AS ticket_type_id,
+  coalesce(tp_counts.sold_count, 0) AS sold_count,
+  coalesce(tcs_counts.reserved_count, 0) AS reserved_count
+FROM
+  (
+    (
+      ticket_types tt
+      LEFT JOIN (
+        SELECT
+          tp.ticket_type_id,
+          (count(*))::integer AS sold_count
+        FROM
+          ticket_purchases tp
+        GROUP BY
+          tp.ticket_type_id
+      ) tp_counts ON ((tt.id = tp_counts.ticket_type_id))
+    )
+    LEFT JOIN (
+      SELECT
+        tcs.ticket_type_id,
+        (count(*))::integer AS reserved_count
+      FROM
+        ticket_checkout_sessions tcs
+      WHERE
+        (
+          (tcs.status = 'pending'::ticket_checkout_status)
+          AND (tcs.expires_at > now())
+        )
+      GROUP BY
+        tcs.ticket_type_id
+    ) tcs_counts ON ((tt.id = tcs_counts.ticket_type_id))
+  );
 
-
-create or replace view "public"."v_ticket_option_counts" as  SELECT topt.id AS ticket_option_id,
-    topt.ticket_type_id,
-    COALESCE(tpo_counts.sold_count, 0) AS sold_count,
-    COALESCE(tco_counts.reserved_count, 0) AS reserved_count
-   FROM ((ticket_options topt
-     LEFT JOIN ( SELECT tpo.ticket_option_id,
-            (count(*))::integer AS sold_count
-           FROM (ticket_purchase_options tpo
-             JOIN ticket_purchases tp ON ((tpo.ticket_purchase_id = tp.id)))
-          GROUP BY tpo.ticket_option_id) tpo_counts ON ((topt.id = tpo_counts.ticket_option_id)))
-     LEFT JOIN ( SELECT tco.ticket_option_id,
-            (count(*))::integer AS reserved_count
-           FROM (ticket_checkout_options tco
-             JOIN ticket_checkout_sessions tcs ON ((tco.checkout_session_id = tcs.id)))
-          WHERE ((tcs.status = 'pending'::ticket_checkout_status) AND (tcs.expires_at > now()))
-          GROUP BY tco.ticket_option_id) tco_counts ON ((topt.id = tco_counts.ticket_option_id)));
-
-
-create policy "session_speakers_admin_write"
-on "public"."session_speakers"
-as permissive
-for all
-to authenticated
-using ((EXISTS ( SELECT 1
-   FROM user_roles
-  WHERE ((user_roles.user_id = auth.uid()) AND (user_roles.role = 'admin'::role)))));
-
-
-create policy "session_speakers_read_all"
-on "public"."session_speakers"
-as permissive
-for select
-to public
-using (true);
-
-
-create policy "session_venues_admin_write"
-on "public"."session_venues"
-as permissive
-for all
-to authenticated
-using ((EXISTS ( SELECT 1
-   FROM user_roles
-  WHERE ((user_roles.user_id = auth.uid()) AND (user_roles.role = 'admin'::role)))));
-
-
-create policy "session_venues_read_all"
-on "public"."session_venues"
-as permissive
-for select
-to public
-using (true);
-
-
-create policy "sessions_admin_write"
-on "public"."sessions"
-as permissive
-for all
-to authenticated
-using ((EXISTS ( SELECT 1
-   FROM user_roles
-  WHERE ((user_roles.user_id = auth.uid()) AND (user_roles.role = 'admin'::role)))));
-
-
-create policy "sessions_read_all"
-on "public"."sessions"
-as permissive
-for select
-to public
-using (true);
-
-
-create policy "speakers_admin_write"
-on "public"."speakers"
-as permissive
-for all
-to authenticated
-using ((EXISTS ( SELECT 1
-   FROM user_roles
-  WHERE ((user_roles.user_id = auth.uid()) AND (user_roles.role = 'admin'::role)))));
-
-
-create policy "speakers_read_all"
-on "public"."speakers"
-as permissive
-for select
-to public
-using (true);
-
-
-
-
+CREATE OR REPLACE VIEW "public"."v_ticket_option_counts" AS
+SELECT
+  topt.id AS ticket_option_id,
+  topt.ticket_type_id,
+  coalesce(tpo_counts.sold_count, 0) AS sold_count,
+  coalesce(tco_counts.reserved_count, 0) AS reserved_count
+FROM
+  (
+    (
+      ticket_options topt
+      LEFT JOIN (
+        SELECT
+          tpo.ticket_option_id,
+          (count(*))::integer AS sold_count
+        FROM
+          (
+            ticket_purchase_options tpo
+            JOIN ticket_purchases tp ON ((tpo.ticket_purchase_id = tp.id))
+          )
+        GROUP BY
+          tpo.ticket_option_id
+      ) tpo_counts ON ((topt.id = tpo_counts.ticket_option_id))
+    )
+    LEFT JOIN (
+      SELECT
+        tco.ticket_option_id,
+        (count(*))::integer AS reserved_count
+      FROM
+        (
+          ticket_checkout_options tco
+          JOIN ticket_checkout_sessions tcs ON ((tco.checkout_session_id = tcs.id))
+        )
+      WHERE
+        (
+          (tcs.status = 'pending'::ticket_checkout_status)
+          AND (tcs.expires_at > now())
+        )
+      GROUP BY
+        tco.ticket_option_id
+    ) tco_counts ON ((topt.id = tco_counts.ticket_option_id))
+  );
