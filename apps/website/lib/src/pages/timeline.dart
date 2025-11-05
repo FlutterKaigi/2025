@@ -1,7 +1,7 @@
 import 'package:flutterkaigi_2025_website/src/components/external_link.dart';
 import 'package:flutterkaigi_2025_website/src/components/open_in_new.dart';
 import 'package:flutterkaigi_2025_website/src/config/config.dart';
-import 'package:flutterkaigi_2025_website/src/config/sessions_data.g.dart'
+import 'package:flutterkaigi_2025_website/src/config/sessions_data.dart'
     show venuesWithSessions;
 import 'package:flutterkaigi_2025_website/src/config/timeline_converter.dart';
 import 'package:flutterkaigi_2025_website/src/constants/styles.dart';

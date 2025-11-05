@@ -20,6 +20,7 @@ on:
 
 env:
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  TZ: Asia/Tokyo
 
 concurrency:
   group: "deploy-website"
@@ -60,9 +61,69 @@ jobs:
           env: website
           ref: ${{ github.head_ref }}
 
+  wait-for-bff-deploy:
+    needs:
+      - define-environment
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Wait for BFF deployment to complete
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "Waiting for Deploy BFF workflow to complete..."
+
+          # PR番号を取得
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            PR_NUMBER="${{ github.event.pull_request.number }}"
+            echo "PR number: $PR_NUMBER"
+
+            # 最大10分待機（30秒ごとにチェック）
+            max_attempts=20
+            attempt=0
+
+            while [ $attempt -lt $max_attempts ]; do
+              # 現在のPRに関連するBFFワークフローの実行を取得
+              workflow_runs=$(gh run list \
+                --repo ${{ github.repository }} \
+                --workflow=deploy-bff.yaml \
+                --json status,conclusion,headSha \
+                --jq ".[] | select(.headSha == \"${{ github.event.pull_request.head.sha }}\")")
+
+              if [ -z "$workflow_runs" ]; then
+                echo "No BFF workflow run found for this commit yet. Waiting..."
+              else
+                status=$(echo "$workflow_runs" | jq -r '.status' | head -1)
+                conclusion=$(echo "$workflow_runs" | jq -r '.conclusion' | head -1)
+
+                echo "BFF workflow status: $status, conclusion: $conclusion"
+
+                if [ "$status" = "completed" ]; then
+                  if [ "$conclusion" = "success" ]; then
+                    echo "BFF deployment completed successfully!"
+                    exit 0
+                  else
+                    echo "BFF deployment failed with conclusion: $conclusion"
+                    echo "Proceeding with website build anyway..."
+                    exit 0
+                  fi
+                fi
+              fi
+
+              attempt=$((attempt + 1))
+              echo "Attempt $attempt/$max_attempts - Waiting 30 seconds..."
+              sleep 30
+            done
+
+            echo "Timeout waiting for BFF deployment. Proceeding with website build..."
+          else
+            echo "Not a pull request event, skipping wait for BFF deployment"
+          fi
+
   build-website:
     needs:
       - define-environment
+      - wait-for-bff-deploy
     runs-on: ubuntu-24.04
     outputs:
       build_log: ${{ steps.build.outputs.LOG }}

@@ -1,61 +1,55 @@
-[tools."aqua:suzuki-shunsuke/tfcmt"]
+[[tools."aqua:suzuki-shunsuke/tfcmt"]]
 version = "4.14.12"
 backend = "aqua:suzuki-shunsuke/tfcmt"
 
-[tools.aws-cli]
+[[tools.aws-cli]]
 version = "2.31.25"
 backend = "aqua:aws/aws-cli"
 
-[tools.aws-cli.checksums]
-"AWSCLIV2-2.31.25.pkg" = "sha256:72f132081d32380a5b83cfab2d222584adc44d5a5409e87f8b6e748c1a7885e8"
-
-[tools.bun]
+[[tools.bun]]
 version = "1.2.21"
 backend = "core:bun"
 
-[tools.dprint]
+[[tools.dprint]]
 version = "0.50.2"
 backend = "aqua:dprint/dprint"
 
-[tools.flutter]
+[[tools.flutter]]
 version = "3.38.0-0.1.pre-beta"
 backend = "asdf:flutter"
 
-[tools.node]
+[[tools.node]]
 version = "24.4.0"
 backend = "core:node"
 
-[tools."pipx:codemagic-cli-tools"]
+[[tools."pipx:codemagic-cli-tools"]]
 version = "0.61.1"
 backend = "pipx:codemagic-cli-tools"
 
-[tools.rclone]
+[[tools.rclone]]
 version = "1.71.2"
 backend = "aqua:rclone/rclone"
 
-[tools.stripe]
+[[tools.stripe]]
 version = "1.31.1"
 backend = "aqua:stripe/stripe-cli"
 
-[tools.swift]
+[[tools.swift]]
 version = "6.2"
 backend = "core:swift"
 
-[tools.terraform]
+[[tools.terraform]]
 version = "1.13.4"
 backend = "aqua:hashicorp/terraform"
 
-[tools.tflint]
+[[tools.tflint]]
 version = "0.59.1"
 backend = "aqua:terraform-linters/tflint"
 
-[tools.uv]
+[[tools.uv]]
 version = "0.9.6"
 backend = "aqua:astral-sh/uv"
 
-[tools.uv.checksums]
-"uv-aarch64-apple-darwin.tar.gz" = "sha256:892e8ac6d5240a4dec21fac5bedef52c1b6d40f0dfe52f9e3203038e7e16aed2"
-
-[tools.websocat]
+[[tools.websocat]]
 version = "1.14.0"
 backend = "aqua:vi/websocat"

@@ -4,6 +4,7 @@ export 'models/device_tokens.dart';
 export 'models/job_board.dart';
 export 'models/profile_with_sns_links.dart';
 export 'models/sponsors.dart';
+export 'models/staff_member_with_sns_links.dart';
 export 'models/ticket_purchase_with_details.dart';
 export 'models/ticket_type_with_options.dart';
 export 'models/ticket_type_with_options_and_counts.dart';

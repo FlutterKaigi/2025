@@ -29,5 +29,5 @@ resource "docker_registry_image" "fcm-internal-api" {
 }
 
 output "docker_image_fcm-internal-api_sha256" {
-  value = var.enable_fcm_internal_api ? trimprefix(docker_registry_image.fcm-internal-api[0].sha256_digest, "sha256:") : ""
+  value = var.enable_fcm_internal_api ? trimprefix(docker_registry_image.fcm-internal-api[0].sha256_digest, "sha256:") : null
 }
