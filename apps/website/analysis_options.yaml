@@ -3,7 +3,7 @@ include: package:flutterkaigi_lints/analysis_options.yaml
 analyzer:
   exclude:
     - lib/jaspr_options.dart
-    - lib/src/config/sessions_data.g.dart
+    - lib/src/config/sessions_data.json.dart
   plugins:
     - custom_lint
 

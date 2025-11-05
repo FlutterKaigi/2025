@@ -1,4 +1,4 @@
-import 'package:flutterkaigi_2025_website/src/config/sessions_data.g.dart'
+import 'package:flutterkaigi_2025_website/src/config/sessions_data.dart'
     show timelineEvents, venuesWithSessions;
 import 'package:flutterkaigi_2025_website/src/config/timeline_converter.dart';
 import 'package:flutterkaigi_2025_website/text.dart' show Content, Place;
