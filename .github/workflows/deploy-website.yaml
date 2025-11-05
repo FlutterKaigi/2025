@@ -85,6 +85,7 @@ jobs:
             while [ $attempt -lt $max_attempts ]; do
               # 現在のPRに関連するBFFワークフローの実行を取得
               workflow_runs=$(gh run list \
+                --repo ${{ github.repository }} \
                 --workflow=deploy-bff.yaml \
                 --json status,conclusion,headSha \
                 --jq ".[] | select(.headSha == \"${{ github.event.pull_request.head.sha }}\")")
