@@ -6,6 +6,7 @@ import 'package:db_client/src/client/profile/profile_db_client.dart';
 import 'package:db_client/src/client/session/session_db_client.dart';
 import 'package:db_client/src/client/speaker/speaker_db_client.dart';
 import 'package:db_client/src/client/sponsor/sponsor_db_client.dart';
+import 'package:db_client/src/client/staff_member/staff_member_db_client.dart';
 import 'package:db_client/src/client/ticket/ticket_checkout_db_client.dart';
 import 'package:db_client/src/client/ticket/ticket_option_db_client.dart';
 import 'package:db_client/src/client/ticket/ticket_purchase_db_client.dart';
@@ -59,6 +60,10 @@ class DbClient {
   SponsorDbClient get sponsor => SponsorDbClient(
     executor: _executor,
     logoBaseUrl: _logoBaseUrl,
+  );
+  StaffMemberDbClient get staffMember => StaffMemberDbClient(
+    executor: _executor,
+    iconBaseUrl: _logoBaseUrl,
   );
   TicketTypeDbClient get ticketType => TicketTypeDbClient(executor: _executor);
   TicketOptionDbClient get ticketOption =>

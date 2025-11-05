@@ -35,15 +35,15 @@ module "apprun" {
   X_API_KEY                       = var.X_API_KEY
   logo_base_url                   = "https://pub-27ad8ed93aa141a0b45f128f849914ed.r2.dev"
   # MEMO(YumNumm): Supabase側のTerraformから取得するようにする
-  supabase_project_id       = "ikrzxakkbmajammujqao"
-  supabase_db_password      = var.SUPABASE_DB_PASSWORD_STAGING
-  supabase_service_role_key = var.SUPABASE_SERVICE_ROLE_KEY_STAGING
-  cloudflare_account_id     = local.cloudflare_account_id
-  r2_bucket_name            = local.r2_bucket_name
-  r2_access_key_id          = var.R2_ACCESS_KEY_ID
-  r2_secret_access_key      = var.R2_SECRET_ACCESS_KEY
-  websocket_base_url        = "wss://websocket-api-staging.flutterkaigi.workers.dev"
-  name_suffix               = ""
+  supabase_project_id         = "ikrzxakkbmajammujqao"
+  supabase_db_password        = var.SUPABASE_DB_PASSWORD_STAGING
+  supabase_service_role_key   = var.SUPABASE_SERVICE_ROLE_KEY_STAGING
+  cloudflare_account_id       = local.cloudflare_account_id
+  r2_bucket_name              = local.r2_bucket_name
+  r2_access_key_id            = var.R2_ACCESS_KEY_ID
+  r2_secret_access_key        = var.R2_SECRET_ACCESS_KEY
+  websocket_base_url          = "wss://websocket-api-staging.flutterkaigi.workers.dev"
+  name_suffix                 = ""
   websocket_jwt_secret_base64 = var.WEBSOCKET_JWT_SECRET_BASE64
 }
 
