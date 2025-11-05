@@ -1562,15 +1562,11 @@ drop view if exists "public"."v_ticket_option_counts";
 
 alter table "public"."session_venues" alter column "id" set default extensions.uuid_generate_v4();
 
-alter table "public"."sessions" drop column "url";
-
 alter table "public"."sessions" alter column "id" set default extensions.uuid_generate_v4();
 
 alter table "public"."speakers" alter column "id" set default extensions.uuid_generate_v4();
 
 alter table "public"."ticket_purchases" alter column "nameplate_id" set data type text using "nameplate_id"::text;
-
-alter table "public"."timeline_events" drop column "url";
 
 alter table "public"."timeline_events" alter column "id" set default extensions.uuid_generate_v4();
 
