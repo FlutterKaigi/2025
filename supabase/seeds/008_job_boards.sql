@@ -2,7 +2,7 @@
 INSERT INTO job_boards (id, url, alt_text, image_name) VALUES
     (1, 'https://job.persona-ats.com/ja/assign/jobs?filters=zmnNB_H2Q52r7D9fUwEQ6A', '株式会社アサインのジョブボード', 'assign.png'),
     (2, 'https://hrmos.co/pages/cyberagent-group', 'サイバーエージェント', 'cyberagent.png'),
-    (3, 'https://corporate.iiba.space/career', E'株式会社iibaの採用ページ\nhttps://corporate.iiba.space/career', 'hacomono.png'),
+    (3, 'https://corporate.iiba.space/career', E'株式会社iibaの採用ページ\nhttps://corporate.iiba.space/career', 'iiba.png'),
     (4, 'https://hrmos.co/pages/simplex/jobs/60000001', 'シンプレクス株式会社', 'simplex.png'),
     (5, 'https://magicpod.com/corporate/recruit/', '株式会社MagicPod', 'magicpod.png'),
     (6, 'https://hrmos.co/pages/zozo/jobs/1809846973241688329', 'ZOZO, Inc. / ZOZOマッチ', 'zozo.png'),
