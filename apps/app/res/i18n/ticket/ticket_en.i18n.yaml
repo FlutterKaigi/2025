@@ -10,6 +10,8 @@ loginRequired:
   title: Please sign in with Google account before purchasing tickets
   linkTitle: Please link your Google account before purchasing tickets
   description: Please sign in with your Google account to purchase tickets
+  appleSignInTitle: Ticket purchase not available with Apple Sign In
+  appleSignInDescription: You are currently signed in with Apple. To purchase tickets, please sign out and sign in again with your Google account.
 notice:
   title: Notice
   message: |

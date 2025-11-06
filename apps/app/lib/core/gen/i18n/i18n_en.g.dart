@@ -403,6 +403,8 @@ class _TranslationsTicketLoginRequiredEn extends TranslationsTicketLoginRequired
 	@override String get title => 'Please sign in with Google account before purchasing tickets';
 	@override String get linkTitle => 'Please link your Google account before purchasing tickets';
 	@override String get description => 'Please sign in with your Google account to purchase tickets';
+	@override String get appleSignInTitle => 'Ticket purchase not available with Apple Sign In';
+	@override String get appleSignInDescription => 'You are currently signed in with Apple. To purchase tickets, please sign out and sign in again with your Google account.';
 }
 
 // Path: ticket.notice
@@ -824,6 +826,8 @@ extension on TranslationsEn {
 			case 'ticket.loginRequired.title': return 'Please sign in with Google account before purchasing tickets';
 			case 'ticket.loginRequired.linkTitle': return 'Please link your Google account before purchasing tickets';
 			case 'ticket.loginRequired.description': return 'Please sign in with your Google account to purchase tickets';
+			case 'ticket.loginRequired.appleSignInTitle': return 'Ticket purchase not available with Apple Sign In';
+			case 'ticket.loginRequired.appleSignInDescription': return 'You are currently signed in with Apple. To purchase tickets, please sign out and sign in again with your Google account.';
 			case 'ticket.notice.title': return 'Notice';
 			case 'ticket.notice.message': return 'The "Individual Sponsor Ticket" alone does not include admission to FlutterKaigi 2025 (conference venue).\nIf you wish to attend, please purchase an Early Bird Ticket (available until the end of September) or a Regular Ticket separately.\nWe also welcome support from those who want to sponsor FlutterKaigi without attending the event!\n\nThe pre-conference event is exclusive to Early Bird Ticket holders.\nRegular Ticket holders cannot attend the pre-conference event.\n';
 			case 'ticket.studentRefund.title': return 'Student Refund and Expense Support';

@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:app/core/gen/assets/assets.gen.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
+import 'package:app/core/provider/environment.dart';
 import 'package:app/features/auth/data/notifier/auth_notifier.dart';
 import 'package:app/features/force_update/force_update.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
@@ -57,6 +61,8 @@ class LoginScreen extends HookConsumerWidget {
       return null;
     }, []);
 
+    final flavor = ref.watch(environmentProvider).flavor;
+
     return ForceUpdateDialogListener(
       child: Scaffold(
         body: SafeArea(
@@ -78,9 +84,25 @@ class LoginScreen extends HookConsumerWidget {
                         t.common.app.name,
                         style: theme.textTheme.titleMedium,
                       ),
-                      _GoogleSignInButton(
-                        onPressed: () async =>
-                            ref.read(authProvider.notifier).signInWithGoogle(),
+                      IntrinsicWidth(
+                        child: Column(
+                          spacing: 8,
+                          children: [
+                            _GoogleSignInButton(
+                              onPressed: () async => ref
+                                  .read(authProvider.notifier)
+                                  .signInWithGoogle(),
+                            ),
+                            if (flavor == Flavor.production &&
+                                !kIsWeb &&
+                                (Platform.isIOS || Platform.isMacOS))
+                              _AppleSignInButton(
+                                onPressed: () async => ref
+                                    .read(authProvider.notifier)
+                                    .signInWithApple(),
+                              ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -109,6 +131,30 @@ class _GoogleSignInButton extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(40),
         onTap: onPressed,
+      ),
+    );
+  }
+}
+
+class _AppleSignInButton extends StatelessWidget {
+  const _AppleSignInButton({required this.onPressed});
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return OutlinedButton.icon(
+      onPressed: onPressed,
+      style: FilledButton.styleFrom(
+        foregroundColor: Colors.white,
+        minimumSize: const Size(double.infinity, 48),
+      ),
+      icon: const Icon(
+        Icons.apple,
+        size: 32,
+      ),
+      label: const Text(
+        'Sign in with Apple',
+        style: TextStyle(fontSize: 16),
       ),
     );
   }
