@@ -10,6 +10,8 @@ loginRequired:
   title: チケット購入前にGoogleアカウントでログインしてください
   linkTitle: チケット購入前にGoogleアカウントとリンクしてください
   description: チケットを購入するためには、Googleアカウントでログインしてください
+  appleSignInTitle: Apple Sign Inではチケット購入ができません
+  appleSignInDescription: 現在、Apple Sign Inでログインされています。チケットを購入するには、一度ログアウトしてGoogleアカウントでログインし直してください。
 notice:
   title: ご注意
   message: 「個人スポンサーチケット」のみでは、FlutterKaigi 2025本編（カンファレンス会場）へのご入場はできません。\n入場をご希望の方は、アーリーチケット（9月末まで販売予定）またはノーマルチケットを別途ご購入ください。\nなお、「個人スポンサーチケット」は、入場を目的とせず FlutterKaigi を応援したい方のご支援も大歓迎です！\n\n前夜祭への参加は「アーリーチケット」のみが対象です。\nノーマルチケットでは前夜祭に参加できませんのでご注意ください。

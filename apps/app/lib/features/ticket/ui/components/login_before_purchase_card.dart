@@ -11,6 +11,10 @@ class LoginBeforePurchaseCard extends StatelessWidget {
       const LoginBeforePurchaseCard._(
         type: LoginBeforePurchaseCardType.anonymous,
       );
+  factory LoginBeforePurchaseCard.appleSignIn() =>
+      const LoginBeforePurchaseCard._(
+        type: LoginBeforePurchaseCardType.appleSignIn,
+      );
 
   final LoginBeforePurchaseCardType type;
 
@@ -70,11 +74,17 @@ class LoginBeforePurchaseCard extends StatelessWidget {
 
 enum LoginBeforePurchaseCardType {
   login,
-  anonymous;
+  anonymous,
+  appleSignIn
+  ;
 
   String title(Translations t) => switch (this) {
     login => t.ticket.loginRequired.title,
     anonymous => t.ticket.loginRequired.linkTitle,
+    appleSignIn => t.ticket.loginRequired.appleSignInTitle,
   };
-  String description(Translations t) => t.ticket.loginRequired.description;
+  String description(Translations t) => switch (this) {
+    login || anonymous => t.ticket.loginRequired.description,
+    appleSignIn => t.ticket.loginRequired.appleSignInDescription,
+  };
 }

@@ -1,4 +1,5 @@
 import 'package:app/core/designsystem/theme/color_schemes.dart';
+import 'package:app/core/gen/assets/fonts.gen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -69,5 +70,6 @@ ThemeData darkTheme() {
     ),
     splashFactory: NoSplash.splashFactory,
     textTheme: textTheme,
+    fontFamily: FontFamily.notoSansJP,
   );
 }

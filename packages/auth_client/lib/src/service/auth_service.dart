@@ -1,4 +1,8 @@
+import 'dart:convert';
+
+import 'package:crypto/crypto.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthService {
@@ -49,6 +53,31 @@ class AuthService {
       );
       return result.user;
     }
+  }
+
+  Future<User?> signInWithApple() async {
+    /// Performs Apple sign in on iOS or macOS
+    final rawNonce = _client.auth.generateRawNonce();
+    final hashedNonce = sha256.convert(utf8.encode(rawNonce)).toString();
+    final credential = await SignInWithApple.getAppleIDCredential(
+      scopes: [
+        AppleIDAuthorizationScopes.email,
+        AppleIDAuthorizationScopes.fullName,
+      ],
+      nonce: hashedNonce,
+    );
+    final idToken = credential.identityToken;
+    if (idToken == null) {
+      throw const AuthException(
+        'Could not find ID Token from generated credential.',
+      );
+    }
+    final response = await _client.auth.signInWithIdToken(
+      provider: OAuthProvider.apple,
+      idToken: idToken,
+      nonce: rawNonce,
+    );
+    return response.user;
   }
 
   /// Googleでログインする
@@ -135,6 +164,16 @@ class AuthService {
           ),
         };
       });
+
+  /// Apple Sign Inでログインしているかどうか
+  bool isSignedInWithApple() {
+    final user = currentUser;
+    if (user == null) {
+      return false;
+    }
+    return user.identities?.any((identity) => identity.provider == 'apple') ??
+        false;
+  }
 }
 
 enum AuthStateEvent {

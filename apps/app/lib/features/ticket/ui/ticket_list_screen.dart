@@ -60,6 +60,15 @@ class TicketListScreen extends HookConsumerWidget {
             isAnonymous: ref.watch(
               authProvider.select((v) => v.value?.isAnonymous ?? false),
             ),
+            isSignedInWithApple: ref.watch(
+              authProvider.select(
+                (v) =>
+                    v.value?.identities?.any(
+                      (identity) => identity.provider == 'apple',
+                    ) ??
+                    false,
+              ),
+            ),
           ),
         ),
       ),
@@ -74,6 +83,7 @@ class _TicketsListView extends HookWidget {
     required this.onRefresh,
     required this.isLoggedIn,
     required this.isAnonymous,
+    required this.isSignedInWithApple,
   });
 
   final List<TicketItem> tickets;
@@ -81,6 +91,7 @@ class _TicketsListView extends HookWidget {
   final Future<void> Function() onRefresh;
   final bool isLoggedIn;
   final bool isAnonymous;
+  final bool isSignedInWithApple;
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +107,8 @@ class _TicketsListView extends HookWidget {
       [tickets, ticketTypes],
     );
 
-    final isAuthorizedByGoogle = isLoggedIn && !isAnonymous;
+    final isAuthorizedByGoogle =
+        isLoggedIn && !isAnonymous && !isSignedInWithApple;
 
     return RefreshIndicator.adaptive(
       onRefresh: onRefresh,
@@ -110,8 +122,12 @@ class _TicketsListView extends HookWidget {
           else if (isAnonymous)
             SliverToBoxAdapter(
               child: LoginBeforePurchaseCard.anonymous(),
+            )
+          else if (isSignedInWithApple)
+            SliverToBoxAdapter(
+              child: LoginBeforePurchaseCard.appleSignIn(),
             ),
-          if (!isLoggedIn || isAnonymous)
+          if (!isLoggedIn || isAnonymous || isSignedInWithApple)
             const SliverToBoxAdapter(
               child: Divider(),
             ),
