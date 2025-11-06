@@ -1,5 +1,8 @@
+import 'package:db_types/db_types.dart';
 import 'package:flutterkaigi_2025_website/src/config/sessions_data.dart'
     show timelineEvents, venuesWithSessions;
+import 'package:flutterkaigi_2025_website/src/config/sponsors_data.dart'
+    show companySponsors;
 import 'package:flutterkaigi_2025_website/src/config/timeline_converter.dart';
 import 'package:flutterkaigi_2025_website/text.dart' show Content, Place;
 
@@ -227,6 +230,9 @@ enum SponsorType {
   gold,
   silver,
   bronze,
+  community,
+  tool,
+  other,
 }
 
 extension SponsorTypeExtension on SponsorType {
@@ -235,10 +241,54 @@ extension SponsorTypeExtension on SponsorType {
     SponsorType.gold => 'Gold',
     SponsorType.silver => 'Silver',
     SponsorType.bronze => 'Bronze',
+    SponsorType.community => 'Community',
+    SponsorType.tool => 'Tool',
+    SponsorType.other => 'Sponsor',
   };
 }
 
-const _sponsors = <SponsorInfo>[
+/// BasicPlanTypeをSponsorTypeに変換する拡張メソッド
+extension BasicPlanTypeToSponsorType on BasicPlanType {
+  SponsorType toSponsorType() => switch (this) {
+    BasicPlanType.platinum => SponsorType.platinum,
+    BasicPlanType.gold => SponsorType.gold,
+    BasicPlanType.silver => SponsorType.silver,
+    BasicPlanType.bronze => SponsorType.bronze,
+  };
+}
+
+/// CompanySponsorTypeをSponsorTypeに変換する拡張メソッド
+extension CompanySponsorTypeToSponsorType on CompanySponsorType {
+  SponsorType toSponsorType(BasicPlanType? basicPlanType) => switch (this) {
+    CompanySponsorType.basic =>
+      basicPlanType?.toSponsorType() ?? SponsorType.bronze,
+    CompanySponsorType.community => SponsorType.community,
+    CompanySponsorType.tool => SponsorType.tool,
+    CompanySponsorType.none => SponsorType.other,
+  };
+}
+
+/// CompanySponsorDetailをSponsorInfoに変換する
+SponsorInfo _convertToSponsorInfo(CompanySponsorDetail detail) {
+  return (
+    name: detail.name,
+    slug: detail.slug,
+    url: detail.websiteUrl,
+    sns: (x: null), // APIではxAccountがCompanySponsorDetailに含まれていないため、nullに設定
+    pr: (ja: detail.prText, en: null),
+    logo: detail.logoUrl,
+    type: detail.sponsorType.toSponsorType(detail.basicPlanType),
+    disable: false,
+  );
+}
+
+/// API経由で取得した企業スポンサー情報をSponsorInfoに変換
+final _sponsors =
+    companySponsors.map<SponsorInfo>(_convertToSponsorInfo).toList();
+
+/// 以前のハードコードされたスポンサー情報（参考用にコメントアウト）
+// ignore: unused_element
+const _legacySponsors = <SponsorInfo>[
   (
     name: '株式会社ゆめみ',
     slug: 'yumemi',

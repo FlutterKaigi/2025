@@ -35,3 +35,5 @@ migrate_working_dir/
 # Generated session data files
 lib/src/config/sessions_data.json
 lib/src/config/sessions_data.json.dart
+lib/src/config/sponsors_data.json
+lib/src/config/sponsors_data.json.dart

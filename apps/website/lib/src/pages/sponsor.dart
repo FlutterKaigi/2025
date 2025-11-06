@@ -41,6 +41,12 @@ class Sponsor extends StatelessComponent {
                     'linear-gradient(to bottom, #d6d7d7, #909c9e)',
                   SponsorType.bronze =>
                     'linear-gradient(to bottom, #bb967a, #946a4a)',
+                  SponsorType.community =>
+                    'linear-gradient(to bottom, #a8d8ea, #6ca6cd)',
+                  SponsorType.tool =>
+                    'linear-gradient(to bottom, #d4a5d4, #a77ba7)',
+                  SponsorType.other =>
+                    'linear-gradient(to bottom, #c4c4c4, #8c8c8c)',
                 },
                 '-webkit-background-clip': 'text',
                 'background-clip': 'text',
