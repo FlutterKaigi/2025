@@ -1,3 +1,5 @@
+-- DELETE FROM timeline_events;
+
 -- Insert timeline events data
 -- venue IDs: Room A = 'e1a11efe-b1eb-43e1-ae60-9d2233e5dfe7', Room B = '0505c447-b699-4803-aab9-9cbdf9452c1b'
 INSERT INTO timeline_events (title, starts_at, ends_at, venue_id) VALUES
