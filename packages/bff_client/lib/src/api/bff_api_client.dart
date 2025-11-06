@@ -1,5 +1,4 @@
 import 'package:bff_client/bff_client.dart';
-import 'package:bff_client/src/api/v1/websocket_api_client.dart';
 import 'package:dio/dio.dart';
 
 export 'package:dio/dio.dart' show DioException, DioExceptionType;
@@ -27,4 +26,5 @@ class BffApiClientV1 {
   UsersApiClient get users => UsersApiClient(_dio);
   FilesApiClient get files => FilesApiClient(_dio);
   WebsocketApiClient get websocket => WebsocketApiClient(_dio);
+  JobBoardsApiClient get jobBoards => JobBoardsApiClient(_dio);
 }
