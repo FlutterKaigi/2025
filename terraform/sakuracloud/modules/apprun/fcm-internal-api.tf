@@ -1,4 +1,5 @@
 resource "sakuracloud_apprun_application" "flutterkaigi-2025-fcm-internal-api" {
+  count           = var.enable_fcm_internal_api ? 1 : 0
   name            = "flutterkaigi-2025-fcm-internal-api-${var.env}${var.name_suffix}"
   timeout_seconds = 20
   port            = 8080
@@ -38,5 +39,5 @@ resource "sakuracloud_apprun_application" "flutterkaigi-2025-fcm-internal-api" {
 
 
 output "apprun_fcm_internal_api_public_url" {
-  value = sakuracloud_apprun_application.flutterkaigi-2025-fcm-internal-api.public_url
+  value = var.enable_fcm_internal_api ? sakuracloud_apprun_application.flutterkaigi-2025-fcm-internal-api[0].public_url : null
 }

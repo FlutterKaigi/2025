@@ -268,7 +268,13 @@ At DeNA (pronounced "D-N-A") we use AI technology and our unique data analysis m
                 'https://biz.trustdock.io/company',
                 NULL
             ),
-            ('GMOコネクト株式会社', 'gmo-connect', 'GMOコネクト株式会社の企業情報', 'https://example.com', NULL),
+            (
+                'GMOコネクト株式会社',
+                'gmo-connect',
+                'GMOコネクトは先進的な開発技術と「人」と「テクノロジー」の力で、お客様の「できない」を「できる」に変えるパートナーです。業務課題の解決から、新たな価値創出までを事業に深く寄り添い、最適なITソリューションをモバイル開発も含めご提案しております。',
+                'https://tech.gmo-connect.com/',
+                'GMOCONNECT_Tech'
+            ),
             (
                 '株式会社Leafea',
                 'leafea',

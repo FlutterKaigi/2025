@@ -17,6 +17,10 @@ Router _$ApiServiceRouter(ApiService service) {
   router.mount(r'/v1', service._newsApiService.call);
   router.mount(r'/v1', service._sponsorApiService.call);
   router.mount(r'/v1', service._jobBoardApiService.call);
+<<<<<<< HEAD
+=======
+  router.mount(r'/v1', service._staffMemberApiService.call);
+>>>>>>> 53c3555ff3e7f944804d0515a7a417dabd7426a1
   router.mount(r'/v1', service._sessionApiService.call);
   router.mount(r'/v1/tickets', service._ticketApiService.call);
   router.mount(r'/v1/app', service._appVersionApiService.call);
