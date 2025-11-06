@@ -594,6 +594,12 @@ class TranslationsTicketLoginRequiredJa {
 
 	/// ja: 'チケットを購入するためには、Googleアカウントでログインしてください'
 	String get description => 'チケットを購入するためには、Googleアカウントでログインしてください';
+
+	/// ja: 'Apple Sign Inではチケット購入ができません'
+	String get appleSignInTitle => 'Apple Sign Inではチケット購入ができません';
+
+	/// ja: '現在、Apple Sign Inでログインされています。チケットを購入するには、一度ログアウトしてGoogleアカウントでログインし直してください。'
+	String get appleSignInDescription => '現在、Apple Sign Inでログインされています。チケットを購入するには、一度ログアウトしてGoogleアカウントでログインし直してください。';
 }
 
 // Path: ticket.notice
@@ -1236,6 +1242,8 @@ extension on Translations {
 			case 'ticket.loginRequired.title': return 'チケット購入前にGoogleアカウントでログインしてください';
 			case 'ticket.loginRequired.linkTitle': return 'チケット購入前にGoogleアカウントとリンクしてください';
 			case 'ticket.loginRequired.description': return 'チケットを購入するためには、Googleアカウントでログインしてください';
+			case 'ticket.loginRequired.appleSignInTitle': return 'Apple Sign Inではチケット購入ができません';
+			case 'ticket.loginRequired.appleSignInDescription': return '現在、Apple Sign Inでログインされています。チケットを購入するには、一度ログアウトしてGoogleアカウントでログインし直してください。';
 			case 'ticket.notice.title': return 'ご注意';
 			case 'ticket.notice.message': return '「個人スポンサーチケット」のみでは、FlutterKaigi 2025本編（カンファレンス会場）へのご入場はできません。\n入場をご希望の方は、アーリーチケット（9月末まで販売予定）またはノーマルチケットを別途ご購入ください。\nなお、「個人スポンサーチケット」は、入場を目的とせず FlutterKaigi を応援したい方のご支援も大歓迎です！\n\n前夜祭への参加は「アーリーチケット」のみが対象です。\nノーマルチケットでは前夜祭に参加できませんのでご注意ください。';
 			case 'ticket.studentRefund.title': return '学生向け返金・費用補助について';

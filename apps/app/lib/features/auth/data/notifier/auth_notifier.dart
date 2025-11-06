@@ -44,6 +44,9 @@ class AuthNotifier extends _$AuthNotifier {
         );
   }
 
+  Future<User?> signInWithApple() async =>
+      ref.read(authServiceProvider).signInWithApple();
+
   Future<void> linkAnonymousUserWithGoogle() async {
     final environment = ref.read(environmentProvider);
     final redirectTo = _getRedirectTo(environment);

@@ -1,5 +1,4 @@
 import 'package:bff_client/bff_client.dart';
-import 'package:bff_client/src/api/v1/profile/profile_share_api_client.dart';
 import 'package:bff_client/src/api/v1/websocket_api_client.dart';
 import 'package:dio/dio.dart';
 

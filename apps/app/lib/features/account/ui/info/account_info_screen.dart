@@ -243,6 +243,7 @@ class _UserInfoCard extends ConsumerWidget {
               user.email ?? '',
               style: Theme.of(context).textTheme.bodyLarge,
             ),
+            _SignInMethodChip(user: user),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton.icon(
@@ -281,6 +282,73 @@ extension on User {
   String? get avatarUrl {
     return userMetadata?['avatar_url']?.toString() ??
         identities?.firstOrNull?.identityData?['avatar_url']?.toString();
+  }
+
+  String? get signInProvider {
+    return identities?.firstOrNull?.provider;
+  }
+}
+
+/// ログイン方法表示チップ
+class _SignInMethodChip extends StatelessWidget {
+  const _SignInMethodChip({required this.user});
+
+  final User user;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final provider = user.signInProvider;
+
+    if (provider == null) {
+      return const SizedBox.shrink();
+    }
+
+    final (icon, label, color) = switch (provider) {
+      'google' => (
+        FontAwesomeIcons.google,
+        'Google',
+        const Color(0xFF4285F4),
+      ),
+      'apple' => (
+        FontAwesomeIcons.apple,
+        'Apple',
+        theme.brightness == Brightness.dark
+          ? Colors.white
+          : Colors.black,
+      ),
+      _ => (Icons.account_circle, provider, theme.colorScheme.primary),
+    };
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: color.withValues(alpha: 0.3),
+          width: 1,
+        ),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        spacing: 6,
+        children: [
+          FaIcon(
+            icon,
+            size: 16,
+            color: color,
+          ),
+          Text(
+            '$labelでログイン中',
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: color,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
 
