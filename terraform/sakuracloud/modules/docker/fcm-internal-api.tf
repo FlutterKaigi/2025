@@ -1,13 +1,13 @@
 resource "docker_image" "fcm-internal-api" {
-  count = var.enable_fcm_internal_api ? 1 : 0
+  count        = var.enable_fcm_internal_api ? 1 : 0
   name         = "${var.docker_registry_address}/fcm-internal-api:latest"
   platform     = "linux/amd64"
   keep_locally = true
   build {
-    context    = "${local.source_root}/bff/fcm-internal-api"
+    context  = "${local.source_root}/bff/fcm-internal-api"
     platform = "linux/amd64"
     build_args = {
-      FIREBASE_SERVICE_ACCOUNT_JSON: var.firebase_service_account_json
+      FIREBASE_SERVICE_ACCOUNT_JSON : var.firebase_service_account_json
     }
     label = {
       builder = "terraform"
@@ -19,8 +19,8 @@ resource "docker_image" "fcm-internal-api" {
 }
 
 resource "docker_registry_image" "fcm-internal-api" {
-  count = var.enable_fcm_internal_api ? 1 : 0
-  name = "${var.docker_registry_address}/fcm-internal-api"
+  count         = var.enable_fcm_internal_api ? 1 : 0
+  name          = "${var.docker_registry_address}/fcm-internal-api"
   keep_remotely = true
 
   triggers = {
@@ -29,5 +29,5 @@ resource "docker_registry_image" "fcm-internal-api" {
 }
 
 output "docker_image_fcm-internal-api_sha256" {
-  value = trimprefix(docker_registry_image.fcm-internal-api[0].sha256_digest, "sha256:")
+  value = var.enable_fcm_internal_api ? trimprefix(docker_registry_image.fcm-internal-api[0].sha256_digest, "sha256:") : null
 }
