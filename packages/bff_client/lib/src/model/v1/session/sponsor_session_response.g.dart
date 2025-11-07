@@ -78,6 +78,7 @@ _SessionWithVenue _$SessionWithVenueFromJson(
             .toList(),
       ),
       videoUrl: $checkedConvert('video_url', (v) => v as String?),
+      url: $checkedConvert('url', (v) => v as String?),
       venue: $checkedConvert(
         'venue',
         (v) => v == null ? null : Venue.fromJson(v as Map<String, dynamic>),
@@ -107,5 +108,6 @@ Map<String, dynamic> _$SessionWithVenueToJson(_SessionWithVenue instance) =>
       'is_hands_on': instance.isHandsOn,
       'speakers': instance.speakers,
       'video_url': instance.videoUrl,
+      'url': instance.url,
       'venue': instance.venue,
     };

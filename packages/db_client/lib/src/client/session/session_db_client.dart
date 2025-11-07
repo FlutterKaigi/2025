@@ -25,6 +25,7 @@ class SessionDbClient {
           is_beginners_lightning_talk,
           is_hands_on,
           video_url,
+          url,
           created_at
         FROM sessions
         ORDER BY starts_at, venue_id
@@ -55,6 +56,7 @@ class SessionDbClient {
                 'is_beginners_lightning_talk', s.is_beginners_lightning_talk,
                 'is_hands_on', s.is_hands_on,
                 'video_url', s.video_url,
+                'url', s.url,
                 'speakers', COALESCE(
                   (SELECT json_agg(
                     json_build_object(
@@ -146,6 +148,7 @@ class SessionDbClient {
                 'is_beginners_lightning_talk', s.is_beginners_lightning_talk,
                 'is_hands_on', s.is_hands_on,
                 'video_url', s.video_url,
+                'url', s.url,
                 'venue', json_build_object(
                   'id', sv.id,
                   'name', sv.name
@@ -202,6 +205,7 @@ class SessionDbClient {
           s.is_beginners_lightning_talk,
           s.is_hands_on,
           s.video_url,
+          s.url,
           COALESCE(
             (SELECT json_agg(
               json_build_object(
@@ -277,6 +281,7 @@ class SessionDbClient {
           is_beginners_lightning_talk,
           is_hands_on,
           video_url,
+          url,
           created_at
         FROM sessions
         WHERE starts_at >= @startTime AND ends_at <= @endTime

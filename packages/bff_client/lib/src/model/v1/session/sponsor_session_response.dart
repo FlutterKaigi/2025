@@ -38,6 +38,7 @@ abstract class SessionWithVenue with _$SessionWithVenue {
     required bool isHandsOn,
     required List<Speaker> speakers,
     String? videoUrl,
+    String? url,
     Venue? venue,
   }) = _SessionWithVenue;
 

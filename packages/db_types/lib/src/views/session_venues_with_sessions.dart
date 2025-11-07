@@ -30,6 +30,7 @@ abstract class SessionWithDetails with _$SessionWithDetails {
     @Default(false) bool isBeginnersLightningTalk,
     @Default(false) bool isHandsOn,
     String? videoUrl,
+    String? url,
     @Default([]) List<Speakers> speakers,
     CompanySponsorDetail? sponsor,
   }) = _SessionWithDetails;

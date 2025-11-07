@@ -63,6 +63,7 @@ _SessionWithDetails _$SessionWithDetailsFromJson(Map<String, dynamic> json) =>
           ),
           isHandsOn: $checkedConvert('is_hands_on', (v) => v as bool? ?? false),
           videoUrl: $checkedConvert('video_url', (v) => v as String?),
+          url: $checkedConvert('url', (v) => v as String?),
           speakers: $checkedConvert(
             'speakers',
             (v) =>
@@ -101,6 +102,7 @@ Map<String, dynamic> _$SessionWithDetailsToJson(_SessionWithDetails instance) =>
       'is_beginners_lightning_talk': instance.isBeginnersLightningTalk,
       'is_hands_on': instance.isHandsOn,
       'video_url': instance.videoUrl,
+      'url': instance.url,
       'speakers': instance.speakers,
       'sponsor': instance.sponsor,
     };

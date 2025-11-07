@@ -25,6 +25,7 @@ _TimelineEvents _$TimelineEventsFromJson(Map<String, dynamic> json) =>
             (v) => v == null ? null : DateTime.parse(v as String),
           ),
           venueId: $checkedConvert('venue_id', (v) => v as String?),
+          url: $checkedConvert('url', (v) => v as String?),
           createdAt: $checkedConvert(
             'created_at',
             (v) => DateTime.parse(v as String),
@@ -47,5 +48,6 @@ Map<String, dynamic> _$TimelineEventsToJson(_TimelineEvents instance) =>
       'starts_at': instance.startsAt.toIso8601String(),
       'ends_at': instance.endsAt?.toIso8601String(),
       'venue_id': instance.venueId,
+      'url': instance.url,
       'created_at': instance.createdAt.toIso8601String(),
     };

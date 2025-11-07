@@ -31,3 +31,7 @@ migrate_working_dir/
 
 # Cloudflare
 .wrangler/
+
+# Generated session data files
+lib/src/config/sessions_data.json
+lib/src/config/sessions_data.json.dart
