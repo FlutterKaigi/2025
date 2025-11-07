@@ -1,3 +1,9 @@
+-- DELETE FROM speakers;
+-- DELETE FROM sessions;
+-- DELETE FROM session_speakers;
+-- DELETE FROM session_venues;
+
+
 -- Insert session venues based on example data
 INSERT INTO session_venues (id, name, display_order) VALUES
     ('e1a11efe-b1eb-43e1-ae60-9d2233e5dfe7', 'ASSIGN Hall', 1),
@@ -36,7 +42,13 @@ INSERT INTO speakers (id, name, avatar_url, x_id) VALUES
     ('020a133c-cbee-434e-a568-e73ec69d0097', 'techiro', 'https://fortee.jp/files/flutterkaigi-2025/speaker/ba42954c-c104-48c0-a07f-f51d9574870d.jpg', 'appgrape'),
     ('cc9cff3a-ee93-4cb7-a839-1b34bc9deb74', '新垣清奈', NULL, NULL),
     ('7aaeaa28-dbe5-45dc-8977-88a42dbbfd7a', 'akaboshinit', 'https://fortee.jp/files/flutterkaigi-2025/speaker/d0757daa-4013-44b1-86fd-7a768352214d.jpg', 'akaboshinit'),
-    ('51e3be22-13ec-442e-8402-226435bb0229', 'keigomichi', 'https://fortee.jp/files/flutterkaigi-2025/speaker/d5415821-0405-42f9-ad4f-c22bf0d1d141.jpg', 'keigomichi');
+    ('51e3be22-13ec-442e-8402-226435bb0229', 'keigomichi', 'https://fortee.jp/files/flutterkaigi-2025/speaker/d5415821-0405-42f9-ad4f-c22bf0d1d141.jpg', 'keigomichi'),
+    -- スポンサーセッション登壇者
+    ('9BDAB7ED-A392-41A8-A394-E1102BEE7759', 'おだてつ', 'https://fortee.jp/files/flutterkaigi-2025/speaker/4362cfa2-c7c3-4459-b9e5-a75408c449be.jpg', 'Aosanori620'),
+    ('F2289FF5-4DA5-40F0-ACD2-7C24691E0B6F', '橋本 茉利奈', 'https://fortee.jp/files/flutterkaigi-2025/speaker/4a7e9534-76c0-4aeb-9a69-b9c28bb74fa6.jpg', '_mhashimoto'),
+    ('0B7C3EE2-1507-43B3-9DF8-0787C62BADD4', 'Takahiro Sunaga', NULL, NULL),
+    ('F1435681-D5E1-4711-8AD9-F086097FD419', 'Perttu Lähteenlahti', 'https://fortee.jp/files/flutterkaigi-2025/speaker/9d3ceee2-9726-46e8-92c6-8c4a16bb1525.jpg', 'plahteenlahti');
+
 
 -- Insert sessions based on example data
 INSERT INTO sessions (id, title, description, starts_at, ends_at, venue_id, sponsor_id, is_lightning_talk, is_beginners_lightning_talk, is_hands_on, video_url, url) VALUES
@@ -60,8 +72,8 @@ INSERT INTO sessions (id, title, description, starts_at, ends_at, venue_id, spon
      E'## 概要\r\n\r\n2025/6/9、Appleは新たなデザイン言語であるLiquid Glassを発表しました。\r\nそしてコミュニティから挙がった声は……\r\n\r\n「Flutterはこのムーブメントについていけない、終わりだ！」「Flutter is dead.」 ……\r\n\r\nなるほど、確かにFlutterは構造上、Liquid Glassを取り込むことは難しいです。\r\nでは、Flutterは本当に死を迎えたのでしょうか？\r\n\r\n自分はそうは思いません。\r\nむしろ、Flutterの真価はプラットフォーム固有の事情に左右されないことにあると考えています。\r\nこのトークでは、Flutterの立ち位置や採用する価値を整理したうえで、どのようなプロジェクトにFlutterが最適なのか？というお話をします。\r\n\r\n## 想定視聴者\r\n\r\n- Flutterを使い続けられるのか悩んでいるSWE\r\n- その他様々な領域のSWE',
      '2025-11-13 11:30:00+09', '2025-11-13 12:00:00+09', '6426cd21-f1fe-4d84-b74b-ff459cc0d3e2', NULL, false, false, false, NULL, 'https://fortee.jp/flutterkaigi-2025/proposal/03595b88-1b15-4c6e-919c-93838724ca1e'),
 
-    ('e308ec24-8f92-4ab1-a140-5c2e401bc465', 'スポンサーセッション：株式会社ゆめみ',
-     '', '2025-11-13 13:15:00+09', '2025-11-13 13:45:00+09', 'e1a11efe-b1eb-43e1-ae60-9d2233e5dfe7', 1, false, false, false, NULL, NULL),
+    ('e308ec24-8f92-4ab1-a140-5c2e401bc465', '自社テンプレートを実践で使って感じた強みとツラミ',
+     E'## 概要\r\n弊社では、中・大規模プロジェクト向けのテンプレートをOSSとして開発しています。\r\n本セッションでは、実際のプロジェクトでテンプレートを使用した際に感じた**強み**と**ツラミ**、そしてそのツラミをどのように乗り越えたかを共有します。\r\nさらに、テンプレートで採用しているパッケージをはじめ、ワークフローやアーキテクチャについても紹介します。実際のプロジェクトで導入する際や、新たに開発基盤を検討する際の参考になれば幸いです。\r\n## 想定視聴者\r\n- Flutterアプリのアーキテクチャ設計や技術選定に悩んでいる方\r\n- 開発生産性を向上させるためのテンプレートやワークフローに興味がある方\r\n- 他の会社のリアルな開発事例（特にうまくいかなかった点）に興味がある方', '2025-11-13 13:15:00+09', '2025-11-13 13:45:00+09', 'e1a11efe-b1eb-43e1-ae60-9d2233e5dfe7', 1, false, false, false, NULL),
 
     ('1f46ce6d-44f1-45ee-9738-17da3ebafa8b', 'Flutterビルドキャッシュの内部構造とテスト高速化への応用',
      E'## 概要\r\nFlutter開発では、アプリケーションの実行や配布のたびにビルドが発生します。\r\n通常、ビルドキャッシュは意識せずとも自動で働きますが、その仕組みを理解することで開発効率をさらに高められます。\r\n本セッションでは、Flutter SDKの内部実装に触れながら、ビルドキャッシュの構造と動作を詳しく解説します。\r\nまた、キャッシュが有効・無効になる条件を理解し、 `flutter test` 実行時の不要な再ビルドを回避することで、テスト実行を高速化できる実践的なアプローチも紹介します。\r\n\r\n## 想定視聴者\r\n- Flutterビルドキャッシュの仕組みを体系的に理解したい方\r\n- テスト実行時のビルド高速化に関心のある方\r\n- `build/` ディレクトリや `.dill` ファイルなど、ビルド成果物の正体を知りたい方',
@@ -91,15 +103,15 @@ INSERT INTO sessions (id, title, description, starts_at, ends_at, venue_id, spon
      E'## 概要\r\nFlutter製の銀行アプリにFIDOパスキー認証を導入した事例をもとに、クロスプラットフォームでの実装課題と解決策を解説します。ドキュメントにない仕様差や想定外の不具合、検証時の落とし穴など、現場のリアルな学びをお届けします。\r\n\r\n## 想定視聴者\r\nFlutterで認証やネイティブ連携を扱いに興味ある方、初級〜上級開発者',
      '2025-11-13 14:00:00+09', '2025-11-13 14:30:00+09', 'e1a11efe-b1eb-43e1-ae60-9d2233e5dfe7', NULL, false, false, false, NULL, 'https://fortee.jp/flutterkaigi-2025/proposal/ed60500d-d9f8-48fb-8dd9-a4eb2951cdec'),
 
-    ('c5207df1-3c97-47f1-aa44-5d64586301fd', 'スポンサーセッション：株式会社出前館',
-     '', '2025-11-13 14:00:00+09', '2025-11-13 14:30:00+09', '0505c447-b699-4803-aab9-9cbdf9452c1b', 2, false, false, false, NULL, NULL),
+    ('c5207df1-3c97-47f1-aa44-5d64586301fd', 'Flutterにしてよかった？ 出前館アプリを2年運用して気づいたこと全部話します',
+     E'出前館アプリは、2023年11月にReact NativeからFlutterへ全面移行しました。\r\n以降2年間にわたり、日常的に利用されるFlutter製の大規模アプリとして運用を続ける中で、技術面・運用面・組織面それぞれにおいて多くの知見を得ることができました。\r\n\r\n本セッションでは、\r\n・移行後に直面した具体的な技術的課題とその対応\r\n・開発プロセス改善の取り組み（リリーストレイン導入によるソフトウェア品質の担保）\r\n・Flutter化が組織に与えた影響\r\nといった実例をもとに、成功事例だけでなく実際に直面した課題も含めて率直にご紹介します。\r\n\r\nFlutterを用いた大規模アプリの開発・運用について、導入を検討している方々には検討の参考に、すでに導入している方々には改善や最適化のヒントとなる実践的な知見を共有します。', '2025-11-13 14:00:00+09', '2025-11-13 14:30:00+09', '0505c447-b699-4803-aab9-9cbdf9452c1b', 2, false, false, false, NULL),
 
     ('102f0e36-8839-4c4c-85a9-a94082af1692', 'Mobile MCP × Dart VM Service Extensionで実現するAI駆動E2Eテスト整備と自動操作',
      E'## 概要\r\nE2Eテストには「カバレッジ向上が大変」、「メンテナンスコストが高い」といった課題があります。AIによるモバイルアプリの自動操作でこれらの課題を解決します。AIがアプリを自動操作することで、E2Eテストの作成においてGUIをコンテキストとして扱うことができるようになります。これによりE2Eテスト作成の精度と効率を向上させます。\r\n\r\nまた、AIによるモバイルアプリの自動操作はMobile MCPによって実現されます。しかしFlutterのレンダリング方式が原因でそのままでは利用できません。そこでDart VM Service extensionを利用してMCPを拡張し、Flutterアプリに対応させた方法についてもお話します。\r\n\r\n## 想定視聴者\r\nE2Eテストの拡充を課題としている方\r\nAI x アプリのエンジニアリングに興味がある方',
      '2025-11-13 14:00:00+09', '2025-11-13 14:30:00+09', '6426cd21-f1fe-4d84-b74b-ff459cc0d3e2', NULL, false, false, false, NULL, 'https://fortee.jp/flutterkaigi-2025/proposal/63d2ecdf-120c-4d92-bd5b-e20dad80357c'),
 
-    ('4b6a22a1-7d3c-41c5-8a54-15ff13f349ca', 'スポンサーセッション：株式会社アサイン',
-     '', '2025-11-13 15:00:00+09', '2025-11-13 15:30:00+09', 'e1a11efe-b1eb-43e1-ae60-9d2233e5dfe7', 3, false, false, false, NULL, NULL),
+    ('4b6a22a1-7d3c-41c5-8a54-15ff13f349ca', '事業価値を実現するためのFlutter：キャリア支援アプリの体験設計',
+     E'Flutterの採用理由を問われたとき、私たちは「開発効率」という言葉以外に何を語れるでしょうか。本セッションでは、その問いに対して事業会社の視点から考えます。\r\nキャリア支援サービスという事業ドメインにおいて、達成したい顧客価値を起点にFlutterの能力をいかに戦略的に選択・活用していくか。\r\n事業会社だからこそ向き合う長期的な顧客接点や信頼性の担保といったテーマに対し、Flutterの思想と具体的な設計を結びつけた実践例を共有します。\r\n特に、以下のような抽象的な価値を、Flutterならではの技術で具体的なUXに落とし込むまでの取り組みに焦点を当てます。\r\n・信頼を支えるUI/UXの一貫性： 共通化されたUI状態の設計と表現\r\n・変化し続けるキャリア情報の表現： 状態管理と非同期処理の工夫\r\n・長期利用を前提とした体感品質： パフォーマンス設計と計測の考え方', '2025-11-13 15:00:00+09', '2025-11-13 15:30:00+09', 'e1a11efe-b1eb-43e1-ae60-9d2233e5dfe7', 3, false, false, false, NULL),
 
     ('72de2ac4-5cad-408d-bc56-1919daf00f87', 'RenderObject とは何か？animated_to に学ぶレイアウト計算と描画の仕組み',
      E'## 概要\r\nWidget の「移動」をアニメーションする animated_to というパッケージを開発して公開しました。これを使うと from/to を計算することなく自由に Widget を動かせます。\r\n\r\nそんな animated_to は RenderObject をカスタマイズすることで実現しています。from/to の計算、描画位置の更新、これらはいずれも RenderObject の仕事であり、そこに Widget のリビルドは発生しません。リビルドが必要ないのでアニメーションも滑らかです。\r\n\r\nこのセッションでは、animated_to の実装を例に RenderObject の仕組みとカスタマイズ方法について説明します。\r\n\r\n## 想定視聴者\r\n- Flutter の内部的な仕組みに興味のある方\r\n- 描画のパフォーマンスを細かくチューニングしたい方',
@@ -113,8 +125,8 @@ INSERT INTO sessions (id, title, description, starts_at, ends_at, venue_id, spon
      E'# 概要\r\n私たちは日常的にLinterやコードフォーマッター、freezedやjson_serializableといったコード生成ライブラリの恩恵を受けています。これらの強力なツールは、私たちのコードの品質を保ち、開発効率を飛躍的に向上させてくれます。\r\nでは、これらのツールはどのようにして私たちの書いたコードを理解し、解析・変換しているのでしょうか？ その答えを探る中で重要になるのが AST (抽象構文木) です。\r\n本セッションでは、Dartの公式に提供されている`analyzer`パッケージを使用し、Dartコードがどのように木構造に変換されるのかを解説します。さらに、そのASTを活用して、実際にカスタムLinterやコードジェネレーターがどのように作られているのか、その仕組みと具体的なアプローチをデモを交えながら紹介します。\r\n\r\n# 対象者\r\n* Dartのコード解析や変換に興味がある方',
      '2025-11-13 16:00:00+09', '2025-11-13 16:30:00+09', 'e1a11efe-b1eb-43e1-ae60-9d2233e5dfe7', NULL, false, false, false, NULL, 'https://fortee.jp/flutterkaigi-2025/proposal/672313ae-bccf-4520-a862-1a88b887fc82'),
 
-    ('7503741e-832c-402f-8b19-54abc159e948', 'スポンサーセッション：RevenueCat',
-     '', '2025-11-13 16:00:00+09', '2025-11-13 16:30:00+09', '0505c447-b699-4803-aab9-9cbdf9452c1b', 4, false, false, false, NULL, NULL),
+    ('7503741e-832c-402f-8b19-54abc159e948', 'Flutterアプリで収益を上げる方法',
+     E'Flutterでアプリをつくるのは楽しい——でも、それをどうやってお金に変えるかは意外と難しいものです。\r\n\r\nこのセッションでは、サブスクリプション（定期課金）、アプリ内課金（IAP）、そして広告収益を活用してFlutterアプリを効果的にマネタイズする方法を、わかりやすく解説します。\r\n世界中のモバイルアプリを支えるサブスクリプションプラットフォームRevenueCatの実データをもとに、さまざまなマネタイズモデルにおける平均コンバージョン率やチャーン率などのベンチマークも紹介。\r\n\r\nさらに、Flutterアプリにサブスクリプションや広告をわずか数分で実装できるライブデモも行います。\r\n初めてのアプリをリリースする人も、既存のアプリを最適化したい人も、このセッションを通してすぐに使える戦略とコード例、そして持続的に収益を生み出すための明確な道筋を持ち帰ることができます。', '2025-11-13 16:00:00+09', '2025-11-13 16:30:00+09', '0505c447-b699-4803-aab9-9cbdf9452c1b', 4, false, false, false, NULL),
 
     -- LTセッション (16:00-16:25)
     ('de9e6b50-e4e1-42ae-aeb5-35de5e7e418d', 'それでは聞いてください「Impeller導入に失敗しました」',
@@ -198,6 +210,9 @@ INSERT INTO session_speakers (session_id, speaker_id) VALUES
     -- session5: Kurogoma4D
     ('23460014-6c50-481c-89dd-4d0edac5da67', '55f2c510-8c2d-4b28-9e20-4a1b2e0bdda0'),
 
+    -- session 6: おだてつ
+    ('e308ec24-8f92-4ab1-a140-5c2e401bc465', '9BDAB7ED-A392-41A8-A394-E1102BEE7759'),
+
     -- session7: yoko
     ('1f46ce6d-44f1-45ee-9738-17da3ebafa8b', 'd3be0c00-8918-4080-a2ca-ddf19d06be8a'),
 
@@ -219,8 +234,14 @@ INSERT INTO session_speakers (session_id, speaker_id) VALUES
     -- session13: heyhey1028
     ('c2a5915f-a849-4cb1-8718-99f56140d6d7', '8a50e879-3b24-49e8-a520-a7d41eed13e0'),
 
+    -- session14: 橋本 茉利奈
+    ('c5207df1-3c97-47f1-aa44-5d64586301fd', 'F2289FF5-4DA5-40F0-ACD2-7C24691E0B6F'),
+
     -- session15: 酒井佑旗
     ('102f0e36-8839-4c4c-85a9-a94082af1692', '561260cf-ebda-43d2-a775-f105850d8db8'),
+
+    -- session16: Takahiro Sunaga
+    ('4b6a22a1-7d3c-41c5-8a54-15ff13f349ca', '0B7C3EE2-1507-43B3-9DF8-0787C62BADD4'),
 
     -- session17: ちゅーやん
     ('72de2ac4-5cad-408d-bc56-1919daf00f87', 'e6513c88-f0e3-4ed4-b776-8dd5440dfb55'),
@@ -230,6 +251,9 @@ INSERT INTO session_speakers (session_id, speaker_id) VALUES
 
     -- session19: そた
     ('f70f8cb2-8a8a-46e5-bcb2-1431d45e167d', '79d826ca-de2c-47ca-901e-9fc1847a5bc7'),
+
+    -- session 20
+    ('7503741e-832c-402f-8b19-54abc159e948', 'F1435681-D5E1-4711-8AD9-F086097FD419'),
 
     -- session21: tacck
     ('de9e6b50-e4e1-42ae-aeb5-35de5e7e418d', 'ccfee238-3653-42e1-b2ee-3053a149577c'),

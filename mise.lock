@@ -30,9 +30,19 @@ backend = "pipx:codemagic-cli-tools"
 version = "1.71.2"
 backend = "aqua:rclone/rclone"
 
+[tools.rclone.platforms.macos-arm64]
+checksum = "sha256:d1cea838b618f9b4f15984748502232684e92ff0b90e3c4c8bd91ac21f4d8695"
+size = 26407377
+url = "https://github.com/rclone/rclone/releases/download/v1.71.2/rclone-v1.71.2-osx-arm64.zip"
+
 [[tools.stripe]]
 version = "1.31.1"
 backend = "aqua:stripe/stripe-cli"
+
+[tools.stripe.platforms.macos-arm64]
+checksum = "sha256:7c4ae79355cb8bb99b1117625d27562962a2e09f070f6f55a5e297c5aa83a9da"
+size = 8126420
+url = "https://github.com/stripe/stripe-cli/releases/download/v1.31.1/stripe_1.31.1_mac-os_arm64.tar.gz"
 
 [[tools.swift]]
 version = "6.2"
@@ -41,6 +51,11 @@ backend = "core:swift"
 [[tools.terraform]]
 version = "1.13.4"
 backend = "aqua:hashicorp/terraform"
+
+[tools.terraform.platforms.macos-arm64]
+checksum = "sha256:6b9e2ff8102c469added7be28cd5cfc2c5a8f7fc3be2df8fe9ee5458d84a1305"
+size = 28926803
+url = "https://releases.hashicorp.com/terraform/1.13.4/terraform_1.13.4_darwin_arm64.zip"
 
 [[tools.tflint]]
 version = "0.59.1"
