@@ -204,6 +204,12 @@ class _TypedSponsors extends StatelessComponent {
                   'linear-gradient(to bottom, #d6d7d7, #909c9e)',
                 SponsorType.bronze =>
                   'linear-gradient(to bottom, #bb967a, #946a4a)',
+                SponsorType.community =>
+                  'linear-gradient(to bottom, #a8d8ea, #6ca6cd)',
+                SponsorType.tool =>
+                  'linear-gradient(to bottom, #d4a5d4, #a77ba7)',
+                SponsorType.other =>
+                  'linear-gradient(to bottom, #c4c4c4, #8c8c8c)',
               },
               '-webkit-background-clip': 'text',
               'background-clip': 'text',
@@ -241,6 +247,9 @@ class _TypedSponsors extends StatelessComponent {
                         SponsorType.gold => 12,
                         SponsorType.silver => 9,
                         SponsorType.bronze => 9,
+                        SponsorType.community => 9,
+                        SponsorType.tool => 9,
+                        SponsorType.other => 9,
                       },
                     ),
                   ]),
@@ -258,33 +267,32 @@ class Sponsors extends StatelessComponent {
 
   @override
   Iterable<Component> build(BuildContext context) sync* {
+    // スポンサータイプごとにグループ化（Basic系を優先順に並べる）
+    final sponsorTypes = [
+      SponsorType.platinum,
+      SponsorType.gold,
+      SponsorType.silver,
+      SponsorType.bronze,
+      SponsorType.community,
+      SponsorType.tool,
+      SponsorType.other,
+    ];
+
     yield ul(
       styles: const Styles(
         display: Display.grid,
       ),
       [
-        _TypedSponsors(
-          SponsorType.platinum,
-          event.sponsors.where(
-            (s) => s.type == SponsorType.platinum && !s.disable,
-          ),
-        ),
-        _TypedSponsors(
-          SponsorType.gold,
-          event.sponsors.where((s) => s.type == SponsorType.gold && !s.disable),
-        ),
-        _TypedSponsors(
-          SponsorType.silver,
-          event.sponsors.where(
-            (s) => s.type == SponsorType.silver && !s.disable,
-          ),
-        ),
-        _TypedSponsors(
-          SponsorType.bronze,
-          event.sponsors.where(
-            (s) => s.type == SponsorType.bronze && !s.disable,
-          ),
-        ),
+        for (final type in sponsorTypes)
+          () {
+            final sponsors = event.sponsors
+                .where((s) => s.type == type && !s.disable)
+                .toList();
+            if (sponsors.isEmpty) {
+              return null;
+            }
+            return _TypedSponsors(type, sponsors);
+          }(),
         p(
           styles: Styles(
             margin: Spacing.only(top: 1.rem),
@@ -292,7 +300,7 @@ class Sponsors extends StatelessComponent {
           ),
           [text('スポンサー募集は締め切りました。多数のご応募ありがとうございました。')],
         ),
-      ],
+      ].whereType<Component>().toList(),
     );
   }
 }
