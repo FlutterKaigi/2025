@@ -44,13 +44,13 @@ class $ResAssetsGen {
   AssetGenImage get dashumaruOverflow2 =>
       const AssetGenImage('res/assets/dashumaru_overflow_2.webp');
 
-  /// File path: res/assets/floor_map_1f.svg
-  SvgGenImage get floorMap1f =>
-      const SvgGenImage('res/assets/floor_map_1f.svg');
+  /// File path: res/assets/floor_map_1f.webp
+  AssetGenImage get floorMap1f =>
+      const AssetGenImage('res/assets/floor_map_1f.webp');
 
-  /// File path: res/assets/floor_map_2f.svg
-  SvgGenImage get floorMap2f =>
-      const SvgGenImage('res/assets/floor_map_2f.svg');
+  /// File path: res/assets/floor_map_2f.webp
+  AssetGenImage get floorMap2f =>
+      const AssetGenImage('res/assets/floor_map_2f.webp');
 
   /// Directory path: res/assets/fonts
   $ResAssetsFontsGen get fonts => const $ResAssetsFontsGen();

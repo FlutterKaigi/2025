@@ -67,6 +67,12 @@ RouteBase get $mainRoute => StatefulShellRouteData.$route(
       ],
     ),
     StatefulShellBranchData.$branch(
+      observers: VenueBranch.$observers,
+      routes: [
+        GoRouteData.$route(path: '/venue', factory: $VenueRoute._fromState),
+      ],
+    ),
+    StatefulShellBranchData.$branch(
       observers: SponsorBranch.$observers,
       routes: [
         GoRouteData.$route(
@@ -233,6 +239,26 @@ mixin $SessionDetailRoute on GoRouteData {
   String get location => GoRouteData.$location(
     '/sessions/${Uri.encodeComponent(_self.sessionId)}',
   );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $VenueRoute on GoRouteData {
+  static VenueRoute _fromState(GoRouterState state) => const VenueRoute();
+
+  @override
+  String get location => GoRouteData.$location('/venue');
 
   @override
   void go(BuildContext context) => context.go(location);
