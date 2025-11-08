@@ -104,11 +104,13 @@ class _TimelineState extends State<Timeline> {
           },
         },
         [
-          section(
+          article(
             styles: Styles(
               display: Display.flex,
               width: 100.percent,
               maxWidth: 960.px,
+              maxHeight: 75.vh,
+              overflow: const Overflow.only(y: Overflow.auto),
               padding: Spacing.all(1.rem),
               radius: BorderRadius.circular(1.rem),
               flexDirection: FlexDirection.column,
