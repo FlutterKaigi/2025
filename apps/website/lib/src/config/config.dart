@@ -284,8 +284,9 @@ SponsorInfo _convertToSponsorInfo(CompanySponsorDetail detail) {
 }
 
 /// API経由で取得した企業スポンサー情報をSponsorInfoに変換
-final _sponsors =
-    companySponsors.map<SponsorInfo>(_convertToSponsorInfo).toList();
+final _sponsors = companySponsors
+    .map<SponsorInfo>(_convertToSponsorInfo)
+    .toList();
 
 /// 以前のハードコードされたスポンサー情報（参考用にコメントアウト）
 // ignore: unused_element

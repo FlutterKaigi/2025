@@ -46,7 +46,7 @@ JasprOptions get defaultJasprOptions => JasprOptions(
       params: _prefix3Timeline,
     ),
   },
-  styles: () => [...prefix2.Tagline.styles],
+  styles: () => [...prefix2.Tagline.styles, ...prefix3.Timeline.styles],
 );
 
 Map<String, dynamic> _prefix1Sponsor(prefix1.Sponsor c) => {

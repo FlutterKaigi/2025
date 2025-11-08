@@ -1,5 +1,6 @@
 import 'package:flutterkaigi_2025_website/src/constants/styles.dart';
 import 'package:jaspr/jaspr.dart';
+import 'package:markdown/markdown.dart';
 
 @client
 class Timeline extends StatefulComponent {
@@ -14,6 +15,45 @@ class Timeline extends StatefulComponent {
 
   @override
   State<Timeline> createState() => _TimelineState();
+
+  @css
+  static final styles = [
+    css('.session-info', [
+      css('h1').styles(
+        fontWeight: FontWeight.bold,
+        fontSize: 1.5.em,
+      ),
+      css('h2').styles(
+        fontWeight: FontWeight.bold,
+        fontSize: 1.2.em,
+      ),
+      css('h3').styles(
+        fontWeight: FontWeight.bold,
+      ),
+      css('p').styles(
+        display: Display.block,
+        whiteSpace: WhiteSpace.preWrap,
+      ),
+      css('strong').styles(
+        fontWeight: FontWeight.bold,
+      ),
+      css('code').styles(
+        backgroundColor: const Color('lightgray'),
+        padding: Spacing.symmetric(horizontal: 0.2.em, vertical: 0.1.em),
+        radius: BorderRadius.circular(0.2.em),
+      ),
+      css('ul').styles(
+        display: Display.block,
+        padding: Spacing.only(left: 1.5.em),
+      ),
+      css('li').styles(
+        display: Display.listItem,
+        raw: {
+          'list-style-type': 'disc',
+        },
+      ),
+    ]),
+  ];
 }
 
 class _TimelineState extends State<Timeline> {
@@ -91,12 +131,13 @@ class _TimelineState extends State<Timeline> {
                 ),
                 [text(component.title)],
               ),
-              p(
+              section(
+                classes: 'session-info',
                 styles: Styles(
                   width: 100.percent,
                   whiteSpace: WhiteSpace.preWrap,
                 ),
-                [text(component.description ?? '')],
+                [raw(markdownToHtml(component.description ?? ''))],
               ),
             ],
           ),

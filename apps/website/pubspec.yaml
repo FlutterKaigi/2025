@@ -16,6 +16,7 @@ dependencies:
   intl: ^0.20.2
   jaspr: ^0.20.0
   jaspr_router: ^0.7.1
+  markdown: ^7.3.0
 
 dev_dependencies:
   build_runner: ^2.4.15
