@@ -102,6 +102,14 @@ jobs:
                   if [ "$conclusion" = "success" ]; then
                     echo "BFF deployment completed successfully!"
                     exit 0
+                  elif [ "$conclusion" = "cancelled" ]; then
+                    echo "BFF deployment was cancelled"
+                    echo "Proceeding with website build anyway..."
+                    exit 0
+                  elif [ "$conclusion" = "skipped" ]; then
+                    echo "BFF deployment was skipped"
+                    echo "Proceeding with website build anyway..."
+                    exit 0
                   else
                     echo "BFF deployment failed with conclusion: $conclusion"
                     echo "Proceeding with website build anyway..."
