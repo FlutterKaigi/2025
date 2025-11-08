@@ -44,6 +44,14 @@ class $ResAssetsGen {
   AssetGenImage get dashumaruOverflow2 =>
       const AssetGenImage('res/assets/dashumaru_overflow_2.webp');
 
+  /// File path: res/assets/floor_map_1f.svg
+  SvgGenImage get floorMap1f =>
+      const SvgGenImage('res/assets/floor_map_1f.svg');
+
+  /// File path: res/assets/floor_map_2f.svg
+  SvgGenImage get floorMap2f =>
+      const SvgGenImage('res/assets/floor_map_2f.svg');
+
   /// Directory path: res/assets/fonts
   $ResAssetsFontsGen get fonts => const $ResAssetsFontsGen();
 
@@ -61,6 +69,8 @@ class $ResAssetsGen {
     dashumaruGuruguru,
     dashumaruMagao,
     dashumaruOverflow2,
+    floorMap1f,
+    floorMap2f,
     googleSignInButton,
     logo,
   ];
