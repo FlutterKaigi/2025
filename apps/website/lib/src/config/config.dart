@@ -203,6 +203,7 @@ typedef TimelineEntry = ({
   String? url,
   String venueId,
   String venueName,
+  String? description,
   bool satellite,
   Duration start,
   Duration time,

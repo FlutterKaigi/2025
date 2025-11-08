@@ -1,5 +1,6 @@
-import 'package:flutterkaigi_2025_website/src/components/external_link.dart';
 import 'package:flutterkaigi_2025_website/src/components/open_in_new.dart';
+import 'package:flutterkaigi_2025_website/src/components/timeline.dart'
+    as client;
 import 'package:flutterkaigi_2025_website/src/config/config.dart';
 import 'package:flutterkaigi_2025_website/src/config/sessions_data.dart'
     show venuesWithSessions;
@@ -335,18 +336,11 @@ class Timeline extends StatelessComponent {
           final content = ul(
             [
               li([
-                if (url != null)
-                  ExternalLink(
-                    url: url,
-                    content: entry.title.text(context).toComponent,
-                    styles: const Styles(
-                      color: Color.variable('--text-color'),
-                      fontSize: Unit.inherit,
-                      whiteSpace: WhiteSpace.inherit,
-                    ),
-                  )
-                else
-                  entry.title.text(context).toComponent,
+                client.Timeline(
+                  title: entry.title.text(context),
+                  url: url,
+                  description: entry.description,
+                ),
                 li(
                   [
                     '${entry.time.inMinutes} min'.toComponent,
