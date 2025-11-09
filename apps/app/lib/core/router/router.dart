@@ -22,6 +22,7 @@ import 'package:app/features/session/ui/session_screen.dart';
 import 'package:app/features/session/ui/session_timeline_screen.dart';
 import 'package:app/features/sponsor/ui/sponsor_detail_screen.dart';
 import 'package:app/features/sponsor/ui/sponsor_list_screen.dart';
+import 'package:app/features/staff_member/ui/staff_member_list_screen.dart';
 import 'package:app/features/ticket/ui/ticket_detail_screen.dart';
 import 'package:app/features/ticket/ui/ticket_list_screen.dart';
 import 'package:app/features/venue/ui/venue_screen.dart';

@@ -33,6 +33,7 @@ final class AccountInfoScreen extends ConsumerWidget {
     required VoidCallback onTapContactTile,
     required VoidCallback onTapOssLicensesTile,
     required VoidCallback onTapWithdrawalTile,
+    required VoidCallback onTapStaffMembers,
     super.key,
   }) : _onProfileEdit = onProfileEdit,
        _onTapQrCode = onTapQrCode,
@@ -42,7 +43,8 @@ final class AccountInfoScreen extends ConsumerWidget {
        _onTapPrivacyPolicyTile = onTapPrivacyPolicyTile,
        _onTapContactTile = onTapContactTile,
        _onTapOssLicensesTile = onTapOssLicensesTile,
-       _onTapWithdrawalTile = onTapWithdrawalTile;
+       _onTapWithdrawalTile = onTapWithdrawalTile,
+       _onTapStaffMembers = onTapStaffMembers;
 
   final VoidCallback _onProfileEdit;
   final VoidCallback _onTapQrCode;
@@ -53,6 +55,7 @@ final class AccountInfoScreen extends ConsumerWidget {
   final VoidCallback _onTapContactTile;
   final VoidCallback _onTapOssLicensesTile;
   final VoidCallback _onTapWithdrawalTile;
+  final VoidCallback _onTapStaffMembers;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -107,6 +110,19 @@ final class AccountInfoScreen extends ConsumerWidget {
               ),
               const SizedBox(height: 16),
             ],
+            Padding(
+              padding: const EdgeInsetsDirectional.only(start: 16),
+              child: Text(
+                t.account.contributors,
+                style: textTheme.titleLarge,
+              ),
+            ),
+            const SizedBox(height: 8),
+            _OtherListItem(
+              title: t.account.staffMembers.title,
+              onTap: _onTapStaffMembers,
+            ),
+            const SizedBox(height: 16),
             Padding(
               padding: const EdgeInsetsDirectional.only(start: 16),
               child: Text(
