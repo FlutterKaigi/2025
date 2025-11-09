@@ -15,6 +15,10 @@ ossLicenses: OSS Licenses
 withdrawal: Withdrawal Request
 logout: Sign Out
 settings: Account Settings
+loginRequired:
+  title: Login Required
+  description: You need to log in to use this feature
+  button: Log in
 profile:
   title: Profile
   editTitle: Edit Profile

@@ -71,6 +71,7 @@ class _TranslationsAccountEn extends TranslationsAccountJa {
 	@override String get withdrawal => 'Withdrawal Request';
 	@override String get logout => 'Sign Out';
 	@override String get settings => 'Account Settings';
+	@override late final _TranslationsAccountLoginRequiredEn loginRequired = _TranslationsAccountLoginRequiredEn._(_root);
 	@override late final _TranslationsAccountProfileEn profile = _TranslationsAccountProfileEn._(_root);
 	@override late final _TranslationsAccountProfileshareEn profileshare = _TranslationsAccountProfileshareEn._(_root);
 }
@@ -200,6 +201,18 @@ class _TranslationsAccountStaffMembersEn extends TranslationsAccountStaffMembers
 	// Translations
 	@override String get title => 'Staff';
 	@override String get emptyMessage => 'No staff members found';
+}
+
+// Path: account.loginRequired
+class _TranslationsAccountLoginRequiredEn extends TranslationsAccountLoginRequiredJa {
+	_TranslationsAccountLoginRequiredEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Login Required';
+	@override String get description => 'You need to log in to use this feature';
+	@override String get button => 'Log in';
 }
 
 // Path: account.profile
@@ -715,6 +728,9 @@ extension on TranslationsEn {
 			case 'account.withdrawal': return 'Withdrawal Request';
 			case 'account.logout': return 'Sign Out';
 			case 'account.settings': return 'Account Settings';
+			case 'account.loginRequired.title': return 'Login Required';
+			case 'account.loginRequired.description': return 'You need to log in to use this feature';
+			case 'account.loginRequired.button': return 'Log in';
 			case 'account.profile.title': return 'Profile';
 			case 'account.profile.editTitle': return 'Edit Profile';
 			case 'account.profile.createInfo': return 'Please create profile information';

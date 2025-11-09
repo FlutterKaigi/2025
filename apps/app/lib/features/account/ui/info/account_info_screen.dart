@@ -6,6 +6,7 @@ import 'package:app/core/provider/environment.dart';
 import 'package:app/features/account/data/notifier/profile_notifier.dart';
 import 'package:app/features/account/ui/component/account_circle_image.dart';
 import 'package:app/features/account/ui/component/account_scaffold.dart';
+import 'package:app/features/account/ui/component/login_prompt_card.dart';
 import 'package:app/features/auth/data/notifier/auth_notifier.dart';
 import 'package:auth_client/auth_client.dart';
 import 'package:flutter/material.dart';
@@ -75,128 +76,130 @@ final class AccountInfoScreen extends ConsumerWidget {
         loading: () => const Center(
           child: CircularProgressIndicator.adaptive(),
         ),
-        data: (user) => ListView(
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          children: [
-            if (user != null)
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: _UserInfoCard(
-                  user: user,
-                  onProfileEdit: _onProfileEdit,
-                ),
-              ),
-            const SizedBox(height: 16),
-            if (user != null && !user.isAnonymous) ...[
-              Padding(
-                padding: const EdgeInsetsDirectional.only(start: 16),
-                child: Text(
-                  t.account.profileshare.title,
-                  style: textTheme.titleLarge,
-                ),
-              ),
-              const SizedBox(height: 8),
-              _SectionListItem(
-                title: t.account.profileshare.qrCode,
-                onTap: _onTapQrCode,
-              ),
-              _SectionListItem(
-                title: t.account.profileshare.qrCodeScan,
-                onTap: _onTapQrCodeScan,
-              ),
-              _SectionListItem(
-                title: t.account.profileshare.friendsList,
-                onTap: _onTapFriendsList,
-              ),
-              const SizedBox(height: 16),
-            ],
-            Padding(
-              padding: const EdgeInsetsDirectional.only(start: 16),
-              child: Text(
-                t.account.contributors,
-                style: textTheme.titleLarge,
-              ),
-            ),
-            const SizedBox(height: 8),
-            _SectionListItem(
-              title: t.account.staffMembers.title,
-              onTap: _onTapStaffMembers,
-            ),
-            const SizedBox(height: 16),
-            Padding(
-              padding: const EdgeInsetsDirectional.only(start: 16),
-              child: Text(
-                t.account.others,
-                style: textTheme.titleLarge,
-              ),
-            ),
-            const SizedBox(height: 8),
-            ...([
-              (
-                title: t.account.codeOfConduct,
-                onTap: _onTapCodeOfConductTile,
-              ),
-              (
-                title: t.account.privacyPolicy,
-                onTap: _onTapPrivacyPolicyTile,
-              ),
-              (
-                title: t.account.contact,
-                onTap: _onTapContactTile,
-              ),
-              (
-                title: t.account.ossLicenses,
-                onTap: _onTapOssLicensesTile,
-              ),
-              // ゲストユーザーの場合は退会申請リンクを非表示
-              if (user != null && !user.isAnonymous)
-                (
-                  title: t.account.withdrawal,
-                  onTap: _onTapWithdrawalTile,
-                ),
-            ].map(
-              (item) => _SectionListItem(
-                title: item.title,
-                onTap: item.onTap,
-              ),
-            )),
-            const SizedBox(
-              height: 8,
-            ),
-            // Flutter, Dart version
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Text.rich(
-                  TextSpan(
-                    children: [
-                      const TextSpan(
-                        text: 'Powered by Flutter ${FlutterVersion.version}\n',
-                        style: TextStyle(
-                          fontVariations: [
-                            FontVariation('wght', 700),
-                            FontVariation('wdth', 125),
+        data: (user) => user == null
+            ? const LoginPromptCard()
+            : ListView(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: _UserInfoCard(
+                      user: user,
+                      onProfileEdit: _onProfileEdit,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  if (!user.isAnonymous) ...[
+                    Padding(
+                      padding: const EdgeInsetsDirectional.only(start: 16),
+                      child: Text(
+                        t.account.profileshare.title,
+                        style: textTheme.titleLarge,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    _SectionListItem(
+                      title: t.account.profileshare.qrCode,
+                      onTap: _onTapQrCode,
+                    ),
+                    _SectionListItem(
+                      title: t.account.profileshare.qrCodeScan,
+                      onTap: _onTapQrCodeScan,
+                    ),
+                    _SectionListItem(
+                      title: t.account.profileshare.friendsList,
+                      onTap: _onTapFriendsList,
+                    ),
+                    const SizedBox(height: 16),
+                  ],
+                  Padding(
+                    padding: const EdgeInsetsDirectional.only(start: 16),
+                    child: Text(
+                      t.account.contributors,
+                      style: textTheme.titleLarge,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  _SectionListItem(
+                    title: t.account.staffMembers.title,
+                    onTap: _onTapStaffMembers,
+                  ),
+                  const SizedBox(height: 16),
+                  Padding(
+                    padding: const EdgeInsetsDirectional.only(start: 16),
+                    child: Text(
+                      t.account.others,
+                      style: textTheme.titleLarge,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  ...([
+                    (
+                      title: t.account.codeOfConduct,
+                      onTap: _onTapCodeOfConductTile,
+                    ),
+                    (
+                      title: t.account.privacyPolicy,
+                      onTap: _onTapPrivacyPolicyTile,
+                    ),
+                    (
+                      title: t.account.contact,
+                      onTap: _onTapContactTile,
+                    ),
+                    (
+                      title: t.account.ossLicenses,
+                      onTap: _onTapOssLicensesTile,
+                    ),
+                    // ゲストユーザーの場合は退会申請リンクを非表示
+                    if (!user.isAnonymous)
+                      (
+                        title: t.account.withdrawal,
+                        onTap: _onTapWithdrawalTile,
+                      ),
+                  ].map(
+                    (item) => _SectionListItem(
+                      title: item.title,
+                      onTap: item.onTap,
+                    ),
+                  )),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  // Flutter, Dart version
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Text.rich(
+                        TextSpan(
+                          children: [
+                            const TextSpan(
+                              text:
+                                  'Powered by Flutter ${FlutterVersion.version}\n',
+                              style: TextStyle(
+                                fontVariations: [
+                                  FontVariation('wght', 700),
+                                  FontVariation('wdth', 125),
+                                ],
+                              ),
+                            ),
+                            const TextSpan(
+                              text: 'Dart ${FlutterVersion.dartVersion}',
+                            ),
+                            if (commitInformation != null)
+                              TextSpan(text: '\nCommit: $commitInformation'),
                           ],
                         ),
+                        style: textTheme.bodySmall!.copyWith(
+                          color: theme.colorScheme.onSurfaceVariant,
+                          fontFamily: FontFamily.notoSansMono,
+                          height: 1.4,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      const TextSpan(
-                        text: 'Dart ${FlutterVersion.dartVersion}',
-                      ),
-                      if (commitInformation != null)
-                        TextSpan(text: '\nCommit: $commitInformation'),
-                    ],
+                    ),
                   ),
-                  style: textTheme.bodySmall!.copyWith(
-                    color: theme.colorScheme.onSurfaceVariant,
-                    fontFamily: FontFamily.notoSansMono,
-                    height: 1.4,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
+                ],
               ),
-            ),
-          ],
-        ),
       ),
     );
   }

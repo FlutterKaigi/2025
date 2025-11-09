@@ -15,6 +15,10 @@ ossLicenses: OSS Licenses
 withdrawal: 退会申請
 logout: ログアウト
 settings: アカウント設定
+loginRequired:
+  title: ログインが必要です
+  description: この機能を利用するには、ログインが必要です
+  button: ログイン
 profile:
   title: プロファイル
   editTitle: プロフィール編集

@@ -97,11 +97,6 @@ GoRouter router(Ref ref) {
         ).toString();
       }
 
-      // 未認証でログイン画面以外にいる場合はログイン画面へ
-      if (!isAuthorized && state.fullPath != const LoginRoute().location) {
-        return const LoginRoute().location;
-      }
-
       final queryParameters = state.uri.queryParameters;
 
       // ゲストユーザーが Google アカウントと紐づけられている場合エラーメッセージを表示

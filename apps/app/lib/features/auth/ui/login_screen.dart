@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:app/core/gen/assets/assets.gen.dart';
+import 'package:app/core/gen/assets/fonts.gen.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/core/provider/environment.dart';
 import 'package:app/features/auth/data/notifier/auth_notifier.dart';
@@ -65,6 +66,16 @@ class LoginScreen extends HookConsumerWidget {
 
     return ForceUpdateDialogListener(
       child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            t.common.app.name,
+            style: theme.textTheme.titleLarge!.copyWith(
+              fontFamily: FontFamily.notoSansMono,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          centerTitle: true,
+        ),
         body: SafeArea(
           child: Center(
             child: SingleChildScrollView(
@@ -79,10 +90,6 @@ class LoginScreen extends HookConsumerWidget {
                       Assets.res.assets.logo.image(
                         height: 160,
                         fit: BoxFit.fitHeight,
-                      ),
-                      Text(
-                        t.common.app.name,
-                        style: theme.textTheme.titleMedium,
                       ),
                       IntrinsicWidth(
                         child: Column(

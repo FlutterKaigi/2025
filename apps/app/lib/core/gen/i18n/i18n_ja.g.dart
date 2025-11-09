@@ -102,6 +102,7 @@ class TranslationsAccountJa {
 	/// ja: 'アカウント設定'
 	String get settings => 'アカウント設定';
 
+	late final TranslationsAccountLoginRequiredJa loginRequired = TranslationsAccountLoginRequiredJa.internal(_root);
 	late final TranslationsAccountProfileJa profile = TranslationsAccountProfileJa.internal(_root);
 	late final TranslationsAccountProfileshareJa profileshare = TranslationsAccountProfileshareJa.internal(_root);
 }
@@ -286,6 +287,24 @@ class TranslationsAccountStaffMembersJa {
 
 	/// ja: 'スタッフが見つかりませんでした'
 	String get emptyMessage => 'スタッフが見つかりませんでした';
+}
+
+// Path: account.loginRequired
+class TranslationsAccountLoginRequiredJa {
+	TranslationsAccountLoginRequiredJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'ログインが必要です'
+	String get title => 'ログインが必要です';
+
+	/// ja: 'この機能を利用するには、ログインが必要です'
+	String get description => 'この機能を利用するには、ログインが必要です';
+
+	/// ja: 'ログイン'
+	String get button => 'ログイン';
 }
 
 // Path: account.profile
@@ -1140,6 +1159,9 @@ extension on Translations {
 			case 'account.withdrawal': return '退会申請';
 			case 'account.logout': return 'ログアウト';
 			case 'account.settings': return 'アカウント設定';
+			case 'account.loginRequired.title': return 'ログインが必要です';
+			case 'account.loginRequired.description': return 'この機能を利用するには、ログインが必要です';
+			case 'account.loginRequired.button': return 'ログイン';
 			case 'account.profile.title': return 'プロファイル';
 			case 'account.profile.editTitle': return 'プロフィール編集';
 			case 'account.profile.createInfo': return 'プロファイル情報を作成してください';
