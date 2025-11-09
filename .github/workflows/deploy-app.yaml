@@ -164,6 +164,7 @@ jobs:
             -scheme Runner \
             -configuration Release \
             -sdk iphoneos \
+            -destination 'generic/platform=iOS' \
             -archivePath build/ios/Runner.xcarchive \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO | xcbeautify
@@ -520,6 +521,7 @@ jobs:
             -scheme Runner \
             -configuration Release \
             -sdk macosx \
+            -destination 'generic/platform=macOS' \
             -archivePath build/macos/Runner.xcarchive \
             DEVELOPMENT_TEAM=6JT949BA2M \
             CODE_SIGNING_REQUIRED=NO \
@@ -531,14 +533,35 @@ jobs:
             VALID_ARCHS=arm64 \
             | xcbeautify --renderer github-actions
 
-
       - name: Embed entitlements
         working-directory: apps/app
         run: |
+          # Flutter FrameworksとApp Frameworkに個別に署名
+          APP_PATH="build/macos/Runner.xcarchive/Products/Applications/FlutterKaigi 2025.app"
+
+          # Frameworks内の各Frameworkに署名（存在する場合）
+          for framework in "$APP_PATH/Contents/Frameworks"/*.framework; do
+            if [ -d "$framework" ]; then
+              echo "Signing framework: $framework"
+              codesign \
+                --entitlements macos/Runner/Release.entitlements \
+                --force \
+                --sign "-" \
+                --options runtime \
+                --timestamp \
+                "$framework"
+            fi
+          done
+
+          # アプリ本体に署名
           codesign \
             --entitlements macos/Runner/Release.entitlements \
             --force \
-            --sign "-" build/macos/Runner.xcarchive/Products/Applications/FlutterKaigi\ 2025.app
+            --sign "-" \
+            --options runtime \
+            --timestamp \
+            --deep \
+            "$APP_PATH"
 
       - name: Export Archive
         working-directory: apps/app
