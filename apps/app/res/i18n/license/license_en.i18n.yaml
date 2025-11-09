@@ -1,0 +1,7 @@
+title: Licensees
+search:
+  hintText: "Search packages"
+listTile:
+  description:
+    one: "License: ${n} item"
+    other: "License: ${n} items"

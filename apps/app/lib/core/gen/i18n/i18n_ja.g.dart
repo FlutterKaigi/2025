@@ -43,6 +43,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final TranslationsAuthJa auth = TranslationsAuthJa.internal(_root);
 	late final TranslationsCommonJa common = TranslationsCommonJa.internal(_root);
 	late final TranslationsEventJa event = TranslationsEventJa.internal(_root);
+	late final TranslationsLicenseJa license = TranslationsLicenseJa.internal(_root);
 	late final TranslationsNewsJa news = TranslationsNewsJa.internal(_root);
 	late final TranslationsSessionJa session = TranslationsSessionJa.internal(_root);
 	late final TranslationsSponsorJa sponsor = TranslationsSponsorJa.internal(_root);
@@ -157,6 +158,21 @@ class TranslationsEventJa {
 
 	/// ja: '東京都千代田区大手町二丁目3番1号'
 	String get address => '東京都千代田区大手町二丁目3番1号';
+}
+
+// Path: license
+class TranslationsLicenseJa {
+	TranslationsLicenseJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'ライセンス'
+	String get title => 'ライセンス';
+
+	late final TranslationsLicenseSearchJa search = TranslationsLicenseSearchJa.internal(_root);
+	late final TranslationsLicenseListTileJa listTile = TranslationsLicenseListTileJa.internal(_root);
 }
 
 // Path: news
@@ -529,6 +545,33 @@ class TranslationsCommonDebugJa {
 	String get go => 'GO';
 
 	late final TranslationsCommonDebugProfileShareJa profileShare = TranslationsCommonDebugProfileShareJa.internal(_root);
+}
+
+// Path: license.search
+class TranslationsLicenseSearchJa {
+	TranslationsLicenseSearchJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'パッケージを検索'
+	String get hintText => 'パッケージを検索';
+}
+
+// Path: license.listTile
+class TranslationsLicenseListTileJa {
+	TranslationsLicenseListTileJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '(one) {ライセンス: ${n}件} (other) {ライセンス: ${n}件}'
+	String description({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ja'))(n,
+		one: 'ライセンス: ${n}件',
+		other: 'ライセンス: ${n}件',
+	);
 }
 
 // Path: news.tile
@@ -1277,6 +1320,12 @@ extension on Translations {
 			case 'event.time': return '10:00 ~ 18:00';
 			case 'event.venue': return '大手町プレイス ホール＆カンファレンス';
 			case 'event.address': return '東京都千代田区大手町二丁目3番1号';
+			case 'license.title': return 'ライセンス';
+			case 'license.search.hintText': return 'パッケージを検索';
+			case 'license.listTile.description': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ja'))(n,
+				one: 'ライセンス: ${n}件',
+				other: 'ライセンス: ${n}件',
+			);
 			case 'news.tile.title': return '最新のお知らせ';
 			case 'news.tile.subtitle': return '最新のお知らせをご確認ください';
 			case 'news.screen.title': return 'お知らせ';

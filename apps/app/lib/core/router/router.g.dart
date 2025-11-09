@@ -122,6 +122,18 @@ RouteBase get $mainRoute => StatefulShellRouteData.$route(
               parentNavigatorKey: StaffMemberListRoute.$parentNavigatorKey,
               factory: $StaffMemberListRoute._fromState,
             ),
+            GoRouteData.$route(
+              path: 'licenses',
+              parentNavigatorKey: LicenseRoute.$parentNavigatorKey,
+              factory: $LicenseRoute._fromState,
+              routes: [
+                GoRouteData.$route(
+                  path: ':package',
+                  parentNavigatorKey: LicenseDetailRoute.$parentNavigatorKey,
+                  factory: $LicenseDetailRoute._fromState,
+                ),
+              ],
+            ),
           ],
         ),
       ],
@@ -502,6 +514,51 @@ mixin $StaffMemberListRoute on GoRouteData {
 
   @override
   String get location => GoRouteData.$location('/account/staff-members');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $LicenseRoute on GoRouteData {
+  static LicenseRoute _fromState(GoRouterState state) => const LicenseRoute();
+
+  @override
+  String get location => GoRouteData.$location('/account/licenses');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $LicenseDetailRoute on GoRouteData {
+  static LicenseDetailRoute _fromState(GoRouterState state) =>
+      LicenseDetailRoute(package: state.pathParameters['package']!);
+
+  LicenseDetailRoute get _self => this as LicenseDetailRoute;
+
+  @override
+  String get location => GoRouteData.$location(
+    '/account/licenses/${Uri.encodeComponent(_self.package)}',
+  );
 
   @override
   void go(BuildContext context) => context.go(location);

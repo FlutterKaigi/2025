@@ -16,6 +16,8 @@ import 'package:app/features/auth/data/notifier/auth_notifier.dart';
 import 'package:app/features/auth/data/provider/auth_service.dart';
 import 'package:app/features/auth/ui/login_screen.dart';
 import 'package:app/features/event/ui/event_info_screen.dart';
+import 'package:app/features/licenses/ui/license_detail_screen.dart';
+import 'package:app/features/licenses/ui/license_screen.dart';
 import 'package:app/features/news/ui/news_screen.dart';
 import 'package:app/features/session/ui/bookmarked_sessions_screen.dart';
 import 'package:app/features/session/ui/session_screen.dart';

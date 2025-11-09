@@ -25,6 +25,14 @@ const _accountRoutes = [
       TypedGoRoute<StaffMemberListRoute>(
         path: 'staff-members',
       ),
+      TypedGoRoute<LicenseRoute>(
+        path: 'licenses',
+        routes: [
+          TypedGoRoute<LicenseDetailRoute>(
+            path: ':package',
+          ),
+        ],
+      ),
     ],
   ),
 ];
@@ -55,10 +63,7 @@ class AccountInfoRoute extends GoRouteData with $AccountInfoRoute {
       onTapContactTile: () => _openUrl(
         urlString: Translations.of(context).account.contactUrl,
       ),
-      onTapOssLicensesTile: () => showLicensePage(
-        context: context,
-        applicationName: Translations.of(context).common.app.name,
-      ),
+      onTapOssLicensesTile: () => const LicenseRoute().go(context),
       onTapWithdrawalTile: () => _openWithdrawalForm(context),
       onTapStaffMembers: () => const StaffMemberListRoute().go(context),
     );
@@ -159,4 +164,28 @@ class LoginRoute extends GoRouteData with $LoginRoute {
   Widget build(BuildContext context, GoRouterState state) {
     return const LoginScreen();
   }
+}
+
+class LicenseRoute extends GoRouteData with $LicenseRoute {
+  const LicenseRoute();
+
+  static final GlobalKey<NavigatorState> $parentNavigatorKey =
+      _rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const LicenseScreen();
+}
+
+class LicenseDetailRoute extends GoRouteData with $LicenseDetailRoute {
+  const LicenseDetailRoute({required this.package});
+
+  final String package;
+
+  static final GlobalKey<NavigatorState> $parentNavigatorKey =
+      _rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      LicenseDetailScreen(package: package);
 }

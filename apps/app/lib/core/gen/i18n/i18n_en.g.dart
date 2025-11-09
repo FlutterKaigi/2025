@@ -42,6 +42,7 @@ class TranslationsEn extends Translations {
 	@override late final _TranslationsAuthEn auth = _TranslationsAuthEn._(_root);
 	@override late final _TranslationsCommonEn common = _TranslationsCommonEn._(_root);
 	@override late final _TranslationsEventEn event = _TranslationsEventEn._(_root);
+	@override late final _TranslationsLicenseEn license = _TranslationsLicenseEn._(_root);
 	@override late final _TranslationsNewsEn news = _TranslationsNewsEn._(_root);
 	@override late final _TranslationsSessionEn session = _TranslationsSessionEn._(_root);
 	@override late final _TranslationsSponsorEn sponsor = _TranslationsSponsorEn._(_root);
@@ -113,6 +114,18 @@ class _TranslationsEventEn extends TranslationsEventJa {
 	@override String get time => '10:00 ~ 18:00';
 	@override String get venue => 'Otemachi Place Hall & Conference';
 	@override String get address => '2-3-1 Otemachi, Chiyoda-ku, Tokyo';
+}
+
+// Path: license
+class _TranslationsLicenseEn extends TranslationsLicenseJa {
+	_TranslationsLicenseEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Licensees';
+	@override late final _TranslationsLicenseSearchEn search = _TranslationsLicenseSearchEn._(_root);
+	@override late final _TranslationsLicenseListTileEn listTile = _TranslationsLicenseListTileEn._(_root);
 }
 
 // Path: news
@@ -347,6 +360,29 @@ class _TranslationsCommonDebugEn extends TranslationsCommonDebugJa {
 	@override String get pathCannotContainDebugOrLogin => 'Path cannot contain "debug" or "login"';
 	@override String get invalidPath => 'Invalid path';
 	@override String get go => 'GO';
+}
+
+// Path: license.search
+class _TranslationsLicenseSearchEn extends TranslationsLicenseSearchJa {
+	_TranslationsLicenseSearchEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get hintText => 'Search packages';
+}
+
+// Path: license.listTile
+class _TranslationsLicenseListTileEn extends TranslationsLicenseListTileJa {
+	_TranslationsLicenseListTileEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String description({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
+		one: 'License: ${n} item',
+		other: 'License: ${n} items',
+	);
 }
 
 // Path: news.tile
@@ -842,6 +878,12 @@ extension on TranslationsEn {
 			case 'event.time': return '10:00 ~ 18:00';
 			case 'event.venue': return 'Otemachi Place Hall & Conference';
 			case 'event.address': return '2-3-1 Otemachi, Chiyoda-ku, Tokyo';
+			case 'license.title': return 'Licensees';
+			case 'license.search.hintText': return 'Search packages';
+			case 'license.listTile.description': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
+				one: 'License: ${n} item',
+				other: 'License: ${n} items',
+			);
 			case 'news.tile.title': return 'Latest News';
 			case 'news.tile.subtitle': return 'Please check the latest news';
 			case 'news.screen.title': return 'News';

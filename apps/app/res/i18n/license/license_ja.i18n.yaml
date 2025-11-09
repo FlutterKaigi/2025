@@ -1,0 +1,7 @@
+title: ライセンス
+search:
+  hintText: パッケージを検索
+listTile:
+  description:
+    one: "ライセンス: ${n}件"
+    other: "ライセンス: ${n}件"
