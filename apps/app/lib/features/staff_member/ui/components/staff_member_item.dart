@@ -142,11 +142,6 @@ class _SnsIconButton extends StatelessWidget {
   }
 
   String _getSnsUrl(SnsType type, String value) {
-    // valueがURL形式の場合はそのまま使用
-    if (value.startsWith('http://') || value.startsWith('https://')) {
-      return value;
-    }
-
     // SNSタイプに応じてURLを生成
     return switch (type) {
       SnsType.github => 'https://github.com/$value',
