@@ -179,8 +179,11 @@ class _UnifiedSponsorCard extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.all(4),
       child: InkWell(
-        onTap: () {
-          SponsorDetailRoute(slug: sponsor.slug).go(context);
+        onTap: switch (sponsor) {
+          final CompanySponsor companySponsor => () {
+            SponsorDetailRoute(slug: companySponsor.slug).go(context);
+          },
+          final IndividualSponsor _ => null,
         },
         borderRadius: BorderRadius.circular(12),
         child: Container(
