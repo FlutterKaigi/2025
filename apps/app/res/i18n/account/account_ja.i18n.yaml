@@ -1,5 +1,9 @@
 profileEdit: プロフィールを編集する
 guestUserLabel: ゲストでログイン中
+contributors: Contributors
+staffMembers:
+  title: スタッフ
+  emptyMessage: スタッフが見つかりませんでした
 others: Others
 codeOfConduct: 行動規範
 codeOfConductUrl: https://docs.flutterkaigi.jp/Code-of-Conduct.ja

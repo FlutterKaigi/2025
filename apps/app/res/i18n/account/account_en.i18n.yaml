@@ -1,5 +1,9 @@
 profileEdit: Edit Profile
 guestUserLabel: Guest Mode
+contributors: Contributors
+staffMembers:
+  title: Staff
+  emptyMessage: No staff members found
 others: Others
 codeOfConduct: Code of Conduct
 codeOfConductUrl: https://docs.flutterkaigi.jp/Code-of-Conduct

@@ -64,6 +64,11 @@ class TranslationsAccountJa {
 	/// ja: 'ゲストでログイン中'
 	String get guestUserLabel => 'ゲストでログイン中';
 
+	/// ja: 'Contributors'
+	String get contributors => 'Contributors';
+
+	late final TranslationsAccountStaffMembersJa staffMembers = TranslationsAccountStaffMembersJa.internal(_root);
+
 	/// ja: 'Others'
 	String get others => 'Others';
 
@@ -266,6 +271,21 @@ class TranslationsVenueJa {
 
 	/// ja: '2F'
 	String get floor2f => '2F';
+}
+
+// Path: account.staffMembers
+class TranslationsAccountStaffMembersJa {
+	TranslationsAccountStaffMembersJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'スタッフ'
+	String get title => 'スタッフ';
+
+	/// ja: 'スタッフが見つかりませんでした'
+	String get emptyMessage => 'スタッフが見つかりませんでした';
 }
 
 // Path: account.profile
@@ -1106,6 +1126,9 @@ extension on Translations {
 		switch (path) {
 			case 'account.profileEdit': return 'プロフィールを編集する';
 			case 'account.guestUserLabel': return 'ゲストでログイン中';
+			case 'account.contributors': return 'Contributors';
+			case 'account.staffMembers.title': return 'スタッフ';
+			case 'account.staffMembers.emptyMessage': return 'スタッフが見つかりませんでした';
 			case 'account.others': return 'Others';
 			case 'account.codeOfConduct': return '行動規範';
 			case 'account.codeOfConductUrl': return 'https://docs.flutterkaigi.jp/Code-of-Conduct.ja';

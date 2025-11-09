@@ -58,6 +58,8 @@ class _TranslationsAccountEn extends TranslationsAccountJa {
 	// Translations
 	@override String get profileEdit => 'Edit Profile';
 	@override String get guestUserLabel => 'Guest Mode';
+	@override String get contributors => 'Contributors';
+	@override late final _TranslationsAccountStaffMembersEn staffMembers = _TranslationsAccountStaffMembersEn._(_root);
 	@override String get others => 'Others';
 	@override String get codeOfConduct => 'Code of Conduct';
 	@override String get codeOfConductUrl => 'https://docs.flutterkaigi.jp/Code-of-Conduct';
@@ -187,6 +189,17 @@ class _TranslationsVenueEn extends TranslationsVenueJa {
 	@override String get title => 'Venue Map';
 	@override String get floor1f => '1F';
 	@override String get floor2f => '2F';
+}
+
+// Path: account.staffMembers
+class _TranslationsAccountStaffMembersEn extends TranslationsAccountStaffMembersJa {
+	_TranslationsAccountStaffMembersEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Staff';
+	@override String get emptyMessage => 'No staff members found';
 }
 
 // Path: account.profile
@@ -688,6 +701,9 @@ extension on TranslationsEn {
 		switch (path) {
 			case 'account.profileEdit': return 'Edit Profile';
 			case 'account.guestUserLabel': return 'Guest Mode';
+			case 'account.contributors': return 'Contributors';
+			case 'account.staffMembers.title': return 'Staff';
+			case 'account.staffMembers.emptyMessage': return 'No staff members found';
 			case 'account.others': return 'Others';
 			case 'account.codeOfConduct': return 'Code of Conduct';
 			case 'account.codeOfConductUrl': return 'https://docs.flutterkaigi.jp/Code-of-Conduct';
