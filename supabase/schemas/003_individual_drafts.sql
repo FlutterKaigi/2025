@@ -2,11 +2,7 @@
 CREATE TABLE public.individual_drafts (
   id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   individual_id integer REFERENCES public.individuals (id) ON DELETE CASCADE,
-  name text NOT NULL CHECK (name <> ''),
-  slug text NOT NULL UNIQUE CHECK (slug <> ''),
   logo_name text,
-  enthusiasm text CHECK (enthusiasm <> ''),
-  x_account text CHECK (x_account <> ''),
   created_at timestamp DEFAULT now() NOT NULL,
   updated_at timestamp DEFAULT now() NOT NULL
 );
