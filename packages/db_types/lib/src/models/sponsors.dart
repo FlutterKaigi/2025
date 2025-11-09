@@ -30,11 +30,7 @@ abstract class CompanySponsorDetail with _$CompanySponsorDetail {
 abstract class IndividualSponsorDetail with _$IndividualSponsorDetail {
   const factory IndividualSponsorDetail({
     required int id,
-    required String name,
-    required String slug,
     required String logoUrl,
-    String? enthusiasm,
-    String? xAccount,
   }) = _IndividualSponsorDetail;
 
   factory IndividualSponsorDetail.fromJson(Map<String, dynamic> json) =>
