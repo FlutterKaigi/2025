@@ -27,4 +27,5 @@ class BffApiClientV1 {
   FilesApiClient get files => FilesApiClient(_dio);
   WebsocketApiClient get websocket => WebsocketApiClient(_dio);
   JobBoardsApiClient get jobBoards => JobBoardsApiClient(_dio);
+  StaffMembersApiClient get staffMembers => StaffMembersApiClient(_dio);
 }
