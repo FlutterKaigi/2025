@@ -89,7 +89,7 @@ class _TimelineState extends State<Timeline> {
           zIndex: const ZIndex(10),
           width: 100.vw,
           height: 100.vh,
-          padding: Spacing.all(1.rem),
+          padding: Spacing.all(1.5.rem),
           boxSizing: BoxSizing.borderBox,
           cursor: Cursor.pointer,
           justifyContent: JustifyContent.center,
