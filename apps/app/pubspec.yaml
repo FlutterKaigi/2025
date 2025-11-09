@@ -84,6 +84,8 @@ flutter:
   generate: true
   assets:
     - res/assets/
+    - res/assets/sns/dark/
+    - res/assets/sns/light/
     - res/assets/fonts/NotoSansJP/
     - res/assets/fonts/NotoSansMono/
 

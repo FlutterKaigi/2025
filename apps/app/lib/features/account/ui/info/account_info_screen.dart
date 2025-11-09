@@ -33,6 +33,7 @@ final class AccountInfoScreen extends ConsumerWidget {
     required VoidCallback onTapContactTile,
     required VoidCallback onTapOssLicensesTile,
     required VoidCallback onTapWithdrawalTile,
+    required VoidCallback onTapStaffMembers,
     super.key,
   }) : _onProfileEdit = onProfileEdit,
        _onTapQrCode = onTapQrCode,
@@ -42,7 +43,8 @@ final class AccountInfoScreen extends ConsumerWidget {
        _onTapPrivacyPolicyTile = onTapPrivacyPolicyTile,
        _onTapContactTile = onTapContactTile,
        _onTapOssLicensesTile = onTapOssLicensesTile,
-       _onTapWithdrawalTile = onTapWithdrawalTile;
+       _onTapWithdrawalTile = onTapWithdrawalTile,
+       _onTapStaffMembers = onTapStaffMembers;
 
   final VoidCallback _onProfileEdit;
   final VoidCallback _onTapQrCode;
@@ -53,6 +55,7 @@ final class AccountInfoScreen extends ConsumerWidget {
   final VoidCallback _onTapContactTile;
   final VoidCallback _onTapOssLicensesTile;
   final VoidCallback _onTapWithdrawalTile;
+  final VoidCallback _onTapStaffMembers;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -93,20 +96,33 @@ final class AccountInfoScreen extends ConsumerWidget {
                 ),
               ),
               const SizedBox(height: 8),
-              _OtherListItem(
+              _SectionListItem(
                 title: t.account.profileshare.qrCode,
                 onTap: _onTapQrCode,
               ),
-              _OtherListItem(
+              _SectionListItem(
                 title: t.account.profileshare.qrCodeScan,
                 onTap: _onTapQrCodeScan,
               ),
-              _OtherListItem(
+              _SectionListItem(
                 title: t.account.profileshare.friendsList,
                 onTap: _onTapFriendsList,
               ),
               const SizedBox(height: 16),
             ],
+            Padding(
+              padding: const EdgeInsetsDirectional.only(start: 16),
+              child: Text(
+                t.account.contributors,
+                style: textTheme.titleLarge,
+              ),
+            ),
+            const SizedBox(height: 8),
+            _SectionListItem(
+              title: t.account.staffMembers.title,
+              onTap: _onTapStaffMembers,
+            ),
+            const SizedBox(height: 16),
             Padding(
               padding: const EdgeInsetsDirectional.only(start: 16),
               child: Text(
@@ -139,7 +155,7 @@ final class AccountInfoScreen extends ConsumerWidget {
                   onTap: _onTapWithdrawalTile,
                 ),
             ].map(
-              (item) => _OtherListItem(
+              (item) => _SectionListItem(
                 title: item.title,
                 onTap: item.onTap,
               ),
@@ -313,9 +329,7 @@ class _SignInMethodChip extends StatelessWidget {
       'apple' => (
         FontAwesomeIcons.apple,
         'Apple',
-        theme.brightness == Brightness.dark
-          ? Colors.white
-          : Colors.black,
+        theme.brightness == Brightness.dark ? Colors.white : Colors.black,
       ),
       _ => (Icons.account_circle, provider, theme.colorScheme.primary),
     };
@@ -327,7 +341,6 @@ class _SignInMethodChip extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
           color: color.withValues(alpha: 0.3),
-          width: 1,
         ),
       ),
       child: Row(
@@ -382,8 +395,8 @@ class _LogoutButton extends ConsumerWidget {
 }
 
 /// Othersアイテム用のカスタムウィジェット
-class _OtherListItem extends StatelessWidget {
-  const _OtherListItem({
+class _SectionListItem extends StatelessWidget {
+  const _SectionListItem({
     required this.title,
     required this.onTap,
   });

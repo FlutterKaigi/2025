@@ -19,6 +19,9 @@ const _accountRoutes = [
       TypedGoRoute<ProfileShareQrScanRoute>(
         path: 'profile-share/scan',
       ),
+      TypedGoRoute<StaffMemberListRoute>(
+        path: 'staff-members',
+      ),
     ],
   ),
 ];
@@ -54,6 +57,7 @@ class AccountInfoRoute extends GoRouteData with $AccountInfoRoute {
         applicationName: Translations.of(context).common.app.name,
       ),
       onTapWithdrawalTile: () => _openWithdrawalForm(context),
+      onTapStaffMembers: () => const StaffMemberListRoute().go(context),
     );
   }
 
@@ -129,4 +133,15 @@ class ProfileShareQrScanRoute extends GoRouteData
   @override
   Widget build(BuildContext context, GoRouterState state) =>
       const QrCodeScanScreen();
+}
+
+class StaffMemberListRoute extends GoRouteData with $StaffMemberListRoute {
+  const StaffMemberListRoute();
+
+  static final GlobalKey<NavigatorState> $parentNavigatorKey =
+      _rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const StaffMemberListScreen();
 }

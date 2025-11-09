@@ -6,6 +6,7 @@ export 'api/v1/profile_api_client.dart';
 export 'api/v1/session_api_client.dart';
 export 'api/v1/speaker_api_client.dart';
 export 'api/v1/sponsors_api_client.dart';
+export 'api/v1/staff_members_api_client.dart';
 export 'api/v1/tickets_api_client.dart';
 export 'api/v1/users_api_client.dart';
 export 'api/v1/v1.dart';
