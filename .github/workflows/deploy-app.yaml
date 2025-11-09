@@ -263,7 +263,7 @@ jobs:
         run: |
           xcrun altool \
             --upload-app \
-            -f "build/FlutterKaigi 2025-ios.ipa" \
+            -f "build/FlutterKaigi 2025.ipa" \
             --type ios \
             --apiIssuer $APP_STORE_CONNECT_API_KEY_ISSUER_ID \
             --apiKey $APP_STORE_CONNECT_API_KEY_ID \
