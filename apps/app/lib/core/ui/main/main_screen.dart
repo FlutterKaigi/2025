@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:app/core/debug/debug_overlay.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/core/ui/main/responsive_scaffold.dart';
 import 'package:app/features/force_update/force_update_dialog_listener.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 
 /// メイン画面
@@ -55,6 +58,9 @@ class MainScreen extends StatelessWidget {
           ),
         ],
         onNavigationIndexChange: (index) async {
+          unawaited(
+            HapticFeedback.lightImpact(),
+          );
           navigationShell.goBranch(
             index,
             initialLocation: index == navigationShell.currentIndex,

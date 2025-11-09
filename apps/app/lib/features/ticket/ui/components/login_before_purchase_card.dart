@@ -24,12 +24,15 @@ class LoginBeforePurchaseCard extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Card.outlined(
-      color: theme.colorScheme.primaryContainer,
-      surfaceTintColor: theme.colorScheme.onPrimaryContainer,
-      margin: const EdgeInsets.all(8),
+      color: theme.colorScheme.tertiaryContainer,
+      surfaceTintColor: theme.colorScheme.onTertiaryContainer,
+      margin: const EdgeInsets.symmetric(
+        vertical: 8,
+        horizontal: 16,
+      ).copyWith(bottom: 0),
       child: DefaultTextStyle(
         style: theme.textTheme.bodyMedium!.copyWith(
-          color: theme.colorScheme.onPrimaryContainer,
+          color: theme.colorScheme.onTertiaryContainer,
         ),
         child: Padding(
           padding: const EdgeInsets.all(8),
@@ -37,9 +40,9 @@ class LoginBeforePurchaseCard extends StatelessWidget {
             spacing: 8,
             children: [
               Icon(
-                Icons.info,
+                Icons.account_box,
                 size: 48,
-                color: theme.colorScheme.onPrimaryContainer,
+                color: theme.colorScheme.onTertiaryContainer,
               ),
               Expanded(
                 child: Column(
@@ -48,15 +51,19 @@ class LoginBeforePurchaseCard extends StatelessWidget {
                   children: [
                     Text(
                       type.title(t),
-                      style: theme.textTheme.titleLarge!.copyWith(
+                      style: theme.textTheme.titleMedium!.copyWith(
                         fontWeight: FontWeight.bold,
-                        color: theme.colorScheme.onPrimaryContainer,
+                        color: theme.colorScheme.onTertiaryContainer,
                       ),
                     ),
                     Text(
                       type.description(t),
                     ),
                     FilledButton.icon(
+                      style: FilledButton.styleFrom(
+                        backgroundColor: theme.colorScheme.onTertiaryContainer,
+                        foregroundColor: theme.colorScheme.tertiaryContainer,
+                      ),
                       label: Text(t.account.settings),
                       icon: const Icon(Icons.settings),
                       onPressed: () => const AccountInfoRoute().go(context),
