@@ -62,6 +62,9 @@ class $ResAssetsGen {
   /// File path: res/assets/logo.webp
   AssetGenImage get logo => const AssetGenImage('res/assets/logo.webp');
 
+  /// Directory path: res/assets/sns
+  $ResAssetsSnsGen get sns => const $ResAssetsSnsGen();
+
   /// List of all assets
   List<dynamic> get values => [
     addToAppleWallet,
@@ -86,6 +89,16 @@ class $ResAssetsFontsGen {
   /// Directory path: res/assets/fonts/NotoSansMono
   $ResAssetsFontsNotoSansMonoGen get notoSansMono =>
       const $ResAssetsFontsNotoSansMonoGen();
+}
+
+class $ResAssetsSnsGen {
+  const $ResAssetsSnsGen();
+
+  /// Directory path: res/assets/sns/dark
+  $ResAssetsSnsDarkGen get dark => const $ResAssetsSnsDarkGen();
+
+  /// Directory path: res/assets/sns/light
+  $ResAssetsSnsLightGen get light => const $ResAssetsSnsLightGen();
 }
 
 class $ResAssetsFontsNotoSansJPGen {
@@ -114,6 +127,90 @@ class $ResAssetsFontsNotoSansMonoGen {
 
   /// List of all assets
   List<String> get values => [notoSansMonoVariableFont, ofl];
+}
+
+class $ResAssetsSnsDarkGen {
+  const $ResAssetsSnsDarkGen();
+
+  /// File path: res/assets/sns/dark/discord.webp
+  AssetGenImage get discord =>
+      const AssetGenImage('res/assets/sns/dark/discord.webp');
+
+  /// File path: res/assets/sns/dark/github.webp
+  AssetGenImage get github =>
+      const AssetGenImage('res/assets/sns/dark/github.webp');
+
+  /// File path: res/assets/sns/dark/medium.webp
+  AssetGenImage get medium =>
+      const AssetGenImage('res/assets/sns/dark/medium.webp');
+
+  /// File path: res/assets/sns/dark/note.webp
+  AssetGenImage get note =>
+      const AssetGenImage('res/assets/sns/dark/note.webp');
+
+  /// File path: res/assets/sns/dark/qiita.webp
+  AssetGenImage get qiita =>
+      const AssetGenImage('res/assets/sns/dark/qiita.webp');
+
+  /// File path: res/assets/sns/dark/x.webp
+  AssetGenImage get x => const AssetGenImage('res/assets/sns/dark/x.webp');
+
+  /// File path: res/assets/sns/dark/zenn.webp
+  AssetGenImage get zenn =>
+      const AssetGenImage('res/assets/sns/dark/zenn.webp');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [
+    discord,
+    github,
+    medium,
+    note,
+    qiita,
+    x,
+    zenn,
+  ];
+}
+
+class $ResAssetsSnsLightGen {
+  const $ResAssetsSnsLightGen();
+
+  /// File path: res/assets/sns/light/discord.webp
+  AssetGenImage get discord =>
+      const AssetGenImage('res/assets/sns/light/discord.webp');
+
+  /// File path: res/assets/sns/light/github.webp
+  AssetGenImage get github =>
+      const AssetGenImage('res/assets/sns/light/github.webp');
+
+  /// File path: res/assets/sns/light/medium.webp
+  AssetGenImage get medium =>
+      const AssetGenImage('res/assets/sns/light/medium.webp');
+
+  /// File path: res/assets/sns/light/note.webp
+  AssetGenImage get note =>
+      const AssetGenImage('res/assets/sns/light/note.webp');
+
+  /// File path: res/assets/sns/light/qiita.webp
+  AssetGenImage get qiita =>
+      const AssetGenImage('res/assets/sns/light/qiita.webp');
+
+  /// File path: res/assets/sns/light/x.webp
+  AssetGenImage get x => const AssetGenImage('res/assets/sns/light/x.webp');
+
+  /// File path: res/assets/sns/light/zenn.webp
+  AssetGenImage get zenn =>
+      const AssetGenImage('res/assets/sns/light/zenn.webp');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [
+    discord,
+    github,
+    medium,
+    note,
+    qiita,
+    x,
+    zenn,
+  ];
 }
 
 class Assets {
