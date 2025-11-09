@@ -31,7 +31,7 @@ on:
         type: boolean
 
 env:
-  XCODE_VERSION: 26.0
+  XCODE_VERSION: 26.1
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 defaults:
