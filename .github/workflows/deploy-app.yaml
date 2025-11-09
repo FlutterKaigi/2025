@@ -743,11 +743,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
+      # https://github.com/actions/download-artifact
       - name: Download Flutter App Artifacts
         uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
         with:
           artifact-ids: ${{ needs.build-website.outputs.artifact-id }}
-          path: apps/app/build/web/
+          path: tmp/
+
+      - name: Move
+        run: |
+          ls -la tmp/
+          mv tmp/FlutterKaigi 2025-website.zip apps/app/build/web/
 
       - name: Extract SOPS secrets
         run: |
