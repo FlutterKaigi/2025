@@ -26,6 +26,7 @@ List<TimelineEntry> convertSessionsToTimelineEntries(
       entries.add(
         (
           title: (ja: session.title, en: null),
+          description: session.description,
           url: session.url,
           venueId: venue.id,
           venueName: venue.name,
@@ -64,6 +65,7 @@ List<TimelineEntry> convertTimelineEventsToEntries(
     entries.add(
       (
         title: (ja: event.title, en: null),
+        description: null,
         url: null,
         venueId: event.venue!.id,
         venueName: event.venue!.name,

@@ -11,6 +11,8 @@ import 'package:flutterkaigi_2025_website/src/components/sponsor.dart'
     as prefix1;
 import 'package:flutterkaigi_2025_website/src/components/tagline.dart'
     as prefix2;
+import 'package:flutterkaigi_2025_website/src/components/timeline.dart'
+    as prefix3;
 
 /// Default [JasprOptions] for use with your jaspr project.
 ///
@@ -38,8 +40,13 @@ JasprOptions get defaultJasprOptions => JasprOptions(
       'src/components/sponsor',
       params: _prefix1Sponsor,
     ),
+
+    prefix3.Timeline: ClientTarget<prefix3.Timeline>(
+      'src/components/timeline',
+      params: _prefix3Timeline,
+    ),
   },
-  styles: () => [...prefix2.Tagline.styles],
+  styles: () => [...prefix2.Tagline.styles, ...prefix3.Timeline.styles],
 );
 
 Map<String, dynamic> _prefix1Sponsor(prefix1.Sponsor c) => {
@@ -50,4 +57,9 @@ Map<String, dynamic> _prefix1Sponsor(prefix1.Sponsor c) => {
   'url': c.url,
   'type': c.type,
   'snsX': c.snsX,
+};
+Map<String, dynamic> _prefix3Timeline(prefix3.Timeline c) => {
+  'title': c.title,
+  'url': c.url,
+  'description': c.description,
 };
