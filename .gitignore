@@ -27,3 +27,4 @@ devtools_options.yaml
 .turbo
 
 /build
+/mise.local.toml
