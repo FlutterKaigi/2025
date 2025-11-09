@@ -19,13 +19,13 @@ final List<TimelineEvent> timelineEvents =
 /// セッションスケジュールのマップ
 final Map<String, List<ScheduleSession>> sessionSchedule =
     (_jsonData['sessionSchedule'] as Map<String, dynamic>).map(
-  (key, value) => MapEntry(
-    key,
-    (value as List<dynamic>)
-        .map((s) => ScheduleSession.fromJson(s as Map<String, dynamic>))
-        .toList(),
-  ),
-);
+      (key, value) => MapEntry(
+        key,
+        (value as List<dynamic>)
+            .map((s) => ScheduleSession.fromJson(s as Map<String, dynamic>))
+            .toList(),
+      ),
+    );
 
 /// 会場別セッションのリスト
 final List<VenueWithSessions> venuesWithSessions =
