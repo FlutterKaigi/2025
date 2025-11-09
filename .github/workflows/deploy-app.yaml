@@ -533,6 +533,15 @@ jobs:
             VALID_ARCHS=arm64 \
             | xcbeautify --renderer github-actions
 
+
+      - name: Embed entitlements
+        working-directory: apps/app
+        run: |
+          codesign \
+            --entitlements macos/Runner/Release.entitlements \
+            --force \
+            --sign "-" build/macos/Runner.xcarchive/Products/Applications/FlutterKaigi\ 2025.app
+
       - name: Export Archive
         working-directory: apps/app
         run: |
