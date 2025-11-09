@@ -34,44 +34,40 @@ class EntryTicketCard extends ConsumerWidget {
         return Card.outlined(
           clipBehavior: Clip.antiAlias,
           margin: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            children: [
-              Ink(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      colorScheme.primaryContainer,
-                      colorScheme.primaryContainer.withValues(alpha: 0.8),
-                    ],
-                  ),
-                ),
-                child: ListTile(
-                  leading: Icon(
-                    Icons.confirmation_number,
-                    color: colorScheme.onPrimaryContainer,
-                  ),
-                  title: Text(
-                    t.ticket.entryTicket.title,
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      color: colorScheme.onPrimaryContainer,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  subtitle: Text(
-                    t.ticket.entryTicket.subtitle(
-                      count: entryTickets.length,
-                    ),
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      color: colorScheme.onPrimaryContainer.withValues(
-                        alpha: 0.9,
-                      ),
-                    ),
-                  ),
-                  trailing: const Icon(Icons.arrow_right),
-                  onTap: () => const TicketRoute().go(context),
+          child: Ink(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  colorScheme.primaryContainer,
+                  colorScheme.primaryContainer.withValues(alpha: 0.8),
+                ],
+              ),
+            ),
+            child: ListTile(
+              leading: Icon(
+                Icons.confirmation_number,
+                color: colorScheme.onPrimaryContainer,
+              ),
+              title: Text(
+                t.ticket.entryTicket.title,
+                style: theme.textTheme.titleMedium?.copyWith(
+                  color: colorScheme.onPrimaryContainer,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-            ],
+              subtitle: Text(
+                t.ticket.entryTicket.subtitle(
+                  count: entryTickets.length,
+                ),
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: colorScheme.onPrimaryContainer.withValues(
+                    alpha: 0.9,
+                  ),
+                ),
+              ),
+              trailing: const Icon(Icons.arrow_right),
+              onTap: () => const TicketRoute().go(context),
+            ),
           ),
         );
       },

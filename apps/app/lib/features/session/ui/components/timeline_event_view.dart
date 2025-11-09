@@ -27,16 +27,11 @@ class TimelineEventView extends StatelessWidget {
       ),
       child: Padding(
         padding: const EdgeInsets.all(16),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Center(
-              child: Text(
-                event.title,
-                style: theme.textTheme.titleMedium,
-              ),
-            ),
-          ],
+        child: Center(
+          child: Text(
+            event.title,
+            style: theme.textTheme.titleMedium,
+          ),
         ),
       ),
     );

@@ -137,7 +137,10 @@ class _GoogleSignInButton extends StatelessWidget {
 }
 
 class _AppleSignInButton extends StatelessWidget {
-  const _AppleSignInButton({required this.onPressed});
+  const _AppleSignInButton({
+    required this.onPressed,
+  });
+
   final VoidCallback onPressed;
 
   @override

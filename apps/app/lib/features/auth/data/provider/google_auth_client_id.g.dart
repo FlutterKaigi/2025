@@ -23,7 +23,7 @@ final class GoogleAuthClientIdProvider
         argument: null,
         retry: null,
         name: r'googleAuthClientIdProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -51,7 +51,7 @@ final class GoogleAuthClientIdProvider
 }
 
 String _$googleAuthClientIdHash() =>
-    r'4b66ce3398236c14cce8798b3905b2d1dc9e5bd6';
+    r'deebf64b5c3ec1ac0af13235e3c0bbfc320ef94b';
 
 @ProviderFor(googleAuthWebClientId)
 const googleAuthWebClientIdProvider = GoogleAuthWebClientIdProvider._();
@@ -65,7 +65,7 @@ final class GoogleAuthWebClientIdProvider
         argument: null,
         retry: null,
         name: r'googleAuthWebClientIdProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -93,4 +93,4 @@ final class GoogleAuthWebClientIdProvider
 }
 
 String _$googleAuthWebClientIdHash() =>
-    r'abe0dbdaf4471f8c1fa9690f66e6ce7d6b27edc3';
+    r'c66b7de6349ba3460741ee593aec36813ac1ade2';

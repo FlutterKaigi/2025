@@ -8,14 +8,14 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'google_auth_client_id.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 String googleAuthClientId(Ref ref) {
   final flavor = ref.watch(environmentProvider).flavor;
 
   final webClientId = ref.watch(googleAuthWebClientIdProvider);
 
   return switch (flavor) {
-    _ when kIsWeb  => webClientId,
+    _ when kIsWeb => webClientId,
     Flavor.develop when Platform.isAndroid =>
       '106402217021-8b4egl8ss9v3jroesh8qbp7ttb6nhuin.apps.googleusercontent.com',
     Flavor.develop when Platform.isIOS || Platform.isMacOS =>
@@ -34,6 +34,6 @@ String googleAuthClientId(Ref ref) {
   };
 }
 
-
-@riverpod
- String googleAuthWebClientId(Ref ref) => '106402217021-p95ju7d3noudgv25snerp3qg1usgm7mv.apps.googleusercontent.com';
+@Riverpod(keepAlive: true)
+String googleAuthWebClientId(Ref ref) =>
+    '106402217021-p95ju7d3noudgv25snerp3qg1usgm7mv.apps.googleusercontent.com';

@@ -235,7 +235,7 @@ class _RoomSwitcher extends HookConsumerWidget {
       [currentVenueIndex.value],
     );
 
-    final screenWidth = MediaQuery.of(context).size.width;
+    final screenWidth = MediaQuery.sizeOf(context).width;
 
     return AnimatedPositioned(
       duration: const Duration(milliseconds: 300),

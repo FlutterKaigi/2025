@@ -125,7 +125,10 @@ class _SessionDetailView extends ConsumerWidget with SessionScreenMixin {
               title: session.title,
               context: context,
             ),
-            title: Text(session.title),
+            title: Text(
+              session.title,
+              style: theme.textTheme.titleLarge!.copyWith(),
+            ),
             actions: [
               IconButton(
                 tooltip: 'Xでシェア',

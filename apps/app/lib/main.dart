@@ -110,6 +110,7 @@ Future<void> _run() async {
   } on Exception catch (e) {
     log(e.toString());
   }
+  // ignore: missing_provider_scope
   runApp(
     TranslationProvider(
       child: UncontrolledProviderScope(

@@ -114,6 +114,7 @@ class _TicketsListView extends HookWidget {
       onRefresh: onRefresh,
       child: CustomScrollView(
         primary: true,
+        // ignore: avoid_consecutive_sliver_to_box_adapter
         slivers: [
           if (!isLoggedIn)
             SliverToBoxAdapter(
