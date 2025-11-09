@@ -1,3 +1,5 @@
+export 'entry_log_delete_response.dart';
+export 'entry_log_put_response.dart';
 export 'ticket_checkout_request.dart';
 export 'ticket_checkout_response.dart';
 export 'ticket_checkout_session_response.dart';

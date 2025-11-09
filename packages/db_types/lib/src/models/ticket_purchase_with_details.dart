@@ -11,6 +11,7 @@ abstract class TicketPurchaseWithDetails with _$TicketPurchaseWithDetails {
     TicketCheckoutSessions? checkoutSession,
     required String ticketTypeId,
     required List<TicketOptions> options,
+    EntryLogs? entryLog,
   }) = _TicketPurchaseWithDetails;
 
   factory TicketPurchaseWithDetails.fromJson(Map<String, dynamic> json) =>

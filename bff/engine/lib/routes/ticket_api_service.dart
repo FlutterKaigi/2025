@@ -269,6 +269,70 @@ class TicketApiService {
         },
       );
 
+  /// 入場履歴を追加/更新（管理者のみ）
+  @Route.put('/<ticketPurchaseId>/entry')
+  Future<Response> _putEntryLog(
+    Request request,
+    String ticketPurchaseId,
+  ) async => jsonResponse(
+    () async {
+      final supabaseUtil = container.read(supabaseUtilProvider);
+      final userResult = await supabaseUtil.extractUser(request);
+      final (_, _, roles) = userResult.unwrap;
+
+      // 管理者権限チェック
+      if (!roles.contains(db_types.Role.admin)) {
+        throw ErrorResponse.errorCode(
+          code: ErrorCode.forbidden,
+          detail: 'この操作には管理者権限が必要です',
+        );
+      }
+
+      final database = await container.read(dbClientProvider.future);
+      final dbEntryLog = await database.entryLog.upsertEntryLog(
+        ticketPurchaseId,
+      );
+
+      final entryLog = EntryLog(
+        ticketPurchaseId: dbEntryLog.ticketPurchaseId,
+        createdAt: dbEntryLog.createdAt,
+      );
+
+      return EntryLogPutResponse(
+        success: true,
+        entryLog: entryLog,
+      ).toJson();
+    },
+  );
+
+  /// 入場履歴を削除（管理者のみ）
+  @Route.delete('/<ticketPurchaseId>/entry')
+  Future<Response> _deleteEntryLog(
+    Request request,
+    String ticketPurchaseId,
+  ) async => jsonResponse(
+    () async {
+      final supabaseUtil = container.read(supabaseUtilProvider);
+      final userResult = await supabaseUtil.extractUser(request);
+      final (_, _, roles) = userResult.unwrap;
+
+      // 管理者権限チェック
+      if (!roles.contains(db_types.Role.admin)) {
+        throw ErrorResponse.errorCode(
+          code: ErrorCode.forbidden,
+          detail: 'この操作には管理者権限が必要です',
+        );
+      }
+
+      final database = await container.read(dbClientProvider.future);
+      await database.entryLog.deleteEntryLog(ticketPurchaseId);
+
+      return const EntryLogDeleteResponse(
+        success: true,
+      ).toJson();
+    },
+  );
+
   Router get router => _$TicketApiServiceRouter(this);
 }
 
@@ -299,11 +363,17 @@ Future<UserTicketsResponse> _getUserTicketsResponse(String userId) async {
 
     final purchase = item.purchase?.toTicketPurchase();
     final checkout = item.checkoutSession?.toTicketCheckout();
+    final entryLog = item.entryLog != null
+        ? EntryLog(
+            ticketPurchaseId: item.entryLog!.ticketPurchaseId,
+            createdAt: item.entryLog!.createdAt,
+          )
+        : null;
 
     if (purchase != null) {
       return TicketItem.purchase(
         ticketType: matchedTicketType.ticketType,
-        purchase: purchase,
+        purchase: purchase.copyWith(entryLog: entryLog),
         options: matchedOption,
       );
     } else if (checkout != null) {

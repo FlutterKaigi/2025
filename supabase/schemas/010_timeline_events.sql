@@ -5,6 +5,7 @@ CREATE TABLE "public"."timeline_events" (
   "starts_at" TIMESTAMP WITH TIME ZONE NOT NULL,
   "ends_at" TIMESTAMP WITH TIME ZONE,
   "venue_id" uuid,
+  "url" text,
   "created_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
 );
 

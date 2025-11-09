@@ -87,3 +87,11 @@ CREATE INDEX idx_ticket_purchase_options_ticket_purchase_id ON public.ticket_pur
 CREATE INDEX idx_stripe_webhook_logs_stripe_event_id ON public.stripe_webhook_logs (stripe_event_id);
 
 CREATE INDEX idx_stripe_webhook_logs_processed ON public.stripe_webhook_logs (processed);
+
+-- ========================================
+-- 5. 入場履歴テーブル
+-- ========================================
+CREATE TABLE public.entry_logs (
+  ticket_purchase_id uuid PRIMARY KEY REFERENCES public.ticket_purchases (id) ON DELETE CASCADE,
+  created_at timestamp DEFAULT now() NOT NULL
+);

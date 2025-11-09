@@ -4,6 +4,9 @@ const _accountRoutes = [
   TypedGoRoute<AccountInfoRoute>(
     path: '/account',
     routes: [
+      TypedGoRoute<LoginRoute>(
+        path: 'login',
+      ),
       TypedGoRoute<ProfileEditRoute>(
         path: 'profile-edit',
       ),
@@ -144,4 +147,16 @@ class StaffMemberListRoute extends GoRouteData with $StaffMemberListRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) =>
       const StaffMemberListScreen();
+}
+
+class LoginRoute extends GoRouteData with $LoginRoute {
+  const LoginRoute();
+
+  static final GlobalKey<NavigatorState> $parentNavigatorKey =
+      _rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const LoginScreen();
+  }
 }

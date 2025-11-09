@@ -15,5 +15,7 @@ Router _$TicketApiServiceRouter(TicketApiService service) {
   router.add('PUT', r'/checkout/<checkoutId>/cancel', service._cancelCheckout);
   router.add('GET', r'/me', service._getMyTickets);
   router.add('GET', r'/users/<userId>', service._getUserTickets);
+  router.add('PUT', r'/<ticketPurchaseId>/entry', service._putEntryLog);
+  router.add('DELETE', r'/<ticketPurchaseId>/entry', service._deleteEntryLog);
   return router;
 }

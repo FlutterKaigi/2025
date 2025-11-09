@@ -34,12 +34,17 @@ _TicketPurchaseWithDetails _$TicketPurchaseWithDetailsFromJson(
             .map((e) => TicketOptions.fromJson(e as Map<String, dynamic>))
             .toList(),
       ),
+      entryLog: $checkedConvert(
+        'entry_log',
+        (v) => v == null ? null : EntryLogs.fromJson(v as Map<String, dynamic>),
+      ),
     );
     return val;
   },
   fieldKeyMap: const {
     'checkoutSession': 'checkout_session',
     'ticketTypeId': 'ticket_type_id',
+    'entryLog': 'entry_log',
   },
 );
 
@@ -50,4 +55,5 @@ Map<String, dynamic> _$TicketPurchaseWithDetailsToJson(
   'checkout_session': instance.checkoutSession,
   'ticket_type_id': instance.ticketTypeId,
   'options': instance.options,
+  'entry_log': instance.entryLog,
 };

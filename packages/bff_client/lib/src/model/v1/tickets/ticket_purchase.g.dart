@@ -33,6 +33,11 @@ _TicketPurchase _$TicketPurchaseFromJson(Map<String, dynamic> json) =>
             (v) => v as String?,
           ),
           nameplateId: $checkedConvert('nameplate_id', (v) => v as String?),
+          entryLog: $checkedConvert(
+            'entry_log',
+            (v) =>
+                v == null ? null : EntryLog.fromJson(v as Map<String, dynamic>),
+          ),
         );
         return val;
       },
@@ -42,6 +47,7 @@ _TicketPurchase _$TicketPurchaseFromJson(Map<String, dynamic> json) =>
         'updatedAt': 'updated_at',
         'stripePaymentIntentId': 'stripe_payment_intent_id',
         'nameplateId': 'nameplate_id',
+        'entryLog': 'entry_log',
       },
     );
 
@@ -54,6 +60,7 @@ Map<String, dynamic> _$TicketPurchaseToJson(_TicketPurchase instance) =>
       'updated_at': instance.updatedAt.toIso8601String(),
       'stripe_payment_intent_id': instance.stripePaymentIntentId,
       'nameplate_id': instance.nameplateId,
+      'entry_log': instance.entryLog,
     };
 
 const _$TicketPurchaseStatusEnumMap = {

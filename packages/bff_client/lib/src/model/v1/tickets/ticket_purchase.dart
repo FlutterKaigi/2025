@@ -1,3 +1,4 @@
+import 'package:bff_client/src/model/v1/tickets/entry_log.dart';
 import 'package:db_types/db_types.dart' as db_types;
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -14,6 +15,7 @@ abstract class TicketPurchase with _$TicketPurchase {
     required DateTime updatedAt,
     String? stripePaymentIntentId,
     String? nameplateId,
+    EntryLog? entryLog,
   }) = _TicketPurchase;
 
   factory TicketPurchase.fromJson(Map<String, dynamic> json) =>
