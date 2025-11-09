@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -75,6 +77,7 @@ $jsonOutput
     print('Generated: ${dartFile.path}');
 
     print('Done!');
+  // ignore: avoid_catches_without_on_clauses
   } catch (e, stackTrace) {
     stderr.writeln('Error fetching session data: $e');
     stderr.writeln(stackTrace);

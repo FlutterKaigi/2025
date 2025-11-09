@@ -35,7 +35,7 @@ final class AuthNotifierProvider
   AuthNotifier create() => AuthNotifier();
 }
 
-String _$authNotifierHash() => r'4e00ca0c73f8d168c55313bf7e9d8f1c4c6e692f';
+String _$authNotifierHash() => r'a21460d34a1830e644c3ecb6ae5122ac2ce12bae';
 
 abstract class _$AuthNotifier extends $StreamNotifier<User?> {
   Stream<User?> build();

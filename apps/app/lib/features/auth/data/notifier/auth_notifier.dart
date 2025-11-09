@@ -20,7 +20,7 @@ class AuthNotifier extends _$AuthNotifier {
     }
   }
 
-  AuthenticationPlatform get platform => kIsWeb
+  AuthenticationPlatform get _platform => kIsWeb
       ? AuthenticationPlatform.web
       : switch (defaultTargetPlatform) {
           TargetPlatform.android => AuthenticationPlatform.android,
@@ -38,7 +38,7 @@ class AuthNotifier extends _$AuthNotifier {
         .read(authServiceProvider)
         .signInWithGoogle(
           redirectTo: redirectTo,
-          platform: platform,
+          platform: _platform,
           webClientId: ref.watch(googleAuthWebClientIdProvider),
           platformClientId: ref.watch(googleAuthClientIdProvider),
         );
@@ -53,7 +53,7 @@ class AuthNotifier extends _$AuthNotifier {
     await ref
         .read(authServiceProvider)
         .linkAnonymousUserWithGoogle(
-          platform: platform,
+          platform: _platform,
           webClientId: ref.watch(googleAuthWebClientIdProvider),
           platformClientId: ref.watch(googleAuthClientIdProvider),
           redirectTo: redirectTo,
