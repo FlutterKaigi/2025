@@ -102,6 +102,8 @@ jobs:
       cancel-in-progress: false
     env:
       MISE_ENV: ci
+    outputs:
+      artifact-id: ${{ steps.upload.outputs.artifact_id }}
     steps:
       # https://github.com/actions/checkout
       - name: Checkout
@@ -190,10 +192,12 @@ jobs:
             -authenticationKeyPath ${{ github.workspace }}/apps/app/ios/AuthKey_$APP_STORE_CONNECT_API_KEY_ID.p8 \
           | xcbeautify --renderer github-actions
 
+      # https://github.com/actions/upload-artifact
       - name: Upload ipa as artifact
+        id: upload
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
-          name: FlutterKaigi 2025.ipa
+          name: FlutterKaigi 2025-ios.ipa
           path: apps/app/FlutterKaigi 2025.ipa
           if-no-files-found: error
 
@@ -248,7 +252,7 @@ jobs:
       - name: Download ipa
         uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
         with:
-          name: FlutterKaigi 2025.ipa
+          artifact-ids: ${{ needs.build-ios.outputs.artifact-id }}
           path: build
 
       - name: Extract App Store Connect API Key
@@ -261,7 +265,7 @@ jobs:
         run: |
           xcrun altool \
             --upload-app \
-            -f "build/FlutterKaigi 2025.ipa" \
+            -f "build/FlutterKaigi 2025-ios.ipa" \
             --type ios \
             --apiIssuer $APP_STORE_CONNECT_API_KEY_ISSUER_ID \
             --apiKey $APP_STORE_CONNECT_API_KEY_ID \
@@ -672,6 +676,7 @@ jobs:
     runs-on: ubuntu-24.04
     outputs:
       build_log: ${{ steps.build.outputs.LOG }}
+      artifact-id: ${{ steps.upload.outputs.artifact_id }}
     timeout-minutes: 5
     steps:
       # https://github.com/actions/checkout
@@ -713,10 +718,12 @@ jobs:
             echo "EOL"
           } | tee -a $GITHUB_OUTPUT
 
+      # https://github.com/actions/upload-artifact
       - name: Upload Flutter app Artifacts
+        id: upload
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
-          name: website-artifacts
+          name: FlutterKaigi 2025-website.zip
           path: apps/app/build/web/
 
   deploy-website:
@@ -739,7 +746,7 @@ jobs:
       - name: Download Flutter App Artifacts
         uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
         with:
-          name: website-artifacts
+          artifact-ids: ${{ needs.build-website.outputs.artifact-id }}
           path: apps/app/build/web/
 
       - name: Extract SOPS secrets
