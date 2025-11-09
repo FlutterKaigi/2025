@@ -149,6 +149,7 @@ jobs:
         run: |
           flutter build ios --config-only \
             --no-codesign \
+            --build-number=${{ github.run_number }} \
             --dart-define-from-file=environments/.env.prod \
             --dart-define COMMIT_INFORMATION=${{ github.ref_name }}-${{ github.sha }}
 
@@ -508,6 +509,7 @@ jobs:
         working-directory: apps/app
         run: |
           flutter build macos --config-only \
+            --build-number=${{ github.run_number }} \
             --dart-define-from-file=environments/.env.prod \
             --dart-define COMMIT_INFORMATION=${{ github.ref_name }}-${{ github.sha }}
 
@@ -753,6 +755,7 @@ jobs:
       - name: Move
         run: |
           ls -la tmp/
+          mkdir -p apps/app/build/web
           mv tmp/FlutterKaigi 2025-website.zip apps/app/build/web
 
       - name: Extract SOPS secrets
