@@ -102,8 +102,6 @@ jobs:
       cancel-in-progress: false
     env:
       MISE_ENV: ci
-    outputs:
-      artifact-id: ${{ steps.upload.outputs.artifact_id }}
     steps:
       # https://github.com/actions/checkout
       - name: Checkout
@@ -195,7 +193,6 @@ jobs:
 
       # https://github.com/actions/upload-artifact
       - name: Upload ipa as artifact
-        id: upload
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: FlutterKaigi 2025-ios.ipa
@@ -253,7 +250,7 @@ jobs:
       - name: Download ipa
         uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
         with:
-          artifact-ids: ${{ needs.build-ios.outputs.artifact-id }}
+          name: FlutterKaigi 2025-ios.ipa
           path: build
 
       - name: Extract App Store Connect API Key
