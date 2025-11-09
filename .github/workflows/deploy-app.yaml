@@ -95,7 +95,7 @@ jobs:
   build-ios:
     needs: define-matrix
     if: ${{ needs.define-matrix.outputs.deploy-ios }}
-    runs-on: macos-latest
+    runs-on: macos-26
     timeout-minutes: 30
     concurrency:
       group: ${{ github.workflow }}-ios
@@ -199,7 +199,7 @@ jobs:
 
   deploy-ios:
     needs: build-ios
-    runs-on: macos-latest
+    runs-on: macos-26
     timeout-minutes: 10
     env:
       MISE_ENV: ci
@@ -453,7 +453,7 @@ jobs:
   build-macos:
     needs: define-matrix
     if: ${{ needs.define-matrix.outputs.deploy-macos }}
-    runs-on: macos-latest
+    runs-on: macos-26
     timeout-minutes: 30
     concurrency:
       group: ${{ github.workflow }}-macos
@@ -585,7 +585,7 @@ jobs:
 
   deploy-macos:
     needs: build-macos
-    runs-on: macos-latest
+    runs-on: macos-26
     timeout-minutes: 10
     env:
       MISE_ENV: ci
