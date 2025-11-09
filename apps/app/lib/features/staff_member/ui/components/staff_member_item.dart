@@ -1,3 +1,4 @@
+import 'package:app/core/gen/assets/assets.gen.dart';
 import 'package:app/features/account/ui/component/account_circle_image.dart';
 import 'package:db_types/db_types.dart';
 import 'package:flutter/material.dart';
@@ -92,27 +93,24 @@ class _SnsIconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final icon = _getSnsIcon(snsLink.type);
-    final color = _getSnsColor(snsLink.type, theme.colorScheme);
+    final snsAsset = _getSnsAsset(snsLink.type);
 
     return InkWell(
       onTap: () => _onSnsIconTap(snsLink),
       borderRadius: BorderRadius.circular(8),
-      child: Container(
+      child: SizedBox(
         width: 40,
         height: 40,
-        decoration: BoxDecoration(
-          color: color.withValues(alpha: 0.1),
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(
-            color: color.withValues(alpha: 0.3),
-          ),
-        ),
-        child: Icon(
-          icon,
-          color: color,
-          size: 20,
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: snsAsset != null
+              ? snsAsset.image(
+                  fit: BoxFit.contain,
+                )
+              : Icon(
+                  _getSnsIcon(snsLink.type),
+                  size: 24,
+                ),
         ),
       ),
     );
@@ -126,6 +124,30 @@ class _SnsIconButton extends StatelessWidget {
     }
   }
 
+  /// SNSタイプに対応するアセットを取得
+  /// アセットが存在しない場合はnullを返す
+  AssetGenImage? _getSnsAsset(SnsType type) {
+    switch (type) {
+      case SnsType.github:
+        return Assets.res.assets.sns.dark.github;
+      case SnsType.x:
+        return Assets.res.assets.sns.dark.x;
+      case SnsType.discord:
+        return Assets.res.assets.sns.dark.discord;
+      case SnsType.medium:
+        return Assets.res.assets.sns.dark.medium;
+      case SnsType.qiita:
+        return Assets.res.assets.sns.dark.qiita;
+      case SnsType.zenn:
+        return Assets.res.assets.sns.dark.zenn;
+      case SnsType.note:
+        return Assets.res.assets.sns.dark.note;
+      case SnsType.other:
+        return null;
+    }
+  }
+
+  /// フォールバック用のアイコン（otherタイプなど、アセットが存在しない場合に使用）
   IconData _getSnsIcon(SnsType type) {
     switch (type) {
       case SnsType.github:
@@ -144,27 +166,6 @@ class _SnsIconButton extends StatelessWidget {
         return Icons.edit_note;
       case SnsType.other:
         return Icons.link;
-    }
-  }
-
-  Color _getSnsColor(SnsType type, ColorScheme colorScheme) {
-    switch (type) {
-      case SnsType.github:
-        return const Color(0xFF24292e);
-      case SnsType.x:
-        return const Color(0xFF1DA1F2);
-      case SnsType.discord:
-        return const Color(0xFF7289DA);
-      case SnsType.medium:
-        return const Color(0xFF00AB6C);
-      case SnsType.qiita:
-        return const Color(0xFF55C500);
-      case SnsType.zenn:
-        return const Color(0xFF3EA8FF);
-      case SnsType.note:
-        return const Color(0xFF41C9B4);
-      case SnsType.other:
-        return colorScheme.primary;
     }
   }
 
