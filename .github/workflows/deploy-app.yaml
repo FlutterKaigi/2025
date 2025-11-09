@@ -753,7 +753,7 @@ jobs:
       - name: Move
         run: |
           ls -la tmp/
-          mv tmp/FlutterKaigi 2025-website.zip apps/app/build/web/
+          mv tmp/FlutterKaigi 2025-website.zip apps/app/build/web
 
       - name: Extract SOPS secrets
         run: |
