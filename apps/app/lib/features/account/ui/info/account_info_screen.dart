@@ -329,9 +329,7 @@ class _SignInMethodChip extends StatelessWidget {
       'apple' => (
         FontAwesomeIcons.apple,
         'Apple',
-        theme.brightness == Brightness.dark
-          ? Colors.white
-          : Colors.black,
+        theme.brightness == Brightness.dark ? Colors.white : Colors.black,
       ),
       _ => (Icons.account_circle, provider, theme.colorScheme.primary),
     };
@@ -343,7 +341,6 @@ class _SignInMethodChip extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
           color: color.withValues(alpha: 0.3),
-          width: 1,
         ),
       ),
       child: Row(
