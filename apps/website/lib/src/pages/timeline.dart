@@ -94,6 +94,7 @@ Iterable<Component> _generateTimeLabels(int minMinutes, int maxMinutes) {
         li(
           styles: Styles(
             position: Position.sticky(left: 0.em),
+            margin: Spacing.only(bottom: 1.rem),
             fontSize: Unit.inherit,
             height: 1.em,
             whiteSpace: WhiteSpace.inherit,
@@ -151,7 +152,7 @@ class Timeline extends StatelessComponent {
         styles: Styles(
           backgroundColor: backgroundColor(venueId),
           margin: Spacing.only(left: 0.5.rem, right: 0.5.rem, bottom: 0.5.rem),
-          padding: Spacing.symmetric(horizontal: 1.rem, vertical: 0.75.rem),
+          padding: Spacing.all(0.5.rem),
           whiteSpace: WhiteSpace.inherit,
           minWidth: 12.em,
           textOverflow: TextOverflow.ellipsis,
@@ -202,7 +203,7 @@ class Timeline extends StatelessComponent {
           display: Display.flex,
           alignItems: AlignItems.center,
           justifyContent: JustifyContent.center,
-          margin: Spacing.only(left: 0.5.rem, right: 0.5.rem, bottom: 0.25.rem),
+          margin: Spacing.only(left: 0.5.rem, right: 0.5.rem, bottom: 0.5.rem),
           padding: Spacing.all(0.25.rem),
           fontSize: Unit.inherit,
           fontFamily: lexendFontFamily,
