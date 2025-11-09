@@ -47,6 +47,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final TranslationsSessionJa session = TranslationsSessionJa.internal(_root);
 	late final TranslationsSponsorJa sponsor = TranslationsSponsorJa.internal(_root);
 	late final TranslationsTicketJa ticket = TranslationsTicketJa.internal(_root);
+	late final TranslationsVenueJa venue = TranslationsVenueJa.internal(_root);
 }
 
 // Path: account
@@ -247,6 +248,24 @@ class TranslationsTicketJa {
 	late final TranslationsTicketPurchaseJa purchase = TranslationsTicketPurchaseJa.internal(_root);
 	late final TranslationsTicketQrJa qr = TranslationsTicketQrJa.internal(_root);
 	late final TranslationsTicketEntryTicketJa entryTicket = TranslationsTicketEntryTicketJa.internal(_root);
+}
+
+// Path: venue
+class TranslationsVenueJa {
+	TranslationsVenueJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '会場マップ'
+	String get title => '会場マップ';
+
+	/// ja: '1F'
+	String get floor1f => '1F';
+
+	/// ja: '2F'
+	String get floor2f => '2F';
 }
 
 // Path: account.profile
@@ -1280,6 +1299,9 @@ extension on Translations {
 			case 'ticket.qr.nameplateId': return 'ネームプレートID';
 			case 'ticket.entryTicket.title': return '入場可能なチケット';
 			case 'ticket.entryTicket.subtitle': return ({required int count}) => '${count}枚のチケットがあります';
+			case 'venue.title': return '会場マップ';
+			case 'venue.floor1f': return '1F';
+			case 'venue.floor2f': return '2F';
 			default: return null;
 		}
 	}

@@ -38,6 +38,10 @@ class MainScreen extends StatelessWidget {
             title: t.common.navigation.session,
           ),
           ResponsiveScaffoldDestination(
+            icon: Icons.map,
+            title: t.venue.title,
+          ),
+          ResponsiveScaffoldDestination(
             icon: Icons.business,
             title: t.common.navigation.sponsor,
           ),

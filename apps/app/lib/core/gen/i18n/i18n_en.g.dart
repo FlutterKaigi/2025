@@ -46,6 +46,7 @@ class TranslationsEn extends Translations {
 	@override late final _TranslationsSessionEn session = _TranslationsSessionEn._(_root);
 	@override late final _TranslationsSponsorEn sponsor = _TranslationsSponsorEn._(_root);
 	@override late final _TranslationsTicketEn ticket = _TranslationsTicketEn._(_root);
+	@override late final _TranslationsVenueEn venue = _TranslationsVenueEn._(_root);
 }
 
 // Path: account
@@ -174,6 +175,18 @@ class _TranslationsTicketEn extends TranslationsTicketJa {
 	@override late final _TranslationsTicketPurchaseEn purchase = _TranslationsTicketPurchaseEn._(_root);
 	@override late final _TranslationsTicketQrEn qr = _TranslationsTicketQrEn._(_root);
 	@override late final _TranslationsTicketEntryTicketEn entryTicket = _TranslationsTicketEntryTicketEn._(_root);
+}
+
+// Path: venue
+class _TranslationsVenueEn extends TranslationsVenueJa {
+	_TranslationsVenueEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Venue Map';
+	@override String get floor1f => '1F';
+	@override String get floor2f => '2F';
 }
 
 // Path: account.profile
@@ -864,6 +877,9 @@ extension on TranslationsEn {
 			case 'ticket.qr.nameplateId': return 'Nameplate ID';
 			case 'ticket.entryTicket.title': return 'Available Tickets';
 			case 'ticket.entryTicket.subtitle': return ({required int count}) => 'You have ${count} tickets';
+			case 'venue.title': return 'Venue Map';
+			case 'venue.floor1f': return '1F';
+			case 'venue.floor2f': return '2F';
 			default: return null;
 		}
 	}
