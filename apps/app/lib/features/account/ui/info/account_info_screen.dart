@@ -96,15 +96,15 @@ final class AccountInfoScreen extends ConsumerWidget {
                 ),
               ),
               const SizedBox(height: 8),
-              _OtherListItem(
+              _SectionListItem(
                 title: t.account.profileshare.qrCode,
                 onTap: _onTapQrCode,
               ),
-              _OtherListItem(
+              _SectionListItem(
                 title: t.account.profileshare.qrCodeScan,
                 onTap: _onTapQrCodeScan,
               ),
-              _OtherListItem(
+              _SectionListItem(
                 title: t.account.profileshare.friendsList,
                 onTap: _onTapFriendsList,
               ),
@@ -118,7 +118,7 @@ final class AccountInfoScreen extends ConsumerWidget {
               ),
             ),
             const SizedBox(height: 8),
-            _OtherListItem(
+            _SectionListItem(
               title: t.account.staffMembers.title,
               onTap: _onTapStaffMembers,
             ),
@@ -155,7 +155,7 @@ final class AccountInfoScreen extends ConsumerWidget {
                   onTap: _onTapWithdrawalTile,
                 ),
             ].map(
-              (item) => _OtherListItem(
+              (item) => _SectionListItem(
                 title: item.title,
                 onTap: item.onTap,
               ),
@@ -395,8 +395,8 @@ class _LogoutButton extends ConsumerWidget {
 }
 
 /// Othersアイテム用のカスタムウィジェット
-class _OtherListItem extends StatelessWidget {
-  const _OtherListItem({
+class _SectionListItem extends StatelessWidget {
+  const _SectionListItem({
     required this.title,
     required this.onTap,
   });
