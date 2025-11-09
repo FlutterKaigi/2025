@@ -522,13 +522,9 @@ jobs:
             -configuration Release \
             -sdk macosx \
             -archivePath build/macos/Runner.xcarchive \
-            -allowProvisioningUpdates \
-            -authenticationKeyIssuerID $APP_STORE_CONNECT_API_KEY_ISSUER_ID \
-            -authenticationKeyID $APP_STORE_CONNECT_API_KEY_ID \
-            -authenticationKeyPath ${{ github.workspace }}/apps/app/macos/AuthKey_$APP_STORE_CONNECT_API_KEY_ID.p8 \
             DEVELOPMENT_TEAM=6JT949BA2M \
-            CODE_SIGN_STYLE=Automatic \
-            CODE_SIGN_ENTITLEMENTS="Runner/Release.entitlements" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO \
             DEBUG_INFORMATION_FORMAT=dwarf \
             DEBUGGING_SYMBOLS=NO \
             GCC_GENERATE_DEBUGGING_SYMBOLS=NO \
