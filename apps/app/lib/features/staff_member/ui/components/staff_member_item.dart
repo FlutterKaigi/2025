@@ -146,11 +146,12 @@ class _SnsIconButton extends StatelessWidget {
     return switch (type) {
       SnsType.github => 'https://github.com/$value',
       SnsType.x => 'https://x.com/$value',
+      SnsType.discord => 'https://discord.com/users/$value',
       SnsType.qiita => 'https://qiita.com/$value',
       SnsType.zenn => 'https://zenn.dev/$value',
       SnsType.medium => 'https://medium.com/@$value',
       SnsType.note => 'https://note.com/$value',
-      SnsType.discord || SnsType.other => value,
+      SnsType.other => value,
     };
   }
 }
