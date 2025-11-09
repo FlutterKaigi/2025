@@ -91,14 +91,23 @@ class TicketCheckoutDbClient {
             ) FILTER (WHERE topt.id IS NOT NULL),
             '[]'::json
           ) AS options,
+          CASE
+            WHEN el.ticket_purchase_id IS NOT NULL THEN
+              json_build_object(
+                'ticket_purchase_id', el.ticket_purchase_id,
+                'created_at', el.created_at
+              )
+            ELSE NULL
+          END AS entry_log,
           tp.created_at as sort_date
         FROM ticket_purchases tp
         INNER JOIN ticket_types tt ON tp.ticket_type_id = tt.id
         LEFT JOIN ticket_purchase_options tpo ON tp.id = tpo.ticket_purchase_id
         LEFT JOIN ticket_options topt ON tpo.ticket_option_id = topt.id
+        LEFT JOIN entry_logs el ON tp.id = el.ticket_purchase_id
         WHERE tp.user_id = @userId
         GROUP BY
-          tp.id, tt.id
+          tp.id, tt.id, el.ticket_purchase_id, el.created_at
         UNION ALL
 
         -- アクティブなチェックアウトセッション情報
@@ -135,6 +144,7 @@ class TicketCheckoutDbClient {
             ) FILTER (WHERE topt.id IS NOT NULL),
             '[]'::json
           ) AS options,
+          NULL AS entry_log,
           tcs.created_at as sort_date
         FROM ticket_checkout_sessions tcs
         INNER JOIN ticket_types tt ON tcs.ticket_type_id = tt.id

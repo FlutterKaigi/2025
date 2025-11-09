@@ -33,4 +33,16 @@ abstract class TicketsApiClient {
   Future<UserTicketsResponse> getUserTicketsByUserId(
     @Path('userId') String userId,
   );
+
+  /// 入場履歴を追加/更新（管理者のみ）
+  @PUT('/tickets/{ticketPurchaseId}/entry')
+  Future<EntryLogPutResponse> putEntryLog(
+    @Path('ticketPurchaseId') String ticketPurchaseId,
+  );
+
+  /// 入場履歴を削除（管理者のみ）
+  @DELETE('/tickets/{ticketPurchaseId}/entry')
+  Future<EntryLogDeleteResponse> deleteEntryLog(
+    @Path('ticketPurchaseId') String ticketPurchaseId,
+  );
 }

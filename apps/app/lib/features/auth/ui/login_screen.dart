@@ -4,6 +4,7 @@ import 'package:app/core/gen/assets/assets.gen.dart';
 import 'package:app/core/gen/assets/fonts.gen.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/core/provider/environment.dart';
+import 'package:app/core/router/router.dart';
 import 'package:app/features/auth/data/notifier/auth_notifier.dart';
 import 'package:app/features/force_update/force_update.dart';
 import 'package:flutter/foundation.dart';
@@ -62,6 +63,14 @@ class LoginScreen extends HookConsumerWidget {
       return null;
     }, []);
 
+    ref.listen(authProvider, (previous, next) {
+      if (next.value != null) {
+        const AccountInfoRoute().go(context);
+      }
+    });
+
+    final mutationState = ref.watch(AuthNotifier.loginMutation);
+
     final flavor = ref.watch(environmentProvider).flavor;
 
     return ForceUpdateDialogListener(
@@ -91,26 +100,43 @@ class LoginScreen extends HookConsumerWidget {
                         height: 160,
                         fit: BoxFit.fitHeight,
                       ),
-                      IntrinsicWidth(
-                        child: Column(
-                          spacing: 8,
-                          children: [
-                            _GoogleSignInButton(
-                              onPressed: () async => ref
-                                  .read(authProvider.notifier)
-                                  .signInWithGoogle(),
-                            ),
-                            if (flavor == Flavor.production &&
-                                !kIsWeb &&
-                                (Platform.isIOS || Platform.isMacOS))
-                              _AppleSignInButton(
-                                onPressed: () async => ref
-                                    .read(authProvider.notifier)
-                                    .signInWithApple(),
+                      if (mutationState.isPending)
+                        const Center(
+                          child: CircularProgressIndicator.adaptive(),
+                        )
+                      else
+                        IntrinsicWidth(
+                          child: Column(
+                            spacing: 8,
+                            children: [
+                              _GoogleSignInButton(
+                                onPressed: () async =>
+                                    AuthNotifier.loginMutation.run(
+                                      ref,
+                                      (tsx) async => tsx
+                                          .get(
+                                            authProvider.notifier,
+                                          )
+                                          .signInWithGoogle(),
+                                    ),
                               ),
-                          ],
+                              if (flavor == Flavor.production &&
+                                  !kIsWeb &&
+                                  (Platform.isIOS || Platform.isMacOS))
+                                _AppleSignInButton(
+                                  onPressed: () async =>
+                                      AuthNotifier.loginMutation.run(
+                                        ref,
+                                        (tsx) async => tsx
+                                            .get(
+                                              authProvider.notifier,
+                                            )
+                                            .signInWithApple(),
+                                      ),
+                                ),
+                            ],
+                          ),
                         ),
-                      ),
                     ],
                   ),
                 ),

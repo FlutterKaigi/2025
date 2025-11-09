@@ -74,7 +74,6 @@ GoRouter router(Ref ref) {
     navigatorKey: _rootNavigatorKey,
     observers: _rootObservers,
     routes: [
-      $loginRoute,
       $mainRoute,
       if (kDebugMode) $debugRoute,
     ],
@@ -138,16 +137,6 @@ GoRouter router(Ref ref) {
       return null;
     },
   );
-}
-
-@TypedGoRoute<LoginRoute>(path: '/login')
-class LoginRoute extends GoRouteData with $LoginRoute {
-  const LoginRoute();
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) {
-    return const LoginScreen();
-  }
 }
 
 @TypedStatefulShellRoute<MainRoute>(

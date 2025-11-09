@@ -236,8 +236,11 @@ class ProfileEditScreen extends HookConsumerWidget {
                             circleRadius: 60,
                           ),
                           const SizedBox(height: 8),
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
+                          Wrap(
+                            crossAxisAlignment: WrapCrossAlignment.center,
+                            alignment: WrapAlignment.center,
+                            spacing: 4,
+                            runSpacing: 4,
                             children: [
                               TextButton.icon(
                                 onPressed: () async => ref

@@ -1,5 +1,5 @@
 -- Create session_venues table
-CREATE TABLE "public"."session_venues" ("id" uuid NOT NULL DEFAULT uuid_generate_v4 (), "name" text NOT NULL);
+CREATE TABLE "public"."session_venues" ("id" uuid NOT NULL DEFAULT uuid_generate_v4 (), "name" text NOT NULL, "display_order" integer NOT NULL DEFAULT 0);
 
 ALTER TABLE "public"."session_venues" enable ROW level security;
 
@@ -31,6 +31,7 @@ CREATE TABLE "public"."sessions" (
   "is_beginners_lightning_talk" boolean NOT NULL DEFAULT FALSE,
   "is_hands_on" boolean NOT NULL DEFAULT FALSE,
   "video_url" text,
+  "url" text,
   "created_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
 );
 

@@ -3,6 +3,7 @@ import 'package:app/features/auth/data/provider/auth_service.dart';
 import 'package:app/features/auth/data/provider/google_auth_client_id.dart';
 import 'package:auth_client/auth_client.dart';
 import 'package:flutter/foundation.dart';
+import 'package:hooks_riverpod/experimental/mutation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'auth_notifier.g.dart';
@@ -30,6 +31,8 @@ class AuthNotifier extends _$AuthNotifier {
             'Unsupported platform: $defaultTargetPlatform',
           ),
         };
+
+  static final loginMutation = Mutation<User?>();
 
   Future<User?> signInWithGoogle() async {
     final environment = ref.read(environmentProvider);
