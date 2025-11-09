@@ -164,7 +164,6 @@ jobs:
             -scheme Runner \
             -configuration Release \
             -sdk iphoneos \
-            -destination "generic/platform=iOS" \
             -archivePath build/ios/Runner.xcarchive \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO | xcbeautify
