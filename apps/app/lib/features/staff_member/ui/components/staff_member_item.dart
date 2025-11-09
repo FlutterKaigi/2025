@@ -93,8 +93,6 @@ class _SnsIconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final snsAsset = _getSnsAsset(snsLink.type);
-
     return InkWell(
       onTap: () => _onSnsIconTap(snsLink),
       borderRadius: BorderRadius.circular(8),
@@ -103,14 +101,7 @@ class _SnsIconButton extends StatelessWidget {
         height: 40,
         child: Padding(
           padding: const EdgeInsets.all(8),
-          child: snsAsset != null
-              ? snsAsset.image(
-                  fit: BoxFit.contain,
-                )
-              : Icon(
-                  _getSnsIcon(snsLink.type),
-                  size: 24,
-                ),
+          child: _getSnsWidget(snsLink.type),
         ),
       ),
     );
@@ -124,49 +115,27 @@ class _SnsIconButton extends StatelessWidget {
     }
   }
 
-  /// SNSタイプに対応するアセットを取得
-  /// アセットが存在しない場合はnullを返す
-  AssetGenImage? _getSnsAsset(SnsType type) {
-    switch (type) {
-      case SnsType.github:
-        return Assets.res.assets.sns.dark.github;
-      case SnsType.x:
-        return Assets.res.assets.sns.dark.x;
-      case SnsType.discord:
-        return Assets.res.assets.sns.dark.discord;
-      case SnsType.medium:
-        return Assets.res.assets.sns.dark.medium;
-      case SnsType.qiita:
-        return Assets.res.assets.sns.dark.qiita;
-      case SnsType.zenn:
-        return Assets.res.assets.sns.dark.zenn;
-      case SnsType.note:
-        return Assets.res.assets.sns.dark.note;
-      case SnsType.other:
-        return null;
-    }
-  }
-
-  /// フォールバック用のアイコン（otherタイプなど、アセットが存在しない場合に使用）
-  IconData _getSnsIcon(SnsType type) {
-    switch (type) {
-      case SnsType.github:
-        return Icons.code;
-      case SnsType.x:
-        return Icons.alternate_email;
-      case SnsType.discord:
-        return Icons.chat;
-      case SnsType.medium:
-        return Icons.article;
-      case SnsType.qiita:
-        return Icons.lightbulb_outline;
-      case SnsType.zenn:
-        return Icons.menu_book;
-      case SnsType.note:
-        return Icons.edit_note;
-      case SnsType.other:
-        return Icons.link;
-    }
+  /// SNSタイプに対応するウィジェットを取得
+  Widget _getSnsWidget(SnsType type) {
+    return switch (type) {
+      SnsType.other => const Icon(
+        Icons.link,
+        size: 24,
+      ),
+      _ => () {
+        final snsAsset = switch (type) {
+          SnsType.github => Assets.res.assets.sns.dark.github,
+          SnsType.x => Assets.res.assets.sns.dark.x,
+          SnsType.discord => Assets.res.assets.sns.dark.discord,
+          SnsType.medium => Assets.res.assets.sns.dark.medium,
+          SnsType.qiita => Assets.res.assets.sns.dark.qiita,
+          SnsType.zenn => Assets.res.assets.sns.dark.zenn,
+          SnsType.note => Assets.res.assets.sns.dark.note,
+          _ => throw StateError('Invalid SNS type: $type'),
+        };
+        return snsAsset.image(fit: BoxFit.contain);
+      }(),
+    };
   }
 
   String _getSnsUrl(SnsType type, String value) {
