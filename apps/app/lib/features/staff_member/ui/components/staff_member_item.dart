@@ -99,10 +99,7 @@ class _SnsIconButton extends StatelessWidget {
       child: SizedBox(
         width: 40,
         height: 40,
-        child: Padding(
-          padding: const EdgeInsets.all(8),
-          child: _getSnsWidget(snsLink.type),
-        ),
+        child: _getSnsWidget(snsLink.type),
       ),
     );
   }
@@ -122,6 +119,10 @@ class _SnsIconButton extends StatelessWidget {
         Icons.link,
         size: 24,
       ),
+      // note は画像にパディングがついているため、パディングはつけない
+      SnsType.note => Assets.res.assets.sns.dark.note.image(
+        fit: BoxFit.contain,
+      ),
       _ => () {
         final snsAsset = switch (type) {
           SnsType.github => Assets.res.assets.sns.dark.github,
@@ -130,10 +131,12 @@ class _SnsIconButton extends StatelessWidget {
           SnsType.medium => Assets.res.assets.sns.dark.medium,
           SnsType.qiita => Assets.res.assets.sns.dark.qiita,
           SnsType.zenn => Assets.res.assets.sns.dark.zenn,
-          SnsType.note => Assets.res.assets.sns.dark.note,
           _ => throw StateError('Invalid SNS type: $type'),
         };
-        return snsAsset.image(fit: BoxFit.contain);
+        return Padding(
+          padding: const EdgeInsets.all(8),
+          child: snsAsset.image(fit: BoxFit.contain),
+        );
       }(),
     };
   }
@@ -147,11 +150,7 @@ class _SnsIconButton extends StatelessWidget {
     // SNSタイプに応じてURLを生成
     return switch (type) {
       SnsType.github => 'https://github.com/$value',
-      SnsType.x => () {
-        // ユーザー名から@を除去
-        final username = value.replaceAll('@', '');
-        return 'https://x.com/$username';
-      }(),
+      SnsType.x => 'https://x.com/$value',
       SnsType.qiita => 'https://qiita.com/$value',
       SnsType.zenn => 'https://zenn.dev/$value',
       SnsType.medium => 'https://medium.com/@$value',
