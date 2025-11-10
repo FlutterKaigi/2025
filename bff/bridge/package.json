@@ -18,9 +18,6 @@
   },
   "dependencies": {
     "@cloudflare/containers": "^0.0.28",
-    "@hono/otel": "^0.6.0",
-    "@microlabs/otel-cf-workers": "^1.0.0-rc.52",
-    "@opentelemetry/api": "^1.9.0",
     "hono": "^4.10.1",
     "pg": "^8.16.3"
   }

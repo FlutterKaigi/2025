@@ -1,7 +1,4 @@
 import { env as workersEnv } from "cloudflare:workers";
-import { otel } from "@hono/otel";
-import { instrument, withNextSpan } from "@microlabs/otel-cf-workers";
-import { context, propagation, trace } from "@opentelemetry/api";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { csrf } from "hono/csrf";
@@ -38,12 +35,6 @@ const app = new Hono()
 		"*",
 		requestId({
 			headerName: "Cf-Ray",
-		}),
-	)
-	.use(
-		"*",
-		otel({
-			augmentSpan: true,
 		}),
 	)
 	// CORS
@@ -85,16 +76,10 @@ const app = new Hono()
 		targetUrl.search = originalUrl.search;
 		console.log("targetUrl", targetUrl.toString());
 
-		const span = trace.getActiveSpan();
-		span?.setAttribute("http.method", c.req.method);
-		span?.setAttribute("http.url", targetUrl.toString());
-		withNextSpan({ destination: "proxy" });
-
 		const headers = {
 			...c.req.header(),
 			"X-Forwarded-Host": c.req.header("host"),
 		};
-		propagation.inject(context.active(), headers);
 		const response = await proxy(targetUrl.toString(), {
 			...c.req,
 			headers: headers,
@@ -102,17 +87,4 @@ const app = new Hono()
 		return response;
 	});
 
-export default instrument(app, (env, _trigger) => {
-	return {
-		exporter: {
-			url: "https://otlp.flutterkaigi.jp/v1/traces",
-			headers: {
-				"x-flutterkaigi-service-name": "bridge",
-			},
-		},
-		service: {
-			name: "bridge",
-			namespace: `flutterkaigi-2025-${env.ENVIRONMENT}`,
-		},
-	};
-});
+export default app;
