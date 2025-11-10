@@ -15,6 +15,7 @@ ossLicenses: OSS Licenses
 withdrawal: Withdrawal Request
 logout: Sign Out
 settings: Account Settings
+sourceCode: View Source Code
 loginRequired:
   title: Login Required
   description: You need to log in to use this feature
