@@ -50,14 +50,14 @@ class _UsersApiClient implements UsersApiClient {
   @override
   Future<HttpResponse<UsersListResponse>> getUserList({
     required int limit,
-    String? cursor,
+    int? offset,
     String? email,
     String? roles,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'limit': limit,
-      r'cursor': cursor,
+      r'offset': offset,
       r'email': email,
       r'roles': roles,
     };

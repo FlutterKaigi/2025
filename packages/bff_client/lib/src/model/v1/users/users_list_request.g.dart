@@ -15,7 +15,13 @@ _UsersListRequest _$UsersListRequestFromJson(Map<String, dynamic> json) =>
           'limit',
           (v) => const IntStringJsonConverter().fromJson(v as String),
         ),
-        cursor: $checkedConvert('cursor', (v) => v as String?),
+        offset: $checkedConvert(
+          'offset',
+          (v) => _$JsonConverterFromJson<String, int>(
+            v,
+            const IntStringJsonConverter().fromJson,
+          ),
+        ),
         email: $checkedConvert('email', (v) => v as String?),
         roles: $checkedConvert(
           'roles',
@@ -30,10 +36,18 @@ _UsersListRequest _$UsersListRequestFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$UsersListRequestToJson(_UsersListRequest instance) =>
     <String, dynamic>{
       'limit': const IntStringJsonConverter().toJson(instance.limit),
-      'cursor': instance.cursor,
+      'offset': _$JsonConverterToJson<String, int>(
+        instance.offset,
+        const IntStringJsonConverter().toJson,
+      ),
       'email': instance.email,
       'roles': instance.roles?.map((e) => _$RoleEnumMap[e]!).toList(),
     };
+
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) => json == null ? null : fromJson(json as Json);
 
 const _$RoleEnumMap = {
   Role.admin: 'admin',
@@ -43,3 +57,8 @@ const _$RoleEnumMap = {
   Role.viewer: 'viewer',
   Role.attendee: 'attendee',
 };
+
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) => value == null ? null : toJson(value);
