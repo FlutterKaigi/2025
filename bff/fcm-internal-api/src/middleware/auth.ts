@@ -1,6 +1,9 @@
 import type { Context, Next } from "hono";
 
-export async function authMiddleware(c: Context, next: Next): Promise<Response | void> {
+export async function authMiddleware(
+	c: Context,
+	next: Next,
+): Promise<Response | undefined> {
 	const proxyAuthorization = c.req.header("proxy-authorization");
 	const apiKey = process.env.X_API_KEY;
 

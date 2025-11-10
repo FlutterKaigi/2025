@@ -1,4 +1,3 @@
-import { env } from "cloudflare:workers";
 import { Hono } from "hono";
 import { logger } from "hono/logger";
 import { requestId } from "hono/request-id";
