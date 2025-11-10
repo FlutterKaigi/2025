@@ -3,13 +3,8 @@ version = "4.14.12"
 backend = "aqua:suzuki-shunsuke/tfcmt"
 
 [[tools.aws-cli]]
-version = "2.31.32"
+version = "2.31.25"
 backend = "aqua:aws/aws-cli"
-
-[tools.aws-cli.platforms.macos-arm64]
-checksum = "blake3:9a2341baa6df545d5db1c9622d4d98e1eedeacabba02b5bbe8338e8d3741b305"
-size = 48340047
-url = "https://awscli.amazonaws.com/AWSCLIV2-2.31.32.pkg"
 
 [[tools.bun]]
 version = "1.2.21"
@@ -36,43 +31,24 @@ version = "1.71.2"
 backend = "aqua:rclone/rclone"
 
 [[tools.stripe]]
-version = "1.32.0"
+version = "1.31.1"
 backend = "aqua:stripe/stripe-cli"
 
-[tools.stripe.platforms.macos-arm64]
-checksum = "sha256:13a1f00e2955072eae0ca9755ecbe3b0ebee4cd59b533841c8dd886fabd220b7"
-size = 8133267
-url = "https://github.com/stripe/stripe-cli/releases/download/v1.32.0/stripe_1.32.0_mac-os_arm64.tar.gz"
-
 [[tools.swift]]
-version = "6.2.1"
+version = "6.2"
 backend = "core:swift"
 
-[tools.swift.platforms.macos-arm64]
-checksum = "blake3:d8ae7790a902231d853d6c332588b4aca3009f57746f93edbabce46c9d7f93da"
-size = 1726510576
-
 [[tools.terraform]]
-version = "1.13.5"
+version = "1.13.4"
 backend = "aqua:hashicorp/terraform"
-
-[tools.terraform.platforms.macos-arm64]
-checksum = "sha256:1bf942231235e7e1a4c38c6d7b820e54f526ac487f87d19f0c4a425c6ddb62cb"
-size = 28338858
-url = "https://releases.hashicorp.com/terraform/1.13.5/terraform_1.13.5_darwin_arm64.zip"
 
 [[tools.tflint]]
 version = "0.59.1"
 backend = "aqua:terraform-linters/tflint"
 
 [[tools.uv]]
-version = "0.9.8"
+version = "0.9.6"
 backend = "aqua:astral-sh/uv"
-
-[tools.uv.platforms.macos-arm64]
-checksum = "sha256:c021ce28988acbbfcb496e68cd9f2f6ba6401cc6d3292a5d25313873f825e002"
-size = 18245333
-url = "https://github.com/astral-sh/uv/releases/download/0.9.8/uv-aarch64-apple-darwin.tar.gz"
 
 [[tools.websocat]]
 version = "1.14.0"
