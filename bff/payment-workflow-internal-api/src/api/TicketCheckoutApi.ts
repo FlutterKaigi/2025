@@ -4,7 +4,7 @@ import { Hono } from "hono";
 import * as v from "valibot";
 import type { TicketCheckoutWorkflowParam } from "../workflows/TicketCheckoutWorkflow/TicketCheckoutWorkflowParam";
 
-export const TicketCheckoutApi = new Hono()
+export const TicketCheckoutApi = new Hono<{ Bindings: Cloudflare.Env }>()
   .put(
     "/:ticketCheckoutSessionId",
     vValidator(
