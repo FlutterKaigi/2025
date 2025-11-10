@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:app/core/provider/tick_stream_provider.dart';
 import 'package:fake_async/fake_async.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -73,7 +71,7 @@ void main() {
 
     group('aligned mode', () {
       test('30秒間隔の場合、次の00秒にalignされる', () {
-        fakeAsync((FakeAsync async) {
+        fakeAsync((async) {
           final container = ProviderContainer();
           final provider = tickStreamProvider(
             duration: const Duration(seconds: 30),
@@ -106,7 +104,7 @@ void main() {
       });
 
       test('5分間隔の場合、次の00分00秒にalignされる', () {
-        fakeAsync((FakeAsync async) {
+        fakeAsync((async) {
           final container = ProviderContainer();
           final provider = tickStreamProvider(
             duration: const Duration(minutes: 5),
@@ -139,7 +137,7 @@ void main() {
       });
 
       test('1時間間隔の場合、次の00時00分00秒にalignされる', () {
-        fakeAsync((FakeAsync async) {
+        fakeAsync((async) {
           final container = ProviderContainer();
           final provider = tickStreamProvider(
             duration: const Duration(hours: 1),
