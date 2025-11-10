@@ -1,20 +1,29 @@
+import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:flutter/material.dart';
 
 /// プロフィール作成が必要であることを示すボトムシート
 class ProfileRequiredSheet extends StatelessWidget {
   const ProfileRequiredSheet({
-    required this.onCreateProfile,
     super.key,
   });
-
-  final VoidCallback onCreateProfile;
+  static Future<bool?> show({
+    required BuildContext context,
+    required VoidCallback onCreateProfile,
+  }) => showModalBottomSheet<bool>(
+    context: context,
+    isScrollControlled: true,
+    backgroundColor: Colors.transparent,
+    builder: (context) => const ProfileRequiredSheet(),
+    useRootNavigator: true,
+  );
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final t = Translations.of(context);
 
     return Container(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
         borderRadius: const BorderRadius.vertical(
@@ -30,7 +39,9 @@ class ProfileRequiredSheet extends StatelessWidget {
               width: 40,
               height: 4,
               decoration: BoxDecoration(
-                color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.4),
+                color: theme.colorScheme.onSurfaceVariant.withValues(
+                  alpha: 0.4,
+                ),
                 borderRadius: BorderRadius.circular(2),
               ),
             ),
@@ -40,14 +51,14 @@ class ProfileRequiredSheet extends StatelessWidget {
               color: theme.colorScheme.primary,
             ),
             Text(
-              'プロフィールを作成しましょう',
+              t.account.profile.requiredSheet.title,
               style: theme.textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.bold,
+                fontVariations: [const FontVariation('wght', 700)],
               ),
               textAlign: TextAlign.center,
             ),
             Text(
-              'プロフィール交換を行うには、プロフィールの作成が必要です',
+              t.account.profile.requiredSheet.description,
               style: theme.textTheme.bodyLarge,
               textAlign: TextAlign.center,
             ),
@@ -55,12 +66,11 @@ class ProfileRequiredSheet extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton.icon(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  onCreateProfile();
-                },
+                onPressed: () => Navigator.of(context).pop(true),
                 icon: const Icon(Icons.edit),
-                label: const Text('プロフィールを作成'),
+                label: Text(
+                  t.account.profile.requiredSheet.createButton,
+                ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: theme.colorScheme.primary,
                   foregroundColor: theme.colorScheme.onPrimary,
@@ -71,11 +81,11 @@ class ProfileRequiredSheet extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: TextButton(
-                onPressed: () => Navigator.of(context).pop(),
-                child: const Text('キャンセル'),
+                onPressed: () => Navigator.of(context).pop(false),
                 style: TextButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16),
                 ),
+                child: Text(t.common.action.cancel),
               ),
             ),
           ],
@@ -84,19 +94,3 @@ class ProfileRequiredSheet extends StatelessWidget {
     );
   }
 }
-
-/// プロフィール作成が必要であることを示すボトムシートを表示
-void showProfileRequiredSheet({
-  required BuildContext context,
-  required VoidCallback onCreateProfile,
-}) {
-  showModalBottomSheet<void>(
-    context: context,
-    isScrollControlled: true,
-    backgroundColor: Colors.transparent,
-    builder: (context) => ProfileRequiredSheet(
-      onCreateProfile: onCreateProfile,
-    ),
-  );
-}
-
