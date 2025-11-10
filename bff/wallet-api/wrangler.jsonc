@@ -5,8 +5,15 @@
   "main": "src/index.ts",
   "compatibility_date": "2025-10-15",
   "observability": {
-    "enabled": true,
-    "head_sampling_rate": 1,
+    "traces": {
+      "enabled": true,
+      "destinations": ["otlp-flutterkaigi-jp"],
+      "head_sampling_rate": 1,
+    },
+    "logs": {
+      "enabled": true,
+      "destinations": ["otlp-flutterkaigi-jp"],
+    },
   },
   "workers_dev": true,
   "routes": [

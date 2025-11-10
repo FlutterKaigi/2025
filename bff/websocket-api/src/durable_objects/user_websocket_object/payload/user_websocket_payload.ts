@@ -42,10 +42,26 @@ export const ProfileShareWebsocketPayloadSchema = v.variant("type", [
 	}),
 ]);
 
+// TicketPurchases と同じ
+export const TicketStatusPayloadSchema = v.object({
+	id: v.pipe(v.string(), v.uuid()),
+	user_id: v.pipe(v.string(), v.uuid()),
+	ticket_type_id: v.pipe(v.string(), v.uuid()),
+	status: v.union([v.literal("completed"), v.literal("refunded")]),
+	stripe_payment_intent_id: v.optional(v.string()),
+	nameplate_id: v.optional(v.string()),
+	created_at: v.string(),
+	updated_at: v.string(),
+});
+
 export const UserWebsocketPayload = v.variant("type", [
 	v.object({
 		type: v.literal("PROFILE_SHARE"),
 		profile_share: ProfileShareWebsocketPayloadSchema,
+	}),
+	v.object({
+		type: v.literal("TICKET_STATUS"),
+		ticket_status: TicketStatusPayloadSchema,
 	}),
 ]);
 

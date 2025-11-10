@@ -5,7 +5,14 @@
   "main": "src/index.ts",
   "compatibility_date": "2025-04-30",
   "observability": {
-    "enabled": true,
+    "traces": {
+      "enabled": true,
+      "destinations": ["otlp-flutterkaigi-jp"],
+    },
+    "logs": {
+      "enabled": true,
+      "destinations": ["otlp-flutterkaigi-jp"],
+    },
   },
   "placement": {
     "mode": "smart",

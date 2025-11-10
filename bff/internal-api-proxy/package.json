@@ -13,10 +13,7 @@
     "@2025/database": "workspace:*",
     "@2025/payment-workflow-internal-api": "workspace:*",
     "@2025/profile-share-internal-api": "workspace:*",
-    "@hono/otel": "^0.6.0",
     "@hono/valibot-validator": "^0.5.3",
-    "@microlabs/otel-cf-workers": "^1.0.0-rc.52",
-    "@opentelemetry/api": "^1.9.0",
     "hono": "^4.10.1",
     "valibot": "^1.1.0"
   },
