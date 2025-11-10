@@ -1,5 +1,8 @@
 import 'package:app/core/designsystem/components/error_screen.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
+import 'package:app/core/router/router.dart';
+import 'package:app/features/account/data/notifier/profile_notifier.dart';
+import 'package:app/features/account/ui/component/profile_required_sheet.dart';
 import 'package:app/features/auth/data/notifier/auth_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -16,7 +19,24 @@ class QrCodeDisplayScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final authAsync = ref.watch(authProvider);
+    final profileAsync = ref.watch(profileProvider);
     final t = Translations.of(context);
+
+    // プロフィールが未作成の場合はSheetを表示
+    ref.listen(profileProvider, (previous, next) {
+      if (next is AsyncData && next.value == null) {
+        Future.microtask(() {
+          if (context.mounted) {
+            showProfileRequiredSheet(
+              context: context,
+              onCreateProfile: () {
+                const ProfileEditRoute().go(context);
+              },
+            );
+          }
+        });
+      }
+    });
 
     return Scaffold(
       appBar: AppBar(
@@ -49,21 +69,33 @@ class QrCodeDisplayScreen extends HookConsumerWidget {
               ],
             ),
           ),
-        AsyncData(:final value?) => Center(
-            child: Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(16),
+        AsyncData(:final value?) => switch (profileAsync) {
+            AsyncData(:final value) when value == null => const Center(
+                child: CircularProgressIndicator.adaptive(),
               ),
-              child: QrImageView(
-                data: value.id,
-                size: 280,
-                backgroundColor: Colors.white,
-                errorCorrectionLevel: QrErrorCorrectLevel.H,
+            AsyncData() => Center(
+                child: Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: QrImageView(
+                    data: value.id,
+                    size: 280,
+                    backgroundColor: Colors.white,
+                    errorCorrectionLevel: QrErrorCorrectLevel.H,
+                  ),
+                ),
               ),
-            ),
-          ),
+            AsyncLoading() => const Center(
+                child: CircularProgressIndicator.adaptive(),
+              ),
+            AsyncError(:final error) => ErrorScreen(
+                error: error,
+                onRetry: () => ref.invalidate(profileProvider),
+              ),
+          },
         AsyncLoading() => const Center(
             child: CircularProgressIndicator.adaptive(),
           ),

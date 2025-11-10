@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:app/core/designsystem/components/error_screen.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/core/router/router.dart';
+import 'package:app/features/account/data/notifier/profile_notifier.dart';
 import 'package:app/features/account/data/notifier/profile_share_notifier.dart';
+import 'package:app/features/account/ui/component/profile_required_sheet.dart';
 import 'package:app/features/auth/data/notifier/auth_notifier.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +30,22 @@ class QrCodeScanScreen extends HookConsumerWidget {
     final isProcessing = useState(false);
 
     final scannedIds = useRef<Set<String>>({});
+
+    // プロフィールが未作成の場合はSheetを表示
+    ref.listen(profileProvider, (previous, next) {
+      if (next is AsyncData && next.value == null) {
+        Future.microtask(() {
+          if (context.mounted) {
+            showProfileRequiredSheet(
+              context: context,
+              onCreateProfile: () {
+                const ProfileEditRoute().go(context);
+              },
+            );
+          }
+        });
+      }
+    });
 
     return Scaffold(
       appBar: AppBar(
