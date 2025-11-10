@@ -72,6 +72,7 @@ class _TranslationsAccountEn extends TranslationsAccountJa {
 	@override String get withdrawal => 'Withdrawal Request';
 	@override String get logout => 'Sign Out';
 	@override String get settings => 'Account Settings';
+	@override String get sourceCode => 'View Source Code';
 	@override late final _TranslationsAccountLoginRequiredEn loginRequired = _TranslationsAccountLoginRequiredEn._(_root);
 	@override late final _TranslationsAccountProfileEn profile = _TranslationsAccountProfileEn._(_root);
 	@override late final _TranslationsAccountProfileshareEn profileshare = _TranslationsAccountProfileshareEn._(_root);
@@ -788,6 +789,7 @@ extension on TranslationsEn {
 			case 'account.withdrawal': return 'Withdrawal Request';
 			case 'account.logout': return 'Sign Out';
 			case 'account.settings': return 'Account Settings';
+			case 'account.sourceCode': return 'View Source Code';
 			case 'account.loginRequired.title': return 'Login Required';
 			case 'account.loginRequired.description': return 'You need to log in to use this feature';
 			case 'account.loginRequired.button': return 'Log in';

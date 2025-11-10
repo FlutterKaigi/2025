@@ -103,6 +103,9 @@ class TranslationsAccountJa {
 	/// ja: 'アカウント設定'
 	String get settings => 'アカウント設定';
 
+	/// ja: 'ソースコードを見る'
+	String get sourceCode => 'ソースコードを見る';
+
 	late final TranslationsAccountLoginRequiredJa loginRequired = TranslationsAccountLoginRequiredJa.internal(_root);
 	late final TranslationsAccountProfileJa profile = TranslationsAccountProfileJa.internal(_root);
 	late final TranslationsAccountProfileshareJa profileshare = TranslationsAccountProfileshareJa.internal(_root);
@@ -1235,6 +1238,7 @@ extension on Translations {
 			case 'account.withdrawal': return '退会申請';
 			case 'account.logout': return 'ログアウト';
 			case 'account.settings': return 'アカウント設定';
+			case 'account.sourceCode': return 'ソースコードを見る';
 			case 'account.loginRequired.title': return 'ログインが必要です';
 			case 'account.loginRequired.description': return 'この機能を利用するには、ログインが必要です';
 			case 'account.loginRequired.button': return 'ログイン';
