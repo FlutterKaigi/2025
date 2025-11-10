@@ -1,4 +1,4 @@
-import 'package:app/features/session/data/model/session_models.dart';
+import 'package:app/features/session/data/model/session.dart';
 import 'package:app/features/session/data/provider/bookmarked_sessions_provider.dart';
 import 'package:app/features/session/ui/components/session_speaker_icon.dart';
 import 'package:app/features/session/ui/components/session_type_chip.dart';
@@ -15,7 +15,7 @@ class SessionCard extends ConsumerWidget {
     super.key,
   });
 
-  final ScheduleSession session;
+  final Session session;
   final VoidCallback onTap;
 
   @override
