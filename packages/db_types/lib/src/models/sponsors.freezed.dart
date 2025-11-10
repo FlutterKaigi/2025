@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$CompanySponsorDetail {
 
- int get id; String get name; String get logoUrl; String get slug; String get prText; String get websiteUrl; CompanySponsorType get sponsorType; String get displayOrder; BasicPlanType? get basicPlanType; List<OptionPlanType> get optionPlanTypes;
+ int get id; String get name; String get logoUrl; String get slug; String get prText; String get websiteUrl; String? get xAccount; CompanySponsorType get sponsorType; String get displayOrder; BasicPlanType? get basicPlanType; List<OptionPlanType> get optionPlanTypes;
 /// Create a copy of CompanySponsorDetail
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $CompanySponsorDetailCopyWith<CompanySponsorDetail> get copyWith => _$CompanySpo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CompanySponsorDetail&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.prText, prText) || other.prText == prText)&&(identical(other.websiteUrl, websiteUrl) || other.websiteUrl == websiteUrl)&&(identical(other.sponsorType, sponsorType) || other.sponsorType == sponsorType)&&(identical(other.displayOrder, displayOrder) || other.displayOrder == displayOrder)&&(identical(other.basicPlanType, basicPlanType) || other.basicPlanType == basicPlanType)&&const DeepCollectionEquality().equals(other.optionPlanTypes, optionPlanTypes));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CompanySponsorDetail&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.prText, prText) || other.prText == prText)&&(identical(other.websiteUrl, websiteUrl) || other.websiteUrl == websiteUrl)&&(identical(other.xAccount, xAccount) || other.xAccount == xAccount)&&(identical(other.sponsorType, sponsorType) || other.sponsorType == sponsorType)&&(identical(other.displayOrder, displayOrder) || other.displayOrder == displayOrder)&&(identical(other.basicPlanType, basicPlanType) || other.basicPlanType == basicPlanType)&&const DeepCollectionEquality().equals(other.optionPlanTypes, optionPlanTypes));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,logoUrl,slug,prText,websiteUrl,sponsorType,displayOrder,basicPlanType,const DeepCollectionEquality().hash(optionPlanTypes));
+int get hashCode => Object.hash(runtimeType,id,name,logoUrl,slug,prText,websiteUrl,xAccount,sponsorType,displayOrder,basicPlanType,const DeepCollectionEquality().hash(optionPlanTypes));
 
 @override
 String toString() {
-  return 'CompanySponsorDetail(id: $id, name: $name, logoUrl: $logoUrl, slug: $slug, prText: $prText, websiteUrl: $websiteUrl, sponsorType: $sponsorType, displayOrder: $displayOrder, basicPlanType: $basicPlanType, optionPlanTypes: $optionPlanTypes)';
+  return 'CompanySponsorDetail(id: $id, name: $name, logoUrl: $logoUrl, slug: $slug, prText: $prText, websiteUrl: $websiteUrl, xAccount: $xAccount, sponsorType: $sponsorType, displayOrder: $displayOrder, basicPlanType: $basicPlanType, optionPlanTypes: $optionPlanTypes)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $CompanySponsorDetailCopyWith<$Res>  {
   factory $CompanySponsorDetailCopyWith(CompanySponsorDetail value, $Res Function(CompanySponsorDetail) _then) = _$CompanySponsorDetailCopyWithImpl;
 @useResult
 $Res call({
- int id, String name, String logoUrl, String slug, String prText, String websiteUrl, CompanySponsorType sponsorType, String displayOrder, BasicPlanType? basicPlanType, List<OptionPlanType> optionPlanTypes
+ int id, String name, String logoUrl, String slug, String prText, String websiteUrl, String? xAccount, CompanySponsorType sponsorType, String displayOrder, BasicPlanType? basicPlanType, List<OptionPlanType> optionPlanTypes
 });
 
 
@@ -65,7 +65,7 @@ class _$CompanySponsorDetailCopyWithImpl<$Res>
 
 /// Create a copy of CompanySponsorDetail
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? logoUrl = null,Object? slug = null,Object? prText = null,Object? websiteUrl = null,Object? sponsorType = null,Object? displayOrder = null,Object? basicPlanType = freezed,Object? optionPlanTypes = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? logoUrl = null,Object? slug = null,Object? prText = null,Object? websiteUrl = null,Object? xAccount = freezed,Object? sponsorType = null,Object? displayOrder = null,Object? basicPlanType = freezed,Object? optionPlanTypes = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -73,7 +73,8 @@ as String,logoUrl: null == logoUrl ? _self.logoUrl : logoUrl // ignore: cast_nul
 as String,slug: null == slug ? _self.slug : slug // ignore: cast_nullable_to_non_nullable
 as String,prText: null == prText ? _self.prText : prText // ignore: cast_nullable_to_non_nullable
 as String,websiteUrl: null == websiteUrl ? _self.websiteUrl : websiteUrl // ignore: cast_nullable_to_non_nullable
-as String,sponsorType: null == sponsorType ? _self.sponsorType : sponsorType // ignore: cast_nullable_to_non_nullable
+as String,xAccount: freezed == xAccount ? _self.xAccount : xAccount // ignore: cast_nullable_to_non_nullable
+as String?,sponsorType: null == sponsorType ? _self.sponsorType : sponsorType // ignore: cast_nullable_to_non_nullable
 as CompanySponsorType,displayOrder: null == displayOrder ? _self.displayOrder : displayOrder // ignore: cast_nullable_to_non_nullable
 as String,basicPlanType: freezed == basicPlanType ? _self.basicPlanType : basicPlanType // ignore: cast_nullable_to_non_nullable
 as BasicPlanType?,optionPlanTypes: null == optionPlanTypes ? _self.optionPlanTypes : optionPlanTypes // ignore: cast_nullable_to_non_nullable
@@ -162,10 +163,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name,  String logoUrl,  String slug,  String prText,  String websiteUrl,  CompanySponsorType sponsorType,  String displayOrder,  BasicPlanType? basicPlanType,  List<OptionPlanType> optionPlanTypes)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name,  String logoUrl,  String slug,  String prText,  String websiteUrl,  String? xAccount,  CompanySponsorType sponsorType,  String displayOrder,  BasicPlanType? basicPlanType,  List<OptionPlanType> optionPlanTypes)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CompanySponsorDetail() when $default != null:
-return $default(_that.id,_that.name,_that.logoUrl,_that.slug,_that.prText,_that.websiteUrl,_that.sponsorType,_that.displayOrder,_that.basicPlanType,_that.optionPlanTypes);case _:
+return $default(_that.id,_that.name,_that.logoUrl,_that.slug,_that.prText,_that.websiteUrl,_that.xAccount,_that.sponsorType,_that.displayOrder,_that.basicPlanType,_that.optionPlanTypes);case _:
   return orElse();
 
 }
@@ -183,10 +184,10 @@ return $default(_that.id,_that.name,_that.logoUrl,_that.slug,_that.prText,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name,  String logoUrl,  String slug,  String prText,  String websiteUrl,  CompanySponsorType sponsorType,  String displayOrder,  BasicPlanType? basicPlanType,  List<OptionPlanType> optionPlanTypes)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name,  String logoUrl,  String slug,  String prText,  String websiteUrl,  String? xAccount,  CompanySponsorType sponsorType,  String displayOrder,  BasicPlanType? basicPlanType,  List<OptionPlanType> optionPlanTypes)  $default,) {final _that = this;
 switch (_that) {
 case _CompanySponsorDetail():
-return $default(_that.id,_that.name,_that.logoUrl,_that.slug,_that.prText,_that.websiteUrl,_that.sponsorType,_that.displayOrder,_that.basicPlanType,_that.optionPlanTypes);case _:
+return $default(_that.id,_that.name,_that.logoUrl,_that.slug,_that.prText,_that.websiteUrl,_that.xAccount,_that.sponsorType,_that.displayOrder,_that.basicPlanType,_that.optionPlanTypes);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -203,10 +204,10 @@ return $default(_that.id,_that.name,_that.logoUrl,_that.slug,_that.prText,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name,  String logoUrl,  String slug,  String prText,  String websiteUrl,  CompanySponsorType sponsorType,  String displayOrder,  BasicPlanType? basicPlanType,  List<OptionPlanType> optionPlanTypes)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name,  String logoUrl,  String slug,  String prText,  String websiteUrl,  String? xAccount,  CompanySponsorType sponsorType,  String displayOrder,  BasicPlanType? basicPlanType,  List<OptionPlanType> optionPlanTypes)?  $default,) {final _that = this;
 switch (_that) {
 case _CompanySponsorDetail() when $default != null:
-return $default(_that.id,_that.name,_that.logoUrl,_that.slug,_that.prText,_that.websiteUrl,_that.sponsorType,_that.displayOrder,_that.basicPlanType,_that.optionPlanTypes);case _:
+return $default(_that.id,_that.name,_that.logoUrl,_that.slug,_that.prText,_that.websiteUrl,_that.xAccount,_that.sponsorType,_that.displayOrder,_that.basicPlanType,_that.optionPlanTypes);case _:
   return null;
 
 }
@@ -218,7 +219,7 @@ return $default(_that.id,_that.name,_that.logoUrl,_that.slug,_that.prText,_that.
 @JsonSerializable()
 
 class _CompanySponsorDetail implements CompanySponsorDetail {
-  const _CompanySponsorDetail({required this.id, required this.name, required this.logoUrl, required this.slug, required this.prText, required this.websiteUrl, required this.sponsorType, required this.displayOrder, this.basicPlanType, final  List<OptionPlanType> optionPlanTypes = const []}): _optionPlanTypes = optionPlanTypes;
+  const _CompanySponsorDetail({required this.id, required this.name, required this.logoUrl, required this.slug, required this.prText, required this.websiteUrl, this.xAccount, required this.sponsorType, required this.displayOrder, this.basicPlanType, final  List<OptionPlanType> optionPlanTypes = const []}): _optionPlanTypes = optionPlanTypes;
   factory _CompanySponsorDetail.fromJson(Map<String, dynamic> json) => _$CompanySponsorDetailFromJson(json);
 
 @override final  int id;
@@ -227,6 +228,7 @@ class _CompanySponsorDetail implements CompanySponsorDetail {
 @override final  String slug;
 @override final  String prText;
 @override final  String websiteUrl;
+@override final  String? xAccount;
 @override final  CompanySponsorType sponsorType;
 @override final  String displayOrder;
 @override final  BasicPlanType? basicPlanType;
@@ -251,16 +253,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CompanySponsorDetail&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.prText, prText) || other.prText == prText)&&(identical(other.websiteUrl, websiteUrl) || other.websiteUrl == websiteUrl)&&(identical(other.sponsorType, sponsorType) || other.sponsorType == sponsorType)&&(identical(other.displayOrder, displayOrder) || other.displayOrder == displayOrder)&&(identical(other.basicPlanType, basicPlanType) || other.basicPlanType == basicPlanType)&&const DeepCollectionEquality().equals(other._optionPlanTypes, _optionPlanTypes));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CompanySponsorDetail&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.prText, prText) || other.prText == prText)&&(identical(other.websiteUrl, websiteUrl) || other.websiteUrl == websiteUrl)&&(identical(other.xAccount, xAccount) || other.xAccount == xAccount)&&(identical(other.sponsorType, sponsorType) || other.sponsorType == sponsorType)&&(identical(other.displayOrder, displayOrder) || other.displayOrder == displayOrder)&&(identical(other.basicPlanType, basicPlanType) || other.basicPlanType == basicPlanType)&&const DeepCollectionEquality().equals(other._optionPlanTypes, _optionPlanTypes));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,logoUrl,slug,prText,websiteUrl,sponsorType,displayOrder,basicPlanType,const DeepCollectionEquality().hash(_optionPlanTypes));
+int get hashCode => Object.hash(runtimeType,id,name,logoUrl,slug,prText,websiteUrl,xAccount,sponsorType,displayOrder,basicPlanType,const DeepCollectionEquality().hash(_optionPlanTypes));
 
 @override
 String toString() {
-  return 'CompanySponsorDetail(id: $id, name: $name, logoUrl: $logoUrl, slug: $slug, prText: $prText, websiteUrl: $websiteUrl, sponsorType: $sponsorType, displayOrder: $displayOrder, basicPlanType: $basicPlanType, optionPlanTypes: $optionPlanTypes)';
+  return 'CompanySponsorDetail(id: $id, name: $name, logoUrl: $logoUrl, slug: $slug, prText: $prText, websiteUrl: $websiteUrl, xAccount: $xAccount, sponsorType: $sponsorType, displayOrder: $displayOrder, basicPlanType: $basicPlanType, optionPlanTypes: $optionPlanTypes)';
 }
 
 
@@ -271,7 +273,7 @@ abstract mixin class _$CompanySponsorDetailCopyWith<$Res> implements $CompanySpo
   factory _$CompanySponsorDetailCopyWith(_CompanySponsorDetail value, $Res Function(_CompanySponsorDetail) _then) = __$CompanySponsorDetailCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String name, String logoUrl, String slug, String prText, String websiteUrl, CompanySponsorType sponsorType, String displayOrder, BasicPlanType? basicPlanType, List<OptionPlanType> optionPlanTypes
+ int id, String name, String logoUrl, String slug, String prText, String websiteUrl, String? xAccount, CompanySponsorType sponsorType, String displayOrder, BasicPlanType? basicPlanType, List<OptionPlanType> optionPlanTypes
 });
 
 
@@ -288,7 +290,7 @@ class __$CompanySponsorDetailCopyWithImpl<$Res>
 
 /// Create a copy of CompanySponsorDetail
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? logoUrl = null,Object? slug = null,Object? prText = null,Object? websiteUrl = null,Object? sponsorType = null,Object? displayOrder = null,Object? basicPlanType = freezed,Object? optionPlanTypes = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? logoUrl = null,Object? slug = null,Object? prText = null,Object? websiteUrl = null,Object? xAccount = freezed,Object? sponsorType = null,Object? displayOrder = null,Object? basicPlanType = freezed,Object? optionPlanTypes = null,}) {
   return _then(_CompanySponsorDetail(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -296,7 +298,8 @@ as String,logoUrl: null == logoUrl ? _self.logoUrl : logoUrl // ignore: cast_nul
 as String,slug: null == slug ? _self.slug : slug // ignore: cast_nullable_to_non_nullable
 as String,prText: null == prText ? _self.prText : prText // ignore: cast_nullable_to_non_nullable
 as String,websiteUrl: null == websiteUrl ? _self.websiteUrl : websiteUrl // ignore: cast_nullable_to_non_nullable
-as String,sponsorType: null == sponsorType ? _self.sponsorType : sponsorType // ignore: cast_nullable_to_non_nullable
+as String,xAccount: freezed == xAccount ? _self.xAccount : xAccount // ignore: cast_nullable_to_non_nullable
+as String?,sponsorType: null == sponsorType ? _self.sponsorType : sponsorType // ignore: cast_nullable_to_non_nullable
 as CompanySponsorType,displayOrder: null == displayOrder ? _self.displayOrder : displayOrder // ignore: cast_nullable_to_non_nullable
 as String,basicPlanType: freezed == basicPlanType ? _self.basicPlanType : basicPlanType // ignore: cast_nullable_to_non_nullable
 as BasicPlanType?,optionPlanTypes: null == optionPlanTypes ? _self._optionPlanTypes : optionPlanTypes // ignore: cast_nullable_to_non_nullable

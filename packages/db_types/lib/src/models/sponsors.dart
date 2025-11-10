@@ -14,6 +14,7 @@ abstract class CompanySponsorDetail with _$CompanySponsorDetail {
     required String slug,
     required String prText,
     required String websiteUrl,
+    String? xAccount,
     required CompanySponsorType sponsorType,
     required String displayOrder,
     BasicPlanType? basicPlanType,

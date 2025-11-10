@@ -12,6 +12,7 @@ abstract class CompanyDrafts with _$CompanyDrafts {
     required String slug,
     required String description,
     required String websiteUrl,
+    String? xAccount,
     @RequiredDateTimeConverter() required DateTime createdAt,
     @RequiredDateTimeConverter() required DateTime updatedAt,
   }) = _CompanyDrafts;
