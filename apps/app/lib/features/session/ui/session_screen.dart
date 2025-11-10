@@ -213,6 +213,13 @@ class _SessionDetailView extends ConsumerWidget with SessionScreenMixin {
                 leading: const Icon(Icons.event_outlined),
                 onTap: () => _addToCalendar(session),
               ),
+              ListTile(
+                title: Text(
+                  session.venue,
+                  style: theme.textTheme.bodyLarge,
+                ),
+                leading: const Icon(Icons.room_outlined),
+              ),
               const SizedBox(height: 64),
             ],
           ),
