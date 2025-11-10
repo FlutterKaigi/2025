@@ -62,6 +62,7 @@ dependencies:
   talker_flutter: ^5.0.0
   url_launcher: ^6.3.1
   uuid: ^4.5.1
+  web_socket_channel: ^3.0.3
 
 dev_dependencies:
   altive_lints: ^1.19.1

@@ -53,12 +53,16 @@ class ProfileShareListScreen extends HookConsumerWidget {
                     ],
                   ),
                 )
-              : ListView.builder(
-                  itemCount: value.length,
-                  itemBuilder: (context, index) {
-                    final profileWithSns = value[index];
-                    return _ProfileShareCard(profileWithSns: profileWithSns);
-                  },
+              : RefreshIndicator.adaptive(
+                  onRefresh: () async =>
+                      ref.refresh(profileShareProvider.future),
+                  child: ListView.builder(
+                    itemCount: value.length,
+                    itemBuilder: (context, index) {
+                      final profileWithSns = value[index];
+                      return _ProfileShareCard(profileWithSns: profileWithSns);
+                    },
+                  ),
                 ),
         AsyncLoading() => const Center(
           child: CircularProgressIndicator.adaptive(),
