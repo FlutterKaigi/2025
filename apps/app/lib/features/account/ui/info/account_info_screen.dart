@@ -9,6 +9,7 @@ import 'package:app/features/account/ui/component/account_scaffold.dart';
 import 'package:app/features/account/ui/component/login_prompt_card.dart';
 import 'package:app/features/auth/data/notifier/auth_notifier.dart';
 import 'package:auth_client/auth_client.dart';
+import 'package:bff_client/bff_client.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -241,6 +242,8 @@ class _UserInfoCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final translations = Translations.of(context);
+    final profileAsync = ref.watch(profileProvider);
+    
     final children = user.isAnonymous
         ? [
             Text(
@@ -265,6 +268,13 @@ class _UserInfoCard extends ConsumerWidget {
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             _SignInMethodChip(user: user),
+            // プロフィール情報を表示
+            if (profileAsync.hasValue && profileAsync.value != null) ...[
+              const SizedBox(height: 4),
+              _ProfileInfoSection(
+                profile: profileAsync.value!,
+              ),
+            ],
             SizedBox(
               width: double.infinity,
               child: ElevatedButton.icon(
@@ -492,5 +502,98 @@ class _ProfileImage extends ConsumerWidget {
         AsyncError() => const Icon(Icons.error),
       },
     );
+  }
+}
+
+/// プロフィール情報表示セクション
+class _ProfileInfoSection extends StatelessWidget {
+  const _ProfileInfoSection({
+    required this.profile,
+  });
+
+  final ProfileResponse profile;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
+    
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: theme.colorScheme.outlineVariant,
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        spacing: 8,
+        children: [
+          Row(
+            children: [
+              Icon(
+                Icons.person,
+                size: 16,
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  profile.profile.name,
+                  style: textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
+          ),
+          if (profile.snsLinks.isNotEmpty) ...[
+            const Divider(height: 1),
+            ...profile.snsLinks.map(
+              (link) => Row(
+                children: [
+                  FaIcon(
+                    _getSnsIcon(link.snsType),
+                    size: 14,
+                    color: theme.colorScheme.onSurfaceVariant,
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      _formatSnsValue(link.snsType, link.value),
+                      style: textTheme.bodySmall,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+
+  IconData _getSnsIcon(SnsType type) {
+    return switch (type) {
+      SnsType.github => FontAwesomeIcons.github,
+      SnsType.x => FontAwesomeIcons.xTwitter,
+      SnsType.discord => FontAwesomeIcons.discord,
+      SnsType.medium => FontAwesomeIcons.medium,
+      SnsType.qiita => FontAwesomeIcons.link,
+      SnsType.zenn => FontAwesomeIcons.link,
+      SnsType.note => FontAwesomeIcons.link,
+      SnsType.other => FontAwesomeIcons.link,
+    };
+  }
+
+  String _formatSnsValue(SnsType type, String value) {
+    if (value.startsWith('http')) {
+      return value;
+    }
+    return '@$value';
   }
 }
