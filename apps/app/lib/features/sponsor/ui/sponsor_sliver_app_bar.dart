@@ -221,6 +221,7 @@ class _SponsorFlexibleSpaceCover extends HookWidget {
             ? 0.0
             : t.clamp(0.0, 1.0);
 
+        // ignore: avoid_single_child
         return Stack(
           children: [
             Positioned(
