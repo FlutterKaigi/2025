@@ -275,7 +275,7 @@ SponsorInfo _convertToSponsorInfo(CompanySponsorDetail detail) {
     name: detail.name,
     slug: detail.slug,
     url: detail.websiteUrl,
-    sns: (x: null), // APIではxAccountがCompanySponsorDetailに含まれていないため、nullに設定
+    sns: (x: detail.xAccount),
     pr: (ja: detail.prText, en: null),
     logo: detail.logoUrl,
     type: detail.sponsorType.toSponsorType(detail.basicPlanType),

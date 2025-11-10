@@ -60,6 +60,7 @@ PlatinumSponsor _convertPlatinumSponsor(CompanySponsorDetail companySponsor) {
     logoUrl: Uri.parse(companySponsor.logoUrl),
     prText: companySponsor.prText,
     websiteUrl: Uri.parse(companySponsor.websiteUrl),
+    xAccount: companySponsor.xAccount,
     scholarship: companySponsor.isScholarship,
     namingRight: companySponsor.namingRight,
     namePlate: companySponsor.isNamePlate,
@@ -75,6 +76,7 @@ GoldSponsor _convertGoldSponsor(CompanySponsorDetail companySponsor) {
     logoUrl: Uri.parse(companySponsor.logoUrl),
     prText: companySponsor.prText,
     websiteUrl: Uri.parse(companySponsor.websiteUrl),
+    xAccount: companySponsor.xAccount,
     scholarship: companySponsor.isScholarship,
     namingRight: companySponsor.namingRight,
     namePlate: companySponsor.isNamePlate,
@@ -90,6 +92,7 @@ SilverSponsor _convertSilverSponsor(CompanySponsorDetail companySponsor) {
     logoUrl: Uri.parse(companySponsor.logoUrl),
     prText: companySponsor.prText,
     websiteUrl: Uri.parse(companySponsor.websiteUrl),
+    xAccount: companySponsor.xAccount,
     scholarship: companySponsor.isScholarship,
     namingRight: companySponsor.namingRight,
     namePlate: companySponsor.isNamePlate,
@@ -106,6 +109,7 @@ BronzeSponsor _convertBronzeSponsor(CompanySponsorDetail companySponsor) {
     logoUrl: Uri.parse(companySponsor.logoUrl),
     prText: companySponsor.prText,
     websiteUrl: Uri.parse(companySponsor.websiteUrl),
+    xAccount: companySponsor.xAccount,
     scholarship: companySponsor.isScholarship,
     namePlate: companySponsor.isNamePlate,
     lunchSponsor: companySponsor.isLunch,
@@ -121,6 +125,7 @@ ToolSponsor _convertToolSponsor(CompanySponsorDetail companySponsor) {
     logoUrl: Uri.parse(companySponsor.logoUrl),
     prText: companySponsor.prText,
     websiteUrl: Uri.parse(companySponsor.websiteUrl),
+    xAccount: companySponsor.xAccount,
   );
 }
 
@@ -133,6 +138,7 @@ OtherSponsor _convertOtherSponsor(CompanySponsorDetail companySponsor) {
     logoUrl: Uri.parse(companySponsor.logoUrl),
     prText: companySponsor.prText,
     websiteUrl: Uri.parse(companySponsor.websiteUrl),
+    xAccount: companySponsor.xAccount,
   );
 }
 

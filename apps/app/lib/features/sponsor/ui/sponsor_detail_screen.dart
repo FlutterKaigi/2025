@@ -236,6 +236,34 @@ class _SponsorDetail extends HookConsumerWidget {
               },
           ),
         ),
+
+        // Xアカウント
+        const SizedBox(height: 16),
+        if (company.xAccount != null) ...[
+          Text(
+            t.sponsor.xAccount,
+            style: titleStyle,
+          ),
+          const SizedBox(height: 8),
+          Text.rich(
+            TextSpan(
+              text: '@${company.xAccount}',
+              style: bodyTextStyle?.copyWith(
+                color: colorScheme.primary,
+              ),
+              recognizer: TapGestureRecognizer()
+                ..onTap = () async {
+                  final xUrl = 'https://x.com/${company.xAccount}';
+                  unawaited(
+                    launchUrl(
+                      Uri.parse(xUrl),
+                      mode: LaunchMode.externalApplication,
+                    ),
+                  );
+                },
+            ),
+          ),
+        ],
       ],
       final IndividualSponsor individual => [
         // ティアチップ

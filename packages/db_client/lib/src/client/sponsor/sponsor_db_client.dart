@@ -26,6 +26,7 @@ class SponsorDbClient {
           cd.slug,
           cd.pr_text,
           cd.website_url,
+          cd.x_account,
           sc.sponsor_type,
           bsc.basic_plan_type,
           sc.display_order,
@@ -50,6 +51,7 @@ class SponsorDbClient {
           cd.slug,
           cd.pr_text,
           cd.website_url,
+          cd.x_account,
           sc.sponsor_type,
           bsc.basic_plan_type,
           sc.display_order

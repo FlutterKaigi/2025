@@ -39,11 +39,13 @@ sealed class CompanySponsor extends Sponsor {
     required super.logoUrl,
     required this.prText,
     required this.websiteUrl,
+    this.xAccount,
     this.scholarship = false,
   });
 
   final String prText;
   final Uri websiteUrl;
+  final String? xAccount;
   final bool scholarship;
 
   @override
@@ -58,6 +60,7 @@ sealed class CompanySponsor extends Sponsor {
         logoUrl == other.logoUrl &&
         prText == other.prText &&
         websiteUrl == other.websiteUrl &&
+        xAccount == other.xAccount &&
         scholarship == other.scholarship;
   }
 
@@ -69,6 +72,7 @@ sealed class CompanySponsor extends Sponsor {
     logoUrl,
     prText,
     websiteUrl,
+    xAccount,
     scholarship,
   );
 }
@@ -170,6 +174,7 @@ sealed class BasicSponsor extends CompanySponsor {
     required super.logoUrl,
     required super.prText,
     required super.websiteUrl,
+    super.xAccount,
     super.scholarship,
   });
 
@@ -185,6 +190,7 @@ sealed class BasicSponsor extends CompanySponsor {
         logoUrl == other.logoUrl &&
         prText == other.prText &&
         websiteUrl == other.websiteUrl &&
+        xAccount == other.xAccount &&
         scholarship == other.scholarship;
   }
 
@@ -196,6 +202,7 @@ sealed class BasicSponsor extends CompanySponsor {
     logoUrl,
     prText,
     websiteUrl,
+    xAccount,
     scholarship,
   );
 }
@@ -209,6 +216,7 @@ final class PlatinumSponsor extends BasicSponsor {
     required super.logoUrl,
     required super.prText,
     required super.websiteUrl,
+    super.xAccount,
     super.scholarship,
     this.namingRight = const NotAppliedNamingRight(),
     this.namePlate = false,
@@ -257,6 +265,7 @@ final class GoldSponsor extends BasicSponsor {
     required super.logoUrl,
     required super.prText,
     required super.websiteUrl,
+    super.xAccount,
     super.scholarship,
     this.namingRight = const NotAppliedNamingRight(),
     this.namePlate = false,
@@ -305,6 +314,7 @@ final class SilverSponsor extends BasicSponsor {
     required super.logoUrl,
     required super.prText,
     required super.websiteUrl,
+    super.xAccount,
     super.scholarship,
     this.namingRight = const NotAppliedNamingRight(),
     this.namePlate = false,
@@ -357,6 +367,7 @@ final class BronzeSponsor extends BasicSponsor {
     required super.logoUrl,
     required super.prText,
     required super.websiteUrl,
+    super.xAccount,
     super.scholarship,
     this.namePlate = false,
     this.lunchSponsor = false,
@@ -405,6 +416,7 @@ final class ToolSponsor extends CompanySponsor {
     required super.logoUrl,
     required super.prText,
     required super.websiteUrl,
+    super.xAccount,
     super.scholarship,
   });
 
@@ -444,6 +456,7 @@ final class OtherSponsor extends CompanySponsor {
     required super.logoUrl,
     required super.prText,
     required super.websiteUrl,
+    super.xAccount,
     super.scholarship,
   });
 
