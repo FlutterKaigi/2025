@@ -72,7 +72,7 @@ class AccountInfoRoute extends GoRouteData with $AccountInfoRoute {
               return null;
             }
           }
-          return null;
+          return fn();
         }
 
         return AccountInfoScreen(

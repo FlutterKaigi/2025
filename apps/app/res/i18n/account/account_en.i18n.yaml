@@ -47,6 +47,7 @@ profile:
   sns:
     notLinked: No social links registered
     type: Platform
+    typeRequired: Please select a platform
     urlOrUserId: URL/User ID
     urlOrUserIdRequired: Please enter URL/User ID
     other: Other

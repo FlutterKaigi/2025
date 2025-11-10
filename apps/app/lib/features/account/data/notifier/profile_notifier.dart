@@ -7,6 +7,7 @@ import 'package:app/core/provider/file_upload_dio.dart';
 import 'package:app/features/auth/data/notifier/auth_notifier.dart';
 import 'package:bff_client/bff_client.dart';
 import 'package:dio/dio.dart';
+import 'package:hooks_riverpod/experimental/mutation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -35,7 +36,10 @@ class ProfileNotifier extends _$ProfileNotifier {
     }
   }
 
-  /// プロファイル情報を更新する
+  static final updateProfileMutation = Mutation<Profiles>();
+  static final avatarMutation = Mutation<void>();
+
+  /// プロフィール情報を更新する
   Future<Profiles> updateProfile(ProfileUpdateRequest request) async {
     final client = ref.read(bffClientProvider);
     final response = await ApiException.transform(

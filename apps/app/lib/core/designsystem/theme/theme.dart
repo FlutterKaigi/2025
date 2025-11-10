@@ -64,11 +64,16 @@ ThemeData darkTheme() {
     colorScheme: darkColorScheme,
     useMaterial3: true,
     useSystemColors: true,
-    appBarTheme: const AppBarTheme(
+    appBarTheme: AppBarTheme(
       centerTitle: false,
       scrolledUnderElevation: 0,
       elevation: 0,
       surfaceTintColor: Colors.transparent,
+      titleTextStyle: textTheme.displayLarge!.copyWith(
+        fontVariations: [
+          fontVariationForWeight(FontWeight.w700),
+        ],
+      ),
     ),
     splashFactory: NoSplash.splashFactory,
     textTheme: textTheme,

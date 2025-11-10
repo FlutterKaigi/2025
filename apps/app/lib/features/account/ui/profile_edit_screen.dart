@@ -21,108 +21,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class ProfileEditScreen extends HookConsumerWidget {
   const ProfileEditScreen({super.key});
 
-  /// プロファイルを保存する
-  Future<void> _saveProfile(
-    BuildContext context,
-    WidgetRef ref,
-    GlobalKey<FormState> formKey,
-    TextEditingController nameController,
-    bool isAdult,
-    List<SnsLinkFormData> snsLinks,
-  ) async {
-    final t = Translations.of(context);
-    if (!formKey.currentState!.validate()) {
-      return;
-    }
-
-    // 保存中の状態を表示
-    if (context.mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Row(
-            children: [
-              const SizedBox(
-                width: 16,
-                height: 16,
-                child: CircularProgressIndicator(strokeWidth: 2),
-              ),
-              const SizedBox(width: 12),
-              Text(t.account.profile.saving),
-            ],
-          ),
-          duration: const Duration(seconds: 10),
-        ),
-      );
-    }
-
-    try {
-      // SNSリンクを変換（空でないもののみ）
-      final validSnsLinks = snsLinks
-          .where((link) => link.snsType != null && link.value.trim().isNotEmpty)
-          .map(
-            (link) => SnsLink(
-              snsType: link.snsType!,
-              value: link.value.trim(),
-            ),
-          )
-          .toList();
-
-      final avatarKey = ref.read(profileProvider).value?.avatarKey;
-      final request = ProfileUpdateRequest(
-        name: nameController.text.trim(),
-        isAdult: isAdult,
-        comment: '',
-        snsLinks: validSnsLinks,
-        avatarKey: avatarKey,
-      );
-
-      final notifier = ref.read(profileProvider.notifier);
-      await notifier.updateProfile(request);
-
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).clearSnackBars();
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Row(
-              children: [
-                const Icon(Icons.check_circle, color: Colors.white),
-                const SizedBox(width: 8),
-                Text(t.account.profile.saveSuccess),
-              ],
-            ),
-            backgroundColor: Colors.green,
-          ),
-        );
-        Navigator.of(context).pop();
-      }
-    } on Exception catch (e) {
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).clearSnackBars();
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Row(
-              children: [
-                const Icon(Icons.error, color: Colors.white),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    '${t.account.profile.saveFailed}: '
-                    '${e.errorMessage(t)}',
-                  ),
-                ),
-              ],
-            ),
-            backgroundColor: Colors.red,
-            duration: const Duration(seconds: 5),
-          ),
-        );
-      }
-    }
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final colorScheme = Theme.of(context).colorScheme;
     final t = Translations.of(context);
 
     final formKey = useMemoized(GlobalKey<FormState>.new);
@@ -130,27 +30,101 @@ class ProfileEditScreen extends HookConsumerWidget {
     final snsLinksState = useState<List<SnsLinkFormData>>([]);
     final isAdultState = useState(false);
 
+    Future<void> saveProfile() async {
+      final t = Translations.of(context);
+      if (!formKey.currentState!.validate()) {
+        return;
+      }
+
+      try {
+        // SNSリンクを変換（空でないもののみ）
+        final validSnsLinks = snsLinksState.value
+            .where(
+              (link) => link.snsType != null && link.value.trim().isNotEmpty,
+            )
+            .map(
+              (link) => SnsLink(
+                snsType: link.snsType!,
+                value: link.value.trim(),
+              ),
+            )
+            .toList();
+
+        final avatarKey = ref.read(profileProvider).value?.avatarKey;
+        final request = ProfileUpdateRequest(
+          name: nameController.text.trim(),
+          isAdult: isAdultState.value,
+          comment: '',
+          snsLinks: validSnsLinks,
+          avatarKey: avatarKey,
+        );
+
+        await ProfileNotifier.updateProfileMutation.run(
+          ref,
+          (transaction) async =>
+              transaction.get(profileProvider.notifier).updateProfile(request),
+        );
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).clearSnackBars();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(t.account.profile.saveSuccess),
+            ),
+          );
+          Navigator.of(context).pop();
+        }
+      } on Exception catch (e) {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).clearSnackBars();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Row(
+                children: [
+                  const Icon(Icons.error, color: Colors.white),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      '${t.account.profile.saveFailed}: '
+                      '${e.errorMessage(t)}',
+                    ),
+                  ),
+                ],
+              ),
+              backgroundColor: Colors.red,
+              duration: const Duration(seconds: 5),
+            ),
+          );
+        }
+      }
+    }
+
     final profileAsync = ref.watch(profileProvider);
+    final isPending =
+        ref.watch(
+          ProfileNotifier.updateProfileMutation.select(
+            (state) => state.isPending,
+          ),
+        ) ||
+        ref.watch(
+          ProfileNotifier.avatarMutation.select((state) => state.isPending),
+        );
 
     return Scaffold(
       appBar: AppBar(
         title: Text(t.account.profile.editTitle),
         actions: [
           TextButton(
-            onPressed: () => _saveProfile(
-              context,
-              ref,
-              formKey,
-              nameController,
-              isAdultState.value,
-              snsLinksState.value,
-            ),
-            child: Text(t.account.profile.save),
+            onPressed: isPending ? null : saveProfile,
+            child: isPending
+                ? const CircularProgressIndicator.adaptive()
+                : Text(t.account.profile.save),
           ),
         ],
       ),
       body: profileAsync.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
+        loading: () => const Center(
+          child: CircularProgressIndicator.adaptive(),
+        ),
         error: (error, stack) => Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -164,31 +138,32 @@ class ProfileEditScreen extends HookConsumerWidget {
           ),
         ),
         data: (profile) {
-          // プロファイルデータがロードされたらフォームに反映
-          useEffect(() {
-            if (profile != null && nameController.text.isEmpty) {
-              var name = profile.profile.name;
-              if (name.length > 20) {
-                name = name.substring(0, 20);
+          // プロフィールデータがロードされたらフォームに反映
+          useEffect(
+            () {
+              if (profile != null && nameController.text.isEmpty) {
+                var name = profile.profile.name;
+                if (name.length > 20) {
+                  name = name.substring(0, 20);
+                }
+                nameController.text = name;
+                isAdultState.value = profile.profile.isAdult;
+                // 既存のSNSリンクがある場合は初期化
+                if (profile.snsLinks.isNotEmpty) {
+                  snsLinksState.value = profile.snsLinks
+                      .map(
+                        (link) => SnsLinkFormData(
+                          snsType: link.snsType,
+                          value: link.value,
+                        ),
+                      )
+                      .toList();
+                }
               }
-              nameController.text = name;
-              isAdultState.value = profile.profile.isAdult;
-              // 既存のSNSリンクがある場合は初期化
-              if (profile.snsLinks.isNotEmpty) {
-                snsLinksState.value = profile.snsLinks
-                    .map(
-                      (link) => SnsLinkFormData(
-                        snsType: link.snsType,
-                        value: link.value,
-                      ),
-                    )
-                    .toList();
-              }
-            }
-            return null;
-          }, [profile]);
-
-          final nameplateNote = profile?.nameplateNote;
+              return null;
+            },
+            [profile],
+          );
 
           return SingleChildScrollView(
             padding: const EdgeInsets.all(16),
@@ -196,75 +171,10 @@ class ProfileEditScreen extends HookConsumerWidget {
               child: Form(
                 key: formKey,
                 child: Column(
+                  spacing: 8,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // ネームプレート注意事項（プロフィールが存在する場合のみ）
-                    if (nameplateNote != null)
-                      Card(
-                        color: colorScheme.secondary.withValues(alpha: 0.1),
-                        child: Padding(
-                          padding: const EdgeInsets.all(16),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.warning,
-                                color: colorScheme.secondary,
-                              ),
-                              const SizedBox(width: 8),
-                              Expanded(
-                                child: Text(
-                                  nameplateNote,
-                                  style: TextStyle(
-                                    color: colorScheme.onSecondaryContainer,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    const SizedBox(height: 16),
-
-                    // アバター画像
-                    Center(
-                      child: Column(
-                        children: [
-                          AccountCircleImage(
-                            imageUrl:
-                                profile?.profile.avatarUrl?.toString() ?? '',
-                            imageSize: 120,
-                            circleRadius: 60,
-                          ),
-                          const SizedBox(height: 8),
-                          Wrap(
-                            crossAxisAlignment: WrapCrossAlignment.center,
-                            alignment: WrapAlignment.center,
-                            spacing: 4,
-                            runSpacing: 4,
-                            children: [
-                              TextButton.icon(
-                                onPressed: () async => ref
-                                    .read(changeAvatarActionProvider)
-                                    .changeAvatar(context: context),
-                                icon: const Icon(Icons.upload),
-                                label: Text(t.account.profile.upload),
-                              ),
-                              if (profile?.profile.avatarUrl != null)
-                                TextButton.icon(
-                                  onPressed: () async => ref
-                                      .read(changeAvatarActionProvider)
-                                      .deleteAvatar(context: context),
-                                  icon: const Icon(Icons.delete),
-                                  label: Text(t.account.profile.delete),
-                                ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 24),
-
-                    // 名前
+                    _AvatarSection(profile: profile),
                     TextFormField(
                       controller: nameController,
                       decoration: InputDecoration(
@@ -279,11 +189,7 @@ class ProfileEditScreen extends HookConsumerWidget {
                         }
                         return null;
                       },
-                      onChanged: (value) {},
                     ),
-                    const SizedBox(height: 16),
-
-                    // 成人確認
                     CheckboxListTile(
                       title: Text(t.account.profile.ageOver20),
                       value: isAdultState.value,
@@ -292,9 +198,6 @@ class ProfileEditScreen extends HookConsumerWidget {
                       },
                       controlAffinity: ListTileControlAffinity.leading,
                     ),
-                    const SizedBox(height: 24),
-
-                    // SNSリンク
                     Row(
                       children: [
                         Text(
@@ -317,9 +220,6 @@ class ProfileEditScreen extends HookConsumerWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 8),
-
-                    // SNSリンクリスト
                     ...snsLinksState.value.asMap().entries.map((entry) {
                       final index = entry.key;
                       final link = entry.value;
@@ -346,6 +246,72 @@ class ProfileEditScreen extends HookConsumerWidget {
         },
         skipLoadingOnRefresh: true,
         skipLoadingOnReload: true,
+      ),
+    );
+  }
+}
+
+class _AvatarSection extends HookConsumerWidget {
+  const _AvatarSection({
+    required this.profile,
+  });
+
+  final ProfileResponse? profile;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final t = Translations.of(context);
+
+    final avatarMutationState = ref.watch(ProfileNotifier.avatarMutation);
+    final profileMutationState = ref.watch(
+      ProfileNotifier.updateProfileMutation,
+    );
+    final isPending =
+        avatarMutationState.isPending || profileMutationState.isPending;
+
+    return Center(
+      child: Column(
+        children: [
+          AccountCircleImage(
+            imageUrl: profile?.profile.avatarUrl?.toString() ?? '',
+            imageSize: 120,
+            circleRadius: 60,
+          ),
+          const SizedBox(height: 8),
+          Wrap(
+            crossAxisAlignment: WrapCrossAlignment.center,
+            alignment: WrapAlignment.center,
+            spacing: 4,
+            runSpacing: 4,
+            children: [
+              TextButton.icon(
+                onPressed: isPending
+                    ? null
+                    : () async => ProfileNotifier.avatarMutation.run(
+                        ref,
+                        (tsx) => tsx
+                            .get(changeAvatarActionProvider)
+                            .changeAvatar(context: context),
+                      ),
+                icon: const Icon(Icons.upload),
+                label: Text(t.account.profile.upload),
+              ),
+              if (profile?.profile.avatarUrl != null)
+                TextButton.icon(
+                  onPressed: isPending
+                      ? null
+                      : () async => ProfileNotifier.avatarMutation.run(
+                          ref,
+                          (tsx) => tsx
+                              .get(changeAvatarActionProvider)
+                              .deleteAvatar(context: context),
+                        ),
+                  icon: const Icon(Icons.delete),
+                  label: Text(t.account.profile.delete),
+                ),
+            ],
+          ),
+        ],
       ),
     );
   }

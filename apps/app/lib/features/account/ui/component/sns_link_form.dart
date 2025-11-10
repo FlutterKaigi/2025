@@ -21,6 +21,17 @@ class SnsLinkForm extends HookWidget {
   Widget build(BuildContext context) {
     final t = Translations.of(context);
     final controller = useTextEditingController(text: snsLink.value);
+
+    useEffect(
+      () {
+        if (controller.text != snsLink.value) {
+          controller.text = snsLink.value;
+        }
+        return null;
+      },
+      [snsLink.value],
+    );
+
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -44,6 +55,11 @@ class SnsLinkForm extends HookWidget {
                     onChanged: (value) {
                       onChanged(snsLink.copyWith(snsType: value));
                     },
+                    autovalidateMode: AutovalidateMode.always,
+                    autofocus: true,
+                    validator: (value) => value == null
+                        ? t.account.profile.sns.typeRequired
+                        : null,
                   ),
                 ),
                 const SizedBox(width: 8),
@@ -55,6 +71,7 @@ class SnsLinkForm extends HookWidget {
             ),
             const SizedBox(height: 12),
             TextFormField(
+              autovalidateMode: AutovalidateMode.always,
               controller: controller,
               decoration: InputDecoration(
                 labelText: t.account.profile.sns.urlOrUserId,
@@ -119,7 +136,7 @@ extension _SnsTypeExtension on SnsType {
   /// SNS値のバリデーション
   String? validateValue(String value, Translations t) {
     final uriOrNull = Uri.tryParse(value);
-    final isHttpUrl = uriOrNull?.scheme == 'https';
+    final isHttpUrl = uriOrNull?.scheme == 'http';
     final isHttpsUrl = uriOrNull?.scheme == 'https';
 
     final isValid = isHttpUrl || isHttpsUrl;

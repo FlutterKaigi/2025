@@ -71,18 +71,21 @@ final class AccountInfoScreen extends ConsumerWidget {
 
     return AccountScaffold(
       body: state.when(
-        error: (error, stackTrace) => ErrorScreen(
-          error: error,
-          onRetry: () => ref.invalidate(authProvider),
+        error: (error, stackTrace) => SafeArea(
+          child: ErrorScreen(
+            error: error,
+            onRetry: () => ref.invalidate(authProvider),
+          ),
         ),
         loading: () => const Center(
           child: CircularProgressIndicator.adaptive(),
         ),
         data: (user) => user == null
-            ? const LoginPromptCard()
+            ? const SafeArea(child: LoginPromptCard())
             : ListView(
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 children: [
+                  const SafeArea(child: SizedBox.shrink()),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: _UserInfoCard(

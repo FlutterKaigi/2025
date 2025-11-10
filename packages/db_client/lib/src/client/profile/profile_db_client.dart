@@ -12,7 +12,7 @@ class ProfileDbClient {
 
   ProfileShareDbClient get share => ProfileShareDbClient(executor: _executor);
 
-  /// プロファイル情報とSNSリンクを取得
+  /// プロフィール情報とSNSリンクを取得
   Future<ProfileWithSnsLinks?> getProfileWithSnsLinks(String userId) async {
     final result = await _executor.execute(
       '''
@@ -55,7 +55,7 @@ class ProfileDbClient {
     return ProfileWithSnsLinks.fromJson(rowData);
   }
 
-  /// プロファイルを更新
+  /// プロフィールを更新
   Future<Profiles> upsertProfile(
     String userId,
     ProfileUpdateData profileData,

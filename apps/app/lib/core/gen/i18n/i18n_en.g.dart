@@ -621,6 +621,7 @@ class _TranslationsAccountProfileSnsEn extends TranslationsAccountProfileSnsJa {
 	// Translations
 	@override String get notLinked => 'No social links registered';
 	@override String get type => 'Platform';
+	@override String get typeRequired => 'Please select a platform';
 	@override String get urlOrUserId => 'URL/User ID';
 	@override String get urlOrUserIdRequired => 'Please enter URL/User ID';
 	@override String get other => 'Other';
@@ -841,6 +842,7 @@ extension on TranslationsEn {
 			case 'account.profile.avatar.changeSuccess': return 'Avatar updated successfully';
 			case 'account.profile.sns.notLinked': return 'No social links registered';
 			case 'account.profile.sns.type': return 'Platform';
+			case 'account.profile.sns.typeRequired': return 'Please select a platform';
 			case 'account.profile.sns.urlOrUserId': return 'URL/User ID';
 			case 'account.profile.sns.urlOrUserIdRequired': return 'Please enter URL/User ID';
 			case 'account.profile.sns.other': return 'Other';

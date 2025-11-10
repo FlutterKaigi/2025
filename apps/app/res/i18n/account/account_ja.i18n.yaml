@@ -21,14 +21,14 @@ loginRequired:
   description: この機能を利用するには、ログインが必要です
   button: ログイン
 profile:
-  title: プロファイル
+  title: プロフィール
   editTitle: プロフィール編集
-  createInfo: プロファイル情報を作成してください
-  edit: プロファイルを編集
-  notFound: プロファイルが見つかりません
+  createInfo: プロフィール情報を作成してください
+  edit: プロフィールを編集
+  notFound: プロフィールが見つかりません
   saving: 保存中...
   save: 保存
-  saveSuccess: プロファイルを保存しました
+  saveSuccess: プロフィールを保存しました
   saveFailed: 保存に失敗しました
   errorOccurred: エラーが発生しました
   ageOver20: 20歳以上です
@@ -47,6 +47,7 @@ profile:
   sns:
     notLinked: SNSリンクが登録されていません
     type: SNSタイプ
+    typeRequired: SNSタイプを選択してください
     urlOrUserId: URL/ユーザーID
     urlOrUserIdRequired: URL/ユーザーIDを入力してください
     other: その他

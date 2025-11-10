@@ -338,20 +338,20 @@ class TranslationsAccountProfileJa {
 
 	// Translations
 
-	/// ja: 'プロファイル'
-	String get title => 'プロファイル';
+	/// ja: 'プロフィール'
+	String get title => 'プロフィール';
 
 	/// ja: 'プロフィール編集'
 	String get editTitle => 'プロフィール編集';
 
-	/// ja: 'プロファイル情報を作成してください'
-	String get createInfo => 'プロファイル情報を作成してください';
+	/// ja: 'プロフィール情報を作成してください'
+	String get createInfo => 'プロフィール情報を作成してください';
 
-	/// ja: 'プロファイルを編集'
-	String get edit => 'プロファイルを編集';
+	/// ja: 'プロフィールを編集'
+	String get edit => 'プロフィールを編集';
 
-	/// ja: 'プロファイルが見つかりません'
-	String get notFound => 'プロファイルが見つかりません';
+	/// ja: 'プロフィールが見つかりません'
+	String get notFound => 'プロフィールが見つかりません';
 
 	/// ja: '保存中...'
 	String get saving => '保存中...';
@@ -359,8 +359,8 @@ class TranslationsAccountProfileJa {
 	/// ja: '保存'
 	String get save => '保存';
 
-	/// ja: 'プロファイルを保存しました'
-	String get saveSuccess => 'プロファイルを保存しました';
+	/// ja: 'プロフィールを保存しました'
+	String get saveSuccess => 'プロフィールを保存しました';
 
 	/// ja: '保存に失敗しました'
 	String get saveFailed => '保存に失敗しました';
@@ -938,6 +938,9 @@ class TranslationsAccountProfileSnsJa {
 	/// ja: 'SNSタイプ'
 	String get type => 'SNSタイプ';
 
+	/// ja: 'SNSタイプを選択してください'
+	String get typeRequired => 'SNSタイプを選択してください';
+
 	/// ja: 'URL/ユーザーID'
 	String get urlOrUserId => 'URL/ユーザーID';
 
@@ -1274,14 +1277,14 @@ extension on Translations {
 			case 'account.loginRequired.title': return 'ログインが必要です';
 			case 'account.loginRequired.description': return 'この機能を利用するには、ログインが必要です';
 			case 'account.loginRequired.button': return 'ログイン';
-			case 'account.profile.title': return 'プロファイル';
+			case 'account.profile.title': return 'プロフィール';
 			case 'account.profile.editTitle': return 'プロフィール編集';
-			case 'account.profile.createInfo': return 'プロファイル情報を作成してください';
-			case 'account.profile.edit': return 'プロファイルを編集';
-			case 'account.profile.notFound': return 'プロファイルが見つかりません';
+			case 'account.profile.createInfo': return 'プロフィール情報を作成してください';
+			case 'account.profile.edit': return 'プロフィールを編集';
+			case 'account.profile.notFound': return 'プロフィールが見つかりません';
 			case 'account.profile.saving': return '保存中...';
 			case 'account.profile.save': return '保存';
-			case 'account.profile.saveSuccess': return 'プロファイルを保存しました';
+			case 'account.profile.saveSuccess': return 'プロフィールを保存しました';
 			case 'account.profile.saveFailed': return '保存に失敗しました';
 			case 'account.profile.errorOccurred': return 'エラーが発生しました';
 			case 'account.profile.ageOver20': return '20歳以上です';
@@ -1298,6 +1301,7 @@ extension on Translations {
 			case 'account.profile.avatar.changeSuccess': return 'アバターを変更しました';
 			case 'account.profile.sns.notLinked': return 'SNSリンクが登録されていません';
 			case 'account.profile.sns.type': return 'SNSタイプ';
+			case 'account.profile.sns.typeRequired': return 'SNSタイプを選択してください';
 			case 'account.profile.sns.urlOrUserId': return 'URL/ユーザーID';
 			case 'account.profile.sns.urlOrUserIdRequired': return 'URL/ユーザーIDを入力してください';
 			case 'account.profile.sns.other': return 'その他';
