@@ -158,6 +158,8 @@ class TranslationsEventJa {
 
 	/// ja: '東京都千代田区大手町二丁目3番1号'
 	String get address => '東京都千代田区大手町二丁目3番1号';
+
+	late final TranslationsEventSurveyJa survey = TranslationsEventSurveyJa.internal(_root);
 }
 
 // Path: license
@@ -546,6 +548,24 @@ class TranslationsCommonDebugJa {
 	String get go => 'GO';
 
 	late final TranslationsCommonDebugProfileShareJa profileShare = TranslationsCommonDebugProfileShareJa.internal(_root);
+}
+
+// Path: event.survey
+class TranslationsEventSurveyJa {
+	TranslationsEventSurveyJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'アンケート協力のお願い'
+	String get title => 'アンケート協力のお願い';
+
+	/// ja: 'FlutterKaigi 2025をより良いイベントにするため、皆様のご意見をお聞かせください。'
+	String get description => 'FlutterKaigi 2025をより良いイベントにするため、皆様のご意見をお聞かせください。';
+
+	/// ja: '全体アンケートに回答する'
+	String get button => '全体アンケートに回答する';
 }
 
 // Path: license.search
@@ -1333,6 +1353,9 @@ extension on Translations {
 			case 'event.time': return '10:00 ~ 18:00';
 			case 'event.venue': return '大手町プレイス ホール＆カンファレンス';
 			case 'event.address': return '東京都千代田区大手町二丁目3番1号';
+			case 'event.survey.title': return 'アンケート協力のお願い';
+			case 'event.survey.description': return 'FlutterKaigi 2025をより良いイベントにするため、皆様のご意見をお聞かせください。';
+			case 'event.survey.button': return '全体アンケートに回答する';
 			case 'license.title': return 'ライセンス';
 			case 'license.search.hintText': return 'パッケージを検索';
 			case 'license.listTile.description': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ja'))(n,
