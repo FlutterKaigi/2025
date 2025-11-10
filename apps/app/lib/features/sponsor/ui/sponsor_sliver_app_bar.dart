@@ -221,22 +221,27 @@ class _SponsorFlexibleSpaceCover extends HookWidget {
             ? 0.0
             : t.clamp(0.0, 1.0);
 
-        return Positioned(
-          left: nameLeft,
-          bottom: nameBottom,
-          child: SizedBox(
-            width: constraints.maxWidth - nameLeft - contentHorizontalMargin,
-            height: sponsorNameTextHeight.value > 0
-                ? sponsorNameTextHeight.value
-                : null,
-            child: Opacity(
-              opacity: nameOpacity,
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: sponsorNameText,
+        return Stack(
+          children: [
+            Positioned(
+              left: nameLeft,
+              bottom: nameBottom,
+              child: SizedBox(
+                width:
+                    constraints.maxWidth - nameLeft - contentHorizontalMargin,
+                height: sponsorNameTextHeight.value > 0
+                    ? sponsorNameTextHeight.value
+                    : null,
+                child: Opacity(
+                  opacity: nameOpacity,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: sponsorNameText,
+                  ),
+                ),
               ),
             ),
-          ),
+          ],
         );
       },
     );
