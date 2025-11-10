@@ -17,13 +17,9 @@ _UsersListResponse _$UsersListResponseFromJson(Map<String, dynamic> json) =>
               .map((e) => UserAndUserRoles.fromJson(e as Map<String, dynamic>))
               .toList(),
         ),
-        nextCursor: $checkedConvert('next_cursor', (v) => v as String?),
       );
       return val;
-    }, fieldKeyMap: const {'nextCursor': 'next_cursor'});
+    });
 
 Map<String, dynamic> _$UsersListResponseToJson(_UsersListResponse instance) =>
-    <String, dynamic>{
-      'users': instance.users,
-      'next_cursor': instance.nextCursor,
-    };
+    <String, dynamic>{'users': instance.users};
