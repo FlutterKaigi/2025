@@ -58,13 +58,11 @@ const sessionsProvider = SessionsProvider._();
 final class SessionsProvider
     extends
         $FunctionalProvider<
-          AsyncValue<List<ScheduleSession>>,
-          List<ScheduleSession>,
-          FutureOr<List<ScheduleSession>>
+          AsyncValue<List<Session>>,
+          List<Session>,
+          FutureOr<List<Session>>
         >
-    with
-        $FutureModifier<List<ScheduleSession>>,
-        $FutureProvider<List<ScheduleSession>> {
+    with $FutureModifier<List<Session>>, $FutureProvider<List<Session>> {
   const SessionsProvider._()
     : super(
         from: null,
@@ -81,17 +79,17 @@ final class SessionsProvider
 
   @$internal
   @override
-  $FutureProviderElement<List<ScheduleSession>> $createElement(
+  $FutureProviderElement<List<Session>> $createElement(
     $ProviderPointer pointer,
   ) => $FutureProviderElement(pointer);
 
   @override
-  FutureOr<List<ScheduleSession>> create(Ref ref) {
+  FutureOr<List<Session>> create(Ref ref) {
     return sessions(ref);
   }
 }
 
-String _$sessionsHash() => r'95e37753f9db9c92f138ecfe70432d712a36219b';
+String _$sessionsHash() => r'063cea3a23a5317897963837c2c88e5ffe63da01';
 
 @ProviderFor(venuesWithSessions)
 const venuesWithSessionsProvider = VenuesWithSessionsProvider._();

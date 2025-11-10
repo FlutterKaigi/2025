@@ -1,4 +1,5 @@
 import 'package:app/features/session/data/model/timeline_item.dart';
+import 'package:app/features/session/data/model/venue.dart';
 import 'package:app/features/session/data/provider/session_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -29,7 +30,7 @@ Future<List<TimelineItem>> sessionTimeline(Ref ref) async {
         startsAt: event.startsAt,
         endsAt: event.endsAt ?? event.startsAt,
         title: event.title,
-        venue: event.venue,
+        venue: event.venue?.toVenue(),
       ),
     );
   }
