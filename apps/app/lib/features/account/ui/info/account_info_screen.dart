@@ -174,7 +174,9 @@ final class AccountInfoScreen extends ConsumerWidget {
                           children: [
                             const TextSpan(
                               text:
-                                  'Powered by Flutter ${FlutterVersion.version}\n',
+                                  'Powered by Flutter '
+                                  '${FlutterVersion.version}\n',
+
                               style: TextStyle(
                                 fontVariations: [
                                   FontVariation('wght', 700),

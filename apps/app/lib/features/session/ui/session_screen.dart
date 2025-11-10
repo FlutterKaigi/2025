@@ -1,5 +1,6 @@
 import 'package:app/core/designsystem/components/error_screen.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
+import 'package:app/core/provider/tick_stream_provider.dart';
 import 'package:app/core/util/share_util.dart';
 import 'package:app/features/session/data/model/session_models.dart';
 import 'package:app/features/session/data/provider/bookmarked_sessions_provider.dart';
@@ -183,7 +184,7 @@ class _SessionDetailView extends ConsumerWidget with SessionScreenMixin {
                 ),
               ),
               const SizedBox(height: 8),
-              for (final speaker in session.speakers) ...[
+              for (final speaker in session.speakers)
                 ListTile(
                   contentPadding: const EdgeInsets.symmetric(
                     vertical: 8,
@@ -195,7 +196,7 @@ class _SessionDetailView extends ConsumerWidget with SessionScreenMixin {
                   ),
                   title: Text(speaker.name),
                 ),
-              ],
+              _SurveyButton(session: session),
               const SizedBox(height: 16),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -212,21 +213,6 @@ class _SessionDetailView extends ConsumerWidget with SessionScreenMixin {
                 leading: const Icon(Icons.event_outlined),
                 onTap: () => _addToCalendar(session),
               ),
-              // TODO: フィードバック用のフォームが作成されたら復活させる
-              // const SizedBox(height: 16),
-              // Padding(
-              //   padding: const EdgeInsets.symmetric(horizontal: 16),
-              //   child: Text(
-              //     Translations.of(context).session.feedback.title,
-              //     style: theme.textTheme.titleMedium,
-              //   ),
-              // ),
-              // const SizedBox(height: 8),
-              // ListTile(
-              //   title: Text(Translations.of(context).session.feedback.send),
-              //   trailing: const Icon(Icons.arrow_outward),
-              //   onTap: () {},
-              // ),
               const SizedBox(height: 64),
             ],
           ),
@@ -262,6 +248,68 @@ class _SessionDetailView extends ConsumerWidget with SessionScreenMixin {
         'dates':
             '${_googleCalendarDateFormatter.format(session.startsAt.toUtc())}/${_googleCalendarDateFormatter.format(session.endsAt.toUtc())}',
       },
+    );
+  }
+}
+
+class _SurveyButton extends ConsumerWidget {
+  const _SurveyButton({required this.session});
+
+  final ScheduleSession session;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final tickAsync = ref.watch(
+      tickStreamProvider(
+        duration: const Duration(minutes: 1),
+        mode: TickMode.unaligned,
+      ),
+    );
+
+    final currentTime = switch (tickAsync) {
+      AsyncData(:final value) => value,
+      _ => DateTime.now(),
+    };
+
+    final showSurveyButton = currentTime.isAfter(
+      session.endsAt.subtract(const Duration(minutes: 15)),
+    );
+
+    if (!showSurveyButton) {
+      return const SizedBox.shrink();
+    }
+
+    final theme = Theme.of(context);
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: Center(
+        child: FilledButton.icon(
+          onPressed: () async {
+            final uri = Uri.https(
+              'docs.google.com',
+              '/forms/d/e/1FAIpQLSfthY-aomCn0_G75nO66712b917VSnN3kfZae4HWt7hd6YxUQ/viewform',
+              {'entry.435588556': session.id},
+            );
+            await launchUrl(
+              uri,
+              mode: LaunchMode.externalApplication,
+            );
+          },
+          icon: const Icon(Icons.assignment),
+          label: Text(
+            Translations.of(context).session.survey.button,
+          ),
+          style: FilledButton.styleFrom(
+            backgroundColor: theme.colorScheme.primary,
+            foregroundColor: theme.colorScheme.onPrimary,
+            textStyle: theme.textTheme.bodyMedium!.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+            minimumSize: const Size(400, 48),
+          ),
+        ),
+      ),
     );
   }
 }

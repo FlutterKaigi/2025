@@ -152,6 +152,7 @@ class _TranslationsSessionEn extends TranslationsSessionJa {
 	@override late final _TranslationsSessionBookmarkedEn bookmarked = _TranslationsSessionBookmarkedEn._(_root);
 	@override late final _TranslationsSessionEmptyEn empty = _TranslationsSessionEmptyEn._(_root);
 	@override late final _TranslationsSessionFeedbackEn feedback = _TranslationsSessionFeedbackEn._(_root);
+	@override late final _TranslationsSessionSurveyEn survey = _TranslationsSessionSurveyEn._(_root);
 }
 
 // Path: sponsor
@@ -455,6 +456,16 @@ class _TranslationsSessionFeedbackEn extends TranslationsSessionFeedbackJa {
 	// Translations
 	@override String get title => 'Feedback';
 	@override String get send => 'Send Feedback';
+}
+
+// Path: session.survey
+class _TranslationsSessionSurveyEn extends TranslationsSessionSurveyJa {
+	_TranslationsSessionSurveyEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get button => 'Send Session Feedback';
 }
 
 // Path: ticket.status
@@ -894,6 +905,7 @@ extension on TranslationsEn {
 			case 'session.empty.message': return 'There are no sessions to display.';
 			case 'session.feedback.title': return 'Feedback';
 			case 'session.feedback.send': return 'Send Feedback';
+			case 'session.survey.button': return 'Send Session Feedback';
 			case 'sponsor.prText': return 'About Us';
 			case 'sponsor.enthusiasm': return 'Message';
 			case 'sponsor.company': return 'Sponsors';
