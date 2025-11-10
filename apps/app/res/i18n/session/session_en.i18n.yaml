@@ -8,3 +8,5 @@ empty:
 feedback:
   title: Feedback
   send: Send Feedback
+survey:
+  button: Answer Survey
