@@ -19,6 +19,7 @@ _CompanyDrafts _$CompanyDraftsFromJson(Map<String, dynamic> json) =>
           slug: $checkedConvert('slug', (v) => v as String),
           description: $checkedConvert('description', (v) => v as String),
           websiteUrl: $checkedConvert('website_url', (v) => v as String),
+          xAccount: $checkedConvert('x_account', (v) => v as String?),
           createdAt: $checkedConvert(
             'created_at',
             (v) => const RequiredDateTimeConverter().fromJson(v),
@@ -33,6 +34,7 @@ _CompanyDrafts _$CompanyDraftsFromJson(Map<String, dynamic> json) =>
       fieldKeyMap: const {
         'companyId': 'company_id',
         'websiteUrl': 'website_url',
+        'xAccount': 'x_account',
         'createdAt': 'created_at',
         'updatedAt': 'updated_at',
       },
@@ -46,6 +48,7 @@ Map<String, dynamic> _$CompanyDraftsToJson(
   'slug': instance.slug,
   'description': instance.description,
   'website_url': instance.websiteUrl,
+  'x_account': instance.xAccount,
   'created_at': const RequiredDateTimeConverter().toJson(instance.createdAt),
   'updated_at': const RequiredDateTimeConverter().toJson(instance.updatedAt),
 };

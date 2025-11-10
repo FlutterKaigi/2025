@@ -21,6 +21,7 @@ _CompanySponsorDetail _$CompanySponsorDetailFromJson(
       slug: $checkedConvert('slug', (v) => v as String),
       prText: $checkedConvert('pr_text', (v) => v as String),
       websiteUrl: $checkedConvert('website_url', (v) => v as String),
+      xAccount: $checkedConvert('x_account', (v) => v as String?),
       sponsorType: $checkedConvert(
         'sponsor_type',
         (v) => $enumDecode(_$CompanySponsorTypeEnumMap, v),
@@ -45,6 +46,7 @@ _CompanySponsorDetail _$CompanySponsorDetailFromJson(
     'logoUrl': 'logo_url',
     'prText': 'pr_text',
     'websiteUrl': 'website_url',
+    'xAccount': 'x_account',
     'sponsorType': 'sponsor_type',
     'displayOrder': 'display_order',
     'basicPlanType': 'basic_plan_type',
@@ -61,6 +63,7 @@ Map<String, dynamic> _$CompanySponsorDetailToJson(
   'slug': instance.slug,
   'pr_text': instance.prText,
   'website_url': instance.websiteUrl,
+  'x_account': instance.xAccount,
   'sponsor_type': _$CompanySponsorTypeEnumMap[instance.sponsorType]!,
   'display_order': instance.displayOrder,
   'basic_plan_type': _$BasicPlanTypeEnumMap[instance.basicPlanType],

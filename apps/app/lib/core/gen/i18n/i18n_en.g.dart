@@ -372,7 +372,7 @@ class _TranslationsEventSurveyEn extends TranslationsEventSurveyJa {
 
 	// Translations
 	@override String get title => 'Survey Request';
-	@override String get description => 'We would like to hear your opinions to make FlutterKaigi 2025 a better event.';
+	@override String get description => 'We would like to hear your opinions to make future FlutterKaigi events better.';
 	@override String get button => 'Answer the General Survey';
 }
 
@@ -903,7 +903,7 @@ extension on TranslationsEn {
 			case 'event.venue': return 'Otemachi Place Hall & Conference';
 			case 'event.address': return '2-3-1 Otemachi, Chiyoda-ku, Tokyo';
 			case 'event.survey.title': return 'Survey Request';
-			case 'event.survey.description': return 'We would like to hear your opinions to make FlutterKaigi 2025 a better event.';
+			case 'event.survey.description': return 'We would like to hear your opinions to make future FlutterKaigi events better.';
 			case 'event.survey.button': return 'Answer the General Survey';
 			case 'license.title': return 'Licensees';
 			case 'license.search.hintText': return 'Search packages';

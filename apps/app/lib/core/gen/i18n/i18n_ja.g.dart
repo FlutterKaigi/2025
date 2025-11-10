@@ -561,8 +561,8 @@ class TranslationsEventSurveyJa {
 	/// ja: 'アンケート協力のお願い'
 	String get title => 'アンケート協力のお願い';
 
-	/// ja: 'FlutterKaigi 2025をより良いイベントにするため、皆様のご意見をお聞かせください。'
-	String get description => 'FlutterKaigi 2025をより良いイベントにするため、皆様のご意見をお聞かせください。';
+	/// ja: '今後のFlutterKaigiをより良いイベントにするため、皆様のご意見をお聞かせください。'
+	String get description => '今後のFlutterKaigiをより良いイベントにするため、皆様のご意見をお聞かせください。';
 
 	/// ja: '全体アンケートに回答する'
 	String get button => '全体アンケートに回答する';
@@ -1354,7 +1354,7 @@ extension on Translations {
 			case 'event.venue': return '大手町プレイス ホール＆カンファレンス';
 			case 'event.address': return '東京都千代田区大手町二丁目3番1号';
 			case 'event.survey.title': return 'アンケート協力のお願い';
-			case 'event.survey.description': return 'FlutterKaigi 2025をより良いイベントにするため、皆様のご意見をお聞かせください。';
+			case 'event.survey.description': return '今後のFlutterKaigiをより良いイベントにするため、皆様のご意見をお聞かせください。';
 			case 'event.survey.button': return '全体アンケートに回答する';
 			case 'license.title': return 'ライセンス';
 			case 'license.search.hintText': return 'パッケージを検索';
