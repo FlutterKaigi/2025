@@ -138,7 +138,11 @@ class LicenseScreen extends HookConsumerWidget {
 }
 
 class _LicenseTile extends StatelessWidget {
-  const _LicenseTile({required this.package, required this.licenseCount});
+  const _LicenseTile({
+    required this.package,
+    required this.licenseCount,
+  });
+
   final String package;
   final int licenseCount;
 

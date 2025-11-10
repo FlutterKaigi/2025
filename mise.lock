@@ -6,6 +6,11 @@ backend = "aqua:suzuki-shunsuke/tfcmt"
 version = "2.31.25"
 backend = "aqua:aws/aws-cli"
 
+[tools.aws-cli.platforms.macos-arm64]
+checksum = "blake3:d3d7e7c7714f1fc97bd4e76d98d17f852c1669d6e972cf0eaea6cb15b050b535"
+size = 48203849
+url = "https://awscli.amazonaws.com/AWSCLIV2-2.31.25.pkg"
+
 [[tools.bun]]
 version = "1.2.21"
 backend = "core:bun"
@@ -29,11 +34,6 @@ backend = "pipx:codemagic-cli-tools"
 [[tools.rclone]]
 version = "1.71.2"
 backend = "aqua:rclone/rclone"
-
-[tools.rclone.platforms.macos-arm64]
-checksum = "sha256:d1cea838b618f9b4f15984748502232684e92ff0b90e3c4c8bd91ac21f4d8695"
-size = 26407377
-url = "https://github.com/rclone/rclone/releases/download/v1.71.2/rclone-v1.71.2-osx-arm64.zip"
 
 [[tools.stripe]]
 version = "1.31.1"
@@ -64,6 +64,11 @@ backend = "aqua:terraform-linters/tflint"
 [[tools.uv]]
 version = "0.9.6"
 backend = "aqua:astral-sh/uv"
+
+[tools.uv.platforms.macos-arm64]
+checksum = "sha256:892e8ac6d5240a4dec21fac5bedef52c1b6d40f0dfe52f9e3203038e7e16aed2"
+size = 18362320
+url = "https://github.com/astral-sh/uv/releases/download/0.9.6/uv-aarch64-apple-darwin.tar.gz"
 
 [[tools.websocat]]
 version = "1.14.0"
