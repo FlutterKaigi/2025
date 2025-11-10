@@ -222,7 +222,7 @@ final class AccountInfoScreen extends ConsumerWidget {
                           FontAwesomeIcons.github,
                           size: 16,
                         ),
-                        label: const Text('ソースコードを見る'),
+                        label: Text(t.account.sourceCode),
                         style: OutlinedButton.styleFrom(
                           foregroundColor: theme.colorScheme.primary,
                           side: BorderSide(
