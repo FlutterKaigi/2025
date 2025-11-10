@@ -5,11 +5,12 @@ import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/core/provider/environment.dart';
 import 'package:app/features/account/data/notifier/profile_notifier.dart';
 import 'package:app/features/account/ui/component/account_circle_image.dart';
-import 'package:app/features/account/ui/component/account_scaffold.dart';
 import 'package:app/features/account/ui/component/login_prompt_card.dart';
 import 'package:app/features/auth/data/notifier/auth_notifier.dart';
+import 'package:app/features/user/data/notifier/user_notifier.dart';
 import 'package:auth_client/auth_client.dart';
 import 'package:bff_client/bff_client.dart';
+import 'package:db_types/db_types.dart' as db_types;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -37,6 +38,7 @@ final class AccountInfoScreen extends ConsumerWidget {
     required VoidCallback onTapOssLicensesTile,
     required VoidCallback onTapWithdrawalTile,
     required VoidCallback onTapStaffMembers,
+    required VoidCallback onTapAdminPage,
     super.key,
   }) : _onProfileEdit = onProfileEdit,
        _onTapQrCode = onTapQrCode,
@@ -47,7 +49,8 @@ final class AccountInfoScreen extends ConsumerWidget {
        _onTapContactTile = onTapContactTile,
        _onTapOssLicensesTile = onTapOssLicensesTile,
        _onTapWithdrawalTile = onTapWithdrawalTile,
-       _onTapStaffMembers = onTapStaffMembers;
+       _onTapStaffMembers = onTapStaffMembers,
+       _onTapAdminPage = onTapAdminPage;
 
   final VoidCallback _onProfileEdit;
   final VoidCallback _onTapQrCode;
@@ -59,6 +62,7 @@ final class AccountInfoScreen extends ConsumerWidget {
   final VoidCallback _onTapOssLicensesTile;
   final VoidCallback _onTapWithdrawalTile;
   final VoidCallback _onTapStaffMembers;
+  final VoidCallback _onTapAdminPage;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -69,7 +73,10 @@ final class AccountInfoScreen extends ConsumerWidget {
 
     final commitInformation = ref.watch(environmentProvider).commitInformation;
 
-    return AccountScaffold(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(t.account.settings),
+      ),
       body: state.when(
         error: (error, stackTrace) => SafeArea(
           child: ErrorScreen(
@@ -82,154 +89,186 @@ final class AccountInfoScreen extends ConsumerWidget {
         ),
         data: (user) => user == null
             ? const SafeArea(child: LoginPromptCard())
-            : ListView(
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                children: [
-                  const SafeArea(child: SizedBox.shrink()),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: _UserInfoCard(
-                      user: user,
-                      onProfileEdit: _onProfileEdit,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  if (!user.isAnonymous) ...[
-                    Padding(
-                      padding: const EdgeInsetsDirectional.only(start: 16),
-                      child: Text(
-                        t.account.profileshare.title,
-                        style: textTheme.titleLarge,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    _SectionListItem(
-                      title: t.account.profileshare.qrCode,
-                      onTap: _onTapQrCode,
-                    ),
-                    _SectionListItem(
-                      title: t.account.profileshare.qrCodeScan,
-                      onTap: _onTapQrCodeScan,
-                    ),
-                    _SectionListItem(
-                      title: t.account.profileshare.friendsList,
-                      onTap: _onTapFriendsList,
-                    ),
-                    const SizedBox(height: 16),
-                  ],
-                  Padding(
-                    padding: const EdgeInsetsDirectional.only(start: 16),
-                    child: Text(
-                      t.account.contributors,
-                      style: textTheme.titleLarge,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  _SectionListItem(
-                    title: t.account.staffMembers.title,
-                    onTap: _onTapStaffMembers,
-                  ),
-                  const SizedBox(height: 16),
-                  Padding(
-                    padding: const EdgeInsetsDirectional.only(start: 16),
-                    child: Text(
-                      t.account.others,
-                      style: textTheme.titleLarge,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  ...([
-                    (
-                      title: t.account.codeOfConduct,
-                      onTap: _onTapCodeOfConductTile,
-                    ),
-                    (
-                      title: t.account.privacyPolicy,
-                      onTap: _onTapPrivacyPolicyTile,
-                    ),
-                    (
-                      title: t.account.contact,
-                      onTap: _onTapContactTile,
-                    ),
-                    (
-                      title: t.account.ossLicenses,
-                      onTap: _onTapOssLicensesTile,
-                    ),
-                    // ゲストユーザーの場合は退会申請リンクを非表示
-                    if (!user.isAnonymous)
-                      (
-                        title: t.account.withdrawal,
-                        onTap: _onTapWithdrawalTile,
-                      ),
-                  ].map(
-                    (item) => _SectionListItem(
-                      title: item.title,
-                      onTap: item.onTap,
-                    ),
-                  )),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  // Flutter, Dart version
-                  Center(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Text.rich(
-                        TextSpan(
-                          children: [
-                            const TextSpan(
-                              text:
-                                  'Powered by Flutter '
-                                  '${FlutterVersion.version}\n',
+            : Consumer(
+                builder: (context, ref, _) {
+                  final userAsync = ref.watch(userProvider);
+                  final isAdmin = userAsync.maybeWhen(
+                    data: (userAndRoles) =>
+                        userAndRoles.roles.contains(db_types.Role.admin),
+                    orElse: () => false,
+                  );
 
-                              style: TextStyle(
-                                fontVariations: [
-                                  FontVariation('wght', 700),
-                                  FontVariation('wdth', 125),
-                                ],
-                              ),
-                            ),
-                            const TextSpan(
-                              text: 'Dart ${FlutterVersion.dartVersion}',
-                            ),
-                            if (commitInformation != null)
-                              TextSpan(text: '\nCommit: $commitInformation'),
-                          ],
-                        ),
-                        style: textTheme.bodySmall!.copyWith(
-                          color: theme.colorScheme.onSurfaceVariant,
-                          fontFamily: FontFamily.notoSansMono,
-                          height: 1.4,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  Center(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Link(
-                        uri: Uri.parse('https://github.com/FlutterKaigi/2025'),
-                        builder: (context, followLink) => OutlinedButton.icon(
-                          onPressed: followLink,
-                          icon: const FaIcon(
-                            FontAwesomeIcons.github,
-                            size: 16,
-                          ),
-                          label: Text(t.account.sourceCode),
-                          style: OutlinedButton.styleFrom(
-                            foregroundColor: theme.colorScheme.primary,
-                            side: BorderSide(
-                              color: theme.colorScheme.outline,
-                            ),
-                          ),
+                  return ListView(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    children: [
+                      const SafeArea(child: SizedBox.shrink()),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: _UserInfoCard(
+                          user: user,
+                          onProfileEdit: _onProfileEdit,
                         ),
                       ),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                ],
+                      const SizedBox(height: 16),
+                      if (!user.isAnonymous) ...[
+                        Padding(
+                          padding: const EdgeInsetsDirectional.only(start: 16),
+                          child: Text(
+                            t.account.profileshare.title,
+                            style: textTheme.titleLarge,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        _SectionListItem(
+                          title: t.account.profileshare.qrCode,
+                          onTap: _onTapQrCode,
+                        ),
+                        _SectionListItem(
+                          title: t.account.profileshare.qrCodeScan,
+                          onTap: _onTapQrCodeScan,
+                        ),
+                        _SectionListItem(
+                          title: t.account.profileshare.friendsList,
+                          onTap: _onTapFriendsList,
+                        ),
+                        const SizedBox(height: 16),
+                      ],
+                      Padding(
+                        padding: const EdgeInsetsDirectional.only(start: 16),
+                        child: Text(
+                          t.account.contributors,
+                          style: textTheme.titleLarge,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      _SectionListItem(
+                        title: t.account.staffMembers.title,
+                        onTap: _onTapStaffMembers,
+                      ),
+                      const SizedBox(height: 16),
+                      Padding(
+                        padding: const EdgeInsetsDirectional.only(start: 16),
+                        child: Text(
+                          t.account.others,
+                          style: textTheme.titleLarge,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      ...([
+                        (
+                          title: t.account.codeOfConduct,
+                          onTap: _onTapCodeOfConductTile,
+                        ),
+                        (
+                          title: t.account.privacyPolicy,
+                          onTap: _onTapPrivacyPolicyTile,
+                        ),
+                        (
+                          title: t.account.contact,
+                          onTap: _onTapContactTile,
+                        ),
+                        (
+                          title: t.account.ossLicenses,
+                          onTap: _onTapOssLicensesTile,
+                        ),
+                        // ゲストユーザーの場合は退会申請リンクを非表示
+                        if (!user.isAnonymous)
+                          (
+                            title: t.account.withdrawal,
+                            onTap: _onTapWithdrawalTile,
+                          ),
+                      ].map(
+                        (item) => _SectionListItem(
+                          title: item.title,
+                          onTap: item.onTap,
+                        ),
+                      )),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      // Flutter, Dart version
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: Text.rich(
+                            TextSpan(
+                              children: [
+                                const TextSpan(
+                                  text:
+                                      'Powered by Flutter '
+                                      '${FlutterVersion.version}\n',
+
+                                  style: TextStyle(
+                                    fontVariations: [
+                                      FontVariation('wght', 700),
+                                      FontVariation('wdth', 125),
+                                    ],
+                                  ),
+                                ),
+                                const TextSpan(
+                                  text: 'Dart ${FlutterVersion.dartVersion}',
+                                ),
+                                if (commitInformation != null)
+                                  TextSpan(
+                                    text: '\nCommit: $commitInformation',
+                                  ),
+                              ],
+                            ),
+                            style: textTheme.bodySmall!.copyWith(
+                              color: theme.colorScheme.onSurfaceVariant,
+                              fontFamily: FontFamily.notoSansMono,
+                              height: 1.4,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: Link(
+                            uri: Uri.parse(
+                              'https://github.com/FlutterKaigi/2025',
+                            ),
+                            builder: (context, followLink) =>
+                                OutlinedButton.icon(
+                                  onPressed: followLink,
+                                  icon: const FaIcon(
+                                    FontAwesomeIcons.github,
+                                    size: 16,
+                                  ),
+                                  label: Text(t.account.sourceCode),
+                                  style: OutlinedButton.styleFrom(
+                                    foregroundColor: theme.colorScheme.primary,
+                                    side: BorderSide(
+                                      color: theme.colorScheme.outline,
+                                    ),
+                                  ),
+                                ),
+                          ),
+                        ),
+                      ),
+                      if (isAdmin)
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: ElevatedButton.icon(
+                            onPressed: _onTapAdminPage,
+                            icon: const Icon(Icons.admin_panel_settings),
+                            label: Text(t.account.admin.button),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: theme.colorScheme.primary,
+                              foregroundColor: theme.colorScheme.onPrimary,
+                              visualDensity: VisualDensity.comfortable,
+                            ),
+                          ),
+                        )
+                      else
+                        const SizedBox.shrink(),
+                      const SizedBox(height: 16),
+                    ],
+                  );
+                },
               ),
       ),
     );
@@ -269,8 +308,15 @@ class _UserInfoCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
     final translations = Translations.of(context);
     final profileAsync = ref.watch(profileProvider);
+    final userAsync = ref.watch(userProvider);
+
+    final roles = userAsync.maybeWhen(
+      data: (userAndRoles) => userAndRoles.roles,
+      orElse: () => <db_types.Role>[],
+    );
 
     final children = user.isAnonymous
         ? [
@@ -296,6 +342,22 @@ class _UserInfoCard extends ConsumerWidget {
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             _SignInMethodChip(user: user),
+            if (roles.isNotEmpty)
+              Wrap(
+                spacing: 4,
+                runSpacing: 4,
+                alignment: WrapAlignment.center,
+                children: roles
+                    .map<Widget>(
+                      (role) => RawChip(
+                        label: Text('ROLE.${role.name}'),
+                        backgroundColor: colorScheme.surfaceContainerLow,
+                        visualDensity: VisualDensity.compact,
+                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      ),
+                    )
+                    .toList(),
+              ),
             // プロフィール情報を表示
             if (profileAsync.hasValue && profileAsync.value != null) ...[
               const SizedBox(height: 4),

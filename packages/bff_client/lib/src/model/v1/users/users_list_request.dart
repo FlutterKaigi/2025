@@ -12,7 +12,8 @@ abstract class UsersListRequest with _$UsersListRequest {
     @Assert('limit <= 100', 'limit must be less than or equal to 100')
     @IntStringJsonConverter()
     required int limit,
-    String? cursor,
+    @IntStringJsonConverter()
+    int? offset,
     String? email,
     List<Role>? roles,
   }) = _UsersListRequest;

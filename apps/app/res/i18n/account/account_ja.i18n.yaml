@@ -111,3 +111,7 @@ profileshare:
     connectedAt: 交換日時
     errorLoadingFriends: 友達リストの読み込みに失敗しました
     copiedToClipboard: をコピーしました
+admin:
+  title: 管理者ページ
+  button: 管理者ページ
+  userList: ユーザ一覧

@@ -41,23 +41,22 @@ Future<void> _run() async {
       'NotoSansMono',
     ], await rootBundle.loadString(Assets.res.assets.fonts.notoSansMono.ofl));
   });
-
-  FlutterError.onError = (details) {
-    if (!kIsWeb && !kDebugMode) {
+  if (!kIsWeb || !kDebugMode) {
+    FlutterError.onError = (details) {
       FlutterOTel.reportError(
         'FlutterError.onError',
         details.exception,
         details.stack,
       );
-    }
-  };
+    };
+  }
   final container = ProviderContainer();
   final environment = container.read(environmentProvider);
   final flavor = environment.flavor;
 
   // Web環境ではOpenTelemetryを無効化
   // dartastic_opentelemetryがPlatform.environmentを使用するため
-  if (!kIsWeb && !kDebugMode) {
+  if (!kIsWeb || !kDebugMode) {
     await FlutterOTel.initialize(
       appName: 'app',
       tracerName: 'main',

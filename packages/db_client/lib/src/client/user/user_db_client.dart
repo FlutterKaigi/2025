@@ -71,10 +71,11 @@ FROM
     }
 
     if (conditions.isNotEmpty) {
-      queryBuffer.write('WHERE ${conditions.join(' AND ')}');
+      queryBuffer.write('\nWHERE ${conditions.join(' AND ')}');
     }
 
     queryBuffer.write('''
+
 GROUP BY u.id, au.raw_user_meta_data
 ORDER BY u.created_at DESC
 LIMIT @limit OFFSET @offset

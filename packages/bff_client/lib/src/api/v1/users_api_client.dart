@@ -20,7 +20,7 @@ abstract class UsersApiClient {
   Future<HttpResponse<UsersListResponse>> getUserList({
     // MEMO(YumNumm): 以下のQueryParameterは`UsersListRequest`に対応している
     @Query('limit') required int limit,
-    @Query('cursor') String? cursor,
+    @Query('offset') int? offset,
     @Query('email') String? email,
     @Query('roles') String? roles,
   });

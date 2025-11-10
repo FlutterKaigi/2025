@@ -56,7 +56,9 @@ class _NewsList extends ConsumerWidget {
                   );
                 },
               ),
-      AsyncLoading() => const Center(child: CircularProgressIndicator()),
+      AsyncLoading() => const Center(
+        child: CircularProgressIndicator.adaptive(),
+      ),
       AsyncError(:final error) => Center(child: Text(error.toString())),
     };
   }
