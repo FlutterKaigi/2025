@@ -49,18 +49,18 @@ INSERT INTO speakers (id, name, avatar_url, x_id) VALUES
     ('0B7C3EE2-1507-43B3-9DF8-0787C62BADD4', 'Takahiro Sunaga', NULL, NULL),
     ('F1435681-D5E1-4711-8AD9-F086097FD419', 'Perttu Lähteenlahti', 'https://fortee.jp/files/flutterkaigi-2025/speaker/9d3ceee2-9726-46e8-92c6-8c4a16bb1525.jpg', 'plahteenlahti'),
     -- キーノートスピーカー
-    ('a7a0aa4d-bdf4-4852-a83e-4d7fd64a61ea', 'Keynote Speaker', 'https://fortee.jp/files/flutterkaigi-2025/speaker/a7a0aa4d-bdf4-4852-a83e-4d7fd64a61ea.jpg', NULL);
+    ('a7a0aa4d-bdf4-4852-a83e-4d7fd64a61ea', '金 瑠加須', 'https://fortee.jp/files/flutterkaigi-2025/speaker/a7a0aa4d-bdf4-4852-a83e-4d7fd64a61ea.jpg', 'LucasGoldner');
 
 
 -- Insert sessions based on example data
 INSERT INTO sessions (id, title, description, starts_at, ends_at, venue_id, sponsor_id, is_lightning_talk, is_beginners_lightning_talk, is_hands_on, video_url, url) VALUES
     -- キーノートセッション (Room A)
-    ('c1d2e3f4-a5b6-c7d8-e9f0-1a2b3c4d5e6f', 'The Flutter Effect',
+    ('c1d2e3f4-a5b6-c7d8-e9f0-1a2b3c4d5e6f', '[Keynote] The Flutter Effect',
      E'## 概要\r\n\r\nFlutterKaigi 2025のキーノートセッションです。',
      '2025-11-13 10:15:00+09', '2025-11-13 10:30:00+09', 'e1a11efe-b1eb-43e1-ae60-9d2233e5dfe7', NULL, false, false, false, NULL, NULL),
 
     -- キーノートセッション（サテライト） (Room B)
-    ('b8b1bb5e-cce5-5963-b94f-5e8fe75b72fb', 'The Flutter Effect（サテライト）',
+    ('b8b1bb5e-cce5-5963-b94f-5e8fe75b72fb', '[Keynote] The Flutter Effect（サテライト）',
      E'## 概要\r\n\r\nFlutterKaigi 2025のキーノートセッション（サテライト会場）です。',
      '2025-11-13 10:15:00+09', '2025-11-13 10:30:00+09', '0505c447-b699-4803-aab9-9cbdf9452c1b', NULL, false, false, false, NULL, NULL),
 
