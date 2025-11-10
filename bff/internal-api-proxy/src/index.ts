@@ -1,12 +1,5 @@
 import { env } from "cloudflare:workers";
-import { otel } from "@hono/otel";
 import { vValidator } from "@hono/valibot-validator";
-import {
-  createSampler,
-  instrument,
-  withNextSpan,
-} from "@microlabs/otel-cf-workers";
-import { trace } from "@opentelemetry/api";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";
@@ -30,7 +23,6 @@ const app = new Hono<{
   .use("*", logger())
   .use("*", cors())
   .use("*", requestId({ headerName: "Cf-Ray" }))
-  .use("*", otel())
   .use("*", async (c, next) => {
     const apiKey = c.req.header("x-api-key");
     if (apiKey === undefined) {
@@ -90,16 +82,10 @@ const app = new Hono<{
       targetUrl.pathname = path;
       console.log("targetUrl", targetUrl.toString());
 
-      const span = trace.getActiveSpan();
-      span?.setAttribute("http.method", c.req.method);
-      span?.setAttribute("http.url", targetUrl.toString());
-      withNextSpan({ destination: "proxy" });
-
       const headers = {
         ...c.req.header(),
         "X-Forwarded-Host": c.req.header("host"),
       };
-      // propagation.inject(context.active(), headers);
       const response = await proxy(targetUrl.toString(), {
         fetcher: fetcher,
         headers: headers,
@@ -111,20 +97,4 @@ const app = new Hono<{
 
 export type StripeWebhookAppType = typeof app;
 
-export default instrument(app, {
-  exporter: {
-    url: "https://otlp.flutterkaigi.jp/v1/traces",
-    headers: {
-      "x-flutterkaigi-service-name": "internal-api-proxy",
-    },
-  },
-  service: {
-    name: "internal-api-proxy",
-    namespace: `flutterkaigi-2025-${env.ENVIRONMENT}`,
-  },
-  sampling: {
-    headSampler: createSampler({
-      ratio: 1,
-    }),
-  },
-});
+export default app;
