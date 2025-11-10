@@ -36,7 +36,9 @@ class DebugScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   spacing: 8,
                   children: [
-                    Text('UserID: ${userId ?? 'Not authenticated'}'),
+                    Flexible(
+                      child: Text('UserID: ${userId ?? 'Not authenticated'}'),
+                    ),
                     IconButton(
                       icon: const Icon(Icons.copy),
                       onPressed: () => Clipboard.setData(
@@ -110,6 +112,64 @@ class DebugScreen extends StatelessWidget {
                               builder: (context) => const AlertDialog(
                                 title: Text('Profile Shares'),
                                 content: Text('Profile Share added'),
+                              ),
+                            );
+                          }
+                        } on ApiException catch (e) {
+                          if (context.mounted) {
+                            return showDialog<void>(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                title: const Text('Error'),
+                                content: Text(
+                                  e.errorMessage(Translations.of(context)),
+                                ),
+                              ),
+                            );
+                          }
+                        }
+                      },
+                    ),
+
+                    ListTile(
+                      title: const Text('Get Websocket Token'),
+                      onTap: () async {
+                        try {
+                          final websocketToken = await ApiException.transform(
+                            () async => ref
+                                .read(bffClientProvider)
+                                .v1
+                                .websocket
+                                .startUserWebsocket(),
+                          );
+                          if (context.mounted) {
+                            return showDialog<void>(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                title: const Text('Websocket Token'),
+                                content: Text(
+                                  websocketToken.toJson().toString(),
+                                ),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () async {
+                                      await Clipboard.setData(
+                                        ClipboardData(
+                                          text: websocketToken.url,
+                                        ),
+                                      );
+                                      if (context.mounted) {
+                                        Navigator.of(context).pop();
+                                      }
+                                    },
+                                    child: const Text('Copy URL'),
+                                  ),
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(),
+                                    child: const Text('Close'),
+                                  ),
+                                ],
                               ),
                             );
                           }
