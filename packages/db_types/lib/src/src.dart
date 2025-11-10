@@ -6,6 +6,7 @@ export 'models/profile_with_sns_links.dart';
 export 'models/sponsors.dart';
 export 'models/staff_member_with_sns_links.dart';
 export 'models/ticket_purchase_with_details.dart';
+export 'models/ticket_purchase_with_details_and_user.dart';
 export 'models/ticket_type_with_options.dart';
 export 'models/ticket_type_with_options_and_counts.dart';
 export 'models/timeline_event_with_venue.dart';
