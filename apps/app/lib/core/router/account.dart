@@ -49,23 +49,54 @@ class AccountInfoRoute extends GoRouteData with $AccountInfoRoute {
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return AccountInfoScreen(
-      onProfileEdit: () => const ProfileEditRoute().go(context),
-      onTapQrCode: () => const ProfileShareQrDisplayRoute().go(context),
-      onTapQrCodeScan: () => const ProfileShareQrScanRoute().go(context),
-      onTapFriendsList: () => const ProfileShareListRoute().go(context),
-      onTapCodeOfConductTile: () => _openUrl(
-        urlString: Translations.of(context).account.codeOfConductUrl,
-      ),
-      onTapPrivacyPolicyTile: () => _openUrl(
-        urlString: Translations.of(context).account.privacyPolicyUrl,
-      ),
-      onTapContactTile: () => _openUrl(
-        urlString: Translations.of(context).account.contactUrl,
-      ),
-      onTapOssLicensesTile: () => const LicenseRoute().go(context),
-      onTapWithdrawalTile: () => _openWithdrawalForm(context),
-      onTapStaffMembers: () => const StaffMemberListRoute().go(context),
+    return Consumer(
+      builder: (context, ref, child) {
+        final hasProfile = ref.watch(
+          profileProvider.select((v) => v.value != null),
+        );
+
+        Future<T?> guard<T>(FutureOr<T> Function() fn) async {
+          if (!hasProfile) {
+            final moveToProfileEdit = await ProfileRequiredSheet.show(
+              context: context,
+              onCreateProfile: () {
+                const ProfileEditRoute().go(context);
+              },
+            );
+            if (!context.mounted) {
+              return null;
+            }
+            if (moveToProfileEdit ?? false) {
+              const ProfileEditRoute().go(context);
+            } else {
+              return null;
+            }
+          }
+          return null;
+        }
+
+        return AccountInfoScreen(
+          onProfileEdit: () => const ProfileEditRoute().go(context),
+          onTapQrCode: () =>
+              guard(() => const ProfileShareQrDisplayRoute().go(context)),
+          onTapQrCodeScan: () =>
+              guard(() => const ProfileShareQrScanRoute().go(context)),
+          onTapFriendsList: () =>
+              guard(() => const ProfileShareListRoute().go(context)),
+          onTapCodeOfConductTile: () => _openUrl(
+            urlString: Translations.of(context).account.codeOfConductUrl,
+          ),
+          onTapPrivacyPolicyTile: () => _openUrl(
+            urlString: Translations.of(context).account.privacyPolicyUrl,
+          ),
+          onTapContactTile: () => _openUrl(
+            urlString: Translations.of(context).account.contactUrl,
+          ),
+          onTapOssLicensesTile: () => const LicenseRoute().go(context),
+          onTapWithdrawalTile: () => _openWithdrawalForm(context),
+          onTapStaffMembers: () => const StaffMemberListRoute().go(context),
+        );
+      },
     );
   }
 

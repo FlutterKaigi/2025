@@ -134,6 +134,7 @@ class TranslationsCommonJa {
 	// Translations
 	late final TranslationsCommonAppJa app = TranslationsCommonAppJa.internal(_root);
 	late final TranslationsCommonForceUpdateJa forceUpdate = TranslationsCommonForceUpdateJa.internal(_root);
+	late final TranslationsCommonActionJa action = TranslationsCommonActionJa.internal(_root);
 	late final TranslationsCommonErrorJa error = TranslationsCommonErrorJa.internal(_root);
 	late final TranslationsCommonNavigationJa navigation = TranslationsCommonNavigationJa.internal(_root);
 	late final TranslationsCommonDebugJa debug = TranslationsCommonDebugJa.internal(_root);
@@ -397,6 +398,7 @@ class TranslationsAccountProfileJa {
 	late final TranslationsAccountProfileAvatarJa avatar = TranslationsAccountProfileAvatarJa.internal(_root);
 	late final TranslationsAccountProfileSnsJa sns = TranslationsAccountProfileSnsJa.internal(_root);
 	late final TranslationsAccountProfileImageJa image = TranslationsAccountProfileImageJa.internal(_root);
+	late final TranslationsAccountProfileRequiredSheetJa requiredSheet = TranslationsAccountProfileRequiredSheetJa.internal(_root);
 }
 
 // Path: account.profileshare
@@ -482,6 +484,18 @@ class TranslationsCommonForceUpdateJa {
 
 	/// ja: 'アップデート'
 	String get updateButton => 'アップデート';
+}
+
+// Path: common.action
+class TranslationsCommonActionJa {
+	TranslationsCommonActionJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'キャンセル'
+	String get cancel => 'キャンセル';
 }
 
 // Path: common.error
@@ -979,6 +993,24 @@ class TranslationsAccountProfileImageJa {
 	String get reset => 'リセット';
 }
 
+// Path: account.profile.requiredSheet
+class TranslationsAccountProfileRequiredSheetJa {
+	TranslationsAccountProfileRequiredSheetJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'プロフィールを作成しましょう'
+	String get title => 'プロフィールを作成しましょう';
+
+	/// ja: 'プロフィール交換を行うには、プロフィールの作成が必要です'
+	String get description => 'プロフィール交換を行うには、プロフィールの作成が必要です';
+
+	/// ja: 'プロフィールを作成'
+	String get createButton => 'プロフィールを作成';
+}
+
 // Path: account.profileshare.qrCodeDisplay
 class TranslationsAccountProfileshareQrCodeDisplayJa {
 	TranslationsAccountProfileshareQrCodeDisplayJa.internal(this._root);
@@ -1294,6 +1326,9 @@ extension on Translations {
 			case 'account.profile.image.complete': return '完了';
 			case 'account.profile.image.crop': return 'クロップ';
 			case 'account.profile.image.reset': return 'リセット';
+			case 'account.profile.requiredSheet.title': return 'プロフィールを作成しましょう';
+			case 'account.profile.requiredSheet.description': return 'プロフィール交換を行うには、プロフィールの作成が必要です';
+			case 'account.profile.requiredSheet.createButton': return 'プロフィールを作成';
 			case 'account.profileshare.title': return 'プロフィール交換';
 			case 'account.profileshare.qrCode': return 'QRコード表示';
 			case 'account.profileshare.qrCodeScan': return 'QRコード読み取り';
@@ -1327,6 +1362,7 @@ extension on Translations {
 			case 'common.forceUpdate.title': return 'アップデートが必要です';
 			case 'common.forceUpdate.message': return '新しいバージョンのアプリが利用可能です。最新バージョンにアップデートしてください。';
 			case 'common.forceUpdate.updateButton': return 'アップデート';
+			case 'common.action.cancel': return 'キャンセル';
 			case 'common.error.notFound.title': return 'ページが見つかりません';
 			case 'common.error.notFound.message': return 'お探しのページは存在しないか、\n移動された可能性があります。';
 			case 'common.error.notFound.backToTop': return 'トップに戻る';

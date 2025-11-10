@@ -6,6 +6,8 @@ import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/core/provider/environment.dart';
 import 'package:app/core/ui/main/main_screen.dart';
 import 'package:app/core/ui/main/not_found_screen.dart';
+import 'package:app/features/account/data/notifier/profile_notifier.dart';
+import 'package:app/features/account/ui/component/profile_required_sheet.dart';
 import 'package:app/features/account/ui/info/account_info_screen.dart';
 import 'package:app/features/account/ui/profile_edit_screen.dart';
 import 'package:app/features/account/ui/share/profile_share_list_screen.dart';

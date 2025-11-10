@@ -1,5 +1,5 @@
+import 'package:app/features/account/data/notifier/profile_notifier.dart';
 import 'package:app/features/account/data/repository/profile_share_repository.dart';
-import 'package:app/features/auth/data/notifier/auth_notifier.dart';
 import 'package:bff_client/bff_client.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -11,15 +11,12 @@ part 'profile_share_notifier.g.dart';
 class ProfileShareNotifier extends _$ProfileShareNotifier {
   @override
   Future<List<ProfileWithSns>> build() async {
-    final isAnonymousOrNull = ref.watch(
-      authProvider.select((v) => v.value?.isAnonymous),
+    final hasProfile = ref.watch(
+      profileProvider.select((v) => v.value != null),
     );
-
-    // 匿名ユーザーまたは未認証の場合は空のリストを返す
-    if (isAnonymousOrNull == null || isAnonymousOrNull) {
-      return [];
+    if (!hasProfile) {
+      throw const ProfileNotFoundException();
     }
-
     final repository = ref.watch(profileShareRepositoryProvider);
     return repository.getMyProfileShareList();
   }

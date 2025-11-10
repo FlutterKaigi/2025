@@ -18,7 +18,9 @@ ThemeData darkTheme() {
       ],
     ),
     bodyMedium: baseTextTheme.bodyMedium!.copyWith(
-      fontVariations: [fontVariationForWeight(FontWeight.normal)],
+      fontVariations: [
+        fontVariationForWeight(FontWeight.normal),
+      ],
     ),
     bodySmall: baseTextTheme.bodySmall!.copyWith(
       fontVariations: [
@@ -70,6 +72,7 @@ ThemeData darkTheme() {
     ),
     splashFactory: NoSplash.splashFactory,
     textTheme: textTheme,
-    fontFamily: FontFamily.notoSansJP,
+    fontFamily: FontFamily.notoSansMono,
+    fontFamilyFallback: const [FontFamily.notoSansMono, FontFamily.notoSansJP],
   );
 }

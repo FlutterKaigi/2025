@@ -268,7 +268,7 @@ class _UserInfoCard extends ConsumerWidget {
     final theme = Theme.of(context);
     final translations = Translations.of(context);
     final profileAsync = ref.watch(profileProvider);
-    
+
     final children = user.isAnonymous
         ? [
             Text(
@@ -542,7 +542,7 @@ class _ProfileInfoSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
-    
+
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(

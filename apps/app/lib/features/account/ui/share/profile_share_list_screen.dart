@@ -1,11 +1,8 @@
 import 'package:app/core/designsystem/components/error_screen.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
-import 'package:app/core/router/router.dart';
 import 'package:app/features/account/data/model/profile_share_models.dart';
-import 'package:app/features/account/data/notifier/profile_notifier.dart';
 import 'package:app/features/account/data/notifier/profile_share_notifier.dart';
 import 'package:app/features/account/ui/component/account_circle_image.dart';
-import 'package:app/features/account/ui/component/profile_required_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -24,22 +21,6 @@ class ProfileShareListScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final friendsAsync = ref.watch(profileShareProvider);
     final translations = Translations.of(context);
-
-    // プロフィールが未作成の場合はSheetを表示
-    ref.listen(profileProvider, (previous, next) {
-      if (next is AsyncData && next.value == null) {
-        Future.microtask(() {
-          if (context.mounted) {
-            showProfileRequiredSheet(
-              context: context,
-              onCreateProfile: () {
-                const ProfileEditRoute().go(context);
-              },
-            );
-          }
-        });
-      }
-    });
 
     return Scaffold(
       appBar: AppBar(
