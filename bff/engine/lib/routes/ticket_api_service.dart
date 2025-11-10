@@ -264,7 +264,7 @@ class TicketApiService {
             );
           }
 
-          final response = await _getUserTicketsResponse(user.id);
+          final response = await _getUserTicketsResponse(userId);
           return response.toJson();
         },
       );

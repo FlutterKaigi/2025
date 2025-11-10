@@ -111,3 +111,7 @@ profileshare:
     connectedAt: Connected at
     errorLoadingFriends: Failed to load friends list
     copiedToClipboard: Copied to clipboard
+admin:
+  title: Admin Page
+  button: Admin Page
+  userList: User List

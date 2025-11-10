@@ -33,6 +33,19 @@ const _accountRoutes = [
           ),
         ],
       ),
+      TypedGoRoute<AdminRoute>(
+        path: 'admin',
+        routes: [
+          TypedGoRoute<AdminUserListRoute>(
+            path: 'users',
+            routes: [
+              TypedGoRoute<AdminUserDetailRoute>(
+                path: ':userId',
+              ),
+            ],
+          ),
+        ],
+      ),
     ],
   ),
 ];
@@ -95,6 +108,7 @@ class AccountInfoRoute extends GoRouteData with $AccountInfoRoute {
           onTapOssLicensesTile: () => const LicenseRoute().go(context),
           onTapWithdrawalTile: () => _openWithdrawalForm(context),
           onTapStaffMembers: () => const StaffMemberListRoute().go(context),
+          onTapAdminPage: () => const AdminRoute().go(context),
         );
       },
     );
@@ -219,4 +233,111 @@ class LicenseDetailRoute extends GoRouteData with $LicenseDetailRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) =>
       LicenseDetailScreen(package: package);
+}
+
+class AdminRoute extends GoRouteData with $AdminRoute {
+  const AdminRoute();
+
+  static final GlobalKey<NavigatorState> $parentNavigatorKey =
+      _rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return Consumer(
+      builder: (context, ref, child) {
+        final userAsync = ref.watch(userProvider);
+        final isAdmin = userAsync.maybeWhen(
+          data: (userAndRoles) => userAndRoles.roles.contains(Role.admin),
+          orElse: () => false,
+        );
+
+        if (!isAdmin) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (context.mounted) {
+              const AccountInfoRoute().go(context);
+            }
+          });
+          return const Scaffold(
+            body: Center(
+              child: CircularProgressIndicator.adaptive(),
+            ),
+          );
+        }
+
+        return const AdminScreen();
+      },
+    );
+  }
+}
+
+class AdminUserListRoute extends GoRouteData with $AdminUserListRoute {
+  const AdminUserListRoute();
+
+  static final GlobalKey<NavigatorState> $parentNavigatorKey =
+      _rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return Consumer(
+      builder: (context, ref, child) {
+        final userAsync = ref.watch(userProvider);
+        final isAdmin = userAsync.maybeWhen(
+          data: (userAndRoles) => userAndRoles.roles.contains(Role.admin),
+          orElse: () => false,
+        );
+
+        if (!isAdmin) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (context.mounted) {
+              const AccountInfoRoute().go(context);
+            }
+          });
+          return const Scaffold(
+            body: Center(
+              child: CircularProgressIndicator.adaptive(),
+            ),
+          );
+        }
+
+        return const AdminUserListScreen();
+      },
+    );
+  }
+}
+
+class AdminUserDetailRoute extends GoRouteData with $AdminUserDetailRoute {
+  const AdminUserDetailRoute({required this.userId});
+
+  final String userId;
+
+  static final GlobalKey<NavigatorState> $parentNavigatorKey =
+      _rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return Consumer(
+      builder: (context, ref, child) {
+        final userAsync = ref.watch(userProvider);
+        final isAdmin = userAsync.maybeWhen(
+          data: (userAndRoles) => userAndRoles.roles.contains(Role.admin),
+          orElse: () => false,
+        );
+
+        if (!isAdmin) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (context.mounted) {
+              const AccountInfoRoute().go(context);
+            }
+          });
+          return const Scaffold(
+            body: Center(
+              child: CircularProgressIndicator.adaptive(),
+            ),
+          );
+        }
+
+        return AdminUserDetailScreen(userId: userId);
+      },
+    );
+  }
 }

@@ -134,6 +134,26 @@ RouteBase get $mainRoute => StatefulShellRouteData.$route(
                 ),
               ],
             ),
+            GoRouteData.$route(
+              path: 'admin',
+              parentNavigatorKey: AdminRoute.$parentNavigatorKey,
+              factory: $AdminRoute._fromState,
+              routes: [
+                GoRouteData.$route(
+                  path: 'users',
+                  parentNavigatorKey: AdminUserListRoute.$parentNavigatorKey,
+                  factory: $AdminUserListRoute._fromState,
+                  routes: [
+                    GoRouteData.$route(
+                      path: ':userId',
+                      parentNavigatorKey:
+                          AdminUserDetailRoute.$parentNavigatorKey,
+                      factory: $AdminUserDetailRoute._fromState,
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ],
         ),
       ],
@@ -558,6 +578,72 @@ mixin $LicenseDetailRoute on GoRouteData {
   @override
   String get location => GoRouteData.$location(
     '/account/licenses/${Uri.encodeComponent(_self.package)}',
+  );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $AdminRoute on GoRouteData {
+  static AdminRoute _fromState(GoRouterState state) => const AdminRoute();
+
+  @override
+  String get location => GoRouteData.$location('/account/admin');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $AdminUserListRoute on GoRouteData {
+  static AdminUserListRoute _fromState(GoRouterState state) =>
+      const AdminUserListRoute();
+
+  @override
+  String get location => GoRouteData.$location('/account/admin/users');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $AdminUserDetailRoute on GoRouteData {
+  static AdminUserDetailRoute _fromState(GoRouterState state) =>
+      AdminUserDetailRoute(userId: state.pathParameters['userId']!);
+
+  AdminUserDetailRoute get _self => this as AdminUserDetailRoute;
+
+  @override
+  String get location => GoRouteData.$location(
+    '/account/admin/users/${Uri.encodeComponent(_self.userId)}',
   );
 
   @override

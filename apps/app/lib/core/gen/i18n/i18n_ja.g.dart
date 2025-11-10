@@ -109,6 +109,7 @@ class TranslationsAccountJa {
 	late final TranslationsAccountLoginRequiredJa loginRequired = TranslationsAccountLoginRequiredJa.internal(_root);
 	late final TranslationsAccountProfileJa profile = TranslationsAccountProfileJa.internal(_root);
 	late final TranslationsAccountProfileshareJa profileshare = TranslationsAccountProfileshareJa.internal(_root);
+	late final TranslationsAccountAdminJa admin = TranslationsAccountAdminJa.internal(_root);
 }
 
 // Path: auth
@@ -424,6 +425,24 @@ class TranslationsAccountProfileshareJa {
 	late final TranslationsAccountProfileshareQrCodeDisplayJa qrCodeDisplay = TranslationsAccountProfileshareQrCodeDisplayJa.internal(_root);
 	late final TranslationsAccountProfileshareQrCodeScanScreenJa qrCodeScanScreen = TranslationsAccountProfileshareQrCodeScanScreenJa.internal(_root);
 	late final TranslationsAccountProfileshareFriendsListScreenJa friendsListScreen = TranslationsAccountProfileshareFriendsListScreenJa.internal(_root);
+}
+
+// Path: account.admin
+class TranslationsAccountAdminJa {
+	TranslationsAccountAdminJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '管理者ページ'
+	String get title => '管理者ページ';
+
+	/// ja: '管理者ページ'
+	String get button => '管理者ページ';
+
+	/// ja: 'ユーザ一覧'
+	String get userList => 'ユーザ一覧';
 }
 
 // Path: auth.guest
@@ -1357,6 +1376,9 @@ extension on Translations {
 			case 'account.profileshare.friendsListScreen.connectedAt': return '交換日時';
 			case 'account.profileshare.friendsListScreen.errorLoadingFriends': return '友達リストの読み込みに失敗しました';
 			case 'account.profileshare.friendsListScreen.copiedToClipboard': return 'をコピーしました';
+			case 'account.admin.title': return '管理者ページ';
+			case 'account.admin.button': return '管理者ページ';
+			case 'account.admin.userList': return 'ユーザ一覧';
 			case 'auth.guest.signInButton': return 'ゲストで利用する';
 			case 'auth.guest.userLabel': return 'ゲストでログイン中';
 			case 'auth.error.identityAlreadyExists': return 'このGoogleアカウントは既に別のユーザーと紐づけられています。ログアウトしてから再度ログインしてください。';

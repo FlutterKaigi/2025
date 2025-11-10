@@ -42,7 +42,7 @@ class TicketCheckoutSheet extends HookConsumerWidget {
     if (ticketTypeItem == null) {
       return const Scaffold(
         body: Center(
-          child: CircularProgressIndicator(),
+          child: CircularProgressIndicator.adaptive(),
         ),
       );
     }
@@ -249,7 +249,7 @@ class _StepControls extends StatelessWidget {
                   ? const SizedBox(
                       width: 16,
                       height: 16,
-                      child: CircularProgressIndicator(strokeWidth: 2),
+                      child: CircularProgressIndicator.adaptive(),
                     )
                   : Text(t.ticket.purchase.startPayment),
             ),
