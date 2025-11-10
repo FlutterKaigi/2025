@@ -114,6 +114,7 @@ class _TranslationsEventEn extends TranslationsEventJa {
 	@override String get time => '10:00 ~ 18:00';
 	@override String get venue => 'Otemachi Place Hall & Conference';
 	@override String get address => '2-3-1 Otemachi, Chiyoda-ku, Tokyo';
+	@override late final _TranslationsEventSurveyEn survey = _TranslationsEventSurveyEn._(_root);
 }
 
 // Path: license
@@ -361,6 +362,18 @@ class _TranslationsCommonDebugEn extends TranslationsCommonDebugJa {
 	@override String get pathCannotContainDebugOrLogin => 'Path cannot contain "debug" or "login"';
 	@override String get invalidPath => 'Invalid path';
 	@override String get go => 'GO';
+}
+
+// Path: event.survey
+class _TranslationsEventSurveyEn extends TranslationsEventSurveyJa {
+	_TranslationsEventSurveyEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Survey Request';
+	@override String get description => 'We would like to hear your opinions to make FlutterKaigi 2025 a better event.';
+	@override String get button => 'Answer the General Survey';
 }
 
 // Path: license.search
@@ -889,6 +902,9 @@ extension on TranslationsEn {
 			case 'event.time': return '10:00 ~ 18:00';
 			case 'event.venue': return 'Otemachi Place Hall & Conference';
 			case 'event.address': return '2-3-1 Otemachi, Chiyoda-ku, Tokyo';
+			case 'event.survey.title': return 'Survey Request';
+			case 'event.survey.description': return 'We would like to hear your opinions to make FlutterKaigi 2025 a better event.';
+			case 'event.survey.button': return 'Answer the General Survey';
 			case 'license.title': return 'Licensees';
 			case 'license.search.hintText': return 'Search packages';
 			case 'license.listTile.description': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,

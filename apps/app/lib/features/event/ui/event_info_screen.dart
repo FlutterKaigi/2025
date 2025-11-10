@@ -1,6 +1,7 @@
 import 'package:app/core/gen/assets/assets.gen.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/core/router/router.dart';
+import 'package:app/features/event/ui/components/survey_card.dart';
 import 'package:app/features/ticket/ui/components/entry_ticket_card.dart';
 import 'package:flutter/material.dart';
 
@@ -23,6 +24,7 @@ class EventInfoScreen extends StatelessWidget {
           _NewsListTile(),
           _EventInfoCard(),
           EntryTicketCard(),
+          SurveyCard(),
         ],
       ),
     );
