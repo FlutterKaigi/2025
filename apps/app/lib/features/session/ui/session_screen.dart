@@ -275,7 +275,7 @@ class _SurveyButton extends ConsumerWidget {
       session.endsAt.subtract(const Duration(minutes: 15)),
     );
 
-    if (showSurveyButton) {
+    if (!showSurveyButton) {
       return const SizedBox.shrink();
     }
 
