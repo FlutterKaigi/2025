@@ -1,5 +1,6 @@
 import 'package:app/core/designsystem/components/error_screen.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
+import 'package:app/core/provider/tick_stream_provider.dart';
 import 'package:app/core/util/share_util.dart';
 import 'package:app/features/session/data/model/session_models.dart';
 import 'package:app/features/session/data/provider/bookmarked_sessions_provider.dart';
@@ -211,6 +212,50 @@ class _SessionDetailView extends ConsumerWidget with SessionScreenMixin {
                 ),
                 leading: const Icon(Icons.event_outlined),
                 onTap: () => _addToCalendar(session),
+              ),
+              Builder(
+                builder: (context) {
+                  final currentTime = ref.watch(
+                    tickStreamProvider(
+                      duration: const Duration(minutes: 1),
+                      mode: TickMode.unaligned,
+                    ),
+                  ).valueOrNull ?? DateTime.now();
+
+                  final showSurveyButton = currentTime.isAfter(
+                    session.endsAt.subtract(const Duration(minutes: 15)),
+                  );
+
+                  if (!showSurveyButton) {
+                    return const SizedBox.shrink();
+                  }
+
+                  return Column(
+                    children: [
+                      const SizedBox(height: 16),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: FilledButton.icon(
+                          onPressed: () async {
+                            final uri = Uri.https(
+                              'docs.google.com',
+                              '/forms/d/e/1FAIpQLSfthY-aomCn0_G75nO66712b917VSnN3kfZae4HWt7hd6YxUQ/viewform',
+                              {'entry.435588556': session.id},
+                            );
+                            await launchUrl(
+                              uri,
+                              mode: LaunchMode.externalApplication,
+                            );
+                          },
+                          icon: const Icon(Icons.assignment),
+                          label: Text(
+                            Translations.of(context).session.survey.button,
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                },
               ),
               // TODO: フィードバック用のフォームが作成されたら復活させる
               // const SizedBox(height: 16),
