@@ -80,11 +80,10 @@ class _ProfileShareCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = Translations.of(context);
     final theme = Theme.of(context);
     final titleStyle = theme.textTheme.titleMedium;
-    final snsTextStyle = titleStyle?.copyWith(
-      fontWeight: FontWeight.bold,
-    );
+    final snsTextStyle = titleStyle?.copyWith();
 
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -140,70 +139,78 @@ class _ProfileShareCard extends StatelessWidget {
                       ),
                     )
                   else
-                    ...profileWithSns.snsLinks.map((link) {
-                      final canLaunch =
-                          link.snsType != SnsType.discord &&
-                          link.snsType != SnsType.other;
-                      return InkWell(
-                        onTap: () async {
-                          if (canLaunch) {
-                            // リンクを開く
-                            final url = _getSnsUrl(link.snsType, link.value);
-                            if (await canLaunchUrl(Uri.parse(url))) {
-                              await launchUrl(
-                                Uri.parse(url),
-                                mode: LaunchMode.externalApplication,
+                    Wrap(
+                      spacing: 4,
+                      runSpacing: 4,
+                      children: profileWithSns.snsLinks.map((link) {
+                        final canLaunch =
+                            link.snsType != SnsType.discord &&
+                            link.snsType != SnsType.other;
+                        return InkWell(
+                          onTap: () async {
+                            if (canLaunch) {
+                              final uri = Uri.parse(
+                                _getSnsUrl(link.snsType, link.value),
                               );
+                              // リンクを開く
+                              if (await canLaunchUrl(uri)) {
+                                await launchUrl(
+                                  uri,
+                                  mode: LaunchMode.externalApplication,
+                                );
+                              }
+                            } else {
+                              // クリップボードにコピー
+                              await Clipboard.setData(
+                                ClipboardData(text: link.value),
+                              );
+                              if (context.mounted) {
+                                final copiedText = t
+                                    .account
+                                    .profileshare
+                                    .friendsListScreen
+                                    .copiedToClipboard;
+                                final message = '${link.value} $copiedText';
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(message),
+                                    duration: const Duration(seconds: 2),
+                                  ),
+                                );
+                              }
                             }
-                          } else {
-                            // クリップボードにコピー
-                            await Clipboard.setData(
-                              ClipboardData(text: link.value),
-                            );
-                            if (context.mounted) {
-                              final t = Translations.of(context);
-                              final copiedText = t
-                                  .account
-                                  .profileshare
-                                  .friendsListScreen
-                                  .copiedToClipboard;
-                              final message = '${link.value} $copiedText';
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(message),
-                                  duration: const Duration(seconds: 2),
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 4),
+                            child: Row(
+                              children: [
+                                FaIcon(
+                                  _getSnsIcon(link.snsType),
+                                  size: snsTextStyle?.fontSize,
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.bold,
                                 ),
-                              );
-                            }
-                          }
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.only(bottom: 4),
-                          child: Row(
-                            children: [
-                              FaIcon(
-                                _getSnsIcon(link.snsType),
-                                size: snsTextStyle?.fontSize,
-                                color: Colors.grey,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              const SizedBox(width: 8),
-                              Text(
-                                _formatSnsValue(link.snsType, link.value),
-                                style: snsTextStyle,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              if (!canLaunch) const SizedBox(width: 4),
-                              Icon(
-                                Icons.copy,
-                                size: snsTextStyle?.fontSize,
-                                color: Colors.grey,
-                              ),
-                            ],
+                                const SizedBox(width: 8),
+                                Text(
+                                  // URL形式の場合はそのまま、そうでない場合は@を付ける
+                                  link.value.startsWith('http')
+                                      ? link.value
+                                      : '@${link.value}',
+                                  style: snsTextStyle,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                if (!canLaunch) const SizedBox(width: 4),
+                                Icon(
+                                  Icons.copy,
+                                  size: snsTextStyle?.fontSize,
+                                  color: Colors.grey,
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      );
-                    }),
+                        );
+                      }).toList(),
+                    ),
                 ],
               ),
             ),
@@ -224,14 +231,6 @@ class _ProfileShareCard extends StatelessWidget {
       SnsType.note => FontAwesomeIcons.link,
       SnsType.other => FontAwesomeIcons.link,
     };
-  }
-
-  String _formatSnsValue(SnsType type, String value) {
-    // URL形式の場合はそのまま、そうでない場合は@を付ける
-    if (value.startsWith('http')) {
-      return value;
-    }
-    return '@$value';
   }
 
   String _getSnsUrl(SnsType type, String value) {

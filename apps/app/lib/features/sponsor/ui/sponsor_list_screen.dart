@@ -104,6 +104,7 @@ class _SponsorList extends ConsumerWidget {
             ),
         ];
         return CustomScrollView(
+          primary: true,
           slivers: slivers,
         );
       }(),

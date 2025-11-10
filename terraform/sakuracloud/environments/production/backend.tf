@@ -1,5 +1,5 @@
 terraform {
-  required_version = "1.13.4"
+  required_version = "1.13.5"
   backend "s3" {
     bucket                      = "tf-state"
     key                         = "flutterkaigi-2025-sakuracloud-production.tfstate"

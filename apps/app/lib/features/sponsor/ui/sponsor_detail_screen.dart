@@ -48,7 +48,7 @@ class SponsorDetailScreen extends ConsumerWidget {
       ),
     );
     return switch (sponsor) {
-      _Loading() => const Center(child: CircularProgressIndicator()),
+      _Loading() => const Center(child: CircularProgressIndicator.adaptive()),
       _Success(:final sponsor) => _SponsorDetail(sponsor: sponsor),
       _NotFound() => const NotFoundScreen(),
       _Failure(:final error) => ErrorScreen(

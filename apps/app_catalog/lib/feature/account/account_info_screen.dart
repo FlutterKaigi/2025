@@ -57,6 +57,7 @@ Widget accountInfoScreenUseCase(BuildContext context) {
       onTapQrCodeScan: () {},
       onTapFriendsList: () {},
       onTapStaffMembers: () {},
+      onTapAdminPage: () {},
     ),
   );
 }

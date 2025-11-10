@@ -76,6 +76,7 @@ class _TranslationsAccountEn extends TranslationsAccountJa {
 	@override late final _TranslationsAccountLoginRequiredEn loginRequired = _TranslationsAccountLoginRequiredEn._(_root);
 	@override late final _TranslationsAccountProfileEn profile = _TranslationsAccountProfileEn._(_root);
 	@override late final _TranslationsAccountProfileshareEn profileshare = _TranslationsAccountProfileshareEn._(_root);
+	@override late final _TranslationsAccountAdminEn admin = _TranslationsAccountAdminEn._(_root);
 }
 
 // Path: auth
@@ -278,6 +279,18 @@ class _TranslationsAccountProfileshareEn extends TranslationsAccountProfileshare
 	@override late final _TranslationsAccountProfileshareQrCodeDisplayEn qrCodeDisplay = _TranslationsAccountProfileshareQrCodeDisplayEn._(_root);
 	@override late final _TranslationsAccountProfileshareQrCodeScanScreenEn qrCodeScanScreen = _TranslationsAccountProfileshareQrCodeScanScreenEn._(_root);
 	@override late final _TranslationsAccountProfileshareFriendsListScreenEn friendsListScreen = _TranslationsAccountProfileshareFriendsListScreenEn._(_root);
+}
+
+// Path: account.admin
+class _TranslationsAccountAdminEn extends TranslationsAccountAdminJa {
+	_TranslationsAccountAdminEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Admin Page';
+	@override String get button => 'Admin Page';
+	@override String get userList => 'User List';
 }
 
 // Path: auth.guest
@@ -898,6 +911,9 @@ extension on TranslationsEn {
 			case 'account.profileshare.friendsListScreen.connectedAt': return 'Connected at';
 			case 'account.profileshare.friendsListScreen.errorLoadingFriends': return 'Failed to load friends list';
 			case 'account.profileshare.friendsListScreen.copiedToClipboard': return 'Copied to clipboard';
+			case 'account.admin.title': return 'Admin Page';
+			case 'account.admin.button': return 'Admin Page';
+			case 'account.admin.userList': return 'User List';
 			case 'auth.guest.signInButton': return 'Continue as Guest';
 			case 'auth.guest.userLabel': return 'Guest Mode';
 			case 'auth.error.identityAlreadyExists': return 'This Google account is already linked to another user. Please sign out and try signing in again.';
