@@ -1,11 +1,13 @@
 import 'package:app/core/gen/i18n/i18n.g.dart';
+import 'package:app/core/provider/tick_stream_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /// アンケートCard
 ///
 /// 2025/11/13の15時よりも後に表示される
-class SurveyCard extends StatelessWidget {
+class SurveyCard extends ConsumerWidget {
   const SurveyCard({super.key});
 
   static const _surveyUrl =
@@ -13,9 +15,17 @@ class SurveyCard extends StatelessWidget {
   static final _displayDateTime = DateTime(2025, 11, 13, 15);
 
   @override
-  Widget build(BuildContext context) {
-    final now = DateTime.now();
-    if (now.isAfter(_displayDateTime)) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final showSurveyCard = ref.watch(
+      tickStreamProvider(
+        duration: const Duration(minutes: 1),
+        mode: TickMode.unaligned,
+      ).select((v) {
+        final now = v.value ?? DateTime.now();
+        return now.isAfter(_displayDateTime);
+      }),
+    );
+    if (!showSurveyCard) {
       return const SizedBox.shrink();
     }
 
@@ -58,7 +68,12 @@ class SurveyCard extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: FilledButton(
-                onPressed: _launchSurveyUrl,
+                onPressed: () async {
+                  final uri = Uri.parse(_surveyUrl);
+                  if (await canLaunchUrl(uri)) {
+                    await launchUrl(uri, mode: LaunchMode.externalApplication);
+                  }
+                },
                 child: Text(t.event.survey.button),
               ),
             ),
@@ -66,12 +81,5 @@ class SurveyCard extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Future<void> _launchSurveyUrl() async {
-    final uri = Uri.parse(_surveyUrl);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
-    }
   }
 }
