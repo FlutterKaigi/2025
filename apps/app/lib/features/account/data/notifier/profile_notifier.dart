@@ -4,21 +4,29 @@ import 'dart:typed_data';
 import 'package:app/core/api/api_exception.dart';
 import 'package:app/core/provider/bff_client.dart';
 import 'package:app/core/provider/file_upload_dio.dart';
+import 'package:app/features/auth/data/notifier/auth_notifier.dart';
 import 'package:bff_client/bff_client.dart';
 import 'package:dio/dio.dart';
+import 'package:hooks_riverpod/experimental/mutation.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'profile_notifier.g.dart';
 
-@Riverpod(keepAlive: true)
+@riverpod
 class ProfileNotifier extends _$ProfileNotifier {
   @override
   Future<ProfileResponse?> build() async {
+    final isAuthorized = ref.watch(authProvider.select((v) => v.value != null));
+    if (!isAuthorized) {
+      return null;
+    }
     final client = ref.read(bffClientProvider);
     try {
       final response = await ApiException.transform(
         () => client.v1.profile.getMyProfile(),
       );
+      ref.keepAlive();
       return response.data;
     } on ApiErrorResponseException catch (e) {
       if (e.errorResponse.code == ErrorCode.notFound) {
@@ -28,7 +36,10 @@ class ProfileNotifier extends _$ProfileNotifier {
     }
   }
 
-  /// プロファイル情報を更新する
+  static final updateProfileMutation = Mutation<Profiles>();
+  static final avatarMutation = Mutation<void>();
+
+  /// プロフィール情報を更新する
   Future<Profiles> updateProfile(ProfileUpdateRequest request) async {
     final client = ref.read(bffClientProvider);
     final response = await ApiException.transform(
@@ -100,4 +111,8 @@ class ProfileNotifier extends _$ProfileNotifier {
       );
     }
   }
+}
+
+class ProfileNotFoundException implements Exception {
+  const ProfileNotFoundException();
 }

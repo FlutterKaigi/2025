@@ -18,7 +18,9 @@ ThemeData darkTheme() {
       ],
     ),
     bodyMedium: baseTextTheme.bodyMedium!.copyWith(
-      fontVariations: [fontVariationForWeight(FontWeight.normal)],
+      fontVariations: [
+        fontVariationForWeight(FontWeight.normal),
+      ],
     ),
     bodySmall: baseTextTheme.bodySmall!.copyWith(
       fontVariations: [
@@ -62,14 +64,20 @@ ThemeData darkTheme() {
     colorScheme: darkColorScheme,
     useMaterial3: true,
     useSystemColors: true,
-    appBarTheme: const AppBarTheme(
+    appBarTheme: AppBarTheme(
       centerTitle: false,
       scrolledUnderElevation: 0,
       elevation: 0,
       surfaceTintColor: Colors.transparent,
+      titleTextStyle: textTheme.displayLarge!.copyWith(
+        fontVariations: [
+          fontVariationForWeight(FontWeight.w700),
+        ],
+      ),
     ),
     splashFactory: NoSplash.splashFactory,
     textTheme: textTheme,
-    fontFamily: FontFamily.notoSansJP,
+    fontFamily: FontFamily.notoSansMono,
+    fontFamilyFallback: const [FontFamily.notoSansMono, FontFamily.notoSansJP],
   );
 }

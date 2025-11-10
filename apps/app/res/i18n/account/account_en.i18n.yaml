@@ -47,6 +47,7 @@ profile:
   sns:
     notLinked: No social links registered
     type: Platform
+    typeRequired: Please select a platform
     urlOrUserId: URL/User ID
     urlOrUserIdRequired: Please enter URL/User ID
     other: Other
@@ -78,6 +79,10 @@ profile:
     complete: Complete
     crop: Crop
     reset: Reset
+  requiredSheet:
+    title: Create Your Profile
+    description: You need to create a profile to exchange profiles with others
+    createButton: Create Profile
 profileshare:
   title: Profile Exchange
   qrCode: Show QR Code

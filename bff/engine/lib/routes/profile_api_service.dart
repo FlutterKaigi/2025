@@ -35,7 +35,7 @@ class ProfileApiService {
       if (profileWithSns == null) {
         throw ErrorResponse.errorCode(
           code: ErrorCode.notFound,
-          detail: 'プロファイルが見つかりません',
+          detail: 'プロフィールが見つかりません',
         );
       }
 
@@ -118,7 +118,7 @@ class ProfileApiService {
         }
       }
 
-      // プロファイル更新データを作成
+      // プロフィール更新データを作成
       final profileData = db.ProfileUpdateData(
         name: updateRequest.name ?? '',
         comment: updateRequest.comment ?? '',
@@ -127,7 +127,7 @@ class ProfileApiService {
         avatarKey: updateRequest.avatarKey,
       );
 
-      // プロファイルを更新
+      // プロフィールを更新
       final updatedProfile = await database.profile.upsertProfile(
         user.id,
         profileData,
@@ -175,14 +175,14 @@ class ProfileApiService {
 
     final database = await container.read(dbClientProvider.future);
 
-    // 現在のプロファイル情報を取得してアバターURLを確認
+    // 現在のプロフィール情報を取得してアバターURLを確認
     final profileWithSns = await database.profile.getProfileWithSnsLinks(
       user.id,
     );
     if (profileWithSns == null) {
       throw ErrorResponse.errorCode(
         code: ErrorCode.notFound,
-        detail: 'プロファイルが見つかりません',
+        detail: 'プロフィールが見つかりません',
       );
     }
 

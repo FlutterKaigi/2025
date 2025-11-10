@@ -6,6 +6,9 @@ forceUpdate:
   message: A new version of the app is available. Please update to the latest version.
   updateButton: Update
 
+action:
+  cancel: Cancel
+
 error:
   notFound:
     title: Page not found

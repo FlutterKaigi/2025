@@ -8,12 +8,12 @@ part 'profile_api_client.g.dart';
 abstract class ProfileApiClient {
   factory ProfileApiClient(Dio dio, {String baseUrl}) = _ProfileApiClient;
 
-  /// 自分のプロファイル情報を取得します
+  /// 自分のプロフィール情報を取得します
   /// Authorization Headerが必須
   @GET('/profile/me')
   Future<HttpResponse<ProfileResponse>> getMyProfile();
 
-  /// 自分のプロファイル情報を更新します
+  /// 自分のプロフィール情報を更新します
   /// Authorization Headerが必須
   @PUT('/profile/me')
   Future<HttpResponse<Profiles>> updateMyProfile({

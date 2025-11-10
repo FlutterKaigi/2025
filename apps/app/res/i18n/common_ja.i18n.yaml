@@ -6,6 +6,9 @@ forceUpdate:
   message: 新しいバージョンのアプリが利用可能です。最新バージョンにアップデートしてください。
   updateButton: アップデート
 
+action:
+  cancel: キャンセル
+
 error:
   notFound:
     title: ページが見つかりません

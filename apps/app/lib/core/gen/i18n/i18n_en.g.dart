@@ -98,6 +98,7 @@ class _TranslationsCommonEn extends TranslationsCommonJa {
 	// Translations
 	@override late final _TranslationsCommonAppEn app = _TranslationsCommonAppEn._(_root);
 	@override late final _TranslationsCommonForceUpdateEn forceUpdate = _TranslationsCommonForceUpdateEn._(_root);
+	@override late final _TranslationsCommonActionEn action = _TranslationsCommonActionEn._(_root);
 	@override late final _TranslationsCommonErrorEn error = _TranslationsCommonErrorEn._(_root);
 	@override late final _TranslationsCommonNavigationEn navigation = _TranslationsCommonNavigationEn._(_root);
 	@override late final _TranslationsCommonDebugEn debug = _TranslationsCommonDebugEn._(_root);
@@ -260,6 +261,7 @@ class _TranslationsAccountProfileEn extends TranslationsAccountProfileJa {
 	@override late final _TranslationsAccountProfileAvatarEn avatar = _TranslationsAccountProfileAvatarEn._(_root);
 	@override late final _TranslationsAccountProfileSnsEn sns = _TranslationsAccountProfileSnsEn._(_root);
 	@override late final _TranslationsAccountProfileImageEn image = _TranslationsAccountProfileImageEn._(_root);
+	@override late final _TranslationsAccountProfileRequiredSheetEn requiredSheet = _TranslationsAccountProfileRequiredSheetEn._(_root);
 }
 
 // Path: account.profileshare
@@ -320,6 +322,16 @@ class _TranslationsCommonForceUpdateEn extends TranslationsCommonForceUpdateJa {
 	@override String get title => 'Update Required';
 	@override String get message => 'A new version of the app is available. Please update to the latest version.';
 	@override String get updateButton => 'Update';
+}
+
+// Path: common.action
+class _TranslationsCommonActionEn extends TranslationsCommonActionJa {
+	_TranslationsCommonActionEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get cancel => 'Cancel';
 }
 
 // Path: common.error
@@ -609,6 +621,7 @@ class _TranslationsAccountProfileSnsEn extends TranslationsAccountProfileSnsJa {
 	// Translations
 	@override String get notLinked => 'No social links registered';
 	@override String get type => 'Platform';
+	@override String get typeRequired => 'Please select a platform';
 	@override String get urlOrUserId => 'URL/User ID';
 	@override String get urlOrUserIdRequired => 'Please enter URL/User ID';
 	@override String get other => 'Other';
@@ -634,6 +647,18 @@ class _TranslationsAccountProfileImageEn extends TranslationsAccountProfileImage
 	@override String get complete => 'Complete';
 	@override String get crop => 'Crop';
 	@override String get reset => 'Reset';
+}
+
+// Path: account.profile.requiredSheet
+class _TranslationsAccountProfileRequiredSheetEn extends TranslationsAccountProfileRequiredSheetJa {
+	_TranslationsAccountProfileRequiredSheetEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Create Your Profile';
+	@override String get description => 'You need to create a profile to exchange profiles with others';
+	@override String get createButton => 'Create Profile';
 }
 
 // Path: account.profileshare.qrCodeDisplay
@@ -817,6 +842,7 @@ extension on TranslationsEn {
 			case 'account.profile.avatar.changeSuccess': return 'Avatar updated successfully';
 			case 'account.profile.sns.notLinked': return 'No social links registered';
 			case 'account.profile.sns.type': return 'Platform';
+			case 'account.profile.sns.typeRequired': return 'Please select a platform';
 			case 'account.profile.sns.urlOrUserId': return 'URL/User ID';
 			case 'account.profile.sns.urlOrUserIdRequired': return 'Please enter URL/User ID';
 			case 'account.profile.sns.other': return 'Other';
@@ -845,6 +871,9 @@ extension on TranslationsEn {
 			case 'account.profile.image.complete': return 'Complete';
 			case 'account.profile.image.crop': return 'Crop';
 			case 'account.profile.image.reset': return 'Reset';
+			case 'account.profile.requiredSheet.title': return 'Create Your Profile';
+			case 'account.profile.requiredSheet.description': return 'You need to create a profile to exchange profiles with others';
+			case 'account.profile.requiredSheet.createButton': return 'Create Profile';
 			case 'account.profileshare.title': return 'Profile Exchange';
 			case 'account.profileshare.qrCode': return 'Show QR Code';
 			case 'account.profileshare.qrCodeScan': return 'Scan QR Code';
@@ -877,6 +906,7 @@ extension on TranslationsEn {
 			case 'common.forceUpdate.title': return 'Update Required';
 			case 'common.forceUpdate.message': return 'A new version of the app is available. Please update to the latest version.';
 			case 'common.forceUpdate.updateButton': return 'Update';
+			case 'common.action.cancel': return 'Cancel';
 			case 'common.error.notFound.title': return 'Page not found';
 			case 'common.error.notFound.message': return 'The page you are looking for doesn\'t exist or may have been moved.';
 			case 'common.error.notFound.backToTop': return 'Back to Top';

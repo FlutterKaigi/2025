@@ -15,11 +15,9 @@ final class AccountScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _appBar,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(8),
-          child: _body,
-        ),
+      body: Padding(
+        padding: const EdgeInsets.all(8),
+        child: _body,
       ),
     );
   }

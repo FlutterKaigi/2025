@@ -22,7 +22,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  if (kIsWeb) {
+  if (kIsWeb || kDebugMode) {
     await _run();
   } else {
     await runZonedGuarded(
@@ -43,7 +43,7 @@ Future<void> _run() async {
   });
 
   FlutterError.onError = (details) {
-    if (!kIsWeb) {
+    if (!kIsWeb && !kDebugMode) {
       FlutterOTel.reportError(
         'FlutterError.onError',
         details.exception,
@@ -57,7 +57,7 @@ Future<void> _run() async {
 
   // Web環境ではOpenTelemetryを無効化
   // dartastic_opentelemetryがPlatform.environmentを使用するため
-  if (!kIsWeb) {
+  if (!kIsWeb && !kDebugMode) {
     await FlutterOTel.initialize(
       appName: 'app',
       tracerName: 'main',

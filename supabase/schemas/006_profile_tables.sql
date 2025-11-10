@@ -1,7 +1,7 @@
 -- SNSの種類を定義するenum
 CREATE TYPE public.sns_type AS enum('github', 'x', 'discord', 'medium', 'qiita', 'zenn', 'note', 'other');
 
--- プロファイルテーブル
+-- プロフィールテーブル
 CREATE TABLE public.profiles (
   id uuid PRIMARY KEY REFERENCES auth.users (id) ON DELETE CASCADE,
   name text NOT NULL,
