@@ -77,6 +77,10 @@ profile:
     complete: Complete
     crop: Crop
     reset: Reset
+  requiredSheet:
+    title: Create Your Profile
+    description: You need to create a profile to exchange profiles with others
+    createButton: Create Profile
 profileshare:
   title: Profile Exchange
   qrCode: Show QR Code
