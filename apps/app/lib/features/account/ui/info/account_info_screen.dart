@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/link.dart';
 
 /// アカウント情報画面
 ///
@@ -202,31 +202,23 @@ final class AccountInfoScreen extends ConsumerWidget {
                     ),
                   ),
                   const SizedBox(height: 12),
-                  // ソースコードを見るリンク
                   Center(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: OutlinedButton.icon(
-                        onPressed: () async {
-                          final uri = Uri.parse(
-                            'https://github.com/FlutterKaigi/2025',
-                          );
-                          if (await canLaunchUrl(uri)) {
-                            await launchUrl(
-                              uri,
-                              mode: LaunchMode.externalApplication,
-                            );
-                          }
-                        },
-                        icon: const FaIcon(
-                          FontAwesomeIcons.github,
-                          size: 16,
-                        ),
-                        label: Text(t.account.sourceCode),
-                        style: OutlinedButton.styleFrom(
-                          foregroundColor: theme.colorScheme.primary,
-                          side: BorderSide(
-                            color: theme.colorScheme.outline,
+                      child: Link(
+                        uri: Uri.parse('https://github.com/FlutterKaigi/2025'),
+                        builder: (context, followLink) => OutlinedButton.icon(
+                          onPressed: followLink,
+                          icon: const FaIcon(
+                            FontAwesomeIcons.github,
+                            size: 16,
+                          ),
+                          label: Text(t.account.sourceCode),
+                          style: OutlinedButton.styleFrom(
+                            foregroundColor: theme.colorScheme.primary,
+                            side: BorderSide(
+                              color: theme.colorScheme.outline,
+                            ),
                           ),
                         ),
                       ),
