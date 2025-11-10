@@ -1,7 +1,6 @@
 import { env } from "cloudflare:workers";
 import { eq, getDatabase } from "@2025/database";
 import { vValidator } from "@hono/valibot-validator";
-import { withNextSpan } from "@microlabs/otel-cf-workers";
 import { Hono } from "hono";
 import { type Barcode, PKPass } from "passkit-generator";
 import * as v from "valibot";
@@ -25,7 +24,6 @@ app.get("/pass.pkpass", vValidator("query", PassQuerySchema), async (c) => {
 	if (connectingIp === undefined) {
 		return c.json({ code: "UNAUTHORIZED", message: "Unauthorized" }, 401);
 	}
-	withNextSpan({ destination: "wallet.rate_limit" });
 	const { success: isAccepted } = await env.RATE_LIMITER.limit({
 		key: connectingIp,
 	});
@@ -36,9 +34,7 @@ app.get("/pass.pkpass", vValidator("query", PassQuerySchema), async (c) => {
 		);
 	}
 
-	withNextSpan({ destination: "wallet.get_database" });
 	const db = await getDatabase(env.HYPERDRIVE.connectionString);
-	withNextSpan({ destination: "wallet.find_ticket_purchase" });
 	const ticketPurchasesResponse = await db.query.ticketPurchases.findFirst({
 		where: eq(ticketPurchases.id, id),
 		with: {
@@ -57,19 +53,16 @@ app.get("/pass.pkpass", vValidator("query", PassQuerySchema), async (c) => {
 		);
 	}
 
-	withNextSpan({ destination: "wallet.find_user" });
 	const user = await db.query.usersInAuth.findFirst({
 		where: eq(usersInAuth.id, ticketPurchasesResponse.userId),
 	});
 	if (user === undefined) {
 		return c.json({ code: "NOT_FOUND", message: "User Not found" }, 404);
 	}
-	withNextSpan({ destination: "wallet.find_profile" });
 	const profile = await db.query.profiles.findFirst({
 		where: eq(profiles.id, user.id),
 	});
 
-	withNextSpan({ destination: "wallet.generate_pass" });
 	const pass = new PKPass(
 		{
 			"strip@3x.png": Buffer.from(background),
@@ -197,7 +190,6 @@ app.get("/pass.pkpass", vValidator("query", PassQuerySchema), async (c) => {
 	);
 	pass.preferredStyleSchemes = ["posterEventTicket", "eventTicket"];
 
-	withNextSpan({ destination: "wallet.return_pass" });
 	return new Response(pass.getAsBuffer(), {
 		headers: {
 			"Content-type": pass.mimeType,
