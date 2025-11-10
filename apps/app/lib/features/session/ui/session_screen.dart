@@ -215,12 +215,17 @@ class _SessionDetailView extends ConsumerWidget with SessionScreenMixin {
               ),
               Builder(
                 builder: (context) {
-                  final currentTime = ref.watch(
+                  final tickAsync = ref.watch(
                     tickStreamProvider(
                       duration: const Duration(minutes: 1),
                       mode: TickMode.unaligned,
                     ),
-                  ).valueOrNull ?? DateTime.now();
+                  );
+
+                  final currentTime = switch (tickAsync) {
+                    AsyncData(:final value) => value,
+                    _ => DateTime.now(),
+                  };
 
                   final showSurveyButton = currentTime.isAfter(
                     session.endsAt.subtract(const Duration(minutes: 15)),

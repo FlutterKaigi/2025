@@ -202,6 +202,7 @@ class TranslationsSessionJa {
 	late final TranslationsSessionBookmarkedJa bookmarked = TranslationsSessionBookmarkedJa.internal(_root);
 	late final TranslationsSessionEmptyJa empty = TranslationsSessionEmptyJa.internal(_root);
 	late final TranslationsSessionFeedbackJa feedback = TranslationsSessionFeedbackJa.internal(_root);
+	late final TranslationsSessionSurveyJa survey = TranslationsSessionSurveyJa.internal(_root);
 }
 
 // Path: sponsor
@@ -662,6 +663,18 @@ class TranslationsSessionFeedbackJa {
 
 	/// ja: 'フィードバックを送る'
 	String get send => 'フィードバックを送る';
+}
+
+// Path: session.survey
+class TranslationsSessionSurveyJa {
+	TranslationsSessionSurveyJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'アンケートに回答'
+	String get button => 'アンケートに回答';
 }
 
 // Path: ticket.status
@@ -1336,6 +1349,7 @@ extension on Translations {
 			case 'session.empty.message': return '現在、表示可能なセッションがありません。';
 			case 'session.feedback.title': return 'フィードバック';
 			case 'session.feedback.send': return 'フィードバックを送る';
+			case 'session.survey.button': return 'アンケートに回答';
 			case 'sponsor.prText': return 'PR 文章';
 			case 'sponsor.enthusiasm': return '意気込み';
 			case 'sponsor.company': return '企業スポンサー';
