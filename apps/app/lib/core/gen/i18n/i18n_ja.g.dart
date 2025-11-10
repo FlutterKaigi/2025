@@ -673,8 +673,8 @@ class TranslationsSessionSurveyJa {
 
 	// Translations
 
-	/// ja: 'アンケートに回答'
-	String get button => 'アンケートに回答';
+	/// ja: 'セッションフィードバックを送る'
+	String get button => 'セッションフィードバックを送る';
 }
 
 // Path: ticket.status
@@ -1349,7 +1349,7 @@ extension on Translations {
 			case 'session.empty.message': return '現在、表示可能なセッションがありません。';
 			case 'session.feedback.title': return 'フィードバック';
 			case 'session.feedback.send': return 'フィードバックを送る';
-			case 'session.survey.button': return 'アンケートに回答';
+			case 'session.survey.button': return 'セッションフィードバックを送る';
 			case 'sponsor.prText': return 'PR 文章';
 			case 'sponsor.enthusiasm': return '意気込み';
 			case 'sponsor.company': return '企業スポンサー';

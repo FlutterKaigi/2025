@@ -465,7 +465,7 @@ class _TranslationsSessionSurveyEn extends TranslationsSessionSurveyJa {
 	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get button => 'Answer Survey';
+	@override String get button => 'Send Session Feedback';
 }
 
 // Path: ticket.status
@@ -905,7 +905,7 @@ extension on TranslationsEn {
 			case 'session.empty.message': return 'There are no sessions to display.';
 			case 'session.feedback.title': return 'Feedback';
 			case 'session.feedback.send': return 'Send Feedback';
-			case 'session.survey.button': return 'Answer Survey';
+			case 'session.survey.button': return 'Send Session Feedback';
 			case 'sponsor.prText': return 'About Us';
 			case 'sponsor.enthusiasm': return 'Message';
 			case 'sponsor.company': return 'Sponsors';
