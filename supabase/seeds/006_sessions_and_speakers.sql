@@ -47,11 +47,23 @@ INSERT INTO speakers (id, name, avatar_url, x_id) VALUES
     ('9BDAB7ED-A392-41A8-A394-E1102BEE7759', 'おだてつ', 'https://fortee.jp/files/flutterkaigi-2025/speaker/4362cfa2-c7c3-4459-b9e5-a75408c449be.jpg', 'Aosanori620'),
     ('F2289FF5-4DA5-40F0-ACD2-7C24691E0B6F', '橋本 茉利奈', 'https://fortee.jp/files/flutterkaigi-2025/speaker/4a7e9534-76c0-4aeb-9a69-b9c28bb74fa6.jpg', '_mhashimoto'),
     ('0B7C3EE2-1507-43B3-9DF8-0787C62BADD4', 'Takahiro Sunaga', NULL, NULL),
-    ('F1435681-D5E1-4711-8AD9-F086097FD419', 'Perttu Lähteenlahti', 'https://fortee.jp/files/flutterkaigi-2025/speaker/9d3ceee2-9726-46e8-92c6-8c4a16bb1525.jpg', 'plahteenlahti');
+    ('F1435681-D5E1-4711-8AD9-F086097FD419', 'Perttu Lähteenlahti', 'https://fortee.jp/files/flutterkaigi-2025/speaker/9d3ceee2-9726-46e8-92c6-8c4a16bb1525.jpg', 'plahteenlahti'),
+    -- キーノートスピーカー
+    ('a7a0aa4d-bdf4-4852-a83e-4d7fd64a61ea', '金 瑠加須', 'https://fortee.jp/files/flutterkaigi-2025/speaker/a7a0aa4d-bdf4-4852-a83e-4d7fd64a61ea.jpg', 'LucasGoldner');
 
 
 -- Insert sessions based on example data
 INSERT INTO sessions (id, title, description, starts_at, ends_at, venue_id, sponsor_id, is_lightning_talk, is_beginners_lightning_talk, is_hands_on, video_url, url) VALUES
+    -- キーノートセッション (Room A)
+    ('c1d2e3f4-a5b6-c7d8-e9f0-1a2b3c4d5e6f', '[Keynote] The Flutter Effect',
+     E'## 概要\r\n\r\nFlutterKaigi 2025のキーノートセッションです。',
+     '2025-11-13 10:15:00+09', '2025-11-13 10:30:00+09', 'e1a11efe-b1eb-43e1-ae60-9d2233e5dfe7', NULL, false, false, false, NULL, NULL),
+
+    -- キーノートセッション（サテライト） (Room B)
+    ('b8b1bb5e-cce5-5963-b94f-5e8fe75b72fb', '[Keynote] The Flutter Effect（サテライト）',
+     E'## 概要\r\n\r\nFlutterKaigi 2025のキーノートセッション（サテライト会場）です。',
+     '2025-11-13 10:15:00+09', '2025-11-13 10:30:00+09', '0505c447-b699-4803-aab9-9cbdf9452c1b', NULL, false, false, false, NULL, NULL),
+
     ('39ac68d6-23a9-4a4a-86c5-bb824d4b49ef', 'Flutterコントリビューションのススメ',
      E'## 概要\r\n\r\nFlutterに「こんな機能があったら便利なのに」と思ったことはありませんか？ 不具合がFlutterのバグによるものであることが判明し、「Flutter SDKのバグが直れば解消できるのですが」と共有したことはありませんか？\r\nFlutterはオープンソースプロジェクトであり、誰でも貢献できます。あなたのアイデアや不満は、あなたの貢献のきっかけになるかもしれません。\r\n\r\n本セッションは「なぜFlutterの開発に"あなた"がなぜ関わるべきなのか」をテーマに、Flutterのコントリビューションの魅力と方法についてお話しします。また、話者がFlutterの開発に関わることで得た知識や経験をもとに、コントリビューションの様々な価値を紹介します。\r\n\r\n## 想定視聴者\r\n\r\n* Flutterの将来性に興味がある方\r\n* Flutterにコントリビューションに向けて背中を押してほしい方',
      '2025-11-13 10:45:00+09', '2025-11-13 11:15:00+09', 'e1a11efe-b1eb-43e1-ae60-9d2233e5dfe7', NULL, false, false, false, NULL, 'https://fortee.jp/flutterkaigi-2025/proposal/d4ab93e7-c6f1-4d40-b7c2-11fb2bf36d1f'),
@@ -199,6 +211,12 @@ INSERT INTO sessions (id, title, description, starts_at, ends_at, venue_id, spon
 
 -- Insert session-speaker relationships based on example data
 INSERT INTO session_speakers (session_id, speaker_id) VALUES
+    -- キーノートセッション (Room A)
+    ('c1d2e3f4-a5b6-c7d8-e9f0-1a2b3c4d5e6f', 'a7a0aa4d-bdf4-4852-a83e-4d7fd64a61ea'),
+
+    -- キーノートセッション（サテライト） (Room B)
+    ('b8b1bb5e-cce5-5963-b94f-5e8fe75b72fb', 'a7a0aa4d-bdf4-4852-a83e-4d7fd64a61ea'),
+
     -- session1: koji-1009
     ('39ac68d6-23a9-4a4a-86c5-bb824d4b49ef', '904b46ab-3791-4417-95f9-bda49da7ae64'),
 

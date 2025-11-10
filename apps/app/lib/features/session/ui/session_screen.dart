@@ -2,7 +2,7 @@ import 'package:app/core/designsystem/components/error_screen.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/core/provider/tick_stream_provider.dart';
 import 'package:app/core/util/share_util.dart';
-import 'package:app/features/session/data/model/session_models.dart';
+import 'package:app/features/session/data/model/session.dart';
 import 'package:app/features/session/data/provider/bookmarked_sessions_provider.dart';
 import 'package:app/features/session/data/provider/session_provider.dart';
 import 'package:app/features/session/ui/components/session_speaker_icon.dart';
@@ -37,61 +37,59 @@ class SessionScreen extends ConsumerWidget {
           AsyncData(:final value) => () {
             try {
               final foundSession = value.firstWhere((s) => s.id == sessionId);
-              return AsyncData<ScheduleSession?>(foundSession);
+              return AsyncData<Session?>(foundSession);
             } on Exception {
-              return const AsyncData<ScheduleSession?>(null);
+              return const AsyncData<Session?>(null);
             }
           }(),
-          AsyncLoading() => const AsyncLoading<ScheduleSession?>(),
-          AsyncError(:final error, :final stackTrace) =>
-            AsyncError<ScheduleSession?>(
-              error,
-              stackTrace,
-            ),
+          AsyncLoading() => const AsyncLoading<Session?>(),
+          AsyncError(:final error, :final stackTrace) => AsyncError<Session?>(
+            error,
+            stackTrace,
+          ),
         };
       }),
     );
 
     return switch (session) {
-      AsyncData<ScheduleSession?>(value: final value) when value != null =>
-        Scaffold(
-          body: _SessionDetailView(session: value),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () async {
-              final bookmarkedSessions = await ref.read(
-                bookmarkedSessionsProvider.future,
-              );
-              final isBookmarked = bookmarkedSessions.contains(sessionId);
-              if (isBookmarked) {
-                await ref
-                    .read(bookmarkedSessionsProvider.notifier)
-                    .remove(sessionId);
-              } else {
-                await ref
-                    .read(bookmarkedSessionsProvider.notifier)
-                    .save(sessionId);
-              }
-            },
-            child: switch (ref.watch(bookmarkedSessionsProvider)) {
-              AsyncData(:final value) =>
-                value.contains(sessionId)
-                    ? const Icon(Icons.bookmark)
-                    : const Icon(Icons.bookmark_outline),
-              _ => const Icon(Icons.bookmark_outline),
-            },
-          ),
+      AsyncData<Session?>(value: final value) when value != null => Scaffold(
+        body: _SessionDetailView(session: value),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () async {
+            final bookmarkedSessions = await ref.read(
+              bookmarkedSessionsProvider.future,
+            );
+            final isBookmarked = bookmarkedSessions.contains(sessionId);
+            if (isBookmarked) {
+              await ref
+                  .read(bookmarkedSessionsProvider.notifier)
+                  .remove(sessionId);
+            } else {
+              await ref
+                  .read(bookmarkedSessionsProvider.notifier)
+                  .save(sessionId);
+            }
+          },
+          child: switch (ref.watch(bookmarkedSessionsProvider)) {
+            AsyncData(:final value) =>
+              value.contains(sessionId)
+                  ? const Icon(Icons.bookmark)
+                  : const Icon(Icons.bookmark_outline),
+            _ => const Icon(Icons.bookmark_outline),
+          },
         ),
-      AsyncData<ScheduleSession?>(value: null) => Scaffold(
+      ),
+      AsyncData<Session?>(value: null) => Scaffold(
         body: Center(
           child: Text(Translations.of(context).session.empty.message),
         ),
       ),
-      AsyncLoading<ScheduleSession?>() => const Scaffold(
+      AsyncLoading<Session?>() => const Scaffold(
         body: Center(
           child: CircularProgressIndicator.adaptive(),
         ),
       ),
-      AsyncError<ScheduleSession?>(:final error) => Scaffold(
+      AsyncError<Session?>(:final error) => Scaffold(
         body: ErrorScreen(
           error: error,
           onRetry: () => ref.invalidate(sessionsProvider),
@@ -111,7 +109,7 @@ final _googleCalendarDateFormatter = DateFormat("yyyyMMdd'T'HHmmss'Z'");
 class _SessionDetailView extends ConsumerWidget with SessionScreenMixin {
   _SessionDetailView({required this.session});
 
-  final ScheduleSession session;
+  final Session session;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -236,14 +234,14 @@ class _SessionDetailView extends ConsumerWidget with SessionScreenMixin {
   }
 
   /// カレンダーにセッションを追加する
-  Future<void> _addToCalendar(ScheduleSession session) async {
+  Future<void> _addToCalendar(Session session) async {
     // すべてのプラットフォームでGoogle Calendar URLを使用
     final url = _createGoogleCalendarUrl(session);
     await launchUrl(url, mode: LaunchMode.externalApplication);
   }
 
   /// Google Calendar用のURLを作成
-  Uri _createGoogleCalendarUrl(ScheduleSession session) {
+  Uri _createGoogleCalendarUrl(Session session) {
     return Uri.https(
       'www.google.com',
       'calendar/render',
@@ -262,7 +260,7 @@ class _SessionDetailView extends ConsumerWidget with SessionScreenMixin {
 class _SurveyButton extends ConsumerWidget {
   const _SurveyButton({required this.session});
 
-  final ScheduleSession session;
+  final Session session;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

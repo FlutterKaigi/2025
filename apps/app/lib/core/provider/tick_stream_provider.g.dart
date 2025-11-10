@@ -61,7 +61,7 @@ final class TickStreamProvider
   }
 }
 
-String _$tickStreamHash() => r'78d619115b606c6a734f30408e947dfab8b200ba';
+String _$tickStreamHash() => r'1f9d496179024ddecde0dd4437ceaba693e2a2fa';
 
 final class TickStreamFamily extends $Family
     with

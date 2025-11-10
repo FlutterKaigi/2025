@@ -50,7 +50,7 @@ final class SessionTimelineProvider
   }
 }
 
-String _$sessionTimelineHash() => r'4d60f18b12e1914c209a5549286e3d55ac879007';
+String _$sessionTimelineHash() => r'1ca1f965f5a2fd4a994e24a388c2e3b9746c90d8';
 
 @ProviderFor(sessionTimelineForVenue)
 const sessionTimelineForVenueProvider = SessionTimelineForVenueFamily._();

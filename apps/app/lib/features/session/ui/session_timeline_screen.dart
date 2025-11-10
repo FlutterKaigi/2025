@@ -1,7 +1,7 @@
 import 'package:app/core/designsystem/components/error_screen.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/core/router/router.dart';
-import 'package:app/features/session/data/model/session_models.dart';
+import 'package:app/features/session/data/model/session.dart';
 import 'package:app/features/session/data/model/timeline_item.dart';
 import 'package:app/features/session/data/provider/bookmarked_sessions_provider.dart';
 import 'package:app/features/session/data/provider/session_provider.dart';
@@ -9,6 +9,7 @@ import 'package:app/features/session/data/provider/session_timeline_provider.dar
 import 'package:app/features/session/ui/components/session_speaker_icon.dart';
 import 'package:app/features/session/ui/components/session_type_chip.dart';
 import 'package:app/features/session/ui/components/timeline_item_view.dart';
+import 'package:bff_client/bff_client.dart' hide Session;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -322,8 +323,19 @@ class _SessionCard extends ConsumerWidget {
     this.onTap,
   });
 
-  final ScheduleSession session;
+  final Session session;
   final VoidCallback? onTap;
+
+  /// タイトルからプレフィックス（`[XXX]`形式）を抽出する
+  /// 戻り値: (プレフィックス, プレフィックスを除去したタイトル)
+  (String?, String) _extractPrefix(String title) {
+    final regex = RegExp(r'^\[([^\]]+)\]\s*(.+)$');
+    final match = regex.firstMatch(title);
+    if (match != null) {
+      return (match.group(1), match.group(2) ?? '');
+    }
+    return (null, title);
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -333,6 +345,8 @@ class _SessionCard extends ConsumerWidget {
       AsyncLoading() => false,
       AsyncError() => false,
     };
+
+    final (prefix, titleWithoutPrefix) = _extractPrefix(session.title);
 
     return Card(
       elevation: 0,
@@ -353,7 +367,7 @@ class _SessionCard extends ConsumerWidget {
           vertical: 16,
         ),
         title: Text(
-          session.title,
+          titleWithoutPrefix,
           style: theme.textTheme.titleMedium,
         ),
         subtitle: Column(
@@ -383,7 +397,26 @@ class _SessionCard extends ConsumerWidget {
             ),
             Row(
               children: [
-                SessionTypeChip(session: session),
+                if (prefix != null)
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
+                    decoration: BoxDecoration(
+                      color: theme.colorScheme.primaryFixedDim,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Text(
+                      prefix,
+                      style: theme.textTheme.labelSmall?.copyWith(
+                        color: theme.colorScheme.onPrimaryFixedVariant,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  )
+                else
+                  SessionTypeChip(session: session),
                 const Spacer(),
                 IconButton(
                   padding: EdgeInsets.zero,

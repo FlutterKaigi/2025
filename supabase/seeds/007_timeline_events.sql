@@ -12,11 +12,9 @@ INSERT INTO timeline_events (title, starts_at, ends_at, venue_id, url) VALUES
     -- 挨拶（サテライト） (Room B)
     ('挨拶（サテライト）', '2025-11-13 10:00:00+09', '2025-11-13 10:15:00+09', '0505c447-b699-4803-aab9-9cbdf9452c1b', NULL),
 
-    -- キーノート (Room A) - The Flutter Effect
-    ('The Flutter Effect', '2025-11-13 10:15:00+09', '2025-11-13 10:30:00+09', 'e1a11efe-b1eb-43e1-ae60-9d2233e5dfe7', NULL),
-
-    -- キーノート（サテライト） (Room B) - The Flutter Effect
-    ('The Flutter Effect（サテライト）', '2025-11-13 10:15:00+09', '2025-11-13 10:30:00+09', '0505c447-b699-4803-aab9-9cbdf9452c1b', NULL),
+    -- キーノートはセッションとして管理されるため、timeline_eventsから削除
+    -- ('The Flutter Effect', '2025-11-13 10:15:00+09', '2025-11-13 10:30:00+09', 'e1a11efe-b1eb-43e1-ae60-9d2233e5dfe7', NULL),
+    -- ('The Flutter Effect（サテライト）', '2025-11-13 10:15:00+09', '2025-11-13 10:30:00+09', '0505c447-b699-4803-aab9-9cbdf9452c1b', NULL),
 
     -- ランチ (no venue)
     ('ランチ', '2025-11-13 12:00:00+09', '2025-11-13 13:30:00+09', NULL, NULL),
