@@ -188,12 +188,7 @@ jobs:
           bunx supabase link \
             --project-ref $PROJECT_ID
 
-      - name: Apply Supabase Configurations
-        run: bunx supabase config push
-
       - name: Apply Supabase Database
         env:
           SUPABASE_DB_PASSWORD: ${{ steps.db-parameters.outputs.db_password }}
         run: bunx supabase db push
-
-      # TODO(YumNumm): Supabase db pushのログをSlack通知 or コメントさせる

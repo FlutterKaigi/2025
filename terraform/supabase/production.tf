@@ -40,13 +40,17 @@ resource "supabase_settings" "production" {
   # https://api.supabase.com/api/v1#tag/auth/patch/v1/projects/{ref}/config/auth
   auth = jsonencode({
     external_email_enabled                = false
-    external_anonymous_users_enabled      = true
+    external_anonymous_users_enabled      = false
     external_google_enabled               = true
     external_google_additional_client_ids = null
     external_google_client_id             = var.SUPABASE_GOOGLE_AUTH_CLIENT_ID
     external_google_secret                = var.SUPABASE_GOOGLE_AUTH_CLIENT_SECRET
     external_google_skip_nonce_check      = true
     security_manual_linking_enabled       = true
+    external_apple_enabled                = true
+    external_apple_email_optional         = true
+    external_apple_client_id              = var.SUPABASE_APPLE_AUTH_CLIENT_ID
+    external_apple_secret                 = var.SUPABASE_APPLE_AUTH_CLIENT_SECRET
     uri_allow_list                        = "http://localhost:3000,https://2025-app.flutterkaigi.jp,https://*.2025-app.flutterkaigi.jp,jp.flutterkaigi.conf2025://login-callback"
   })
 }
