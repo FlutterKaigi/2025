@@ -382,6 +382,7 @@ class _EntryLogSection extends StatelessWidget {
                             // ignore: lines_longer_than_80_chars
                             '${dateFormat.format(entryLog.createdAt.toLocal())}',
                           );
+                        },
                       ),
                     ],
                   ],
