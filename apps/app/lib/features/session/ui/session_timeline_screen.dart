@@ -1,6 +1,7 @@
 import 'package:app/core/designsystem/components/error_screen.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/core/router/router.dart';
+import 'package:app/core/util/window_size.dart';
 import 'package:app/features/session/data/model/session.dart';
 import 'package:app/features/session/data/model/timeline_item.dart';
 import 'package:app/features/session/data/provider/bookmarked_sessions_provider.dart';
@@ -237,6 +238,9 @@ class _RoomSwitcher extends HookConsumerWidget {
     );
 
     final screenWidth = MediaQuery.sizeOf(context).width;
+    final windowSize = WindowSize.fromWidth(screenWidth);
+    // ResponsiveScaffoldと同じブレークポイント（600px以下がモバイル）
+    final isCompact = windowSize == WindowSize.compact;
 
     return AnimatedPositioned(
       duration: const Duration(milliseconds: 300),
@@ -246,7 +250,7 @@ class _RoomSwitcher extends HookConsumerWidget {
       right: 0,
       child: Center(
         child: SizedBox(
-          width: screenWidth * 0.9,
+          width: isCompact ? screenWidth * 0.9 : 600,
           child: Material(
             elevation: 2,
             borderRadius: BorderRadius.circular(24),
@@ -271,6 +275,7 @@ class _RoomSwitcher extends HookConsumerWidget {
                     child: _VenueSwitcherButton(
                       isSelected: currentVenueIndex.value == i,
                       venue: venues[i],
+                      isCompact: isCompact,
                     ),
                   ),
                 ),
@@ -287,10 +292,12 @@ class _VenueSwitcherButton extends StatelessWidget {
   const _VenueSwitcherButton({
     required this.isSelected,
     required this.venue,
+    required this.isCompact,
   });
 
   final bool isSelected;
   final VenueWithSessions venue;
+  final bool isCompact;
 
   @override
   Widget build(BuildContext context) {
@@ -310,7 +317,8 @@ class _VenueSwitcherButton extends StatelessWidget {
               ? theme.colorScheme.tertiary
               : theme.colorScheme.onTertiary,
           fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-          fontSize: isSelected ? 14 : 8,
+          // compactモード（モバイル）では選択時のみ大きく、それ以外は全て同じサイズ
+          fontSize: isCompact ? (isSelected ? 14 : 8) : 14,
         ),
       ),
     );
