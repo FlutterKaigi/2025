@@ -15,6 +15,7 @@ class TopEventInfo extends StatelessComponent {
   Iterable<Component> build(BuildContext context) sync* {
     yield div(
       styles: Styles(
+        color: Colors.white,
         display: Display.flex,
         padding: Padding.symmetric(vertical: 4.px),
         alignItems: AlignItems.center,
@@ -27,7 +28,7 @@ class TopEventInfo extends StatelessComponent {
         ),
         p(
           styles: Styles(
-            color: Colors.white,
+            color: Color.inherit,
             fontFamily: lexendFontFamily,
             fontSize: 1.rem,
           ),
