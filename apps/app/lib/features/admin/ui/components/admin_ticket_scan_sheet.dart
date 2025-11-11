@@ -17,19 +17,17 @@ class AdminTicketScanSheet extends ConsumerWidget {
     super.key,
   });
 
-  final TicketItemWithUser ticket;
+  final TicketPurchaseItemWithUser ticket;
 
-  static Future<void> show(
-    BuildContext context,
-    TicketItemWithUser ticket,
-  ) {
-    return showModalBottomSheet<void>(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (context) => AdminTicketScanSheet(ticket: ticket),
-    );
-  }
+  static Future<void> show({
+    required BuildContext context,
+    required TicketPurchaseItemWithUser ticket,
+  }) => showModalBottomSheet<void>(
+    context: context,
+    isScrollControlled: true,
+    backgroundColor: Colors.transparent,
+    builder: (context) => AdminTicketScanSheet(ticket: ticket),
+  );
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -37,19 +35,10 @@ class AdminTicketScanSheet extends ConsumerWidget {
     final textTheme = theme.textTheme;
     final colorScheme = theme.colorScheme;
 
-    TicketPurchaseItemWithUser? purchaseTicket;
-    if (ticket is TicketPurchaseItemWithUser) {
-      purchaseTicket = ticket as TicketPurchaseItemWithUser;
-    }
-
-    final hasEntryLog =
-        purchaseTicket != null && purchaseTicket.purchase.entryLog != null;
-    final canManageEntry =
-        purchaseTicket != null &&
-        purchaseTicket.purchase.status == TicketPurchaseStatus.completed;
+    final hasEntryLog = ticket.purchase.entryLog != null;
 
     return Container(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: colorScheme.surface,
         borderRadius: const BorderRadius.vertical(
@@ -58,6 +47,7 @@ class AdminTicketScanSheet extends ConsumerWidget {
       ),
       child: SafeArea(
         child: Column(
+          spacing: 8,
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -72,7 +62,6 @@ class AdminTicketScanSheet extends ConsumerWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 24),
 
             // ユーザー情報
             Row(
@@ -113,11 +102,56 @@ class AdminTicketScanSheet extends ConsumerWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 24),
 
-            // 入場ステータス
+            // チケットオプション情報
+            if (ticket.options.isNotEmpty)
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: colorScheme.surfaceContainerHighest,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    color: colorScheme.outline.withValues(alpha: 0.3),
+                  ),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'チケットオプション',
+                      style: textTheme.titleSmall?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: colorScheme.primary,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    ...ticket.options.map(
+                      (option) => Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 2),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.check_circle_outline,
+                              size: 16,
+                              color: colorScheme.primary,
+                            ),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: Text(
+                                option.name,
+                                style: textTheme.bodyMedium,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
             Container(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
                 color: hasEntryLog
                     ? Colors.green.withValues(alpha: 0.1)
@@ -142,14 +176,16 @@ class AdminTicketScanSheet extends ConsumerWidget {
                     hasEntryLog ? '入場済み' : '未入場',
                     style: textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.bold,
+                      fontVariations: [
+                        const FontVariation('wght', 700),
+                      ],
                       color: hasEntryLog ? Colors.green : colorScheme.outline,
                     ),
                   ),
-                  if (hasEntryLog) ...[
-                    const SizedBox(height: 8),
+                  if (hasEntryLog)
                     Builder(
                       builder: (context) {
-                        final entryLog = purchaseTicket!.purchase.entryLog!;
+                        final entryLog = ticket.purchase.entryLog!;
                         final dateFormat = DateFormat('yyyy/MM/dd HH:mm:ss');
                         return Text(
                           dateFormat.format(entryLog.createdAt.toLocal()),
@@ -159,39 +195,10 @@ class AdminTicketScanSheet extends ConsumerWidget {
                         );
                       },
                     ),
-                  ],
                 ],
               ),
             ),
-            const SizedBox(height: 24),
-
-            // アクションボタン
-            if (!canManageEntry)
-              Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: colorScheme.surfaceContainerHighest,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.info_outline,
-                      color: colorScheme.onSurfaceVariant,
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Text(
-                        '購入完了済みのチケットのみ入場管理できます',
-                        style: textTheme.bodyMedium?.copyWith(
-                          color: colorScheme.onSurfaceVariant,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            else if (hasEntryLog)
+            if (hasEntryLog)
               _DeleteEntryLogButton(
                 ticket: ticket,
                 onSuccess: () => Navigator.of(context).pop(),
@@ -215,7 +222,7 @@ class _AddEntryLogButton extends ConsumerWidget {
     required this.onSuccess,
   });
 
-  final TicketItemWithUser ticket;
+  final TicketPurchaseItemWithUser ticket;
   final VoidCallback onSuccess;
 
   @override
@@ -228,8 +235,7 @@ class _AddEntryLogButton extends ConsumerWidget {
           ? null
           : () async {
               await HapticFeedback.lightImpact();
-              final ticketId =
-                  (ticket as TicketPurchaseItemWithUser).purchase.id;
+              final ticketId = ticket.purchase.id;
               await ref
                   .read(entryLogManagerProvider.notifier)
                   .putEntryLog(ticketId);
@@ -287,7 +293,7 @@ class _DeleteEntryLogButton extends ConsumerWidget {
     required this.onSuccess,
   });
 
-  final TicketItemWithUser ticket;
+  final TicketPurchaseItemWithUser ticket;
   final VoidCallback onSuccess;
 
   @override
@@ -300,8 +306,30 @@ class _DeleteEntryLogButton extends ConsumerWidget {
           ? null
           : () async {
               await HapticFeedback.lightImpact();
-              final ticketId =
-                  (ticket as TicketPurchaseItemWithUser).purchase.id;
+              final shouldContinue = await showDialog<bool>(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: const Text('入場履歴を削除'),
+                  content: const Text('入場履歴を削除してもよろしいですか？'),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.of(context).pop(false),
+                      child: const Text('キャンセル'),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.of(context).pop(true),
+                      child: const Text(
+                        '削除',
+                        style: TextStyle(color: Colors.red),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+              if (shouldContinue != true || !context.mounted) {
+                return;
+              }
+              final ticketId = ticket.purchase.id;
               await ref
                   .read(entryLogManagerProvider.notifier)
                   .deleteEntryLog(ticketId);
