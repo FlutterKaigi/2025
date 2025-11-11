@@ -24,7 +24,8 @@ INSERT INTO speakers (id, name, avatar_url, x_id) VALUES
     ('715f8cbe-1181-4af6-9f99-a8ce7948ded5', 'みそしる', 'https://fortee.jp/files/flutterkaigi-2025/speaker/7f8f8bee-8f74-4472-9ac7-8cc620207b54.jpg', 'miso_shiru_app'),
     ('3f3223f6-3773-416f-9ddf-10f2733ec13e', 'atsumi3', 'https://fortee.jp/files/flutterkaigi-2025/speaker/37b02ecb-4539-4ab4-b2c2-2df47a66b33c.jpg', 'fox9s'),
     ('f0569ef9-9955-4858-8dad-f2234449523a', 'Take', 'https://fortee.jp/files/flutterkaigi-2025/speaker/a77540eb-4583-49d3-878d-006730b33f46.jpg', 'tkmssh'),
-    ('8a50e879-3b24-49e8-a520-a7d41eed13e0', 'heyhey1028', NULL, 'heyhey1028'),
+    ('8a50e879-3b24-49e8-a520-a7d41eed13e0', 'heyhey1028', 'https://2025-bucket.flutterkaigi.jp/speakers/heyhey1028.png', 'heyhey1028'),
+    ('3E1C5B1B-412F-4AB8-A95C-8FD5A75D0185', 'Yamamoto Kyo', 'https://2025-bucket.flutterkaigi.jp/speakers/yamamoto-kyo.png', NULL),
     ('561260cf-ebda-43d2-a775-f105850d8db8', '酒井佑旗', 'https://fortee.jp/files/flutterkaigi-2025/speaker/1249f0c2-0c7c-4ec7-8808-cd74219c1f7e.jpg', 'yu12k25i'),
     ('e6513c88-f0e3-4ed4-b776-8dd5440dfb55', 'ちゅーやん', 'https://fortee.jp/files/flutterkaigi-2025/speaker/94e167ea-b660-4d55-bce4-22ce184f9e11.jpg', 'chooyan_i18n'),
     ('258c8e4c-80ce-4486-8e0c-10714d1fde1f', '山崎謙登', 'https://fortee.jp/files/flutterkaigi-2025/speaker/b672422f-98c2-493b-b91a-ed8f784cefd8.jpg', 'kent_strong_dev'),
@@ -255,6 +256,7 @@ INSERT INTO session_speakers (session_id, speaker_id) VALUES
 
     -- session13: heyhey1028
     ('c2a5915f-a849-4cb1-8718-99f56140d6d7', '8a50e879-3b24-49e8-a520-a7d41eed13e0'),
+    ('c2a5915f-a849-4cb1-8718-99f56140d6d7', '3E1C5B1B-412F-4AB8-A95C-8FD5A75D0185'),
 
     -- session14: 橋本 茉利奈
     ('c5207df1-3c97-47f1-aa44-5d64586301fd', 'F2289FF5-4DA5-40F0-ACD2-7C24691E0B6F'),

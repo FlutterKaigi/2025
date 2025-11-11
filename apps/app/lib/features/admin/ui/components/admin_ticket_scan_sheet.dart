@@ -305,7 +305,7 @@ class _DeleteEntryLogButton extends ConsumerWidget {
       onPressed: isLoading
           ? null
           : () async {
-              await HapticFeedback.lightImpact();
+              unawaited(HapticFeedback.lightImpact());
               final shouldContinue = await showDialog<bool>(
                 context: context,
                 builder: (context) => AlertDialog(
