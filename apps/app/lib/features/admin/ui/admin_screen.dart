@@ -22,6 +22,10 @@ final class AdminScreen extends ConsumerWidget {
               title: t.account.admin.userList,
               onTap: () => const AdminUserListRoute().go(context),
             ),
+            _AdminSectionListItem(
+              title: 'チケット検索',
+              onTap: () => const AdminTicketListRoute().go(context),
+            ),
           ],
         ),
       ),

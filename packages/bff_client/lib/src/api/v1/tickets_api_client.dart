@@ -45,4 +45,15 @@ abstract class TicketsApiClient {
   Future<EntryLogDeleteResponse> deleteEntryLog(
     @Path('ticketPurchaseId') String ticketPurchaseId,
   );
+
+  /// チケット一覧を取得（管理者のみ）
+  @GET('/tickets/list')
+  Future<HttpResponse<TicketsListResponse>> getTicketList({
+    @Query('limit') required int limit,
+    @Query('offset') int? offset,
+    @Query('userId') String? userId,
+    @Query('ticketTypeId') String? ticketTypeId,
+    @Query('status') String? status,
+    @Query('hasEntryLog') String? hasEntryLog,
+  });
 }

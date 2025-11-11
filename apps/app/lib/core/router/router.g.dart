@@ -152,6 +152,11 @@ RouteBase get $mainRoute => StatefulShellRouteData.$route(
                     ),
                   ],
                 ),
+                GoRouteData.$route(
+                  path: 'tickets',
+                  parentNavigatorKey: AdminTicketListRoute.$parentNavigatorKey,
+                  factory: $AdminTicketListRoute._fromState,
+                ),
               ],
             ),
           ],
@@ -645,6 +650,27 @@ mixin $AdminUserDetailRoute on GoRouteData {
   String get location => GoRouteData.$location(
     '/account/admin/users/${Uri.encodeComponent(_self.userId)}',
   );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $AdminTicketListRoute on GoRouteData {
+  static AdminTicketListRoute _fromState(GoRouterState state) =>
+      const AdminTicketListRoute();
+
+  @override
+  String get location => GoRouteData.$location('/account/admin/tickets');
 
   @override
   void go(BuildContext context) => context.go(location);

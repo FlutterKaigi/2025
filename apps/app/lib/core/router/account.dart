@@ -44,6 +44,9 @@ const _accountRoutes = [
               ),
             ],
           ),
+          TypedGoRoute<AdminTicketListRoute>(
+            path: 'tickets',
+          ),
         ],
       ),
     ],
@@ -337,6 +340,41 @@ class AdminUserDetailRoute extends GoRouteData with $AdminUserDetailRoute {
         }
 
         return AdminUserDetailScreen(userId: userId);
+      },
+    );
+  }
+}
+
+class AdminTicketListRoute extends GoRouteData with $AdminTicketListRoute {
+  const AdminTicketListRoute();
+
+  static final GlobalKey<NavigatorState> $parentNavigatorKey =
+      _rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return Consumer(
+      builder: (context, ref, child) {
+        final userAsync = ref.watch(userProvider);
+        final isAdmin = userAsync.maybeWhen(
+          data: (userAndRoles) => userAndRoles.roles.contains(Role.admin),
+          orElse: () => false,
+        );
+
+        if (!isAdmin) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (context.mounted) {
+              const AccountInfoRoute().go(context);
+            }
+          });
+          return const Scaffold(
+            body: Center(
+              child: CircularProgressIndicator.adaptive(),
+            ),
+          );
+        }
+
+        return const AdminTicketListScreen();
       },
     );
   }

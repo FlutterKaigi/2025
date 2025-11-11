@@ -1,6 +1,7 @@
 import 'package:app/core/designsystem/components/error_screen.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/features/account/data/notifier/profile_notifier.dart';
+import 'package:app/features/account/ui/component/profile_info_section.dart';
 import 'package:app/features/auth/data/notifier/auth_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -52,21 +53,34 @@ class QrCodeDisplayScreen extends HookConsumerWidget {
           ),
         ),
         AsyncData(:final value?) => switch (profileAsync) {
-          AsyncData(:final value) when value == null => const Center(
+          AsyncData(value: null) => const Center(
             child: CircularProgressIndicator.adaptive(),
           ),
-          AsyncData() => Center(
-            child: Container(
+          AsyncData(value: final profileValue?) => SingleChildScrollView(
+            child: Padding(
               padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: QrImageView(
-                data: value.id,
-                size: 280,
-                backgroundColor: Colors.white,
-                errorCorrectionLevel: QrErrorCorrectLevel.H,
+              child: Column(
+                children: [
+                  Center(
+                    child: Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: QrImageView(
+                        data: value.id,
+                        size: 280,
+                        backgroundColor: Colors.white,
+                        errorCorrectionLevel: QrErrorCorrectLevel.H,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  ProfileInfoSection(
+                    profile: profileValue,
+                  ),
+                ],
               ),
             ),
           ),

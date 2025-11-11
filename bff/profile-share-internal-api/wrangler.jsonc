@@ -31,19 +31,6 @@
           "localConnectionString": "postgresql://postgres:postgres@localhost:5432/postgres",
         },
       ],
-      "queues": {
-        "producers": [
-          {
-            "queue": "profile-share-queue-staging",
-            "binding": "PROFILE_SHARE_QUEUE",
-          },
-        ],
-        "consumers": [
-          {
-            "queue": "profile-share-queue-staging",
-          },
-        ],
-      },
       "workflows": [
         {
           "name": "profile-share-workflow-staging",
@@ -74,19 +61,6 @@
           "localConnectionString": "postgresql://postgres:postgres@localhost:5432/postgres",
         },
       ],
-      "queues": {
-        "producers": [
-          {
-            "queue": "profile-share-queue-production",
-            "binding": "PROFILE_SHARE_QUEUE",
-          },
-        ],
-        "consumers": [
-          {
-            "queue": "profile-share-queue-production",
-          },
-        ],
-      },
       "workflows": [
         {
           "name": "profile-share-workflow-production",

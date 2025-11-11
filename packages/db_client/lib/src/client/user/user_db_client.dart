@@ -12,7 +12,7 @@ class UserDbClient {
 SELECT
   to_json(u.*) AS user,
   COALESCE(json_agg(ur.role) FILTER (WHERE ur.role IS NOT NULL), '[]'::json) AS roles,
-  au.raw_user_meta_data AS auth_meta_data
+  COALESCE(au.raw_user_meta_data, '{}'::jsonb) AS auth_meta_data
 FROM
   public.users AS u
   LEFT JOIN public.user_roles AS ur ON u.id = ur.user_id
@@ -47,7 +47,7 @@ LIMIT 1;
 SELECT
   to_json(u.*) AS user,
   COALESCE(json_agg(ur.role) FILTER (WHERE ur.role IS NOT NULL), '[]'::json) AS roles,
-  au.raw_user_meta_data AS auth_meta_data
+  COALESCE(au.raw_user_meta_data, '{}'::jsonb) AS auth_meta_data
 FROM
   public.users AS u
   LEFT JOIN public.user_roles AS ur ON u.id = ur.user_id

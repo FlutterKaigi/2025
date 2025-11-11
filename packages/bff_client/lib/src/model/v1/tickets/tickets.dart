@@ -7,4 +7,5 @@ export 'ticket_purchase_with_details_response.dart';
 export 'ticket_type_with_options_response.dart';
 export 'ticket_types_response.dart';
 export 'ticket_types_with_options_response.dart';
+export 'tickets_list_response.dart';
 export 'user_tickets_response.dart';

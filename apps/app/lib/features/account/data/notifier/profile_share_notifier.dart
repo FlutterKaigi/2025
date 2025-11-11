@@ -1,5 +1,6 @@
 import 'package:app/features/account/data/notifier/profile_notifier.dart';
 import 'package:app/features/account/data/repository/profile_share_repository.dart';
+import 'package:app/features/websocket/data/provider/websocket_provider.dart';
 import 'package:bff_client/bff_client.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -18,6 +19,23 @@ class ProfileShareNotifier extends _$ProfileShareNotifier {
       throw const ProfileNotFoundException();
     }
     final repository = ref.watch(profileShareRepositoryProvider);
+    ref.keepAlive();
+    ref.listen(
+      websocketStreamProvider,
+      (_, next) async {
+        if (next is AsyncError) {
+          ref.invalidateSelf();
+        }
+        final payload = next.value;
+        switch (payload) {
+          case ProfileShareAddWebsocketPayload(:final profileWithSns):
+            final current = await future;
+            state = AsyncData([...current, profileWithSns]);
+          case _:
+            break;
+        }
+      },
+    );
     return repository.getMyProfileShareList();
   }
 

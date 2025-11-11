@@ -115,6 +115,7 @@ export class ProfileShareWorkflow extends WorkflowEntrypoint<Cloudflare.Env> {
               id_adult: anotherUser.user.isAdult,
               created_at: anotherUser.user.createdAt,
               updated_at: anotherUser.user.updatedAt,
+              is_adult: anotherUser.user.isAdult,
               avatar_url: anotherUser.userAvatarUrl ?? undefined,
             },
             sns_links: anotherUser.userSnsLinks.map((snsLink) => ({
@@ -160,6 +161,7 @@ export class ProfileShareWorkflow extends WorkflowEntrypoint<Cloudflare.Env> {
               id_adult: firstUser.user.isAdult,
               created_at: firstUser.user.createdAt,
               updated_at: firstUser.user.updatedAt,
+              is_adult: firstUser.user.isAdult,
               avatar_url: firstUser.userAvatarUrl ?? undefined,
             },
             sns_links: firstUser.userSnsLinks.map((snsLink) => ({

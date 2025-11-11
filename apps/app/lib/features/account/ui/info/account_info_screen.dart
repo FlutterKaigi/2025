@@ -6,10 +6,10 @@ import 'package:app/core/provider/environment.dart';
 import 'package:app/features/account/data/notifier/profile_notifier.dart';
 import 'package:app/features/account/ui/component/account_circle_image.dart';
 import 'package:app/features/account/ui/component/login_prompt_card.dart';
+import 'package:app/features/account/ui/component/profile_info_section.dart';
 import 'package:app/features/auth/data/notifier/auth_notifier.dart';
 import 'package:app/features/user/data/notifier/user_notifier.dart';
 import 'package:auth_client/auth_client.dart';
-import 'package:bff_client/bff_client.dart';
 import 'package:db_types/db_types.dart' as db_types;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -361,7 +361,7 @@ class _UserInfoCard extends ConsumerWidget {
             // プロフィール情報を表示
             if (profileAsync.hasValue && profileAsync.value != null) ...[
               const SizedBox(height: 4),
-              _ProfileInfoSection(
+              ProfileInfoSection(
                 profile: profileAsync.value!,
               ),
             ],
@@ -592,98 +592,5 @@ class _ProfileImage extends ConsumerWidget {
         AsyncError() => const Icon(Icons.error),
       },
     );
-  }
-}
-
-/// プロフィール情報表示セクション
-class _ProfileInfoSection extends StatelessWidget {
-  const _ProfileInfoSection({
-    required this.profile,
-  });
-
-  final ProfileResponse profile;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final textTheme = theme.textTheme;
-
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: theme.colorScheme.outlineVariant,
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        spacing: 8,
-        children: [
-          Row(
-            children: [
-              Icon(
-                Icons.person,
-                size: 16,
-                color: theme.colorScheme.onSurfaceVariant,
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  profile.profile.name,
-                  style: textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-            ],
-          ),
-          if (profile.snsLinks.isNotEmpty) ...[
-            const Divider(height: 1),
-            ...profile.snsLinks.map(
-              (link) => Row(
-                children: [
-                  FaIcon(
-                    _getSnsIcon(link.snsType),
-                    size: 14,
-                    color: theme.colorScheme.onSurfaceVariant,
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      _formatSnsValue(link.snsType, link.value),
-                      style: textTheme.bodySmall,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ],
-      ),
-    );
-  }
-
-  IconData _getSnsIcon(SnsType type) {
-    return switch (type) {
-      SnsType.github => FontAwesomeIcons.github,
-      SnsType.x => FontAwesomeIcons.xTwitter,
-      SnsType.discord => FontAwesomeIcons.discord,
-      SnsType.medium => FontAwesomeIcons.medium,
-      SnsType.qiita => FontAwesomeIcons.link,
-      SnsType.zenn => FontAwesomeIcons.link,
-      SnsType.note => FontAwesomeIcons.link,
-      SnsType.other => FontAwesomeIcons.link,
-    };
-  }
-
-  String _formatSnsValue(SnsType type, String value) {
-    if (value.startsWith('http')) {
-      return value;
-    }
-    return '@$value';
   }
 }
