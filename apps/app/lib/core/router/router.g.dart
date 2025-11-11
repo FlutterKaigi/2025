@@ -164,12 +164,15 @@ RouteBase get $mainRoute => StatefulShellRouteData.$route(
                       factory: $AdminTicketDetailRoute._fromState,
                     ),
                   ],
+<<<<<<< HEAD
                 ),
                 GoRouteData.$route(
                   path: 'ticket-scan',
                   parentNavigatorKey:
                       AdminTicketQrScanRoute.$parentNavigatorKey,
                   factory: $AdminTicketQrScanRoute._fromState,
+=======
+>>>>>>> 7032607ba9e651a2584c160012a90175567f270b
                 ),
               ],
             ),
@@ -725,6 +728,7 @@ mixin $AdminTicketDetailRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
+<<<<<<< HEAD
 mixin $AdminTicketQrScanRoute on GoRouteData {
   static AdminTicketQrScanRoute _fromState(GoRouterState state) =>
       const AdminTicketQrScanRoute();
@@ -746,6 +750,8 @@ mixin $AdminTicketQrScanRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
+=======
+>>>>>>> 7032607ba9e651a2584c160012a90175567f270b
 RouteBase get $debugRoute => GoRouteData.$route(
   path: '/debug',
   factory: $DebugRoute._fromState,

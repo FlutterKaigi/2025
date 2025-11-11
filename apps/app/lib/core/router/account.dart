@@ -425,8 +425,7 @@ class AdminTicketDetailRoute extends GoRouteData with $AdminTicketDetailRoute {
   }
 }
 
-class AdminTicketQrScanRoute extends GoRouteData
-    with $AdminTicketQrScanRoute {
+class AdminTicketQrScanRoute extends GoRouteData with $AdminTicketQrScanRoute {
   const AdminTicketQrScanRoute();
 
   static final GlobalKey<NavigatorState> $parentNavigatorKey =

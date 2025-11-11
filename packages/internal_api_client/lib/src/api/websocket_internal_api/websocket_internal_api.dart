@@ -3,7 +3,7 @@ import 'package:internal_api_client/src/api/websocket_internal_api/websocket_int
 
 class WebsocketInternalApi {
   WebsocketInternalApi({required Dio dio})
-    : _client = WebsocketInternalApiClient(dio);
+      : _client = WebsocketInternalApiClient(dio);
 
   final WebsocketInternalApiClient _client;
 

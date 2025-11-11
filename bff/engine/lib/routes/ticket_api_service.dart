@@ -371,8 +371,35 @@ class TicketApiService {
       );
     }
 
-    return EntryLogPutResponse(success: true, entryLog: entryLog).toJson();
-  });
+      // WebSocket通知を送信
+      try {
+        final ticketPurchase = await database.ticketPurchase.getTicketPurchase(
+          ticketPurchaseId,
+        );
+        if (ticketPurchase != null) {
+          final internalApiClient = container.read(internalApiClientProvider);
+          await internalApiClient.websocketInternalApi.client
+              .sendWebsocketMessage(
+            sub: ticketPurchase.userId,
+            payload: UserWebsocketPayload.entryLog(
+              entryLog: EntryLogWebsocketPayload.add(
+                ticketPurchaseId: dbEntryLog.ticketPurchaseId,
+                createdAt: dbEntryLog.createdAt,
+              ),
+            ),
+          );
+        }
+      } catch (e) {
+        // WebSocket通知の失敗はログに記録するが、APIレスポンスは失敗させない
+        print('Failed to send websocket notification: $e');
+      }
+
+      return EntryLogPutResponse(
+        success: true,
+        entryLog: entryLog,
+      ).toJson();
+    },
+  );
 
   /// 入場履歴を削除（管理者のみ）
   @Route.delete('/<ticketPurchaseId>/entry')
@@ -392,11 +419,45 @@ class TicketApiService {
       );
     }
 
-    final database = await container.read(dbClientProvider.future);
-    await database.entryLog.deleteEntryLog(ticketPurchaseId);
+      final database = await container.read(dbClientProvider.future);
 
-    return const EntryLogDeleteResponse(success: true).toJson();
-  });
+      // WebSocket通知用にユーザーIDを事前に取得
+      String? userId;
+      try {
+        final ticketPurchase = await database.ticketPurchase.getTicketPurchase(
+          ticketPurchaseId,
+        );
+        userId = ticketPurchase?.userId;
+      } catch (e) {
+        print('Failed to get ticket purchase for websocket notification: $e');
+      }
+
+      await database.entryLog.deleteEntryLog(ticketPurchaseId);
+
+      // WebSocket通知を送信
+      if (userId != null) {
+        try {
+          final internalApiClient = container.read(internalApiClientProvider);
+          await internalApiClient.websocketInternalApi.client
+              .sendWebsocketMessage(
+            sub: userId,
+            payload: UserWebsocketPayload.entryLog(
+              entryLog: EntryLogWebsocketPayload.delete(
+                ticketPurchaseId: ticketPurchaseId,
+              ),
+            ),
+          );
+        } catch (e) {
+          // WebSocket通知の失敗はログに記録するが、APIレスポンスは失敗させない
+          print('Failed to send websocket notification: $e');
+        }
+      }
+
+      return const EntryLogDeleteResponse(
+        success: true,
+      ).toJson();
+    },
+  );
 
   /// チケット一覧を取得（管理者のみ）
   @Route.get('/list')
@@ -406,8 +467,51 @@ class TicketApiService {
         final userResult = await supabaseUtil.extractUser(request);
         final (_, _, roles) = userResult.unwrap;
 
-        // 管理者権限チェック
-        if (!roles.contains(db_types.Role.admin)) {
+      // 管理者権限チェック
+      if (!roles.contains(db_types.Role.admin)) {
+        throw ErrorResponse.errorCode(
+          code: ErrorCode.forbidden,
+          detail: 'この操作には管理者権限が必要です',
+        );
+      }
+
+      // クエリパラメータから検索条件を取得
+      final limit =
+          int.tryParse(request.url.queryParameters['limit'] ?? '10') ?? 10;
+      final offset =
+          int.tryParse(request.url.queryParameters['offset'] ?? '0') ?? 0;
+      final userId = request.url.queryParameters['userId'];
+      final ticketTypeId = request.url.queryParameters['ticketTypeId'];
+      final status = request.url.queryParameters['status'];
+      final ticketOptionId = request.url.queryParameters['ticketOptionId'];
+      final hasEntryLogParam = request.url.queryParameters['hasEntryLog'];
+      bool? hasEntryLog;
+      if (hasEntryLogParam != null) {
+        hasEntryLog = hasEntryLogParam.toLowerCase() == 'true';
+      }
+
+      final database = await container.read(dbClientProvider.future);
+      final tickets = await database.ticketCheckout.getTicketList(
+        userId: userId,
+        ticketTypeId: ticketTypeId,
+        status: status,
+        hasEntryLog: hasEntryLog,
+        ticketOptionId: ticketOptionId,
+        limit: limit,
+        offset: offset,
+      );
+
+      final dbTicketTypes = await database.ticketType
+          .getAllTicketTypesWithOptionsAndCounts();
+      final ticketTypes = dbTicketTypes
+          .map((e) => e.toTicketTypeWithOptionsItem())
+          .toList();
+
+      final ticketItems = tickets.map((item) {
+        final matchedTicketType = ticketTypes.firstWhereOrNull(
+          (e) => e.ticketType.id == item.ticketTypeId,
+        );
+        if (matchedTicketType == null) {
           throw ErrorResponse.errorCode(
             code: ErrorCode.forbidden,
             detail: 'この操作には管理者権限が必要です',

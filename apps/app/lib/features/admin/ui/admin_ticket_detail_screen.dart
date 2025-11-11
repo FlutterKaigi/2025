@@ -381,11 +381,7 @@ class _EntryLogSection extends StatelessWidget {
                             '入場日時: '
                             // ignore: lines_longer_than_80_chars
                             '${dateFormat.format(entryLog.createdAt.toLocal())}',
-                            style: textTheme.bodyMedium?.copyWith(
-                              color: colorScheme.onSurfaceVariant,
-                            ),
                           );
-                        },
                       ),
                     ],
                   ],
