@@ -1,4 +1,7 @@
+import 'package:flutterkaigi_2025_website/src/components/external_link.dart';
+import 'package:flutterkaigi_2025_website/src/config/config.dart';
 import 'package:flutterkaigi_2025_website/src/constants/styles.dart';
+import 'package:flutterkaigi_2025_website/text.dart';
 import 'package:jaspr/jaspr.dart';
 import 'package:markdown/markdown.dart';
 
@@ -8,10 +11,18 @@ class Timeline extends StatefulComponent {
     required this.title,
     required this.url,
     required this.description,
+    required this.speakers,
+    required this.speakerAvatarUrls,
+    required this.speakerXIds,
   });
   final String title;
   final String? url;
   final String? description;
+
+  // NOTE: @clientにレコード型渡せなかったので，分解して渡しています
+  final List<String> speakers;
+  final List<String?> speakerAvatarUrls;
+  final List<String?> speakerXIds;
 
   @override
   State<Timeline> createState() => _TimelineState();
@@ -58,6 +69,23 @@ class Timeline extends StatefulComponent {
 
 class _TimelineState extends State<Timeline> {
   bool _isOpen = false;
+  final List<SpeakerEntry> _speakers = [];
+
+  @override
+  void initState() {
+    super.initState();
+    if (_speakers.isEmpty) {
+      for (var i = 0; i < component.speakers.length; i++) {
+        _speakers.add(
+          (
+            name: component.speakers[i],
+            avatarUrl: component.speakerAvatarUrls[i],
+            xId: component.speakerXIds[i],
+          ),
+        );
+      }
+    }
+  }
 
   @override
   Iterable<Component> build(BuildContext context) sync* {
@@ -132,6 +160,47 @@ class _TimelineState extends State<Timeline> {
                   fontWeight: FontWeight.bold,
                 ),
                 [text(component.title)],
+              ),
+              ul(
+                styles: Styles(
+                  width: 100.percent,
+                  display: Display.flex,
+                  gap: Gap.all(0.5.rem),
+                  margin: Margin.symmetric(vertical: 0.5.rem),
+                ),
+                _speakers
+                    .map(
+                      (speaker) => li(
+                        styles: const Styles(
+                          display: Display.flex,
+                          alignItems: AlignItems.center,
+                        ),
+                        [
+                          if (speaker.avatarUrl != null)
+                            img(
+                              styles: Styles(
+                                width: 2.rem,
+                                height: 2.rem,
+                                radius: BorderRadius.circular(1.rem),
+                                margin: Margin.only(right: 0.5.rem),
+                                overflow: Overflow.hidden,
+                                raw: {
+                                  'vertical-align': 'middle',
+                                },
+                              ),
+                              src: speaker.avatarUrl!,
+                              alt: '${speaker.name}のアバター',
+                            ),
+                          if (speaker.xId != null)
+                            ExternalLink(
+                              url: 'https://x.com/${speaker.xId}',
+                              content: speaker.name.toComponent,
+                            ),
+                          if (speaker.xId == null) text(speaker.name),
+                        ],
+                      ),
+                    )
+                    .toList(),
               ),
               section(
                 classes: 'session-info',

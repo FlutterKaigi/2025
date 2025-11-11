@@ -62,4 +62,7 @@ Map<String, dynamic> _prefix3Timeline(prefix3.Timeline c) => {
   'title': c.title,
   'url': c.url,
   'description': c.description,
+  'speakers': c.speakers,
+  'speakerAvatarUrls': c.speakerAvatarUrls,
+  'speakerXIds': c.speakerXIds,
 };
