@@ -277,31 +277,27 @@ class TicketApiService {
     if (ticketPurchaseWithDetails == null) {
       throw ErrorResponse.errorCode(
         code: ErrorCode.notFound,
-        detail: 'チケットが見つかりません',
+        detail: 'チケットが見つかりません: $ticketPurchaseId not found',
       );
     }
 
     // チケットタイプ情報を取得
-    final ticketTypes = await database.ticketType
-        .getActiveTicketTypesWithOptionsAndCounts();
-    final ticketTypeItem = ticketTypes
-        .map((e) => e.toTicketTypeWithOptionsItem())
-        .firstWhereOrNull(
-          (e) => e.ticketType.id == ticketPurchaseWithDetails.ticketTypeId,
-        );
-
-    if (ticketTypeItem == null) {
+    final ticketType = ticketPurchaseWithDetails.ticketType;
+    if (ticketType == null) {
       throw ErrorResponse.errorCode(
         code: ErrorCode.badRequest,
-        detail: 'チケット情報が見つかりません',
+        detail:
+            'チケット情報が見つかりません: '
+            '${ticketPurchaseWithDetails.ticketTypeId} not found',
       );
     }
 
+    // BFF型に変換
+    final ticketTypeWithOptions = ticketType.toTicketType();
+
     // オプション情報を取得
-    final matchedOptions = ticketTypeItem.options
-        .where(
-          (e) => ticketPurchaseWithDetails.options.any((o) => o.id == e.id),
-        )
+    final matchedOptions = ticketPurchaseWithDetails.options
+        .map((e) => e.toTicketOption())
         .toList();
 
     // 入場履歴を取得
@@ -319,7 +315,7 @@ class TicketApiService {
         .copyWith(entryLog: entryLog);
 
     final ticketItem = TicketItemWithUser.purchase(
-      ticketType: ticketTypeItem.ticketType,
+      ticketType: ticketTypeWithOptions,
       purchase: purchase,
       options: matchedOptions,
       user: ticketPurchaseWithDetails.user,

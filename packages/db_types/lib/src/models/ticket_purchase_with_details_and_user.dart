@@ -14,6 +14,7 @@ abstract class TicketPurchaseWithDetailsAndUser
     required List<TicketOptions> options,
     EntryLogs? entryLog,
     required UserAndUserRoles user,
+    TicketTypes? ticketType,
   }) = _TicketPurchaseWithDetailsAndUser;
 
   factory TicketPurchaseWithDetailsAndUser.fromJson(

@@ -45,3 +45,20 @@ extension TicketOptionWithCountExtension on db_types.TicketOptionWithCount {
     );
   }
 }
+
+/// 在庫情報なしでTicketOptionsをTicketOptionに変換する拡張メソッド
+/// 在庫情報がないため、statusは簡易的に計算される
+extension TicketOptionsExtension on db_types.TicketOptions {
+  TicketOption toTicketOption() {
+    // 在庫情報がないため、デフォルトでsellingとする
+    const status = TicketStatus.selling(isFewRemaining: false);
+
+    return TicketOption(
+      id: id,
+      ticketTypeId: ticketTypeId,
+      name: name,
+      description: description,
+      status: status,
+    );
+  }
+}
