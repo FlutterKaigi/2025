@@ -85,7 +85,7 @@ class AdminTicketItem extends StatelessWidget {
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          '¥${ticket.ticketType.price.toString()}',
+                          '¥${ticket.ticketType.price}',
                           style: textTheme.bodyMedium?.copyWith(
                             color: colorScheme.onSurfaceVariant,
                           ),
@@ -125,13 +125,11 @@ class AdminTicketItem extends StatelessWidget {
                 ],
               ),
               if (ticket is TicketPurchaseItemWithUser &&
-                  (ticket as TicketPurchaseItemWithUser)
-                      .purchase
-                      .entryLog !=
+                  (ticket as TicketPurchaseItemWithUser).purchase.entryLog !=
                       null) ...[
                 const SizedBox(height: 8),
-                Chip(
-                  label: const Text('入場済み'),
+                const Chip(
+                  label: Text('入場済み'),
                   visualDensity: VisualDensity.compact,
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 ),
@@ -159,18 +157,18 @@ class _TicketStatusBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     final (label, color) = switch (ticket) {
       TicketPurchaseItemWithUser(:final purchase) => switch (purchase.status) {
-          TicketPurchaseStatus.completed => ('購入済み', Colors.green),
-          TicketPurchaseStatus.refunded => ('返金済み', Colors.red),
-        },
+        TicketPurchaseStatus.completed => ('購入済み', Colors.green),
+        TicketPurchaseStatus.refunded => ('返金済み', Colors.red),
+      },
       TicketCheckoutItemWithUser(:final checkout) => ('決済中', Colors.orange),
     };
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(4),
-        border: Border.all(color: color.withOpacity(0.3)),
+        border: Border.all(color: color.withValues(alpha: 0.3)),
       ),
       child: Text(
         label,

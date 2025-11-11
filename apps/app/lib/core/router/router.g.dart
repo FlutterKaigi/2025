@@ -165,6 +165,12 @@ RouteBase get $mainRoute => StatefulShellRouteData.$route(
                     ),
                   ],
                 ),
+                GoRouteData.$route(
+                  path: 'ticket-scan',
+                  parentNavigatorKey:
+                      AdminTicketQrScanRoute.$parentNavigatorKey,
+                  factory: $AdminTicketQrScanRoute._fromState,
+                ),
               ],
             ),
           ],
@@ -704,6 +710,27 @@ mixin $AdminTicketDetailRoute on GoRouteData {
   String get location => GoRouteData.$location(
     '/account/admin/tickets/${Uri.encodeComponent(_self.ticketId)}',
   );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $AdminTicketQrScanRoute on GoRouteData {
+  static AdminTicketQrScanRoute _fromState(GoRouterState state) =>
+      const AdminTicketQrScanRoute();
+
+  @override
+  String get location => GoRouteData.$location('/account/admin/ticket-scan');
 
   @override
   void go(BuildContext context) => context.go(location);

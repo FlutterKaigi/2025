@@ -17,25 +17,24 @@ part 'ticket_api_service.g.dart';
 class TicketApiService {
   /// チケット種別一覧を取得（オプション情報も含む）
   @Route.get('/types')
-  Future<Response> _getTicketTypes(Request request) async => jsonResponse(
-    () async {
-      final database = await container.read(dbClientProvider.future);
+  Future<Response> _getTicketTypes(Request request) async =>
+      jsonResponse(() async {
+        final database = await container.read(dbClientProvider.future);
 
-      // 販売中のチケットタイプとオプションを一括取得
-      final ticketTypesWithOptions = await database.ticketType
-          .getActiveTicketTypesWithOptionsAndCounts();
+        // 販売中のチケットタイプとオプションを一括取得
+        final ticketTypesWithOptions = await database.ticketType
+            .getActiveTicketTypesWithOptionsAndCounts();
 
-      return TicketTypesWithOptionsResponse(
-        ticketTypes: ticketTypesWithOptions
-            .map((item) => item.toTicketTypeWithOptionsItem())
-            .where(
-              (item) =>
-                  item.ticketType.status != const TicketStatus.notSelling(),
-            )
-            .toList(),
-      ).toJson();
-    },
-  );
+        return TicketTypesWithOptionsResponse(
+          ticketTypes: ticketTypesWithOptions
+              .map((item) => item.toTicketTypeWithOptionsItem())
+              .where(
+                (item) =>
+                    item.ticketType.status != const TicketStatus.notSelling(),
+              )
+              .toList(),
+        ).toJson();
+      });
 
   /// チケットチェックアウト（Stripe決済開始）
   @Route.post('/checkout')
@@ -59,9 +58,7 @@ class TicketApiService {
           .map((e) => e.toTicketTypeWithOptionsItem())
           .toList();
       final targetTicketTypeAndOptions = ticketTypesWithOptions
-          .firstWhereOrNull(
-            (e) => e.ticketType.id == requestData.ticketTypeId,
-          );
+          .firstWhereOrNull((e) => e.ticketType.id == requestData.ticketTypeId);
       if (targetTicketTypeAndOptions == null) {
         throw ErrorResponse.errorCode(
           code: ErrorCode.badRequest,
@@ -69,9 +66,7 @@ class TicketApiService {
         );
       }
       final targetOptions = targetTicketTypeAndOptions.options
-          .where(
-            (e) => requestData.optionIds.any((o) => o == e.id),
-          )
+          .where((e) => requestData.optionIds.any((o) => o == e.id))
           .toList();
       if (targetOptions.length != requestData.optionIds.length) {
         throw ErrorResponse.errorCode(
@@ -106,10 +101,7 @@ class TicketApiService {
 
       // 3. 既存の購入チェック（同じユーザー・同じチケットタイプ）
       final existingPurchases = await database.ticketPurchase
-          .getUserTicketPurchase(
-            user.id,
-            targetTicketType.id,
-          );
+          .getUserTicketPurchase(user.id, targetTicketType.id);
       final purchases = existingPurchases
           .map((e) => e.toTicketPurchase())
           .toList();
@@ -130,9 +122,7 @@ class TicketApiService {
 
       // 対象ユーザに進行中のCheckoutがないことを確認
       final checkout = await database.ticketCheckout
-          .getUserAllTicketsWithDetails(
-            userId: user.id,
-          );
+          .getUserAllTicketsWithDetails(userId: user.id);
       final hasPendingCheckout = checkout.any((e) {
         final status = e.checkoutSession?.status;
         if (status == db_types.TicketCheckoutStatus.pending) {
@@ -175,9 +165,7 @@ class TicketApiService {
 
       // チケットチェックアウトセッションを取得
       final tickets = await database.ticketCheckout
-          .getUserAllTicketsWithDetails(
-            userId: user.id,
-          );
+          .getUserAllTicketsWithDetails(userId: user.id);
       final ticketCheckoutSession = tickets.firstWhere(
         (ticket) =>
             ticket.checkoutSession != null &&
@@ -191,83 +179,154 @@ class TicketApiService {
 
   /// TicketCheckoutのキャンセル
   @Route.put('/checkout/<checkoutId>/cancel')
-  Future<Response> _cancelCheckout(Request request, String checkoutId) async =>
-      jsonResponse(
-        () async {
-          final supabaseUtil = container.read(supabaseUtilProvider);
-          final userResult = await supabaseUtil.extractUser(request);
-          final (_, user, roles) = userResult.unwrap;
+  Future<Response> _cancelCheckout(
+    Request request,
+    String checkoutId,
+  ) async => jsonResponse(() async {
+    final supabaseUtil = container.read(supabaseUtilProvider);
+    final userResult = await supabaseUtil.extractUser(request);
+    final (_, user, roles) = userResult.unwrap;
 
-          final database = await container.read(dbClientProvider.future);
-          final checkout = await database.ticketCheckout.getTicketCheckout(
-            checkoutId,
-          );
-          if (checkout == null) {
-            throw ErrorResponse.errorCode(
-              code: ErrorCode.routeNotFound,
-              detail: 'チケットチェックアウトが見つかりません',
-            );
-          }
-
-          // ticketCheckout.userId == user.id || user.role == Role.admin
-          if (checkout.userId != user.id &&
-              !roles.contains(db_types.Role.admin)) {
-            throw ErrorResponse.errorCode(
-              code: ErrorCode.forbidden,
-              detail: 'user is not allowed to cancel this checkout',
-            );
-          }
-
-          final canceledCheckout = await database.ticketCheckout
-              .cancelTicketCheckout(checkoutId);
-
-          await container
-              .read(internalApiClientProvider)
-              .stripeInternalApi
-              .internalPaymentApi
-              .expireCheckoutSession(
-                checkoutSessionId: canceledCheckout.stripeCheckoutSessionId,
-              );
-          return TicketCheckoutSessionResponse(
-            session: canceledCheckout,
-          ).toJson();
-        },
+    final database = await container.read(dbClientProvider.future);
+    final checkout = await database.ticketCheckout.getTicketCheckout(
+      checkoutId,
+    );
+    if (checkout == null) {
+      throw ErrorResponse.errorCode(
+        code: ErrorCode.routeNotFound,
+        detail: 'チケットチェックアウトが見つかりません',
       );
+    }
+
+    // ticketCheckout.userId == user.id || user.role == Role.admin
+    if (checkout.userId != user.id && !roles.contains(db_types.Role.admin)) {
+      throw ErrorResponse.errorCode(
+        code: ErrorCode.forbidden,
+        detail: 'user is not allowed to cancel this checkout',
+      );
+    }
+
+    final canceledCheckout = await database.ticketCheckout.cancelTicketCheckout(
+      checkoutId,
+    );
+
+    await container
+        .read(internalApiClientProvider)
+        .stripeInternalApi
+        .internalPaymentApi
+        .expireCheckoutSession(
+          checkoutSessionId: canceledCheckout.stripeCheckoutSessionId,
+        );
+    return TicketCheckoutSessionResponse(session: canceledCheckout).toJson();
+  });
 
   /// 自分のチケット一覧を取得
   @Route.get('/me')
-  Future<Response> _getMyTickets(Request request) async => jsonResponse(
-    () async {
-      final supabaseUtil = container.read(supabaseUtilProvider);
-      final userResult = await supabaseUtil.extractUser(request);
-      final (_, user, _) = userResult.unwrap;
+  Future<Response> _getMyTickets(Request request) async =>
+      jsonResponse(() async {
+        final supabaseUtil = container.read(supabaseUtilProvider);
+        final userResult = await supabaseUtil.extractUser(request);
+        final (_, user, _) = userResult.unwrap;
 
-      final response = await _getUserTicketsResponse(user.id);
-      return response.toJson();
-    },
-  );
+        final response = await _getUserTicketsResponse(user.id);
+        return response.toJson();
+      });
 
   /// ユーザのチケット一覧を取得する
   @Route.get('/users/<userId>')
   Future<Response> _getUserTickets(Request request, String userId) async =>
-      jsonResponse(
-        () async {
-          final supabaseUtil = container.read(supabaseUtilProvider);
-          final userResult = await supabaseUtil.extractUser(request);
-          final (_, user, roles) = userResult.unwrap;
+      jsonResponse(() async {
+        final supabaseUtil = container.read(supabaseUtilProvider);
+        final userResult = await supabaseUtil.extractUser(request);
+        final (_, user, roles) = userResult.unwrap;
 
-          // 管理者権限 もしくは ユーザー自身
-          if (!roles.contains(db_types.Role.admin) && userId != user.id) {
-            throw ErrorResponse.errorCode(
-              code: ErrorCode.forbidden,
-              detail: '管理者権限がありません',
-            );
-          }
+        // 管理者権限 もしくは ユーザー自身
+        if (!roles.contains(db_types.Role.admin) && userId != user.id) {
+          throw ErrorResponse.errorCode(
+            code: ErrorCode.forbidden,
+            detail: '管理者権限がありません',
+          );
+        }
 
-          final response = await _getUserTicketsResponse(userId);
-          return response.toJson();
-        },
+        final response = await _getUserTicketsResponse(userId);
+        return response.toJson();
+      });
+
+  /// チケット購入IDから単一のチケット情報を取得（管理者のみ）
+  @Route.get('/purchase/<ticketPurchaseId>')
+  Future<Response> _getTicketByPurchaseId(
+    Request request,
+    String ticketPurchaseId,
+  ) async => jsonResponse(() async {
+    final supabaseUtil = container.read(supabaseUtilProvider);
+    final userResult = await supabaseUtil.extractUser(request);
+    final (_, _, roles) = userResult.unwrap;
+
+    // 管理者権限チェック
+    if (!roles.contains(db_types.Role.admin)) {
+      throw ErrorResponse.errorCode(
+        code: ErrorCode.forbidden,
+        detail: 'この操作には管理者権限が必要です',
       );
+    }
+
+    final database = await container.read(dbClientProvider.future);
+    final ticketPurchaseWithDetails = await database.ticketPurchase
+        .getTicketPurchaseWithDetailsByPurchaseId(ticketPurchaseId);
+
+    if (ticketPurchaseWithDetails == null) {
+      throw ErrorResponse.errorCode(
+        code: ErrorCode.notFound,
+        detail: 'チケットが見つかりません',
+      );
+    }
+
+    // チケットタイプ情報を取得
+    final ticketTypes = await database.ticketType
+        .getActiveTicketTypesWithOptionsAndCounts();
+    final ticketTypeItem = ticketTypes
+        .map((e) => e.toTicketTypeWithOptionsItem())
+        .firstWhereOrNull(
+          (e) => e.ticketType.id == ticketPurchaseWithDetails.ticketTypeId,
+        );
+
+    if (ticketTypeItem == null) {
+      throw ErrorResponse.errorCode(
+        code: ErrorCode.badRequest,
+        detail: 'チケット情報が見つかりません',
+      );
+    }
+
+    // オプション情報を取得
+    final matchedOptions = ticketTypeItem.options
+        .where(
+          (e) => ticketPurchaseWithDetails.options.any((o) => o.id == e.id),
+        )
+        .toList();
+
+    // 入場履歴を取得
+    final entryLog = ticketPurchaseWithDetails.entryLog != null
+        ? EntryLog(
+            ticketPurchaseId:
+                ticketPurchaseWithDetails.entryLog!.ticketPurchaseId,
+            createdAt: ticketPurchaseWithDetails.entryLog!.createdAt,
+          )
+        : null;
+
+    // TicketPurchaseを構築
+    final purchase = ticketPurchaseWithDetails.purchase!
+        .toTicketPurchase()
+        .copyWith(entryLog: entryLog);
+
+    final ticketItem = TicketItemWithUser.purchase(
+      ticketType: ticketTypeItem.ticketType,
+      purchase: purchase,
+      options: matchedOptions,
+      user: ticketPurchaseWithDetails.user,
+    );
+
+    return ticketItem.toJson();
+  });
 
   /// 入場履歴を追加/更新（管理者のみ）
   @Route.put('/<ticketPurchaseId>/entry')
@@ -299,26 +358,21 @@ class TicketApiService {
       );
 
       // WebSocket通知を送信
-      try {
-        final ticketPurchase = await database.ticketPurchase.getTicketPurchase(
-          ticketPurchaseId,
-        );
-        if (ticketPurchase != null) {
-          final internalApiClient = container.read(internalApiClientProvider);
-          await internalApiClient.websocketInternalApi.client
-              .sendWebsocketMessage(
-            sub: ticketPurchase.userId,
-            payload: UserWebsocketPayload.entryLog(
-              entryLog: EntryLogWebsocketPayload.add(
-                ticketPurchaseId: dbEntryLog.ticketPurchaseId,
-                createdAt: dbEntryLog.createdAt,
+      final ticketPurchase = await database.ticketPurchase.getTicketPurchase(
+        ticketPurchaseId,
+      );
+      if (ticketPurchase != null) {
+        final internalApiClient = container.read(internalApiClientProvider);
+        await internalApiClient.websocketInternalApi.client
+            .sendWebsocketMessage(
+              sub: ticketPurchase.userId,
+              payload: UserWebsocketPayload.entryLog(
+                entryLog: EntryLogWebsocketPayload.add(
+                  ticketPurchaseId: dbEntryLog.ticketPurchaseId,
+                  createdAt: dbEntryLog.createdAt,
+                ),
               ),
-            ),
-          );
-        }
-      } catch (e) {
-        // WebSocket通知の失敗はログに記録するが、APIレスポンスは失敗させない
-        print('Failed to send websocket notification: $e');
+            );
       }
 
       return EntryLogPutResponse(
@@ -351,137 +405,29 @@ class TicketApiService {
 
       // WebSocket通知用にユーザーIDを事前に取得
       String? userId;
-      try {
-        final ticketPurchase = await database.ticketPurchase.getTicketPurchase(
-          ticketPurchaseId,
-        );
-        userId = ticketPurchase?.userId;
-      } catch (e) {
-        print('Failed to get ticket purchase for websocket notification: $e');
-      }
+      final ticketPurchase = await database.ticketPurchase.getTicketPurchase(
+        ticketPurchaseId,
+      );
+      userId = ticketPurchase?.userId;
 
       await database.entryLog.deleteEntryLog(ticketPurchaseId);
 
       // WebSocket通知を送信
       if (userId != null) {
-        try {
-          final internalApiClient = container.read(internalApiClientProvider);
-          await internalApiClient.websocketInternalApi.client
-              .sendWebsocketMessage(
-            sub: userId,
-            payload: UserWebsocketPayload.entryLog(
-              entryLog: EntryLogWebsocketPayload.delete(
-                ticketPurchaseId: ticketPurchaseId,
+        final internalApiClient = container.read(internalApiClientProvider);
+        await internalApiClient.websocketInternalApi.client
+            .sendWebsocketMessage(
+              sub: userId,
+              payload: UserWebsocketPayload.entryLog(
+                entryLog: EntryLogWebsocketPayload.delete(
+                  ticketPurchaseId: ticketPurchaseId,
+                ),
               ),
-            ),
-          );
-        } catch (e) {
-          // WebSocket通知の失敗はログに記録するが、APIレスポンスは失敗させない
-          print('Failed to send websocket notification: $e');
-        }
+            );
       }
 
       return const EntryLogDeleteResponse(
         success: true,
-      ).toJson();
-    },
-  );
-
-  /// チケット一覧を取得（管理者のみ）
-  @Route.get('/list')
-  Future<Response> _getTicketList(Request request) async => jsonResponse(
-    () async {
-      final supabaseUtil = container.read(supabaseUtilProvider);
-      final userResult = await supabaseUtil.extractUser(request);
-      final (_, _, roles) = userResult.unwrap;
-
-      // 管理者権限チェック
-      if (!roles.contains(db_types.Role.admin)) {
-        throw ErrorResponse.errorCode(
-          code: ErrorCode.forbidden,
-          detail: 'この操作には管理者権限が必要です',
-        );
-      }
-
-      // クエリパラメータから検索条件を取得
-      final limit =
-          int.tryParse(request.url.queryParameters['limit'] ?? '10') ?? 10;
-      final offset =
-          int.tryParse(request.url.queryParameters['offset'] ?? '0') ?? 0;
-      final userId = request.url.queryParameters['userId'];
-      final ticketTypeId = request.url.queryParameters['ticketTypeId'];
-      final status = request.url.queryParameters['status'];
-      final ticketOptionId = request.url.queryParameters['ticketOptionId'];
-      final hasEntryLogParam = request.url.queryParameters['hasEntryLog'];
-      bool? hasEntryLog;
-      if (hasEntryLogParam != null) {
-        hasEntryLog = hasEntryLogParam.toLowerCase() == 'true';
-      }
-
-      final database = await container.read(dbClientProvider.future);
-      final tickets = await database.ticketCheckout.getTicketList(
-        userId: userId,
-        ticketTypeId: ticketTypeId,
-        status: status,
-        hasEntryLog: hasEntryLog,
-        ticketOptionId: ticketOptionId,
-        limit: limit,
-        offset: offset,
-      );
-
-      final dbTicketTypes = await database.ticketType
-          .getAllTicketTypesWithOptionsAndCounts();
-      final ticketTypes = dbTicketTypes
-          .map((e) => e.toTicketTypeWithOptionsItem())
-          .toList();
-
-      final ticketItems = tickets.map((item) {
-        final matchedTicketType = ticketTypes.firstWhereOrNull(
-          (e) => e.ticketType.id == item.ticketTypeId,
-        );
-        if (matchedTicketType == null) {
-          throw ErrorResponse.errorCode(
-            code: ErrorCode.badRequest,
-            detail: 'チケット情報が見つかりません',
-          );
-        }
-        final matchedOption = matchedTicketType.options
-            .where((e) => item.options.any((o) => o.id == e.id))
-            .toList();
-
-        final purchase = item.purchase?.toTicketPurchase();
-        final checkout = item.checkoutSession?.toTicketCheckout();
-        final entryLog = item.entryLog != null
-            ? EntryLog(
-                ticketPurchaseId: item.entryLog!.ticketPurchaseId,
-                createdAt: item.entryLog!.createdAt,
-              )
-            : null;
-
-        if (purchase != null) {
-          return TicketItemWithUser.purchase(
-            ticketType: matchedTicketType.ticketType,
-            purchase: purchase.copyWith(entryLog: entryLog),
-            options: matchedOption,
-            user: item.user,
-          );
-        } else if (checkout != null) {
-          return TicketItemWithUser.checkout(
-            ticketType: matchedTicketType.ticketType,
-            checkout: checkout,
-            options: matchedOption,
-            user: item.user,
-          );
-        } else {
-          throw ErrorResponse.errorCode(
-            code: ErrorCode.badRequest,
-            detail: 'チケット情報が見つかりません',
-          );
-        }
-      }).toList();
-
-      return TicketsListResponse(
-        tickets: ticketItems,
       ).toJson();
     },
   );
@@ -492,9 +438,7 @@ class TicketApiService {
 Future<UserTicketsResponse> _getUserTicketsResponse(String userId) async {
   final database = await container.read(dbClientProvider.future);
   final (response, dbTicketTypes) = await (
-    database.ticketCheckout.getUserAllTicketsWithDetails(
-      userId: userId,
-    ),
+    database.ticketCheckout.getUserAllTicketsWithDetails(userId: userId),
     database.ticketType.getAllTicketTypesWithOptionsAndCounts(),
   ).wait;
   final ticketTypes = dbTicketTypes
@@ -543,7 +487,5 @@ Future<UserTicketsResponse> _getUserTicketsResponse(String userId) async {
     }
   }).toList();
 
-  return UserTicketsResponse(
-    tickets: tickets,
-  );
+  return UserTicketsResponse(tickets: tickets);
 }

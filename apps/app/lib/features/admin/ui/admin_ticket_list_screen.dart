@@ -18,9 +18,9 @@ final class AdminTicketListScreen extends HookConsumerWidget {
     final searchParams = useState(const AdminTicketListSearchParams());
     final userIdController = useTextEditingController();
     final selectedTicketTypeId = useState<String?>(null);
+    final selectedTicketOptionId = useState<String?>(null);
     final selectedStatus = useState<String?>(null);
     final selectedHasEntryLog = useState<bool?>(null);
-    final selectedTicketOptionId = useState<String?>(null);
     final scrollController = PrimaryScrollController.of(context);
 
     useEffect(
@@ -216,16 +216,17 @@ final class AdminTicketListScreen extends HookConsumerWidget {
                                 padding: const EdgeInsets.only(right: 4),
                                 child: FilterChip(
                                   label: Text(option.name),
-                                  selected: selectedTicketOptionId.value ==
-                                      option.id,
+                                  selected:
+                                      selectedTicketOptionId.value == option.id,
                                   onSelected: (selected) {
                                     selectedTicketOptionId.value = selected
                                         ? option.id
                                         : null;
                                     searchParams.value = searchParams.value
                                         .copyWith(
-                                          ticketOptionId:
-                                              selected ? option.id : null,
+                                          ticketOptionId: selected
+                                              ? option.id
+                                              : null,
                                         );
                                   },
                                 ),
@@ -402,8 +403,8 @@ final class AdminTicketListScreen extends HookConsumerWidget {
                               final ticket = value.tickets[index];
                               return AdminTicketItem(
                                 ticket: ticket,
-                                onTap: () {
-                                  final ticketId = switch (ticket) {
+                                onTap: () => AdminTicketDetailRoute(
+                                  ticketId: switch (ticket) {
                                     TicketPurchaseItemWithUser(
                                       :final purchase,
                                     ) =>
@@ -412,11 +413,8 @@ final class AdminTicketListScreen extends HookConsumerWidget {
                                       :final checkout,
                                     ) =>
                                       checkout.id,
-                                  };
-                                  AdminTicketDetailRoute(
-                                    ticketId: ticketId,
-                                  ).push<void>(context);
-                                },
+                                  },
+                                ).push<void>(context),
                               );
                             },
                           ),

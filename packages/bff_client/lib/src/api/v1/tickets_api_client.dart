@@ -34,6 +34,12 @@ abstract class TicketsApiClient {
     @Path('userId') String userId,
   );
 
+  /// チケット購入IDから単一のチケット情報を取得（管理者のみ）
+  @GET('/tickets/purchase/{ticketPurchaseId}')
+  Future<TicketItemWithUser> getTicketByPurchaseId(
+    @Path('ticketPurchaseId') String ticketPurchaseId,
+  );
+
   /// 入場履歴を追加/更新（管理者のみ）
   @PUT('/tickets/{ticketPurchaseId}/entry')
   Future<EntryLogPutResponse> putEntryLog(

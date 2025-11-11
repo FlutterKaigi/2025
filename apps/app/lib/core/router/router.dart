@@ -17,6 +17,7 @@ import 'package:app/features/account/ui/withdrawal_screen.dart';
 import 'package:app/features/admin/ui/admin_screen.dart';
 import 'package:app/features/admin/ui/admin_ticket_detail_screen.dart';
 import 'package:app/features/admin/ui/admin_ticket_list_screen.dart';
+import 'package:app/features/admin/ui/admin_ticket_qr_scan_screen.dart';
 import 'package:app/features/admin/ui/admin_user_detail_screen.dart';
 import 'package:app/features/admin/ui/admin_user_list_screen.dart';
 import 'package:app/features/auth/data/notifier/auth_notifier.dart';
