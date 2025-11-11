@@ -432,6 +432,106 @@ class TicketApiService {
     },
   );
 
+  /// チケット一覧を取得（管理者のみ）
+  @Route.get('/list')
+  Future<Response> _getTicketList(Request request) async => jsonResponse(
+    () async {
+      final supabaseUtil = container.read(supabaseUtilProvider);
+      final userResult = await supabaseUtil.extractUser(request);
+      final (_, _, roles) = userResult.unwrap;
+
+      // 管理者権限チェック
+      if (!roles.contains(db_types.Role.admin)) {
+        throw ErrorResponse.errorCode(
+          code: ErrorCode.forbidden,
+          detail: 'この操作には管理者権限が必要です',
+        );
+      }
+
+      final database = await container.read(dbClientProvider.future);
+
+      // クエリパラメータを取得
+      final limit =
+          int.tryParse(request.url.queryParameters['limit'] ?? '100') ?? 100;
+      final offset =
+          int.tryParse(request.url.queryParameters['offset'] ?? '0') ?? 0;
+      final userId = request.url.queryParameters['userId'];
+      final ticketTypeId = request.url.queryParameters['ticketTypeId'];
+      final status = request.url.queryParameters['status'];
+      final hasEntryLogStr = request.url.queryParameters['hasEntryLog'];
+      final hasEntryLog = hasEntryLogStr != null
+          ? hasEntryLogStr == 'true'
+          : null;
+      final ticketOptionId = request.url.queryParameters['ticketOptionId'];
+
+      // データベースからチケット一覧を取得
+      final ticketListWithDetails = await database.ticketCheckout.getTicketList(
+        limit: limit,
+        offset: offset,
+        userId: userId,
+        ticketTypeId: ticketTypeId,
+        status: status,
+        hasEntryLog: hasEntryLog,
+        ticketOptionId: ticketOptionId,
+      );
+
+      // チケットタイプ情報を取得
+      final ticketTypes = await database.ticketType
+          .getAllTicketTypesWithOptionsAndCounts();
+      final ticketTypesWithOptions = ticketTypes
+          .map((e) => e.toTicketTypeWithOptionsItem())
+          .toList();
+
+      // レスポンスを構築
+      final tickets = ticketListWithDetails.map((item) {
+        final matchedTicketType = ticketTypesWithOptions.firstWhereOrNull(
+          (e) => e.ticketType.id == item.ticketTypeId,
+        );
+        if (matchedTicketType == null) {
+          throw ErrorResponse.errorCode(
+            code: ErrorCode.badRequest,
+            detail: 'チケット情報が見つかりません',
+          );
+        }
+        final matchedOptions = matchedTicketType.options
+            .where((e) => item.options.any((o) => o.id == e.id))
+            .toList();
+
+        final purchase = item.purchase?.toTicketPurchase();
+        final checkout = item.checkoutSession?.toTicketCheckout();
+        final entryLog = item.entryLog != null
+            ? EntryLog(
+                ticketPurchaseId: item.entryLog!.ticketPurchaseId,
+                createdAt: item.entryLog!.createdAt,
+              )
+            : null;
+
+        if (purchase != null) {
+          return TicketItemWithUser.purchase(
+            ticketType: matchedTicketType.ticketType,
+            purchase: purchase.copyWith(entryLog: entryLog),
+            options: matchedOptions,
+            user: item.user,
+          );
+        } else if (checkout != null) {
+          return TicketItemWithUser.checkout(
+            ticketType: matchedTicketType.ticketType,
+            checkout: checkout,
+            options: matchedOptions,
+            user: item.user,
+          );
+        } else {
+          throw ErrorResponse.errorCode(
+            code: ErrorCode.badRequest,
+            detail: 'チケット情報が見つかりません',
+          );
+        }
+      }).toList();
+
+      return TicketsListResponse(tickets: tickets).toJson();
+    },
+  );
+
   Router get router => _$TicketApiServiceRouter(this);
 }
 
