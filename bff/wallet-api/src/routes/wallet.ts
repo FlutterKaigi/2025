@@ -48,14 +48,8 @@ app.get("/pass.pkpass", vValidator("query", PassQuerySchema), async (c) => {
     );
   }
 
-  const user = await db.query.usersInAuth.findFirst({
-    where: eq(databaseSchema.usersInAuth.id, ticketPurchasesResponse.userId),
-  });
-  if (user === undefined) {
-    return c.json({ code: "NOT_FOUND", message: "User Not found" }, 404);
-  }
   const profile = await db.query.profiles.findFirst({
-    where: eq(databaseSchema.profiles.id, user.id),
+    where: eq(databaseSchema.profiles.id, ticketPurchasesResponse.userId),
   });
 
   const pass = new PKPass(
@@ -140,7 +134,7 @@ app.get("/pass.pkpass", vValidator("query", PassQuerySchema), async (c) => {
       },
       {
         key: "section",
-        value: ticketPurchasesResponse.nameplateId ?? "Z-00",
+        value: ticketPurchasesResponse.nameplateId ?? "N/A",
         label: "ネームプレート 区画ID",
       },
     ]
@@ -150,12 +144,12 @@ app.get("/pass.pkpass", vValidator("query", PassQuerySchema), async (c) => {
       {
         key: "section-id",
         label: "ネームプレート 区画ID",
-        value: ticketPurchasesResponse.nameplateId ?? "Z-00",
+        value: ticketPurchasesResponse.nameplateId ?? "N/A",
       },
       {
         key: "user-id",
         label: "ユーザID",
-        value: user.id,
+        value: ticketPurchasesResponse.userId,
       },
       {
         key: "ticket-id",
