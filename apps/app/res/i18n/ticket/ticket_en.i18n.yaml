@@ -1,6 +1,8 @@
 status:
   purchased: Purchased
   pending: Pending Payment
+  refunded: Refunded
+  entered: Entered
 options: "Options:"
 purchaseDate: Purchase Date
 expiryDate: Expiration Date

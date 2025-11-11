@@ -1,6 +1,8 @@
 status:
   purchased: 購入済み
   pending: 決済待ち
+  refunded: 返金済み
+  entered: 入場済み
 options: "オプション:"
 purchaseDate: 購入日時
 expiryDate: 期限

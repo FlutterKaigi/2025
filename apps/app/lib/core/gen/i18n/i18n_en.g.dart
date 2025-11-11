@@ -516,6 +516,8 @@ class _TranslationsTicketStatusEn extends TranslationsTicketStatusJa {
 	// Translations
 	@override String get purchased => 'Purchased';
 	@override String get pending => 'Pending Payment';
+	@override String get refunded => 'Refunded';
+	@override String get entered => 'Entered';
 }
 
 // Path: ticket.loginRequired
@@ -981,6 +983,8 @@ extension on TranslationsEn {
 			case 'sponsor.name': return 'Sponsor Name';
 			case 'ticket.status.purchased': return 'Purchased';
 			case 'ticket.status.pending': return 'Pending Payment';
+			case 'ticket.status.refunded': return 'Refunded';
+			case 'ticket.status.entered': return 'Entered';
 			case 'ticket.options': return 'Options:';
 			case 'ticket.purchaseDate': return 'Purchase Date';
 			case 'ticket.expiryDate': return 'Expiration Date';
