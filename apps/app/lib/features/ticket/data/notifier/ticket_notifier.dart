@@ -44,8 +44,9 @@ class TicketNotifier extends _$TicketNotifier {
   Future<void> _updateTicketStatus(TicketStatusPayload ticketStatus) async {
     final current = await future;
     final updatedTickets = current.map((ticket) {
-      if (ticket case TicketPurchaseItem(:final purchase)
-          when purchase.id == ticketStatus.id) {
+      if (ticket case TicketPurchaseItem(
+        :final purchase,
+      ) when purchase.id == ticketStatus.id) {
         return TicketPurchaseItem(
           ticketType: ticket.ticketType,
           purchase: purchase.copyWith(
@@ -68,7 +69,10 @@ class TicketNotifier extends _$TicketNotifier {
     final updatedTickets = current.map((ticket) {
       if (ticket case TicketPurchaseItem(:final purchase)) {
         switch (entryLog) {
-          case EntryLogAddWebsocketPayload(:final ticketPurchaseId, :final createdAt)
+          case EntryLogAddWebsocketPayload(
+                :final ticketPurchaseId,
+                :final createdAt,
+              )
               when purchase.id == ticketPurchaseId:
             return TicketPurchaseItem(
               ticketType: ticket.ticketType,
