@@ -28,21 +28,6 @@ final class AdminTicketDetailScreen extends HookConsumerWidget {
     final textTheme = theme.textTheme;
     final colorScheme = theme.colorScheme;
 
-    // エラーが発生した場合はダイアログを表示して前の画面に戻る
-    ref.listen(adminTicketDetailProvider(ticketId), (previous, next) {
-      next.whenOrNull(
-        error: (error, stackTrace) {
-          // エラーダイアログを表示
-          ErrorDialog.show(context, error).then((_) {
-            // ダイアログを閉じたら前の画面に戻る
-            if (context.mounted) {
-              Navigator.of(context).pop();
-            }
-          });
-        },
-      );
-    });
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('チケット詳細'),
@@ -73,8 +58,8 @@ final class AdminTicketDetailScreen extends HookConsumerWidget {
         loading: () => const Center(
           child: CircularProgressIndicator.adaptive(),
         ),
-        error: (error, _) => const Center(
-          child: CircularProgressIndicator.adaptive(),
+        error: (error, _) => Center(
+          child: Text('エラーが発生しました: $error'),
         ),
       ),
     );
@@ -762,12 +747,8 @@ class _RefundButton extends HookConsumerWidget {
                   }
                 } on Exception catch (e) {
                   if (context.mounted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('返金処理に失敗しました: $e'),
-                        backgroundColor: Colors.red,
-                      ),
-                    );
+                    // エラーダイアログを表示
+                    await ErrorDialog.show(context, e);
                   }
                 } finally {
                   isLoading.value = false;
