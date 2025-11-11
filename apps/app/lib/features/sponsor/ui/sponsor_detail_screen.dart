@@ -37,7 +37,9 @@ class SponsorDetailScreen extends ConsumerWidget {
           return switch (s) {
             AsyncLoading() => _ScreenState.loading(),
             AsyncData(:final value) => () {
-              final sponsor = value.firstWhereOrNull((s) => s.slug == slug);
+              final sponsor = value
+                  .whereType<CompanySponsor>()
+                  .firstWhereOrNull((s) => s.slug == slug);
               return sponsor == null
                   ? _ScreenState.notFound()
                   : _ScreenState.success(sponsor: sponsor);
@@ -63,7 +65,7 @@ sealed class _ScreenState {
   const _ScreenState();
 
   factory _ScreenState.loading() => const _Loading();
-  factory _ScreenState.success({required Sponsor sponsor}) =>
+  factory _ScreenState.success({required CompanySponsor sponsor}) =>
       _Success(sponsor: sponsor);
   factory _ScreenState.notFound() => const _NotFound();
   factory _ScreenState.failure({required Object error}) =>
@@ -77,7 +79,7 @@ final class _Loading extends _ScreenState {
 final class _Success extends _ScreenState {
   const _Success({required this.sponsor});
 
-  final Sponsor sponsor;
+  final CompanySponsor sponsor;
 }
 
 final class _NotFound extends _ScreenState {
@@ -105,7 +107,7 @@ extension _BasicPlanName on Sponsor {
 class _SponsorDetail extends HookConsumerWidget {
   const _SponsorDetail({required this.sponsor});
 
-  final Sponsor sponsor;
+  final CompanySponsor sponsor;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -264,66 +266,6 @@ class _SponsorDetail extends HookConsumerWidget {
             ),
           ),
         ],
-      ],
-      final IndividualSponsor individual => [
-        // ティアチップ
-        Chip(
-          label: Text(sponsor.basicPlanName),
-          side: BorderSide(color: colorScheme.outline),
-          backgroundColor: colorScheme.surfaceContainerLow,
-          labelStyle: textTheme.labelMedium?.copyWith(
-            color: colorScheme.onSurface,
-          ),
-        ),
-        const SizedBox(height: 16),
-
-        // 意気込み
-        if (individual.enthusiasm != null) ...[
-          Text(
-            t.sponsor.enthusiasm,
-            style: titleStyle,
-          ),
-          const SizedBox(height: 8),
-          Text(
-            individual.enthusiasm!,
-            style: bodyTextStyle,
-          ),
-          const SizedBox(height: 8),
-        ],
-
-        // Xアカウント
-        const SizedBox(height: 8),
-        Text(
-          t.sponsor.xAccount,
-          style: titleStyle,
-        ),
-        const SizedBox(height: 8),
-        if (individual.xAccount == null)
-          Text(
-            t.sponsor.xAccountNotSet,
-            style: bodyTextStyle?.copyWith(
-              color: colorScheme.onSurfaceVariant,
-            ),
-          )
-        else
-          Text.rich(
-            TextSpan(
-              text: '@${individual.xAccount}',
-              style: bodyTextStyle?.copyWith(
-                color: colorScheme.primary,
-              ),
-              recognizer: TapGestureRecognizer()
-                ..onTap = () async {
-                  final xUrl = 'https://x.com/${individual.xAccount}';
-                  unawaited(
-                    launchUrl(
-                      Uri.parse(xUrl),
-                      mode: LaunchMode.externalApplication,
-                    ),
-                  );
-                },
-            ),
-          ),
       ],
     };
 

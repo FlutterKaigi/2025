@@ -19,8 +19,6 @@ _IndividualDrafts _$IndividualDraftsFromJson(Map<String, dynamic> json) =>
             'individual_id',
             (v) => (v as num).toInt(),
           ),
-          name: $checkedConvert('name', (v) => v as String),
-          slug: $checkedConvert('slug', (v) => v as String),
           logoName: $checkedConvert('logo_name', (v) => v as String?),
           createdAt: $checkedConvert(
             'created_at',
@@ -46,8 +44,6 @@ Map<String, dynamic> _$IndividualDraftsToJson(
 ) => <String, dynamic>{
   'id': instance.id,
   'individual_id': instance.individualId,
-  'name': instance.name,
-  'slug': instance.slug,
   'logo_name': instance.logoName,
   'created_at': const RequiredDateTimeConverter().toJson(instance.createdAt),
   'updated_at': const RequiredDateTimeConverter().toJson(instance.updatedAt),

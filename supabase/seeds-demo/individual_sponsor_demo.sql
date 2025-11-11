@@ -73,10 +73,9 @@ WITH
                 WHERE
                     user_id = '123e4567-e89b-12d3-a456-426614174000'::uuid
             )
-            AND slug = 'blendthink'
     )
 INSERT INTO
-    public.individual_drafts (individual_id, name, slug, logo_name, enthusiasm, x_account, created_at, updated_at)
+    public.individual_drafts (individual_id, logo_name, created_at, updated_at)
 SELECT
     (
         SELECT
@@ -86,10 +85,6 @@ SELECT
         WHERE
             user_id = '123e4567-e89b-12d3-a456-426614174000'::uuid
     ),
-    'blendthink',
-    'blendthink',
-    'blendthink',
-    '開発頑張る',
     'blendthink',
     '2025-06-01 00:00:00'::timestamp,
     '2025-06-01 00:00:00'::timestamp
@@ -117,7 +112,14 @@ WITH
         FROM
             public.individual_drafts
         WHERE
-            slug = 'blendthink'
+            individual_id = (
+                SELECT
+                    id
+                FROM
+                    public.individuals
+                WHERE
+                    user_id = '123e4567-e89b-12d3-a456-426614174000'::uuid
+            )
             AND NOT EXISTS (
                 SELECT
                     1

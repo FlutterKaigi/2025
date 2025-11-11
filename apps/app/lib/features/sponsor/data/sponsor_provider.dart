@@ -148,11 +148,7 @@ IndividualSponsor _convertIndividualSponsor(
 ) {
   return IndividualSponsor(
     id: individualSponsor.id.toString(),
-    name: individualSponsor.name,
-    slug: individualSponsor.slug,
     logoUrl: Uri.parse(individualSponsor.logoUrl),
-    enthusiasm: individualSponsor.enthusiasm,
-    xAccount: individualSponsor.xAccount,
   );
 }
 

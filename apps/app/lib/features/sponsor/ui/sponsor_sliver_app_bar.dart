@@ -11,7 +11,7 @@ class SponsorSliverAppBar extends StatelessWidget {
     super.key,
   });
 
-  final Sponsor sponsor;
+  final CompanySponsor sponsor;
   final VoidCallback onBackPressed;
 
   @override
@@ -40,7 +40,7 @@ class SponsorSliverAppBar extends StatelessWidget {
 class _SponsorFlexibleSpace extends HookWidget {
   const _SponsorFlexibleSpace({required this.sponsor});
 
-  final Sponsor sponsor;
+  final CompanySponsor sponsor;
 
   @override
   Widget build(BuildContext context) {
@@ -161,7 +161,7 @@ class _SponsorFlexibleSpaceBackground extends StatelessWidget {
 class _SponsorFlexibleSpaceCover extends HookWidget {
   const _SponsorFlexibleSpaceCover({required this.sponsor});
 
-  final Sponsor sponsor;
+  final CompanySponsor sponsor;
 
   @override
   Widget build(BuildContext context) {

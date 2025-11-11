@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$IndividualDrafts {
 
- int get id; int get individualId; String get name; String get slug; String? get logoName;@RequiredDateTimeConverter() DateTime get createdAt;@RequiredDateTimeConverter() DateTime get updatedAt;
+ int get id; int get individualId; String? get logoName;@RequiredDateTimeConverter() DateTime get createdAt;@RequiredDateTimeConverter() DateTime get updatedAt;
 /// Create a copy of IndividualDrafts
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $IndividualDraftsCopyWith<IndividualDrafts> get copyWith => _$IndividualDraftsCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is IndividualDrafts&&(identical(other.id, id) || other.id == id)&&(identical(other.individualId, individualId) || other.individualId == individualId)&&(identical(other.name, name) || other.name == name)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.logoName, logoName) || other.logoName == logoName)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is IndividualDrafts&&(identical(other.id, id) || other.id == id)&&(identical(other.individualId, individualId) || other.individualId == individualId)&&(identical(other.logoName, logoName) || other.logoName == logoName)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,individualId,name,slug,logoName,createdAt,updatedAt);
+int get hashCode => Object.hash(runtimeType,id,individualId,logoName,createdAt,updatedAt);
 
 @override
 String toString() {
-  return 'IndividualDrafts(id: $id, individualId: $individualId, name: $name, slug: $slug, logoName: $logoName, createdAt: $createdAt, updatedAt: $updatedAt)';
+  return 'IndividualDrafts(id: $id, individualId: $individualId, logoName: $logoName, createdAt: $createdAt, updatedAt: $updatedAt)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $IndividualDraftsCopyWith<$Res>  {
   factory $IndividualDraftsCopyWith(IndividualDrafts value, $Res Function(IndividualDrafts) _then) = _$IndividualDraftsCopyWithImpl;
 @useResult
 $Res call({
- int id, int individualId, String name, String slug, String? logoName,@RequiredDateTimeConverter() DateTime createdAt,@RequiredDateTimeConverter() DateTime updatedAt
+ int id, int individualId, String? logoName,@RequiredDateTimeConverter() DateTime createdAt,@RequiredDateTimeConverter() DateTime updatedAt
 });
 
 
@@ -65,13 +65,11 @@ class _$IndividualDraftsCopyWithImpl<$Res>
 
 /// Create a copy of IndividualDrafts
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? individualId = null,Object? name = null,Object? slug = null,Object? logoName = freezed,Object? createdAt = null,Object? updatedAt = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? individualId = null,Object? logoName = freezed,Object? createdAt = null,Object? updatedAt = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,individualId: null == individualId ? _self.individualId : individualId // ignore: cast_nullable_to_non_nullable
-as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,slug: null == slug ? _self.slug : slug // ignore: cast_nullable_to_non_nullable
-as String,logoName: freezed == logoName ? _self.logoName : logoName // ignore: cast_nullable_to_non_nullable
+as int,logoName: freezed == logoName ? _self.logoName : logoName // ignore: cast_nullable_to_non_nullable
 as String?,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,
@@ -159,10 +157,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  int individualId,  String name,  String slug,  String? logoName, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  int individualId,  String? logoName, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _IndividualDrafts() when $default != null:
-return $default(_that.id,_that.individualId,_that.name,_that.slug,_that.logoName,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.id,_that.individualId,_that.logoName,_that.createdAt,_that.updatedAt);case _:
   return orElse();
 
 }
@@ -180,10 +178,10 @@ return $default(_that.id,_that.individualId,_that.name,_that.slug,_that.logoName
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  int individualId,  String name,  String slug,  String? logoName, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  int individualId,  String? logoName, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)  $default,) {final _that = this;
 switch (_that) {
 case _IndividualDrafts():
-return $default(_that.id,_that.individualId,_that.name,_that.slug,_that.logoName,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.id,_that.individualId,_that.logoName,_that.createdAt,_that.updatedAt);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -200,10 +198,10 @@ return $default(_that.id,_that.individualId,_that.name,_that.slug,_that.logoName
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  int individualId,  String name,  String slug,  String? logoName, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  int individualId,  String? logoName, @RequiredDateTimeConverter()  DateTime createdAt, @RequiredDateTimeConverter()  DateTime updatedAt)?  $default,) {final _that = this;
 switch (_that) {
 case _IndividualDrafts() when $default != null:
-return $default(_that.id,_that.individualId,_that.name,_that.slug,_that.logoName,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.id,_that.individualId,_that.logoName,_that.createdAt,_that.updatedAt);case _:
   return null;
 
 }
@@ -215,13 +213,11 @@ return $default(_that.id,_that.individualId,_that.name,_that.slug,_that.logoName
 @JsonSerializable()
 
 class _IndividualDrafts implements IndividualDrafts {
-  const _IndividualDrafts({required this.id, required this.individualId, required this.name, required this.slug, required this.logoName, @RequiredDateTimeConverter() required this.createdAt, @RequiredDateTimeConverter() required this.updatedAt});
+  const _IndividualDrafts({required this.id, required this.individualId, required this.logoName, @RequiredDateTimeConverter() required this.createdAt, @RequiredDateTimeConverter() required this.updatedAt});
   factory _IndividualDrafts.fromJson(Map<String, dynamic> json) => _$IndividualDraftsFromJson(json);
 
 @override final  int id;
 @override final  int individualId;
-@override final  String name;
-@override final  String slug;
 @override final  String? logoName;
 @override@RequiredDateTimeConverter() final  DateTime createdAt;
 @override@RequiredDateTimeConverter() final  DateTime updatedAt;
@@ -239,16 +235,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _IndividualDrafts&&(identical(other.id, id) || other.id == id)&&(identical(other.individualId, individualId) || other.individualId == individualId)&&(identical(other.name, name) || other.name == name)&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.logoName, logoName) || other.logoName == logoName)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _IndividualDrafts&&(identical(other.id, id) || other.id == id)&&(identical(other.individualId, individualId) || other.individualId == individualId)&&(identical(other.logoName, logoName) || other.logoName == logoName)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,individualId,name,slug,logoName,createdAt,updatedAt);
+int get hashCode => Object.hash(runtimeType,id,individualId,logoName,createdAt,updatedAt);
 
 @override
 String toString() {
-  return 'IndividualDrafts(id: $id, individualId: $individualId, name: $name, slug: $slug, logoName: $logoName, createdAt: $createdAt, updatedAt: $updatedAt)';
+  return 'IndividualDrafts(id: $id, individualId: $individualId, logoName: $logoName, createdAt: $createdAt, updatedAt: $updatedAt)';
 }
 
 
@@ -259,7 +255,7 @@ abstract mixin class _$IndividualDraftsCopyWith<$Res> implements $IndividualDraf
   factory _$IndividualDraftsCopyWith(_IndividualDrafts value, $Res Function(_IndividualDrafts) _then) = __$IndividualDraftsCopyWithImpl;
 @override @useResult
 $Res call({
- int id, int individualId, String name, String slug, String? logoName,@RequiredDateTimeConverter() DateTime createdAt,@RequiredDateTimeConverter() DateTime updatedAt
+ int id, int individualId, String? logoName,@RequiredDateTimeConverter() DateTime createdAt,@RequiredDateTimeConverter() DateTime updatedAt
 });
 
 
@@ -276,13 +272,11 @@ class __$IndividualDraftsCopyWithImpl<$Res>
 
 /// Create a copy of IndividualDrafts
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? individualId = null,Object? name = null,Object? slug = null,Object? logoName = freezed,Object? createdAt = null,Object? updatedAt = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? individualId = null,Object? logoName = freezed,Object? createdAt = null,Object? updatedAt = null,}) {
   return _then(_IndividualDrafts(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,individualId: null == individualId ? _self.individualId : individualId // ignore: cast_nullable_to_non_nullable
-as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,slug: null == slug ? _self.slug : slug // ignore: cast_nullable_to_non_nullable
-as String,logoName: freezed == logoName ? _self.logoName : logoName // ignore: cast_nullable_to_non_nullable
+as int,logoName: freezed == logoName ? _self.logoName : logoName // ignore: cast_nullable_to_non_nullable
 as String?,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,

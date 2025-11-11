@@ -4,14 +4,10 @@ import 'package:flutter/foundation.dart';
 sealed class Sponsor {
   const Sponsor({
     required this.id,
-    required this.name,
-    required this.slug,
     required this.logoUrl,
   });
 
   final String id;
-  final String name;
-  final String slug;
   final Uri logoUrl;
 
   @override
@@ -19,30 +15,28 @@ sealed class Sponsor {
     if (identical(this, other)) {
       return true;
     }
-    return other is Sponsor &&
-        id == other.id &&
-        name == other.name &&
-        slug == other.slug &&
-        logoUrl == other.logoUrl;
+    return other is Sponsor && id == other.id && logoUrl == other.logoUrl;
   }
 
   @override
-  int get hashCode => Object.hash(id, name, slug, logoUrl);
+  int get hashCode => Object.hash(id, logoUrl);
 }
 
 @immutable
 sealed class CompanySponsor extends Sponsor {
   const CompanySponsor({
     required super.id,
-    required super.name,
-    required super.slug,
     required super.logoUrl,
+    required this.name,
+    required this.slug,
     required this.prText,
     required this.websiteUrl,
     this.xAccount,
     this.scholarship = false,
   });
 
+  final String name;
+  final String slug;
   final String prText;
   final Uri websiteUrl;
   final String? xAccount;
@@ -491,15 +485,8 @@ final class OtherSponsor extends CompanySponsor {
 final class IndividualSponsor extends Sponsor {
   const IndividualSponsor({
     required super.id,
-    required super.name,
-    required super.slug,
     required super.logoUrl,
-    this.enthusiasm,
-    this.xAccount,
   });
-
-  final String? enthusiasm;
-  final String? xAccount;
 
   @override
   bool operator ==(Object other) {
@@ -508,20 +495,12 @@ final class IndividualSponsor extends Sponsor {
     }
     return other is IndividualSponsor &&
         id == other.id &&
-        name == other.name &&
-        slug == other.slug &&
-        logoUrl == other.logoUrl &&
-        enthusiasm == other.enthusiasm &&
-        xAccount == other.xAccount;
+        logoUrl == other.logoUrl;
   }
 
   @override
   int get hashCode => Object.hash(
     id,
-    name,
-    slug,
     logoUrl,
-    enthusiasm,
-    xAccount,
   );
 }

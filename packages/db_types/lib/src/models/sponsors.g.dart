@@ -96,33 +96,17 @@ const _$OptionPlanTypeEnumMap = {
 
 _IndividualSponsorDetail _$IndividualSponsorDetailFromJson(
   Map<String, dynamic> json,
-) => $checkedCreate(
-  '_IndividualSponsorDetail',
-  json,
-  ($checkedConvert) {
-    final val = _IndividualSponsorDetail(
-      id: $checkedConvert('id', (v) => (v as num).toInt()),
-      name: $checkedConvert('name', (v) => v as String),
-      slug: $checkedConvert('slug', (v) => v as String),
-      logoUrl: $checkedConvert('logo_url', (v) => v as String),
-      enthusiasm: $checkedConvert('enthusiasm', (v) => v as String?),
-      xAccount: $checkedConvert('x_account', (v) => v as String?),
-    );
-    return val;
-  },
-  fieldKeyMap: const {'logoUrl': 'logo_url', 'xAccount': 'x_account'},
-);
+) => $checkedCreate('_IndividualSponsorDetail', json, ($checkedConvert) {
+  final val = _IndividualSponsorDetail(
+    id: $checkedConvert('id', (v) => (v as num).toInt()),
+    logoUrl: $checkedConvert('logo_url', (v) => v as String),
+  );
+  return val;
+}, fieldKeyMap: const {'logoUrl': 'logo_url'});
 
 Map<String, dynamic> _$IndividualSponsorDetailToJson(
   _IndividualSponsorDetail instance,
-) => <String, dynamic>{
-  'id': instance.id,
-  'name': instance.name,
-  'slug': instance.slug,
-  'logo_url': instance.logoUrl,
-  'enthusiasm': instance.enthusiasm,
-  'x_account': instance.xAccount,
-};
+) => <String, dynamic>{'id': instance.id, 'logo_url': instance.logoUrl};
 
 _SponsorSummary _$SponsorSummaryFromJson(Map<String, dynamic> json) =>
     $checkedCreate(

@@ -77,18 +77,13 @@ class SponsorDbClient {
       '''
         SELECT
           i.id,
-          COALESCE(id.name, au.raw_user_meta_data->>'name') as name,
-          id.slug,
-          id.logo_name,
-          id.enthusiasm,
-          id.x_account
+          id.logo_name
         FROM individuals i
         INNER JOIN sponsor_individuals si ON i.id = si.individual_id
         INNER JOIN auth.users au ON i.user_id = au.id
         LEFT JOIN individual_drafts id ON i.id = id.individual_id
         LEFT JOIN individual_draft_approvals ida ON id.id = ida.individual_draft_id
         WHERE ida.id IS NOT NULL
-          AND id.slug IS NOT NULL
           AND id.logo_name IS NOT NULL
         ORDER BY id.created_at DESC
       ''',

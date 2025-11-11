@@ -9,8 +9,6 @@ abstract class IndividualDrafts with _$IndividualDrafts {
   const factory IndividualDrafts({
     required int id,
     required int individualId,
-    required String name,
-    required String slug,
     required String? logoName,
     @RequiredDateTimeConverter() required DateTime createdAt,
     @RequiredDateTimeConverter() required DateTime updatedAt,

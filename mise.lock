@@ -15,6 +15,10 @@ url = "https://awscli.amazonaws.com/AWSCLIV2-2.31.32.pkg"
 version = "1.3.2"
 backend = "core:bun"
 
+[tools.bun.platforms.macos-arm64]
+checksum = "blake3:973aa23e358881b982235a05e659ca4ba81dc734ce1cd2cd06dbe9122ea7a58c"
+size = 22511628
+
 [[tools.dprint]]
 version = "0.50.2"
 backend = "aqua:dprint/dprint"
