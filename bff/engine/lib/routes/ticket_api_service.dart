@@ -269,6 +269,82 @@ class TicketApiService {
         },
       );
 
+  /// チケット購入IDから単一のチケット情報を取得（管理者のみ）
+  @Route.get('/purchase/<ticketPurchaseId>')
+  Future<Response> _getTicketByPurchaseId(
+    Request request,
+    String ticketPurchaseId,
+  ) async => jsonResponse(
+    () async {
+      final supabaseUtil = container.read(supabaseUtilProvider);
+      final userResult = await supabaseUtil.extractUser(request);
+      final (_, _, roles) = userResult.unwrap;
+
+      // 管理者権限チェック
+      if (!roles.contains(db_types.Role.admin)) {
+        throw ErrorResponse.errorCode(
+          code: ErrorCode.forbidden,
+          detail: 'この操作には管理者権限が必要です',
+        );
+      }
+
+      final database = await container.read(dbClientProvider.future);
+      final ticketPurchaseWithDetails = await database.ticketPurchase
+          .getTicketPurchaseWithDetailsByPurchaseId(ticketPurchaseId);
+
+      if (ticketPurchaseWithDetails == null) {
+        throw ErrorResponse.errorCode(
+          code: ErrorCode.notFound,
+          detail: 'チケットが見つかりません',
+        );
+      }
+
+      // チケットタイプ情報を取得
+      final ticketTypes = await database.ticketType
+          .getActiveTicketTypesWithOptionsAndCounts();
+      final ticketTypeItem = ticketTypes
+          .map((e) => e.toTicketTypeWithOptionsItem())
+          .firstWhereOrNull(
+            (e) => e.ticketType.id == ticketPurchaseWithDetails.ticketTypeId,
+          );
+
+      if (ticketTypeItem == null) {
+        throw ErrorResponse.errorCode(
+          code: ErrorCode.badRequest,
+          detail: 'チケット情報が見つかりません',
+        );
+      }
+
+      // オプション情報を取得
+      final matchedOptions = ticketTypeItem.options
+          .where(
+            (e) => ticketPurchaseWithDetails.options.any((o) => o.id == e.id),
+          )
+          .toList();
+
+      // 入場履歴を取得
+      final entryLog = ticketPurchaseWithDetails.entryLog != null
+          ? EntryLog(
+              ticketPurchaseId: ticketPurchaseWithDetails.entryLog!.ticketPurchaseId,
+              createdAt: ticketPurchaseWithDetails.entryLog!.createdAt,
+            )
+          : null;
+
+      // TicketPurchaseを構築
+      final purchase = ticketPurchaseWithDetails.purchase.toTicketPurchase()
+          .copyWith(entryLog: entryLog);
+
+      final ticketItem = TicketItemWithUser.purchase(
+        ticketType: ticketTypeItem.ticketType,
+        purchase: purchase,
+        options: matchedOptions,
+        user: ticketPurchaseWithDetails.user,
+      );
+
+      return ticketItem.toJson();
+    },
+  );
+
   /// 入場履歴を追加/更新（管理者のみ）
   @Route.put('/<ticketPurchaseId>/entry')
   Future<Response> _putEntryLog(
@@ -297,6 +373,29 @@ class TicketApiService {
         ticketPurchaseId: dbEntryLog.ticketPurchaseId,
         createdAt: dbEntryLog.createdAt,
       );
+
+      // WebSocket通知を送信
+      try {
+        final ticketPurchase = await database.ticketPurchase.getTicketPurchase(
+          ticketPurchaseId,
+        );
+        if (ticketPurchase != null) {
+          final internalApiClient = container.read(internalApiClientProvider);
+          await internalApiClient.websocketInternalApi.client
+              .sendWebsocketMessage(
+            sub: ticketPurchase.userId,
+            payload: UserWebsocketPayload.entryLog(
+              entryLog: EntryLogWebsocketPayload.add(
+                ticketPurchaseId: dbEntryLog.ticketPurchaseId,
+                createdAt: dbEntryLog.createdAt,
+              ),
+            ),
+          );
+        }
+      } catch (e) {
+        // WebSocket通知の失敗はログに記録するが、APIレスポンスは失敗させない
+        print('Failed to send websocket notification: $e');
+      }
 
       return EntryLogPutResponse(
         success: true,
