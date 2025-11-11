@@ -9,11 +9,13 @@ class AdminUserItem extends StatelessWidget {
   const AdminUserItem({
     required this.user,
     required this.onTap,
+    this.onRoleEdit,
     super.key,
   });
 
   final UserAndUserRoles user;
   final VoidCallback onTap;
+  final VoidCallback? onRoleEdit;
 
   @override
   Widget build(BuildContext context) {
@@ -111,24 +113,44 @@ class AdminUserItem extends StatelessWidget {
                         ),
                       ),
                     ),
-                    if (user.roles.isNotEmpty) ...[
-                      const SizedBox(height: 8),
-                      Wrap(
-                        spacing: 4,
-                        runSpacing: 4,
-                        children: user.roles.map((role) {
-                          return Chip(
-                            label: Text(
-                              role.name,
-                              style: textTheme.labelSmall,
-                            ),
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: user.roles.isNotEmpty
+                              ? Wrap(
+                                  spacing: 4,
+                                  runSpacing: 4,
+                                  children: user.roles.map((role) {
+                                    return Chip(
+                                      label: Text(
+                                        role.name,
+                                        style: textTheme.labelSmall,
+                                      ),
+                                      visualDensity: VisualDensity.compact,
+                                      materialTapTargetSize:
+                                          MaterialTapTargetSize.shrinkWrap,
+                                    );
+                                  }).toList(),
+                                )
+                              : Text(
+                                  'ロールなし',
+                                  style: textTheme.bodySmall?.copyWith(
+                                    color: colorScheme.onSurfaceVariant,
+                                  ),
+                                ),
+                        ),
+                        if (onRoleEdit != null) ...[
+                          const SizedBox(width: 8),
+                          IconButton(
+                            icon: const Icon(Icons.edit),
+                            onPressed: onRoleEdit,
                             visualDensity: VisualDensity.compact,
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                          );
-                        }).toList(),
-                      ),
-                    ],
+                            tooltip: 'ロールを編集',
+                          ),
+                        ],
+                      ],
+                    ),
                     const SizedBox(height: 8),
                     Row(
                       children: [
