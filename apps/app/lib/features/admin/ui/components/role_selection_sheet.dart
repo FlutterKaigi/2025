@@ -50,7 +50,7 @@ class RoleSelectionSheet extends HookWidget {
                   subtitle: Text(_getRoleDescription(role)),
                   value: isSelected,
                   onChanged: (value) {
-                    if (value == true) {
+                    if (value ?? false) {
                       selectedRoles.value = {...selectedRoles.value, role};
                     } else {
                       selectedRoles.value = {...selectedRoles.value}
