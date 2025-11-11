@@ -169,6 +169,7 @@ class TicketCheckoutDbClient {
 
   /// チケット一覧を検索する（管理者用）
   /// User情報もJOINで一度に取得してN+1問題を回避
+  /// 決済完了（completed）または払い戻し済み（refunded）のチケット購入のみを返す
   Future<List<TicketPurchaseWithDetailsAndUser>> getTicketList({
     required int limit,
     required int offset,
@@ -184,64 +185,74 @@ class TicketCheckoutDbClient {
       'offset': offset,
     };
     final purchaseConditions = <String>[];
-    final checkoutConditions = <String>[];
 
     queryBuffer.write('''
-        WITH purchase_tickets AS (
-          SELECT
-            json_build_object(
-              'id', tp.id,
-              'user_id', tp.user_id,
-              'ticket_type_id', tp.ticket_type_id,
-              'status', tp.status::text,
-              'nameplate_id', tp.nameplate_id,
-              'stripe_payment_intent_id', tp.stripe_payment_intent_id,
-              'created_at', tp.created_at,
-              'updated_at', tp.updated_at
-            ) AS purchase,
-            NULL::json AS "checkout_session",
-            tt.id AS ticket_type_id,
-            COALESCE(
-              json_agg(
-                CASE
-                  WHEN topt.id IS NOT NULL THEN
-                    json_build_object(
-                      'id', topt.id,
-                      'ticket_type_id', topt.ticket_type_id,
-                      'name', topt.name,
-                      'description', topt.description,
-                      'max_quantity', topt.max_quantity,
-                      'created_at', topt.created_at,
-                      'updated_at', topt.updated_at
-                    )
-                  ELSE NULL
-                END
-              ) FILTER (WHERE topt.id IS NOT NULL),
-              '[]'::json
-            ) AS options,
-            CASE
-              WHEN el.ticket_purchase_id IS NOT NULL THEN
-                json_build_object(
-                  'ticket_purchase_id', el.ticket_purchase_id,
-                  'created_at', el.created_at
-                )
-              ELSE NULL
-            END AS entry_log,
-            json_build_object(
-              'user', to_json(u.*),
-              'roles', COALESCE(json_agg(ur.role) FILTER (WHERE ur.role IS NOT NULL), '[]'::json),
-              'auth_meta_data', COALESCE(au.raw_user_meta_data, '{}'::jsonb)
-            ) AS user,
-            tp.created_at as sort_date
-          FROM ticket_purchases tp
-          INNER JOIN ticket_types tt ON tp.ticket_type_id = tt.id
-          LEFT JOIN ticket_purchase_options tpo ON tp.id = tpo.ticket_purchase_id
-          LEFT JOIN ticket_options topt ON tpo.ticket_option_id = topt.id
-          LEFT JOIN entry_logs el ON tp.id = el.ticket_purchase_id
-          INNER JOIN public.users u ON tp.user_id = u.id
-          LEFT JOIN public.user_roles ur ON u.id = ur.user_id
-          LEFT JOIN auth.users au ON u.id = au.id
+        SELECT
+          json_build_object(
+            'id', tp.id,
+            'user_id', tp.user_id,
+            'ticket_type_id', tp.ticket_type_id,
+            'status', tp.status::text,
+            'nameplate_id', tp.nameplate_id,
+            'stripe_payment_intent_id', tp.stripe_payment_intent_id,
+            'created_at', tp.created_at,
+            'updated_at', tp.updated_at
+          ) AS purchase,
+          NULL::json AS "checkout_session",
+          tt.id AS ticket_type_id,
+          COALESCE(
+            json_agg(
+              CASE
+                WHEN topt.id IS NOT NULL THEN
+                  json_build_object(
+                    'id', topt.id,
+                    'ticket_type_id', topt.ticket_type_id,
+                    'name', topt.name,
+                    'description', topt.description,
+                    'max_quantity', topt.max_quantity,
+                    'created_at', topt.created_at,
+                    'updated_at', topt.updated_at
+                  )
+                ELSE NULL
+              END
+            ) FILTER (WHERE topt.id IS NOT NULL),
+            '[]'::json
+          ) AS options,
+          CASE
+            WHEN el.ticket_purchase_id IS NOT NULL THEN
+              json_build_object(
+                'ticket_purchase_id', el.ticket_purchase_id,
+                'created_at', el.created_at
+              )
+            ELSE NULL
+          END AS entry_log,
+          json_build_object(
+            'user', to_json(u.*),
+            'roles', COALESCE(json_agg(ur.role) FILTER (WHERE ur.role IS NOT NULL), '[]'::json),
+            'auth_meta_data', COALESCE(au.raw_user_meta_data, '{}'::jsonb)
+          ) AS user,
+          tp.created_at as sort_date
+        FROM ticket_purchases tp
+        INNER JOIN ticket_types tt ON tp.ticket_type_id = tt.id
+        LEFT JOIN ticket_purchase_options tpo ON tp.id = tpo.ticket_purchase_id
+        LEFT JOIN ticket_options topt ON tpo.ticket_option_id = topt.id
+        LEFT JOIN entry_logs el ON tp.id = el.ticket_purchase_id
+        INNER JOIN public.users u ON tp.user_id = u.id
+        LEFT JOIN public.user_roles ur ON u.id = ur.user_id
+        LEFT JOIN auth.users au ON u.id = au.id
     ''');
+
+    // デフォルトで決済完了または払い戻し済みのみを返す
+    if (status != null) {
+      // statusが指定されている場合は、その値でフィルタリング
+      if (status == 'completed' || status == 'refunded') {
+        purchaseConditions.add('tp.status::text = @status');
+        parameters['status'] = status;
+      }
+    } else {
+      // statusが指定されていない場合は、completedとrefundedのみを返す
+      purchaseConditions.add("tp.status::text IN ('completed', 'refunded')");
+    }
 
     if (userId != null) {
       purchaseConditions.add('tp.user_id = @userId');
@@ -250,13 +261,6 @@ class TicketCheckoutDbClient {
     if (ticketTypeId != null) {
       purchaseConditions.add('tp.ticket_type_id = @ticketTypeId');
       parameters['ticketTypeId'] = ticketTypeId;
-    }
-    if (status != null) {
-      // statusが'completed'または'refunded'の場合のみpurchaseに条件を追加
-      if (status == 'completed' || status == 'refunded') {
-        purchaseConditions.add('tp.status::text = @status');
-        parameters['status'] = status;
-      }
     }
     if (hasEntryLog != null) {
       if (hasEntryLog) {
@@ -276,92 +280,8 @@ class TicketCheckoutDbClient {
     }
 
     queryBuffer.write('''
-          GROUP BY
-            tp.id, tt.id, el.ticket_purchase_id, el.created_at, u.id, au.raw_user_meta_data
-        ),
-        checkout_tickets AS (
-          SELECT
-            NULL::json AS purchase,
-            json_build_object(
-              'id', tcs.id,
-              'user_id', tcs.user_id,
-              'ticket_type_id', tcs.ticket_type_id,
-              'status', tcs.status::text,
-              'stripe_checkout_session_id', tcs.stripe_checkout_session_id,
-              'stripe_checkout_url', tcs.stripe_checkout_url,
-              'ticket_checkout_workflow_id', tcs.ticket_checkout_workflow_id,
-              'expires_at', tcs.expires_at,
-              'created_at', tcs.created_at,
-              'updated_at', tcs.updated_at
-            ) AS "checkout_session",
-            tt.id AS ticket_type_id,
-            COALESCE(
-              json_agg(
-                CASE
-                  WHEN topt.id IS NOT NULL THEN
-                    json_build_object(
-                      'id', topt.id,
-                      'ticket_type_id', topt.ticket_type_id,
-                      'name', topt.name,
-                      'description', topt.description,
-                      'max_quantity', topt.max_quantity,
-                      'created_at', topt.created_at,
-                      'updated_at', topt.updated_at
-                    )
-                  ELSE NULL
-                END
-              ) FILTER (WHERE topt.id IS NOT NULL),
-              '[]'::json
-            ) AS options,
-            NULL::json AS entry_log,
-            json_build_object(
-              'user', to_json(u.*),
-              'roles', COALESCE(json_agg(ur.role) FILTER (WHERE ur.role IS NOT NULL), '[]'::json),
-              'auth_meta_data', COALESCE(au.raw_user_meta_data, '{}'::jsonb)
-            ) AS user,
-            tcs.created_at as sort_date
-          FROM ticket_checkout_sessions tcs
-          INNER JOIN ticket_types tt ON tcs.ticket_type_id = tt.id
-          LEFT JOIN ticket_checkout_options tco ON tcs.id = tco.checkout_session_id
-          LEFT JOIN ticket_options topt ON tco.ticket_option_id = topt.id
-          INNER JOIN public.users u ON tcs.user_id = u.id
-          LEFT JOIN public.user_roles ur ON u.id = ur.user_id
-          LEFT JOIN auth.users au ON u.id = au.id
-    ''');
-
-    if (userId != null) {
-      checkoutConditions.add('tcs.user_id = @userId');
-    }
-    if (ticketTypeId != null) {
-      checkoutConditions.add('tcs.ticket_type_id = @ticketTypeId');
-    }
-    if (status != null) {
-      // statusが'pending', 'completed', 'expired'の場合のみcheckoutに条件を追加
-      if (status == 'pending' || status == 'completed' || status == 'expired') {
-        checkoutConditions.add('tcs.status::text = @status');
-        if (!parameters.containsKey('status')) {
-          parameters['status'] = status;
-        }
-      }
-    }
-    if (ticketOptionId != null) {
-      checkoutConditions.add('topt.id = @ticketOptionId');
-    }
-    checkoutConditions.add('u.deleted_at IS NULL');
-
-    if (checkoutConditions.isNotEmpty) {
-      queryBuffer.write('\nWHERE ${checkoutConditions.join(' AND ')}');
-    }
-
-    queryBuffer.write('''
-          GROUP BY
-            tcs.id, tt.id, u.id, au.raw_user_meta_data
-        )
-        SELECT * FROM (
-          SELECT * FROM purchase_tickets
-          UNION ALL
-          SELECT * FROM checkout_tickets
-        ) AS all_tickets
+        GROUP BY
+          tp.id, tt.id, el.ticket_purchase_id, el.created_at, u.id, au.raw_user_meta_data
         ORDER BY sort_date DESC
         LIMIT @limit OFFSET @offset
     ''');
