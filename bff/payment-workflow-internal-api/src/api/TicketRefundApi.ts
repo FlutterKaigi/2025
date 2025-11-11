@@ -17,17 +17,23 @@ export const TicketRefundApi = new Hono()
     ),
     async (c) => {
       const body = c.req.valid("json");
+      try {
+        const instance = await env.TICKET_REFUND_WORKFLOW.create({
+          id: body.ticket_purchase_id,
+          params: {
+            ticketPurchaseId: body.ticket_purchase_id,
+            actorId: body.actor_id,
+            actorName: body.actor_name,
+          } satisfies TicketRefundWorkflowParam,
+        });
 
-      const instance = await env.TICKET_REFUND_WORKFLOW.create({
-        id: body.ticket_purchase_id,
-        params: {
-          ticketPurchaseId: body.ticket_purchase_id,
-          actorId: body.actor_id,
-          actorName: body.actor_name,
-        } satisfies TicketRefundWorkflowParam,
-      });
-
-      return c.json({ id: instance.id });
+        return c.json({ id: instance.id });
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          return c.json({ error: error.message }, 400);
+        }
+        return c.json({ error: `Internal Server Error: ${error}` }, 500);
+      }
     }
   )
   .get(

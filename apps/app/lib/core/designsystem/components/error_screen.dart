@@ -113,23 +113,30 @@ class ErrorDialog extends StatelessWidget {
 
   final Object error;
 
+  static Future<void> show(BuildContext context, Object error) =>
+      showDialog<void>(
+        context: context,
+        builder: (context) => ErrorDialog(error: error),
+      );
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final t = Translations.of(context);
 
     final errorMessage = switch (error) {
-      DioException _ => t.common.error.server.message,
+      ApiException _ || DioException _ => t.common.error.server.title,
       Object() => t.common.error.general.occurred,
     };
 
     final errorDetail = switch (error) {
       ApiErrorResponseException(:final errorResponse) =>
-        '${errorResponse.code.name.toUpperCase()}: ${errorResponse.message}',
+        '${errorResponse.code.name.toUpperCase()}: ${errorResponse.message}\n\n'
+            '${errorResponse.detail ?? ""}',
       _ => () {
         final text = error.toString();
-        if (text.length >= 200) {
-          return '${text.substring(0, 200)}...';
+        if (text.length >= 400) {
+          return '${text.substring(0, 400)}...';
         }
         return text;
       }(),
@@ -180,14 +187,6 @@ class ErrorDialog extends StatelessWidget {
           child: const Text('閉じる'),
         ),
       ],
-    );
-  }
-
-  /// エラーダイアログを表示する
-  static Future<void> show(BuildContext context, Object error) {
-    return showDialog<void>(
-      context: context,
-      builder: (context) => ErrorDialog(error: error),
     );
   }
 }

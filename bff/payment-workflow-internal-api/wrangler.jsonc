@@ -40,6 +40,12 @@
           "class_name": "TicketRefundWorkflow",
         },
       ],
+      "services": [
+        {
+          "service": "websocket-api-staging",
+          "binding": "WEBSOCKET_API",
+        },
+      ],
     },
     "production": {
       "workers_dev": false,
@@ -68,6 +74,12 @@
           "name": "ticket-refund-workflow-production",
           "binding": "TICKET_REFUND_WORKFLOW",
           "class_name": "TicketRefundWorkflow",
+        },
+      ],
+      "services": [
+        {
+          "service": "websocket-api-production",
+          "binding": "WEBSOCKET_API",
         },
       ],
     },
