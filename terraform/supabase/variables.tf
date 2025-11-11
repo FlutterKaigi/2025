@@ -32,3 +32,14 @@ variable "SUPABASE_GOOGLE_AUTH_CLIENT_SECRET" {
   description = "Google Auth Client Secret"
   sensitive   = true
 }
+
+variable "SUPABASE_APPLE_AUTH_CLIENT_ID" {
+  type        = string
+  description = "Apple Auth Client ID"
+}
+
+variable "SUPABASE_APPLE_AUTH_CLIENT_SECRET" {
+  type        = string
+  description = "Apple Auth Client Secret"
+  sensitive   = true
+}
