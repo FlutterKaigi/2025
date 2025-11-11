@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'package:db_types/db_types.dart';
+import 'package:flutterkaigi_2025_website/src/config/job_boards_data.json.dart';
 import 'package:flutterkaigi_2025_website/src/config/sessions_data.dart'
     show timelineEvents, venuesWithSessions;
 import 'package:flutterkaigi_2025_website/src/config/sponsors_data.dart'
@@ -161,7 +163,23 @@ final event = (
   staff: _staff,
   news: _news,
   timeline: _timelineFromBff,
+  jobBoards: _jobBoards,
 );
+
+typedef JobBoardEntry = ({
+  String url,
+  String altText,
+  String imageUrl,
+});
+
+final _jobBoards = (jsonDecode(jobBoardsDataJson) as List<Map<String, dynamic>>)
+    .map<JobBoardEntry>(
+      (jobBoard) => (
+        url: jobBoard['url'],
+        altText: jobBoard['alt_text'],
+        imageUrl: jobBoard['image_url'],
+      ),
+    );
 
 const _news = [
   (
