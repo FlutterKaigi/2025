@@ -19,9 +19,9 @@ class StaffMemberItem extends StatelessWidget {
     final textTheme = theme.textTheme;
 
     return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(8),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -30,12 +30,12 @@ class StaffMemberItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox.square(
-                  dimension: 64,
+                  dimension: 48,
                   child: AccountCircleImage(
                     imageUrl: staffMember.iconUrl,
                   ),
                 ),
-                const SizedBox(width: 16),
+                const SizedBox(width: 8),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,8 +52,6 @@ class StaffMemberItem extends StatelessWidget {
                           style: textTheme.bodyMedium?.copyWith(
                             color: theme.colorScheme.onSurfaceVariant,
                           ),
-                          maxLines: 3,
-                          overflow: TextOverflow.ellipsis,
                         ),
                       ],
                     ],
@@ -63,10 +61,10 @@ class StaffMemberItem extends StatelessWidget {
             ),
             // SNSアイコン一覧
             if (staffMember.snsLinks.isNotEmpty) ...[
-              const SizedBox(height: 16),
+              const SizedBox(height: 8),
               Wrap(
-                spacing: 8,
-                runSpacing: 8,
+                spacing: 4,
+                runSpacing: 4,
                 children: staffMember.snsLinks
                     .map(
                       (link) => _SnsIconButton(
