@@ -56,7 +56,7 @@ Future<void> _run() async {
 
   // Web環境ではOpenTelemetryを無効化
   // dartastic_opentelemetryがPlatform.environmentを使用するため
-  if (!(kIsWasm || kDebugMode)) {
+  if (!(kIsWeb || kDebugMode)) {
     await FlutterOTel.initialize(
       appName: 'app',
       tracerName: 'main',
