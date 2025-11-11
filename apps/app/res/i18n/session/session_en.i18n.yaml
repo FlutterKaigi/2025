@@ -10,3 +10,8 @@ feedback:
   send: Send Feedback
 survey:
   button: Send Session Feedback
+notification:
+  channel_name: Session Reminder
+  channel_description: Notification 15 minutes before bookmarked session starts
+  title: Session starts in 15 minutes
+  body(title, venue): "$title\n📍 $venue"

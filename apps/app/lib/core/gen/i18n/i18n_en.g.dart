@@ -157,6 +157,7 @@ class _TranslationsSessionEn extends TranslationsSessionJa {
 	@override late final _TranslationsSessionEmptyEn empty = _TranslationsSessionEmptyEn._(_root);
 	@override late final _TranslationsSessionFeedbackEn feedback = _TranslationsSessionFeedbackEn._(_root);
 	@override late final _TranslationsSessionSurveyEn survey = _TranslationsSessionSurveyEn._(_root);
+	@override late final _TranslationsSessionNotificationEn notification = _TranslationsSessionNotificationEn._(_root);
 }
 
 // Path: sponsor
@@ -505,6 +506,19 @@ class _TranslationsSessionSurveyEn extends TranslationsSessionSurveyJa {
 
 	// Translations
 	@override String get button => 'Send Session Feedback';
+}
+
+// Path: session.notification
+class _TranslationsSessionNotificationEn extends TranslationsSessionNotificationJa {
+	_TranslationsSessionNotificationEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get channel_name => 'Session Reminder';
+	@override String get channel_description => 'Notification 15 minutes before bookmarked session starts';
+	@override String get title => 'Session starts in 15 minutes';
+	@override String body({required Object title, required Object venue}) => '${title}\n📍 ${venue}';
 }
 
 // Path: ticket.status
@@ -972,6 +986,10 @@ extension on TranslationsEn {
 			case 'session.feedback.title': return 'Feedback';
 			case 'session.feedback.send': return 'Send Feedback';
 			case 'session.survey.button': return 'Send Session Feedback';
+			case 'session.notification.channel_name': return 'Session Reminder';
+			case 'session.notification.channel_description': return 'Notification 15 minutes before bookmarked session starts';
+			case 'session.notification.title': return 'Session starts in 15 minutes';
+			case 'session.notification.body': return ({required Object title, required Object venue}) => '${title}\n📍 ${venue}';
 			case 'sponsor.prText': return 'About Us';
 			case 'sponsor.enthusiasm': return 'Message';
 			case 'sponsor.company': return 'Sponsors';
