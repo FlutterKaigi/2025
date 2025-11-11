@@ -74,6 +74,7 @@ ThemeData darkTheme() {
       titleTextStyle: TextStyle(
         fontSize: 24,
         fontWeight: FontWeight.bold,
+        color: Colors.white,
         fontVariations: [fontVariationForWeight(FontWeight.bold)],
       ),
     ),
