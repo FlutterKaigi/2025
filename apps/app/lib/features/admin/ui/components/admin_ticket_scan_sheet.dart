@@ -201,10 +201,11 @@ class AdminTicketScanSheet extends ConsumerWidget {
             ),
             // 詳細を見るボタン
             OutlinedButton.icon(
-              onPressed: () {
-                Navigator.of(context).pop(); // Sheetを閉じる
-                AdminTicketDetailRoute(ticketId: ticket.purchase.id)
-                    .push<void>(context);
+              onPressed: () async {
+                Navigator.of(context).pop();
+                await AdminTicketDetailRoute(
+                  ticketId: ticket.purchase.id,
+                ).push<void>(context);
               },
               icon: const Icon(Icons.info_outline),
               label: const Text('詳細を見る'),

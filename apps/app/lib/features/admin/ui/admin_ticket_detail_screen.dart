@@ -1,6 +1,7 @@
 import 'package:app/core/provider/bff_client.dart';
 import 'package:app/features/account/ui/component/account_circle_image.dart';
 import 'package:app/features/admin/data/model/admin_ticket_list_search_params.dart';
+import 'package:app/features/admin/data/notifier/admin_ticket_detail_notifier.dart';
 import 'package:app/features/admin/data/notifier/admin_ticket_list_notifier.dart';
 import 'package:app/features/admin/data/notifier/entry_log_notifier.dart';
 import 'package:bff_client/bff_client.dart';
@@ -20,9 +21,7 @@ final class AdminTicketDetailScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final ticketsListAsync = ref.watch(
-      adminTicketListProvider(const AdminTicketListSearchParams()),
-    );
+    final ticketAsync = ref.watch(adminTicketDetailProvider(ticketId));
 
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
@@ -32,19 +31,8 @@ final class AdminTicketDetailScreen extends HookConsumerWidget {
       appBar: AppBar(
         title: const Text('チケット詳細'),
       ),
-      body: ticketsListAsync.when(
-        data: (state) {
-          final ticket = state.tickets.cast<TicketItemWithUser?>().firstWhere(
-            (t) => _getTicketId(t) == ticketId,
-            orElse: () => null,
-          );
-
-          if (ticket == null) {
-            return const Center(
-              child: Text('チケットが見つかりませんでした'),
-            );
-          }
-
+      body: ticketAsync.when(
+        data: (ticket) {
           return SingleChildScrollView(
             child: SafeArea(
               child: Column(
@@ -74,14 +62,6 @@ final class AdminTicketDetailScreen extends HookConsumerWidget {
         ),
       ),
     );
-  }
-
-  String? _getTicketId(TicketItemWithUser? ticket) {
-    return switch (ticket) {
-      TicketPurchaseItemWithUser(:final purchase) => purchase.id,
-      TicketCheckoutItemWithUser(:final checkout) => checkout.id,
-      _ => null,
-    };
   }
 }
 
@@ -529,6 +509,10 @@ class _AddEntryLogButton extends ConsumerWidget {
                       content: Text('入場履歴を追加しました'),
                     ),
                   );
+                  // チケット詳細を更新
+                  final ticketId =
+                      (ticket as TicketPurchaseItemWithUser).purchase.id;
+                  ref.invalidate(adminTicketDetailProvider(ticketId));
                   ref.invalidate(
                     adminTicketListProvider(
                       const AdminTicketListSearchParams(),
@@ -612,6 +596,10 @@ class _DeleteEntryLogButton extends ConsumerWidget {
                       content: Text('入場履歴を削除しました'),
                     ),
                   );
+                  // チケット詳細を更新
+                  final ticketId =
+                      (ticket as TicketPurchaseItemWithUser).purchase.id;
+                  ref.invalidate(adminTicketDetailProvider(ticketId));
                   ref.invalidate(
                     adminTicketListProvider(
                       const AdminTicketListSearchParams(),
@@ -742,6 +730,10 @@ class _RefundButton extends HookConsumerWidget {
                         content: Text('返金処理を開始しました'),
                         backgroundColor: Colors.green,
                       ),
+                    );
+                    // チケット詳細を更新
+                    ref.invalidate(
+                      adminTicketDetailProvider(ticket.purchase.id),
                     );
                     // チケットリストを更新
                     ref.invalidate(
