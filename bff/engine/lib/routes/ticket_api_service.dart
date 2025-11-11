@@ -378,6 +378,65 @@ class TicketApiService {
     },
   );
 
+  /// チケット返金処理（管理者のみ）
+  @Route.post('/purchase/<ticketPurchaseId>/refund')
+  Future<Response> _refundTicket(
+    Request request,
+    String ticketPurchaseId,
+  ) async => jsonResponse(() async {
+    final supabaseUtil = container.read(supabaseUtilProvider);
+    final userResult = await supabaseUtil.extractUser(request);
+    final (supabaseUser, user, roles) = userResult.unwrap;
+
+    // 管理者権限チェック
+    if (!roles.contains(db_types.Role.admin)) {
+      throw ErrorResponse.errorCode(
+        code: ErrorCode.forbidden,
+        detail: 'この操作には管理者権限が必要です',
+      );
+    }
+
+    // チケット購入情報の存在確認
+    final database = await container.read(dbClientProvider.future);
+    final ticketPurchase = await database.ticketPurchase.getTicketPurchase(
+      ticketPurchaseId,
+    );
+
+    if (ticketPurchase == null) {
+      throw ErrorResponse.errorCode(
+        code: ErrorCode.notFound,
+        detail: 'チケットが見つかりません: $ticketPurchaseId',
+      );
+    }
+
+    // 既に返金済みでないか確認
+    if (ticketPurchase.status == db_types.TicketPurchaseStatus.refunded) {
+      throw ErrorResponse.errorCode(
+        code: ErrorCode.badRequest,
+        detail: 'このチケットは既に返金済みです',
+      );
+    }
+
+    // 返金Workflowを開始
+    final internalApiClient = container.read(internalApiClientProvider);
+    final actorName = supabaseUser.userMetadata?['name'] as String? ??
+        supabaseUser.email ??
+        'Unknown';
+    final workflowResponse = await internalApiClient
+        .paymentWorkflowInternalApi
+        .ticketRefund
+        .startTicketRefundWorkflow(
+          request: TicketRefundRequest(
+            ticketPurchaseId: ticketPurchaseId,
+            actorId: user.id,
+            actorName: actorName,
+          ),
+        );
+
+    final workflowData = workflowResponse.data;
+    return {'workflow_id': workflowData.id};
+  });
+
   /// 入場履歴を削除（管理者のみ）
   @Route.delete('/<ticketPurchaseId>/entry')
   Future<Response> _deleteEntryLog(
