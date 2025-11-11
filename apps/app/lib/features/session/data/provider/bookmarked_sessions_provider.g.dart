@@ -36,7 +36,7 @@ final class BookmarkedSessionsProvider
 }
 
 String _$bookmarkedSessionsHash() =>
-    r'329935af0c9cd61b68f8d318a43119bbd2da4b2e';
+    r'4bf0b4e03d23297f14e4cbedc1cd12f37eefb54f';
 
 abstract class _$BookmarkedSessions extends $AsyncNotifier<Set<String>> {
   FutureOr<Set<String>> build();
