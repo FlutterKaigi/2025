@@ -211,6 +211,7 @@ class _UnifiedSponsorCard extends StatelessWidget {
                       color: Colors.grey.shade400,
                       size: cardSize * 0.4,
                     ),
+                    webHtmlElementStrategy: WebHtmlElementStrategy.prefer,
                   ),
           ),
         ),
