@@ -12,6 +12,7 @@ import 'package:app/core/ui/main/widget_build_error_screen.dart';
 import 'package:app/core/util/setup_web_environment.dart';
 import 'package:app/features/auth/data/notifier/auth_notifier.dart';
 import 'package:app/features/auth/data/provider/auth_service.dart';
+import 'package:app/features/session/data/provider/notification_service_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -108,6 +109,17 @@ Future<void> _run() async {
     authSubscription.close();
   } on Exception catch (e) {
     log(e.toString());
+  }
+
+  // 通知サービスの初期化
+  try {
+    await container.read(notificationServiceProvider.future);
+    // 既存のお気に入りセッションの通知を再スケジュール
+    await container
+        .read(notificationServiceProvider.notifier)
+        .rescheduleAllBookmarkedSessions();
+  } on Exception catch (e) {
+    log('Failed to initialize notification service: $e');
   }
   // ignore: missing_provider_scope
   runApp(

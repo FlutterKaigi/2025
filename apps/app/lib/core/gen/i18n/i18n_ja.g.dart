@@ -210,6 +210,7 @@ class TranslationsSessionJa {
 	late final TranslationsSessionEmptyJa empty = TranslationsSessionEmptyJa.internal(_root);
 	late final TranslationsSessionFeedbackJa feedback = TranslationsSessionFeedbackJa.internal(_root);
 	late final TranslationsSessionSurveyJa survey = TranslationsSessionSurveyJa.internal(_root);
+	late final TranslationsSessionNotificationJa notification = TranslationsSessionNotificationJa.internal(_root);
 }
 
 // Path: sponsor
@@ -731,6 +732,27 @@ class TranslationsSessionSurveyJa {
 
 	/// ja: 'セッションフィードバックを送る'
 	String get button => 'セッションフィードバックを送る';
+}
+
+// Path: session.notification
+class TranslationsSessionNotificationJa {
+	TranslationsSessionNotificationJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'セッションリマインダー'
+	String get channel_name => 'セッションリマインダー';
+
+	/// ja: 'お気に入りセッション開始15分前の通知'
+	String get channel_description => 'お気に入りセッション開始15分前の通知';
+
+	/// ja: 'セッション開始まであと15分'
+	String get title => 'セッション開始まであと15分';
+
+	/// ja: '$title 📍 $venue'
+	String body({required Object title, required Object venue}) => '${title}\n📍 ${venue}';
 }
 
 // Path: ticket.status
@@ -1439,6 +1461,10 @@ extension on Translations {
 			case 'session.feedback.title': return 'フィードバック';
 			case 'session.feedback.send': return 'フィードバックを送る';
 			case 'session.survey.button': return 'セッションフィードバックを送る';
+			case 'session.notification.channel_name': return 'セッションリマインダー';
+			case 'session.notification.channel_description': return 'お気に入りセッション開始15分前の通知';
+			case 'session.notification.title': return 'セッション開始まであと15分';
+			case 'session.notification.body': return ({required Object title, required Object venue}) => '${title}\n📍 ${venue}';
 			case 'sponsor.prText': return 'PR 文章';
 			case 'sponsor.enthusiasm': return '意気込み';
 			case 'sponsor.company': return '企業スポンサー';
