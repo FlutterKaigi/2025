@@ -279,6 +279,7 @@ class TranslationsTicketJa {
 	late final TranslationsTicketPurchaseJa purchase = TranslationsTicketPurchaseJa.internal(_root);
 	late final TranslationsTicketQrJa qr = TranslationsTicketQrJa.internal(_root);
 	late final TranslationsTicketEntryTicketJa entryTicket = TranslationsTicketEntryTicketJa.internal(_root);
+	late final TranslationsTicketNotificationJa notification = TranslationsTicketNotificationJa.internal(_root);
 }
 
 // Path: venue
@@ -954,6 +955,24 @@ class TranslationsTicketEntryTicketJa {
 	String subtitle({required int count}) => '${count}枚のチケットがあります';
 }
 
+// Path: ticket.notification
+class TranslationsTicketNotificationJa {
+	TranslationsTicketNotificationJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'チケット通知'
+	String get channel_name => 'チケット通知';
+
+	/// ja: 'チケットステータス変更の通知'
+	String get channel_description => 'チケットステータス変更の通知';
+
+	late final TranslationsTicketNotificationEntryJa entry = TranslationsTicketNotificationEntryJa.internal(_root);
+	late final TranslationsTicketNotificationRefundJa refund = TranslationsTicketNotificationRefundJa.internal(_root);
+}
+
 // Path: account.profile.avatar
 class TranslationsAccountProfileAvatarJa {
 	TranslationsAccountProfileAvatarJa.internal(this._root);
@@ -1252,6 +1271,36 @@ class TranslationsCommonDebugProfileShareJa {
 
 	/// ja: 'シェア'
 	String get share => 'シェア';
+}
+
+// Path: ticket.notification.entry
+class TranslationsTicketNotificationEntryJa {
+	TranslationsTicketNotificationEntryJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'FlutterKaigi 2025へようこそ！'
+	String get title => 'FlutterKaigi 2025へようこそ！';
+
+	/// ja: 'イベントをお楽しみください！'
+	String get body => 'イベントをお楽しみください！';
+}
+
+// Path: ticket.notification.refund
+class TranslationsTicketNotificationRefundJa {
+	TranslationsTicketNotificationRefundJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'チケットが返金されました'
+	String get title => 'チケットが返金されました';
+
+	/// ja: 'チケットの返金処理が完了しました'
+	String get body => 'チケットの返金処理が完了しました';
 }
 
 // Path: account.profile.sns.examples
@@ -1556,6 +1605,12 @@ extension on Translations {
 			case 'ticket.qr.nameplateId': return 'ネームプレートID';
 			case 'ticket.entryTicket.title': return '入場可能なチケット';
 			case 'ticket.entryTicket.subtitle': return ({required int count}) => '${count}枚のチケットがあります';
+			case 'ticket.notification.channel_name': return 'チケット通知';
+			case 'ticket.notification.channel_description': return 'チケットステータス変更の通知';
+			case 'ticket.notification.entry.title': return 'FlutterKaigi 2025へようこそ！';
+			case 'ticket.notification.entry.body': return 'イベントをお楽しみください！';
+			case 'ticket.notification.refund.title': return 'チケットが返金されました';
+			case 'ticket.notification.refund.body': return 'チケットの返金処理が完了しました';
 			case 'venue.title': return '会場マップ';
 			case 'venue.floor1f': return '1F';
 			case 'venue.floor2f': return '2F';

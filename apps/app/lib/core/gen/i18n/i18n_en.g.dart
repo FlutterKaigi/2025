@@ -197,6 +197,7 @@ class _TranslationsTicketEn extends TranslationsTicketJa {
 	@override late final _TranslationsTicketPurchaseEn purchase = _TranslationsTicketPurchaseEn._(_root);
 	@override late final _TranslationsTicketQrEn qr = _TranslationsTicketQrEn._(_root);
 	@override late final _TranslationsTicketEntryTicketEn entryTicket = _TranslationsTicketEntryTicketEn._(_root);
+	@override late final _TranslationsTicketNotificationEn notification = _TranslationsTicketNotificationEn._(_root);
 }
 
 // Path: venue
@@ -630,6 +631,19 @@ class _TranslationsTicketEntryTicketEn extends TranslationsTicketEntryTicketJa {
 	@override String subtitle({required int count}) => 'You have ${count} tickets';
 }
 
+// Path: ticket.notification
+class _TranslationsTicketNotificationEn extends TranslationsTicketNotificationJa {
+	_TranslationsTicketNotificationEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get channel_name => 'Ticket Notifications';
+	@override String get channel_description => 'Notifications for ticket status changes';
+	@override late final _TranslationsTicketNotificationEntryEn entry = _TranslationsTicketNotificationEntryEn._(_root);
+	@override late final _TranslationsTicketNotificationRefundEn refund = _TranslationsTicketNotificationRefundEn._(_root);
+}
+
 // Path: account.profile.avatar
 class _TranslationsAccountProfileAvatarEn extends TranslationsAccountProfileAvatarJa {
 	_TranslationsAccountProfileAvatarEn._(TranslationsEn root) : this._root = root, super.internal(root);
@@ -795,6 +809,28 @@ class _TranslationsCommonErrorGeneralEn extends TranslationsCommonErrorGeneralJa
 
 	// Translations
 	@override String get occurred => 'An error occurred';
+}
+
+// Path: ticket.notification.entry
+class _TranslationsTicketNotificationEntryEn extends TranslationsTicketNotificationEntryJa {
+	_TranslationsTicketNotificationEntryEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Welcome to FlutterKaigi 2025!';
+	@override String get body => 'Enjoy FlutterKaigi 2025!';
+}
+
+// Path: ticket.notification.refund
+class _TranslationsTicketNotificationRefundEn extends TranslationsTicketNotificationRefundJa {
+	_TranslationsTicketNotificationRefundEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Ticket Refunded';
+	@override String get body => 'Your ticket refund has been processed';
 }
 
 // Path: account.profile.sns.examples
@@ -1067,6 +1103,12 @@ extension on TranslationsEn {
 			case 'ticket.qr.nameplateId': return 'Nameplate ID';
 			case 'ticket.entryTicket.title': return 'Available Tickets';
 			case 'ticket.entryTicket.subtitle': return ({required int count}) => 'You have ${count} tickets';
+			case 'ticket.notification.channel_name': return 'Ticket Notifications';
+			case 'ticket.notification.channel_description': return 'Notifications for ticket status changes';
+			case 'ticket.notification.entry.title': return 'Welcome to FlutterKaigi 2025!';
+			case 'ticket.notification.entry.body': return 'Enjoy FlutterKaigi 2025!';
+			case 'ticket.notification.refund.title': return 'Ticket Refunded';
+			case 'ticket.notification.refund.body': return 'Your ticket refund has been processed';
 			case 'venue.title': return 'Venue Map';
 			case 'venue.floor1f': return '1F';
 			case 'venue.floor2f': return '2F';

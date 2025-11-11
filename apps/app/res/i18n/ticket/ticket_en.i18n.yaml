@@ -96,3 +96,12 @@ qr:
 entryTicket:
   title: Available Tickets
   subtitle: "You have ${count: int} tickets"
+notification:
+  channel_name: Ticket Notifications
+  channel_description: Notifications for ticket status changes
+  entry:
+    title: Welcome to FlutterKaigi 2025!
+    body: Enjoy FlutterKaigi 2025!
+  refund:
+    title: Ticket Refunded
+    body: Your ticket refund has been processed
