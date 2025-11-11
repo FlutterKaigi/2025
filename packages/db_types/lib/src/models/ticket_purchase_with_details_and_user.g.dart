@@ -42,6 +42,11 @@ _TicketPurchaseWithDetailsAndUser _$TicketPurchaseWithDetailsAndUserFromJson(
         'user',
         (v) => UserAndUserRoles.fromJson(v as Map<String, dynamic>),
       ),
+      ticketType: $checkedConvert(
+        'ticket_type',
+        (v) =>
+            v == null ? null : TicketTypes.fromJson(v as Map<String, dynamic>),
+      ),
     );
     return val;
   },
@@ -49,6 +54,7 @@ _TicketPurchaseWithDetailsAndUser _$TicketPurchaseWithDetailsAndUserFromJson(
     'checkoutSession': 'checkout_session',
     'ticketTypeId': 'ticket_type_id',
     'entryLog': 'entry_log',
+    'ticketType': 'ticket_type',
   },
 );
 
@@ -61,4 +67,5 @@ Map<String, dynamic> _$TicketPurchaseWithDetailsAndUserToJson(
   'options': instance.options,
   'entry_log': instance.entryLog,
   'user': instance.user,
+  'ticket_type': instance.ticketType,
 };

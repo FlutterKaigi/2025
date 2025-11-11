@@ -97,19 +97,15 @@ class TicketPurchaseDbClient {
           tt.id AS ticket_type_id,
           COALESCE(
             json_agg(
-              CASE
-                WHEN topt.id IS NOT NULL THEN
-                  json_build_object(
-                    'id', topt.id,
-                    'ticket_type_id', topt.ticket_type_id,
-                    'name', topt.name,
-                    'description', topt.description,
-                    'max_quantity', topt.max_quantity,
-                    'created_at', topt.created_at,
-                    'updated_at', topt.updated_at
-                  )
-                ELSE NULL
-              END
+              DISTINCT jsonb_build_object(
+                'id', topt.id,
+                'ticket_type_id', topt.ticket_type_id,
+                'name', topt.name,
+                'description', topt.description,
+                'max_quantity', topt.max_quantity,
+                'created_at', topt.created_at,
+                'updated_at', topt.updated_at
+              )
             ) FILTER (WHERE topt.id IS NOT NULL),
             '[]'::json
           ) AS options,
@@ -122,15 +118,27 @@ class TicketPurchaseDbClient {
             ELSE NULL
           END AS entry_log,
           json_build_object(
-            'id', u.id,
-            'avatar_url', COALESCE(au.raw_user_meta_data->>'avatar_url', ''),
-            'role', COALESCE(
+            'user', to_json(u.*),
+            'roles', COALESCE(
               (SELECT json_agg(ur2.role::text)
                FROM user_roles ur2
                WHERE ur2.user_id = u.id),
               '[]'::json
-            )
-          ) AS "user"
+            ),
+            'auth_meta_data', COALESCE(au.raw_user_meta_data, '{}'::jsonb)
+          ) AS "user",
+          json_build_object(
+            'id', tt.id,
+            'name', tt.name,
+            'description', tt.description,
+            'price', tt.price,
+            'status', tt.status::text,
+            'quantity', tt.quantity,
+            'sales_start_at', tt.sales_start_at,
+            'sales_end_at', tt.sales_end_at,
+            'created_at', tt.created_at,
+            'updated_at', tt.updated_at
+          ) AS ticket_type
         FROM ticket_purchases tp
         INNER JOIN ticket_types tt ON tp.ticket_type_id = tt.id
         LEFT JOIN ticket_purchase_options tpo ON tp.id = tpo.ticket_purchase_id

@@ -77,3 +77,23 @@ extension TicketTypeWithOptionsAndCountsExtension
     );
   }
 }
+
+/// 在庫情報なしでTicketTypesをTicketTypeに変換する拡張メソッド
+/// 在庫情報がないため、statusは簡易的に計算される
+extension TicketTypesExtension on db_types.TicketTypes {
+  TicketType toTicketType() {
+    final status = isActive
+        ? const TicketStatus.selling(isFewRemaining: false)
+        : const TicketStatus.notSelling();
+
+    return TicketType(
+      id: id,
+      name: name,
+      price: price,
+      status: status,
+      stripePriceId: stripePriceId,
+      description: description,
+      isEntryAllowed: isEntryAllowed,
+    );
+  }
+}
