@@ -341,6 +341,15 @@ class Timeline extends StatelessComponent {
                   title: entry.title.text(context),
                   url: url,
                   description: entry.description,
+                  speakers: entry.speakers
+                      .map((speaker) => speaker.name)
+                      .toList(),
+                  speakerAvatarUrls: entry.speakers
+                      .map((speaker) => speaker.avatarUrl)
+                      .toList(),
+                  speakerXIds: entry.speakers
+                      .map((speaker) => speaker.xId)
+                      .toList(),
                 ),
                 li(
                   [

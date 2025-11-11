@@ -200,6 +200,12 @@ extension PlaceExtension on Place {
   };
 }
 
+typedef SpeakerEntry = ({
+  String name,
+  String? avatarUrl,
+  String? xId,
+});
+
 typedef TimelineEntry = ({
   Content title,
   String? url,
@@ -209,6 +215,7 @@ typedef TimelineEntry = ({
   bool satellite,
   Duration start,
   Duration time,
+  List<SpeakerEntry> speakers,
 });
 
 /// BFF APIから取得したセッション情報を使用したタイムライン

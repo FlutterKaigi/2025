@@ -33,9 +33,28 @@ List<TimelineEntry> convertSessionsToTimelineEntries(
           satellite: false,
           start: start,
           time: duration,
+          speakers: convertSpeakersToEntries(session.speakers),
         ),
       );
     }
+  }
+
+  return entries;
+}
+
+List<SpeakerEntry> convertSpeakersToEntries(
+  List<Speaker> speakers,
+) {
+  final entries = <SpeakerEntry>[];
+
+  for (final speaker in speakers) {
+    entries.add(
+      (
+        name: speaker.name,
+        avatarUrl: speaker.avatarUrl,
+        xId: speaker.xId,
+      ),
+    );
   }
 
   return entries;
@@ -72,6 +91,7 @@ List<TimelineEntry> convertTimelineEventsToEntries(
         satellite: false,
         start: start,
         time: duration,
+        speakers: const <SpeakerEntry>[],
       ),
     );
   }
