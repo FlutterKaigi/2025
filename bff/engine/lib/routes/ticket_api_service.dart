@@ -419,7 +419,8 @@ class TicketApiService {
 
     // 返金Workflowを開始
     final internalApiClient = container.read(internalApiClientProvider);
-    final actorName = supabaseUser.userMetadata?['name'] as String? ??
+    final actorName =
+        supabaseUser.userMetadata?['name'] as String? ??
         supabaseUser.email ??
         'Unknown';
     final workflowResponse = await internalApiClient

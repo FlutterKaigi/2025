@@ -22,4 +22,3 @@ abstract class TicketRefundApiClient {
     @Path() required String workflowId,
   });
 }
-
