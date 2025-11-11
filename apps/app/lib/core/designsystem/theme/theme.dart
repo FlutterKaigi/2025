@@ -70,6 +70,13 @@ ThemeData darkTheme() {
       elevation: 0,
       surfaceTintColor: Colors.transparent,
     ),
+    dialogTheme: DialogThemeData(
+      titleTextStyle: TextStyle(
+        fontSize: 24,
+        fontWeight: FontWeight.bold,
+        fontVariations: [fontVariationForWeight(FontWeight.bold)],
+      ),
+    ),
     splashFactory: NoSplash.splashFactory,
     textTheme: textTheme,
     fontFamily: FontFamily.notoSansMono,

@@ -35,6 +35,7 @@ export 'model/v1/tickets/ticket_checkout_session_response.dart';
 export 'model/v1/tickets/ticket_option.dart';
 export 'model/v1/tickets/ticket_purchase.dart';
 export 'model/v1/tickets/ticket_purchase_with_details_response.dart';
+export 'model/v1/tickets/ticket_refund_response.dart';
 export 'model/v1/tickets/ticket_type.dart';
 export 'model/v1/tickets/ticket_type_with_options_response.dart';
 export 'model/v1/tickets/ticket_types_response.dart';

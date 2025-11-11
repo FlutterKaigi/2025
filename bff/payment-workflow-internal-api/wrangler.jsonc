@@ -34,6 +34,17 @@
           "binding": "PAYMENT_COMPLETION_WORKFLOW",
           "class_name": "PaymentCompletionWorkflow",
         },
+        {
+          "name": "ticket-refund-workflow-staging",
+          "binding": "TICKET_REFUND_WORKFLOW",
+          "class_name": "TicketRefundWorkflow",
+        },
+      ],
+      "services": [
+        {
+          "service": "websocket-api-staging",
+          "binding": "WEBSOCKET_API",
+        },
       ],
     },
     "production": {
@@ -58,6 +69,17 @@
           "name": "payment-completion-workflow-production",
           "binding": "PAYMENT_COMPLETION_WORKFLOW",
           "class_name": "PaymentCompletionWorkflow",
+        },
+        {
+          "name": "ticket-refund-workflow-production",
+          "binding": "TICKET_REFUND_WORKFLOW",
+          "class_name": "TicketRefundWorkflow",
+        },
+      ],
+      "services": [
+        {
+          "service": "websocket-api-production",
+          "binding": "WEBSOCKET_API",
         },
       ],
     },

@@ -21,6 +21,11 @@ Router _$TicketApiServiceRouter(TicketApiService service) {
     service._getTicketByPurchaseId,
   );
   router.add('PUT', r'/<ticketPurchaseId>/entry', service._putEntryLog);
+  router.add(
+    'POST',
+    r'/purchase/<ticketPurchaseId>/refund',
+    service._refundTicket,
+  );
   router.add('DELETE', r'/<ticketPurchaseId>/entry', service._deleteEntryLog);
   router.add('GET', r'/list', service._getTicketList);
   return router;

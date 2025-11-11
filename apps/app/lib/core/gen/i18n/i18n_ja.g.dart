@@ -768,6 +768,12 @@ class TranslationsTicketStatusJa {
 
 	/// ja: '決済待ち'
 	String get pending => '決済待ち';
+
+	/// ja: '返金済み'
+	String get refunded => '返金済み';
+
+	/// ja: '入場済み'
+	String get entered => '入場済み';
 }
 
 // Path: ticket.loginRequired
@@ -1476,6 +1482,8 @@ extension on Translations {
 			case 'sponsor.name': return 'スポンサー名';
 			case 'ticket.status.purchased': return '購入済み';
 			case 'ticket.status.pending': return '決済待ち';
+			case 'ticket.status.refunded': return '返金済み';
+			case 'ticket.status.entered': return '入場済み';
 			case 'ticket.options': return 'オプション:';
 			case 'ticket.purchaseDate': return '購入日時';
 			case 'ticket.expiryDate': return '期限';

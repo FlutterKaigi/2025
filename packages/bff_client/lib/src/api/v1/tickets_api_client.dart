@@ -63,4 +63,10 @@ abstract class TicketsApiClient {
     @Query('hasEntryLog') String? hasEntryLog,
     @Query('ticketOptionId') String? ticketOptionId,
   });
+
+  /// チケット返金処理（管理者のみ）
+  @POST('/tickets/purchase/{ticketPurchaseId}/refund')
+  Future<TicketRefundResponse> refundTicket(
+    @Path('ticketPurchaseId') String ticketPurchaseId,
+  );
 }

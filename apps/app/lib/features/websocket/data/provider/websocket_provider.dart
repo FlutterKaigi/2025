@@ -35,7 +35,8 @@ Stream<UserWebsocketPayload> websocketStream(Ref ref) async* {
 Future<WebSocketChannel> _websocketChannel(Ref ref) async {
   final websocketRepository = ref.watch(websocketRepositoryProvider);
   final startUrl = await websocketRepository.getStartUrl();
-  return WebSocketChannel.connect(startUrl);
+  final channel = WebSocketChannel.connect(startUrl);
+  return channel;
 }
 
 class WebsocketEventLog extends TalkerLog {

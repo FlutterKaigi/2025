@@ -1,1 +1,3 @@
 STRIPE_API_KEY=sk_test_xxx
+SLACK_REFUND_WEBHOOK_URL=https://hooks.slack.com/services/xxxx
+X_API_KEY=xxx
