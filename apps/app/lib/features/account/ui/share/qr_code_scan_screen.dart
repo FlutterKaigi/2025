@@ -82,7 +82,6 @@ class QrCodeScanScreen extends HookConsumerWidget {
                 if (isProcessing.value) {
                   return;
                 }
-
                 final barcodes = capture.barcodes;
                 for (final barcode in barcodes) {
                   final code = barcode.rawValue;
@@ -111,6 +110,11 @@ class QrCodeScanScreen extends HookConsumerWidget {
                   }
                 }
               },
+              errorBuilder: (context, exception) => ErrorScreen(
+                error: exception,
+                onRetry: () => ref.invalidate(authProvider),
+              ),
+              tapToFocus: true,
             ),
             // スキャン枠
             Center(
