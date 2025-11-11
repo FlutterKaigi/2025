@@ -51,4 +51,27 @@ class TicketPurchaseDbClient {
         .map((row) => TicketPurchases.fromJson(row.toColumnMap()))
         .toList();
   }
+
+  /// チケット購入IDから単一のチケット購入情報を取得
+  Future<TicketPurchases?> getTicketPurchase(
+    String ticketPurchaseId,
+  ) async {
+    final result = await _executor.execute(
+      '''
+        SELECT *, status::text AS "status"
+        FROM ticket_purchases
+        WHERE id = @ticketPurchaseId
+        LIMIT 1
+      ''',
+      parameters: {
+        'ticketPurchaseId': ticketPurchaseId,
+      },
+    );
+
+    if (result.isEmpty) {
+      return null;
+    }
+
+    return TicketPurchases.fromJson(result.first.toColumnMap());
+  }
 }

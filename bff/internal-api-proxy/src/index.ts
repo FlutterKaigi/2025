@@ -43,6 +43,7 @@ const app = new Hono<{
 					v.literal("stripe-internal-api"),
 					v.literal("r2-internal-api"),
 					v.literal("profile-share-internal-api"),
+					v.literal("websocket-api"),
 				]),
 			}),
 		),
@@ -67,6 +68,10 @@ const app = new Hono<{
 				}
 				case "profile-share-internal-api": {
 					fetcher = env.PROFILE_SHARE_INTERNAL_API;
+					break;
+				}
+				case "websocket-api": {
+					fetcher = env.WEBSOCKET_API;
 					break;
 				}
 				default: {

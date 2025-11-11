@@ -298,6 +298,29 @@ class TicketApiService {
         createdAt: dbEntryLog.createdAt,
       );
 
+      // WebSocket通知を送信
+      try {
+        final ticketPurchase = await database.ticketPurchase.getTicketPurchase(
+          ticketPurchaseId,
+        );
+        if (ticketPurchase != null) {
+          final internalApiClient = container.read(internalApiClientProvider);
+          await internalApiClient.websocketInternalApi.client
+              .sendWebsocketMessage(
+            sub: ticketPurchase.userId,
+            payload: UserWebsocketPayload.entryLog(
+              entryLog: EntryLogWebsocketPayload.add(
+                ticketPurchaseId: dbEntryLog.ticketPurchaseId,
+                createdAt: dbEntryLog.createdAt,
+              ),
+            ),
+          );
+        }
+      } catch (e) {
+        // WebSocket通知の失敗はログに記録するが、APIレスポンスは失敗させない
+        print('Failed to send websocket notification: $e');
+      }
+
       return EntryLogPutResponse(
         success: true,
         entryLog: entryLog,
@@ -325,7 +348,38 @@ class TicketApiService {
       }
 
       final database = await container.read(dbClientProvider.future);
+
+      // WebSocket通知用にユーザーIDを事前に取得
+      String? userId;
+      try {
+        final ticketPurchase = await database.ticketPurchase.getTicketPurchase(
+          ticketPurchaseId,
+        );
+        userId = ticketPurchase?.userId;
+      } catch (e) {
+        print('Failed to get ticket purchase for websocket notification: $e');
+      }
+
       await database.entryLog.deleteEntryLog(ticketPurchaseId);
+
+      // WebSocket通知を送信
+      if (userId != null) {
+        try {
+          final internalApiClient = container.read(internalApiClientProvider);
+          await internalApiClient.websocketInternalApi.client
+              .sendWebsocketMessage(
+            sub: userId,
+            payload: UserWebsocketPayload.entryLog(
+              entryLog: EntryLogWebsocketPayload.delete(
+                ticketPurchaseId: ticketPurchaseId,
+              ),
+            ),
+          );
+        } catch (e) {
+          // WebSocket通知の失敗はログに記録するが、APIレスポンスは失敗させない
+          print('Failed to send websocket notification: $e');
+        }
+      }
 
       return const EntryLogDeleteResponse(
         success: true,
@@ -357,6 +411,7 @@ class TicketApiService {
       final userId = request.url.queryParameters['userId'];
       final ticketTypeId = request.url.queryParameters['ticketTypeId'];
       final status = request.url.queryParameters['status'];
+      final ticketOptionId = request.url.queryParameters['ticketOptionId'];
       final hasEntryLogParam = request.url.queryParameters['hasEntryLog'];
       bool? hasEntryLog;
       if (hasEntryLogParam != null) {
@@ -369,6 +424,7 @@ class TicketApiService {
         ticketTypeId: ticketTypeId,
         status: status,
         hasEntryLog: hasEntryLog,
+        ticketOptionId: ticketOptionId,
         limit: limit,
         offset: offset,
       );

@@ -1,7 +1,10 @@
+import 'package:app/core/router/router.dart';
 import 'package:app/features/admin/data/model/admin_ticket_list_search_params.dart';
 import 'package:app/features/admin/data/notifier/admin_ticket_list_notifier.dart';
 import 'package:app/features/admin/ui/components/admin_ticket_item.dart';
 import 'package:app/features/ticket/data/provider/ticket_types_provider.dart';
+import 'package:bff_client/bff_client.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -17,6 +20,7 @@ final class AdminTicketListScreen extends HookConsumerWidget {
     final selectedTicketTypeId = useState<String?>(null);
     final selectedStatus = useState<String?>(null);
     final selectedHasEntryLog = useState<bool?>(null);
+    final selectedTicketOptionId = useState<String?>(null);
     final scrollController = PrimaryScrollController.of(context);
 
     useEffect(
@@ -113,6 +117,11 @@ final class AdminTicketListScreen extends HookConsumerWidget {
                     },
                   ),
                   const SizedBox(height: 8),
+                  Text(
+                    'チケット種別',
+                    style: Theme.of(context).textTheme.labelMedium,
+                  ),
+                  const SizedBox(height: 4),
                   ticketTypesAsync.when(
                     data: (ticketTypes) {
                       if (ticketTypes.isEmpty) {
@@ -168,6 +177,73 @@ final class AdminTicketListScreen extends HookConsumerWidget {
                     error: (_, __) => const SizedBox.shrink(),
                   ),
                   const SizedBox(height: 8),
+                  Text(
+                    'オプション',
+                    style: Theme.of(context).textTheme.labelMedium,
+                  ),
+                  const SizedBox(height: 4),
+                  ticketTypesAsync.when(
+                    data: (ticketTypes) {
+                      final selectedType = ticketTypes.firstWhereOrNull(
+                        (t) => t.ticketType.id == selectedTicketTypeId.value,
+                      );
+                      if (selectedType == null ||
+                          selectedType.options.isEmpty) {
+                        return const SizedBox.shrink();
+                      }
+                      return SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(right: 4),
+                              child: FilterChip(
+                                label: const Text('すべて'),
+                                selected: selectedTicketOptionId.value == null,
+                                onSelected: (selected) {
+                                  if (selected) {
+                                    selectedTicketOptionId.value = null;
+                                    searchParams.value = searchParams.value
+                                        .copyWith(
+                                          ticketOptionId: null,
+                                        );
+                                  }
+                                },
+                              ),
+                            ),
+                            ...selectedType.options.map(
+                              (option) => Padding(
+                                padding: const EdgeInsets.only(right: 4),
+                                child: FilterChip(
+                                  label: Text(option.name),
+                                  selected: selectedTicketOptionId.value ==
+                                      option.id,
+                                  onSelected: (selected) {
+                                    selectedTicketOptionId.value = selected
+                                        ? option.id
+                                        : null;
+                                    searchParams.value = searchParams.value
+                                        .copyWith(
+                                          ticketOptionId:
+                                              selected ? option.id : null,
+                                        );
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                    loading: () => const SizedBox.shrink(),
+                    error: (_, __) => const SizedBox.shrink(),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'ステータス',
+                    style: Theme.of(context).textTheme.labelMedium,
+                  ),
+                  const SizedBox(height: 4),
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
@@ -237,6 +313,11 @@ final class AdminTicketListScreen extends HookConsumerWidget {
                     ),
                   ),
                   const SizedBox(height: 8),
+                  Text(
+                    '入場履歴',
+                    style: Theme.of(context).textTheme.labelMedium,
+                  ),
+                  const SizedBox(height: 4),
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
@@ -322,7 +403,19 @@ final class AdminTicketListScreen extends HookConsumerWidget {
                               return AdminTicketItem(
                                 ticket: ticket,
                                 onTap: () {
-                                  // TODO: チケット詳細画面への遷移を実装
+                                  final ticketId = switch (ticket) {
+                                    TicketPurchaseItemWithUser(
+                                      :final purchase,
+                                    ) =>
+                                      purchase.id,
+                                    TicketCheckoutItemWithUser(
+                                      :final checkout,
+                                    ) =>
+                                      checkout.id,
+                                  };
+                                  AdminTicketDetailRoute(
+                                    ticketId: ticketId,
+                                  ).push<void>(context);
                                 },
                               );
                             },

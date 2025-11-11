@@ -55,5 +55,6 @@ abstract class TicketsApiClient {
     @Query('ticketTypeId') String? ticketTypeId,
     @Query('status') String? status,
     @Query('hasEntryLog') String? hasEntryLog,
+    @Query('ticketOptionId') String? ticketOptionId,
   });
 }

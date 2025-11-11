@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AdminTicketListSearchParams {
 
- String? get userId; String? get ticketTypeId; String? get status; bool? get hasEntryLog;
+ String? get userId; String? get ticketTypeId; String? get status; bool? get hasEntryLog; String? get ticketOptionId;
 /// Create a copy of AdminTicketListSearchParams
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $AdminTicketListSearchParamsCopyWith<AdminTicketListSearchParams> get copyWith =
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AdminTicketListSearchParams&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.ticketTypeId, ticketTypeId) || other.ticketTypeId == ticketTypeId)&&(identical(other.status, status) || other.status == status)&&(identical(other.hasEntryLog, hasEntryLog) || other.hasEntryLog == hasEntryLog));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AdminTicketListSearchParams&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.ticketTypeId, ticketTypeId) || other.ticketTypeId == ticketTypeId)&&(identical(other.status, status) || other.status == status)&&(identical(other.hasEntryLog, hasEntryLog) || other.hasEntryLog == hasEntryLog)&&(identical(other.ticketOptionId, ticketOptionId) || other.ticketOptionId == ticketOptionId));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,userId,ticketTypeId,status,hasEntryLog);
+int get hashCode => Object.hash(runtimeType,userId,ticketTypeId,status,hasEntryLog,ticketOptionId);
 
 @override
 String toString() {
-  return 'AdminTicketListSearchParams(userId: $userId, ticketTypeId: $ticketTypeId, status: $status, hasEntryLog: $hasEntryLog)';
+  return 'AdminTicketListSearchParams(userId: $userId, ticketTypeId: $ticketTypeId, status: $status, hasEntryLog: $hasEntryLog, ticketOptionId: $ticketOptionId)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $AdminTicketListSearchParamsCopyWith<$Res>  {
   factory $AdminTicketListSearchParamsCopyWith(AdminTicketListSearchParams value, $Res Function(AdminTicketListSearchParams) _then) = _$AdminTicketListSearchParamsCopyWithImpl;
 @useResult
 $Res call({
- String? userId, String? ticketTypeId, String? status, bool? hasEntryLog
+ String? userId, String? ticketTypeId, String? status, bool? hasEntryLog, String? ticketOptionId
 });
 
 
@@ -65,13 +65,14 @@ class _$AdminTicketListSearchParamsCopyWithImpl<$Res>
 
 /// Create a copy of AdminTicketListSearchParams
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? userId = freezed,Object? ticketTypeId = freezed,Object? status = freezed,Object? hasEntryLog = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? userId = freezed,Object? ticketTypeId = freezed,Object? status = freezed,Object? hasEntryLog = freezed,Object? ticketOptionId = freezed,}) {
   return _then(_self.copyWith(
 userId: freezed == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
 as String?,ticketTypeId: freezed == ticketTypeId ? _self.ticketTypeId : ticketTypeId // ignore: cast_nullable_to_non_nullable
 as String?,status: freezed == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as String?,hasEntryLog: freezed == hasEntryLog ? _self.hasEntryLog : hasEntryLog // ignore: cast_nullable_to_non_nullable
-as bool?,
+as bool?,ticketOptionId: freezed == ticketOptionId ? _self.ticketOptionId : ticketOptionId // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 
@@ -156,10 +157,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? userId,  String? ticketTypeId,  String? status,  bool? hasEntryLog)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? userId,  String? ticketTypeId,  String? status,  bool? hasEntryLog,  String? ticketOptionId)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AdminTicketListSearchParams() when $default != null:
-return $default(_that.userId,_that.ticketTypeId,_that.status,_that.hasEntryLog);case _:
+return $default(_that.userId,_that.ticketTypeId,_that.status,_that.hasEntryLog,_that.ticketOptionId);case _:
   return orElse();
 
 }
@@ -177,10 +178,10 @@ return $default(_that.userId,_that.ticketTypeId,_that.status,_that.hasEntryLog);
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? userId,  String? ticketTypeId,  String? status,  bool? hasEntryLog)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? userId,  String? ticketTypeId,  String? status,  bool? hasEntryLog,  String? ticketOptionId)  $default,) {final _that = this;
 switch (_that) {
 case _AdminTicketListSearchParams():
-return $default(_that.userId,_that.ticketTypeId,_that.status,_that.hasEntryLog);case _:
+return $default(_that.userId,_that.ticketTypeId,_that.status,_that.hasEntryLog,_that.ticketOptionId);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -197,10 +198,10 @@ return $default(_that.userId,_that.ticketTypeId,_that.status,_that.hasEntryLog);
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? userId,  String? ticketTypeId,  String? status,  bool? hasEntryLog)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? userId,  String? ticketTypeId,  String? status,  bool? hasEntryLog,  String? ticketOptionId)?  $default,) {final _that = this;
 switch (_that) {
 case _AdminTicketListSearchParams() when $default != null:
-return $default(_that.userId,_that.ticketTypeId,_that.status,_that.hasEntryLog);case _:
+return $default(_that.userId,_that.ticketTypeId,_that.status,_that.hasEntryLog,_that.ticketOptionId);case _:
   return null;
 
 }
@@ -212,13 +213,14 @@ return $default(_that.userId,_that.ticketTypeId,_that.status,_that.hasEntryLog);
 @JsonSerializable()
 
 class _AdminTicketListSearchParams implements AdminTicketListSearchParams {
-  const _AdminTicketListSearchParams({this.userId, this.ticketTypeId, this.status, this.hasEntryLog});
+  const _AdminTicketListSearchParams({this.userId, this.ticketTypeId, this.status, this.hasEntryLog, this.ticketOptionId});
   factory _AdminTicketListSearchParams.fromJson(Map<String, dynamic> json) => _$AdminTicketListSearchParamsFromJson(json);
 
 @override final  String? userId;
 @override final  String? ticketTypeId;
 @override final  String? status;
 @override final  bool? hasEntryLog;
+@override final  String? ticketOptionId;
 
 /// Create a copy of AdminTicketListSearchParams
 /// with the given fields replaced by the non-null parameter values.
@@ -233,16 +235,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AdminTicketListSearchParams&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.ticketTypeId, ticketTypeId) || other.ticketTypeId == ticketTypeId)&&(identical(other.status, status) || other.status == status)&&(identical(other.hasEntryLog, hasEntryLog) || other.hasEntryLog == hasEntryLog));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AdminTicketListSearchParams&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.ticketTypeId, ticketTypeId) || other.ticketTypeId == ticketTypeId)&&(identical(other.status, status) || other.status == status)&&(identical(other.hasEntryLog, hasEntryLog) || other.hasEntryLog == hasEntryLog)&&(identical(other.ticketOptionId, ticketOptionId) || other.ticketOptionId == ticketOptionId));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,userId,ticketTypeId,status,hasEntryLog);
+int get hashCode => Object.hash(runtimeType,userId,ticketTypeId,status,hasEntryLog,ticketOptionId);
 
 @override
 String toString() {
-  return 'AdminTicketListSearchParams(userId: $userId, ticketTypeId: $ticketTypeId, status: $status, hasEntryLog: $hasEntryLog)';
+  return 'AdminTicketListSearchParams(userId: $userId, ticketTypeId: $ticketTypeId, status: $status, hasEntryLog: $hasEntryLog, ticketOptionId: $ticketOptionId)';
 }
 
 
@@ -253,7 +255,7 @@ abstract mixin class _$AdminTicketListSearchParamsCopyWith<$Res> implements $Adm
   factory _$AdminTicketListSearchParamsCopyWith(_AdminTicketListSearchParams value, $Res Function(_AdminTicketListSearchParams) _then) = __$AdminTicketListSearchParamsCopyWithImpl;
 @override @useResult
 $Res call({
- String? userId, String? ticketTypeId, String? status, bool? hasEntryLog
+ String? userId, String? ticketTypeId, String? status, bool? hasEntryLog, String? ticketOptionId
 });
 
 
@@ -270,13 +272,14 @@ class __$AdminTicketListSearchParamsCopyWithImpl<$Res>
 
 /// Create a copy of AdminTicketListSearchParams
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? userId = freezed,Object? ticketTypeId = freezed,Object? status = freezed,Object? hasEntryLog = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? userId = freezed,Object? ticketTypeId = freezed,Object? status = freezed,Object? hasEntryLog = freezed,Object? ticketOptionId = freezed,}) {
   return _then(_AdminTicketListSearchParams(
 userId: freezed == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
 as String?,ticketTypeId: freezed == ticketTypeId ? _self.ticketTypeId : ticketTypeId // ignore: cast_nullable_to_non_nullable
 as String?,status: freezed == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as String?,hasEntryLog: freezed == hasEntryLog ? _self.hasEntryLog : hasEntryLog // ignore: cast_nullable_to_non_nullable
-as bool?,
+as bool?,ticketOptionId: freezed == ticketOptionId ? _self.ticketOptionId : ticketOptionId // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 
