@@ -159,6 +159,35 @@ class _TicketsApiClient implements TicketsApiClient {
   }
 
   @override
+  Future<TicketItemWithUser> getTicketByPurchaseId(
+    String ticketPurchaseId,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<TicketItemWithUser>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/tickets/purchase/${ticketPurchaseId}',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late TicketItemWithUser _value;
+    try {
+      _value = TicketItemWithUser.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
   Future<EntryLogPutResponse> putEntryLog(String ticketPurchaseId) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -220,6 +249,7 @@ class _TicketsApiClient implements TicketsApiClient {
     String? ticketTypeId,
     String? status,
     String? hasEntryLog,
+    String? ticketOptionId,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
@@ -229,6 +259,7 @@ class _TicketsApiClient implements TicketsApiClient {
       r'ticketTypeId': ticketTypeId,
       r'status': status,
       r'hasEntryLog': hasEntryLog,
+      r'ticketOptionId': ticketOptionId,
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
