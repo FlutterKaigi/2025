@@ -156,6 +156,20 @@ RouteBase get $mainRoute => StatefulShellRouteData.$route(
                   path: 'tickets',
                   parentNavigatorKey: AdminTicketListRoute.$parentNavigatorKey,
                   factory: $AdminTicketListRoute._fromState,
+                  routes: [
+                    GoRouteData.$route(
+                      path: ':ticketId',
+                      parentNavigatorKey:
+                          AdminTicketDetailRoute.$parentNavigatorKey,
+                      factory: $AdminTicketDetailRoute._fromState,
+                    ),
+                  ],
+                ),
+                GoRouteData.$route(
+                  path: 'ticket-scan',
+                  parentNavigatorKey:
+                      AdminTicketQrScanRoute.$parentNavigatorKey,
+                  factory: $AdminTicketQrScanRoute._fromState,
                 ),
               ],
             ),
@@ -671,6 +685,52 @@ mixin $AdminTicketListRoute on GoRouteData {
 
   @override
   String get location => GoRouteData.$location('/account/admin/tickets');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $AdminTicketDetailRoute on GoRouteData {
+  static AdminTicketDetailRoute _fromState(GoRouterState state) =>
+      AdminTicketDetailRoute(ticketId: state.pathParameters['ticketId']!);
+
+  AdminTicketDetailRoute get _self => this as AdminTicketDetailRoute;
+
+  @override
+  String get location => GoRouteData.$location(
+    '/account/admin/tickets/${Uri.encodeComponent(_self.ticketId)}',
+  );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $AdminTicketQrScanRoute on GoRouteData {
+  static AdminTicketQrScanRoute _fromState(GoRouterState state) =>
+      const AdminTicketQrScanRoute();
+
+  @override
+  String get location => GoRouteData.$location('/account/admin/ticket-scan');
 
   @override
   void go(BuildContext context) => context.go(location);

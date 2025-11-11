@@ -30,6 +30,7 @@ class AdminTicketList extends _$AdminTicketList {
         ticketTypeId: searchParams.ticketTypeId,
         status: searchParams.status,
         hasEntryLog: searchParams.hasEntryLog?.toString(),
+        ticketOptionId: searchParams.ticketOptionId,
       ),
     );
     return AdminTicketListState(
@@ -67,6 +68,7 @@ class AdminTicketList extends _$AdminTicketList {
               ticketTypeId: searchParams.ticketTypeId,
               status: searchParams.status,
               hasEntryLog: searchParams.hasEntryLog?.toString(),
+              ticketOptionId: searchParams.ticketOptionId,
             ),
           );
           return response.data.tickets;

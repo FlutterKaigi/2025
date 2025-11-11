@@ -1,7 +1,9 @@
+import 'package:app/core/router/router.dart';
 import 'package:app/features/admin/data/model/admin_ticket_list_search_params.dart';
 import 'package:app/features/admin/data/notifier/admin_ticket_list_notifier.dart';
 import 'package:app/features/admin/ui/components/admin_ticket_item.dart';
 import 'package:app/features/ticket/data/provider/ticket_types_provider.dart';
+import 'package:bff_client/bff_client.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -322,7 +324,19 @@ final class AdminTicketListScreen extends HookConsumerWidget {
                               return AdminTicketItem(
                                 ticket: ticket,
                                 onTap: () {
-                                  // TODO: チケット詳細画面への遷移を実装
+                                  final ticketId = switch (ticket) {
+                                    TicketPurchaseItemWithUser(
+                                      :final purchase,
+                                    ) =>
+                                      purchase.id,
+                                    TicketCheckoutItemWithUser(
+                                      :final checkout,
+                                    ) =>
+                                      checkout.id,
+                                  };
+                                  AdminTicketDetailRoute(
+                                    ticketId: ticketId,
+                                  ).push<void>(context);
                                 },
                               );
                             },

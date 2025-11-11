@@ -12,6 +12,7 @@ abstract class AdminTicketListSearchParams
     String? ticketTypeId,
     String? status,
     bool? hasEntryLog,
+    String? ticketOptionId,
   }) = _AdminTicketListSearchParams;
 
   factory AdminTicketListSearchParams.fromJson(Map<String, dynamic> json) =>
