@@ -62,7 +62,7 @@ $jsonOutput
     print('Generated: ${dartFile.path}');
 
     print('Done!');
-  // ignore: avoid_catches_without_on_clauses
+    // ignore: avoid_catches_without_on_clauses
   } catch (e, stackTrace) {
     stderr.writeln('Error fetching sponsor data: $e');
     stderr.writeln(stackTrace);
