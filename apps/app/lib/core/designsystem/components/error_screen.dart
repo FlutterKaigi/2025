@@ -31,7 +31,7 @@ class ErrorScreen extends StatelessWidget {
 
     final errorDetail = switch (error) {
       ApiErrorResponseException(:final errorResponse) =>
-        '${errorResponse.code.name.toUpperCase()}: ${errorResponse.message}',
+        '${errorResponse.code.name}: ${errorResponse.message}',
       _ => () {
         final text = error.toString();
         if (text.length >= 200) {
@@ -100,6 +100,93 @@ class ErrorScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+/// エラー表示ダイアログ
+class ErrorDialog extends StatelessWidget {
+  const ErrorDialog({
+    required this.error,
+    super.key,
+  });
+
+  final Object error;
+
+  static Future<void> show(BuildContext context, Object error) =>
+      showDialog<void>(
+        context: context,
+        builder: (context) => ErrorDialog(error: error),
+      );
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final t = Translations.of(context);
+
+    final errorMessage = switch (error) {
+      ApiException _ || DioException _ => t.common.error.server.title,
+      Object() => t.common.error.general.occurred,
+    };
+
+    final errorDetail = switch (error) {
+      ApiErrorResponseException(:final errorResponse) =>
+        '${errorResponse.code.name.toUpperCase()}: ${errorResponse.message}\n\n'
+            '${errorResponse.detail ?? ""}',
+      _ => () {
+        final text = error.toString();
+        if (text.length >= 400) {
+          return '${text.substring(0, 400)}...';
+        }
+        return text;
+      }(),
+    };
+
+    return AlertDialog(
+      title: Row(
+        children: [
+          Icon(
+            Icons.error_outline,
+            color: theme.colorScheme.error,
+          ),
+          const SizedBox(width: 8),
+          const Text('エラー'),
+        ],
+      ),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // ダシュマル画像
+          Center(
+            child: Assets.res.assets.dashumaruMagao.image(
+              height: 120,
+              fit: BoxFit.contain,
+            ),
+          ),
+          const SizedBox(height: 24),
+          // エラーメッセージ
+          Text(
+            errorMessage,
+            style: theme.textTheme.titleMedium?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            errorDetail,
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
+          ),
+        ],
+      ),
+      actions: [
+        FilledButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: const Text('閉じる'),
+        ),
+      ],
     );
   }
 }
