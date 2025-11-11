@@ -5,6 +5,11 @@ on:
       - supabase/**
   workflow_dispatch:
 
+env:
+  # mise-actionで利用
+  # See: https://mise.jdx.dev/getting-started.html#github-api-rate-limiting
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 jobs:
   supabase-lint:
     name: Lint SQL
