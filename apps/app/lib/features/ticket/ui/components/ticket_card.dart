@@ -84,23 +84,69 @@ class _TicketHeader extends StatelessWidget {
     final colorScheme = theme.colorScheme;
     final t = Translations.of(context);
 
-    final color = switch (ticket) {
-      TicketPurchaseItem() => colorScheme.primary,
-      TicketCheckoutItem() => colorScheme.primaryContainer,
-    };
-    final icon = switch (ticket) {
-      TicketPurchaseItem() => Icons.check_circle,
-      TicketCheckoutItem() => Icons.hourglass_empty,
-    };
-    final onColor = switch (ticket) {
-      TicketPurchaseItem() => colorScheme.onPrimary,
-      TicketCheckoutItem() => colorScheme.onPrimaryContainer,
-    };
-    final label = switch (ticket) {
-      TicketPurchaseItem() => t.ticket.status.purchased,
-      TicketCheckoutItem() => t.ticket.status.pending,
-    };
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      spacing: 8,
+      children: [
+        if (ticket case TicketPurchaseItem(:final purchase)) ...[
+          _StatusBadge(
+            icon: switch (purchase.status) {
+              TicketPurchaseStatus.completed => Icons.check_circle,
+              TicketPurchaseStatus.refunded => Icons.cancel,
+            },
+            label: switch (purchase.status) {
+              TicketPurchaseStatus.completed => t.ticket.status.purchased,
+              TicketPurchaseStatus.refunded => t.ticket.status.refunded,
+            },
+            color: switch (purchase.status) {
+              TicketPurchaseStatus.completed => colorScheme.primary,
+              TicketPurchaseStatus.refunded => colorScheme.error,
+            },
+            onColor: switch (purchase.status) {
+              TicketPurchaseStatus.completed => colorScheme.onPrimary,
+              TicketPurchaseStatus.refunded => colorScheme.onError,
+            },
+            theme: theme,
+          ),
+          if (purchase.entryLog != null)
+            _StatusBadge(
+              icon: Icons.meeting_room,
+              label: t.ticket.status.entered,
+              color: colorScheme.tertiary,
+              onColor: colorScheme.onTertiary,
+              theme: theme,
+            ),
+        ],
+        if (ticket case TicketCheckoutItem())
+          _StatusBadge(
+            icon: Icons.hourglass_empty,
+            label: t.ticket.status.pending,
+            color: colorScheme.primaryContainer,
+            onColor: colorScheme.onPrimaryContainer,
+            theme: theme,
+          ),
+      ],
+    );
+  }
+}
 
+class _StatusBadge extends StatelessWidget {
+  const _StatusBadge({
+    required this.icon,
+    required this.label,
+    required this.color,
+    required this.onColor,
+    required this.theme,
+  });
+
+  final IconData icon;
+  final String label;
+  final Color color;
+  final Color onColor;
+  final ThemeData theme;
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
