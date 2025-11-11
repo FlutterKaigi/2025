@@ -71,7 +71,7 @@ class TicketCheckoutDbClient {
             'created_at', tp.created_at,
             'updated_at', tp.updated_at
           ) AS purchase,
-          NULL AS "checkout_session",
+          NULL::json AS "checkout_session",
           tt.id AS ticket_type_id,
           COALESCE(
             json_agg(
@@ -112,7 +112,7 @@ class TicketCheckoutDbClient {
 
         -- アクティブなチェックアウトセッション情報
         SELECT
-          NULL AS purchase,
+          NULL::json AS purchase,
           json_build_object(
             'id', tcs.id,
             'user_id', tcs.user_id,
@@ -144,7 +144,7 @@ class TicketCheckoutDbClient {
             ) FILTER (WHERE topt.id IS NOT NULL),
             '[]'::json
           ) AS options,
-          NULL AS entry_log,
+          NULL::json AS entry_log,
           tcs.created_at as sort_date
         FROM ticket_checkout_sessions tcs
         INNER JOIN ticket_types tt ON tcs.ticket_type_id = tt.id
@@ -170,12 +170,12 @@ class TicketCheckoutDbClient {
   /// チケット一覧を検索する（管理者用）
   /// User情報もJOINで一度に取得してN+1問題を回避
   Future<List<TicketPurchaseWithDetailsAndUser>> getTicketList({
+    required int limit,
+    required int offset,
     String? userId,
     String? ticketTypeId,
     String? status,
     bool? hasEntryLog,
-    required int limit,
-    required int offset,
   }) async {
     final queryBuffer = StringBuffer();
     final parameters = <String, dynamic>{
@@ -198,7 +198,7 @@ class TicketCheckoutDbClient {
               'created_at', tp.created_at,
               'updated_at', tp.updated_at
             ) AS purchase,
-            NULL AS "checkout_session",
+            NULL::json AS "checkout_session",
             tt.id AS ticket_type_id,
             COALESCE(
               json_agg(
@@ -229,7 +229,7 @@ class TicketCheckoutDbClient {
             json_build_object(
               'user', to_json(u.*),
               'roles', COALESCE(json_agg(ur.role) FILTER (WHERE ur.role IS NOT NULL), '[]'::json),
-              'authMetaData', au.raw_user_meta_data
+              'auth_meta_data', COALESCE(au.raw_user_meta_data, '{}'::jsonb)
             ) AS user,
             tp.created_at as sort_date
           FROM ticket_purchases tp
@@ -273,7 +273,7 @@ class TicketCheckoutDbClient {
         ),
         checkout_tickets AS (
           SELECT
-            NULL AS purchase,
+            NULL::json AS purchase,
             json_build_object(
               'id', tcs.id,
               'user_id', tcs.user_id,
@@ -305,11 +305,11 @@ class TicketCheckoutDbClient {
               ) FILTER (WHERE topt.id IS NOT NULL),
               '[]'::json
             ) AS options,
-            NULL AS entry_log,
+            NULL::json AS entry_log,
             json_build_object(
               'user', to_json(u.*),
               'roles', COALESCE(json_agg(ur.role) FILTER (WHERE ur.role IS NOT NULL), '[]'::json),
-              'authMetaData', au.raw_user_meta_data
+              'auth_meta_data', COALESCE(au.raw_user_meta_data, '{}'::jsonb)
             ) AS user,
             tcs.created_at as sort_date
           FROM ticket_checkout_sessions tcs

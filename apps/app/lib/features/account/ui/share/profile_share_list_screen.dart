@@ -1,5 +1,6 @@
 import 'package:app/core/designsystem/components/error_screen.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
+import 'package:app/core/util/let.dart';
 import 'package:app/features/account/data/model/profile_share_models.dart';
 import 'package:app/features/account/data/notifier/profile_share_notifier.dart';
 import 'package:app/features/account/ui/component/account_circle_image.dart';
@@ -147,21 +148,41 @@ class _ProfileShareCard extends StatelessWidget {
                       spacing: 4,
                       runSpacing: 4,
                       children: profileWithSns.snsLinks.map((link) {
-                        final canLaunch =
-                            link.snsType != SnsType.discord &&
-                            link.snsType != SnsType.other;
+                        final icon = switch (link.snsType) {
+                          SnsType.github => FontAwesomeIcons.github,
+                          SnsType.x => FontAwesomeIcons.xTwitter,
+                          SnsType.discord => FontAwesomeIcons.discord,
+                          SnsType.medium => FontAwesomeIcons.medium,
+                          SnsType.qiita => FontAwesomeIcons.link,
+                          SnsType.zenn => FontAwesomeIcons.link,
+                          SnsType.note => FontAwesomeIcons.link,
+                          SnsType.other => FontAwesomeIcons.link,
+                        };
+
+                        final uri = switch (link.snsType) {
+                          SnsType.github => 'https://github.com/${link.value}',
+                          SnsType.x => 'https://x.com/${link.value}',
+                          SnsType.qiita => 'https://qiita.com/${link.value}',
+                          SnsType.zenn => 'https://zenn.dev/${link.value}',
+                          SnsType.medium => 'https://medium.com/@${link.value}',
+                          SnsType.note => 'https://note.com/${link.value}',
+                          SnsType.discord => null,
+                          SnsType.other when link.value.startsWith('http') =>
+                            link.value,
+                          SnsType.other => null,
+                        }?.let(Uri.parse);
+
                         return InkWell(
+                          borderRadius: BorderRadius.circular(8),
                           onTap: () async {
-                            if (canLaunch) {
-                              final uri = Uri.parse(
-                                _getSnsUrl(link.snsType, link.value),
-                              );
+                            if (uri != null) {
                               // リンクを開く
                               if (await canLaunchUrl(uri)) {
                                 await launchUrl(
                                   uri,
                                   mode: LaunchMode.externalApplication,
                                 );
+                                return;
                               }
                             } else {
                               // クリップボードにコピー
@@ -185,29 +206,24 @@ class _ProfileShareCard extends StatelessWidget {
                             }
                           },
                           child: Padding(
-                            padding: const EdgeInsets.only(bottom: 4),
+                            padding: const EdgeInsets.all(2),
                             child: Row(
                               children: [
                                 FaIcon(
-                                  _getSnsIcon(link.snsType),
+                                  icon,
                                   size: snsTextStyle?.fontSize,
                                   color: Colors.grey,
                                   fontWeight: FontWeight.bold,
                                 ),
                                 const SizedBox(width: 8),
-                                Text(
-                                  // URL形式の場合はそのまま、そうでない場合は@を付ける
-                                  link.value.startsWith('http')
-                                      ? link.value
-                                      : '@${link.value}',
-                                  style: snsTextStyle,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                if (!canLaunch) const SizedBox(width: 4),
-                                Icon(
-                                  Icons.copy,
-                                  size: snsTextStyle?.fontSize,
-                                  color: Colors.grey,
+                                Flexible(
+                                  child: Text(
+                                    // URL形式の場合はそのまま、そうでない場合は@を付ける
+                                    link.value.startsWith('http')
+                                        ? link.value
+                                        : '@${link.value}',
+                                    style: snsTextStyle,
+                                  ),
                                 ),
                               ],
                             ),
@@ -222,30 +238,5 @@ class _ProfileShareCard extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  IconData _getSnsIcon(SnsType type) {
-    return switch (type) {
-      SnsType.github => FontAwesomeIcons.github,
-      SnsType.x => FontAwesomeIcons.xTwitter,
-      SnsType.discord => FontAwesomeIcons.discord,
-      SnsType.medium => FontAwesomeIcons.medium,
-      SnsType.qiita => FontAwesomeIcons.link,
-      SnsType.zenn => FontAwesomeIcons.link,
-      SnsType.note => FontAwesomeIcons.link,
-      SnsType.other => FontAwesomeIcons.link,
-    };
-  }
-
-  String _getSnsUrl(SnsType type, String value) {
-    return switch (type) {
-      SnsType.github => 'https://github.com/$value',
-      SnsType.x => 'https://x.com/$value',
-      SnsType.qiita => 'https://qiita.com/$value',
-      SnsType.zenn => 'https://zenn.dev/$value',
-      SnsType.medium => 'https://medium.com/@$value',
-      SnsType.note => 'https://note.com/$value',
-      SnsType.discord || SnsType.other => value,
-    };
   }
 }
