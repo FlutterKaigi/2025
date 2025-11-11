@@ -45,9 +45,26 @@ Future<WebSocketChannel> _websocketChannel(Ref ref) async {
   final websocketRepository = ref.watch(websocketRepositoryProvider);
   final startUrl = await websocketRepository.getStartUrl();
   final channel = WebSocketChannel.connect(startUrl);
+  DateTime? lastPongAt;
+  channel.stream.listen((event) {
+    if (event == 'pong') {
+      lastPongAt = DateTime.now();
+    }
+  });
   final timer = Timer.periodic(
     const Duration(seconds: 15),
     (_) {
+      // check
+      if (lastPongAt != null &&
+          DateTime.now().difference(lastPongAt!) >
+              const Duration(seconds: 30)) {
+        talker.logCustom(
+          WebsocketEventLog(
+            'WebSocket connection lost',
+          ),
+        );
+        ref.invalidateSelf();
+      }
       channel.sink.add('ping');
       if (channel.closeCode != null) {
         talker.logCustom(
