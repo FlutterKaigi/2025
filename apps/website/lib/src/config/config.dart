@@ -3,6 +3,8 @@ import 'package:flutterkaigi_2025_website/src/config/sessions_data.dart'
     show timelineEvents, venuesWithSessions;
 import 'package:flutterkaigi_2025_website/src/config/sponsors_data.dart'
     show companySponsors;
+import 'package:flutterkaigi_2025_website/src/config/staffs_data.dart'
+    show staffMembers;
 import 'package:flutterkaigi_2025_website/src/config/timeline_converter.dart';
 import 'package:flutterkaigi_2025_website/text.dart' show Content, Place;
 
@@ -287,6 +289,34 @@ SponsorInfo _convertToSponsorInfo(CompanySponsorDetail detail) {
 final _sponsors = companySponsors
     .map<SponsorInfo>(_convertToSponsorInfo)
     .toList();
+
+/// StaffMemberWithSnsLinksをStaffInfoに変換する
+StaffInfo _convertToStaffInfo(StaffMemberWithSnsLinks member) {
+  // SNSリンクを型ごとにマップに変換
+  final snsMap = <SnsType, String>{};
+  for (final link in member.snsLinks) {
+    snsMap[link.type] = link.value;
+  }
+
+  return (
+    name: member.name,
+    avatar: member.iconUrl,
+    comment: member.greeting ?? '',
+    sns: (
+      x: snsMap[SnsType.x],
+      bluesky: null, // BFFにはまだblueskyがない
+      mixi2: null, // BFFにはまだmixi2がない
+      medium: snsMap[SnsType.medium],
+      qiita: snsMap[SnsType.qiita],
+      zenn: snsMap[SnsType.zenn],
+      note: snsMap[SnsType.note],
+      website: snsMap[SnsType.other],
+    ),
+  );
+}
+
+/// API経由で取得したスタッフメンバー情報をStaffInfoに変換
+final _staff = staffMembers.map<StaffInfo>(_convertToStaffInfo).toList();
 
 /// 以前のハードコードされたスポンサー情報（参考用にコメントアウト）
 // ignore: unused_element
@@ -915,7 +945,9 @@ typedef StaffInfo = ({
   sns,
 });
 
-const _staff = <StaffInfo>[
+/// 以前のハードコードされたスタッフ情報（参考用にコメントアウト）
+// ignore: unused_element
+const _legacyStaff = <StaffInfo>[
   (
     name: 'kuno',
     avatar: '/img/staff/Kunodayo_oboete.png',
