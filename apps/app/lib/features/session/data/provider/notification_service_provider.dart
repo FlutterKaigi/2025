@@ -152,8 +152,6 @@ class NotificationService extends _$NotificationService {
       tz.TZDateTime.from(notificationTime, tz.local),
       notificationDetails,
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
       payload: sessionId,
     );
   }
