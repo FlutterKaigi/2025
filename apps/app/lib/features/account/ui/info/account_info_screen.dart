@@ -98,6 +98,10 @@ final class AccountInfoScreen extends ConsumerWidget {
                     orElse: () => false,
                   );
 
+                  final titleTextStyle = textTheme.titleLarge!.copyWith(
+                    fontWeight: FontWeight.bold,
+                  );
+
                   return ListView(
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     children: [
@@ -115,7 +119,7 @@ final class AccountInfoScreen extends ConsumerWidget {
                           padding: const EdgeInsetsDirectional.only(start: 16),
                           child: Text(
                             t.account.profileshare.title,
-                            style: textTheme.titleLarge,
+                            style: titleTextStyle,
                           ),
                         ),
                         const SizedBox(height: 8),
@@ -137,7 +141,7 @@ final class AccountInfoScreen extends ConsumerWidget {
                         padding: const EdgeInsetsDirectional.only(start: 16),
                         child: Text(
                           t.account.contributors,
-                          style: textTheme.titleLarge,
+                          style: titleTextStyle,
                         ),
                       ),
                       const SizedBox(height: 8),
@@ -150,7 +154,7 @@ final class AccountInfoScreen extends ConsumerWidget {
                         padding: const EdgeInsetsDirectional.only(start: 16),
                         child: Text(
                           t.account.others,
-                          style: textTheme.titleLarge,
+                          style: titleTextStyle,
                         ),
                       ),
                       const SizedBox(height: 8),
@@ -251,7 +255,10 @@ final class AccountInfoScreen extends ConsumerWidget {
                       ),
                       if (isAdmin)
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 8,
+                          ),
                           child: ElevatedButton.icon(
                             onPressed: _onTapAdminPage,
                             icon: const Icon(Icons.admin_panel_settings),
