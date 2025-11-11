@@ -147,7 +147,7 @@ extension _SnsTypeExtension on SnsType {
       SnsType.other when uriOrNull != null => null,
       _ when uriOrNull != null && isValid => t.account.profile.sns.userIdOnly,
       _ =>
-        RegExp(r'^[a-zA-Z0-9_-]+$').hasMatch(value)
+        RegExp(r'^[a-zA-Z0-9_.-]+$').hasMatch(value)
             ? null
             : t.account.profile.sns.alphanumericOnly,
     };
