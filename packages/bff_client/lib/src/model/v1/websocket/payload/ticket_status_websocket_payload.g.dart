@@ -21,11 +21,6 @@ _TicketStatusPayload _$TicketStatusPayloadFromJson(Map<String, dynamic> json) =>
             'status',
             (v) => $enumDecode(_$TicketStatusTypeEnumMap, v),
           ),
-          stripePaymentIntentId: $checkedConvert(
-            'stripe_payment_intent_id',
-            (v) => v as String?,
-          ),
-          nameplateId: $checkedConvert('nameplate_id', (v) => v as String?),
           createdAt: $checkedConvert(
             'created_at',
             (v) => DateTime.parse(v as String),
@@ -34,16 +29,21 @@ _TicketStatusPayload _$TicketStatusPayloadFromJson(Map<String, dynamic> json) =>
             'updated_at',
             (v) => DateTime.parse(v as String),
           ),
+          stripePaymentIntentId: $checkedConvert(
+            'stripe_payment_intent_id',
+            (v) => v as String?,
+          ),
+          nameplateId: $checkedConvert('nameplate_id', (v) => v as String?),
         );
         return val;
       },
       fieldKeyMap: const {
         'userId': 'user_id',
         'ticketTypeId': 'ticket_type_id',
-        'stripePaymentIntentId': 'stripe_payment_intent_id',
-        'nameplateId': 'nameplate_id',
         'createdAt': 'created_at',
         'updatedAt': 'updated_at',
+        'stripePaymentIntentId': 'stripe_payment_intent_id',
+        'nameplateId': 'nameplate_id',
       },
     );
 
@@ -54,10 +54,10 @@ Map<String, dynamic> _$TicketStatusPayloadToJson(
   'user_id': instance.userId,
   'ticket_type_id': instance.ticketTypeId,
   'status': _$TicketStatusTypeEnumMap[instance.status]!,
-  'stripe_payment_intent_id': instance.stripePaymentIntentId,
-  'nameplate_id': instance.nameplateId,
   'created_at': instance.createdAt.toIso8601String(),
   'updated_at': instance.updatedAt.toIso8601String(),
+  'stripe_payment_intent_id': instance.stripePaymentIntentId,
+  'nameplate_id': instance.nameplateId,
 };
 
 const _$TicketStatusTypeEnumMap = {

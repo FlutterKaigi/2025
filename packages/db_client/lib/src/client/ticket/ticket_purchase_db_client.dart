@@ -76,7 +76,8 @@ class TicketPurchaseDbClient {
   }
 
   /// チケット購入IDから詳細情報（ユーザー情報、オプション、入場履歴含む）を取得
-  Future<TicketPurchaseWithDetailsAndUser?> getTicketPurchaseWithDetailsByPurchaseId(
+  Future<TicketPurchaseWithDetailsAndUser?>
+  getTicketPurchaseWithDetailsByPurchaseId(
     String ticketPurchaseId,
   ) async {
     final result = await _executor.execute(
@@ -147,6 +148,8 @@ class TicketPurchaseDbClient {
       return null;
     }
 
-    return TicketPurchaseWithDetailsAndUser.fromJson(result.first.toColumnMap());
+    return TicketPurchaseWithDetailsAndUser.fromJson(
+      result.first.toColumnMap(),
+    );
   }
 }

@@ -27,4 +27,3 @@ class AdminTicketScan extends _$AdminTicketScan {
     state = const AsyncData(null);
   }
 }
-

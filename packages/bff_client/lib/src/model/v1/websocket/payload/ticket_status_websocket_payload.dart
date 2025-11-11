@@ -15,13 +15,12 @@ abstract class TicketStatusPayload with _$TicketStatusPayload {
     required String userId,
     required String ticketTypeId,
     required TicketStatusType status,
-    String? stripePaymentIntentId,
-    String? nameplateId,
     required DateTime createdAt,
     required DateTime updatedAt,
+    String? stripePaymentIntentId,
+    String? nameplateId,
   }) = _TicketStatusPayload;
 
   factory TicketStatusPayload.fromJson(Map<String, dynamic> json) =>
       _$TicketStatusPayloadFromJson(json);
 }
-

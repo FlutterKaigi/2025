@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:app/features/account/ui/component/account_circle_image.dart';
 import 'package:app/features/admin/data/model/admin_ticket_list_search_params.dart';
 import 'package:app/features/admin/data/notifier/admin_ticket_list_notifier.dart';
@@ -42,7 +44,8 @@ class AdminTicketScanSheet extends ConsumerWidget {
 
     final hasEntryLog =
         purchaseTicket != null && purchaseTicket.purchase.entryLog != null;
-    final canManageEntry = purchaseTicket != null &&
+    final canManageEntry =
+        purchaseTicket != null &&
         purchaseTicket.purchase.status == TicketPurchaseStatus.completed;
 
     return Container(
@@ -64,7 +67,7 @@ class AdminTicketScanSheet extends ConsumerWidget {
                 width: 40,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: colorScheme.onSurfaceVariant.withOpacity(0.4),
+                  color: colorScheme.onSurfaceVariant.withValues(alpha: 0.4),
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
@@ -117,13 +120,13 @@ class AdminTicketScanSheet extends ConsumerWidget {
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
                 color: hasEntryLog
-                    ? Colors.green.withOpacity(0.1)
+                    ? Colors.green.withValues(alpha: 0.1)
                     : colorScheme.surfaceContainerHighest,
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
                   color: hasEntryLog
-                      ? Colors.green.withOpacity(0.3)
-                      : colorScheme.outline.withOpacity(0.3),
+                      ? Colors.green.withValues(alpha: 0.3)
+                      : colorScheme.outline.withValues(alpha: 0.3),
                   width: 2,
                 ),
               ),
@@ -234,7 +237,7 @@ class _AddEntryLogButton extends ConsumerWidget {
               if (context.mounted) {
                 final error = ref.read(entryLogManagerProvider).error;
                 if (error != null) {
-                  await HapticFeedback.heavyImpact();
+                  unawaited(HapticFeedback.heavyImpact());
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text('エラーが発生しました: $error'),
@@ -242,7 +245,7 @@ class _AddEntryLogButton extends ConsumerWidget {
                     ),
                   );
                 } else {
-                  await HapticFeedback.mediumImpact();
+                  unawaited(HapticFeedback.mediumImpact());
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                       content: Text('入場済みにしました'),
@@ -306,7 +309,7 @@ class _DeleteEntryLogButton extends ConsumerWidget {
               if (context.mounted) {
                 final error = ref.read(entryLogManagerProvider).error;
                 if (error != null) {
-                  await HapticFeedback.heavyImpact();
+                  unawaited(HapticFeedback.heavyImpact());
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text('エラーが発生しました: $error'),
@@ -314,7 +317,7 @@ class _DeleteEntryLogButton extends ConsumerWidget {
                     ),
                   );
                 } else {
-                  await HapticFeedback.mediumImpact();
+                  unawaited(HapticFeedback.mediumImpact());
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                       content: Text('入場履歴を削除しました'),
@@ -342,10 +345,9 @@ class _DeleteEntryLogButton extends ConsumerWidget {
       label: const Text('入場履歴を削除'),
       style: FilledButton.styleFrom(
         minimumSize: const Size.fromHeight(56),
-        backgroundColor: Colors.red.withOpacity(0.1),
+        backgroundColor: Colors.red.withValues(alpha: 0.1),
         foregroundColor: Colors.red,
       ),
     );
   }
 }
-

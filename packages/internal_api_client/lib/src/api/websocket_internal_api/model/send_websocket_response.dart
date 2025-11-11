@@ -14,4 +14,3 @@ abstract class SendWebsocketResponse with _$SendWebsocketResponse {
   factory SendWebsocketResponse.fromJson(Map<String, dynamic> json) =>
       _$SendWebsocketResponseFromJson(json);
 }
-

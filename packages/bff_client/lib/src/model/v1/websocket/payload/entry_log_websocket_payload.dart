@@ -17,4 +17,3 @@ sealed class EntryLogWebsocketPayload with _$EntryLogWebsocketPayload {
   factory EntryLogWebsocketPayload.fromJson(Map<String, dynamic> json) =>
       _$EntryLogWebsocketPayloadFromJson(json);
 }
-

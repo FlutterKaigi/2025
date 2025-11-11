@@ -347,13 +347,13 @@ class _EntryLogSection extends StatelessWidget {
                 padding: const EdgeInsets.all(24),
                 decoration: BoxDecoration(
                   color: hasEntryLog
-                      ? Colors.green.withOpacity(0.1)
+                      ? Colors.green.withValues(alpha: 0.1)
                       : colorScheme.surfaceContainerHighest,
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(
                     color: hasEntryLog
-                        ? Colors.green.withOpacity(0.3)
-                        : colorScheme.outline.withOpacity(0.3),
+                        ? Colors.green.withValues(alpha: 0.3)
+                        : colorScheme.outline.withValues(alpha: 0.3),
                     width: 2,
                   ),
                 ),
@@ -378,7 +378,9 @@ class _EntryLogSection extends StatelessWidget {
                         builder: (context) {
                           final entryLog = purchaseTicket!.purchase.entryLog!;
                           return Text(
-                            '入場日時: ${dateFormat.format(entryLog.createdAt.toLocal())}',
+                            '入場日時: '
+                            // ignore: lines_longer_than_80_chars
+                            '${dateFormat.format(entryLog.createdAt.toLocal())}',
                             style: textTheme.bodyMedium?.copyWith(
                               color: colorScheme.onSurfaceVariant,
                             ),
@@ -474,9 +476,9 @@ class _TicketStatusBadge extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(6),
-        border: Border.all(color: color.withOpacity(0.3)),
+        border: Border.all(color: color.withValues(alpha: 0.3)),
       ),
       child: Text(
         label,
@@ -628,7 +630,7 @@ class _DeleteEntryLogButton extends ConsumerWidget {
       label: const Text('入場履歴を削除'),
       style: FilledButton.styleFrom(
         minimumSize: const Size.fromHeight(56),
-        backgroundColor: Colors.red.withOpacity(0.1),
+        backgroundColor: Colors.red.withValues(alpha: 0.1),
         foregroundColor: Colors.red,
       ),
     );

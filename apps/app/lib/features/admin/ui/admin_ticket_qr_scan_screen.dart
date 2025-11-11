@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:app/core/designsystem/components/error_screen.dart';
 import 'package:app/features/admin/data/notifier/admin_ticket_scan_notifier.dart';
 import 'package:app/features/admin/ui/components/admin_ticket_scan_sheet.dart';
 import 'package:flutter/foundation.dart';
@@ -85,7 +84,7 @@ class AdminTicketQrScanScreen extends HookConsumerWidget {
               margin: const EdgeInsets.symmetric(horizontal: 32),
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.7),
+                color: Colors.black.withValues(alpha: 0.7),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: const Text(
@@ -149,7 +148,7 @@ class AdminTicketQrScanScreen extends HookConsumerWidget {
     String ticketPurchaseId,
   ) async {
     // 成功時のハプティックフィードバック
-    await HapticFeedback.mediumImpact();
+    unawaited(HapticFeedback.mediumImpact());
 
     // ローディング表示
     unawaited(
@@ -176,7 +175,7 @@ class AdminTicketQrScanScreen extends HookConsumerWidget {
 
         if (ticket == null) {
           // エラー時のハプティックフィードバック
-          await HapticFeedback.heavyImpact();
+          unawaited(HapticFeedback.heavyImpact());
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('チケットが見つかりませんでした'),
@@ -197,7 +196,7 @@ class AdminTicketQrScanScreen extends HookConsumerWidget {
         Navigator.pop(context); // ローディング非表示
 
         // エラー時のハプティックフィードバック
-        await HapticFeedback.heavyImpact();
+        unawaited(HapticFeedback.heavyImpact());
 
         // エラーメッセージ表示
         ScaffoldMessenger.of(context).showSnackBar(
@@ -210,4 +209,3 @@ class AdminTicketQrScanScreen extends HookConsumerWidget {
     }
   }
 }
-

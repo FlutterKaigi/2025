@@ -1,4 +1,3 @@
-import 'package:bff_client/bff_client.dart';
 import 'package:dio/dio.dart';
 import 'package:internal_api_client/src/api/websocket_internal_api/model/send_websocket_response.dart';
 import 'package:retrofit/retrofit.dart';
@@ -16,4 +15,3 @@ abstract class WebsocketInternalApiClient {
     @Body() required UserWebsocketPayload payload,
   });
 }
-

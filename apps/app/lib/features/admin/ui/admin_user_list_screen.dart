@@ -15,7 +15,6 @@ final class AdminUserListScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final t = Translations.of(context);
-    final textTheme = Theme.of(context).textTheme;
     final searchParams = useState(const AdminUserListSearchParams());
     final emailController = useTextEditingController();
     final selectedRoles = useState<List<Role>>([]);
