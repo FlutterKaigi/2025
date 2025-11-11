@@ -22,6 +22,7 @@ class Header extends StatelessComponent {
         'backdrop-filter': 'blur(10px)',
         '-webkit-backdrop-filter': 'blur(10px)',
       },
+      flexWrap: FlexWrap.wrap,
     );
     final combined = styles?.combine(baseStyles) ?? baseStyles;
 
@@ -43,21 +44,62 @@ class Header extends StatelessComponent {
         ),
       ]),
       nav(
-        styles: Styles(
-          display: Display.flex,
-          flexDirection: FlexDirection.row,
-          alignItems: AlignItems.center,
-          gap: Gap(row: 0.5.em, column: 0.5.em),
-          fontSize: Unit.inherit,
+        styles: const Styles(
+          flex: Flex(grow: 1),
         ),
         [
-          _LanguageLink(
-            language: Language.ja,
-            title: contents.lang.ja,
-          ),
-          _LanguageLink(
-            language: Language.en,
-            title: contents.lang.en,
+          ul(
+            styles: Styles(
+              display: Display.flex,
+              flexDirection: FlexDirection.row,
+              // 右詰め
+              justifyContent: JustifyContent.end,
+              alignItems: AlignItems.center,
+              gap: Gap.all(1.rem),
+              fontSize: Unit.inherit,
+            ),
+            [
+              ...[(contents.jobBoards, '/job-boards')].map((link) {
+                final (content, path) = link;
+                return li([
+                  InternalLink(
+                    content: span(
+                      styles: const Styles(
+                        whiteSpace: WhiteSpace.noWrap,
+                        color: Color.inherit,
+                        cursor: Cursor.pointer,
+                      ),
+                      [content.text(context).toComponent],
+                    ),
+                    path: Path.fromPathname(
+                      context.url,
+                    ).go(Path.fromPathname(path)),
+                  ),
+                ]);
+              }),
+              li([
+                ul(
+                  styles: Styles(
+                    display: Display.flex,
+                    flexDirection: FlexDirection.row,
+                    alignItems: AlignItems.center,
+                    gap: Gap.all(0.5.rem),
+                    fontSize: Unit.inherit,
+                  ),
+                  [
+                    li(['|'.toComponent]),
+                    ...[Language.ja, Language.en].map(
+                      (language) => li([
+                        _LanguageLink(
+                          language: language,
+                          title: language.string,
+                        ),
+                      ]),
+                    ),
+                  ],
+                ),
+              ]),
+            ],
           ),
         ],
       ),

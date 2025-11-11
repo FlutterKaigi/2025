@@ -172,14 +172,15 @@ typedef JobBoardEntry = ({
   String imageUrl,
 });
 
-final _jobBoards = (jsonDecode(jobBoardsDataJson) as List<Map<String, dynamic>>)
-    .map<JobBoardEntry>(
-      (jobBoard) => (
-        url: jobBoard['url'],
-        altText: jobBoard['alt_text'],
-        imageUrl: jobBoard['image_url'],
-      ),
-    );
+final _jobBoards = (jsonDecode(jobBoardsDataJson) as List<dynamic>)
+    .map<JobBoardEntry>((jobBoard) {
+      final m = jobBoard as Map<String, dynamic>;
+      return (
+        url: m['url'],
+        altText: m['alt_text'],
+        imageUrl: m['image_url'],
+      );
+    });
 
 const _news = [
   (
