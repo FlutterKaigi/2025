@@ -1,9 +1,11 @@
+import 'package:app/core/provider/bff_client.dart';
 import 'package:app/features/account/ui/component/account_circle_image.dart';
 import 'package:app/features/admin/data/model/admin_ticket_list_search_params.dart';
 import 'package:app/features/admin/data/notifier/admin_ticket_list_notifier.dart';
 import 'package:app/features/admin/data/notifier/entry_log_notifier.dart';
 import 'package:bff_client/bff_client.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 
@@ -56,6 +58,9 @@ final class AdminTicketDetailScreen extends HookConsumerWidget {
                     textTheme: textTheme,
                     colorScheme: colorScheme,
                   ),
+                  if (ticket is TicketPurchaseItemWithUser &&
+                      ticket.purchase.status == TicketPurchaseStatus.completed)
+                    _RefundSection(ticket: ticket),
                 ],
               ),
             ),
@@ -630,6 +635,231 @@ class _DeleteEntryLogButton extends ConsumerWidget {
         backgroundColor: Colors.red.withValues(alpha: 0.1),
         foregroundColor: Colors.red,
       ),
+    );
+  }
+}
+
+/// 返金セクション
+class _RefundSection extends HookConsumerWidget {
+  const _RefundSection({required this.ticket});
+
+  final TicketPurchaseItemWithUser ticket;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
+    final colorScheme = theme.colorScheme;
+
+    return Card.outlined(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              children: [
+                Icon(
+                  Icons.money_off_outlined,
+                  color: colorScheme.error,
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  '返金処理',
+                  style: textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: colorScheme.error,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: colorScheme.errorContainer.withValues(alpha: 0.3),
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(
+                  color: colorScheme.error.withValues(alpha: 0.3),
+                ),
+              ),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.warning_amber_rounded,
+                    color: colorScheme.error,
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Text(
+                      'この操作は取り消すことができません。\n返金処理を実行すると、Stripeで返金が行われ、チケットは無効になります。',
+                      style: textTheme.bodySmall?.copyWith(
+                        color: colorScheme.onErrorContainer,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 16),
+            _RefundButton(ticket: ticket),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// 返金ボタン
+class _RefundButton extends HookConsumerWidget {
+  const _RefundButton({required this.ticket});
+
+  final TicketPurchaseItemWithUser ticket;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isLoading = useState(false);
+
+    return FilledButton.icon(
+      onPressed: isLoading.value
+          ? null
+          : () async {
+              // 確認ダイアログを表示
+              final confirmed = await showDialog<bool>(
+                context: context,
+                builder: (context) => _RefundConfirmDialog(ticket: ticket),
+              );
+
+              if (confirmed == true && context.mounted) {
+                isLoading.value = true;
+                try {
+                  final bffClient = ref.read(bffClientProvider);
+                  await bffClient.v1.tickets.refundTicket(ticket.purchase.id);
+
+                  if (context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('返金処理を開始しました'),
+                        backgroundColor: Colors.green,
+                      ),
+                    );
+                    // チケットリストを更新
+                    ref.invalidate(
+                      adminTicketListProvider(
+                        const AdminTicketListSearchParams(),
+                      ),
+                    );
+                    // 画面を閉じる
+                    Navigator.of(context).pop();
+                  }
+                } catch (e) {
+                  if (context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('返金処理に失敗しました: $e'),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  }
+                } finally {
+                  isLoading.value = false;
+                }
+              }
+            },
+      icon: isLoading.value
+          ? const SizedBox(
+              width: 20,
+              height: 20,
+              child: CircularProgressIndicator.adaptive(
+                strokeWidth: 2,
+              ),
+            )
+          : const Icon(Icons.money_off),
+      label: const Text('返金処理を実行'),
+      style: FilledButton.styleFrom(
+        minimumSize: const Size.fromHeight(56),
+        backgroundColor: Colors.red,
+        foregroundColor: Colors.white,
+      ),
+    );
+  }
+}
+
+/// 返金確認ダイアログ
+class _RefundConfirmDialog extends StatelessWidget {
+  const _RefundConfirmDialog({required this.ticket});
+
+  final TicketPurchaseItemWithUser ticket;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
+    final colorScheme = theme.colorScheme;
+
+    return AlertDialog(
+      title: Row(
+        children: [
+          Icon(Icons.warning_amber_rounded, color: colorScheme.error),
+          const SizedBox(width: 8),
+          const Text('返金確認'),
+        ],
+      ),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            '以下のチケットを返金します。',
+            style: textTheme.bodyMedium,
+          ),
+          const SizedBox(height: 16),
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: colorScheme.surfaceContainerHighest,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'チケット情報',
+                  style: textTheme.titleSmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text('種別: ${ticket.ticketType.name}'),
+                Text('価格: ¥${ticket.ticketType.price}'),
+                Text('購入者: ${ticket.user.authMetaData.name ?? "名前未設定"}'),
+                Text('メール: ${ticket.user.authMetaData.email ?? "不明"}'),
+              ],
+            ),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            'この操作は取り消すことができません。\n本当に返金処理を実行しますか？',
+            style: textTheme.bodySmall?.copyWith(
+              color: colorScheme.error,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(false),
+          child: const Text('キャンセル'),
+        ),
+        FilledButton(
+          onPressed: () => Navigator.of(context).pop(true),
+          style: FilledButton.styleFrom(
+            backgroundColor: Colors.red,
+          ),
+          child: const Text('返金する'),
+        ),
+      ],
     );
   }
 }
