@@ -20,9 +20,7 @@ class StaffMemberListScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(t.account.staffMembers.title),
       ),
-      body: const SafeArea(
-        child: _StaffMemberList(),
-      ),
+      body: const _StaffMemberList(),
     );
   }
 }
@@ -42,7 +40,6 @@ class _StaffMemberList extends ConsumerWidget {
                 ),
               )
             : ListView.builder(
-                padding: const EdgeInsets.symmetric(vertical: 8),
                 itemCount: value.length,
                 itemBuilder: (context, index) {
                   final staffMember = value[index];
