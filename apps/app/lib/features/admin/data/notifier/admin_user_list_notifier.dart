@@ -2,6 +2,7 @@ import 'package:app/core/api/api_exception.dart';
 import 'package:app/core/provider/bff_client.dart';
 import 'package:app/features/admin/data/model/admin_user_list_search_params.dart';
 import 'package:app/features/admin/data/model/admin_user_list_state.dart';
+import 'package:bff_client/bff_client.dart';
 import 'package:db_types/db_types.dart';
 import 'package:hooks_riverpod/experimental/mutation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -34,6 +35,7 @@ class AdminUserList extends _$AdminUserList {
   }
 
   static final pagingMutation = Mutation<List<UserAndUserRoles>>();
+  static final updateRolesMutation = Mutation<void>();
 
   /// 次のページを読み込む
   Future<void> loadMore() async {
@@ -66,5 +68,23 @@ class AdminUserList extends _$AdminUserList {
         hasMore: newUsers.length >= _limit,
       );
     });
+  }
+
+  /// ユーザーのロールを更新する
+  Future<void> updateUserRoles(String userId, List<Role> newRoles) async {
+    await AdminUserList.updateRolesMutation.run(
+      ref,
+      (tsx) async {
+        final client = tsx.get(bffClientProvider);
+        await ApiException.transform(
+          () => client.v1.users.putUserRoles(
+            userId: userId,
+            request: UserRolePutRequest(roles: newRoles),
+          ),
+        );
+      },
+    );
+    // リストを更新
+    ref.invalidateSelf();
   }
 }

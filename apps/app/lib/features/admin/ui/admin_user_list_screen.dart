@@ -3,6 +3,7 @@ import 'package:app/core/router/router.dart';
 import 'package:app/features/admin/data/model/admin_user_list_search_params.dart';
 import 'package:app/features/admin/data/notifier/admin_user_list_notifier.dart';
 import 'package:app/features/admin/ui/components/admin_user_item.dart';
+import 'package:app/features/admin/ui/components/role_selection_sheet.dart';
 import 'package:db_types/db_types.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -21,6 +22,44 @@ final class AdminUserListScreen extends HookConsumerWidget {
     final scrollController = PrimaryScrollController.of(context);
 
     final usersAsync = ref.watch(adminUserListProvider(searchParams.value));
+
+    Future<void> showRoleSelectionSheet(UserAndUserRoles user) async {
+      final result = await showModalBottomSheet<List<Role>>(
+        context: context,
+        isScrollControlled: true,
+        builder: (context) => RoleSelectionSheet(
+          currentRoles: user.roles,
+        ),
+      );
+
+      if (result != null) {
+        try {
+          await AdminUserList.updateRolesMutation.run(
+            ref,
+            (tsx) async {
+              await tsx
+                  .get(adminUserListProvider(searchParams.value).notifier)
+                  .updateUserRoles(user.user.id, result);
+            },
+          );
+          if (context.mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('ロールを更新しました'),
+              ),
+            );
+          }
+        } on Exception catch (e) {
+          if (context.mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('ロールの更新に失敗しました: $e'),
+              ),
+            );
+          }
+        }
+      }
+    }
 
     useEffect(
       () {
@@ -161,6 +200,7 @@ final class AdminUserListScreen extends HookConsumerWidget {
                                 onTap: () => AdminUserDetailRoute(
                                   userId: user.user.id,
                                 ).go(context),
+                                onRoleEdit: () => showRoleSelectionSheet(user),
                               );
                             },
                           ),
