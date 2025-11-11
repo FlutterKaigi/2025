@@ -55,6 +55,18 @@ export const TicketStatusPayloadSchema = v.object({
 	updated_at: v.string(),
 });
 
+export const EntryLogWebsocketPayloadSchema = v.variant("type", [
+	v.object({
+		type: v.literal("ADD"),
+		ticket_purchase_id: v.pipe(v.string(), v.uuid()),
+		created_at: v.string(),
+	}),
+	v.object({
+		type: v.literal("DELETE"),
+		ticket_purchase_id: v.pipe(v.string(), v.uuid()),
+	}),
+]);
+
 export const UserWebsocketPayload = v.variant("type", [
 	v.object({
 		type: v.literal("PROFILE_SHARE"),
@@ -63,6 +75,10 @@ export const UserWebsocketPayload = v.variant("type", [
 	v.object({
 		type: v.literal("TICKET_STATUS"),
 		ticket_status: TicketStatusPayloadSchema,
+	}),
+	v.object({
+		type: v.literal("ENTRY_LOG"),
+		entry_log: EntryLogWebsocketPayloadSchema,
 	}),
 ]);
 

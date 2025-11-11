@@ -38,6 +38,10 @@
           "binding": "PROFILE_SHARE_INTERNAL_API",
           "service": "profile-share-internal-api-staging",
         },
+        {
+          "binding": "WEBSOCKET_API",
+          "service": "websocket-api-staging",
+        },
       ],
     },
     "production": {
@@ -60,6 +64,10 @@
         {
           "binding": "PROFILE_SHARE_INTERNAL_API",
           "service": "profile-share-internal-api-production",
+        },
+        {
+          "binding": "WEBSOCKET_API",
+          "service": "websocket-api-production",
         },
       ],
     },

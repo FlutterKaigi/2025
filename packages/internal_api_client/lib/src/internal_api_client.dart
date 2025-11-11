@@ -3,6 +3,7 @@ import 'package:internal_api_client/src/api/payment_workflow_internal_api/paymen
 import 'package:internal_api_client/src/api/profile_share_internal_api/profile_share_internal_api_client.dart';
 import 'package:internal_api_client/src/api/r2_internal_api/r2_internal_api.dart';
 import 'package:internal_api_client/src/api/stripe_internal_api/stripe_internal_api.dart';
+import 'package:internal_api_client/src/api/websocket_internal_api/websocket_internal_api.dart';
 
 /// Payment Workflow Internal APIクライアント
 class InternalApiClient {
@@ -19,4 +20,7 @@ class InternalApiClient {
 
   ProfileShareInternalApiClient get profileShareInternalApi =>
       ProfileShareInternalApiClient(_dio);
+
+  WebsocketInternalApi get websocketInternalApi =>
+      WebsocketInternalApi(dio: _dio);
 }

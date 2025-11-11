@@ -14,3 +14,6 @@ export 'stripe_internal_api/internal_payment_api_client.dart';
 export 'stripe_internal_api/model/put_checkout_session_request.dart';
 export 'stripe_internal_api/model/put_checkout_session_response.dart';
 export 'stripe_internal_api/stripe_internal_api.dart';
+export 'websocket_internal_api/model/send_websocket_response.dart';
+export 'websocket_internal_api/websocket_internal_api.dart';
+export 'websocket_internal_api/websocket_internal_api_client.dart';
