@@ -26,6 +26,12 @@ class ProfileShareListScreen extends HookConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(translations.account.profileshare.friendsListScreen.title),
+        actions: [
+          IconButton(
+            onPressed: () => ref.invalidate(profileShareProvider),
+            icon: const Icon(Icons.refresh),
+          ),
+        ],
       ),
       body: switch (friendsAsync) {
         AsyncData(:final value) =>
