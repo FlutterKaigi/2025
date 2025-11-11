@@ -1,3 +1,4 @@
+import 'package:app/core/designsystem/components/error_screen.dart';
 import 'package:app/core/provider/bff_client.dart';
 import 'package:app/features/account/ui/component/account_circle_image.dart';
 import 'package:app/features/admin/data/model/admin_ticket_list_search_params.dart';
@@ -26,6 +27,21 @@ final class AdminTicketDetailScreen extends HookConsumerWidget {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
     final colorScheme = theme.colorScheme;
+
+    // エラーが発生した場合はダイアログを表示して前の画面に戻る
+    ref.listen(adminTicketDetailProvider(ticketId), (previous, next) {
+      next.whenOrNull(
+        error: (error, stackTrace) {
+          // エラーダイアログを表示
+          ErrorDialog.show(context, error).then((_) {
+            // ダイアログを閉じたら前の画面に戻る
+            if (context.mounted) {
+              Navigator.of(context).pop();
+            }
+          });
+        },
+      );
+    });
 
     return Scaffold(
       appBar: AppBar(
@@ -57,8 +73,8 @@ final class AdminTicketDetailScreen extends HookConsumerWidget {
         loading: () => const Center(
           child: CircularProgressIndicator.adaptive(),
         ),
-        error: (error, _) => Center(
-          child: Text('エラーが発生しました: $error'),
+        error: (error, _) => const Center(
+          child: CircularProgressIndicator.adaptive(),
         ),
       ),
     );
