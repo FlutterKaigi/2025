@@ -280,6 +280,7 @@ class _TranslationsAccountProfileshareEn extends TranslationsAccountProfileshare
 	@override late final _TranslationsAccountProfileshareQrCodeDisplayEn qrCodeDisplay = _TranslationsAccountProfileshareQrCodeDisplayEn._(_root);
 	@override late final _TranslationsAccountProfileshareQrCodeScanScreenEn qrCodeScanScreen = _TranslationsAccountProfileshareQrCodeScanScreenEn._(_root);
 	@override late final _TranslationsAccountProfileshareFriendsListScreenEn friendsListScreen = _TranslationsAccountProfileshareFriendsListScreenEn._(_root);
+	@override late final _TranslationsAccountProfileshareNotificationEn notification = _TranslationsAccountProfileshareNotificationEn._(_root);
 }
 
 // Path: account.admin
@@ -737,6 +738,19 @@ class _TranslationsAccountProfileshareFriendsListScreenEn extends TranslationsAc
 	@override String get copiedToClipboard => 'Copied to clipboard';
 }
 
+// Path: account.profileshare.notification
+class _TranslationsAccountProfileshareNotificationEn extends TranslationsAccountProfileshareNotificationJa {
+	_TranslationsAccountProfileshareNotificationEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get channel_name => 'Profile Exchange';
+	@override String get channel_description => 'Notification when profiles are exchanged';
+	@override String get title => 'Profile Exchanged';
+	@override String body({required Object name}) => 'Profile exchanged with ${name}';
+}
+
 // Path: common.error.notFound
 class _TranslationsCommonErrorNotFoundEn extends TranslationsCommonErrorNotFoundJa {
 	_TranslationsCommonErrorNotFoundEn._(TranslationsEn root) : this._root = root, super.internal(root);
@@ -927,6 +941,10 @@ extension on TranslationsEn {
 			case 'account.profileshare.friendsListScreen.connectedAt': return 'Connected at';
 			case 'account.profileshare.friendsListScreen.errorLoadingFriends': return 'Failed to load friends list';
 			case 'account.profileshare.friendsListScreen.copiedToClipboard': return 'Copied to clipboard';
+			case 'account.profileshare.notification.channel_name': return 'Profile Exchange';
+			case 'account.profileshare.notification.channel_description': return 'Notification when profiles are exchanged';
+			case 'account.profileshare.notification.title': return 'Profile Exchanged';
+			case 'account.profileshare.notification.body': return ({required Object name}) => 'Profile exchanged with ${name}';
 			case 'account.admin.title': return 'Admin Page';
 			case 'account.admin.button': return 'Admin Page';
 			case 'account.admin.userList': return 'User List';

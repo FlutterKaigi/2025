@@ -111,6 +111,11 @@ profileshare:
     connectedAt: 交換日時
     errorLoadingFriends: 友達リストの読み込みに失敗しました
     copiedToClipboard: をコピーしました
+  notification:
+    channel_name: プロフィール交換
+    channel_description: プロフィール交換時の通知
+    title: プロフィール交換しました
+    body(name): "$name さんとプロフィール交換しました"
 admin:
   title: 管理者ページ
   button: 管理者ページ

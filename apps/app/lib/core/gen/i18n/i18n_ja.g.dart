@@ -426,6 +426,7 @@ class TranslationsAccountProfileshareJa {
 	late final TranslationsAccountProfileshareQrCodeDisplayJa qrCodeDisplay = TranslationsAccountProfileshareQrCodeDisplayJa.internal(_root);
 	late final TranslationsAccountProfileshareQrCodeScanScreenJa qrCodeScanScreen = TranslationsAccountProfileshareQrCodeScanScreenJa.internal(_root);
 	late final TranslationsAccountProfileshareFriendsListScreenJa friendsListScreen = TranslationsAccountProfileshareFriendsListScreenJa.internal(_root);
+	late final TranslationsAccountProfileshareNotificationJa notification = TranslationsAccountProfileshareNotificationJa.internal(_root);
 }
 
 // Path: account.admin
@@ -1148,6 +1149,27 @@ class TranslationsAccountProfileshareFriendsListScreenJa {
 	String get copiedToClipboard => 'をコピーしました';
 }
 
+// Path: account.profileshare.notification
+class TranslationsAccountProfileshareNotificationJa {
+	TranslationsAccountProfileshareNotificationJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'プロフィール交換'
+	String get channel_name => 'プロフィール交換';
+
+	/// ja: 'プロフィール交換時の通知'
+	String get channel_description => 'プロフィール交換時の通知';
+
+	/// ja: 'プロフィール交換しました'
+	String get title => 'プロフィール交換しました';
+
+	/// ja: '$name さんとプロフィール交換しました'
+	String body({required Object name}) => '${name} さんとプロフィール交換しました';
+}
+
 // Path: common.error.notFound
 class TranslationsCommonErrorNotFoundJa {
 	TranslationsCommonErrorNotFoundJa.internal(this._root);
@@ -1404,6 +1426,10 @@ extension on Translations {
 			case 'account.profileshare.friendsListScreen.connectedAt': return '交換日時';
 			case 'account.profileshare.friendsListScreen.errorLoadingFriends': return '友達リストの読み込みに失敗しました';
 			case 'account.profileshare.friendsListScreen.copiedToClipboard': return 'をコピーしました';
+			case 'account.profileshare.notification.channel_name': return 'プロフィール交換';
+			case 'account.profileshare.notification.channel_description': return 'プロフィール交換時の通知';
+			case 'account.profileshare.notification.title': return 'プロフィール交換しました';
+			case 'account.profileshare.notification.body': return ({required Object name}) => '${name} さんとプロフィール交換しました';
 			case 'account.admin.title': return '管理者ページ';
 			case 'account.admin.button': return '管理者ページ';
 			case 'account.admin.userList': return 'ユーザ一覧';

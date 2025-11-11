@@ -111,6 +111,11 @@ profileshare:
     connectedAt: Connected at
     errorLoadingFriends: Failed to load friends list
     copiedToClipboard: Copied to clipboard
+  notification:
+    channel_name: Profile Exchange
+    channel_description: Notification when profiles are exchanged
+    title: Profile Exchanged
+    body(name): "Profile exchanged with $name"
 admin:
   title: Admin Page
   button: Admin Page
