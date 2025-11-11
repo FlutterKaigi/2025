@@ -8,12 +8,11 @@
     "traces": {
       "enabled": true,
       "destinations": ["otlp-flutterkaigi-jp"],
-      "head_sampling_rate": 1,
     },
     "logs": {
       "enabled": true,
       "destinations": ["otlp-flutterkaigi-jp"],
-    },
+    }
   },
   "workers_dev": true,
   "routes": [
