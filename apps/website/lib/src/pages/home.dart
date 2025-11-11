@@ -44,7 +44,7 @@ class Home extends StatelessComponent {
         //   children: [CallForProposal()],
         // ),
         SizedDashsay(
-          message: contents.dayZeroPlanning.text(context),
+          message: 'FlutterKaigi 2025!',
           isBold: true,
           fontSize: 1.25.rem,
           dashSize: 8.rem,
@@ -190,6 +190,30 @@ class _MainArticle extends StatelessComponent {
                           const OpenInNew(color: beyondRed),
                         ],
                       ),
+                    ),
+                    span(
+                      styles: Styles(
+                        margin: Margin.only(top: 1.rem),
+                        color: Colors.white,
+                        display: Display.flex,
+                        gap: Gap.all(0.5.em),
+                      ),
+                      [
+                        'Get'.toComponent,
+                        ExternalLink(
+                          content: 'iOS App'.toComponent,
+                          url:
+                              'https://apps.apple.com/jp/app/flutterkaigi-2025/id6753943930',
+                          styles: const Styles(color: Color.inherit),
+                        ),
+                        'or'.toComponent,
+                        ExternalLink(
+                          content: 'Android App'.toComponent,
+                          url:
+                              'https://play.google.com/store/apps/details?id=jp.flutterkaigi.conf2025&pli=1',
+                          styles: const Styles(color: Color.inherit),
+                        ),
+                      ],
                     ),
                   ],
                 ),

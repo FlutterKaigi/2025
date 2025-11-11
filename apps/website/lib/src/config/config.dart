@@ -165,6 +165,25 @@ final event = (
 
 const _news = [
   (
+    title: 'FlutterKaigi 2025 交流企画のご紹介 🎉',
+    url:
+        'https://medium.com/flutterkaigi/flutterkaigi-2025-交流企画のご紹介-43e957131718',
+  ),
+  (
+    title: 'FlutterKaigi 2025 会場受付のご案内',
+    url:
+        'https://medium.com/flutterkaigi/flutterkaigi-2025-会場受付のご案内-b02df49db95a',
+  ),
+  (
+    title: 'FlutterKaigi 2025 プロモーション・スクリーンについて 📺',
+    url:
+        'https://medium.com/flutterkaigi/flutterkaigi-2025-プロモーションディスプレイについて-2108b9a6a68d',
+  ),
+  (
+    title: 'FlutterKaigi 2025 企画紹介 🎉',
+    url: 'https://medium.com/flutterkaigi/flutterkaigi-2025-企画紹介-28eeb1c7c585',
+  ),
+  (
     title: 'FlutterKaigi 2025 スカラシップ制度のお知らせ',
     url:
         'https://medium.com/flutterkaigi/flutterkaigi-2025-スカラシップ制度のお知らせ-672a6321bad8',
