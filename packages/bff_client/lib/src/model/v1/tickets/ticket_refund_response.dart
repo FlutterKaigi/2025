@@ -12,4 +12,3 @@ abstract class TicketRefundResponse with _$TicketRefundResponse {
   factory TicketRefundResponse.fromJson(Map<String, dynamic> json) =>
       _$TicketRefundResponseFromJson(json);
 }
-

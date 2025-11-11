@@ -692,7 +692,7 @@ class _RefundSection extends HookConsumerWidget {
                   const SizedBox(width: 12),
                   Expanded(
                     child: Text(
-                      'この操作は取り消すことができません。\n返金処理を実行すると、Stripeで返金が行われ、チケットは無効になります。',
+                      'この操作は取り消すことができません。\n返金処理を実行すると、Stripeで返金が行わます。',
                       style: textTheme.bodySmall?.copyWith(
                         color: colorScheme.onErrorContainer,
                       ),
@@ -730,7 +730,7 @@ class _RefundButton extends HookConsumerWidget {
                 builder: (context) => _RefundConfirmDialog(ticket: ticket),
               );
 
-              if (confirmed == true && context.mounted) {
+              if ((confirmed ?? false) && context.mounted) {
                 isLoading.value = true;
                 try {
                   final bffClient = ref.read(bffClientProvider);
@@ -752,7 +752,7 @@ class _RefundButton extends HookConsumerWidget {
                     // 画面を閉じる
                     Navigator.of(context).pop();
                   }
-                } catch (e) {
+                } on Exception catch (e) {
                   if (context.mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
