@@ -3,6 +3,8 @@ name: Deploy App
 on:
   push:
   release:
+    types:
+      - released
   workflow_dispatch:
     inputs:
       ios:
