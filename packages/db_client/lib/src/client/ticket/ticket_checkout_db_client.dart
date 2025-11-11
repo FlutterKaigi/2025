@@ -176,6 +176,7 @@ class TicketCheckoutDbClient {
     String? ticketTypeId,
     String? status,
     bool? hasEntryLog,
+    String? ticketOptionId,
   }) async {
     final queryBuffer = StringBuffer();
     final parameters = <String, dynamic>{
@@ -251,8 +252,11 @@ class TicketCheckoutDbClient {
       parameters['ticketTypeId'] = ticketTypeId;
     }
     if (status != null) {
-      purchaseConditions.add('tp.status::text = @status');
-      parameters['status'] = status;
+      // statusが'completed'または'refunded'の場合のみpurchaseに条件を追加
+      if (status == 'completed' || status == 'refunded') {
+        purchaseConditions.add('tp.status::text = @status');
+        parameters['status'] = status;
+      }
     }
     if (hasEntryLog != null) {
       if (hasEntryLog) {
@@ -260,6 +264,10 @@ class TicketCheckoutDbClient {
       } else {
         purchaseConditions.add('el.ticket_purchase_id IS NULL');
       }
+    }
+    if (ticketOptionId != null) {
+      purchaseConditions.add('topt.id = @ticketOptionId');
+      parameters['ticketOptionId'] = ticketOptionId;
     }
     purchaseConditions.add('u.deleted_at IS NULL');
 
@@ -328,7 +336,16 @@ class TicketCheckoutDbClient {
       checkoutConditions.add('tcs.ticket_type_id = @ticketTypeId');
     }
     if (status != null) {
-      checkoutConditions.add('tcs.status::text = @status');
+      // statusが'pending', 'completed', 'expired'の場合のみcheckoutに条件を追加
+      if (status == 'pending' || status == 'completed' || status == 'expired') {
+        checkoutConditions.add('tcs.status::text = @status');
+        if (!parameters.containsKey('status')) {
+          parameters['status'] = status;
+        }
+      }
+    }
+    if (ticketOptionId != null) {
+      checkoutConditions.add('topt.id = @ticketOptionId');
     }
     checkoutConditions.add('u.deleted_at IS NULL');
 

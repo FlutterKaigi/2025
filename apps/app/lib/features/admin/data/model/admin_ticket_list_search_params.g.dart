@@ -19,6 +19,7 @@ _AdminTicketListSearchParams _$AdminTicketListSearchParamsFromJson(
       ticketTypeId: $checkedConvert('ticket_type_id', (v) => v as String?),
       status: $checkedConvert('status', (v) => v as String?),
       hasEntryLog: $checkedConvert('has_entry_log', (v) => v as bool?),
+      ticketOptionId: $checkedConvert('ticket_option_id', (v) => v as String?),
     );
     return val;
   },
@@ -26,6 +27,7 @@ _AdminTicketListSearchParams _$AdminTicketListSearchParamsFromJson(
     'userId': 'user_id',
     'ticketTypeId': 'ticket_type_id',
     'hasEntryLog': 'has_entry_log',
+    'ticketOptionId': 'ticket_option_id',
   },
 );
 
@@ -36,4 +38,5 @@ Map<String, dynamic> _$AdminTicketListSearchParamsToJson(
   'ticket_type_id': instance.ticketTypeId,
   'status': instance.status,
   'has_entry_log': instance.hasEntryLog,
+  'ticket_option_id': instance.ticketOptionId,
 };
