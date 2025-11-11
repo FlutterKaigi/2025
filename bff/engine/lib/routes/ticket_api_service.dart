@@ -277,7 +277,7 @@ class TicketApiService {
     if (ticketPurchaseWithDetails == null) {
       throw ErrorResponse.errorCode(
         code: ErrorCode.notFound,
-        detail: 'チケットが見つかりません',
+        detail: 'チケットが見つかりません: $ticketPurchaseId not found',
       );
     }
 
@@ -286,7 +286,9 @@ class TicketApiService {
     if (ticketType == null) {
       throw ErrorResponse.errorCode(
         code: ErrorCode.badRequest,
-        detail: 'チケット情報が見つかりません',
+        detail:
+            'チケット情報が見つかりません: '
+            '${ticketPurchaseWithDetails.ticketTypeId} not found',
       );
     }
 

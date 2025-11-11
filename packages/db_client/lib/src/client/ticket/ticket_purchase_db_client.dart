@@ -132,12 +132,14 @@ class TicketPurchaseDbClient {
             'name', tt.name,
             'description', tt.description,
             'price', tt.price,
-            'status', tt.status::text,
-            'quantity', tt.quantity,
-            'sales_start_at', tt.sales_start_at,
-            'sales_end_at', tt.sales_end_at,
+            'max_quantity', tt.max_quantity,
+            'is_active', tt.is_active,
+            'sale_starts_at', tt.sale_starts_at,
+            'sale_ends_at', tt.sale_ends_at,
+            'stripe_price_id', tt.stripe_price_id,
             'created_at', tt.created_at,
-            'updated_at', tt.updated_at
+            'updated_at', tt.updated_at,
+            'is_entry_allowed', tt.is_entry_allowed
           ) AS ticket_type
         FROM ticket_purchases tp
         INNER JOIN ticket_types tt ON tp.ticket_type_id = tt.id
