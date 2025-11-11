@@ -25,9 +25,14 @@ class TicketNotifier extends _$TicketNotifier {
       websocketStreamProvider,
       (_, next) async {
         if (next is AsyncError) {
-          ref.invalidateSelf();
+          // WebSocketエラーが発生した場合はログのみ記録し、invalidateはしない
+          // 無限ループを防ぐため
+          return;
         }
         final payload = next.value;
+        if (payload == null) {
+          return;
+        }
         switch (payload) {
           case UserWebsocketTicketStatusPayload(:final ticketStatus):
             await _updateTicketStatus(ticketStatus);
