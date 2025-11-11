@@ -1,3 +1,4 @@
+import 'package:app/core/api/api_exception.dart';
 import 'package:app/core/designsystem/components/error_screen.dart';
 import 'package:app/core/provider/bff_client.dart';
 import 'package:app/features/account/ui/component/account_circle_image.dart';
@@ -723,7 +724,9 @@ class _RefundButton extends HookConsumerWidget {
                 isLoading.value = true;
                 try {
                   final bffClient = ref.read(bffClientProvider);
-                  await bffClient.v1.tickets.refundTicket(ticket.purchase.id);
+                  await ApiException.transform(
+                    () => bffClient.v1.tickets.refundTicket(ticket.purchase.id),
+                  );
 
                   if (context.mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
