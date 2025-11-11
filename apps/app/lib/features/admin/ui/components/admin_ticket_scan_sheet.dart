@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:app/core/router/router.dart';
 import 'package:app/features/account/ui/component/account_circle_image.dart';
 import 'package:app/features/admin/data/model/admin_ticket_list_search_params.dart';
 import 'package:app/features/admin/data/notifier/admin_ticket_list_notifier.dart';
@@ -196,6 +197,19 @@ class AdminTicketScanSheet extends ConsumerWidget {
                       },
                     ),
                 ],
+              ),
+            ),
+            // 詳細を見るボタン
+            OutlinedButton.icon(
+              onPressed: () {
+                Navigator.of(context).pop(); // Sheetを閉じる
+                AdminTicketDetailRoute(ticketId: ticket.purchase.id)
+                    .push<void>(context);
+              },
+              icon: const Icon(Icons.info_outline),
+              label: const Text('詳細を見る'),
+              style: OutlinedButton.styleFrom(
+                minimumSize: const Size.fromHeight(48),
               ),
             ),
             if (hasEntryLog)
