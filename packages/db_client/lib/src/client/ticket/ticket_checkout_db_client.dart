@@ -226,20 +226,23 @@ class TicketCheckoutDbClient {
               )
             ELSE NULL
           END AS entry_log,
-          json_build_object(
-            'user', to_json(u.*),
-            'roles', COALESCE(json_agg(ur.role) FILTER (WHERE ur.role IS NOT NULL), '[]'::json),
-            'auth_meta_data', COALESCE(au.raw_user_meta_data, '{}'::jsonb)
-          ) AS user,
+            json_build_object(
+              'user', to_json(u.*),
+              'roles', COALESCE(json_agg(ur.role) FILTER (WHERE ur.role IS NOT NULL), '[]'::json),
+              'auth_meta_data',
+                COALESCE(au.raw_user_meta_data, '{}'::jsonb) ||
+                jsonb_build_object('is_adult', COALESCE(pr.is_adult, false))
+            ) AS user,
           tp.created_at as sort_date
         FROM ticket_purchases tp
         INNER JOIN ticket_types tt ON tp.ticket_type_id = tt.id
         LEFT JOIN ticket_purchase_options tpo ON tp.id = tpo.ticket_purchase_id
         LEFT JOIN ticket_options topt ON tpo.ticket_option_id = topt.id
         LEFT JOIN entry_logs el ON tp.id = el.ticket_purchase_id
-        INNER JOIN public.users u ON tp.user_id = u.id
-        LEFT JOIN public.user_roles ur ON u.id = ur.user_id
-        LEFT JOIN auth.users au ON u.id = au.id
+          INNER JOIN public.users u ON tp.user_id = u.id
+          LEFT JOIN public.user_roles ur ON u.id = ur.user_id
+          LEFT JOIN auth.users au ON u.id = au.id
+          LEFT JOIN profiles pr ON pr.id = u.id
     ''');
 
     // デフォルトで決済完了または払い戻し済みのみを返す
@@ -280,8 +283,8 @@ class TicketCheckoutDbClient {
     }
 
     queryBuffer.write('''
-        GROUP BY
-          tp.id, tt.id, el.ticket_purchase_id, el.created_at, u.id, au.raw_user_meta_data
+          GROUP BY
+            tp.id, tt.id, el.ticket_purchase_id, el.created_at, u.id, au.raw_user_meta_data, pr.is_adult
         ORDER BY sort_date DESC
         LIMIT @limit OFFSET @offset
     ''');

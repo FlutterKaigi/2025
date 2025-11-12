@@ -22,6 +22,7 @@ abstract class AuthMetaData with _$AuthMetaData {
     String? email,
     String? avatarUrl,
     String? name,
+    @JsonKey(name: 'is_adult') bool? isAdult,
   }) = _AuthMetaData;
 
   factory AuthMetaData.fromJson(Map<String, dynamic> json) =>

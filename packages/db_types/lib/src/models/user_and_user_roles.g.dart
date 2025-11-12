@@ -51,13 +51,15 @@ _AuthMetaData _$AuthMetaDataFromJson(Map<String, dynamic> json) =>
         email: $checkedConvert('email', (v) => v as String?),
         avatarUrl: $checkedConvert('avatar_url', (v) => v as String?),
         name: $checkedConvert('name', (v) => v as String?),
+          isAdult: $checkedConvert('is_adult', (v) => v as bool?),
       );
       return val;
-    }, fieldKeyMap: const {'avatarUrl': 'avatar_url'});
+      }, fieldKeyMap: const {'avatarUrl': 'avatar_url', 'isAdult': 'is_adult'});
 
 Map<String, dynamic> _$AuthMetaDataToJson(_AuthMetaData instance) =>
     <String, dynamic>{
       'email': instance.email,
       'avatar_url': instance.avatarUrl,
       'name': instance.name,
+      'is_adult': instance.isAdult,
     };
