@@ -2,69 +2,62 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:app/core/debug/talker.dart';
+import 'package:app/core/provider/app_lifecycle_provider.dart';
 import 'package:app/features/websocket/data/repository/websocket_repository.dart';
 import 'package:bff_client/bff_client.dart';
+import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 part 'websocket_provider.g.dart';
 
-@Riverpod(keepAlive: true)
-Stream<UserWebsocketPayload> websocketStream(Ref ref) async* {
-  final websocketChannel = await ref.watch(_websocketChannelProvider.future);
-  final stream = websocketChannel.stream
-      .map(
-        (event) {
-          talker.logCustom(
-            WebsocketEventLog(
-              event.toString(),
-            ),
-          );
-          if (event == 'pong') {
-            return null;
-          }
-          if (event is String) {
-            final json = jsonDecode(event);
-            if (json is Map<String, dynamic>) {
-              return UserWebsocketPayload.fromJson(json);
-            }
-            throw Exception('Invalid event: $event');
-          }
-        },
-      )
-      .where(
-        (event) => event != null,
-      )
-      .cast<UserWebsocketPayload>();
-  yield* stream;
+@riverpod
+Stream<UserWebsocketPayload> websocketPayloadStream(Ref ref) async* {
+  final controller = StreamController<UserWebsocketPayload>();
+
+  ref.listen(websocketStreamProvider, (_, next) {
+    if (next case AsyncData(value: final value)) {
+      talker.logCustom(
+        WebsocketEventLog(
+          value,
+        ),
+      );
+      if (value == 'pong') {
+        return;
+      }
+      final json = jsonDecode(value);
+      if (json is Map<String, dynamic>) {
+        final payload = UserWebsocketPayload.fromJson(json);
+        controller.add(payload);
+      }
+    }
+  });
+
+  ref.onDispose(controller.close);
+
+  yield* controller.stream;
 }
 
 @riverpod
-Future<WebSocketChannel> _websocketChannel(Ref ref) async {
+Stream<String> websocketStream(Ref ref) async* {
+  final channel = await ref.watch(websocketChannelProvider.future);
+
+  yield* channel.stream
+      .where(
+        (event) => event is String,
+      )
+      .cast<String>();
+}
+
+@riverpod
+Future<WebSocketChannel> websocketChannel(Ref ref) async {
   final websocketRepository = ref.watch(websocketRepositoryProvider);
   final startUrl = await websocketRepository.getStartUrl();
   final channel = WebSocketChannel.connect(startUrl);
-  DateTime? lastPongAt;
-  channel.stream.listen((event) {
-    if (event == 'pong') {
-      lastPongAt = DateTime.now();
-    }
-  });
   final timer = Timer.periodic(
     const Duration(seconds: 15),
     (_) {
-      // check
-      if (lastPongAt != null &&
-          DateTime.now().difference(lastPongAt!) >
-              const Duration(seconds: 30)) {
-        talker.logCustom(
-          WebsocketEventLog(
-            'WebSocket connection lost',
-          ),
-        );
-        ref.invalidateSelf();
-      }
       channel.sink.add('ping');
       if (channel.closeCode != null) {
         talker.logCustom(
@@ -76,7 +69,16 @@ Future<WebSocketChannel> _websocketChannel(Ref ref) async {
       }
     },
   );
-  ref.onDispose(timer.cancel);
+
+  ref.listen(appLifecycleProvider, (_, next) {
+    if (next.value == AppLifecycleState.resumed) {
+      ref.invalidateSelf();
+    }
+  });
+  ref.onDispose(() async {
+    timer.cancel();
+    await channel.sink.close();
+  });
   return channel;
 }
 

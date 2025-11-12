@@ -86,8 +86,10 @@ class TicketQrCard extends HookConsumerWidget {
                     TicketPurchaseStatus.refunded => Icons.cancel,
                   },
                   label: switch (item.purchase.status) {
-                    TicketPurchaseStatus.completed => i18n.ticket.status.purchased,
-                    TicketPurchaseStatus.refunded => i18n.ticket.status.refunded,
+                    TicketPurchaseStatus.completed =>
+                      i18n.ticket.status.purchased,
+                    TicketPurchaseStatus.refunded =>
+                      i18n.ticket.status.refunded,
                   },
                   color: switch (item.purchase.status) {
                     TicketPurchaseStatus.completed => colorScheme.primary,

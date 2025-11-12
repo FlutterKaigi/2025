@@ -28,7 +28,7 @@ class TicketNotifier extends _$TicketNotifier {
     final repository = ref.watch(ticketRepositoryProvider);
     ref.keepAlive();
     ref.listen(
-      websocketStreamProvider,
+      websocketPayloadStreamProvider,
       (_, next) async {
         if (next is AsyncError) {
           // WebSocketエラーが発生した場合はログのみ記録し、invalidateはしない

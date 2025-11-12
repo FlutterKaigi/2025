@@ -1,11 +1,15 @@
+import 'dart:async';
+
 import 'package:app/core/designsystem/components/error_screen.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/core/util/let.dart';
 import 'package:app/features/account/data/model/profile_share_models.dart';
 import 'package:app/features/account/data/notifier/profile_share_notifier.dart';
 import 'package:app/features/account/ui/component/account_circle_image.dart';
+import 'package:app/features/websocket/data/provider/websocket_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -63,12 +67,21 @@ class ProfileShareListScreen extends HookConsumerWidget {
               : RefreshIndicator.adaptive(
                   onRefresh: () async =>
                       ref.refresh(profileShareProvider.future),
-                  child: ListView.builder(
-                    itemCount: value.length,
-                    itemBuilder: (context, index) {
-                      final profileWithSns = value[index];
-                      return _ProfileShareCard(profileWithSns: profileWithSns);
-                    },
+                  child: Column(
+                    children: [
+                      const _WebSocketStatus(),
+                      Expanded(
+                        child: ListView.builder(
+                          itemCount: value.length,
+                          itemBuilder: (context, index) {
+                            final profileWithSns = value[index];
+                            return _ProfileShareCard(
+                              profileWithSns: profileWithSns,
+                            );
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                 ),
         AsyncLoading() => const Center(
@@ -244,5 +257,64 @@ class _ProfileShareCard extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class _WebSocketStatus extends HookConsumerWidget {
+  const _WebSocketStatus();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final websocketError = ref.watch(
+      websocketStreamProvider.select((v) => v.error),
+    );
+    final theme = Theme.of(context);
+    final isConnecting = ref.watch(
+      websocketChannelProvider.select((v) => v.isLoading),
+    );
+    useEffect(() {
+      final reconnectTimer = Timer.periodic(const Duration(seconds: 10), (
+        timer,
+      ) {
+        if (websocketError == null) {
+          return;
+        }
+        ref.invalidate(websocketChannelProvider);
+        ref.invalidate(profileShareProvider);
+      });
+      return reconnectTimer.cancel;
+    }, []);
+    
+    if (websocketError != null) {
+      return Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        color: theme.colorScheme.errorContainer,
+        child: Row(
+          children: [
+            Icon(Icons.error_outline, size: 16, color: theme.colorScheme.error),
+          ],
+        ),
+      );
+    }
+
+    if (isConnecting) {
+      return Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        color: theme.colorScheme.surfaceContainerHighest,
+        child: Row(
+          children: [
+            SizedBox(
+              width: 16,
+              height: 16,
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+                color: theme.colorScheme.primary,
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+    return const SizedBox.shrink();
   }
 }

@@ -11,10 +11,10 @@ part of 'websocket_provider.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(websocketStream)
-const websocketStreamProvider = WebsocketStreamProvider._();
+@ProviderFor(websocketPayloadStream)
+const websocketPayloadStreamProvider = WebsocketPayloadStreamProvider._();
 
-final class WebsocketStreamProvider
+final class WebsocketPayloadStreamProvider
     extends
         $FunctionalProvider<
           AsyncValue<UserWebsocketPayload>,
@@ -24,19 +24,19 @@ final class WebsocketStreamProvider
     with
         $FutureModifier<UserWebsocketPayload>,
         $StreamProvider<UserWebsocketPayload> {
-  const WebsocketStreamProvider._()
+  const WebsocketPayloadStreamProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'websocketStreamProvider',
-        isAutoDispose: false,
+        name: r'websocketPayloadStreamProvider',
+        isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$websocketStreamHash();
+  String debugGetCreateSourceHash() => _$websocketPayloadStreamHash();
 
   @$internal
   @override
@@ -46,16 +46,50 @@ final class WebsocketStreamProvider
 
   @override
   Stream<UserWebsocketPayload> create(Ref ref) {
+    return websocketPayloadStream(ref);
+  }
+}
+
+String _$websocketPayloadStreamHash() =>
+    r'c928aa21f2b785da28755d77ebe01661cd1670a5';
+
+@ProviderFor(websocketStream)
+const websocketStreamProvider = WebsocketStreamProvider._();
+
+final class WebsocketStreamProvider
+    extends $FunctionalProvider<AsyncValue<String>, String, Stream<String>>
+    with $FutureModifier<String>, $StreamProvider<String> {
+  const WebsocketStreamProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'websocketStreamProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$websocketStreamHash();
+
+  @$internal
+  @override
+  $StreamProviderElement<String> $createElement($ProviderPointer pointer) =>
+      $StreamProviderElement(pointer);
+
+  @override
+  Stream<String> create(Ref ref) {
     return websocketStream(ref);
   }
 }
 
-String _$websocketStreamHash() => r'e1dc35b4b62c2bb04c23e091621ac9bd94b56df1';
+String _$websocketStreamHash() => r'be460e997887c9bc1052af2d7f2be7c7275fe8d3';
 
-@ProviderFor(_websocketChannel)
-const _websocketChannelProvider = _WebsocketChannelProvider._();
+@ProviderFor(websocketChannel)
+const websocketChannelProvider = WebsocketChannelProvider._();
 
-final class _WebsocketChannelProvider
+final class WebsocketChannelProvider
     extends
         $FunctionalProvider<
           AsyncValue<WebSocketChannel>,
@@ -63,19 +97,19 @@ final class _WebsocketChannelProvider
           FutureOr<WebSocketChannel>
         >
     with $FutureModifier<WebSocketChannel>, $FutureProvider<WebSocketChannel> {
-  const _WebsocketChannelProvider._()
+  const WebsocketChannelProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'_websocketChannelProvider',
+        name: r'websocketChannelProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$_websocketChannelHash();
+  String debugGetCreateSourceHash() => _$websocketChannelHash();
 
   @$internal
   @override
@@ -85,8 +119,8 @@ final class _WebsocketChannelProvider
 
   @override
   FutureOr<WebSocketChannel> create(Ref ref) {
-    return _websocketChannel(ref);
+    return websocketChannel(ref);
   }
 }
 
-String _$_websocketChannelHash() => r'05065658e1f2200e91cf4b1ec3098e1e4b0cd16b';
+String _$websocketChannelHash() => r'3a5d8ebd72df5af9ef23b211acc69fda88d6e573';

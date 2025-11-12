@@ -35,7 +35,7 @@ final class TicketNotifierProvider
   TicketNotifier create() => TicketNotifier();
 }
 
-String _$ticketNotifierHash() => r'16ac712d42ff6af11108d7811155546dd09199ba';
+String _$ticketNotifierHash() => r'c906150b91773a73b9d3362f768142f713364e99';
 
 abstract class _$TicketNotifier extends $AsyncNotifier<List<TicketItem>> {
   FutureOr<List<TicketItem>> build();

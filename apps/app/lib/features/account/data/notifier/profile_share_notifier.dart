@@ -27,7 +27,7 @@ class ProfileShareNotifier extends _$ProfileShareNotifier {
     final repository = ref.watch(profileShareRepositoryProvider);
     ref.keepAlive();
     ref.listen(
-      websocketStreamProvider,
+      websocketPayloadStreamProvider,
       (_, next) async {
         if (next is AsyncError) {
           ref.invalidateSelf();

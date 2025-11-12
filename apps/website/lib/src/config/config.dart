@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:db_types/db_types.dart';
 import 'package:flutterkaigi_2025_website/src/config/job_boards_data.json.dart';
 import 'package:flutterkaigi_2025_website/src/config/sessions_data.dart'
