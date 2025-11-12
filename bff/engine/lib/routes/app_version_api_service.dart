@@ -12,11 +12,11 @@ class AppVersionApiService {
     return jsonResponse(
       () async => {
         'minimum_version': {
-          'ios': Platform.environment['APP_MIN_VERSION_IOS'] ?? '0.0.1',
-          'android': Platform.environment['APP_MIN_VERSION_ANDROID'] ?? '0.0.1',
+          'ios': Platform.environment['APP_MIN_VERSION_IOS'] ?? '1.2.0',
+          'android': Platform.environment['APP_MIN_VERSION_ANDROID'] ?? '1.2.0',
         },
         'store_urls': {
-          'ios': 'https://apps.apple.com/jp/app/flutterkaigi/id...',
+          'ios': 'https://apps.apple.com/us/app/flutterkaigi-2025/id6753943930',
           'android':
               'https://play.google.com/store/apps/details?id=jp.flutterkaigi.conf2025',
         },
