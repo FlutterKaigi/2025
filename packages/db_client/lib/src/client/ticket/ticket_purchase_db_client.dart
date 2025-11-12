@@ -117,18 +117,16 @@ class TicketPurchaseDbClient {
               )
             ELSE NULL
           END AS entry_log,
-            json_build_object(
-              'user', to_json(u.*),
-              'roles', COALESCE(
-                (SELECT json_agg(ur2.role::text)
-                 FROM user_roles ur2
-                 WHERE ur2.user_id = u.id),
-                '[]'::json
-              ),
-              'auth_meta_data',
-                COALESCE(au.raw_user_meta_data, '{}'::jsonb) ||
-                jsonb_build_object('is_adult', COALESCE(pr.is_adult, false))
-            ) AS "user",
+          json_build_object(
+            'user', to_json(u.*),
+            'roles', COALESCE(
+              (SELECT json_agg(ur2.role::text)
+               FROM user_roles ur2
+               WHERE ur2.user_id = u.id),
+              '[]'::json
+            ),
+            'auth_meta_data', COALESCE(au.raw_user_meta_data, '{}'::jsonb)
+          ) AS "user",
           json_build_object(
             'id', tt.id,
             'name', tt.name,
@@ -148,13 +146,12 @@ class TicketPurchaseDbClient {
         LEFT JOIN ticket_purchase_options tpo ON tp.id = tpo.ticket_purchase_id
         LEFT JOIN ticket_options topt ON tpo.ticket_option_id = topt.id
         LEFT JOIN entry_logs el ON tp.id = el.ticket_purchase_id
-          INNER JOIN public.users u ON tp.user_id = u.id
-          LEFT JOIN auth.users au ON u.id = au.id
-          LEFT JOIN profiles pr ON pr.id = u.id
+        INNER JOIN public.users u ON tp.user_id = u.id
+        LEFT JOIN auth.users au ON u.id = au.id
         WHERE tp.id = @ticketPurchaseId
           AND u.deleted_at IS NULL
-          GROUP BY
-            tp.id, tt.id, el.ticket_purchase_id, el.created_at, u.id, au.raw_user_meta_data, pr.is_adult
+        GROUP BY
+          tp.id, tt.id, el.ticket_purchase_id, el.created_at, u.id, au.raw_user_meta_data
         LIMIT 1
       ''',
       parameters: {

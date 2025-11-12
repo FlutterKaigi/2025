@@ -9,19 +9,17 @@ class UserDbClient {
   Future<UserAndUserRoles> getUserAndUserRoles(String userId) async {
     final result = await _executor.execute(
       '''
-  SELECT
-    to_json(u.*) AS user,
-    COALESCE(json_agg(ur.role) FILTER (WHERE ur.role IS NOT NULL), '[]'::json) AS roles,
-    COALESCE(au.raw_user_meta_data, '{}'::jsonb) ||
-      jsonb_build_object('is_adult', COALESCE(p.is_adult, false)) AS auth_meta_data
-  FROM
-    public.users AS u
-    LEFT JOIN public.user_roles AS ur ON u.id = ur.user_id
-    LEFT JOIN auth.users AS au ON u.id = au.id
-    LEFT JOIN profiles AS p ON u.id = p.id
+SELECT
+  to_json(u.*) AS user,
+  COALESCE(json_agg(ur.role) FILTER (WHERE ur.role IS NOT NULL), '[]'::json) AS roles,
+  COALESCE(au.raw_user_meta_data, '{}'::jsonb) AS auth_meta_data
+FROM
+  public.users AS u
+  LEFT JOIN public.user_roles AS ur ON u.id = ur.user_id
+  LEFT JOIN auth.users AS au ON u.id = au.id
 WHERE
   u.id = @user_id AND u.deleted_at IS NULL
-  GROUP BY u.id, au.raw_user_meta_data, p.is_adult
+GROUP BY u.id, au.raw_user_meta_data
 LIMIT 1;
 ''',
       parameters: {
@@ -46,16 +44,14 @@ LIMIT 1;
   }) async {
     final queryBuffer = StringBuffer();
     queryBuffer.write('''
-  SELECT
-    to_json(u.*) AS user,
-    COALESCE(json_agg(ur.role) FILTER (WHERE ur.role IS NOT NULL), '[]'::json) AS roles,
-    COALESCE(au.raw_user_meta_data, '{}'::jsonb) ||
-      jsonb_build_object('is_adult', COALESCE(p.is_adult, false)) AS auth_meta_data
-  FROM
-    public.users AS u
-    LEFT JOIN public.user_roles AS ur ON u.id = ur.user_id
-    LEFT JOIN auth.users AS au ON u.id = au.id
-    LEFT JOIN profiles AS p ON u.id = p.id
+SELECT
+  to_json(u.*) AS user,
+  COALESCE(json_agg(ur.role) FILTER (WHERE ur.role IS NOT NULL), '[]'::json) AS roles,
+  COALESCE(au.raw_user_meta_data, '{}'::jsonb) AS auth_meta_data
+FROM
+  public.users AS u
+  LEFT JOIN public.user_roles AS ur ON u.id = ur.user_id
+  LEFT JOIN auth.users AS au ON u.id = au.id
 ''');
     final parameter = <String, dynamic>{};
     final conditions = <String>[];
@@ -80,7 +76,7 @@ LIMIT 1;
 
     queryBuffer.write('''
 
-  GROUP BY u.id, au.raw_user_meta_data, p.is_adult
+GROUP BY u.id, au.raw_user_meta_data
 ORDER BY u.created_at DESC
 LIMIT @limit OFFSET @offset
 ''');
