@@ -39,3 +39,5 @@ lib/src/config/sponsors_data.json
 lib/src/config/sponsors_data.json.dart
 lib/src/config/staffs_data.json
 lib/src/config/staffs_data.json.dart
+lib/src/config/job_boards_data.json
+lib/src/config/job_boards_data.json.dart

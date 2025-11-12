@@ -9,6 +9,13 @@ final _engDateFormat = DateFormat.yMMMMd('en_US');
 /// 表示言語
 enum Language { ja, en }
 
+extension LanguageEx on Language {
+  String get string => switch (this) {
+    Language.ja => contents.lang.ja,
+    Language.en => contents.lang.en,
+  };
+}
+
 /// テキストコンテンツ
 /// - `ja` 日本語 (デフォルト言語)
 /// - `en` 英語
@@ -36,6 +43,7 @@ const contents = (
   dateLabel: (ja: '開催日', en: 'Date'),
   placeLabel: (ja: '会場', en: 'Place'),
   scheduleLabel: (ja: 'スケジュール', en: 'Schedule'),
+  jobBoards: (ja: 'ジョブボード', en: 'Job Boards'),
   moveToTop: (ja: 'トップ', en: 'Top'),
 
   proposalContents: (

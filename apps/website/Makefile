@@ -14,7 +14,7 @@ build-prod:
 	@export $$(cat environments/.env.prod | grep -v '^#' | grep -v '^$$' | xargs) && $(MAKE) _build
 
 .PHONY: _build
-_build: fetch-sessions fetch-sponsors fetch-staffs
+_build: fetch-sessions fetch-sponsors fetch-staffs fetch-job-boards
 	@jaspr build \
 		--verbose \
 		--optimize=4
@@ -39,6 +39,12 @@ fetch-staffs:
 	@echo "Fetching staff members from BFF API..."
 	@echo "Using BFF_BASE_URL: $${BFF_BASE_URL:-https://2025-bff.flutterkaigi.jp/v1}"
 	@dart run tool/fetch_staffs.dart
+
+.PHONY: fetch-job-boards
+fetch-job-boards:
+	@echo "Fetching job board data from BFF API..."
+	@echo "Using BFF_BASE_URL: $${BFF_BASE_URL:-https://2025-bff.flutterkaigi.jp/v1}"
+	@dart run tool/fetch_job_boards.dart
 
 .PHONY: init
 init:
