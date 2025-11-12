@@ -23,4 +23,6 @@ INSERT INTO timeline_events (title, starts_at, ends_at, venue_id, url) VALUES
     ('懇親会', '2025-11-13 18:30:00+09', NULL, 'e1a11efe-b1eb-43e1-ae60-9d2233e5dfe7', NULL),
 
     -- 懇親会 (Room B)
-    ('懇親会', '2025-11-13 18:30:00+09', NULL, '0505c447-b699-4803-aab9-9cbdf9452c1b', NULL);
+    ('懇親会', '2025-11-13 18:30:00+09', NULL, '0505c447-b699-4803-aab9-9cbdf9452c1b', NULL),
+
+    ('学生支援', '2025-11-13 10:45:00+09', '2025-11-13 12:15:00+09', '98807fe6-b381-40a7-8c33-30a024b9ca4f', NULL);

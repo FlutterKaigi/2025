@@ -57,21 +57,21 @@ INSERT INTO speakers (id, name, avatar_url, x_id) VALUES
 INSERT INTO sessions (id, title, description, starts_at, ends_at, venue_id, sponsor_id, is_lightning_talk, is_beginners_lightning_talk, is_hands_on, video_url, url) VALUES
     -- キーノートセッション (Room A)
     ('c1d2e3f4-a5b6-c7d8-e9f0-1a2b3c4d5e6f', '[Keynote] The Flutter Effect',
-     E'## 概要\r\n\r\nFlutterKaigi 2025のキーノートセッションです。',
-     '2025-11-13 10:15:00+09', '2025-11-13 10:30:00+09', 'e1a11efe-b1eb-43e1-ae60-9d2233e5dfe7', NULL, false, false, false, NULL, NULL),
+     E'このセッションThe "Flutter" Effect では、私の人生を大きく変えたFlutterとの出会いと、その影響についてお話しします。Flutterを学び始めた当初は、ただのモバイル開発フレームワークの一つとして触れていました。しかし、次第にその表現力と開発体験の楽しさに魅了され、Flutterを通じて自分の夢を形にすることができるようになりました。\r\n\r\nFlutterでアプリを作り、発表を行い、記事を書く中で多くの人々とつながり、最終的にはGoogle Developer Expert（GDE）として活動する機会を得ました。このトークでは、その過程で得た学びや転機、そしてFlutterコミュニティへの感謝を共有します。\r\nまた、今年一年のFlutterの進化を振り返りながら、技術面・コミュニティ面の両方からFlutterがどのように成長してきたかを紹介します。Flutterが私に与えた影響と、これからFlutterがもたらす新しい可能性を一緒に感じていただければ幸いです。',
+     '2025-11-13 10:15:00+09', '2025-11-13 10:45:00+09', 'e1a11efe-b1eb-43e1-ae60-9d2233e5dfe7', NULL, false, false, false, NULL, NULL),
 
     -- キーノートセッション（サテライト） (Room B)
     ('b8b1bb5e-cce5-5963-b94f-5e8fe75b72fb', '[Keynote] The Flutter Effect（サテライト）',
-     E'## 概要\r\n\r\nFlutterKaigi 2025のキーノートセッション（サテライト会場）です。',
-     '2025-11-13 10:15:00+09', '2025-11-13 10:30:00+09', '0505c447-b699-4803-aab9-9cbdf9452c1b', NULL, false, false, false, NULL, NULL),
+     E'このセッションThe "Flutter" Effect では、私の人生を大きく変えたFlutterとの出会いと、その影響についてお話しします。Flutterを学び始めた当初は、ただのモバイル開発フレームワークの一つとして触れていました。しかし、次第にその表現力と開発体験の楽しさに魅了され、Flutterを通じて自分の夢を形にすることができるようになりました。\r\n\r\nFlutterでアプリを作り、発表を行い、記事を書く中で多くの人々とつながり、最終的にはGoogle Developer Expert（GDE）として活動する機会を得ました。このトークでは、その過程で得た学びや転機、そしてFlutterコミュニティへの感謝を共有します。\r\nまた、今年一年のFlutterの進化を振り返りながら、技術面・コミュニティ面の両方からFlutterがどのように成長してきたかを紹介します。Flutterが私に与えた影響と、これからFlutterがもたらす新しい可能性を一緒に感じていただければ幸いです。',
+     '2025-11-13 10:15:00+09', '2025-11-13 10:45:00+09', '0505c447-b699-4803-aab9-9cbdf9452c1b', NULL, false, false, false, NULL, NULL),
 
     ('39ac68d6-23a9-4a4a-86c5-bb824d4b49ef', 'Flutterコントリビューションのススメ',
      E'## 概要\r\n\r\nFlutterに「こんな機能があったら便利なのに」と思ったことはありませんか？ 不具合がFlutterのバグによるものであることが判明し、「Flutter SDKのバグが直れば解消できるのですが」と共有したことはありませんか？\r\nFlutterはオープンソースプロジェクトであり、誰でも貢献できます。あなたのアイデアや不満は、あなたの貢献のきっかけになるかもしれません。\r\n\r\n本セッションは「なぜFlutterの開発に"あなた"がなぜ関わるべきなのか」をテーマに、Flutterのコントリビューションの魅力と方法についてお話しします。また、話者がFlutterの開発に関わることで得た知識や経験をもとに、コントリビューションの様々な価値を紹介します。\r\n\r\n## 想定視聴者\r\n\r\n* Flutterの将来性に興味がある方\r\n* Flutterにコントリビューションに向けて背中を押してほしい方',
-     '2025-11-13 10:45:00+09', '2025-11-13 11:15:00+09', 'e1a11efe-b1eb-43e1-ae60-9d2233e5dfe7', NULL, false, false, false, NULL, 'https://fortee.jp/flutterkaigi-2025/proposal/d4ab93e7-c6f1-4d40-b7c2-11fb2bf36d1f'),
+     '2025-11-13 11:00:00+09', '2025-11-13 11:30:00+09', 'e1a11efe-b1eb-43e1-ae60-9d2233e5dfe7', NULL, false, false, false, NULL, 'https://fortee.jp/flutterkaigi-2025/proposal/d4ab93e7-c6f1-4d40-b7c2-11fb2bf36d1f'),
 
     ('5310edf0-8c3c-487f-bb4c-fb9a5c279a44', 'あの日のHot reloadはなぜ動かなかったのか？ 〜OSセキュリティ(W^X)とJITコンパイラの攻防〜',
      E'## 概要\r\niOS26の発表直後、FlutterのHot reloadが実機では動作しない問題が発生し、アプリ開発者は窮地に立たされまさした。\r\nこの問題は現代のOSのセキュリティ制約とJITコンパイラが深く関わっています。この課題にどう向き合い、どう解決していったのかを時系列で振り返りましょう。この解決の過程を振り返ることで、フレームワークへの理解が更に進み、FlutterのコアであるHot reload技術についてより深い知見を得ることができます。\r\nフレームワークやVMのアップデートが、どうやって自分たちの開発体験やアプリの品質に直結するのかを追体験しましょう。\r\n\r\n## 想定視聴者\r\n- iOS26にてHot reloadが動作しない問題の裏側で起きていたことを知りたい人\r\n- 普段使っているFlutter/Dartが、OSレベルのセキュリティ制約とどう向き合っているか知りたい人\r\n',
-     '2025-11-13 10:45:00+09', '2025-11-13 11:15:00+09', '0505c447-b699-4803-aab9-9cbdf9452c1b', NULL, false, false, false, NULL, 'https://fortee.jp/flutterkaigi-2025/proposal/912d7f78-375a-4d57-a1ef-3b5aa438396e'),
+     '2025-11-13 11:00:00+09', '2025-11-13 11:30:00+09', '0505c447-b699-4803-aab9-9cbdf9452c1b', NULL, false, false, false, NULL, 'https://fortee.jp/flutterkaigi-2025/proposal/912d7f78-375a-4d57-a1ef-3b5aa438396e'),
 
     ('326b9576-1ce5-4521-9f2d-c237f3022d5d', 'Flutter DevToolsで発見！本番アプリのパフォーマンス問題と改善の実践',
      E'## 概要\r\nアプリリリース後、ユーザーから「アプリが重い」との問い合わせが多数寄せられた経験はありませんか？本セッションでは、実際のプロダクションアプリでパフォーマンス問題に直面した際の調査から改善までの実践的なアプローチを共有します。\r\n\r\nFlutter DevToolsを活用したパフォーマンス分析により、不要なリビルド、再描画、UIJankなどの問題を特定し、それらを改善した実体験をもとに、以下の内容をお話しします：\r\n\r\n- Flutter DevToolsを使った効果的なパフォーマンス調査手法\r\n- Riverpodによる状態管理で陥りがちなアンチパターンとその対策\r\n- 画像キャッシュサイズの最適化による描画パフォーマンス向上\r\n\r\n## 想定視聴者\r\n- パフォーマンス問題に悩んでいるFlutter開発者\r\n- Flutter DevToolsの効果的な活用法を知りたい方',
@@ -79,63 +79,63 @@ INSERT INTO sessions (id, title, description, starts_at, ends_at, venue_id, spon
 
     ('fa66b859-460e-40f6-9869-9b43e258fed9', 'Impellerで何が変わったのか',
      E'## 概要\r\nFlutter 3.10から標準になった描画エンジンImpellerは、それまでの標準であったSkiaと比較すると、描画処理の最適化、シェーダーの事前コンパイルにより、特にMetal(iOS,macOS)での動作が大幅に安定しました。\r\n\r\nしかし、Impellerの恩恵はそれだけではありません。\r\n描画までの中間コードが削減されたことで、3D描画を実現するFlutter GPUや、高性能化したdart:uiのシェーダー機能など、Flutterの新たな可能性を開く基盤となっています。\r\n\r\n本セッションでは、ImpellerとSkiaの描画の仕組みを比較解説し、Impellerが実現した新機能の技術的背景を深掘りします。\r\n\r\n## 想定視聴者\r\nFlutterの描画の仕組みを理解したい方\r\n描画エンジンレベルでのパフォーマンス改善を試みたい方\r\nシェーダーによる視覚表現や3D描画に興味のある方',
-     '2025-11-13 11:30:00+09', '2025-11-13 12:00:00+09', '0505c447-b699-4803-aab9-9cbdf9452c1b', NULL, false, false, false, NULL, 'https://fortee.jp/flutterkaigi-2025/proposal/81f95806-0cfa-403d-a6f1-0276e606b20a'),
+     '2025-11-13 11:45:00+09', '2025-11-13 12:15:00+09', '0505c447-b699-4803-aab9-9cbdf9452c1b', NULL, false, false, false, NULL, 'https://fortee.jp/flutterkaigi-2025/proposal/81f95806-0cfa-403d-a6f1-0276e606b20a'),
 
     ('23460014-6c50-481c-89dd-4d0edac5da67', 'Flutter is NOT DEAD.',
      E'## 概要\r\n\r\n2025/6/9、Appleは新たなデザイン言語であるLiquid Glassを発表しました。\r\nそしてコミュニティから挙がった声は……\r\n\r\n「Flutterはこのムーブメントについていけない、終わりだ！」「Flutter is dead.」 ……\r\n\r\nなるほど、確かにFlutterは構造上、Liquid Glassを取り込むことは難しいです。\r\nでは、Flutterは本当に死を迎えたのでしょうか？\r\n\r\n自分はそうは思いません。\r\nむしろ、Flutterの真価はプラットフォーム固有の事情に左右されないことにあると考えています。\r\nこのトークでは、Flutterの立ち位置や採用する価値を整理したうえで、どのようなプロジェクトにFlutterが最適なのか？というお話をします。\r\n\r\n## 想定視聴者\r\n\r\n- Flutterを使い続けられるのか悩んでいるSWE\r\n- その他様々な領域のSWE',
-     '2025-11-13 11:30:00+09', '2025-11-13 12:00:00+09', '6426cd21-f1fe-4d84-b74b-ff459cc0d3e2', NULL, false, false, false, NULL, 'https://fortee.jp/flutterkaigi-2025/proposal/03595b88-1b15-4c6e-919c-93838724ca1e'),
+     '2025-11-13 11:45:00+09', '2025-11-13 12:15:00+09', '6426cd21-f1fe-4d84-b74b-ff459cc0d3e2', NULL, false, false, false, NULL, 'https://fortee.jp/flutterkaigi-2025/proposal/03595b88-1b15-4c6e-919c-93838724ca1e'),
 
     ('e308ec24-8f92-4ab1-a140-5c2e401bc465', '自社テンプレートを実践で使って感じた強みとツラミ',
      E'## 概要\r\n弊社では、中・大規模プロジェクト向けのテンプレートをOSSとして開発しています。\r\n本セッションでは、実際のプロジェクトでテンプレートを使用した際に感じた**強み**と**ツラミ**、そしてそのツラミをどのように乗り越えたかを共有します。\r\nさらに、テンプレートで採用しているパッケージをはじめ、ワークフローやアーキテクチャについても紹介します。実際のプロジェクトで導入する際や、新たに開発基盤を検討する際の参考になれば幸いです。\r\n## 想定視聴者\r\n- Flutterアプリのアーキテクチャ設計や技術選定に悩んでいる方\r\n- 開発生産性を向上させるためのテンプレートやワークフローに興味がある方\r\n- 他の会社のリアルな開発事例（特にうまくいかなかった点）に興味がある方',
-     '2025-11-13 13:15:00+09', '2025-11-13 13:45:00+09', 'e1a11efe-b1eb-43e1-ae60-9d2233e5dfe7',1, false, false, false, NULL, 'https://fortee.jp/flutterkaigi-2025/proposal/9b69e675-752b-4443-ae3e-dda629feb451'),
+     '2025-11-13 13:30:00+09', '2025-11-13 14:00:00+09', 'e1a11efe-b1eb-43e1-ae60-9d2233e5dfe7',1, false, false, false, NULL, 'https://fortee.jp/flutterkaigi-2025/proposal/9b69e675-752b-4443-ae3e-dda629feb451'),
 
     ('1f46ce6d-44f1-45ee-9738-17da3ebafa8b', 'Flutterビルドキャッシュの内部構造とテスト高速化への応用',
      E'## 概要\r\nFlutter開発では、アプリケーションの実行や配布のたびにビルドが発生します。\r\n通常、ビルドキャッシュは意識せずとも自動で働きますが、その仕組みを理解することで開発効率をさらに高められます。\r\n本セッションでは、Flutter SDKの内部実装に触れながら、ビルドキャッシュの構造と動作を詳しく解説します。\r\nまた、キャッシュが有効・無効になる条件を理解し、 `flutter test` 実行時の不要な再ビルドを回避することで、テスト実行を高速化できる実践的なアプローチも紹介します。\r\n\r\n## 想定視聴者\r\n- Flutterビルドキャッシュの仕組みを体系的に理解したい方\r\n- テスト実行時のビルド高速化に関心のある方\r\n- `build/` ディレクトリや `.dill` ファイルなど、ビルド成果物の正体を知りたい方',
-     '2025-11-13 13:15:00+09', '2025-11-13 13:45:00+09', '0505c447-b699-4803-aab9-9cbdf9452c1b', NULL, false, false, false, NULL, 'https://fortee.jp/flutterkaigi-2025/proposal/bc8d4449-b57f-4785-a62e-78a361d581f6'),
+     '2025-11-13 13:30:00+09', '2025-11-13 14:00:00+09', '0505c447-b699-4803-aab9-9cbdf9452c1b', NULL, false, false, false, NULL, 'https://fortee.jp/flutterkaigi-2025/proposal/bc8d4449-b57f-4785-a62e-78a361d581f6'),
 
     ('4b65280a-17bb-4024-917f-c085c175a442', 'BuildContextの正体とInheritedWidgetの仕組み',
      E'# 概要\r\nFlutter開発で頻繁に利用されるBuildContext。しかし、その役割の曖昧な理解は、パフォーマンス低下や予期せぬエラーの要因となります。 \r\n\r\n本LTでは、UIツリーでのBuildContextの位置と役割、そしてInheritedWidgetがデータ伝達と再構築にどう影響するかを解説します。\r\n\r\n「Widgetのどこでcontextを使えばいいのか」が腑に落ちて、状態管理や画面遷移でつまずかないための最初の理解の壁を突破できることを目指します。\r\n\r\n# 想定視聴者\r\n- contextの扱い方に自信がない方\r\n- Widgetのどこでcontextを使うべきか迷うことがある方\r\n- 状態管理や画面遷移で「なぜか動かない問題」に直面した経験がある方',
-     '2025-11-13 13:15:00+09', '2025-11-13 13:20:00+09', '6426cd21-f1fe-4d84-b74b-ff459cc0d3e2', NULL, false, true, false, NULL, 'https://fortee.jp/flutterkaigi-2025/proposal/4ffff5d6-8a7d-4029-8925-d05e6fdb8d97'),
+     '2025-11-13 13:30:00+09', '2025-11-13 13:35:00+09', '6426cd21-f1fe-4d84-b74b-ff459cc0d3e2', NULL, false, true, false, NULL, 'https://fortee.jp/flutterkaigi-2025/proposal/4ffff5d6-8a7d-4029-8925-d05e6fdb8d97'),
 
     ('50df4571-171e-4bfc-81a0-f184d3d0645d', 'MVVM から MVVM-C に変えてみた話 〜画面遷移どうしてる？〜',
      E'概要\r\nFlutterでMVVMアーキテクチャを採用した際、\r\n画面遷移処理がViewModelやViewに分散し、責務の分離やテストが難しくなる課題に直面しました。\r\n特に、Navigator.pushや外部リンク遷移がビジネスロジックに混在すると、保守やUIテストが煩雑になります。\r\n\r\nそこで本LTでは、MVVMにCoordinatorを組み合わせたMVVM-Cアーキテクチャを導入し、\r\n遷移処理の責務を一元化・明確化した事例を紹介します。\r\n\r\nこのLTではMVVM-Cについて、以下のポイントを紹介します\r\n- MVVMのおさらい\r\n- なぜCoordinatorがいるのか？\r\n- 実際どんな構成になったか\r\n- 画面遷移テストが楽になる話\r\n\r\n想定視聴者\r\n- MVVMアーキテクチャを使用している方\r\n- 画面遷移が複雑になってきて不安な人\r\n- 画面遷移テストに苦しんでいる方\r\n- アーキテクチャに興味ある方',
-     '2025-11-13 13:20:00+09', '2025-11-13 13:25:00+09', '6426cd21-f1fe-4d84-b74b-ff459cc0d3e2', NULL, false, true, false, NULL, 'https://fortee.jp/flutterkaigi-2025/proposal/5ec3701f-5b04-4717-bb2c-08d63c67a24b'),
+     '2025-11-13 13:35:00+09', '2025-11-13 13:40:00+09', '6426cd21-f1fe-4d84-b74b-ff459cc0d3e2', NULL, false, true, false, NULL, 'https://fortee.jp/flutterkaigi-2025/proposal/5ec3701f-5b04-4717-bb2c-08d63c67a24b'),
 
     ('9be0af37-7db2-40ed-aec8-738dae9071da', 'ノリと勢いでFlutter専門サークルを創設したら3年目に突入した話',
      E'**概要**\r\n\r\nプログラミングへの挫折から再起し、「ノリと勢い」でFlutter開発サークル「ぽちぽちのつどい」を大阪大学に創設した3年間の軌跡を語ります\r\n\r\n**想定視聴者**\r\n\r\n*   **プログラミング学習者・初心者**：学習における挫折経験や効果的な学習方法、モチベーション維持に関心がある方々。\r\n*   **プログラミングサークル・学生コミュニティ運営者**：サークル設立・運営の課題、メンバー集め、組織化、外部連携、そして円滑な継承に関心がある方々。\r\n*   **学生エンジニア全般**：実践的なチーム開発経験、技術的学び、そして学生コミュニティでの交流や成長に興味がある方々。',
-     '2025-11-13 13:25:00+09', '2025-11-13 13:30:00+09', '6426cd21-f1fe-4d84-b74b-ff459cc0d3e2', NULL, false, true, false, NULL, 'https://fortee.jp/flutterkaigi-2025/proposal/78f48783-ebf0-41ab-b447-83b8c8d1c9d8'),
+     '2025-11-13 13:40:00+09', '2025-11-13 13:45:00+09', '6426cd21-f1fe-4d84-b74b-ff459cc0d3e2', NULL, false, true, false, NULL, 'https://fortee.jp/flutterkaigi-2025/proposal/78f48783-ebf0-41ab-b447-83b8c8d1c9d8'),
 
     ('c0036d43-21be-4a6e-8fd5-3cb66fe8a183', 'Flutter ネイティブ連携手法 2025',
      E'Flutterでネイティブ機能を使う方法、いくつ知っていますか？\r\n基本のMethod Channel/EventChannelから、dart:ffiを使った直接バインディング、BasicMessageChannel、\r\nそしてPigeonなどのコード生成ツールまで。選択肢は実に多様です。\r\n\r\n「結局どれを使えばいいの？」\r\n「それぞれの違いは？」\r\nこのLTでは、主要な連携手法の実装例（Dart側・ネイティブ側）を実際のコードで比較しながら、\r\nそれぞれの特徴と適用場面を整理します。\r\n\r\n各手法を理解し、プロジェクトに応じた最適な選択ができるようになることが目標です。',
-     '2025-11-13 13:30:00+09', '2025-11-13 13:35:00+09', '6426cd21-f1fe-4d84-b74b-ff459cc0d3e2', NULL, false, true, false, NULL, 'https://fortee.jp/flutterkaigi-2025/proposal/8bd545cf-a3eb-4238-aeb1-e78d0528fe4e'),
+     '2025-11-13 13:45:00+09', '2025-11-13 13:50:00+09', '6426cd21-f1fe-4d84-b74b-ff459cc0d3e2', NULL, false, true, false, NULL, 'https://fortee.jp/flutterkaigi-2025/proposal/8bd545cf-a3eb-4238-aeb1-e78d0528fe4e'),
 
     ('06c860df-22a2-463a-91ea-0c5c1cd29a12', 'Server-Driven UIでアプリを作る',
      E'Server-Driven UIでプロダクト開発してますか？\r\n\r\nServer-Driven UI（SDUI）はAirbnbが用いた設計手法でUIの構造、レイアウト、さらには一部の動作ロジックを、クライアント側ではなくサーバー側で定義・制御するアーキテクチャパターンです。\r\n\r\nモバイルアプリ開発においてA/Bテスト等でUIを分ける際にいくつかやり方があるかと思いますが、\r\nこのLTではStacというFlutter専用のSDUIのFrameworkを用いた紹介をします。\r\n',
-     '2025-11-13 13:35:00+09', '2025-11-13 13:40:00+09', '6426cd21-f1fe-4d84-b74b-ff459cc0d3e2', NULL, true, false, false, NULL, 'https://fortee.jp/flutterkaigi-2025/proposal/8819bdad-2434-435d-976b-e4ad9142fe78'),
+     '2025-11-13 13:50:00+09', '2025-11-13 13:55:00+09', '6426cd21-f1fe-4d84-b74b-ff459cc0d3e2', NULL, true, false, false, NULL, 'https://fortee.jp/flutterkaigi-2025/proposal/8819bdad-2434-435d-976b-e4ad9142fe78'),
 
     ('c2a5915f-a849-4cb1-8718-99f56140d6d7', 'Flutterで挑む次世代認証：Flutter銀行アプリにおける導入実録とその教訓',
      E'## 概要\r\nFlutter製の銀行アプリにFIDOパスキー認証を導入した事例をもとに、クロスプラットフォームでの実装課題と解決策を解説します。ドキュメントにない仕様差や想定外の不具合、検証時の落とし穴など、現場のリアルな学びをお届けします。\r\n\r\n## 想定視聴者\r\nFlutterで認証やネイティブ連携を扱いに興味ある方、初級〜上級開発者',
-     '2025-11-13 14:00:00+09', '2025-11-13 14:30:00+09', 'e1a11efe-b1eb-43e1-ae60-9d2233e5dfe7', NULL, false, false, false, NULL, 'https://fortee.jp/flutterkaigi-2025/proposal/ed60500d-d9f8-48fb-8dd9-a4eb2951cdec'),
+     '2025-11-13 14:15:00+09', '2025-11-13 14:45:00+09', 'e1a11efe-b1eb-43e1-ae60-9d2233e5dfe7', NULL, false, false, false, NULL, 'https://fortee.jp/flutterkaigi-2025/proposal/ed60500d-d9f8-48fb-8dd9-a4eb2951cdec'),
 
     ('c5207df1-3c97-47f1-aa44-5d64586301fd', 'Flutterにしてよかった？ 出前館アプリを2年運用して気づいたこと全部話します',
      E'出前館アプリは、2023年11月にReact NativeからFlutterへ全面移行しました。\r\n以降2年間にわたり、日常的に利用されるFlutter製の大規模アプリとして運用を続ける中で、技術面・運用面・組織面それぞれにおいて多くの知見を得ることができました。\r\n\r\n本セッションでは、\r\n・移行後に直面した具体的な技術的課題とその対応\r\n・開発プロセス改善の取り組み（リリーストレイン導入によるソフトウェア品質の担保）\r\n・Flutter化が組織に与えた影響\r\nといった実例をもとに、成功事例だけでなく実際に直面した課題も含めて率直にご紹介します。\r\n\r\nFlutterを用いた大規模アプリの開発・運用について、導入を検討している方々には検討の参考に、すでに導入している方々には改善や最適化のヒントとなる実践的な知見を共有します。',
-     '2025-11-13 14:00:00+09', '2025-11-13 14:30:00+09', '0505c447-b699-4803-aab9-9cbdf9452c1b', 2, false, false, false, NULL, 'https://fortee.jp/flutterkaigi-2025/proposal/877c62d7-98d1-43c8-a620-e07dc46a6782'),
+     '2025-11-13 14:15:00+09', '2025-11-13 14:45:00+09', '0505c447-b699-4803-aab9-9cbdf9452c1b', 2, false, false, false, NULL, 'https://fortee.jp/flutterkaigi-2025/proposal/877c62d7-98d1-43c8-a620-e07dc46a6782'),
 
-    ('102f0e36-8839-4c4c-85a9-a94082af1692', 'Mobile MCP × Dart VM Service Extensionで実現するAI駆動E2Eテスト整備と自動操作',
+    ('102f0e36-8839-4c4c-85a9-a94082af1692', 'Dart and Flutter MCP serverで実現するAI駆動E2Eテスト整備と自動操作',
      E'## 概要\r\nE2Eテストには「カバレッジ向上が大変」、「メンテナンスコストが高い」といった課題があります。AIによるモバイルアプリの自動操作でこれらの課題を解決します。AIがアプリを自動操作することで、E2Eテストの作成においてGUIをコンテキストとして扱うことができるようになります。これによりE2Eテスト作成の精度と効率を向上させます。\r\n\r\nまた、AIによるモバイルアプリの自動操作はMobile MCPによって実現されます。しかしFlutterのレンダリング方式が原因でそのままでは利用できません。そこでDart VM Service extensionを利用してMCPを拡張し、Flutterアプリに対応させた方法についてもお話します。\r\n\r\n## 想定視聴者\r\nE2Eテストの拡充を課題としている方\r\nAI x アプリのエンジニアリングに興味がある方',
-     '2025-11-13 14:00:00+09', '2025-11-13 14:30:00+09', '6426cd21-f1fe-4d84-b74b-ff459cc0d3e2', NULL, false, false, false, NULL, 'https://fortee.jp/flutterkaigi-2025/proposal/63d2ecdf-120c-4d92-bd5b-e20dad80357c'),
+     '2025-11-13 14:15:00+09', '2025-11-13 14:45:00+09', '6426cd21-f1fe-4d84-b74b-ff459cc0d3e2', NULL, false, false, false, NULL, 'https://fortee.jp/flutterkaigi-2025/proposal/63d2ecdf-120c-4d92-bd5b-e20dad80357c'),
 
     ('4b6a22a1-7d3c-41c5-8a54-15ff13f349ca', '顧客価値を実現するFlutter：KPI・SLOから考えるキャリア支援アプリのUIUX設計',
      E'Flutterの採用理由を問われたとき、私たちは「開発効率」という言葉以外に何を語れるでしょうか。本セッションでは、その問いに対して事業会社の視点から考えます。\r\nキャリア支援サービスという事業ドメインにおいて、達成したい顧客価値を起点にFlutterの能力をいかに戦略的に選択・活用していくか。\r\n事業会社だからこそ向き合う長期的な顧客接点や信頼性の担保といったテーマに対し、Flutterの思想と具体的な設計を結びつけた実践例を共有します。\r\n特に、以下のような抽象的な価値を、Flutterならではの技術で具体的なUXに落とし込むまでの取り組みに焦点を当てます。\r\n・信頼を支えるUI/UXの一貫性： 共通化されたUI状態の設計と表現\r\n・変化し続けるキャリア情報の表現： 状態管理と非同期処理の工夫\r\n・長期利用を前提とした体感品質： パフォーマンス設計と計測の考え方',
-     '2025-11-13 15:00:00+09', '2025-11-13 15:30:00+09', 'e1a11efe-b1eb-43e1-ae60-9d2233e5dfe7', 3, false, false, false, NULL, 'https://fortee.jp/flutterkaigi-2025/proposal/9f280a39-1a78-4167-bc3b-8f2a70f4b90b'),
+     '2025-11-13 15:15:00+09', '2025-11-13 15:45:00+09', 'e1a11efe-b1eb-43e1-ae60-9d2233e5dfe7', 3, false, false, false, NULL, 'https://fortee.jp/flutterkaigi-2025/proposal/9f280a39-1a78-4167-bc3b-8f2a70f4b90b'),
 
     ('72de2ac4-5cad-408d-bc56-1919daf00f87', 'RenderObject とは何か？animated_to に学ぶレイアウト計算と描画の仕組み',
      E'## 概要\r\nWidget の「移動」をアニメーションする animated_to というパッケージを開発して公開しました。これを使うと from/to を計算することなく自由に Widget を動かせます。\r\n\r\nそんな animated_to は RenderObject をカスタマイズすることで実現しています。from/to の計算、描画位置の更新、これらはいずれも RenderObject の仕事であり、そこに Widget のリビルドは発生しません。リビルドが必要ないのでアニメーションも滑らかです。\r\n\r\nこのセッションでは、animated_to の実装を例に RenderObject の仕組みとカスタマイズ方法について説明します。\r\n\r\n## 想定視聴者\r\n- Flutter の内部的な仕組みに興味のある方\r\n- 描画のパフォーマンスを細かくチューニングしたい方',
-     '2025-11-13 15:00:00+09', '2025-11-13 15:30:00+09', '0505c447-b699-4803-aab9-9cbdf9452c1b', NULL, false, false, false, NULL, 'https://fortee.jp/flutterkaigi-2025/proposal/2bd516ee-f172-478d-a2cc-c7682fb66c07'),
+     '2025-11-13 15:15:00+09', '2025-11-13 15:45:00+09', '0505c447-b699-4803-aab9-9cbdf9452c1b', NULL, false, false, false, NULL, 'https://fortee.jp/flutterkaigi-2025/proposal/2bd516ee-f172-478d-a2cc-c7682fb66c07'),
 
     ('8eaddaa9-b501-4c7e-8713-9b537a7475a3', 'Flutter Webの真価：SEOフレンドリーなPWAとデスクトップアプリケーションへの展開',
      E'## 概要\r\nFlutterはモバイルアプリ開発の強力なツールとして確立されていますが、Flutter Webの可能性はまだ十分に認識されていないかもしれません。本セッションでは、Flutter Webの最新の進捗と、特にSEO（検索エンジン最適化）フレンドリーなプログレッシブウェブアプリ（PWA）を構築するための具体的な戦略に焦点を当てます。レンダリングモードの選択（HTML vs Canvas Kit）、ルーティングとURL管理、メタデータの設定、Service Workerの活用など、Flutter Webで高性能かつSEOに強いPWAを開発するための実践的なテクニックを解説します。マルチプラットフォーム戦略におけるFlutter Webの真価を探ります。\r\n\r\n## 想定視聴者\r\nFlutter開発者、Web開発者、プロダクトオーナー\r\n',
-     '2025-11-13 15:00:00+09', '2025-11-13 15:30:00+09', '6426cd21-f1fe-4d84-b74b-ff459cc0d3e2', NULL, false, false, false, NULL, 'https://fortee.jp/flutterkaigi-2025/proposal/572423bf-9210-480d-813d-c6d88d640833'),
+     '2025-11-13 15:15:00+09', '2025-11-13 15:45:00+09', '6426cd21-f1fe-4d84-b74b-ff459cc0d3e2', NULL, false, false, false, NULL, 'https://fortee.jp/flutterkaigi-2025/proposal/572423bf-9210-480d-813d-c6d88d640833'),
 
     ('f70f8cb2-8a8a-46e5-bcb2-1431d45e167d', 'DartASTとその活用',
      E'# 概要\r\n私たちは日常的にLinterやコードフォーマッター、freezedやjson_serializableといったコード生成ライブラリの恩恵を受けています。これらの強力なツールは、私たちのコードの品質を保ち、開発効率を飛躍的に向上させてくれます。\r\nでは、これらのツールはどのようにして私たちの書いたコードを理解し、解析・変換しているのでしょうか？ その答えを探る中で重要になるのが AST (抽象構文木) です。\r\n本セッションでは、Dartの公式に提供されている`analyzer`パッケージを使用し、Dartコードがどのように木構造に変換されるのかを解説します。さらに、そのASTを活用して、実際にカスタムLinterやコードジェネレーターがどのように作られているのか、その仕組みと具体的なアプローチをデモを交えながら紹介します。\r\n\r\n# 対象者\r\n* Dartのコード解析や変換に興味がある方',
@@ -208,7 +208,7 @@ INSERT INTO sessions (id, title, description, starts_at, ends_at, venue_id, spon
     -- ハンズオンセッション
     ('8821b3b8-f10d-4211-9ea5-ca1da325eac3', 'ハンズオンセッション',
      E'## 概要\r\nFlutterKaigi 2025 ハンズオンでは、アプリの魅力を上げるため、UI にアニメーションやデコレーションを追加する基礎知識を学んでもらうことになりました。このハンズオンでは、単なる UI Widget カタログにならないよう、単純で飾り気のないベース模擬アプリに、デコレーションやアニメーションを追加していきます。アイテムの状態や状態変更に応じたアクションを返してくれますが、単純で飾り気のないベース模擬アプリにデコレーションやアニメーションを追加することで、アプリ表現力向上の比較とこれらの基礎知識を学んでもらう趣向となっております。\r\n## 備考\r\n- アーリーチケットでハンズオンセッションに参加希望を出した方のみ参加可能なセッションとなっております。',
-     '2025-11-13 13:30:00+09', '2025-11-13 15:30:00+09', '98807fe6-b381-40a7-8c33-30a024b9ca4f', NULL, false, false, true, NULL, NULL);
+     '2025-11-13 13:30:00+09', '2025-11-13 16:00:00+09', '98807fe6-b381-40a7-8c33-30a024b9ca4f', NULL, false, false, true, NULL, NULL);
 
 -- Insert session-speaker relationships based on example data
 INSERT INTO session_speakers (session_id, speaker_id) VALUES
