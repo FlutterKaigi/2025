@@ -32,14 +32,20 @@ class AdminTicketScanSheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final theme = Theme.of(context);
-    final textTheme = theme.textTheme;
-    final colorScheme = theme.colorScheme;
+      final theme = Theme.of(context);
+      final textTheme = theme.textTheme;
+      final colorScheme = theme.colorScheme;
 
-    final hasEntryLog = ticket.purchase.entryLog != null;
-    final nameplateId = ticket.purchase.nameplateId?.trim();
-    final displayNameplateId =
-        nameplateId == null || nameplateId.isEmpty ? 'N/A' : nameplateId;
+      final hasEntryLog = ticket.purchase.entryLog != null;
+      final nameplateId = ticket.purchase.nameplateId?.trim();
+      final displayNameplateId =
+          nameplateId == null || nameplateId.isEmpty ? 'N/A' : nameplateId;
+      final isAdult = ticket.user.authMetaData.isAdult;
+      final (adultLabel, adultColor, adultIcon) = switch (isAdult) {
+        true => ('はい', Colors.green, Icons.verified_user),
+        false => ('いいえ', colorScheme.error, Icons.block),
+        null => ('未設定', colorScheme.onSurfaceVariant, Icons.help_outline),
+      };
 
     return Container(
       padding: const EdgeInsets.all(12),
@@ -107,36 +113,73 @@ class AdminTicketScanSheet extends ConsumerWidget {
               ],
             ),
 
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: colorScheme.surfaceContainerHighest,
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(
-                  color: colorScheme.outline.withValues(alpha: 0.3),
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: colorScheme.surfaceContainerHighest,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    color: colorScheme.outline.withValues(alpha: 0.3),
+                  ),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  spacing: 8,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      spacing: 4,
+                      children: [
+                        Text(
+                          '20歳以上',
+                          style: textTheme.titleSmall?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: colorScheme.primary,
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              adultIcon,
+                              size: 18,
+                              color: adultColor,
+                            ),
+                            const SizedBox(width: 8),
+                            Text(
+                              adultLabel,
+                              style: textTheme.bodyLarge?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: adultColor,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const Divider(height: 16),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      spacing: 4,
+                      children: [
+                        Text(
+                          'ネームプレートID',
+                          style: textTheme.titleSmall?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: colorScheme.primary,
+                          ),
+                        ),
+                        Text(
+                          displayNameplateId,
+                          style: textTheme.bodyLarge?.copyWith(
+                            fontFamily: 'monospace',
+                            letterSpacing: 1.2,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                spacing: 4,
-                children: [
-                  Text(
-                    'ネームプレートID',
-                    style: textTheme.titleSmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: colorScheme.primary,
-                    ),
-                  ),
-                  Text(
-                    displayNameplateId,
-                    style: textTheme.bodyLarge?.copyWith(
-                      fontFamily: 'monospace',
-                      letterSpacing: 1.2,
-                    ),
-                  ),
-                ],
-              ),
-            ),
 
             // チケットオプション情報
             if (ticket.options.isNotEmpty)

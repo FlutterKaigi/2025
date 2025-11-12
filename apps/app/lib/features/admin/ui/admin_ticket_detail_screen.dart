@@ -153,10 +153,23 @@ class _TicketInfoSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final textTheme = theme.textTheme;
-    final colorScheme = theme.colorScheme;
-    final dateFormat = DateFormat('yyyy/MM/dd HH:mm');
+      final theme = Theme.of(context);
+      final textTheme = theme.textTheme;
+      final colorScheme = theme.colorScheme;
+      final dateFormat = DateFormat('yyyy/MM/dd HH:mm');
+      final isAdult = ticket.user.authMetaData.isAdult;
+      final (adultLabel, adultColor) = switch (isAdult) {
+        true => ('はい', Colors.green),
+        false => ('いいえ', colorScheme.error),
+        null => ('未設定', colorScheme.onSurfaceVariant),
+      };
+      final nameplateId = switch (ticket) {
+        TicketPurchaseItemWithUser(:final purchase) =>
+          purchase.nameplateId?.trim(),
+        TicketCheckoutItemWithUser() => null,
+      };
+      final displayNameplateId =
+          nameplateId == null || nameplateId.isEmpty ? 'N/A' : nameplateId;
 
     return Card.outlined(
       child: Padding(
@@ -193,31 +206,51 @@ class _TicketInfoSection extends StatelessWidget {
                 textTheme: textTheme,
               ),
             ),
-            const SizedBox(height: 12),
-            _InfoRow(
-              label: '購入日時',
-              value: dateFormat.format(
-                (switch (ticket) {
-                  TicketPurchaseItemWithUser(:final purchase) =>
-                    purchase.createdAt,
-                  TicketCheckoutItemWithUser(:final checkout) =>
-                    checkout.createdAt,
-                }).toLocal(),
-              ),
-              textTheme: textTheme,
-            ),
-            if (ticket is TicketPurchaseItemWithUser) ...[
               const SizedBox(height: 12),
               _InfoRow(
-                label: 'チケットID',
-                value: (ticket as TicketPurchaseItemWithUser).purchase.id,
+                label: '購入日時',
+                value: dateFormat.format(
+                  (switch (ticket) {
+                    TicketPurchaseItemWithUser(:final purchase) =>
+                      purchase.createdAt,
+                    TicketCheckoutItemWithUser(:final checkout) =>
+                      checkout.createdAt,
+                  }).toLocal(),
+                ),
+                textTheme: textTheme,
+              ),
+              const SizedBox(height: 12),
+              _InfoRow(
+                label: '20歳以上',
+                value: adultLabel,
                 textTheme: textTheme,
                 valueStyle: textTheme.bodyMedium?.copyWith(
-                  fontFamily: 'monospace',
-                  fontSize: 12,
+                  color: adultColor,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-            ],
+              if (ticket is TicketPurchaseItemWithUser) ...[
+                const SizedBox(height: 12),
+                _InfoRow(
+                  label: 'チケットID',
+                  value: (ticket as TicketPurchaseItemWithUser).purchase.id,
+                  textTheme: textTheme,
+                  valueStyle: textTheme.bodyMedium?.copyWith(
+                    fontFamily: 'monospace',
+                    fontSize: 12,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                _InfoRow(
+                  label: 'ネームプレートID',
+                  value: displayNameplateId,
+                  textTheme: textTheme,
+                  valueStyle: textTheme.bodyMedium?.copyWith(
+                    fontFamily: 'monospace',
+                    letterSpacing: 1.2,
+                  ),
+                ),
+              ],
             if (ticket.options.isNotEmpty) ...[
               const SizedBox(height: 16),
               Text(
