@@ -279,6 +279,7 @@ class TranslationsTicketJa {
 	late final TranslationsTicketPurchaseJa purchase = TranslationsTicketPurchaseJa.internal(_root);
 	late final TranslationsTicketQrJa qr = TranslationsTicketQrJa.internal(_root);
 	late final TranslationsTicketEntryTicketJa entryTicket = TranslationsTicketEntryTicketJa.internal(_root);
+	late final TranslationsTicketNotificationJa notification = TranslationsTicketNotificationJa.internal(_root);
 }
 
 // Path: venue
@@ -426,6 +427,7 @@ class TranslationsAccountProfileshareJa {
 	late final TranslationsAccountProfileshareQrCodeDisplayJa qrCodeDisplay = TranslationsAccountProfileshareQrCodeDisplayJa.internal(_root);
 	late final TranslationsAccountProfileshareQrCodeScanScreenJa qrCodeScanScreen = TranslationsAccountProfileshareQrCodeScanScreenJa.internal(_root);
 	late final TranslationsAccountProfileshareFriendsListScreenJa friendsListScreen = TranslationsAccountProfileshareFriendsListScreenJa.internal(_root);
+	late final TranslationsAccountProfileshareNotificationJa notification = TranslationsAccountProfileshareNotificationJa.internal(_root);
 }
 
 // Path: account.admin
@@ -953,6 +955,24 @@ class TranslationsTicketEntryTicketJa {
 	String subtitle({required int count}) => '${count}枚のチケットがあります';
 }
 
+// Path: ticket.notification
+class TranslationsTicketNotificationJa {
+	TranslationsTicketNotificationJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'チケット通知'
+	String get channel_name => 'チケット通知';
+
+	/// ja: 'チケットステータス変更の通知'
+	String get channel_description => 'チケットステータス変更の通知';
+
+	late final TranslationsTicketNotificationEntryJa entry = TranslationsTicketNotificationEntryJa.internal(_root);
+	late final TranslationsTicketNotificationRefundJa refund = TranslationsTicketNotificationRefundJa.internal(_root);
+}
+
 // Path: account.profile.avatar
 class TranslationsAccountProfileAvatarJa {
 	TranslationsAccountProfileAvatarJa.internal(this._root);
@@ -1148,6 +1168,27 @@ class TranslationsAccountProfileshareFriendsListScreenJa {
 	String get copiedToClipboard => 'をコピーしました';
 }
 
+// Path: account.profileshare.notification
+class TranslationsAccountProfileshareNotificationJa {
+	TranslationsAccountProfileshareNotificationJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'プロフィール交換'
+	String get channel_name => 'プロフィール交換';
+
+	/// ja: 'プロフィール交換時の通知'
+	String get channel_description => 'プロフィール交換時の通知';
+
+	/// ja: 'プロフィール交換しました'
+	String get title => 'プロフィール交換しました';
+
+	/// ja: '$name さんとプロフィール交換しました'
+	String body({required Object name}) => '${name} さんとプロフィール交換しました';
+}
+
 // Path: common.error.notFound
 class TranslationsCommonErrorNotFoundJa {
 	TranslationsCommonErrorNotFoundJa.internal(this._root);
@@ -1230,6 +1271,36 @@ class TranslationsCommonDebugProfileShareJa {
 
 	/// ja: 'シェア'
 	String get share => 'シェア';
+}
+
+// Path: ticket.notification.entry
+class TranslationsTicketNotificationEntryJa {
+	TranslationsTicketNotificationEntryJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'FlutterKaigi 2025へようこそ！'
+	String get title => 'FlutterKaigi 2025へようこそ！';
+
+	/// ja: 'イベントをお楽しみください！'
+	String get body => 'イベントをお楽しみください！';
+}
+
+// Path: ticket.notification.refund
+class TranslationsTicketNotificationRefundJa {
+	TranslationsTicketNotificationRefundJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'チケットが返金されました'
+	String get title => 'チケットが返金されました';
+
+	/// ja: 'チケットの返金処理が完了しました'
+	String get body => 'チケットの返金処理が完了しました';
 }
 
 // Path: account.profile.sns.examples
@@ -1404,6 +1475,10 @@ extension on Translations {
 			case 'account.profileshare.friendsListScreen.connectedAt': return '交換日時';
 			case 'account.profileshare.friendsListScreen.errorLoadingFriends': return '友達リストの読み込みに失敗しました';
 			case 'account.profileshare.friendsListScreen.copiedToClipboard': return 'をコピーしました';
+			case 'account.profileshare.notification.channel_name': return 'プロフィール交換';
+			case 'account.profileshare.notification.channel_description': return 'プロフィール交換時の通知';
+			case 'account.profileshare.notification.title': return 'プロフィール交換しました';
+			case 'account.profileshare.notification.body': return ({required Object name}) => '${name} さんとプロフィール交換しました';
 			case 'account.admin.title': return '管理者ページ';
 			case 'account.admin.button': return '管理者ページ';
 			case 'account.admin.userList': return 'ユーザ一覧';
@@ -1530,6 +1605,12 @@ extension on Translations {
 			case 'ticket.qr.nameplateId': return 'ネームプレートID';
 			case 'ticket.entryTicket.title': return '入場可能なチケット';
 			case 'ticket.entryTicket.subtitle': return ({required int count}) => '${count}枚のチケットがあります';
+			case 'ticket.notification.channel_name': return 'チケット通知';
+			case 'ticket.notification.channel_description': return 'チケットステータス変更の通知';
+			case 'ticket.notification.entry.title': return 'FlutterKaigi 2025へようこそ！';
+			case 'ticket.notification.entry.body': return 'イベントをお楽しみください！';
+			case 'ticket.notification.refund.title': return 'チケットが返金されました';
+			case 'ticket.notification.refund.body': return 'チケットの返金処理が完了しました';
 			case 'venue.title': return '会場マップ';
 			case 'venue.floor1f': return '1F';
 			case 'venue.floor2f': return '2F';

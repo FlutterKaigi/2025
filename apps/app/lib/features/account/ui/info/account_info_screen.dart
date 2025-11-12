@@ -4,6 +4,7 @@ import 'package:app/core/gen/assets/fonts.gen.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/core/provider/environment.dart';
 import 'package:app/features/account/data/notifier/profile_notifier.dart';
+import 'package:app/features/account/data/notifier/profile_share_notifier.dart';
 import 'package:app/features/account/ui/component/account_circle_image.dart';
 import 'package:app/features/account/ui/component/login_prompt_card.dart';
 import 'package:app/features/account/ui/component/profile_info_section.dart';
@@ -71,6 +72,7 @@ final class AccountInfoScreen extends ConsumerWidget {
     final theme = Theme.of(context);
     final textTheme = Theme.of(context).textTheme;
 
+    final _ = ref.watch(profileShareProvider);
     final commitInformation = ref.watch(environmentProvider).commitInformation;
 
     return Scaffold(

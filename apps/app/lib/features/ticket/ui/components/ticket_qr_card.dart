@@ -74,9 +74,44 @@ class TicketQrCard extends HookConsumerWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
+            const SizedBox(height: 12),
+            // ステータスバッジ
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                _StatusBadge(
+                  icon: switch (item.purchase.status) {
+                    TicketPurchaseStatus.completed => Icons.check_circle,
+                    TicketPurchaseStatus.refunded => Icons.cancel,
+                  },
+                  label: switch (item.purchase.status) {
+                    TicketPurchaseStatus.completed => i18n.ticket.status.purchased,
+                    TicketPurchaseStatus.refunded => i18n.ticket.status.refunded,
+                  },
+                  color: switch (item.purchase.status) {
+                    TicketPurchaseStatus.completed => colorScheme.primary,
+                    TicketPurchaseStatus.refunded => colorScheme.error,
+                  },
+                  onColor: switch (item.purchase.status) {
+                    TicketPurchaseStatus.completed => colorScheme.onPrimary,
+                    TicketPurchaseStatus.refunded => colorScheme.onError,
+                  },
+                  theme: theme,
+                ),
+                if (item.purchase.entryLog != null)
+                  _StatusBadge(
+                    icon: Icons.meeting_room,
+                    label: i18n.ticket.status.entered,
+                    color: colorScheme.tertiary,
+                    onColor: colorScheme.onTertiary,
+                    theme: theme,
+                  ),
+              ],
+            ),
             // ネームプレートIDがあれば表示
             if (item.purchase.nameplateId != null) ...[
-              const SizedBox(height: 4),
+              const SizedBox(height: 12),
               Text(
                 '${i18n.ticket.qr.nameplateId}: ${item.purchase.nameplateId}',
                 style: theme.textTheme.bodyMedium,
@@ -129,6 +164,51 @@ class _AddToWallet extends ConsumerWidget {
           onTap: open,
           child: child,
         ),
+      ),
+    );
+  }
+}
+
+class _StatusBadge extends StatelessWidget {
+  const _StatusBadge({
+    required this.icon,
+    required this.label,
+    required this.color,
+    required this.onColor,
+    required this.theme,
+  });
+
+  final IconData icon;
+  final String label;
+  final Color color;
+  final Color onColor;
+  final ThemeData theme;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            icon,
+            size: 16,
+            color: onColor,
+          ),
+          const SizedBox(width: 4),
+          Text(
+            label,
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: onColor,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
       ),
     );
   }

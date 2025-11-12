@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:app/core/debug/talker.dart';
@@ -12,23 +13,31 @@ part 'websocket_provider.g.dart';
 @Riverpod(keepAlive: true)
 Stream<UserWebsocketPayload> websocketStream(Ref ref) async* {
   final websocketChannel = await ref.watch(_websocketChannelProvider.future);
-  yield* websocketChannel.stream.map(
-    (event) {
-      talker.logCustom(
-        WebsocketEventLog(
-          event.toString(),
-        ),
-      );
-      if (event is String) {
-        final json = jsonDecode(event);
-        if (json is Map<String, dynamic>) {
-          return UserWebsocketPayload.fromJson(json);
-        }
-        throw Exception('Invalid event: $event');
-      }
-      throw Exception('Invalid event: $event');
-    },
-  );
+  final stream = websocketChannel.stream
+      .map(
+        (event) {
+          talker.logCustom(
+            WebsocketEventLog(
+              event.toString(),
+            ),
+          );
+          if (event == 'pong') {
+            return null;
+          }
+          if (event is String) {
+            final json = jsonDecode(event);
+            if (json is Map<String, dynamic>) {
+              return UserWebsocketPayload.fromJson(json);
+            }
+            throw Exception('Invalid event: $event');
+          }
+        },
+      )
+      .where(
+        (event) => event != null,
+      )
+      .cast<UserWebsocketPayload>();
+  yield* stream;
 }
 
 @riverpod
@@ -36,6 +45,38 @@ Future<WebSocketChannel> _websocketChannel(Ref ref) async {
   final websocketRepository = ref.watch(websocketRepositoryProvider);
   final startUrl = await websocketRepository.getStartUrl();
   final channel = WebSocketChannel.connect(startUrl);
+  DateTime? lastPongAt;
+  channel.stream.listen((event) {
+    if (event == 'pong') {
+      lastPongAt = DateTime.now();
+    }
+  });
+  final timer = Timer.periodic(
+    const Duration(seconds: 15),
+    (_) {
+      // check
+      if (lastPongAt != null &&
+          DateTime.now().difference(lastPongAt!) >
+              const Duration(seconds: 30)) {
+        talker.logCustom(
+          WebsocketEventLog(
+            'WebSocket connection lost',
+          ),
+        );
+        ref.invalidateSelf();
+      }
+      channel.sink.add('ping');
+      if (channel.closeCode != null) {
+        talker.logCustom(
+          WebsocketEventLog(
+            'WebSocket closed: ${channel.closeCode}',
+          ),
+        );
+        ref.invalidateSelf();
+      }
+    },
+  );
+  ref.onDispose(timer.cancel);
   return channel;
 }
 

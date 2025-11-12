@@ -12,7 +12,7 @@
     "logs": {
       "enabled": true,
       "destinations": ["otlp-flutterkaigi-jp"],
-    },
+    }
   },
   "compatibility_flags": ["nodejs_compat"],
   "logpush": true,

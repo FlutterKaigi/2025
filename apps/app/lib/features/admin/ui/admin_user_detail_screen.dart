@@ -1,4 +1,5 @@
 import 'package:app/core/designsystem/components/error_screen.dart';
+import 'package:app/core/router/router.dart';
 import 'package:app/features/account/ui/component/account_circle_image.dart';
 import 'package:app/features/admin/data/notifier/admin_user_state_notifier.dart';
 import 'package:bff_client/bff_client.dart' as bff;
@@ -61,13 +62,22 @@ final class AdminUserDetailScreen extends ConsumerWidget {
                 )
               else
                 ...value.tickets.map(
-                  (ticket) => Padding(
-                    padding: const EdgeInsets.only(bottom: 12),
-                    child: _TicketCard(
-                      ticket: ticket,
-                      dateFormat: dateFormat,
-                    ),
-                  ),
+                  (ticket) {
+                    final ticketId = switch (ticket) {
+                      TicketPurchaseItem(:final purchase) => purchase.id,
+                      TicketCheckoutItem(:final checkout) => checkout.id,
+                    };
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 12),
+                      child: _TicketCard(
+                        ticket: ticket,
+                        dateFormat: dateFormat,
+                        onTap: () =>
+                            AdminTicketDetailRoute(ticketId: ticketId)
+                                .go(context),
+                      ),
+                    );
+                  },
                 ),
               const SizedBox(height: 16),
             ],
@@ -260,10 +270,12 @@ final class _TicketCard extends StatelessWidget {
   const _TicketCard({
     required this.ticket,
     required this.dateFormat,
+    required this.onTap,
   });
 
   final TicketItem ticket;
   final DateFormat dateFormat;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -272,7 +284,9 @@ final class _TicketCard extends StatelessWidget {
 
     return Card(
       clipBehavior: Clip.antiAlias,
-      child: Column(
+      child: InkWell(
+        onTap: onTap,
+        child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
@@ -368,6 +382,7 @@ final class _TicketCard extends StatelessWidget {
             ),
           ),
         ],
+        ),
       ),
     );
   }

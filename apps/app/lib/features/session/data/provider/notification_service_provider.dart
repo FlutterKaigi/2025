@@ -39,7 +39,10 @@ class NotificationService extends _$NotificationService {
     const initializationSettingsAndroid = AndroidInitializationSettings(
       '@mipmap/ic_launcher',
     );
-    const initializationSettingsIOS = DarwinInitializationSettings();
+    const initializationSettingsIOS = DarwinInitializationSettings(
+      requestProvidesAppNotificationSettings: true,
+      requestProvisionalPermission: true,
+    );
     const initializationSettings = InitializationSettings(
       android: initializationSettingsAndroid,
       iOS: initializationSettingsIOS,

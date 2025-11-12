@@ -4,7 +4,14 @@
   "main": "src/index.ts",
   "compatibility_date": "2025-09-25",
   "observability": {
-    "enabled": true,
+    "traces": {
+      "enabled": true,
+      "destinations": ["otlp-flutterkaigi-jp"],
+    },
+    "logs": {
+      "enabled": true,
+      "destinations": ["otlp-flutterkaigi-jp"],
+    }
   },
   "workers_dev": true,
   "hyperdrive": [

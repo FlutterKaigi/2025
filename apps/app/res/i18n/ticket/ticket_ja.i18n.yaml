@@ -55,3 +55,12 @@ qr:
 entryTicket:
   title: 入場可能なチケット
   subtitle: "${count: int}枚のチケットがあります"
+notification:
+  channel_name: チケット通知
+  channel_description: チケットステータス変更の通知
+  entry:
+    title: FlutterKaigi 2025へようこそ！
+    body: イベントをお楽しみください！
+  refund:
+    title: チケットが返金されました
+    body: チケットの返金処理が完了しました

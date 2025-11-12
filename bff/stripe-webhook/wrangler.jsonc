@@ -5,7 +5,14 @@
   "main": "src/index.ts",
   "compatibility_date": "2025-07-15",
   "observability": {
-    "enabled": true,
+    "traces": {
+      "enabled": true,
+      "destinations": ["otlp-flutterkaigi-jp"],
+    },
+    "logs": {
+      "enabled": true,
+      "destinations": ["otlp-flutterkaigi-jp"],
+    }
   },
   "compatibility_flags": ["nodejs_compat"],
   "logpush": true,

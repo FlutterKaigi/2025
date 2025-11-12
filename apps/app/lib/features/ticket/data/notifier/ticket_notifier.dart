@@ -1,7 +1,13 @@
+import 'dart:io';
+
+import 'package:app/core/gen/i18n/i18n.g.dart';
 import 'package:app/features/auth/data/notifier/auth_notifier.dart';
+import 'package:app/features/session/data/provider/notification_service_provider.dart';
 import 'package:app/features/ticket/data/repository/ticket_repository.dart';
 import 'package:app/features/websocket/data/provider/websocket_provider.dart';
 import 'package:bff_client/bff_client.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -67,6 +73,11 @@ class TicketNotifier extends _$TicketNotifier {
       return ticket;
     }).toList();
     state = AsyncData(updatedTickets);
+
+    // 返金時の通知
+    if (ticketStatus.status == TicketStatusType.refunded) {
+      await _showRefundNotification();
+    }
   }
 
   Future<void> _updateEntryLog(EntryLogWebsocketPayload entryLog) async {
@@ -103,6 +114,11 @@ class TicketNotifier extends _$TicketNotifier {
       return ticket;
     }).toList();
     state = AsyncData(updatedTickets);
+
+    // 入場時の通知
+    if (entryLog is EntryLogAddWebsocketPayload) {
+      await _showEntryNotification();
+    }
   }
 
   Future<TicketCheckoutSessionResponse> createCheckout(
@@ -119,5 +135,82 @@ class TicketNotifier extends _$TicketNotifier {
     final repository = ref.read(ticketRepositoryProvider);
     await repository.cancelCheckout(checkoutId);
     ref.invalidateSelf(asReload: true);
+  }
+
+  /// 入場通知を表示
+  Future<void> _showEntryNotification() async {
+    // Web やデスクトッププラットフォームでは通知機能を使用しない
+    if (kIsWeb || !(Platform.isAndroid || Platform.isIOS)) {
+      return;
+    }
+
+    final plugin = ref.read(notificationPluginProvider);
+    final t = LocaleSettings.currentLocale.translations.ticket.notification;
+
+    final androidDetails = AndroidNotificationDetails(
+      'ticket_status',
+      t.channel_name,
+      channelDescription: t.channel_description,
+      importance: Importance.high,
+      priority: Priority.high,
+    );
+
+    const iosDetails = DarwinNotificationDetails(
+      presentAlert: true,
+      presentBadge: true,
+      presentSound: true,
+      interruptionLevel: InterruptionLevel.timeSensitive,
+      presentBanner: true,
+    );
+
+    final notificationDetails = NotificationDetails(
+      android: androidDetails,
+      iOS: iosDetails,
+    );
+
+    await plugin.show(
+      DateTime.now().millisecondsSinceEpoch ~/ 1000,
+      t.entry.title,
+      t.entry.body,
+      notificationDetails,
+    );
+  }
+
+  /// 返金通知を表示
+  Future<void> _showRefundNotification() async {
+    // Web やデスクトッププラットフォームでは通知機能を使用しない
+    if (kIsWeb || !(Platform.isAndroid || Platform.isIOS)) {
+      return;
+    }
+
+    final plugin = ref.read(notificationPluginProvider);
+    final t = LocaleSettings.currentLocale.translations.ticket.notification;
+
+    final androidDetails = AndroidNotificationDetails(
+      'ticket_status',
+      t.channel_name,
+      channelDescription: t.channel_description,
+      importance: Importance.high,
+      priority: Priority.high,
+    );
+
+    const iosDetails = DarwinNotificationDetails(
+      presentAlert: true,
+      presentBadge: true,
+      presentSound: true,
+      interruptionLevel: InterruptionLevel.timeSensitive,
+    );
+
+    final notificationDetails = NotificationDetails(
+      android: androidDetails,
+      iOS: iosDetails,
+    );
+
+    await plugin.show(
+      DateTime.now().millisecondsSinceEpoch ~/ 1000,
+      t.refund.title,
+      t.refund.body,
+      notificationDetails,
+    );
   }
 }
