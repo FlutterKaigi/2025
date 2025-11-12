@@ -75,7 +75,7 @@ INSERT INTO sessions (id, title, description, starts_at, ends_at, venue_id, spon
 
     ('326b9576-1ce5-4521-9f2d-c237f3022d5d', 'Flutter DevToolsで発見！本番アプリのパフォーマンス問題と改善の実践',
      E'## 概要\r\nアプリリリース後、ユーザーから「アプリが重い」との問い合わせが多数寄せられた経験はありませんか？本セッションでは、実際のプロダクションアプリでパフォーマンス問題に直面した際の調査から改善までの実践的なアプローチを共有します。\r\n\r\nFlutter DevToolsを活用したパフォーマンス分析により、不要なリビルド、再描画、UIJankなどの問題を特定し、それらを改善した実体験をもとに、以下の内容をお話しします：\r\n\r\n- Flutter DevToolsを使った効果的なパフォーマンス調査手法\r\n- Riverpodによる状態管理で陥りがちなアンチパターンとその対策\r\n- 画像キャッシュサイズの最適化による描画パフォーマンス向上\r\n\r\n## 想定視聴者\r\n- パフォーマンス問題に悩んでいるFlutter開発者\r\n- Flutter DevToolsの効果的な活用法を知りたい方',
-     '2025-11-13 11:30:00+09', '2025-11-13 12:00:00+09', 'e1a11efe-b1eb-43e1-ae60-9d2233e5dfe7', NULL, false, false, false, NULL, 'https://fortee.jp/flutterkaigi-2025/proposal/16574c67-29bb-47a4-8c1e-2c54c352d327'),
+     '2025-11-13 11:45:00+09', '2025-11-13 12:15:00+09', 'e1a11efe-b1eb-43e1-ae60-9d2233e5dfe7', NULL, false, false, false, NULL, 'https://fortee.jp/flutterkaigi-2025/proposal/16574c67-29bb-47a4-8c1e-2c54c352d327'),
 
     ('fa66b859-460e-40f6-9869-9b43e258fed9', 'Impellerで何が変わったのか',
      E'## 概要\r\nFlutter 3.10から標準になった描画エンジンImpellerは、それまでの標準であったSkiaと比較すると、描画処理の最適化、シェーダーの事前コンパイルにより、特にMetal(iOS,macOS)での動作が大幅に安定しました。\r\n\r\nしかし、Impellerの恩恵はそれだけではありません。\r\n描画までの中間コードが削減されたことで、3D描画を実現するFlutter GPUや、高性能化したdart:uiのシェーダー機能など、Flutterの新たな可能性を開く基盤となっています。\r\n\r\n本セッションでは、ImpellerとSkiaの描画の仕組みを比較解説し、Impellerが実現した新機能の技術的背景を深掘りします。\r\n\r\n## 想定視聴者\r\nFlutterの描画の仕組みを理解したい方\r\n描画エンジンレベルでのパフォーマンス改善を試みたい方\r\nシェーダーによる視覚表現や3D描画に興味のある方',
