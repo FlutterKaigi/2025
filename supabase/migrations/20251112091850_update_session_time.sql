@@ -88,7 +88,8 @@ UPDATE sessions
 SET ends_at = '2025-11-13 16:00:00+09'
 WHERE id = '8821b3b8-f10d-4211-9ea5-ca1da325eac3';
 
--- Add student support timeline event
+-- Add student support timeline event (only if venue exists)
 INSERT INTO timeline_events (title, starts_at, ends_at, venue_id, url)
-VALUES ('学生支援', '2025-11-13 10:45:00+09', '2025-11-13 12:15:00+09', '98807fe6-b381-40a7-8c33-30a024b9ca4f', NULL)
+SELECT '学生支援', '2025-11-13 10:45:00+09', '2025-11-13 12:15:00+09', '98807fe6-b381-40a7-8c33-30a024b9ca4f', NULL
+WHERE EXISTS (SELECT 1 FROM session_venues WHERE id = '98807fe6-b381-40a7-8c33-30a024b9ca4f')
 ON CONFLICT DO NOTHING;
