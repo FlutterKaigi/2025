@@ -9,7 +9,10 @@ INSERT INTO
 SELECT
     name,
     icon_name,
-    CASE WHEN greeting = '' THEN NULL ELSE greeting END,
+    CASE
+        WHEN greeting = '' THEN NULL
+        ELSE greeting
+    END,
     ts,
     ts
 FROM
@@ -44,11 +47,16 @@ FROM
             ('sw', '8570633d-7a57-fc3d-5d17-a573aa241bf1.webp', ''),
             ('のり', '1ea6d5c4-29bd-393b-85fa-f977273eb0d4.webp', 'よろしくお願いします🏃'),
             ('Itsuking', 'e56ec3d2-17ac-7603-d08a-f12601dcc5aa.webp', 'Flutterエンジニア目指して転職活動中デス！よろしくお願いします！'),
-            ('神楽エンジニアトマト', '81485592-4ddf-4e95-8604-700749d50e81.webp', '医療系アプリのエンジニアやってます！よろしくお願いします！！'),
+            ('とまと', 'ea20b613-7e7b-461d-b508-ef705349b131.webp', 'Flutter会議盛り上げれるように頑張ります！'),
             ('Seiji', '80363ab9-42a3-859c-fd3c-a51eca85d32a.webp', 'わいわい楽しみましょー！'),
             ('Keito', '0882d1e8-33de-4eb0-9812-0d2274759ac4.webp', '個人開発が好きです！'),
             ('よう', 'a061da27-0670-a4aa-03c5-5217961d62dc.webp', '盛り上げたい！'),
-            ('菊池紘', '45a33db6-15ef-ce51-2f84-60a7a0fb0286.webp', '楽しいFlutterKaigiにしよう！')
+            ('菊池紘', '45a33db6-15ef-ce51-2f84-60a7a0fb0286.webp', '楽しいFlutterKaigiにしよう！'),
+            ('Masahiro Aoki', '3062F094-5885-4977-A992-F0EE7F03E324.jpg', 'やっぱりFlutterだなぁ。'),
+            ('robo (Rie Kanetaka)', '68ec1064-9df3-4a1e-b223-87211229d026.png', 'モバイル端末好きのエンジニア'),
+            ('馬渡慎之助', '485a62c6-11bf-43c1-92e6-c0e121729ddd.webp', 'ウオー🔥'),
+            ('Oshiro H.', '0254e48d-cf57-47ab-9657-0856a5761926.webp', 'Flutter頑張ります！'),
+            ('shanonim', '586bbd2b-b949-4ac4-b6bf-8638018d6d0e.webp', '')
     ) AS staff_members (name, icon_name, greeting)
     CROSS JOIN timestamp;
 
@@ -185,10 +193,10 @@ FROM
             ('のり', 'x', 'no_main_'),
             ('Itsuking', 'github', 'Ituking'),
             ('Itsuking', 'x', 'IamItsuking'),
-            ('神楽エンジニアトマト', 'github', 'tomoki1590'),
-            ('神楽エンジニアトマト', 'x', '1234568aasobso1'),
-            ('神楽エンジニアトマト', 'qiita', 'kagura1'),
-            ('神楽エンジニアトマト', 'zenn', 'tomato1'),
+            ('とまと', 'github', 'tomoki1590'),
+            ('とまと', 'x', '1234568aasobso1'),
+            ('とまと', 'qiita', 'kagura1'),
+            ('とまと', 'zenn', 'tomato1'),
             ('Seiji', 'github', 'n-seiji'),
             ('Seiji', 'x', 'se_eiji'),
             ('Seiji', 'qiita', 'se_eiji'),
@@ -206,7 +214,12 @@ FROM
             ('菊池紘', 'github', 'kikuchy'),
             ('菊池紘', 'x', 'kikuchy'),
             ('菊池紘', 'qiita', 'kikuchy'),
-            ('菊池紘', 'zenn', 'kikuchy')
+            ('菊池紘', 'zenn', 'kikuchy'),
+            ('Masahiro Aoki', 'x', 'ma_freud'),
+            ('robo (Rie Kanetaka)', 'x', 'cch_robo'),
+            ('馬渡慎之助', 'x', 'hensyunoouma'),
+            ('Oshiro H.', 'github', 'HiroshiOshiro'),
+            ('shanonim', 'x', 'shanonim')
     ) AS sns_data (staff_name, sns_type, value)
     JOIN staff_member_ids smi ON smi.name = sns_data.staff_name
     CROSS JOIN timestamp;
