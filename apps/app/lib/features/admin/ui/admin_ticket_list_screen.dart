@@ -295,21 +295,6 @@ final class AdminTicketListScreen extends HookConsumerWidget {
                             },
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 4),
-                          child: FilterChip(
-                            label: const Text('決済中'),
-                            selected: selectedStatus.value == 'pending',
-                            onSelected: (selected) {
-                              selectedStatus.value = selected
-                                  ? 'pending'
-                                  : null;
-                              searchParams.value = searchParams.value.copyWith(
-                                status: selected ? 'pending' : null,
-                              );
-                            },
-                          ),
-                        ),
                       ],
                     ),
                   ),
