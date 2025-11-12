@@ -10,14 +10,21 @@ class Timeline extends StatefulComponent {
   const Timeline({
     required this.title,
     required this.url,
+    required this.venueName,
+    required this.startHour,
+    required this.startMinute,
     required this.description,
     required this.speakers,
     required this.speakerAvatarUrls,
     required this.speakerXIds,
   });
   final String title;
+  final String venueName;
   final String? url;
   final String? description;
+
+  final int startHour;
+  final int startMinute;
 
   // NOTE: @clientにレコード型渡せなかったので，分解して渡しています
   final List<String> speakers;
@@ -89,6 +96,7 @@ class _TimelineState extends State<Timeline> {
 
   @override
   Iterable<Component> build(BuildContext context) sync* {
+    final url = component.url;
     yield div([
       button(
         styles: Styles(
@@ -139,7 +147,12 @@ class _TimelineState extends State<Timeline> {
               maxWidth: 960.px,
               maxHeight: 75.vh,
               overflow: const Overflow.only(y: Overflow.auto),
-              padding: Spacing.all(1.rem),
+              padding: Spacing.only(
+                left: 1.rem,
+                right: 1.rem,
+                top: 0.rem,
+                bottom: 2.rem,
+              ),
               radius: BorderRadius.circular(1.rem),
               flexDirection: FlexDirection.column,
               alignItems: AlignItems.center,
@@ -152,55 +165,87 @@ class _TimelineState extends State<Timeline> {
               },
             },
             [
-              h3(
+              div(
                 styles: Styles(
-                  width: 100.percent,
-                  fontFamily: lexendFontFamily,
-                  fontSize: 1.5.rem,
-                  fontWeight: FontWeight.bold,
+                  padding: Padding.only(top: 1.rem),
+                  position: Position.sticky(top: 0.px),
+                  backgroundColor: Color.inherit,
                 ),
-                [text(component.title)],
-              ),
-              ul(
-                styles: Styles(
-                  width: 100.percent,
-                  display: Display.flex,
-                  gap: Gap.all(0.5.rem),
-                  margin: Margin.symmetric(vertical: 0.5.rem),
-                ),
-                _speakers
-                    .map(
-                      (speaker) => li(
-                        styles: const Styles(
-                          display: Display.flex,
-                          alignItems: AlignItems.center,
+                [
+                  h3(
+                    styles: Styles(
+                      width: 100.percent,
+                      fontFamily: lexendFontFamily,
+                      fontSize: 1.5.rem,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    [text(component.title)],
+                  ),
+                  ul(
+                    styles: Styles(
+                      display: Display.flex,
+                      gap: Gap.all(1.rem),
+                      margin: Margin.only(top: 0.5.rem),
+                    ),
+                    [
+                      li([
+                        text(
+                          '${component.venueName} '
+                          '${component.startHour.toString().padLeft(2, '0')}:'
+                          '${component.startMinute.toString().padLeft(2, '0')}',
                         ),
-                        [
-                          if (speaker.avatarUrl != null)
-                            img(
-                              styles: Styles(
-                                width: 2.rem,
-                                height: 2.rem,
-                                radius: BorderRadius.circular(1.rem),
-                                margin: Margin.only(right: 0.5.rem),
-                                overflow: Overflow.hidden,
-                                raw: {
-                                  'vertical-align': 'middle',
-                                },
-                              ),
-                              src: speaker.avatarUrl!,
-                              alt: '${speaker.name}のアバター',
+                      ]),
+                      if (url != null)
+                        li([
+                          ExternalLink(
+                            url: url,
+                            content: 'Fortee'.toComponent,
+                          ),
+                        ]),
+                    ],
+                  ),
+                  ul(
+                    styles: Styles(
+                      width: 100.percent,
+                      display: Display.flex,
+                      gap: Gap.all(0.5.rem),
+                      margin: Margin.symmetric(vertical: 0.5.rem),
+                    ),
+                    _speakers
+                        .map(
+                          (speaker) => li(
+                            styles: const Styles(
+                              display: Display.flex,
+                              alignItems: AlignItems.center,
                             ),
-                          if (speaker.xId != null)
-                            ExternalLink(
-                              url: 'https://x.com/${speaker.xId}',
-                              content: speaker.name.toComponent,
-                            ),
-                          if (speaker.xId == null) text(speaker.name),
-                        ],
-                      ),
-                    )
-                    .toList(),
+                            [
+                              if (speaker.avatarUrl != null)
+                                img(
+                                  styles: Styles(
+                                    width: 2.rem,
+                                    height: 2.rem,
+                                    radius: BorderRadius.circular(1.rem),
+                                    margin: Margin.only(right: 0.5.rem),
+                                    overflow: Overflow.hidden,
+                                    raw: {
+                                      'vertical-align': 'middle',
+                                    },
+                                  ),
+                                  src: speaker.avatarUrl!,
+                                  alt: '${speaker.name}のアバター',
+                                ),
+                              if (speaker.xId != null)
+                                ExternalLink(
+                                  url: 'https://x.com/${speaker.xId}',
+                                  content: speaker.name.toComponent,
+                                ),
+                              if (speaker.xId == null) text(speaker.name),
+                            ],
+                          ),
+                        )
+                        .toList(),
+                  ),
+                ],
               ),
               section(
                 classes: 'session-info',
