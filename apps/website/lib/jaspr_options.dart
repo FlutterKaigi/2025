@@ -61,6 +61,9 @@ Map<String, dynamic> _prefix1Sponsor(prefix1.Sponsor c) => {
 Map<String, dynamic> _prefix3Timeline(prefix3.Timeline c) => {
   'title': c.title,
   'url': c.url,
+  'venueName': c.venueName,
+  'startHour': c.startHour,
+  'startMinute': c.startMinute,
   'description': c.description,
   'speakers': c.speakers,
   'speakerAvatarUrls': c.speakerAvatarUrls,

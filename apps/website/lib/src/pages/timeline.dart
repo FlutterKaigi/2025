@@ -342,7 +342,10 @@ class Timeline extends StatelessComponent {
                 client.Timeline(
                   title: entry.title.text(context),
                   url: url,
+                  venueName: entry.venueName,
                   description: entry.description,
+                  startHour: eventBaseTime.add(entry.start).hour,
+                  startMinute: eventBaseTime.add(entry.start).minute,
                   speakers: entry.speakers
                       .map((speaker) => speaker.name)
                       .toList(),
