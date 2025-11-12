@@ -37,6 +37,9 @@ class AdminTicketScanSheet extends ConsumerWidget {
     final colorScheme = theme.colorScheme;
 
     final hasEntryLog = ticket.purchase.entryLog != null;
+    final nameplateId = ticket.purchase.nameplateId?.trim();
+    final displayNameplateId =
+        nameplateId == null || nameplateId.isEmpty ? 'N/A' : nameplateId;
 
     return Container(
       padding: const EdgeInsets.all(12),
@@ -102,6 +105,37 @@ class AdminTicketScanSheet extends ConsumerWidget {
                   ),
                 ),
               ],
+            ),
+
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: colorScheme.surfaceContainerHighest,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(
+                  color: colorScheme.outline.withValues(alpha: 0.3),
+                ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                spacing: 4,
+                children: [
+                  Text(
+                    'ネームプレートID',
+                    style: textTheme.titleSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: colorScheme.primary,
+                    ),
+                  ),
+                  Text(
+                    displayNameplateId,
+                    style: textTheme.bodyLarge?.copyWith(
+                      fontFamily: 'monospace',
+                      letterSpacing: 1.2,
+                    ),
+                  ),
+                ],
+              ),
             ),
 
             // チケットオプション情報
