@@ -96,3 +96,4 @@ Noto
 Noto
 wght
 wdth
+Fortee
