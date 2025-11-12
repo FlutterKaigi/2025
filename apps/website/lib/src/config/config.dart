@@ -4,7 +4,7 @@ import 'package:flutterkaigi_2025_website/src/config/job_boards_data.json.dart';
 import 'package:flutterkaigi_2025_website/src/config/sessions_data.dart'
     show timelineEvents, venuesWithSessions;
 import 'package:flutterkaigi_2025_website/src/config/sponsors_data.dart'
-    show companySponsors;
+    show companySponsors, individualSponsors;
 import 'package:flutterkaigi_2025_website/src/config/staffs_data.dart'
     show staffMembers;
 import 'package:flutterkaigi_2025_website/src/config/timeline_converter.dart';
@@ -160,11 +160,22 @@ final event = (
     const PastEventLink(title: '2021', url: 'https://2021.flutterkaigi.jp/'),
   ],
   sponsors: _sponsors,
+  individualSponsors: _individualSponsors,
   staff: _staff,
   news: _news,
   timeline: _timelineFromBff,
   jobBoards: _jobBoards,
 );
+
+typedef IndividualSponsorInfo = ({
+  String logoURL,
+});
+
+final _individualSponsors = individualSponsors
+    .map<IndividualSponsorInfo>(
+      (sponsor) => (logoURL: sponsor.logoUrl),
+    )
+    .toList();
 
 typedef JobBoardEntry = ({
   String url,
@@ -280,6 +291,7 @@ enum SponsorType {
   bronze,
   community,
   tool,
+  individual,
   other,
 }
 
@@ -291,6 +303,7 @@ extension SponsorTypeExtension on SponsorType {
     SponsorType.bronze => 'Bronze',
     SponsorType.community => 'Community',
     SponsorType.tool => 'Tool',
+    SponsorType.individual => 'Individual',
     SponsorType.other => 'Sponsor',
   };
 }
