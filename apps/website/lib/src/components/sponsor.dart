@@ -210,8 +210,7 @@ class _TypedSponsors extends StatelessComponent {
                   'linear-gradient(to bottom, #a8d8ea, #6ca6cd)',
                 SponsorType.tool =>
                   'linear-gradient(to bottom, #d4a5d4, #a77ba7)',
-                SponsorType.other =>
-                  'linear-gradient(to bottom, #c4c4c4, #8c8c8c)',
+                _ => 'linear-gradient(to bottom, #c4c4c4, #8c8c8c)',
               },
               '-webkit-background-clip': 'text',
               'background-clip': 'text',
@@ -251,6 +250,7 @@ class _TypedSponsors extends StatelessComponent {
                         SponsorType.bronze => 9,
                         SponsorType.community => 9,
                         SponsorType.tool => 9,
+                        SponsorType.individual => 9,
                         SponsorType.other => 9,
                       },
                     ),
@@ -295,14 +295,72 @@ class Sponsors extends StatelessComponent {
             }
             return _TypedSponsors(type, sponsors);
           }(),
-        p(
-          styles: Styles(
-            margin: Spacing.only(top: 1.rem),
-            textAlign: TextAlign.center,
-          ),
-          [text('スポンサー募集は締め切りました。多数のご応募ありがとうございました。')],
-        ),
+        _IndividualSponsors(event.individualSponsors),
       ].whereType<Component>().toList(),
+    );
+  }
+}
+
+class _IndividualSponsors extends StatelessComponent {
+  const _IndividualSponsors(this.data, {super.key});
+  final List<IndividualSponsorInfo> data;
+
+  @override
+  Iterable<Component> build(BuildContext context) sync* {
+    yield h3(
+      styles: Styles(
+        display: Display.block,
+        margin: Margin.only(top: 1.rem),
+        textAlign: TextAlign.center,
+        fontFamily: lexendFontFamily,
+        fontSize: 1.5.rem,
+        fontWeight: FontWeight.bold,
+        raw: {
+          'background': 'linear-gradient(to bottom, #c4c4c4, #8c8c8c)',
+          '-webkit-background-clip': 'text',
+          'background-clip': 'text',
+          '-webkit-text-fill-color': 'transparent',
+        },
+      ),
+      [text('Individual')],
+    );
+    yield div(
+      styles: Styles(
+        display: Display.flex,
+        margin: Spacing.only(top: 1.rem, bottom: 1.25.rem),
+        justifyContent: JustifyContent.center,
+      ),
+      [
+        ul(
+          styles: Styles(
+            display: Display.flex,
+            flexWrap: FlexWrap.wrap,
+            justifyContent: JustifyContent.center,
+            gap: Gap.all(1.rem),
+          ),
+          [
+            for (final info in data)
+              li([
+                img(
+                  src: info.logoURL,
+                  styles: Styles(
+                    width: 6.rem,
+                    height: 6.rem,
+                    radius: BorderRadius.circular(50.percent),
+                    backgroundColor: Colors.white,
+                    shadow: BoxShadow(
+                      offsetX: 2.px,
+                      offsetY: 2.px,
+                      blur: 4.px,
+                      color: const Color.rgba(168, 168, 168, 0.25),
+                    ),
+                    overflow: Overflow.hidden,
+                  ),
+                ),
+              ]),
+          ],
+        ),
+      ],
     );
   }
 }
