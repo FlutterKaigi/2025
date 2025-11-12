@@ -9,7 +9,10 @@ INSERT INTO
 SELECT
     name,
     icon_name,
-    CASE WHEN greeting = '' THEN NULL ELSE greeting END,
+    CASE
+        WHEN greeting = '' THEN NULL
+        ELSE greeting
+    END,
     ts,
     ts
 FROM
