@@ -280,45 +280,41 @@ class Timeline extends StatelessComponent {
           minMinutes: minMinutes,
           title: (ja: '開場', en: 'Door Open'),
         ),
-        // 10:30 = 9:00 + 1:30
+        // 10:45 = 9:00 + 1:45
         breakItem(
-          start: const Duration(hours: 1, minutes: 30),
+          start: const Duration(hours: 1, minutes: 45),
           time: const Duration(minutes: 15),
           minMinutes: minMinutes,
+          endVenueId: venues.length >= 3 ? venues[2].id : venues.lastOrNull?.id,
         ),
-        // 11:15 = 9:00 + 2:15 (全会場)
+        // 11:30 = 9:00 + 2:30 (全会場)
         breakItem(
-          start: const Duration(hours: 2, minutes: 15),
+          start: const Duration(hours: 2, minutes: 30),
           time: const Duration(minutes: 15),
           minMinutes: minMinutes,
+          endVenueId: venues.length >= 3 ? venues[2].id : venues.lastOrNull?.id,
         ),
-        // 12:00 = 9:00 + 3:00 (ランチ)
+        // 12:15 = 9:00 + 3:15 (ランチ)
         breakItem(
-          start: const Duration(hours: 3),
+          start: const Duration(hours: 3, minutes: 15),
           time: const Duration(hours: 1, minutes: 15),
           minMinutes: minMinutes,
         ),
-        // 13:45 = 9:00 + 4:45
+        // 14:45 = 9:00 + 5:45
         breakItem(
-          start: const Duration(hours: 4, minutes: 45),
+          start: const Duration(hours: 5, minutes: 45),
           time: const Duration(minutes: 15),
           minMinutes: minMinutes,
           startVenueId: venues.isNotEmpty ? venues.first.id : null,
           endVenueId: venues.length >= 3 ? venues[2].id : venues.lastOrNull?.id,
         ),
-        // 14:30 = 9:00 + 5:30
+        // 15:45 = 9:00 + 6:45
         breakItem(
-          start: const Duration(hours: 5, minutes: 30),
-          time: const Duration(minutes: 30),
+          start: const Duration(hours: 6, minutes: 45),
+          time: const Duration(minutes: 15),
           minMinutes: minMinutes,
           startVenueId: venues.isNotEmpty ? venues.first.id : null,
           endVenueId: venues.length >= 3 ? venues[2].id : venues.lastOrNull?.id,
-        ),
-        // 15:30 = 9:00 + 6:30
-        breakItem(
-          start: const Duration(hours: 6, minutes: 30),
-          time: const Duration(minutes: 30),
-          minMinutes: minMinutes,
         ),
         // 16:30 = 9:00 + 7:30
         breakItem(
@@ -330,6 +326,12 @@ class Timeline extends StatelessComponent {
         breakItem(
           start: const Duration(hours: 8, minutes: 15),
           time: const Duration(minutes: 15),
+          minMinutes: minMinutes,
+        ),
+        // 18:00 = 9:00 + 9:00
+        breakItem(
+          start: const Duration(hours: 9),
+          time: const Duration(minutes: 30),
           minMinutes: minMinutes,
         ),
         ...timeline.map((entry) {
