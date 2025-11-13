@@ -264,26 +264,6 @@ class _SurveyButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tickAsync = ref.watch(
-      tickStreamProvider(
-        duration: const Duration(minutes: 1),
-        mode: TickMode.unaligned,
-      ),
-    );
-
-    final currentTime = switch (tickAsync) {
-      AsyncData(:final value) => value,
-      _ => DateTime.now(),
-    };
-
-    final showSurveyButton = currentTime.isAfter(
-      session.endsAt.subtract(const Duration(minutes: 15)),
-    );
-
-    if (!showSurveyButton) {
-      return const SizedBox.shrink();
-    }
-
     final theme = Theme.of(context);
 
     return Padding(

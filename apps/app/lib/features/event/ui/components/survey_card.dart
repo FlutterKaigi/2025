@@ -1,5 +1,4 @@
 import 'package:app/core/gen/i18n/i18n.g.dart';
-import 'package:app/core/provider/tick_stream_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -12,22 +11,9 @@ class SurveyCard extends ConsumerWidget {
 
   static const _surveyUrl =
       'https://docs.google.com/forms/d/e/1FAIpQLSfURb3WL8mWP0K1SJDnjCsnMSjIkhCkG2ku9sj_MX4a3rOOmw/viewform';
-  static final _displayDateTime = DateTime(2025, 11, 13, 15);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final showSurveyCard = ref.watch(
-      tickStreamProvider(
-        duration: const Duration(minutes: 1),
-        mode: TickMode.unaligned,
-      ).select((v) {
-        final now = v.value ?? DateTime.now();
-        return now.isAfter(_displayDateTime);
-      }),
-    );
-    if (!showSurveyCard) {
-      return const SizedBox.shrink();
-    }
 
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
