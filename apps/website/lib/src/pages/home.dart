@@ -1,10 +1,10 @@
-import 'package:flutterkaigi_2025_website/src/components/countdown_view.dart';
 import 'package:flutterkaigi_2025_website/src/components/external_link.dart';
 import 'package:flutterkaigi_2025_website/src/components/open_in_new.dart';
 import 'package:flutterkaigi_2025_website/src/components/section_layout.dart';
 import 'package:flutterkaigi_2025_website/src/components/sized_dashsay.dart';
 import 'package:flutterkaigi_2025_website/src/components/sponsor.dart';
 import 'package:flutterkaigi_2025_website/src/components/tagline.dart';
+import 'package:flutterkaigi_2025_website/src/components/thankyou.dart';
 import 'package:flutterkaigi_2025_website/src/components/top_event_info.dart';
 import 'package:flutterkaigi_2025_website/src/config/config.dart';
 import 'package:flutterkaigi_2025_website/src/constants/styles.dart';
@@ -65,7 +65,7 @@ class Home extends StatelessComponent {
           title: 'Staff'.toComponent,
           children: const [Staff()],
         ),
-        CountdownView(),
+        Thankyou(),
       ],
     );
   }
