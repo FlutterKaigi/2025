@@ -171,7 +171,7 @@ class _MainArticle extends StatelessComponent {
                       ),
                     ),
                     Link(
-                      to: event.tickets.url,
+                      to: event.survey.url,
                       target: Target.blank,
                       styles: Styles(margin: Margin.only(top: 2.rem)),
                       child: button(
@@ -186,12 +186,12 @@ class _MainArticle extends StatelessComponent {
                         ),
                         classes: 'primary-button primary-button-reverse',
                         [
-                          event.tickets.title.text(context).toComponent,
+                          event.survey.title.text(context).toComponent,
                           const OpenInNew(color: beyondRed),
                         ],
                       ),
                     ),
-                    span(
+                    p(
                       styles: Styles(
                         margin: Margin.only(top: 1.rem),
                         color: Colors.white,
@@ -214,6 +214,14 @@ class _MainArticle extends StatelessComponent {
                           styles: const Styles(color: Color.inherit),
                         ),
                       ],
+                    ),
+                    p(
+                      styles: Styles(
+                        margin: Margin.only(top: 1.rem),
+                        color: Colors.white,
+                        fontStyle: FontStyle.italic,
+                      ),
+                      ['Thank you!'.toComponent],
                     ),
                   ],
                 ),
