@@ -125,6 +125,14 @@ final event = (
     ),
     url: 'https://2025-app.flutterkaigi.jp/tickets',
   ),
+  survey: (
+    title: (
+      ja: 'アンケートに回答する',
+      en: 'Take the Survey',
+    ),
+    url:
+        'https://docs.google.com/forms/d/e/1FAIpQLSfURb3WL8mWP0K1SJDnjCsnMSjIkhCkG2ku9sj_MX4a3rOOmw/viewform',
+  ),
   cfp: (
     title: (
       ja: 'プロポーザル一覧を見る',
