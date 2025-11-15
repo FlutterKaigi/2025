@@ -51,6 +51,9 @@ class _SponsorList extends ConsumerWidget {
         final bronze = companySponsors.whereType<BronzeSponsor>().toList(
           growable: false,
         );
+        final tool = companySponsors.whereType<ToolSponsor>().toList(
+          growable: false,
+        );
         final slivers = <Widget>[
           if (platinum.isNotEmpty)
             SliverStickyHeader(
@@ -91,6 +94,16 @@ class _SponsorList extends ConsumerWidget {
                 ),
               ),
               sliver: _buildSponsorList('Bronze', bronze),
+            ),
+          if (tool.isNotEmpty)
+            SliverStickyHeader(
+              header: _StickyHeaderContainer(
+                child: _SectionHeader(
+                  title: 'Tool スポンサー',
+                  tierColor: _getTierColor('Tool'),
+                ),
+              ),
+              sliver: _buildSponsorList('Tool', tool),
             ),
           if (individualSponsors.isNotEmpty)
             SliverStickyHeader(
@@ -262,6 +275,8 @@ Color _getTierColor(String tier) {
       return const Color(0xFFB5A7B6);
     case 'Bronze':
       return const Color(0xFFB03400);
+    case 'Tool':
+      return const Color(0xFF4CAF50);
     case 'Individual':
       return const Color(0xFF2196F3);
     default:
@@ -277,6 +292,7 @@ double _getCardSize(String tier) {
       return 200;
     case 'Silver':
     case 'Bronze':
+    case 'Tool':
     case 'Individual':
       return 120;
     default:
