@@ -5,14 +5,14 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'session_provider.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 Future<SessionScheduleResponse> sessionSchedule(Ref ref) async {
   final bffClient = ref.watch(bffClientProvider);
   final response = await bffClient.v1.session.getSessionSchedule();
   return response.data;
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 Future<List<Session>> sessions(Ref ref) async {
   final schedule = await ref.watch(sessionScheduleProvider.future);
 
@@ -33,7 +33,7 @@ Future<List<Session>> sessions(Ref ref) async {
   return sessions;
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 Future<List<VenueWithSessions>> venuesWithSessions(Ref ref) async {
   final bffClient = ref.watch(bffClientProvider);
   final response = await bffClient.v1.session.getSessionsByVenue();
@@ -51,7 +51,7 @@ Future<List<VenueWithSessions>> venuesWithSessions(Ref ref) async {
   }).toList();
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 Future<List<TimelineEvent>> sessionEvents(Ref ref) async {
   final bffClient = ref.watch(bffClientProvider);
   final response = await bffClient.v1.session.getTimelineEvents();
