@@ -69,6 +69,31 @@ sealed class CompanySponsor extends Sponsor {
     xAccount,
     scholarship,
   );
+
+  bool get isNamingRights => switch (this) {
+    final NamingRightMixin sponsor => () {
+      final namingRight = sponsor.namingRight;
+      return namingRight is AppliedNamingRight;
+    }(),
+    BronzeSponsor() || ToolSponsor() || OtherSponsor() => false,
+  };
+
+  bool get isNameplate => switch (this) {
+    final NamePlateMixin sponsor => () {
+      return sponsor.namePlate;
+    }(),
+    ToolSponsor() || OtherSponsor() => false,
+  };
+
+  bool get isLunch => switch (this) {
+    final LunchMixin sponsor => () {
+      return sponsor.lunchSponsor;
+    }(),
+    PlatinumSponsor() ||
+    GoldSponsor() ||
+    ToolSponsor() ||
+    OtherSponsor() => false,
+  };
 }
 
 @immutable
@@ -202,7 +227,8 @@ sealed class BasicSponsor extends CompanySponsor {
 }
 
 @immutable
-final class PlatinumSponsor extends BasicSponsor {
+final class PlatinumSponsor extends BasicSponsor
+    with NamingRightMixin, NamePlateMixin {
   const PlatinumSponsor({
     required super.id,
     required super.name,
@@ -216,7 +242,9 @@ final class PlatinumSponsor extends BasicSponsor {
     this.namePlate = false,
   });
 
+  @override
   final NamingRight namingRight;
+  @override
   final bool namePlate;
 
   @override
@@ -251,7 +279,8 @@ final class PlatinumSponsor extends BasicSponsor {
 }
 
 @immutable
-final class GoldSponsor extends BasicSponsor {
+final class GoldSponsor extends BasicSponsor
+    with NamingRightMixin, NamePlateMixin {
   const GoldSponsor({
     required super.id,
     required super.name,
@@ -265,7 +294,9 @@ final class GoldSponsor extends BasicSponsor {
     this.namePlate = false,
   });
 
-  final NamingRight? namingRight;
+  @override
+  final NamingRight namingRight;
+  @override
   final bool namePlate;
 
   @override
@@ -300,7 +331,8 @@ final class GoldSponsor extends BasicSponsor {
 }
 
 @immutable
-final class SilverSponsor extends BasicSponsor {
+final class SilverSponsor extends BasicSponsor
+    with NamingRightMixin, NamePlateMixin, LunchMixin {
   const SilverSponsor({
     required super.id,
     required super.name,
@@ -315,8 +347,11 @@ final class SilverSponsor extends BasicSponsor {
     this.lunchSponsor = false,
   });
 
-  final NamingRight? namingRight;
+  @override
+  final NamingRight namingRight;
+  @override
   final bool namePlate;
+  @override
   final bool lunchSponsor;
 
   @override
@@ -353,7 +388,7 @@ final class SilverSponsor extends BasicSponsor {
 }
 
 @immutable
-final class BronzeSponsor extends BasicSponsor {
+final class BronzeSponsor extends BasicSponsor with NamePlateMixin, LunchMixin {
   const BronzeSponsor({
     required super.id,
     required super.name,
@@ -367,7 +402,9 @@ final class BronzeSponsor extends BasicSponsor {
     this.lunchSponsor = false,
   });
 
+  @override
   final bool namePlate;
+  @override
   final bool lunchSponsor;
 
   @override
@@ -503,4 +540,16 @@ final class IndividualSponsor extends Sponsor {
     id,
     logoUrl,
   );
+}
+
+mixin NamingRightMixin {
+  NamingRight get namingRight;
+}
+
+mixin NamePlateMixin {
+  bool get namePlate;
+}
+
+mixin LunchMixin {
+  bool get lunchSponsor;
 }

@@ -191,13 +191,19 @@ class _SponsorDetail extends HookConsumerWidget {
         // ティアチップ
         Align(
           alignment: Alignment.topLeft,
-          child: Chip(
-            label: Text(sponsor.basicPlanName),
-            side: BorderSide(color: colorScheme.outline),
-            backgroundColor: colorScheme.surfaceContainerLow,
-            labelStyle: textTheme.labelMedium?.copyWith(
-              color: colorScheme.onSurface,
-            ),
+          child: Wrap(
+            spacing: 4,
+            runSpacing: 4,
+            children: [
+              _SponsorLabelChip(label: sponsor.basicPlanName),
+              if (sponsor.isNamingRights)
+                const _SponsorLabelChip(label: 'Naming rights'),
+              if (sponsor.isNameplate)
+                const _SponsorLabelChip(label: 'Nameplate'),
+              if (sponsor.isLunch) const _SponsorLabelChip(label: 'Lunch'),
+              if (sponsor.scholarship)
+                const _SponsorLabelChip(label: 'Scholarship'),
+            ],
           ),
         ),
         const SizedBox(height: 16),
@@ -290,6 +296,27 @@ class _SponsorDetail extends HookConsumerWidget {
           body,
           spacer,
         ],
+      ),
+    );
+  }
+}
+
+class _SponsorLabelChip extends StatelessWidget {
+  const _SponsorLabelChip({required this.label});
+
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final textTheme = theme.textTheme;
+    return Chip(
+      label: Text(label),
+      side: BorderSide(color: colorScheme.outline),
+      backgroundColor: colorScheme.surfaceContainerLow,
+      labelStyle: textTheme.labelMedium?.copyWith(
+        color: colorScheme.onSurface,
       ),
     );
   }
