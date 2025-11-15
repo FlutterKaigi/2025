@@ -1,6 +1,5 @@
 import 'package:app/core/designsystem/components/error_screen.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
-import 'package:app/core/provider/tick_stream_provider.dart';
 import 'package:app/core/util/share_util.dart';
 import 'package:app/features/session/data/model/session.dart';
 import 'package:app/features/session/data/provider/bookmarked_sessions_provider.dart';
