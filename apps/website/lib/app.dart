@@ -5,7 +5,7 @@ import 'package:flutterkaigi_2025_website/src/pages/_404.dart';
 import 'package:flutterkaigi_2025_website/src/pages/call_for_proposal.dart';
 import 'package:flutterkaigi_2025_website/src/pages/dashsay.dart';
 import 'package:flutterkaigi_2025_website/src/pages/home.dart';
-import 'package:flutterkaigi_2025_website/src/pages/job-boards.dart';
+import 'package:flutterkaigi_2025_website/src/pages/job_boards.dart';
 import 'package:flutterkaigi_2025_website/src/pages/sponsor.dart';
 import 'package:flutterkaigi_2025_website/src/pages/timeline.dart';
 import 'package:jaspr/jaspr.dart';
