@@ -30,7 +30,7 @@ final class SessionScheduleProvider
         argument: null,
         retry: null,
         name: r'sessionScheduleProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -50,7 +50,7 @@ final class SessionScheduleProvider
   }
 }
 
-String _$sessionScheduleHash() => r'bc19685e4680ea9ed809bb50145e181520f330de';
+String _$sessionScheduleHash() => r'b69379aa8ea265e4aa985306171e3049a554d366';
 
 @ProviderFor(sessions)
 const sessionsProvider = SessionsProvider._();
@@ -69,7 +69,7 @@ final class SessionsProvider
         argument: null,
         retry: null,
         name: r'sessionsProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -89,7 +89,7 @@ final class SessionsProvider
   }
 }
 
-String _$sessionsHash() => r'063cea3a23a5317897963837c2c88e5ffe63da01';
+String _$sessionsHash() => r'76d7e21104631416283b8807f567f1380f7db89d';
 
 @ProviderFor(venuesWithSessions)
 const venuesWithSessionsProvider = VenuesWithSessionsProvider._();
@@ -110,7 +110,7 @@ final class VenuesWithSessionsProvider
         argument: null,
         retry: null,
         name: r'venuesWithSessionsProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -131,7 +131,7 @@ final class VenuesWithSessionsProvider
 }
 
 String _$venuesWithSessionsHash() =>
-    r'0581909a27d164e1fbf53c7664ecdff685b758ae';
+    r'a3089e4320edbbf22a780dd4b974f61e7ad9b825';
 
 @ProviderFor(sessionEvents)
 const sessionEventsProvider = SessionEventsProvider._();
@@ -152,7 +152,7 @@ final class SessionEventsProvider
         argument: null,
         retry: null,
         name: r'sessionEventsProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -172,4 +172,4 @@ final class SessionEventsProvider
   }
 }
 
-String _$sessionEventsHash() => r'3ecf6b07b3667530ab6965b248028334f0f72300';
+String _$sessionEventsHash() => r'5e041fb9e037dc1fb6c718ef38035328b6cfadfa';
