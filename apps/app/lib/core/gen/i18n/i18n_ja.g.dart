@@ -39,7 +39,6 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	Translations $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => Translations(meta: meta ?? this.$meta);
 
 	// Translations
-	late final TranslationsAccountJa account = TranslationsAccountJa.internal(_root);
 	late final TranslationsAuthJa auth = TranslationsAuthJa.internal(_root);
 	late final TranslationsCommonJa common = TranslationsCommonJa.internal(_root);
 	late final TranslationsEventJa event = TranslationsEventJa.internal(_root);
@@ -49,67 +48,6 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final TranslationsSponsorJa sponsor = TranslationsSponsorJa.internal(_root);
 	late final TranslationsTicketJa ticket = TranslationsTicketJa.internal(_root);
 	late final TranslationsVenueJa venue = TranslationsVenueJa.internal(_root);
-}
-
-// Path: account
-class TranslationsAccountJa {
-	TranslationsAccountJa.internal(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: 'プロフィールを編集する'
-	String get profileEdit => 'プロフィールを編集する';
-
-	/// ja: 'ゲストでログイン中'
-	String get guestUserLabel => 'ゲストでログイン中';
-
-	/// ja: 'Contributors'
-	String get contributors => 'Contributors';
-
-	late final TranslationsAccountStaffMembersJa staffMembers = TranslationsAccountStaffMembersJa.internal(_root);
-
-	/// ja: 'Others'
-	String get others => 'Others';
-
-	/// ja: '行動規範'
-	String get codeOfConduct => '行動規範';
-
-	/// ja: 'https://docs.flutterkaigi.jp/Code-of-Conduct.ja'
-	String get codeOfConductUrl => 'https://docs.flutterkaigi.jp/Code-of-Conduct.ja';
-
-	/// ja: 'プライバシーポリシー'
-	String get privacyPolicy => 'プライバシーポリシー';
-
-	/// ja: 'https://docs.flutterkaigi.jp/Privacy-Policy.ja'
-	String get privacyPolicyUrl => 'https://docs.flutterkaigi.jp/Privacy-Policy.ja';
-
-	/// ja: 'お問い合わせ'
-	String get contact => 'お問い合わせ';
-
-	/// ja: 'https://docs.google.com/forms/d/e/1FAIpQLSemYPFEWpP8594MWI4k3Nz45RJzMS7pz1ufwtnX4t3V7z2TOw/viewform'
-	String get contactUrl => 'https://docs.google.com/forms/d/e/1FAIpQLSemYPFEWpP8594MWI4k3Nz45RJzMS7pz1ufwtnX4t3V7z2TOw/viewform';
-
-	/// ja: 'OSS Licenses'
-	String get ossLicenses => 'OSS Licenses';
-
-	/// ja: '退会申請'
-	String get withdrawal => '退会申請';
-
-	/// ja: 'ログアウト'
-	String get logout => 'ログアウト';
-
-	/// ja: 'アカウント設定'
-	String get settings => 'アカウント設定';
-
-	/// ja: 'ソースコードを見る'
-	String get sourceCode => 'ソースコードを見る';
-
-	late final TranslationsAccountLoginRequiredJa loginRequired = TranslationsAccountLoginRequiredJa.internal(_root);
-	late final TranslationsAccountProfileJa profile = TranslationsAccountProfileJa.internal(_root);
-	late final TranslationsAccountProfileshareJa profileshare = TranslationsAccountProfileshareJa.internal(_root);
-	late final TranslationsAccountAdminJa admin = TranslationsAccountAdminJa.internal(_root);
 }
 
 // Path: auth
@@ -165,6 +103,38 @@ class TranslationsEventJa {
 	String get address => '東京都千代田区大手町二丁目3番1号';
 
 	late final TranslationsEventSurveyJa survey = TranslationsEventSurveyJa.internal(_root);
+
+	/// ja: 'Contributors'
+	String get contributors => 'Contributors';
+
+	late final TranslationsEventStaffMembersJa staffMembers = TranslationsEventStaffMembersJa.internal(_root);
+
+	/// ja: 'Others'
+	String get others => 'Others';
+
+	/// ja: '行動規範'
+	String get codeOfConduct => '行動規範';
+
+	/// ja: 'https://docs.flutterkaigi.jp/Code-of-Conduct.ja'
+	String get codeOfConductUrl => 'https://docs.flutterkaigi.jp/Code-of-Conduct.ja';
+
+	/// ja: 'プライバシーポリシー'
+	String get privacyPolicy => 'プライバシーポリシー';
+
+	/// ja: 'https://docs.flutterkaigi.jp/Privacy-Policy.ja'
+	String get privacyPolicyUrl => 'https://docs.flutterkaigi.jp/Privacy-Policy.ja';
+
+	/// ja: 'お問い合わせ'
+	String get contact => 'お問い合わせ';
+
+	/// ja: 'https://docs.google.com/forms/d/e/1FAIpQLSemYPFEWpP8594MWI4k3Nz45RJzMS7pz1ufwtnX4t3V7z2TOw/viewform'
+	String get contactUrl => 'https://docs.google.com/forms/d/e/1FAIpQLSemYPFEWpP8594MWI4k3Nz45RJzMS7pz1ufwtnX4t3V7z2TOw/viewform';
+
+	/// ja: 'OSS Licenses'
+	String get ossLicenses => 'OSS Licenses';
+
+	/// ja: 'ソースコードを見る'
+	String get sourceCode => 'ソースコードを見る';
 }
 
 // Path: license
@@ -300,154 +270,6 @@ class TranslationsVenueJa {
 	String get floor2f => '2F';
 }
 
-// Path: account.staffMembers
-class TranslationsAccountStaffMembersJa {
-	TranslationsAccountStaffMembersJa.internal(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: 'スタッフ'
-	String get title => 'スタッフ';
-
-	/// ja: 'スタッフが見つかりませんでした'
-	String get emptyMessage => 'スタッフが見つかりませんでした';
-}
-
-// Path: account.loginRequired
-class TranslationsAccountLoginRequiredJa {
-	TranslationsAccountLoginRequiredJa.internal(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: 'ログインが必要です'
-	String get title => 'ログインが必要です';
-
-	/// ja: 'この機能を利用するには、ログインが必要です'
-	String get description => 'この機能を利用するには、ログインが必要です';
-
-	/// ja: 'ログイン'
-	String get button => 'ログイン';
-}
-
-// Path: account.profile
-class TranslationsAccountProfileJa {
-	TranslationsAccountProfileJa.internal(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: 'プロフィール'
-	String get title => 'プロフィール';
-
-	/// ja: 'プロフィール編集'
-	String get editTitle => 'プロフィール編集';
-
-	/// ja: 'プロフィール情報を作成してください'
-	String get createInfo => 'プロフィール情報を作成してください';
-
-	/// ja: 'プロフィールを編集'
-	String get edit => 'プロフィールを編集';
-
-	/// ja: 'プロフィールが見つかりません'
-	String get notFound => 'プロフィールが見つかりません';
-
-	/// ja: '保存中...'
-	String get saving => '保存中...';
-
-	/// ja: '保存'
-	String get save => '保存';
-
-	/// ja: 'プロフィールを保存しました'
-	String get saveSuccess => 'プロフィールを保存しました';
-
-	/// ja: '保存に失敗しました'
-	String get saveFailed => '保存に失敗しました';
-
-	/// ja: 'エラーが発生しました'
-	String get errorOccurred => 'エラーが発生しました';
-
-	/// ja: '20歳以上です'
-	String get ageOver20 => '20歳以上です';
-
-	/// ja: '20歳未満'
-	String get ageUnder20 => '20歳未満';
-
-	/// ja: '名前 *'
-	String get nameLabel => '名前 *';
-
-	/// ja: '名前を入力してください'
-	String get nameRequired => '名前を入力してください';
-
-	/// ja: '名前は20文字以内で入力してください'
-	String get nameTooLong => '名前は20文字以内で入力してください';
-
-	/// ja: 'アップロード'
-	String get upload => 'アップロード';
-
-	/// ja: '削除'
-	String get delete => '削除';
-
-	/// ja: 'SNSリンク'
-	String get snsLinks => 'SNSリンク';
-
-	/// ja: '追加'
-	String get add => '追加';
-
-	late final TranslationsAccountProfileAvatarJa avatar = TranslationsAccountProfileAvatarJa.internal(_root);
-	late final TranslationsAccountProfileSnsJa sns = TranslationsAccountProfileSnsJa.internal(_root);
-	late final TranslationsAccountProfileImageJa image = TranslationsAccountProfileImageJa.internal(_root);
-	late final TranslationsAccountProfileRequiredSheetJa requiredSheet = TranslationsAccountProfileRequiredSheetJa.internal(_root);
-}
-
-// Path: account.profileshare
-class TranslationsAccountProfileshareJa {
-	TranslationsAccountProfileshareJa.internal(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: 'プロフィール交換'
-	String get title => 'プロフィール交換';
-
-	/// ja: 'QRコード表示'
-	String get qrCode => 'QRコード表示';
-
-	/// ja: 'QRコード読み取り'
-	String get qrCodeScan => 'QRコード読み取り';
-
-	/// ja: '交換履歴'
-	String get friendsList => '交換履歴';
-
-	late final TranslationsAccountProfileshareQrCodeDisplayJa qrCodeDisplay = TranslationsAccountProfileshareQrCodeDisplayJa.internal(_root);
-	late final TranslationsAccountProfileshareQrCodeScanScreenJa qrCodeScanScreen = TranslationsAccountProfileshareQrCodeScanScreenJa.internal(_root);
-	late final TranslationsAccountProfileshareFriendsListScreenJa friendsListScreen = TranslationsAccountProfileshareFriendsListScreenJa.internal(_root);
-	late final TranslationsAccountProfileshareNotificationJa notification = TranslationsAccountProfileshareNotificationJa.internal(_root);
-}
-
-// Path: account.admin
-class TranslationsAccountAdminJa {
-	TranslationsAccountAdminJa.internal(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: '管理者ページ'
-	String get title => '管理者ページ';
-
-	/// ja: '管理者ページ'
-	String get button => '管理者ページ';
-
-	/// ja: 'ユーザ一覧'
-	String get userList => 'ユーザ一覧';
-}
-
 // Path: auth.guest
 class TranslationsAuthGuestJa {
 	TranslationsAuthGuestJa.internal(this._root);
@@ -552,9 +374,6 @@ class TranslationsCommonNavigationJa {
 
 	/// ja: 'チケット'
 	String get ticket => 'チケット';
-
-	/// ja: 'アカウント'
-	String get account => 'アカウント';
 }
 
 // Path: common.debug
@@ -605,6 +424,21 @@ class TranslationsEventSurveyJa {
 
 	/// ja: '全体アンケートに回答する'
 	String get button => '全体アンケートに回答する';
+}
+
+// Path: event.staffMembers
+class TranslationsEventStaffMembersJa {
+	TranslationsEventStaffMembersJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'スタッフ'
+	String get title => 'スタッフ';
+
+	/// ja: 'スタッフが見つかりませんでした'
+	String get emptyMessage => 'スタッフが見つかりませんでした';
 }
 
 // Path: license.search
@@ -973,222 +807,6 @@ class TranslationsTicketNotificationJa {
 	late final TranslationsTicketNotificationRefundJa refund = TranslationsTicketNotificationRefundJa.internal(_root);
 }
 
-// Path: account.profile.avatar
-class TranslationsAccountProfileAvatarJa {
-	TranslationsAccountProfileAvatarJa.internal(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: 'アバターを削除しました'
-	String get deleteSuccess => 'アバターを削除しました';
-
-	/// ja: 'アバターを変更できませんでした'
-	String get changeFailed => 'アバターを変更できませんでした';
-
-	/// ja: 'アバターを変更しました'
-	String get changeSuccess => 'アバターを変更しました';
-}
-
-// Path: account.profile.sns
-class TranslationsAccountProfileSnsJa {
-	TranslationsAccountProfileSnsJa.internal(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: 'SNSリンクが登録されていません'
-	String get notLinked => 'SNSリンクが登録されていません';
-
-	/// ja: 'SNSタイプ'
-	String get type => 'SNSタイプ';
-
-	/// ja: 'SNSタイプを選択してください'
-	String get typeRequired => 'SNSタイプを選択してください';
-
-	/// ja: 'URL/ユーザーID'
-	String get urlOrUserId => 'URL/ユーザーID';
-
-	/// ja: 'URL/ユーザーIDを入力してください'
-	String get urlOrUserIdRequired => 'URL/ユーザーIDを入力してください';
-
-	/// ja: 'その他'
-	String get other => 'その他';
-
-	/// ja: '完全なURLを入力してください'
-	String get fullUrlRequired => '完全なURLを入力してください';
-
-	/// ja: 'ユーザーIDのみを入力してください'
-	String get userIdOnly => 'ユーザーIDのみを入力してください';
-
-	/// ja: '英数字、アンダースコア、ハイフンのみ使用可能です'
-	String get alphanumericOnly => '英数字、アンダースコア、ハイフンのみ使用可能です';
-
-	late final TranslationsAccountProfileSnsExamplesJa examples = TranslationsAccountProfileSnsExamplesJa.internal(_root);
-	late final TranslationsAccountProfileSnsDisplayNamesJa displayNames = TranslationsAccountProfileSnsDisplayNamesJa.internal(_root);
-}
-
-// Path: account.profile.image
-class TranslationsAccountProfileImageJa {
-	TranslationsAccountProfileImageJa.internal(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: '画像を選択'
-	String get selectTitle => '画像を選択';
-
-	/// ja: '画像を選択してください'
-	String get selectMessage => '画像を選択してください';
-
-	/// ja: '画像を選択'
-	String get selectButton => '画像を選択';
-
-	/// ja: 'Googleアカウントの写真を使用'
-	String get useGooglePhoto => 'Googleアカウントの写真を使用';
-
-	/// ja: '画像をクロップ'
-	String get cropTitle => '画像をクロップ';
-
-	/// ja: '完了'
-	String get complete => '完了';
-
-	/// ja: 'クロップ'
-	String get crop => 'クロップ';
-
-	/// ja: 'リセット'
-	String get reset => 'リセット';
-}
-
-// Path: account.profile.requiredSheet
-class TranslationsAccountProfileRequiredSheetJa {
-	TranslationsAccountProfileRequiredSheetJa.internal(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: 'プロフィールを作成しましょう'
-	String get title => 'プロフィールを作成しましょう';
-
-	/// ja: 'プロフィール交換を行うには、プロフィールの作成が必要です'
-	String get description => 'プロフィール交換を行うには、プロフィールの作成が必要です';
-
-	/// ja: 'プロフィールを作成'
-	String get createButton => 'プロフィールを作成';
-}
-
-// Path: account.profileshare.qrCodeDisplay
-class TranslationsAccountProfileshareQrCodeDisplayJa {
-	TranslationsAccountProfileshareQrCodeDisplayJa.internal(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: 'QRコード表示'
-	String get title => 'QRコード表示';
-
-	/// ja: '自分のQRコードを表示して、相手に読み取ってもらいます'
-	String get description => '自分のQRコードを表示して、相手に読み取ってもらいます';
-
-	/// ja: 'このQRコードを相手に読み取ってもらってください'
-	String get instruction => 'このQRコードを相手に読み取ってもらってください';
-}
-
-// Path: account.profileshare.qrCodeScanScreen
-class TranslationsAccountProfileshareQrCodeScanScreenJa {
-	TranslationsAccountProfileshareQrCodeScanScreenJa.internal(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: 'QRコード読み取り'
-	String get title => 'QRコード読み取り';
-
-	/// ja: '相手のQRコードを読み取って、プロフィール交換します'
-	String get description => '相手のQRコードを読み取って、プロフィール交換します';
-
-	/// ja: '相手のQRコードをカメラで読み取ってください'
-	String get instruction => '相手のQRコードをカメラで読み取ってください';
-
-	/// ja: 'ログインが必要です'
-	String get loginRequired => 'ログインが必要です';
-
-	/// ja: 'プロフィールシェアしました'
-	String get successMessage => 'プロフィールシェアしました';
-
-	/// ja: 'プロフィールシェアに失敗しました'
-	String get errorMessage => 'プロフィールシェアに失敗しました';
-
-	/// ja: 'QRコードを読み取りました'
-	String get scanSuccess => 'QRコードを読み取りました';
-
-	/// ja: 'プロフィール交換しました'
-	String get exchangeSuccess => 'プロフィール交換しました';
-
-	/// ja: 'プロフィール交換に失敗しました'
-	String get exchangeFailed => 'プロフィール交換に失敗しました';
-
-	/// ja: 'すでにプロフィール交換済みです'
-	String get alreadyFriends => 'すでにプロフィール交換済みです';
-
-	/// ja: '無効なQRコードです'
-	String get invalidQrCode => '無効なQRコードです';
-
-	/// ja: '自分自身とプロフィール交換はできません'
-	String get cannotExchangeWithSelf => '自分自身とプロフィール交換はできません';
-}
-
-// Path: account.profileshare.friendsListScreen
-class TranslationsAccountProfileshareFriendsListScreenJa {
-	TranslationsAccountProfileshareFriendsListScreenJa.internal(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: '交換履歴'
-	String get title => '交換履歴';
-
-	/// ja: 'まだプロフィール交換していません'
-	String get emptyMessage => 'まだプロフィール交換していません';
-
-	/// ja: '交換日時'
-	String get connectedAt => '交換日時';
-
-	/// ja: '友達リストの読み込みに失敗しました'
-	String get errorLoadingFriends => '友達リストの読み込みに失敗しました';
-
-	/// ja: 'をコピーしました'
-	String get copiedToClipboard => 'をコピーしました';
-}
-
-// Path: account.profileshare.notification
-class TranslationsAccountProfileshareNotificationJa {
-	TranslationsAccountProfileshareNotificationJa.internal(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: 'プロフィール交換'
-	String get channel_name => 'プロフィール交換';
-
-	/// ja: 'プロフィール交換時の通知'
-	String get channel_description => 'プロフィール交換時の通知';
-
-	/// ja: 'プロフィール交換しました'
-	String get title => 'プロフィール交換しました';
-
-	/// ja: '$name さんとプロフィール交換しました'
-	String body({required Object name}) => '${name} さんとプロフィール交換しました';
-}
-
 // Path: common.error.notFound
 class TranslationsCommonErrorNotFoundJa {
 	TranslationsCommonErrorNotFoundJa.internal(this._root);
@@ -1303,66 +921,6 @@ class TranslationsTicketNotificationRefundJa {
 	String get body => 'チケットの返金処理が完了しました';
 }
 
-// Path: account.profile.sns.examples
-class TranslationsAccountProfileSnsExamplesJa {
-	TranslationsAccountProfileSnsExamplesJa.internal(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: '例: octocat'
-	String get github => '例: octocat';
-
-	/// ja: '例: twitter'
-	String get x => '例: twitter';
-
-	/// ja: '例: 123456789012345678 (ユーザーID)'
-	String get discord => '例: 123456789012345678 (ユーザーID)';
-
-	/// ja: '例: username'
-	String get medium => '例: username';
-
-	/// ja: '例: username'
-	String get qiita => '例: username';
-
-	/// ja: '例: username'
-	String get zenn => '例: username';
-
-	/// ja: '例: username'
-	String get note => '例: username';
-}
-
-// Path: account.profile.sns.displayNames
-class TranslationsAccountProfileSnsDisplayNamesJa {
-	TranslationsAccountProfileSnsDisplayNamesJa.internal(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: 'GitHub'
-	String get github => 'GitHub';
-
-	/// ja: 'X (Twitter)'
-	String get x => 'X (Twitter)';
-
-	/// ja: 'Discord'
-	String get discord => 'Discord';
-
-	/// ja: 'Medium'
-	String get medium => 'Medium';
-
-	/// ja: 'Qiita'
-	String get qiita => 'Qiita';
-
-	/// ja: 'Zenn'
-	String get zenn => 'Zenn';
-
-	/// ja: 'note'
-	String get note => 'note';
-}
-
 /// The flat map containing all translations for locale <ja>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -1375,113 +933,6 @@ extension on Translations {
 
 	dynamic _flatMapFunction$0(String path) {
 		switch (path) {
-			case 'account.profileEdit': return 'プロフィールを編集する';
-			case 'account.guestUserLabel': return 'ゲストでログイン中';
-			case 'account.contributors': return 'Contributors';
-			case 'account.staffMembers.title': return 'スタッフ';
-			case 'account.staffMembers.emptyMessage': return 'スタッフが見つかりませんでした';
-			case 'account.others': return 'Others';
-			case 'account.codeOfConduct': return '行動規範';
-			case 'account.codeOfConductUrl': return 'https://docs.flutterkaigi.jp/Code-of-Conduct.ja';
-			case 'account.privacyPolicy': return 'プライバシーポリシー';
-			case 'account.privacyPolicyUrl': return 'https://docs.flutterkaigi.jp/Privacy-Policy.ja';
-			case 'account.contact': return 'お問い合わせ';
-			case 'account.contactUrl': return 'https://docs.google.com/forms/d/e/1FAIpQLSemYPFEWpP8594MWI4k3Nz45RJzMS7pz1ufwtnX4t3V7z2TOw/viewform';
-			case 'account.ossLicenses': return 'OSS Licenses';
-			case 'account.withdrawal': return '退会申請';
-			case 'account.logout': return 'ログアウト';
-			case 'account.settings': return 'アカウント設定';
-			case 'account.sourceCode': return 'ソースコードを見る';
-			case 'account.loginRequired.title': return 'ログインが必要です';
-			case 'account.loginRequired.description': return 'この機能を利用するには、ログインが必要です';
-			case 'account.loginRequired.button': return 'ログイン';
-			case 'account.profile.title': return 'プロフィール';
-			case 'account.profile.editTitle': return 'プロフィール編集';
-			case 'account.profile.createInfo': return 'プロフィール情報を作成してください';
-			case 'account.profile.edit': return 'プロフィールを編集';
-			case 'account.profile.notFound': return 'プロフィールが見つかりません';
-			case 'account.profile.saving': return '保存中...';
-			case 'account.profile.save': return '保存';
-			case 'account.profile.saveSuccess': return 'プロフィールを保存しました';
-			case 'account.profile.saveFailed': return '保存に失敗しました';
-			case 'account.profile.errorOccurred': return 'エラーが発生しました';
-			case 'account.profile.ageOver20': return '20歳以上です';
-			case 'account.profile.ageUnder20': return '20歳未満';
-			case 'account.profile.nameLabel': return '名前 *';
-			case 'account.profile.nameRequired': return '名前を入力してください';
-			case 'account.profile.nameTooLong': return '名前は20文字以内で入力してください';
-			case 'account.profile.upload': return 'アップロード';
-			case 'account.profile.delete': return '削除';
-			case 'account.profile.snsLinks': return 'SNSリンク';
-			case 'account.profile.add': return '追加';
-			case 'account.profile.avatar.deleteSuccess': return 'アバターを削除しました';
-			case 'account.profile.avatar.changeFailed': return 'アバターを変更できませんでした';
-			case 'account.profile.avatar.changeSuccess': return 'アバターを変更しました';
-			case 'account.profile.sns.notLinked': return 'SNSリンクが登録されていません';
-			case 'account.profile.sns.type': return 'SNSタイプ';
-			case 'account.profile.sns.typeRequired': return 'SNSタイプを選択してください';
-			case 'account.profile.sns.urlOrUserId': return 'URL/ユーザーID';
-			case 'account.profile.sns.urlOrUserIdRequired': return 'URL/ユーザーIDを入力してください';
-			case 'account.profile.sns.other': return 'その他';
-			case 'account.profile.sns.fullUrlRequired': return '完全なURLを入力してください';
-			case 'account.profile.sns.userIdOnly': return 'ユーザーIDのみを入力してください';
-			case 'account.profile.sns.alphanumericOnly': return '英数字、アンダースコア、ハイフンのみ使用可能です';
-			case 'account.profile.sns.examples.github': return '例: octocat';
-			case 'account.profile.sns.examples.x': return '例: twitter';
-			case 'account.profile.sns.examples.discord': return '例: 123456789012345678 (ユーザーID)';
-			case 'account.profile.sns.examples.medium': return '例: username';
-			case 'account.profile.sns.examples.qiita': return '例: username';
-			case 'account.profile.sns.examples.zenn': return '例: username';
-			case 'account.profile.sns.examples.note': return '例: username';
-			case 'account.profile.sns.displayNames.github': return 'GitHub';
-			case 'account.profile.sns.displayNames.x': return 'X (Twitter)';
-			case 'account.profile.sns.displayNames.discord': return 'Discord';
-			case 'account.profile.sns.displayNames.medium': return 'Medium';
-			case 'account.profile.sns.displayNames.qiita': return 'Qiita';
-			case 'account.profile.sns.displayNames.zenn': return 'Zenn';
-			case 'account.profile.sns.displayNames.note': return 'note';
-			case 'account.profile.image.selectTitle': return '画像を選択';
-			case 'account.profile.image.selectMessage': return '画像を選択してください';
-			case 'account.profile.image.selectButton': return '画像を選択';
-			case 'account.profile.image.useGooglePhoto': return 'Googleアカウントの写真を使用';
-			case 'account.profile.image.cropTitle': return '画像をクロップ';
-			case 'account.profile.image.complete': return '完了';
-			case 'account.profile.image.crop': return 'クロップ';
-			case 'account.profile.image.reset': return 'リセット';
-			case 'account.profile.requiredSheet.title': return 'プロフィールを作成しましょう';
-			case 'account.profile.requiredSheet.description': return 'プロフィール交換を行うには、プロフィールの作成が必要です';
-			case 'account.profile.requiredSheet.createButton': return 'プロフィールを作成';
-			case 'account.profileshare.title': return 'プロフィール交換';
-			case 'account.profileshare.qrCode': return 'QRコード表示';
-			case 'account.profileshare.qrCodeScan': return 'QRコード読み取り';
-			case 'account.profileshare.friendsList': return '交換履歴';
-			case 'account.profileshare.qrCodeDisplay.title': return 'QRコード表示';
-			case 'account.profileshare.qrCodeDisplay.description': return '自分のQRコードを表示して、相手に読み取ってもらいます';
-			case 'account.profileshare.qrCodeDisplay.instruction': return 'このQRコードを相手に読み取ってもらってください';
-			case 'account.profileshare.qrCodeScanScreen.title': return 'QRコード読み取り';
-			case 'account.profileshare.qrCodeScanScreen.description': return '相手のQRコードを読み取って、プロフィール交換します';
-			case 'account.profileshare.qrCodeScanScreen.instruction': return '相手のQRコードをカメラで読み取ってください';
-			case 'account.profileshare.qrCodeScanScreen.loginRequired': return 'ログインが必要です';
-			case 'account.profileshare.qrCodeScanScreen.successMessage': return 'プロフィールシェアしました';
-			case 'account.profileshare.qrCodeScanScreen.errorMessage': return 'プロフィールシェアに失敗しました';
-			case 'account.profileshare.qrCodeScanScreen.scanSuccess': return 'QRコードを読み取りました';
-			case 'account.profileshare.qrCodeScanScreen.exchangeSuccess': return 'プロフィール交換しました';
-			case 'account.profileshare.qrCodeScanScreen.exchangeFailed': return 'プロフィール交換に失敗しました';
-			case 'account.profileshare.qrCodeScanScreen.alreadyFriends': return 'すでにプロフィール交換済みです';
-			case 'account.profileshare.qrCodeScanScreen.invalidQrCode': return '無効なQRコードです';
-			case 'account.profileshare.qrCodeScanScreen.cannotExchangeWithSelf': return '自分自身とプロフィール交換はできません';
-			case 'account.profileshare.friendsListScreen.title': return '交換履歴';
-			case 'account.profileshare.friendsListScreen.emptyMessage': return 'まだプロフィール交換していません';
-			case 'account.profileshare.friendsListScreen.connectedAt': return '交換日時';
-			case 'account.profileshare.friendsListScreen.errorLoadingFriends': return '友達リストの読み込みに失敗しました';
-			case 'account.profileshare.friendsListScreen.copiedToClipboard': return 'をコピーしました';
-			case 'account.profileshare.notification.channel_name': return 'プロフィール交換';
-			case 'account.profileshare.notification.channel_description': return 'プロフィール交換時の通知';
-			case 'account.profileshare.notification.title': return 'プロフィール交換しました';
-			case 'account.profileshare.notification.body': return ({required Object name}) => '${name} さんとプロフィール交換しました';
-			case 'account.admin.title': return '管理者ページ';
-			case 'account.admin.button': return '管理者ページ';
-			case 'account.admin.userList': return 'ユーザ一覧';
 			case 'auth.guest.signInButton': return 'ゲストで利用する';
 			case 'auth.guest.userLabel': return 'ゲストでログイン中';
 			case 'auth.error.identityAlreadyExists': return 'このGoogleアカウントは既に別のユーザーと紐づけられています。ログアウトしてから再度ログインしてください。';
@@ -1506,7 +957,6 @@ extension on Translations {
 			case 'common.navigation.sponsor': return 'スポンサー';
 			case 'common.navigation.session': return 'セッション';
 			case 'common.navigation.ticket': return 'チケット';
-			case 'common.navigation.account': return 'アカウント';
 			case 'common.debug.title': return 'Debug';
 			case 'common.debug.talkerScreen': return 'Talker 画面へ';
 			case 'common.debug.pathRequired': return 'パスを入力してください';
@@ -1525,6 +975,18 @@ extension on Translations {
 			case 'event.survey.title': return 'アンケート協力のお願い';
 			case 'event.survey.description': return '今後のFlutterKaigiをより良いイベントにするため、皆様のご意見をお聞かせください。';
 			case 'event.survey.button': return '全体アンケートに回答する';
+			case 'event.contributors': return 'Contributors';
+			case 'event.staffMembers.title': return 'スタッフ';
+			case 'event.staffMembers.emptyMessage': return 'スタッフが見つかりませんでした';
+			case 'event.others': return 'Others';
+			case 'event.codeOfConduct': return '行動規範';
+			case 'event.codeOfConductUrl': return 'https://docs.flutterkaigi.jp/Code-of-Conduct.ja';
+			case 'event.privacyPolicy': return 'プライバシーポリシー';
+			case 'event.privacyPolicyUrl': return 'https://docs.flutterkaigi.jp/Privacy-Policy.ja';
+			case 'event.contact': return 'お問い合わせ';
+			case 'event.contactUrl': return 'https://docs.google.com/forms/d/e/1FAIpQLSemYPFEWpP8594MWI4k3Nz45RJzMS7pz1ufwtnX4t3V7z2TOw/viewform';
+			case 'event.ossLicenses': return 'OSS Licenses';
+			case 'event.sourceCode': return 'ソースコードを見る';
 			case 'license.title': return 'ライセンス';
 			case 'license.search.hintText': return 'パッケージを検索';
 			case 'license.listTile.description': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ja'))(n,

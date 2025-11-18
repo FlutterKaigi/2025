@@ -34,7 +34,6 @@ navigation:
   session: Session
   sponsor: Sponsor
   ticket: Ticket
-  account: Account
 
 debug:
   title: Debug

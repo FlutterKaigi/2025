@@ -90,4 +90,4 @@ final class BffDioProvider extends $FunctionalProvider<Dio, Dio, Dio>
   }
 }
 
-String _$bffDioHash() => r'01bb2936457608fab5649c73edc8a941e49b365f';
+String _$bffDioHash() => r'b1e475d4324508714397a2d92f10e1108079db74';

@@ -7,6 +7,17 @@ const _eventRoutes = [
       TypedGoRoute<NewsRoute>(
         path: 'news',
       ),
+      TypedGoRoute<StaffMemberListRoute>(
+        path: 'staff-members',
+      ),
+      TypedGoRoute<LicenseRoute>(
+        path: 'licenses',
+        routes: [
+          TypedGoRoute<LicenseDetailRoute>(
+            path: ':package',
+          ),
+        ],
+      ),
     ],
   ),
 ];
@@ -31,4 +42,39 @@ class NewsRoute extends GoRouteData with $NewsRoute {
 
   @override
   Widget build(BuildContext context, GoRouterState state) => const NewsScreen();
+}
+
+class StaffMemberListRoute extends GoRouteData with $StaffMemberListRoute {
+  const StaffMemberListRoute();
+
+  static final GlobalKey<NavigatorState> $parentNavigatorKey =
+      _rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const StaffMemberListScreen();
+}
+
+class LicenseRoute extends GoRouteData with $LicenseRoute {
+  const LicenseRoute();
+
+  static final GlobalKey<NavigatorState> $parentNavigatorKey =
+      _rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const LicenseScreen();
+}
+
+class LicenseDetailRoute extends GoRouteData with $LicenseDetailRoute {
+  const LicenseDetailRoute({required this.package});
+
+  final String package;
+
+  static final GlobalKey<NavigatorState> $parentNavigatorKey =
+      _rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      LicenseDetailScreen(package: package);
 }

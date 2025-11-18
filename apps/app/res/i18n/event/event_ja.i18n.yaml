@@ -7,3 +7,16 @@ survey:
   title: アンケート協力のお願い
   description: 今後のFlutterKaigiをより良いイベントにするため、皆様のご意見をお聞かせください。
   button: 全体アンケートに回答する
+contributors: Contributors
+staffMembers:
+  title: スタッフ
+  emptyMessage: スタッフが見つかりませんでした
+others: Others
+codeOfConduct: 行動規範
+codeOfConductUrl: https://docs.flutterkaigi.jp/Code-of-Conduct.ja
+privacyPolicy: プライバシーポリシー
+privacyPolicyUrl: https://docs.flutterkaigi.jp/Privacy-Policy.ja
+contact: お問い合わせ
+contactUrl: https://docs.google.com/forms/d/e/1FAIpQLSemYPFEWpP8594MWI4k3Nz45RJzMS7pz1ufwtnX4t3V7z2TOw/viewform
+ossLicenses: OSS Licenses
+sourceCode: ソースコードを見る

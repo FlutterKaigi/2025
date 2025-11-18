@@ -1,13 +1,8 @@
-import 'package:app/core/api/api_exception.dart';
 import 'package:app/core/gen/i18n/i18n.g.dart';
-import 'package:app/core/provider/bff_client.dart';
 import 'package:app/core/router/router.dart';
-import 'package:app/features/auth/data/notifier/auth_notifier.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:path/path.dart' as p;
 
 class DebugScreen extends StatelessWidget {
@@ -20,178 +15,13 @@ class DebugScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(t.common.debug.title),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16),
+      body: const Padding(
+        padding: EdgeInsets.symmetric(vertical: 16),
         child: Column(
           spacing: 16,
           children: [
-            const _TransitionArea(),
-            const _TalkerArea(),
-            const _LogoutArea(),
-            Consumer(
-              builder: (context, ref, child) {
-                final user = ref.watch(authProvider);
-                final userId = user.value?.id;
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  spacing: 8,
-                  children: [
-                    Flexible(
-                      child: Text('UserID: ${userId ?? 'Not authenticated'}'),
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.copy),
-                      onPressed: () => Clipboard.setData(
-                        ClipboardData(text: userId ?? 'Not authenticated'),
-                      ),
-                    ),
-                  ],
-                );
-              },
-            ),
-            Consumer(
-              builder: (context, ref, child) {
-                return Column(
-                  children: [
-                    ListTile(
-                      title: const Text('Check Profile Shares'),
-                      onTap: () async {
-                        try {
-                          final profileShareList = await ApiException.transform(
-                            () async => ref
-                                .read(bffClientProvider)
-                                .v1
-                                .profileShare
-                                .getMyProfileShareList(),
-                          );
-                          final response = profileShareList.data;
-                          if (context.mounted) {
-                            return showDialog<void>(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                title: const Text('Profile Shares'),
-                                content: Text(
-                                  response.map((e) => e.toJson()).join('\n'),
-                                ),
-                              ),
-                            );
-                          }
-                        } on ApiException catch (e) {
-                          if (context.mounted) {
-                            return showDialog<void>(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                title: const Text('Error'),
-                                content: Text(
-                                  e.errorMessage(Translations.of(context)),
-                                ),
-                              ),
-                            );
-                          }
-                        }
-                      },
-                    ),
-
-                    ListTile(
-                      title: const Text('Add Profile Share'),
-                      onTap: () async {
-                        try {
-                          await ApiException.transform(
-                            () async => ref
-                                .read(bffClientProvider)
-                                .v1
-                                .profileShare
-                                .putProfileShare(
-                                  profileId:
-                                      'e9ee7d4d-143b-425f-86dc-13342f0af3d1',
-                                ),
-                          );
-                          if (context.mounted) {
-                            return showDialog<void>(
-                              context: context,
-                              builder: (context) => const AlertDialog(
-                                title: Text('Profile Shares'),
-                                content: Text('Profile Share added'),
-                              ),
-                            );
-                          }
-                        } on ApiException catch (e) {
-                          if (context.mounted) {
-                            return showDialog<void>(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                title: const Text('Error'),
-                                content: Text(
-                                  e.errorMessage(Translations.of(context)),
-                                ),
-                              ),
-                            );
-                          }
-                        }
-                      },
-                    ),
-
-                    ListTile(
-                      title: const Text('Get Websocket Token'),
-                      onTap: () async {
-                        try {
-                          final websocketToken = await ApiException.transform(
-                            () async => ref
-                                .read(bffClientProvider)
-                                .v1
-                                .websocket
-                                .startUserWebsocket(),
-                          );
-                          if (context.mounted) {
-                            return showDialog<void>(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                title: const Text('Websocket Token'),
-                                content: Text(
-                                  websocketToken.toJson().toString(),
-                                ),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () async {
-                                      await Clipboard.setData(
-                                        ClipboardData(
-                                          text: websocketToken.url,
-                                        ),
-                                      );
-                                      if (context.mounted) {
-                                        Navigator.of(context).pop();
-                                      }
-                                    },
-                                    child: const Text('Copy URL'),
-                                  ),
-                                  TextButton(
-                                    onPressed: () =>
-                                        Navigator.of(context).pop(),
-                                    child: const Text('Close'),
-                                  ),
-                                ],
-                              ),
-                            );
-                          }
-                        } on ApiException catch (e) {
-                          if (context.mounted) {
-                            return showDialog<void>(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                title: const Text('Error'),
-                                content: Text(
-                                  e.errorMessage(Translations.of(context)),
-                                ),
-                              ),
-                            );
-                          }
-                        }
-                      },
-                    ),
-                  ],
-                );
-              },
-            ),
+            _TransitionArea(),
+            _TalkerArea(),
           ],
         ),
       ),
@@ -339,20 +169,6 @@ class _TalkerArea extends StatelessWidget {
         onPressed: () async => const TalkerRoute().push<void>(context),
         child: Text(t.common.debug.talkerScreen),
       ),
-    );
-  }
-}
-
-class _LogoutArea extends ConsumerWidget {
-  const _LogoutArea();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final t = Translations.of(context);
-    final authNotifier = ref.watch(authProvider.notifier);
-    return FilledButton(
-      onPressed: () async => authNotifier.signOut(),
-      child: Text(t.account.logout),
     );
   }
 }

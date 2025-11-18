@@ -30,7 +30,6 @@ navigation:
   sponsor: スポンサー
   session: セッション
   ticket: チケット
-  account: アカウント
 
 debug:
   title: Debug

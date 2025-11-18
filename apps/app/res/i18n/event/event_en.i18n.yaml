@@ -7,3 +7,16 @@ survey:
   title: Survey Request
   description: We would like to hear your opinions to make future FlutterKaigi events better.
   button: Answer the General Survey
+contributors: Contributors
+staffMembers:
+  title: Staff
+  emptyMessage: No staff members found
+others: Others
+codeOfConduct: Code of Conduct
+codeOfConductUrl: https://docs.flutterkaigi.jp/Code-of-Conduct
+privacyPolicy: Privacy Policy
+privacyPolicyUrl: https://docs.flutterkaigi.jp/Privacy-Policy
+contact: Contact Us
+contactUrl: https://docs.google.com/forms/d/e/1FAIpQLSemYPFEWpP8594MWI4k3Nz45RJzMS7pz1ufwtnX4t3V7z2TOw/viewform
+ossLicenses: OSS Licenses
+sourceCode: View Source Code
