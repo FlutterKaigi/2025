@@ -22,17 +22,6 @@ const _accountRoutes = [
       TypedGoRoute<ProfileShareQrScanRoute>(
         path: 'profile-share/scan',
       ),
-      TypedGoRoute<StaffMemberListRoute>(
-        path: 'staff-members',
-      ),
-      TypedGoRoute<LicenseRoute>(
-        path: 'licenses',
-        routes: [
-          TypedGoRoute<LicenseDetailRoute>(
-            path: ':package',
-          ),
-        ],
-      ),
       TypedGoRoute<AdminRoute>(
         path: 'admin',
         routes: [

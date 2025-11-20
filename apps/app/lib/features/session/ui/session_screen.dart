@@ -11,7 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart' show DateFormat;
-import 'package:url_launcher/url_launcher.dart';
 
 /// セッション詳細画面
 ///
@@ -103,8 +102,6 @@ class SessionScreen extends ConsumerWidget {
   }
 }
 
-final _googleCalendarDateFormatter = DateFormat("yyyyMMdd'T'HHmmss'Z'");
-
 class _SessionDetailView extends ConsumerWidget with SessionScreenMixin {
   _SessionDetailView({required this.session});
 
@@ -193,7 +190,6 @@ class _SessionDetailView extends ConsumerWidget with SessionScreenMixin {
                   ),
                   title: Text(speaker.name),
                 ),
-              _SurveyButton(session: session),
               const SizedBox(height: 16),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -208,7 +204,6 @@ class _SessionDetailView extends ConsumerWidget with SessionScreenMixin {
                   style: theme.textTheme.bodyLarge,
                 ),
                 leading: const Icon(Icons.event_outlined),
-                onTap: () => _addToCalendar(session),
               ),
               ListTile(
                 title: Text(
@@ -230,71 +225,6 @@ class _SessionDetailView extends ConsumerWidget with SessionScreenMixin {
     final startTime = DateFormat.Hm().format(startsAt);
     final endTime = DateFormat.Hm().format(endsAt);
     return '$startDate $startTime~$endTime';
-  }
-
-  /// カレンダーにセッションを追加する
-  Future<void> _addToCalendar(Session session) async {
-    // すべてのプラットフォームでGoogle Calendar URLを使用
-    final url = _createGoogleCalendarUrl(session);
-    await launchUrl(url, mode: LaunchMode.externalApplication);
-  }
-
-  /// Google Calendar用のURLを作成
-  Uri _createGoogleCalendarUrl(Session session) {
-    return Uri.https(
-      'www.google.com',
-      'calendar/render',
-      {
-        'action': 'TEMPLATE',
-        'text': 'FlutterKaigi 2025: ${session.title}',
-        'details': session.description,
-        'location': session.venue,
-        'dates':
-            '${_googleCalendarDateFormatter.format(session.startsAt.toUtc())}/${_googleCalendarDateFormatter.format(session.endsAt.toUtc())}',
-      },
-    );
-  }
-}
-
-class _SurveyButton extends ConsumerWidget {
-  const _SurveyButton({required this.session});
-
-  final Session session;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final theme = Theme.of(context);
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: Center(
-        child: FilledButton.icon(
-          onPressed: () async {
-            final uri = Uri.https(
-              'docs.google.com',
-              '/forms/d/e/1FAIpQLSfthY-aomCn0_G75nO66712b917VSnN3kfZae4HWt7hd6YxUQ/viewform',
-              {'entry.435588556': session.id},
-            );
-            await launchUrl(
-              uri,
-              mode: LaunchMode.externalApplication,
-            );
-          },
-          icon: const Icon(Icons.assignment),
-          label: Text(
-            Translations.of(context).session.survey.button,
-          ),
-          style: FilledButton.styleFrom(
-            backgroundColor: theme.colorScheme.primary,
-            foregroundColor: theme.colorScheme.onPrimary,
-            textStyle: theme.textTheme.bodyMedium!.copyWith(
-              fontWeight: FontWeight.bold,
-            ),
-            minimumSize: const Size(400, 48),
-          ),
-        ),
-      ),
-    );
   }
 }
 

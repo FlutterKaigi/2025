@@ -48,14 +48,6 @@ class MainScreen extends StatelessWidget {
             icon: Icons.business,
             title: t.common.navigation.sponsor,
           ),
-          ResponsiveScaffoldDestination(
-            icon: Icons.confirmation_number,
-            title: t.common.navigation.ticket,
-          ),
-          ResponsiveScaffoldDestination(
-            icon: Icons.person,
-            title: t.common.navigation.account,
-          ),
         ],
         onNavigationIndexChange: (index) async {
           unawaited(

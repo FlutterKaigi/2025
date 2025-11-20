@@ -118,6 +118,17 @@ class _TranslationsEventEn extends TranslationsEventJa {
 	@override String get venue => 'Otemachi Place Hall & Conference';
 	@override String get address => '2-3-1 Otemachi, Chiyoda-ku, Tokyo';
 	@override late final _TranslationsEventSurveyEn survey = _TranslationsEventSurveyEn._(_root);
+	@override String get contributors => 'Contributors';
+	@override late final _TranslationsEventStaffMembersEn staffMembers = _TranslationsEventStaffMembersEn._(_root);
+	@override String get others => 'Others';
+	@override String get codeOfConduct => 'Code of Conduct';
+	@override String get codeOfConductUrl => 'https://docs.flutterkaigi.jp/Code-of-Conduct';
+	@override String get privacyPolicy => 'Privacy Policy';
+	@override String get privacyPolicyUrl => 'https://docs.flutterkaigi.jp/Privacy-Policy';
+	@override String get contact => 'Contact Us';
+	@override String get contactUrl => 'https://docs.google.com/forms/d/e/1FAIpQLSemYPFEWpP8594MWI4k3Nz45RJzMS7pz1ufwtnX4t3V7z2TOw/viewform';
+	@override String get ossLicenses => 'OSS Licenses';
+	@override String get sourceCode => 'View Source Code';
 }
 
 // Path: license
@@ -403,6 +414,17 @@ class _TranslationsEventSurveyEn extends TranslationsEventSurveyJa {
 	@override String get title => 'Survey Request';
 	@override String get description => 'We would like to hear your opinions to make future FlutterKaigi events better.';
 	@override String get button => 'Answer the General Survey';
+}
+
+// Path: event.staffMembers
+class _TranslationsEventStaffMembersEn extends TranslationsEventStaffMembersJa {
+	_TranslationsEventStaffMembersEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Staff';
+	@override String get emptyMessage => 'No staff members found';
 }
 
 // Path: license.search
@@ -1023,6 +1045,18 @@ extension on TranslationsEn {
 			case 'event.survey.title': return 'Survey Request';
 			case 'event.survey.description': return 'We would like to hear your opinions to make future FlutterKaigi events better.';
 			case 'event.survey.button': return 'Answer the General Survey';
+			case 'event.contributors': return 'Contributors';
+			case 'event.staffMembers.title': return 'Staff';
+			case 'event.staffMembers.emptyMessage': return 'No staff members found';
+			case 'event.others': return 'Others';
+			case 'event.codeOfConduct': return 'Code of Conduct';
+			case 'event.codeOfConductUrl': return 'https://docs.flutterkaigi.jp/Code-of-Conduct';
+			case 'event.privacyPolicy': return 'Privacy Policy';
+			case 'event.privacyPolicyUrl': return 'https://docs.flutterkaigi.jp/Privacy-Policy';
+			case 'event.contact': return 'Contact Us';
+			case 'event.contactUrl': return 'https://docs.google.com/forms/d/e/1FAIpQLSemYPFEWpP8594MWI4k3Nz45RJzMS7pz1ufwtnX4t3V7z2TOw/viewform';
+			case 'event.ossLicenses': return 'OSS Licenses';
+			case 'event.sourceCode': return 'View Source Code';
 			case 'license.title': return 'Licensees';
 			case 'license.search.hintText': return 'Search packages';
 			case 'license.listTile.description': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,

@@ -7,6 +7,17 @@ const _eventRoutes = [
       TypedGoRoute<NewsRoute>(
         path: 'news',
       ),
+      TypedGoRoute<StaffMemberListRoute>(
+        path: 'staff-members',
+      ),
+      TypedGoRoute<LicenseRoute>(
+        path: 'licenses',
+        routes: [
+          TypedGoRoute<LicenseDetailRoute>(
+            path: ':package',
+          ),
+        ],
+      ),
     ],
   ),
 ];

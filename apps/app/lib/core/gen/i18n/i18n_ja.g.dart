@@ -165,6 +165,38 @@ class TranslationsEventJa {
 	String get address => '東京都千代田区大手町二丁目3番1号';
 
 	late final TranslationsEventSurveyJa survey = TranslationsEventSurveyJa.internal(_root);
+
+	/// ja: 'Contributors'
+	String get contributors => 'Contributors';
+
+	late final TranslationsEventStaffMembersJa staffMembers = TranslationsEventStaffMembersJa.internal(_root);
+
+	/// ja: 'Others'
+	String get others => 'Others';
+
+	/// ja: '行動規範'
+	String get codeOfConduct => '行動規範';
+
+	/// ja: 'https://docs.flutterkaigi.jp/Code-of-Conduct.ja'
+	String get codeOfConductUrl => 'https://docs.flutterkaigi.jp/Code-of-Conduct.ja';
+
+	/// ja: 'プライバシーポリシー'
+	String get privacyPolicy => 'プライバシーポリシー';
+
+	/// ja: 'https://docs.flutterkaigi.jp/Privacy-Policy.ja'
+	String get privacyPolicyUrl => 'https://docs.flutterkaigi.jp/Privacy-Policy.ja';
+
+	/// ja: 'お問い合わせ'
+	String get contact => 'お問い合わせ';
+
+	/// ja: 'https://docs.google.com/forms/d/e/1FAIpQLSemYPFEWpP8594MWI4k3Nz45RJzMS7pz1ufwtnX4t3V7z2TOw/viewform'
+	String get contactUrl => 'https://docs.google.com/forms/d/e/1FAIpQLSemYPFEWpP8594MWI4k3Nz45RJzMS7pz1ufwtnX4t3V7z2TOw/viewform';
+
+	/// ja: 'OSS Licenses'
+	String get ossLicenses => 'OSS Licenses';
+
+	/// ja: 'ソースコードを見る'
+	String get sourceCode => 'ソースコードを見る';
 }
 
 // Path: license
@@ -605,6 +637,21 @@ class TranslationsEventSurveyJa {
 
 	/// ja: '全体アンケートに回答する'
 	String get button => '全体アンケートに回答する';
+}
+
+// Path: event.staffMembers
+class TranslationsEventStaffMembersJa {
+	TranslationsEventStaffMembersJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'スタッフ'
+	String get title => 'スタッフ';
+
+	/// ja: 'スタッフが見つかりませんでした'
+	String get emptyMessage => 'スタッフが見つかりませんでした';
 }
 
 // Path: license.search
@@ -1525,6 +1572,18 @@ extension on Translations {
 			case 'event.survey.title': return 'アンケート協力のお願い';
 			case 'event.survey.description': return '今後のFlutterKaigiをより良いイベントにするため、皆様のご意見をお聞かせください。';
 			case 'event.survey.button': return '全体アンケートに回答する';
+			case 'event.contributors': return 'Contributors';
+			case 'event.staffMembers.title': return 'スタッフ';
+			case 'event.staffMembers.emptyMessage': return 'スタッフが見つかりませんでした';
+			case 'event.others': return 'Others';
+			case 'event.codeOfConduct': return '行動規範';
+			case 'event.codeOfConductUrl': return 'https://docs.flutterkaigi.jp/Code-of-Conduct.ja';
+			case 'event.privacyPolicy': return 'プライバシーポリシー';
+			case 'event.privacyPolicyUrl': return 'https://docs.flutterkaigi.jp/Privacy-Policy.ja';
+			case 'event.contact': return 'お問い合わせ';
+			case 'event.contactUrl': return 'https://docs.google.com/forms/d/e/1FAIpQLSemYPFEWpP8594MWI4k3Nz45RJzMS7pz1ufwtnX4t3V7z2TOw/viewform';
+			case 'event.ossLicenses': return 'OSS Licenses';
+			case 'event.sourceCode': return 'ソースコードを見る';
 			case 'license.title': return 'ライセンス';
 			case 'license.search.hintText': return 'パッケージを検索';
 			case 'license.listTile.description': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ja'))(n,
