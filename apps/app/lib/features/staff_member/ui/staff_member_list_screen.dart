@@ -18,7 +18,7 @@ class StaffMemberListScreen extends StatelessWidget {
     final t = Translations.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(t.event.staffMembers.title),
+        title: Text(t.account.staffMembers.title),
       ),
       body: const _StaffMemberList(),
     );
@@ -36,7 +36,7 @@ class _StaffMemberList extends ConsumerWidget {
         value.isEmpty
             ? Center(
                 child: Text(
-                  Translations.of(context).event.staffMembers.emptyMessage,
+                  Translations.of(context).account.staffMembers.emptyMessage,
                 ),
               )
             : ListView.builder(

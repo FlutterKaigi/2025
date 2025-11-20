@@ -35,8 +35,8 @@ class EventInfoScreen extends ConsumerWidget {
             child: Text(
               t.event.contributors,
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           _SectionListItem(
@@ -49,8 +49,8 @@ class EventInfoScreen extends ConsumerWidget {
             child: Text(
               t.event.others,
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           _SectionListItem(

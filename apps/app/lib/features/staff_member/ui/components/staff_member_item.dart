@@ -1,4 +1,5 @@
 import 'package:app/core/gen/assets/assets.gen.dart';
+import 'package:app/features/account/ui/component/account_circle_image.dart';
 import 'package:db_types/db_types.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -28,9 +29,11 @@ class StaffMemberItem extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CircleAvatar(
-                  radius: 32,
-                  backgroundImage: NetworkImage(staffMember.iconUrl),
+                SizedBox.square(
+                  dimension: 64,
+                  child: AccountCircleImage(
+                    imageUrl: staffMember.iconUrl,
+                  ),
                 ),
                 const SizedBox(width: 16),
                 Expanded(
