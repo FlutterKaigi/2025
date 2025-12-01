@@ -26,7 +26,6 @@ class TicketRoute extends GoRouteData with $TicketRoute {
       const TicketListScreen();
 }
 
-
 class TicketDetailRoute extends GoRouteData with $TicketDetailRoute {
   const TicketDetailRoute({required this.ticketId});
 

@@ -12,5 +12,5 @@ abstract class AdminUserListState with _$AdminUserListState {
   }) = _AdminUserListState;
 
   factory AdminUserListState.fromJson(Map<String, dynamic> json) =>
-    _$AdminUserListStateFromJson(json);
+      _$AdminUserListStateFromJson(json);
 }

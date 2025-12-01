@@ -1,7 +1,8 @@
 enum WindowSize {
   compact,
   medium,
-  expanded;
+  expanded
+  ;
 
   factory WindowSize.fromWidth(double width) {
     return switch (width) {

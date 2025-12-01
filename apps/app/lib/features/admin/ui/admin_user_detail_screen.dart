@@ -72,9 +72,9 @@ final class AdminUserDetailScreen extends ConsumerWidget {
                       child: _TicketCard(
                         ticket: ticket,
                         dateFormat: dateFormat,
-                        onTap: () =>
-                            AdminTicketDetailRoute(ticketId: ticketId)
-                                .go(context),
+                        onTap: () => AdminTicketDetailRoute(
+                          ticketId: ticketId,
+                        ).go(context),
                       ),
                     );
                   },
@@ -287,101 +287,102 @@ final class _TicketCard extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: _getStatusColor(context),
-              border: Border(
-                bottom: BorderSide(
-                  color: colorScheme.outlineVariant,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: _getStatusColor(context),
+                border: Border(
+                  bottom: BorderSide(
+                    color: colorScheme.outlineVariant,
+                  ),
                 ),
               ),
-            ),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        switch (ticket) {
-                          TicketPurchaseItem(:final ticketType) =>
-                            ticketType.name,
-                          TicketCheckoutItem(:final ticketType) =>
-                            ticketType.name,
-                        },
-                        style: textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          switch (ticket) {
+                            TicketPurchaseItem(:final ticketType) =>
+                              ticketType.name,
+                            TicketCheckoutItem(:final ticketType) =>
+                              ticketType.name,
+                          },
+                          style: textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        '¥${_formatPrice(_getPrice())}',
-                        style: textTheme.titleSmall?.copyWith(
-                          color: colorScheme.onSurfaceVariant,
+                        const SizedBox(height: 4),
+                        Text(
+                          '¥${_formatPrice(_getPrice())}',
+                          style: textTheme.titleSmall?.copyWith(
+                            color: colorScheme.onSurfaceVariant,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  _StatusBadge(ticket: ticket),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _InfoRow(
+                    label: 'チケットID',
+                    value: switch (ticket) {
+                      TicketPurchaseItem(:final purchase) => purchase.id,
+                      TicketCheckoutItem(:final checkout) => checkout.id,
+                    },
+                    isSelectable: true,
+                  ),
+                  const SizedBox(height: 12),
+                  _InfoRow(
+                    label: '作成日時',
+                    value: dateFormat.format(
+                      switch (ticket) {
+                        TicketPurchaseItem(:final purchase) =>
+                          purchase.createdAt.toLocal(),
+                        TicketCheckoutItem(:final checkout) =>
+                          checkout.createdAt.toLocal(),
+                      },
+                    ),
+                  ),
+                  if (ticket case TicketPurchaseItem(:final purchase))
+                    if (purchase.entryLog != null) ...[
+                      const SizedBox(height: 12),
+                      _InfoRow(
+                        label: '入場日時',
+                        value: dateFormat.format(
+                          purchase.entryLog!.createdAt.toLocal(),
                         ),
                       ),
                     ],
-                  ),
-                ),
-                _StatusBadge(ticket: ticket),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _InfoRow(
-                  label: 'チケットID',
-                  value: switch (ticket) {
-                    TicketPurchaseItem(:final purchase) => purchase.id,
-                    TicketCheckoutItem(:final checkout) => checkout.id,
-                  },
-                  isSelectable: true,
-                ),
-                const SizedBox(height: 12),
-                _InfoRow(
-                  label: '作成日時',
-                  value: dateFormat.format(
-                    switch (ticket) {
-                      TicketPurchaseItem(:final purchase) =>
-                        purchase.createdAt.toLocal(),
-                      TicketCheckoutItem(:final checkout) =>
-                        checkout.createdAt.toLocal(),
-                    },
-                  ),
-                ),
-                if (ticket case TicketPurchaseItem(:final purchase))
-                  if (purchase.entryLog != null) ...[
-                    const SizedBox(height: 12),
-                    _InfoRow(
-                      label: '入場日時',
-                      value: dateFormat.format(
-                        purchase.entryLog!.createdAt.toLocal(),
+                  if (ticket case TicketCheckoutItem(:final checkout))
+                    if (checkout.status ==
+                        bff.TicketCheckoutStatus.pending) ...[
+                      const SizedBox(height: 12),
+                      _InfoRow(
+                        label: '有効期限',
+                        value: dateFormat.format(checkout.expiresAt.toLocal()),
                       ),
-                    ),
+                    ],
+                  if (ticket.options.isNotEmpty) ...[
+                    const Divider(height: 32),
+                    _OptionsSection(options: ticket.options),
                   ],
-                if (ticket case TicketCheckoutItem(:final checkout))
-                  if (checkout.status == bff.TicketCheckoutStatus.pending) ...[
-                    const SizedBox(height: 12),
-                    _InfoRow(
-                      label: '有効期限',
-                      value: dateFormat.format(checkout.expiresAt.toLocal()),
-                    ),
-                  ],
-                if (ticket.options.isNotEmpty) ...[
-                  const Divider(height: 32),
-                  _OptionsSection(options: ticket.options),
                 ],
-              ],
+              ),
             ),
-          ),
-        ],
+          ],
         ),
       ),
     );
