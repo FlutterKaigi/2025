@@ -12,7 +12,7 @@
     "logs": {
       "enabled": true,
       "destinations": ["otlp-flutterkaigi-jp"],
-    }
+    },
   },
   "placement": { "mode": "smart" },
   "compatibility_flags": ["nodejs_compat"],
