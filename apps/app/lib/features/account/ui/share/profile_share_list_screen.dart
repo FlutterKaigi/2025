@@ -284,7 +284,7 @@ class _WebSocketStatus extends HookConsumerWidget {
       });
       return reconnectTimer.cancel;
     }, []);
-    
+
     if (websocketError != null) {
       return Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),

@@ -11,7 +11,7 @@
     "logs": {
       "enabled": true,
       "destinations": ["otlp-flutterkaigi-jp"],
-    }
+    },
   },
   "workers_dev": true,
   "hyperdrive": [

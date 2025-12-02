@@ -38,8 +38,9 @@ class AdminTicketScanSheet extends ConsumerWidget {
 
     final hasEntryLog = ticket.purchase.entryLog != null;
     final nameplateId = ticket.purchase.nameplateId?.trim();
-    final displayNameplateId =
-        nameplateId == null || nameplateId.isEmpty ? 'N/A' : nameplateId;
+    final displayNameplateId = nameplateId == null || nameplateId.isEmpty
+        ? 'N/A'
+        : nameplateId;
 
     return Container(
       padding: const EdgeInsets.all(12),
