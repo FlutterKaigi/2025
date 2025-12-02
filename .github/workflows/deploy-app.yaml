@@ -145,7 +145,7 @@ jobs:
 
       - name: Resolve dependencies
         working-directory: apps/app
-        run: dart pub get --enforce-lockfile
+        run: flutter pub get --enforce-lockfile
 
       - name: Configure iOS
         working-directory: apps/app
