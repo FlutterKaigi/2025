@@ -1,5 +1,6 @@
 import 'package:flutterkaigi_2025_website/src/components/external_link.dart';
 import 'package:flutterkaigi_2025_website/src/components/open_in_new.dart';
+import 'package:flutterkaigi_2025_website/src/components/photo.dart';
 import 'package:flutterkaigi_2025_website/src/components/section_layout.dart';
 import 'package:flutterkaigi_2025_website/src/components/sized_dashsay.dart';
 import 'package:flutterkaigi_2025_website/src/components/sponsor.dart';
@@ -50,6 +51,11 @@ class Home extends StatelessComponent {
           dashSize: 8.rem,
         ),
         const Tagline(),
+        SectionLayout(
+          id: 'photos',
+          title: 'Photo Albums'.toComponent,
+          children: const [Photos()],
+        ),
         SectionLayout(
           id: 'timeline',
           title: 'Timeline'.toComponent,
