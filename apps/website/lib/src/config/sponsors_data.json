@@ -1,0 +1,552 @@
+{
+  "company_sponsors": [
+    {
+      "id": 1,
+      "name": "株式会社ゆめみ",
+      "logo_url": "https://2025-bucket.flutterkaigi.jp/companies/1faeb563-9e1c-4f56-96ab-32d45bab81d0.webp",
+      "slug": "yumemi",
+      "pr_text": "6000万人のみんな知ってるあのサービスも、ゆめみが一緒に作ってます。大手企業や急成長スタートアップと共創型でWeb/スマホのサービス作りや内製化支援を行っています。【エンジニアが最も成長できる会社No.1】を目標にした、アジャイル組織として先端を走るエンジニア集団です。",
+      "website_url": "https://yumemi.co.jp/",
+      "x_account": "yumemiinc",
+      "sponsor_type": "basic",
+      "display_order": "01_01",
+      "basic_plan_type": "platinum",
+      "option_plan_types": [
+        "nameplate"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "株式会社出前館",
+      "logo_url": "https://2025-bucket.flutterkaigi.jp/companies/d1c33512-f3dc-4f53-b099-3193fa495df0.webp",
+      "slug": "demae-can",
+      "pr_text": "出前館はクイックコマースサービスとして領域を拡大し、当社のコーポレートミッション「テクノロジーで時間価値を高める」に基づき、利用いただいた皆さまに対して“時間価値の最大化“を実現していきたいと考えています。\n地域活性化とともに、少子高齢化や買い物難民の増加をはじめとした地域や社会課題の解決に向き合い、社会にとって不可欠なライフインフラとして日本経済の発展に貢献できるサービスを目指して挑戦を続けています。",
+      "website_url": "https://recruit.demae-can.co.jp/",
+      "x_account": null,
+      "sponsor_type": "basic",
+      "display_order": "01_02",
+      "basic_plan_type": "platinum",
+      "option_plan_types": []
+    },
+    {
+      "id": 3,
+      "name": "株式会社アサイン",
+      "logo_url": "https://2025-bucket.flutterkaigi.jp/companies/ecc75bda-1dda-4693-81c3-fee61f8c9d8d.webp",
+      "slug": "assign",
+      "pr_text": "アサインは「人」と「技術」の力で、若手ハイエンド向けのキャリア支援サービスを提供しています。\n\n転職サイト『ASSIGN』は、単なる転職支援に留まらず、長期のキャリア形成をサポートするために、キャリア実現に欠かせないパーソナライズされた情報へのアクセスを容易にしています。技術の力を最大限活用し、ユーザーへの提供価値を向上させています。\n\n若手ハイエンド特化の転職サイト『ASSIGN』\n・2019年のサービス開始以来 累計ユーザー数66万人突破\n・2021年4月からFlutterで開発",
+      "website_url": "https://assign-inc.com/",
+      "x_account": null,
+      "sponsor_type": "basic",
+      "display_order": "01_03",
+      "basic_plan_type": "platinum",
+      "option_plan_types": [
+        "naming_rights_hall",
+        "scholarship"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "RevenueCat, Inc.",
+      "logo_url": "https://2025-bucket.flutterkaigi.jp/companies/bacfba76-0a04-4a02-b67a-7e05245efeeb.webp",
+      "slug": "revenue-cat",
+      "pr_text": "RevenueCatは、iOS、Android、Webに対応した、世界有数のコンシューマーアプリ収益化プラットフォームを提供する米国企業です。サブスクリプション、消耗型アイテム、買い切り、ポイントに対応した課金・分析・コンバージョン最適化の一元管理を可能にします。ChatGPTやNotionを含む5万本以上のアプリに導入され、100億ドル以上の年間追跡売上を処理しています。詳しくはrevenuecat.com/jpをご覧ください。",
+      "website_url": "https://www.revenuecat.com/jp/",
+      "x_account": "RevenueCat",
+      "sponsor_type": "basic",
+      "display_order": "01_04",
+      "basic_plan_type": "platinum",
+      "option_plan_types": [
+        "naming_rights_hall"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Flutter",
+      "logo_url": "https://2025-bucket.flutterkaigi.jp/companies/79c925a9-40c3-4d6a-9c99-0fe0ccfc5f2b.webp",
+      "slug": "flutter",
+      "pr_text": "Flutter is an open source framework by Google for building beautiful, natively compiled, multi-platform applications. Transform your app development process to launch faster with less resources by building, testing, and deploying from a single codebase.",
+      "website_url": "https://flutter.dev/",
+      "x_account": "FlutterDev",
+      "sponsor_type": "basic",
+      "display_order": "01_05",
+      "basic_plan_type": "platinum",
+      "option_plan_types": []
+    },
+    {
+      "id": 6,
+      "name": "株式会社サイバーエージェント",
+      "logo_url": "https://2025-bucket.flutterkaigi.jp/companies/e9f3db7b-3742-4763-b8ff-9bc6a34050a2.webp",
+      "slug": "cyberagent",
+      "pr_text": "サイバーエージェントはインターネットを軸に、メディア&IP事業、インターネット広告事業、ゲーム事業と主に3つの事業を展開しています。その他にもIP・コンテンツ、AI、DXを強化分野として事業創出に取り組んでおり、様々な事業でFlutterの活用事例があります。社内発の社外向けの勉強会である「CA.flutter」も定期的に開催しています。",
+      "website_url": "https://www.cyberagent.co.jp/",
+      "x_account": "ca_developers",
+      "sponsor_type": "basic",
+      "display_order": "02_01",
+      "basic_plan_type": "gold",
+      "option_plan_types": [
+        "scholarship"
+      ]
+    },
+    {
+      "id": 7,
+      "name": "株式会社iiba",
+      "logo_url": "https://2025-bucket.flutterkaigi.jp/companies/5e66a21e-0539-4eb7-8546-7077d2b91ace.webp",
+      "slug": "iiba",
+      "pr_text": "株式会社iibaは、全国10万件超の子育てスポット情報を集約するマップアプリを運営しています。自治体・企業と連携し、地域経済を動かすプラットフォームへ成長中です。FlutterでUXを磨き、バウチャー決済や位置情報解析などを高速実装。社会課題を事業で解決しスケールさせる開発に挑みたい方、ぜひお話ししましょう！",
+      "website_url": "https://corporate.iiba.space/",
+      "x_account": "nanaizw",
+      "sponsor_type": "basic",
+      "display_order": "02_02",
+      "basic_plan_type": "gold",
+      "option_plan_types": []
+    },
+    {
+      "id": 8,
+      "name": "シンプレクス株式会社",
+      "logo_url": "https://2025-bucket.flutterkaigi.jp/companies/37531bac-96ce-41da-a1a0-93b948e16440.webp",
+      "slug": "simplex",
+      "pr_text": "シンプレクスは1997年の創業以来、メガバンクや大手総合証券を筆頭に、日本を代表する金融機関のテクノロジーパートナーとしてビジネスを展開してきました。現在では、金融領域で培った豊富なノウハウを活用し、金融機関以外の領域でもソリューションを展開しています。",
+      "website_url": "https://www.simplex.inc/",
+      "x_account": "SimplexHoldings",
+      "sponsor_type": "basic",
+      "display_order": "02_03",
+      "basic_plan_type": "gold",
+      "option_plan_types": []
+    },
+    {
+      "id": 9,
+      "name": "Codemagic",
+      "logo_url": "https://2025-bucket.flutterkaigi.jp/companies/fe7aef86-b75f-46fc-ba97-3c47095bc68d.webp",
+      "slug": "codemagic",
+      "pr_text": "Codemagic はモバイルアプリ向けの高速 CI/CD です。iOS、Android、Flutter、React Native アプリをシームレスにビルド・テスト・リリースできます。ワークフローを自動化し、時間を節約して、自信を持ってリリースしましょう。",
+      "website_url": "https://codemagic.io",
+      "x_account": "codemagicio",
+      "sponsor_type": "basic",
+      "display_order": "02_04",
+      "basic_plan_type": "gold",
+      "option_plan_types": []
+    },
+    {
+      "id": 10,
+      "name": "株式会社MagicPod",
+      "logo_url": "https://2025-bucket.flutterkaigi.jp/companies/4b5f8de2-a2fd-413f-8785-47ee0096cec1.webp",
+      "slug": "magic-pod",
+      "pr_text": "MagicPodは、モバイルアプリ・ブラウザ（ウェブアプリ）テストの両方に対応したAIテスト自動化プラットフォームを提供しています。自然言語だけでテストの作成・編集・実行ができる「MagicPod Autopilot」機能や、AIによる自動修正、クラウドでのサービス提供によるメンテナンス性の高さで、リリースサイクルの高速化を支援しています。",
+      "website_url": "https://magicpod.com/",
+      "x_account": "MagicPodJP",
+      "sponsor_type": "basic",
+      "display_order": "02_05",
+      "basic_plan_type": "gold",
+      "option_plan_types": []
+    },
+    {
+      "id": 11,
+      "name": "株式会社ZOZO",
+      "logo_url": "https://2025-bucket.flutterkaigi.jp/companies/1081d25c-46d3-4620-bc9b-66ee70a356bb.webp",
+      "slug": "zozo",
+      "pr_text": "ファッションEC「ZOZOTOWN」、ファッションコーディネートアプリ「WEAR by ZOZO」など各種サービスの企画・展開のほか、「ZOZOSUIT」「ZOZOMAT」「ZOZOGLASS」など計測技術の開発・活用にも取り組んでいます。",
+      "website_url": "https://corp.zozo.com/",
+      "x_account": "zozotech",
+      "sponsor_type": "basic",
+      "display_order": "03_01",
+      "basic_plan_type": "silver",
+      "option_plan_types": [
+        "scholarship"
+      ]
+    },
+    {
+      "id": 12,
+      "name": "株式会社GENDA",
+      "logo_url": "https://2025-bucket.flutterkaigi.jp/companies/44a6529b-c7fd-4e34-8c65-07cfab1143f8.webp",
+      "slug": "genda",
+      "pr_text": "「世界中の人々の人生をより楽しく」をAspirationに掲げるエンタメ企業。「GiGO」等のアミューズメント施設運営やカラオケ、キャラクターMD、F&B、コンテンツ&プロモーションなどエンタメ領域で事業を展開しています。",
+      "website_url": "https://genda.jp/",
+      "x_account": "GENDA_jp",
+      "sponsor_type": "basic",
+      "display_order": "03_02",
+      "basic_plan_type": "silver",
+      "option_plan_types": []
+    },
+    {
+      "id": 13,
+      "name": "エムスリー株式会社",
+      "logo_url": "https://2025-bucket.flutterkaigi.jp/companies/18518903-01a8-43e8-857a-56cb8d478ef8.webp",
+      "slug": "m3",
+      "pr_text": "エムスリーは\"インターネットを活用し、健康で楽しく長生きする人を１人でも増やし、不必要な医療コストを１円でも減らすこと\" をミッションに、テクノロジーの力で日本および世界の医療の変革にチャレンジしています。",
+      "website_url": "https://jobs.m3.com/product/",
+      "x_account": "m3_engineering",
+      "sponsor_type": "basic",
+      "display_order": "03_03",
+      "basic_plan_type": "silver",
+      "option_plan_types": []
+    },
+    {
+      "id": 14,
+      "name": "株式会社Linc'well",
+      "logo_url": "https://2025-bucket.flutterkaigi.jp/companies/afae8fe0-b0d8-43c9-85e3-aa82ef30d001.webp",
+      "slug": "linc-well",
+      "pr_text": "Linc'wellは「テクノロジーを通じて、医療を一歩前へ」をミッションに掲げ、医療を効率化し患者の医療体験と医療の質の向上を目指した事業展開を行っています。2023年リリースのFlutterアプリ「クリフォア」を開発する仲間を募集中です！",
+      "website_url": "https://linc-well.com/",
+      "x_account": "lincwell_dev",
+      "sponsor_type": "basic",
+      "display_order": "03_04",
+      "basic_plan_type": "silver",
+      "option_plan_types": []
+    },
+    {
+      "id": 15,
+      "name": "株式会社ディー・エヌ・エー",
+      "logo_url": "https://2025-bucket.flutterkaigi.jp/companies/04feaac2-4660-4260-b66c-e5d8a071d219.webp",
+      "slug": "dena",
+      "pr_text": "DeNAは、事業価値の最大化と課題解決のためのAI活用と独自のデータ分析手法によって、ゲーム、ライブスコミュニティ、スポーツ・まちづくり、ヘルスケア・メディカルなど幅広い事業を展開しています。\n\nAt DeNA (pronounced \"D-N-A\") we use AI technology and our unique data analysis methods to maximize business value and solve problems to engage in a variety of businesses, from games and live communities to sports & the community and healthcare & medical.",
+      "website_url": "https://dena.com/jp/",
+      "x_account": "DeNAxTech",
+      "sponsor_type": "basic",
+      "display_order": "03_05",
+      "basic_plan_type": "silver",
+      "option_plan_types": []
+    },
+    {
+      "id": 16,
+      "name": "CodeRabbit",
+      "logo_url": "https://2025-bucket.flutterkaigi.jp/companies/6ebbd536-cc3d-43a3-9138-1294f7b2088e.webp",
+      "slug": "coderabbit",
+      "pr_text": "CodeRabbitはAIコードレビューサービスです。GitHub/GitLabなどのPRに対して、自動的にコードレビューを行います。レビューの負荷軽減、時間削減、チーム開発効率化に貢献します！",
+      "website_url": "https://www.coderabbit.ai",
+      "x_account": "Coderabbitaija",
+      "sponsor_type": "basic",
+      "display_order": "03_06",
+      "basic_plan_type": "silver",
+      "option_plan_types": []
+    },
+    {
+      "id": 17,
+      "name": "株式会社YOUTRUST",
+      "logo_url": "https://2025-bucket.flutterkaigi.jp/companies/9a5aabf0-1268-478d-9811-dee1ee483ac0.webp",
+      "slug": "youtrust",
+      "pr_text": "技術で世界を変えるFlutterエンジニアを応援！YOUTRUSTはキャリアSNSで技術者のつながりを創り、Flutter開発者の挑戦と成長を心から応援しています。",
+      "website_url": "https://youtrust.co.jp/",
+      "x_account": "YOUTRUSTinc",
+      "sponsor_type": "basic",
+      "display_order": "03_07",
+      "basic_plan_type": "silver",
+      "option_plan_types": []
+    },
+    {
+      "id": 18,
+      "name": "ソニー株式会社",
+      "logo_url": "https://2025-bucket.flutterkaigi.jp/companies/31303bcb-0fe0-42d2-a870-3d7fcf0d1ac3.webp",
+      "slug": "sony",
+      "pr_text": "ソニー株式会社は「テクノロジーの力で未来のエンタテインメントをクリエイターと共創する」ことをミッションとし、世界中の人に感動を届けることをめざしています。\n新たな映像や音を表現するテクノロジーとサービスに挑戦し続け、世界中の人々を感動させるエンタテイメントの未来を、クリエイターと共に創造しています。",
+      "website_url": "https://www.sony.co.jp/",
+      "x_account": null,
+      "sponsor_type": "basic",
+      "display_order": "03_08",
+      "basic_plan_type": "silver",
+      "option_plan_types": []
+    },
+    {
+      "id": 19,
+      "name": "チームラボ",
+      "logo_url": "https://2025-bucket.flutterkaigi.jp/companies/505e878e-3372-43e7-b3be-7c790258428f.webp",
+      "slug": "team-lab",
+      "pr_text": "最新のテクノロジーを活用したソリューション、大規模なシステム開発、都市計画や、ICT空間設計などを行う。チームラボのFlutter活用事例はGoogle I/Oでも紹介されました。https://youtu.be/OyS812ZoTzw",
+      "website_url": "https://www.team-lab.com/",
+      "x_account": "teamlab_recruit",
+      "sponsor_type": "basic",
+      "display_order": "03_09",
+      "basic_plan_type": "silver",
+      "option_plan_types": [
+        "scholarship"
+      ]
+    },
+    {
+      "id": 20,
+      "name": "株式会社hacomono",
+      "logo_url": "https://2025-bucket.flutterkaigi.jp/companies/3c10e94c-c7bb-458a-a7a3-4fdfa5e5bbe6.webp",
+      "slug": "hacomono",
+      "pr_text": "hacomonoはウェルネス産業向けVertical SaaS企業です。会員管理のデジタル化を提供し、ジュニアスクールや公共施設等に導入されています。7月に発表のtoC向け新サービス「FitFits」の開発にFlutterを採用しています。",
+      "website_url": "https://www.hacomono.co.jp/",
+      "x_account": "hacomono_Dev",
+      "sponsor_type": "basic",
+      "display_order": "03_10",
+      "basic_plan_type": "silver",
+      "option_plan_types": []
+    },
+    {
+      "id": 21,
+      "name": "SODA inc.",
+      "logo_url": "https://2025-bucket.flutterkaigi.jp/companies/2bdfe925-6d50-47c9-bbfc-9f44e89d9ccc.webp",
+      "slug": "soda",
+      "pr_text": "「SNKRDUNK（スニーカーダンク）」は、スニーカーやアパレルを中心とするファッション領域やトレーディングカード・フィギュアなどを中心に、個人間での売買を簡単に行える国内最大級のファッション・コレクティブルマーケットプレイスです。",
+      "website_url": "https://soda-inc.jp/",
+      "x_account": null,
+      "sponsor_type": "basic",
+      "display_order": "03_11",
+      "basic_plan_type": "silver",
+      "option_plan_types": []
+    },
+    {
+      "id": 22,
+      "name": "株式会社MIXI",
+      "logo_url": "https://2025-bucket.flutterkaigi.jp/companies/53366548-10d0-4272-8bb6-462321f51e4d.webp",
+      "slug": "mixi",
+      "pr_text": "MIXIは、「豊かなコミュニケーションを広げ、世界を幸せな驚きで包む。」というパーパスのもと、「mixi」や「モンスターストライク」など、友人や家族間で一緒に楽しむコミュニケーションサービスを提供しています。",
+      "website_url": "https://mixi.co.jp/",
+      "x_account": "mixi_engineers",
+      "sponsor_type": "basic",
+      "display_order": "04_01",
+      "basic_plan_type": "bronze",
+      "option_plan_types": [
+        "scholarship"
+      ]
+    },
+    {
+      "id": 23,
+      "name": "スタディプラス株式会社",
+      "logo_url": "https://2025-bucket.flutterkaigi.jp/companies/95fc9aaa-38d1-482b-ac8f-fe9bdb9db0a7.webp",
+      "slug": "studyplus",
+      "pr_text": "スタディプラスは「学ぶ喜びをすべての人へ」をミッションに、学習の記録・可視化・共有をサポートするStudyplusを提供しています。楽しく学びを広げるプラットフォームを一緒に作りませんか？あなたのアイデアが、学びを豊かにする力になります。",
+      "website_url": "https://info.studyplus.co.jp/",
+      "x_account": "studyplus_dev",
+      "sponsor_type": "basic",
+      "display_order": "04_02",
+      "basic_plan_type": "bronze",
+      "option_plan_types": []
+    },
+    {
+      "id": 24,
+      "name": "株式会社ギークニア",
+      "logo_url": "https://2025-bucket.flutterkaigi.jp/companies/47c20891-cb0b-48b0-8f32-aec3856a2a4e.webp",
+      "slug": "geekneer",
+      "pr_text": "ギークニアは、転職エージェントが全員元エンジニアの人材紹介会社です。エンジニア、ITコンサル、PM、データサイエンティスト、PdM、SRE、QAエンジニアなどIT専門職の方のキャリアサクセスを応援しております。",
+      "website_url": "https://geekneer.com/",
+      "x_account": "geekneerjp",
+      "sponsor_type": "basic",
+      "display_order": "04_03",
+      "basic_plan_type": "bronze",
+      "option_plan_types": []
+    },
+    {
+      "id": 25,
+      "name": "Sentry",
+      "logo_url": "https://2025-bucket.flutterkaigi.jp/companies/424643b3-4119-45e2-bb58-bdad2cd4ee48.webp",
+      "slug": "sentry",
+      "pr_text": "Sentryはリアルタイムエラー追跡と詳細情報提供で迅速な問題特定を実現。多言語対応でウェブ、モバイル、バックエンドを一気通貫で監視が可能。Ichizokuとの協業で日本市場向けに特化した強力なサポートを提供し、迅速な対応を実現しています。",
+      "website_url": "https://sentry.ichizoku.io/",
+      "x_account": "SentryJapan",
+      "sponsor_type": "basic",
+      "display_order": "04_04",
+      "basic_plan_type": "bronze",
+      "option_plan_types": []
+    },
+    {
+      "id": 26,
+      "name": "パイオニア株式会社",
+      "logo_url": "https://2025-bucket.flutterkaigi.jp/companies/e1a96c10-fa3f-4036-aad2-4da3aa063b86.webp",
+      "slug": "pioneer",
+      "pr_text": "企業ミッション「より多くの人と、感動を」のもと、カーエレクトロニクス分野を中心に、斬新でユニークな発想とテクノロジーを活かし、車室内の快適性、感動、安心・安全を実現する製品・サービスを提供することで、新たな価値を提案していく会社です",
+      "website_url": "https://jpn.pioneer/ja/",
+      "x_account": "Pioneer_PR",
+      "sponsor_type": "basic",
+      "display_order": "04_05",
+      "basic_plan_type": "bronze",
+      "option_plan_types": []
+    },
+    {
+      "id": 27,
+      "name": "株式会社メドレー",
+      "logo_url": "https://2025-bucket.flutterkaigi.jp/companies/1c402e3a-eaa9-4a45-b87b-6547b156ee49.webp",
+      "slug": "medley",
+      "pr_text": "メドレーは、「医療ヘルスケアの未来をつくる」ミッションのもと、テクノロジーを活用した事業やプロジェクトを通じて、医療ヘルスケア分野の課題を解決していきます。それにより、「持続可能な医療」の実現と、「納得できる医療」の実現を目指しています。",
+      "website_url": "https://www.medley.jp/",
+      "x_account": "medley_dev",
+      "sponsor_type": "basic",
+      "display_order": "04_06",
+      "basic_plan_type": "bronze",
+      "option_plan_types": []
+    },
+    {
+      "id": 28,
+      "name": "Hamee株式会社",
+      "logo_url": "https://2025-bucket.flutterkaigi.jp/companies/ea8c5639-f5fb-4674-9381-bca60d900b84.webp",
+      "slug": "hamee",
+      "pr_text": "私たちHameeのPurposeは「クリエイティブ魂に火をつける」です。\nクリエイティブ魂は、自分らしさを最大限に発揮し、挑戦し、成し遂げる時に燃え盛ります。\nこの炎を広げ、世界中を熱くすることが私たちの使命です。 ",
+      "website_url": "https://hamee.co.jp/recruit/love-odawara",
+      "x_account": null,
+      "sponsor_type": "basic",
+      "display_order": "04_07",
+      "basic_plan_type": "bronze",
+      "option_plan_types": []
+    },
+    {
+      "id": 29,
+      "name": "株式会社アイビス",
+      "logo_url": "https://2025-bucket.flutterkaigi.jp/companies/2c34b7ee-dedf-46fb-b242-4d9af76aa789.webp",
+      "slug": "ibis",
+      "pr_text": "アイビスはFlutterでの開発支援を通じて、関わるすべての人と企業が成長できる持続可能な関係づくりを目指しています。\n共にアイビスを創る仲間も募集しています。",
+      "website_url": "https://i-bis.jp/company/profile/",
+      "x_account": "Ibis_official_",
+      "sponsor_type": "basic",
+      "display_order": "04_08",
+      "basic_plan_type": "bronze",
+      "option_plan_types": []
+    },
+    {
+      "id": 30,
+      "name": "株式会社LayerX",
+      "logo_url": "https://2025-bucket.flutterkaigi.jp/companies/f9a4166a-fe62-4c06-b299-716adf12feb4.webp",
+      "slug": "layerx",
+      "pr_text": "LayerXは「すべての経済活動を、デジタル化する。」をミッションに掲げ、SaaS+Fintechを軸に、AIを中心としたソフトウェア体験を社会実装するスタートアップです。AIを活用し「時間を創造するモバイルアプリ」を一緒に作りませんか？",
+      "website_url": "https://layerx.co.jp",
+      "x_account": "LayerX_Tech",
+      "sponsor_type": "basic",
+      "display_order": "04_09",
+      "basic_plan_type": "bronze",
+      "option_plan_types": [
+        "scholarship"
+      ]
+    },
+    {
+      "id": 31,
+      "name": "NTTレゾナントテクノロジー株式会社",
+      "logo_url": "https://2025-bucket.flutterkaigi.jp/companies/26972169-bf9c-4995-bb1f-4d58bd9a5eb0.webp",
+      "slug": "ntt-resonant-tech",
+      "pr_text": "FlutterKaigi参加者の皆さんへ──NTTレゾナントテクノロジーはUXにこだわるNTTドコモグループの技術カンパニーです。技術を活かし、共に革新的な体験を創りませんか？フルリモート・フルフレックスで挑戦できる環境が整っています。",
+      "website_url": "https://nttr-tech.co.jp/",
+      "x_account": "nttr_tech",
+      "sponsor_type": "basic",
+      "display_order": "04_10",
+      "basic_plan_type": "bronze",
+      "option_plan_types": []
+    },
+    {
+      "id": 32,
+      "name": "株式会社IBJ",
+      "logo_url": "https://2025-bucket.flutterkaigi.jp/companies/503729ef-f6bf-479d-8f28-cd0e8c86770b.webp",
+      "slug": "ibj",
+      "pr_text": "様々な婚活サービスとライフデザインサービスを提供し、日本の婚姻数の3％、最も多くの結婚カップルを創出しています。\n「IT×ヒト」を強みにサービス部門だけでなく、アプリやシステムを改修・開発などクリエイターやエンジニアも活躍している会社です。",
+      "website_url": "https://www.ibjapan.jp/",
+      "x_account": "IBJ_renmei",
+      "sponsor_type": "basic",
+      "display_order": "04_11",
+      "basic_plan_type": "bronze",
+      "option_plan_types": []
+    },
+    {
+      "id": 33,
+      "name": "株式会社メンバーズ",
+      "logo_url": "https://2025-bucket.flutterkaigi.jp/companies/5d4ed5e9-3094-4af1-b416-3f7a66e4571d.webp",
+      "slug": "members",
+      "pr_text": "「DX現場支援で顧客と共に社会変革をリードする」を掲げ、デジタル人材の伴走によるDX現場支援事業を展開。高い専門スキルを持つデジタル人材が取引先企業のチームの一員として、内製によるDX推進を伴走支援しDX投資のROI最大化に貢献します。",
+      "website_url": "https://www.members.co.jp/",
+      "x_account": "Members_corp",
+      "sponsor_type": "basic",
+      "display_order": "04_12",
+      "basic_plan_type": "bronze",
+      "option_plan_types": []
+    },
+    {
+      "id": 34,
+      "name": "株式会社TRUSTDOCK",
+      "logo_url": "https://2025-bucket.flutterkaigi.jp/companies/0aeb866e-87c0-4ff8-804f-e211d7be569e.webp",
+      "slug": "trustdock",
+      "pr_text": "TRUSTDOCKは急成長するeKYC市場で、toB向け本人確認APIやtoC向けデジタルIDウォレットを開発し、社会のデジタル化を推進しています。フルリモートの環境で、社会に必要とされるプロダクトを一緒に開発しませんか？",
+      "website_url": "https://biz.trustdock.io/company",
+      "x_account": null,
+      "sponsor_type": "basic",
+      "display_order": "04_13",
+      "basic_plan_type": "bronze",
+      "option_plan_types": [
+        "lunch"
+      ]
+    },
+    {
+      "id": 42,
+      "name": "GMOコネクト株式会社",
+      "logo_url": "https://2025-bucket.flutterkaigi.jp/companies/aa5de3ec-e1fb-484c-92e1-0062ddf2f3af.webp",
+      "slug": "gmo-connect",
+      "pr_text": "GMOコネクトは先進的な開発技術と「人」と「テクノロジー」の力で、お客様の「できない」を「できる」に変えるパートナーです。業務課題の解決から、新たな価値創出までを事業に深く寄り添い、最適なITソリューションをモバイル開発も含めご提案しております。",
+      "website_url": "https://tech.gmo-connect.com/",
+      "x_account": "GMOCONNECT_Tech",
+      "sponsor_type": "basic",
+      "display_order": "04_14",
+      "basic_plan_type": "bronze",
+      "option_plan_types": []
+    },
+    {
+      "id": 36,
+      "name": "株式会社Leafea",
+      "logo_url": "https://2025-bucket.flutterkaigi.jp/companies/53ed94d7-7e82-4e91-bdc5-c935da1c4bb2.webp",
+      "slug": "leafea",
+      "pr_text": "Leafea（リーフィ）は、物価高騰・低賃金時代における生活コスト削減を支援する福利厚生SaaSを展開するスタートアップ企業です。Flutterを活用したモバイルアプリ開発とAIの活用に注力しております。",
+      "website_url": "https://leafea.co.jp/",
+      "x_account": null,
+      "sponsor_type": "basic",
+      "display_order": "04_15",
+      "basic_plan_type": "bronze",
+      "option_plan_types": []
+    },
+    {
+      "id": 37,
+      "name": "東急株式会社",
+      "logo_url": "https://2025-bucket.flutterkaigi.jp/companies/e3838530-1cf0-4ba6-832b-a3aaefcc4cc0.webp",
+      "slug": "tokyu",
+      "pr_text": "東急(株)URBAN HACKSは「街づくりのDX」を実現するための内製開発チームです。東急グループの次の100年を変革する大プロジェクト。あなたの技術や知識を活かし、一緒に世界一の街づくりを目指してみませんか？",
+      "website_url": "https://10q89s.jp/",
+      "x_account": "urban_89s",
+      "sponsor_type": "basic",
+      "display_order": "04_16",
+      "basic_plan_type": "bronze",
+      "option_plan_types": []
+    },
+    {
+      "id": 38,
+      "name": "株式会社UPSIDER",
+      "logo_url": "https://2025-bucket.flutterkaigi.jp/companies/325a5575-b92b-44b9-9f15-0f7ff4c2ff95.webp",
+      "slug": "upsider",
+      "pr_text": "株式会社UPSIDERは「挑戦者を支える世界的な金融プラットフォームを創る」をミッションに、法人カード「UPSIDER」や請求書カード払いサービス「支払い.com」等の金融サービスやUPSIDER AI 経理などの新規サービスを展開。",
+      "website_url": "https://corp.up-sider.com/",
+      "x_account": "upsider_inc",
+      "sponsor_type": "basic",
+      "display_order": "04_17",
+      "basic_plan_type": "bronze",
+      "option_plan_types": []
+    },
+    {
+      "id": 39,
+      "name": "Kibela",
+      "logo_url": "https://2025-bucket.flutterkaigi.jp/companies/6baf4450-7dd1-4f37-9480-207748abd562.webp",
+      "slug": "kibela",
+      "pr_text": "Kibelaはシンプルさに徹底的にこだわったドキュメント・ナレッジ管理特化型ツールです。AIによる補助機能、一歩踏み込めば組織拡大にも応える管理機能、無駄なコストが出ないアクティブ課金。一人ひとりがナレッジを活用し自走する組織へ導きます。",
+      "website_url": "https://kibe.la/",
+      "x_account": "kibe_la",
+      "sponsor_type": "tool",
+      "display_order": "05_01",
+      "basic_plan_type": null,
+      "option_plan_types": []
+    }
+  ],
+  "individual_sponsors": [
+    {
+      "id": 5,
+      "logo_url": "https://2025-bucket.flutterkaigi.jp/individuals/dbc18436-e245-7c5f-8a11-7510a6567d01.webp"
+    },
+    {
+      "id": 4,
+      "logo_url": "https://2025-bucket.flutterkaigi.jp/individuals/194bd63d-4ab1-422b-a2aa-4a52f08b3071.webp"
+    },
+    {
+      "id": 1,
+      "logo_url": "https://2025-bucket.flutterkaigi.jp/individuals/d22c9f1c-0703-40d5-b37b-f20e0507e876.webp"
+    },
+    {
+      "id": 2,
+      "logo_url": "https://2025-bucket.flutterkaigi.jp/individuals/edb7b482-0fc6-4dd5-9b2a-d033b26fd16e.webp"
+    },
+    {
+      "id": 3,
+      "logo_url": "https://2025-bucket.flutterkaigi.jp/individuals/210c3261-d725-4f15-8d04-dbbcfdb5b06f.webp"
+    }
+  ]
+}
