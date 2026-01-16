@@ -14,7 +14,7 @@ build-prod:
 	@export $$(cat environments/.env.prod | grep -v '^#' | grep -v '^$$' | xargs) && $(MAKE) _build
 
 .PHONY: _build
-_build: fetch-sessions fetch-sponsors fetch-staffs fetch-job-boards
+_build:
 	@jaspr build \
 		--verbose \
 		--optimize=4
@@ -86,7 +86,7 @@ dev-prod:
 	@export $$(cat environments/.env.prod | grep -v '^#' | grep -v '^$$' | xargs) && $(MAKE) _dev
 
 .PHONY: _dev
-_dev: fetch-sessions fetch-sponsors fetch-staffs serve
+_dev:
 
 .PHONY: serve
 serve:
