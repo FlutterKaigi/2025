@@ -29,6 +29,9 @@ class BookmarkedSessionsScreen extends ConsumerWidget {
                 final bookmarkedSessionList = value
                     .where((session) => bookmarkedIds.contains(session.id))
                     .toList();
+                bookmarkedSessionList.sort(
+                  (a, b) => a.startsAt.compareTo(b.startsAt),
+                );
 
                 return SliverPadding(
                   padding: const EdgeInsets.all(16),
