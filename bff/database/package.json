@@ -23,7 +23,7 @@
     "@opentelemetry/instrumentation-pg": "^0.59.0",
     "@opentelemetry/sdk-trace-node": "^2.1.0",
     "biome": "^0.3.3",
-    "drizzle-orm": "0.44.6",
+    "drizzle-orm": "0.45.2",
     "pg": "8.16.3"
   }
 }
